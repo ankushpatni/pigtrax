@@ -37,6 +37,19 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
+		<!-- ... other dependency elements ... -->
+		  <dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>3.2.7.RELEASE</version>
+		  </dependency>
+		  <dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>3.2.7.RELEASE</version>
+		  </dependency>
+		
 		<!-- Spring JDBC Support -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -63,8 +76,28 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.12</version>
         </dependency>
+        <dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
   </dependencies>
   <build>
     <finalName>PigTrax</finalName>
+    <plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://localhost:8081/manager/text</url>
+					<server>TomcatServer</server>
+					<username>admin</username>
+		                <password>password</password>
+					<path>/PigTrax</path>
+				</configuration>
+			</plugin>
+		</plugins>
   </build>
 </project>

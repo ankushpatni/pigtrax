@@ -8,6 +8,9 @@
 
 <!--  Refer bootstrap CSS -->
 <link href="resources/lib/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
+<link href="resources/css/custom-style.css" rel="stylesheet"> 
+<link href="resources/css/font-awesome.min.css" rel="stylesheet">
+ <link href="resources/css/theme-style.min.css" rel="stylesheet">
 
 <!-- Include Angular JS files -->
 <script src="resources/lib/angular/angular.min.js"></script>

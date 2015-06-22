@@ -1,7 +1,9 @@
 package com.pigtrax.usermanagement.dao.interfaces;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import com.pigtrax.usermanagement.beans.Employee;
 import com.pigtrax.usermanagement.dto.EmployeeDto;
 
 public interface EmployeeDao {
@@ -10,4 +12,12 @@ public interface EmployeeDao {
 	 * @return List<EmployeeDto>
 	 */
 	public List<EmployeeDto> getEmployeeList();
+	
+	/**
+	 * Load the employee information based on employeeId(username)
+	 * @param username
+	 * @return
+	 * @throws SQLException
+	 */
+	public Employee findByUserName(String username)  throws SQLException;
 }

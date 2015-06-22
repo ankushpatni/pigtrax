@@ -28,4 +28,5 @@
 	<mvc:resources mapping="/resources/**" location="/resources/"  cache-period="31556926"/>
 	<mvc:annotation-driven />
 	<import resource="spring-datasource.xml" />
+	<import resource="spring-security.xml" />
 </beans>

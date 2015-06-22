@@ -1,0 +1,133 @@
+/*/////////////////////////////////////////////////////////////////////
+ // 
+ // Custom theme code styles
+ // Written by Themelize.me (http://themelize.me)
+ // 
+ // This is an empty starter template for overriding styles
+ // set by Bootstrap & the theme
+ // 
+ // ----------------------------------------------------
+ // 
+ // Remove unused code for better performances
+ // 
+ // ----------------------------------------------------
+ // 
+ // @see - Usefuls tools online for editing
+ // 1. http://charliepark.org/bootstrap_buttons/ - Button style generator
+ // 2. http://www.colorzilla.com/gradient-editor/ - CSS3 gradient maker
+ // 
+ // @note
+ // To ensure custom styles are picked up
+ // wrap definitions in body tag
+ // ie.
+ // body .navbar-inner {
+ //   background: #ff0000;
+ // }
+ // 
+ /////////////////////////////////////////////////////////////////////*/
+/*
+ * --------------------------------------------------
+ * 1. General Elements
+ *--------------------------------------------------
+ */
+#navigation {
+  /* 1. Navigation wrapper */
+}
+#highlighted {
+  /* 2. Highlighted (below header) wrapper */
+}
+#content {
+  /* 3. Content wrapper */
+}
+#content-below {
+  /* 4. Content Below wrapper */
+}
+#footer {
+  /* 5. Footer wrapper */
+}
+/*
+ * --------------------------------------------------
+ * 2. Colours
+ *-------------------------------------------------- 
+ */
+/*
+ * --------------------------------------------------
+ * 3. Responsiveness/media queries
+ *--------------------------------------------------
+ */
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+@media (min-width: 768px) {
+  /* Small devices (tablets, 768px and up) */
+}
+@media (min-width: 992px) {
+  /* Medium devices (desktops, 992px and up) */
+}
+@media (min-width: 1200px) {
+  /* Large devices (large desktops, 1200px and up) */
+}
+/*
+ * --------------------------------------------------
+ * 4. Misc
+ * Other stuff
+ *--------------------------------------------------
+ */
+ 
+ body{
+    padding:20px;
+    }
+.enhanced-datepicker {
+    position:relative;
+    .btn {
+        margin-right:5px;
+        }
+    input {
+/*         position:absolute;
+        top:0;
+        left:-9999px;
+         */        }
+    }
+    
+ .modal-backdrop {
+  bottom:0;
+}
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.modal-content {
+  position: absolute;
+  top:40%;
+  -ms-transform: translate(0,-50%);
+  -moz-transform: translate(0,-50%);
+  -webkit-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+  width:100%;
+}    
+
+.hideme{display:none}
+.learn-more-content {
+		border-top: 1px solid #eee;
+		margin-top: 10px;
+		padding-top: 10px;
+	}
+#meter_tag h6{
+		font-weight:400;
+		font-style:normal;
+		font-size-adjust:none;
+		color:#505050;
+		line-height:14px;
+		text-align:left;
+	}
+#meter_tag span {
+	    border: 1px solid #AAAAAA;
+	    font-size: 100%;
+	    line-height:12px;
+	    width:14px;
+	    margin: 0;
+}
+.help{font-size:80%}

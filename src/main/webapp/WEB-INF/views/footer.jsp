@@ -1,2 +1,3 @@
-<hr/>
-<p> Footer section</p>
+<div id="content-below" class="wrapper">
+
+</div>
