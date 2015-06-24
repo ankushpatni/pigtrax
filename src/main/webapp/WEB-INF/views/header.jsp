@@ -72,6 +72,10 @@
 	          <span class="glyphicon glyphicon-cog"></span>
 	        </a>
               &nbsp;&nbsp;
+              <a href="#"  title="<spring:message code='label.settingsicon.tooltip'  text='Settings'/>">
+	          <span class="glyphicon glyphicon-info-sign"></span>
+	        </a>
+              
               <%} %>
             </div>
             
