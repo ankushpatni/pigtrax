@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
  <div class="navbar-static-top">
         <!--Header upper region-->
         <div class="header-upper">
@@ -6,22 +7,37 @@
               <div class="col-xs-8 col-xs-push-4">
                
               </div>
-              <div class="col-xs-4 col-xs-pull-8">
+              <div >
                 
                 <!--user menu-->
-                <div class="btn-group user-menu">
-              
-             <%
-			if (request.getRemoteUser()== null) {%>  
-                	<a href="login" class="btn btn-link login" >Login</a> 
-                	
-          <%
-          } if (request.getRemoteUser()!= null) {
-          %>
-             	 
-             	Welcome <%=request.getRemoteUser() %>, <a href="login?logout" class="btn btn-link logout navbar-right" >Logout</a>
-              <%}%>
-              </div>
+                <div class="btn-group user-menu pull-right">
+						<table width="100%">
+							<tr>
+								<td align="right"><a href="?locale=en"
+									class="btn btn-link login">English</a>|<a href="?locale=pt"
+									class="btn btn-link login">Portugese</a>|<a href="?locale=es"
+									class="btn btn-link login">Spanish</a></td>
+									<td >
+									<%
+										if (request.getRemoteUser() != null) {
+									%> <spring:message code="label.welcome" text="Welcome" /> <%=request.getRemoteUser()%>,
+									<%} %>
+									</td>
+									<td align="right">
+									<%
+										if (request.getRemoteUser() != null) {
+									%>
+									<a href="login?logout" class="btn btn-link logout navbar-right"><spring:message
+											code="label.logout" text="Logout" /></a> 
+									<%	}%>
+
+								</td>
+							</tr>
+						</table>
+
+
+
+					</div>
             </div>
           </div>
         </div>
@@ -35,10 +51,28 @@
               <!--branding/logo-->
               <a class="navbar-brand" href="home" title="Home">
                 <h1>
-                  <span>PigTrax</span>&nbsp;System<span></span>
+                  <span><spring:message code="label.application.title"  text="PigTrax"/></span>&nbsp;<spring:message code="label.application.system.title"  text="System"/><span></span>
                 </h1>
               </a>
               
+            </div>
+            <div class="pull-right">
+            <%
+				if (request.getRemoteUser() != null) {
+			%>
+              <a href="home" title="<spring:message code='label.homeicon.tooltip'  text='Home'/>">
+		          <span class="glyphicon glyphicon-home"></span>
+		        </a>
+              &nbsp;&nbsp;
+              <a href="#"  title="<spring:message code='label.reportsicon.tooltip'  text='Reports'/>">
+		          <span class="glyphicon glyphicon-stats"></span>
+		        </a>
+              &nbsp;&nbsp;
+             <a href="#"  title="<spring:message code='label.settingsicon.tooltip'  text='Settings'/>">
+	          <span class="glyphicon glyphicon-cog"></span>
+	        </a>
+              &nbsp;&nbsp;
+              <%} %>
             </div>
             
           
