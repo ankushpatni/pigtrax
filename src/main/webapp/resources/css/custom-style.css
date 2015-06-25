@@ -138,27 +138,18 @@
 	height:250;
   }
   
- .slick-prev, .slick-next { position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0; cursor: pointer; background: red; color: blue; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
-.slick-prev:focus, .slick-next:focus { outline: none; }
-.slick-prev.slick-disabled:before, .slick-next.slick-disabled:before { opacity: 0.25; }
-
-.slick-prev:before, .slick-next:before { font-family: "slick"; font-size: 20px; line-height: 1; color: blue; opacity: 0.85; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-
-.slick-prev { left: -25px; }
-.slick-prev:before { content: '\2190'; }
-
-.slick-next { right: -25px; }
-.slick-next:before { content: '\2192'; }
+.slick-prev:before, .slick-next:before{
+    color:blue;
+}
 
 .pull-right {
   float: right !important;
 }
   
   .btn-super {
-  font-size: 32.5px;
-  padding: 35px 55px;
   width: 300px;
-  font-size: 18px;
+  height:200px;
+  font-size: 32px;
   font-weight: Bold;
   line-height: 1.42857143;
   text-align: center;  
@@ -169,12 +160,11 @@
 }
 
  .btn-medium {
-  font-size: 32.5px;
-  padding: 35px 55px;
-  width: 250px;
+  width: 200px;
+  height:100px;
   background : #33CCFF; 
-  font-size: 14px;
-  font-weight: Bold;
+  font-size: 18px;
+  font-weight: Normal;
   line-height: 1.42857143;
   text-align: center;  
   -webkit-border-radius: 12px;
@@ -186,4 +176,26 @@
    border-top-color: #28597a;
    background: #28597a;
    color: #ccc;
-   }
+ }
+ 
+ .btn-super:active,.btn-medium:active  {
+   border-top-color: #28597a;
+   background: #28597a;
+   color: #ccc;
+ }
+.badge-notify{
+    position:absolute;    /* This breaks the div from the normal HTML document. */
+    top: -6px;
+    right:-6px;
+    padding:1px 2px 1px 2px;
+    background-color:red; /* you could use a background image if you'd like as well */
+    color:white;
+    font-weight:bold;
+    font-size:0.55em;
+
+    /* The following is CSS3, but isn't crucial for this technique to work. */
+    /* Keep in mind that if a browser doesn't support CSS3, it's fine! They just won't have rounded borders and won't have a box shadow effect. */
+    /* You can always use a background image to produce the same effect if you want to, and you can use both together so browsers without CSS3 still have the rounded/shadow look. */
+    border-radius:30px;
+    box-shadow:1px 1px 1px gray
+  }

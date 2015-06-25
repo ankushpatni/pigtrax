@@ -13,10 +13,13 @@
                 <div class="btn-group user-menu pull-right">
 						<table width="100%">
 							<tr>
-								<td align="right"><a href="?locale=en"
+								<td align="right">
+								<%if (request.getRemoteUser() == null) { %>
+									<a href="?locale=en"
 									class="btn btn-link login">English</a>|<a href="?locale=pt"
 									class="btn btn-link login">Portugese</a>|<a href="?locale=es"
 									class="btn btn-link login">Spanish</a></td>
+									<% } %>
 									<td >
 									<%
 										if (request.getRemoteUser() != null) {
@@ -27,7 +30,7 @@
 									<%
 										if (request.getRemoteUser() != null) {
 									%>
-									<a href="login?logout" class="btn btn-link logout navbar-right"><spring:message
+									<a href="j_spring_security_logout" class="btn btn-link login"><spring:message
 											code="label.logout" text="Logout" /></a> 
 									<%	}%>
 
@@ -72,9 +75,9 @@
 	          <span class="glyphicon glyphicon-cog"></span>
 	        </a>
               &nbsp;&nbsp;
-              <a href="#"  title="<spring:message code='label.settingsicon.tooltip'  text='Settings'/>">
-	          <span class="glyphicon glyphicon-info-sign"></span>
-	        </a>
+              <a href="#"  title="<spring:message code='label.notificationsicon.tooltip'  text='Notifications'/>">
+	          <span class="glyphicon glyphicon-info-sign"></span>	          
+	        </a><span class="badge badge-notify">3</span>
               
               <%} %>
             </div>
