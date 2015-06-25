@@ -2,9 +2,7 @@
  <link href="resources/css/custom-style.css" rel="stylesheet"> 
  <link rel="stylesheet" href="resources/lib/slick/slick.css">
  <link rel="stylesheet" href="resources/lib/slick/slick-theme.css">
-<script type="text/javascript" src="resources/lib/jquery/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="resources/lib/jquery/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="resources/lib/slick/slick.min.js"></script>
+
 <div id="homeContent">
 <div class="slider" id="main">
       <div>

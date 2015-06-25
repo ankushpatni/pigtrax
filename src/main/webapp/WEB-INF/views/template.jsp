@@ -13,6 +13,10 @@
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">
  <link href="resources/css/theme-style.min.css" rel="stylesheet">
 
+<script src="resources/lib/jquery/jquery-1.11.0.min.js"></script>
+<script src="resources/lib/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="resources/lib/slick/slick.min.js"></script>
+
 <!-- Include Angular JS files -->
 <script src="resources/lib/angular/angular.min.js"></script>
 <script src="resources/lib/angular/angular-resource.js"></script>

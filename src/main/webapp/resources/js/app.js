@@ -1,7 +1,7 @@
-var pigTrax = angular.module('pigTrax',['ngResource', 'ui.bootstrap','slick']);
+var pigTrax = angular.module('pigTrax',['ngResource', 'ui.bootstrap']);
 
 //directive to show a confirm prompt
-cms.directive('ngConfirmClick', [ function() {
+pigTrax.directive('ngConfirmClick', [ function() {
 	return {
 		priority : -1,
 		restrict : 'A',
