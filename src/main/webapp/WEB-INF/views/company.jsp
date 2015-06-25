@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
-<div id="companyContent" ng-controller="CompanyController">
+<div id="companyContent" ng-controller="CompanyController" ng-init="getCompanyList()">
 	<br> <br> <br>
 	<button type="button" ng-click="addRandomItem(row)" class="btn btn-sm btn-success">
 			<i class="glyphicon glyphicon-plus">
@@ -9,21 +9,35 @@
 		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
 			<thead>
 			<tr>
-				<th st-sort="firstName">first name</th>
-				<th st-sort="lastName">last name</th>
-				<th st-sort="birthDate">birth date</th>
-				<th st-sort="balance">balance</th>
+				<th st-sort="CompanyID">Company ID</th>
+				<th st-sort="name">Name</th>
+				<th st-sort="address">Address</th>
+				<th st-sort="city">City</th>
+				<th st-sort="registrationNumber">Registration Number</th>
+				<th st-sort="email">Email</th>
+				<th st-sort="phone">Phone</th>
+				<th st-sort="contactName">Contact Name</th>
+				<th st-sort="payment">Payment</th>
+				<th st-sort="paymentDate">Payment Date</th>
+				<th st-sort="isActive">Active</th>
 			</tr>
-			<tr>
+		<!-- 	<tr>
 				<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
-			</tr>
+			</tr> -->
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in displayedCollection">
-				<td>{{row.firstName}}</td>
-				<td>{{row.lastName}}</td>
-				<td>{{row.birthDate}}</td>
-				<td>{{row.balance}}</td>
+				<td>{{row.companyId}}</td>
+				<td>{{row.name}}</td>
+				<td>{{row.address}}</td>
+				<td>{{row.city}}</td>
+				<td>{{row.registrationNumber}}</td>
+				<td>{{row.email}}</td>
+				<td>{{row.phone}}</td>
+				<td>{{row.contactName}}</td>
+				<td>{{row.payment}}</td>
+				<td>{{row.paymentDate}}</td>
+				<td>{{row.isActive}}</td>
 				<td>
 				<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
 					<i class="glyphicon glyphicon-remove-circle">

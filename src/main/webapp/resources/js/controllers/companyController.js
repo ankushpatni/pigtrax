@@ -43,4 +43,15 @@ pigTrax.controller('CompanyController', function($scope, $http,$window,restServi
             $scope.rowCollection.splice(index, 1);
         }
     }
+    
+    $scope.getCompanyList = function(){
+		restServices.getCompanyList(function(data){
+			console.log(data);
+			 if(!data.error)
+			 {
+				 console.log(data);
+				    $scope.rowCollection = data.payload;
+			 }
+		});
+	};
 });
