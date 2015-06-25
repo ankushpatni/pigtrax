@@ -25,6 +25,9 @@
 <script src="resources/js/app.js"></script>
 <script src="resources/js/services/restServices.js"></script>
 <script src="resources/js/controllers/employeeController.js"></script>
+<script src="resources/js/controllers/companyController.js"></script>
+<script src="resources/lib/angular/smart-table.js"></script>
+<script src="resources/lib/angular/smart-table.min.js"></script>
 
 </head>
 <body>
