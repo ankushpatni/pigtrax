@@ -44,6 +44,7 @@ pigTrax.controller('CompanyController', function($scope, $http,$window,restServi
     	};
     	var res = $http.post('rest/company/updateCompanyStatus?companyId='+row.companyId +"&isActive="+row.active, postParam);
 		res.success(function(data, status, headers, config) {
+		row.active = !row.active;
 			console.log(data);
 		});
 		res.error(function(data, status, headers, config) {
@@ -57,10 +58,8 @@ pigTrax.controller('CompanyController', function($scope, $http,$window,restServi
     
     $scope.getCompanyList = function(){
 		restServices.getCompanyList(function(data){
-			console.log(data);
 			 if(!data.error)
 			 {
-				 console.log(data);
 				    $scope.rowCollection = data.payload;
 			 }
 		});
