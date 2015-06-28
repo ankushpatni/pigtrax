@@ -6,20 +6,21 @@
 			</i> Add random item
 		</button>
 
-		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: darkgrey">
-			<thead>
+		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: LightGray">  
+			<thead style="background-color: darkgrey">
 			<tr>
-				<th st-sort="CompanyID">Company ID</th>
-				<th st-sort="name">Name</th>
-				<th st-sort="address">Address</th>
-				<th st-sort="city">City</th>
-				<th st-sort="registrationNumber">Registration Number</th>
-				<th st-sort="email">Email</th>
-				<th st-sort="phone">Phone</th>
-				<th st-sort="contactName">Contact Name</th>
-				<th st-sort="payment">Payment</th>
-				<th st-sort="paymentDate">Payment Date</th>
-				<th st-sort="isActive">Active</th>
+				<th st-sort="CompanyID" size="5%">Company ID</th>
+				<th st-sort="name" size="10%">Name</th>
+				<th st-sort="address" size="15%">Address</th>
+				<th st-sort="city" size="8%">City</th>
+				<th st-sort="registrationNumber" size="5%">Registration Number</th>
+				<th st-sort="email" size="8%">Email</th>
+				<th st-sort="phone" size="8%">Phone</th>
+				<th st-sort="contactName" size="8%">Contact Name</th>
+				<th st-sort="payment" size="5%">Payment</th>
+				<th st-sort="paymentDate" size="10%">Payment Date</th>
+				<th st-sort="isActive" size="5%">Active</th>
+				<th size="5%"></th>
 			</tr>
 		 	<tr>
 				<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
@@ -27,19 +28,19 @@
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in displayedCollection">
-				<td>{{row.companyId}}</td>
-				<td>{{row.name}}</td>
-				<td>{{row.address}}</td>
-				<td>{{row.city}}</td>
-				<td>{{row.registrationNumber}}</td>
-				<td>{{row.email}}</td>
-				<td>{{row.phone}}</td>
-				<td>{{row.contactName}}</td>
-				<td>{{row.payment}}</td>
-				<td>{{row.paymentDate}}</td>
-				<td ng-if="row.active">Active</td>
-				<td ng-hide="row.active">In Active</td>
-				<td>
+				<td size="5%">{{row.companyId}}</td>
+				<td size="10%">{{row.name}}</td>
+				<td size="15%">{{row.address}}</td>
+				<td size="8%">{{row.city}}</td>
+				<td size="5%">{{row.registrationNumber}}</td>
+				<td size="8%">{{row.email}}</td>
+				<td size="8%">{{row.phone}}</td>
+				<td size="8%">{{row.contactName}}</td>
+				<td size="5%">{{row.payment}}</td>
+				<td size="10%">{{row.paymentDate}}</td>
+				<td ng-if="row.active" size="5%">Active</td>
+				<td ng-hide="row.active" size="5%">In Active</td>
+				<td size="5%">
 				<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
 					<i class="glyphicon glyphicon-remove-circle">
 					</i>
