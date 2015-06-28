@@ -1,6 +1,9 @@
 package com.pigtrax.usermanagement.dao;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,6 +65,42 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 			companyList.add(comp);
 		}
 		return companyList;
+	}
+	
+	public int updateCompanyStatus(final String companyID, final Boolean companyStatus) throws SQLException
+	{
+		String Qry = "update pigtrax.\"Company\" SET \"isActive\"=?  WHERE \"companyId\"=?";
+		Connection conn = dataSource.getConnection();		
+		PreparedStatement pstmt = conn.prepareStatement(Qry);
+		int returnvalue = 0;
+		try
+		{
+		pstmt.setBoolean(1, !companyStatus);
+		pstmt.setString(2, companyID);
+		
+		System.out.println("Status-->"+companyStatus);
+		System.out.println("Id-->" + companyID);
+		System.out.println(Qry);
+
+		returnvalue =  pstmt.executeUpdate();
+		System.out.println("insode try"+returnvalue);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			//return 0;
+		}
+		finally
+		{
+			pstmt.close();
+			conn.close();
+		}
+		System.out.println(returnvalue);
+		return returnvalue;
+		
+		/*		UPDATE pigtrax."Company"
+		   SET "isActive"=false WHERE "companyId" = '1';*/
+	
 	}
 
 	@Override

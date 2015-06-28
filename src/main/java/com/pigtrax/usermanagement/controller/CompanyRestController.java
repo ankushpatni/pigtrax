@@ -1,11 +1,14 @@
 package com.pigtrax.usermanagement.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pigtrax.usermanagement.beans.Company;
@@ -33,6 +36,32 @@ public class CompanyRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		List<Company> companyList  = companyService.getCompanyList();
 		dto.setPayload(companyList);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
+	/**
+	 * Service to retrive the list of employees
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/updateCompanyStatus", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto updateCompanyStatus( @RequestParam String companyId, @RequestParam String isActive)
+	{
+		logger.info("Inside updateCompanyStatus()" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		int updatedRecord;
+		try 
+		{
+			updatedRecord = companyService.updateCompanyStatus(companyId, new Boolean(isActive));
+			dto.setStatusMessage("Success");
+		} 
+		catch (SQLException e) {
+			updatedRecord = 0;
+			dto.setStatusMessage("False");
+			logger.error("Inside updateCompanyStatus()" +e.getErrorCode() + e.getMessage());
+			e.printStackTrace();
+		}
+		dto.setPayload(updatedRecord);
 		dto.setStatusMessage("Success");
 		return dto;
 	}

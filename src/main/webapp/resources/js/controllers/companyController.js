@@ -38,10 +38,21 @@ pigTrax.controller('CompanyController', function($scope, $http,$window,restServi
 
     //remove to the real data holder
     $scope.removeItem = function removeItem(row) {
-        var index = $scope.rowCollection.indexOf(row);
+    	var postParam = {
+    			"companyId" : row.companyId,
+    			"isActive" : row.active
+    	};
+    	var res = $http.post('rest/company/updateCompanyStatus?companyId='+row.companyId +"&isActive="+row.active, postParam);
+		res.success(function(data, status, headers, config) {
+			console.log(data);
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+       /* var index = $scope.rowCollection.indexOf(row);
         if (index !== -1) {
             $scope.rowCollection.splice(index, 1);
-        }
+        }*/
     }
     
     $scope.getCompanyList = function(){

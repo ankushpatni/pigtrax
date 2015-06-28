@@ -20,5 +20,12 @@ public interface CompanyDao {
 	 * @throws SQLException
 	 */
 	public Company findByCompanyID(String companyID)  throws SQLException;
+	
+	/**
+	 * To update Company Status
+	 * @return List<Company>
+	 */
+	
+	public int updateCompanyStatus(final String companyID, final Boolean companyStatus) throws SQLException;
 
 }

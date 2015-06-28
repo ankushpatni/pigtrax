@@ -1,5 +1,6 @@
 package com.pigtrax.usermanagement.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getCompanyList();
 	}
 	
-	
+	public int updateCompanyStatus(final String companyID, final Boolean companyStatus) throws SQLException
+	{
+		return companyDao.updateCompanyStatus(companyID, companyStatus);
+	}
 	
 
 }

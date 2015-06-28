@@ -6,7 +6,7 @@
 			</i> Add random item
 		</button>
 
-		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: darkgrey">
 			<thead>
 			<tr>
 				<th st-sort="CompanyID">Company ID</th>
@@ -21,9 +21,9 @@
 				<th st-sort="paymentDate">Payment Date</th>
 				<th st-sort="isActive">Active</th>
 			</tr>
-		<!-- 	<tr>
+		 	<tr>
 				<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
-			</tr> -->
+			</tr>
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in displayedCollection">
@@ -37,7 +37,8 @@
 				<td>{{row.contactName}}</td>
 				<td>{{row.payment}}</td>
 				<td>{{row.paymentDate}}</td>
-				<td>{{row.isActive}}</td>
+				<td ng-if="row.active">Active</td>
+				<td ng-hide="row.active">In Active</td>
 				<td>
 				<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
 					<i class="glyphicon glyphicon-remove-circle">
