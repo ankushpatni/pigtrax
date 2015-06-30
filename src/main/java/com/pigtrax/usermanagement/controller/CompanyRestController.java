@@ -65,5 +65,34 @@ public class CompanyRestController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	
+	/**
+	 * Service to insert  the company record
+	 * @return Company
+	 */
+	@RequestMapping(value = "/insertCompanyRecord", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto insertCompanyRecord( @RequestBody Company company)
+	{
+		logger.info("Inside insertCompanyRecord()" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		System.out.println("String ---->"+company.toString());
+		int updatedRecord = 0;
+		try 
+		{
+			updatedRecord = companyService.insertCompanyRecord(company);
+			dto.setStatusMessage("Success");
+		} 
+		catch (SQLException e) {
+			updatedRecord = 0;
+			dto.setStatusMessage("False");
+			logger.error("Inside updateCompanyStatus()" +e.getErrorCode() + e.getMessage());
+			e.printStackTrace();
+		}
+		dto.setPayload(updatedRecord);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+
 
 }

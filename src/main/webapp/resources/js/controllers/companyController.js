@@ -1,42 +1,8 @@
-pigTrax.controller('CompanyController', function($scope, $http,$window,restServices) {	
-
-    var firstnames = ['Laurent', 'Blandine', 'Olivier', 'Max'];
-    var lastnames = ['Renard', 'Faivre', 'Frere', 'Eponge'];
-    var dates = ['1987-05-21', '1987-04-25', '1955-08-27', '1966-06-06'];
-    var id = 1;
-
-    function generateRandomItem(id) {
-
-        var firstname = firstnames[Math.floor(Math.random() * 3)];
-        var lastname = lastnames[Math.floor(Math.random() * 3)];
-        var birthdate = dates[Math.floor(Math.random() * 3)];
-        var balance = Math.floor(Math.random() * 2000);
-
-        return {
-            id: id,
-            firstName: firstname,
-            lastName: lastname,
-            birthDate: new Date(birthdate),
-            balance: balance
-        }
-    }
+pigTrax.controller('CompanyController', function($scope, $http, $window, restServices, companyServices) {	
 
     $scope.rowCollection = [];
 
-    for (id; id < 5; id++) {
-        $scope.rowCollection.push(generateRandomItem(id));
-    }
-
-    //copy the references (you could clone ie angular.copy but then have to go through a dirty checking for the matches)
-    $scope.displayedCollection = [].concat($scope.rowCollection);
-
-    //add to the real data holder
-    $scope.addRandomItem = function addRandomItem() {
-        $scope.rowCollection.push(generateRandomItem(id));
-        id++;
-    };
-
-    //remove to the real data holder
+    //deactivate/activate to the real data holder
     $scope.removeItem = function removeItem(row) {
     	var postParam = {
     			"companyId" : row.companyId,
@@ -50,6 +16,49 @@ pigTrax.controller('CompanyController', function($scope, $http,$window,restServi
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+    }
+    
+  //add Company Data
+    $scope.addCompanyData = function () {
+    	
+    	companyServices.openCompanyAdd();
+    	return;
+    	/*var postParam = {
+    			"companyId" : $scope.companyId,
+    			"name" : $scope.name,
+    			"address" : $scope.address,
+    			"city" : $scope.city,
+    			"registrationNumber" : $scope.registrationNumber,
+    			"email" : $scope.email,
+    			"phone" : $scope.phone,
+    			"contactName" : $scope.ContactName,
+    			"payment" : $scope.payment,
+    			"paymentDate" : $scope.paymentDate, 
+    			"active" : $scope.active
+    	};
+    	
+    	postParam = {
+    			"companyId" : "ZXCV",
+    			"name" : "ZXCV Company",
+    			"address" : "Mysore Palace",
+    			"city" : "Mysore",
+    			"registrationNumber" : "0987890",
+    			"email" : "ankushpa@gmail.com",
+    			"phone" : 9876543210,
+    			"contactName" : "OuR company",
+    			"payment" : 12345678,
+    			"paymentDate" : "2015-6-29", 
+    			"active" : "true"
+    	};*/
+    	
+    	//var res = $http.post('rest/company/insertCompanyRecord', postParam);
+		//res.success(function(data, status, headers, config) {
+		//row.active = !row.active;
+			//console.log("adding data-->"+data);
+		//});
+		//res.error(function(data, status, headers, config) {
+		//	console.log( "failure message: " + {data: data});
+		//});	
        /* var index = $scope.rowCollection.indexOf(row);
         if (index !== -1) {
             $scope.rowCollection.splice(index, 1);

@@ -12,7 +12,7 @@ public class Company {
 	private String city;
 	private String registrationNumber;
 	private String email;
-	private int phone;
+	private long phone;
 	private String contactName;
 	private BigDecimal payment;
 	private Date paymentDate;
@@ -61,10 +61,10 @@ public class Company {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPhone() {
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 	public String getContactName() {
@@ -102,6 +102,16 @@ public class Company {
 	}
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
+	}
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", companyId=" + companyId + ", name="
+				+ name + ", address=" + address + ", city=" + city
+				+ ", registrationNumber=" + registrationNumber + ", email="
+				+ email + ", phone=" + phone + ", contactName=" + contactName
+				+ ", payment=" + payment + ", paymentDate=" + paymentDate
+				+ ", isActive=" + isActive + ", lastUpdated=" + lastUpdated
+				+ ", userUpdated=" + userUpdated + "]";
 	}
 	
 	

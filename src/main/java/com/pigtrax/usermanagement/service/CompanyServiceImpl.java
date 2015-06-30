@@ -21,9 +21,16 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getCompanyList();
 	}
 	
+	@Override
 	public int updateCompanyStatus(final String companyID, final Boolean companyStatus) throws SQLException
 	{
 		return companyDao.updateCompanyStatus(companyID, companyStatus);
+	}
+	
+	@Override
+	public int insertCompanyRecord(Company company) throws SQLException
+	{
+		return companyDao.insertCompanyRecord(company);
 	}
 	
 

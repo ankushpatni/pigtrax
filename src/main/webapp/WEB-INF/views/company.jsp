@@ -1,11 +1,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <div id="companyContent" ng-controller="CompanyController" ng-init="getCompanyList()">
-	<br> <br> <br>
-	<button type="button" ng-click="addRandomItem(row)" class="btn btn-sm btn-success">
+	<button type="button" ng-click="addCompanyData()" class="btn btn-sm btn-success">
 			<i class="glyphicon glyphicon-plus">
-			</i> Add random item
+			</i> Add New company
 		</button>
-
+<br> <br>
 		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: LightGray">  
 			<thead style="background-color: darkgrey">
 			<tr>

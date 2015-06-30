@@ -19,4 +19,11 @@ public interface CompanyService {
 	 */
 	public int updateCompanyStatus(final String companyID, final Boolean companyStatus) throws SQLException;
 	
+	/**
+	 * To Insert Company Status
+	 * @return int (Success with int>0)
+	 */
+	
+	public int insertCompanyRecord(Company company) throws SQLException;
+	
 }

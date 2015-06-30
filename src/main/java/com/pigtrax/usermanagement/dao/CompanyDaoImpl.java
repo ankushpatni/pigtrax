@@ -109,4 +109,59 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 		return null;
 	}
 
+	@Override
+	public int insertCompanyRecord(Company company) throws SQLException {
+		
+		
+		String Qry = "INSERT INTO pigtrax.\"Company\"(  \"companyId\", name, address, city, \"registrationNumber\", email, phone,"
+					 +" \"contactName\", payment, \"paymentDate\", \"isActive\", \"lastUpdated\",\"userUpdated\")"+
+					 "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+		
+		Connection conn = dataSource.getConnection();		
+		PreparedStatement pstmt = conn.prepareStatement(Qry);
+		int returnvalue = 0;
+		try
+		{
+		pstmt.setString(1, company.getCompanyId());
+		pstmt.setString(2, company.getName());
+		pstmt.setString(3, company.getAddress());
+		pstmt.setString(4, company.getCity());
+		pstmt.setString(5, company.getRegistrationNumber());
+		pstmt.setString(6, company.getEmail());
+		pstmt.setLong(7, company.getPhone());
+		pstmt.setString(8, company.getContactName());
+		pstmt.setBigDecimal(9, company.getPayment());
+		//pstmt.setDate(10, new  java.sql.Date(company.getPaymentDate().getTime()));
+		pstmt.setDate(10, new java.sql.Date(System.currentTimeMillis()));
+		pstmt.setBoolean(11, company.isActive());
+		pstmt.setDate(12,new  java.sql.Date(System.currentTimeMillis()));
+		pstmt.setString(13, "Ankush");
+		
+		System.out.println(Qry);
+
+		returnvalue = pstmt.executeUpdate();
+		 
+		System.out.println("Record is inserted into Company table!");
+
+		} 
+		catch (SQLException e) {
+	
+			System.out.println(e.getMessage());
+	
+		} 
+		finally {
+	
+			if (pstmt != null) {
+				pstmt.close();
+			}
+	
+			if (conn != null) {
+				conn.close();
+			}
+	
+		}
+			
+		return returnvalue;
+	}
+
 }

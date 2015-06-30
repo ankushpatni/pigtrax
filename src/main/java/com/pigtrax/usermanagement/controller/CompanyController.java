@@ -20,5 +20,14 @@ public class CompanyController {
 		System.out.println("Getting value from db--->"+companyService.getCompanyList().size());
 		return "template";
 	}
+	
+	@RequestMapping(value = "/addCompany")
+	public String addCompany(Model model)
+	{
+		model.addAttribute("contentUrl","addCompany.jsp"); 
+		System.out.println("Getting value from db--->"+companyService.getCompanyList().size());
+		return "addCompany";
+	}
+
 
 }
