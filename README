@@ -1,1 +1,62 @@
-README file to init GIT repo
+- Get access to the repository.
+- Clone the repo in a local dir, we call it <pigtrax_home>
+- Download and install eclipse, Maven 3.x, Java 8, tomcat 7.
+-Build a war
+    - cd <pigtrax_home>
+	- Generate eclipse .project and .classpath files using command- mvn eclipse:eclipse
+	- mvn clean install should create a war file in target dir
+- Place the war in tomcat/webapps and boot the server
+	
+Deploying war in tomcat through maven:
+- In tomcat-users.xml ($TOMCAT_HOME/conf/) add roles – manager-gui and manager-script and
+
+assign the roles to admin user
+
+<role rolename="manager-gui"/>
+
+<role rolename="manager-script"/>
+
+<user username="admin" password="password" roles="manager-gui,manager-script" />
+
+- Update maven settings.xml ($MAVEN-HOME/conf/) to include tomcat server information
+
+<server> 
+
+<id>TomcatServer</id> 
+
+<username>admin</username> 
+
+<password>password</password>
+
+</server>
+
+- To run from command prompt, execute the command
+    mvn clean package tomcat7:redeploy
+
+-------------------------------------------------------------
+- Install Postgres 9.4 or 9.4 and populate the schema using SQL file checked in <PigTrax-Home>/git-repo/src/db/schema
+
+- Populate the initial data
+
+ INSERT INTO pigtraxrefdata."RoleType"(
+            "fieldCode", "fieldDescription", "lastUpdated", "userUpdated")
+    VALUES (1, 'SuperAdmin', CURRENT_DATE, 'kshitiju');
+
+INSERT INTO pigtrax."UserRole"(
+             "id_RoleType", "lastUpdated", "userUpdated")
+    VALUES ( 1, CURRENT_DATE, 'kshitiju');
+
+
+
+    INSERT INTO pigtrax."Company"(
+            "companyId", name, address, city, "registrationNumber", email,
+            phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
+            "userUpdated")
+    VALUES (1, 'PIG', 'US', 'US', '111', 'abc',
+            111, 'Shitij', 123, CURRENT_DATE, true, CURRENT_DATE,
+            'kshitiju');
+
+INSERT INTO pigtrax."Employee"(
+            "employeeId", "id_Company", name, "ptPassword", "isActive",
+            "lastUpdated", "userUpdated", "id_UserRole")
+    VALUES ('kshitiju',1,'kshitiju','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true,CURRENT_DATE,'ankush',1);
