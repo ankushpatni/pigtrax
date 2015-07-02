@@ -12,9 +12,9 @@ public class Company {
 	private String city;
 	private String registrationNumber;
 	private String email;
-	private String phone;
+	private long phone;
 	private String contactName;
-	private BigDecimal payment = BigDecimal.ZERO;
+	private BigDecimal payment;
 	private Date paymentDate;
 	private boolean isActive;
 	private Date lastUpdated;
@@ -61,10 +61,10 @@ public class Company {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPhone() {
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(String phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 	public String getContactName() {

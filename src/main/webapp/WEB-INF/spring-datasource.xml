@@ -11,11 +11,9 @@
 		<property name="username" value="postgres" />
 		<property name="password" value="mayank" />
 	</bean>
-	
  	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
 		<property name="dataSource" ref="dataSource"></property>  
 	</bean>  
-	
 	<bean id="pigtraxUserDetailsService" 
                 class="com.pigtrax.usermanagement.service.PigTraxUserDetailsService">
 	</bean>
