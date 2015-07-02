@@ -66,7 +66,6 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next())
 		{
-			
 			employee = new Employee();
 			employee.setEmployeeId(rs.getString(2));
 			employee.setName(rs.getString(3));
