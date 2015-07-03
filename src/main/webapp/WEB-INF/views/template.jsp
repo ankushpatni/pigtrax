@@ -12,6 +12,7 @@
 <link href="resources/css/custom-style.css" rel="stylesheet"> 
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">
  <link href="resources/css/theme-style.min.css" rel="stylesheet">
+ <link href="resources/css/company.css" rel="stylesheet">
 
 <script src="resources/lib/jquery/jquery-1.11.0.min.js"></script>
 <script src="resources/lib/jquery/jquery-migrate-1.2.1.min.js"></script>
@@ -24,6 +25,7 @@
 <script src="resources/lib/angular-ui/0.11.2/ui-bootstrap-tpls-0.11.2.min.js"></script>
 <script src="resources/js/app.js"></script>
 <script src="resources/js/services/restServices.js"></script>
+<script src="resources/js/services/directives.js"></script>
 <script src="resources/js/services/companyServices.js"></script>
 <script src="resources/js/controllers/employeeController.js"></script>
 <script src="resources/js/controllers/companyController.js"></script>

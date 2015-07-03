@@ -22,6 +22,13 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 	
 	@Override
+	public Company findByCompanyID(String companyID) throws SQLException {
+		// TODO Auto-generated method stub
+		return companyDao.findByCompanyID(companyID);
+	}
+
+	
+	@Override
 	public int updateCompanyStatus(final String companyID, final Boolean companyStatus) throws SQLException
 	{
 		return companyDao.updateCompanyStatus(companyID, companyStatus);
@@ -33,5 +40,10 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.insertCompanyRecord(company);
 	}
 	
+	public int updateCompanyRecord(Company company) throws SQLException
+	{
+		return companyDao.updateCompanyRecord(company);
+	}
 
+	
 }

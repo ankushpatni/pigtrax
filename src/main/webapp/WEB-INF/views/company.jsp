@@ -6,8 +6,9 @@
 		</button>
 <br> <br>
 		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: LightGray">  
-			<thead style="background-color: darkgrey">
+			<thead style="background-color: #3399CC">
 			<tr>
+				<th size="5%">Edit</th>
 				<th st-sort="CompanyID" size="5%">Company ID</th>
 				<th st-sort="name" size="10%">Name</th>
 				<th st-sort="address" size="15%">Address</th>
@@ -22,11 +23,15 @@
 				<th size="5%"></th>
 			</tr>
 		 	<tr>
-				<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				<th colspan="13"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in displayedCollection">
+				<td size="5%">
+					<button type="button" class="btn btn-edit btn-sm" ng-click="editCompanyData(row)">
+						<span class="glyphicon glyphicon-pencil" ></span> Edit</a></button>					
+				</td>
 				<td size="5%">{{row.companyId}}</td>
 				<td size="10%">{{row.name}}</td>
 				<td size="15%">{{row.address}}</td>

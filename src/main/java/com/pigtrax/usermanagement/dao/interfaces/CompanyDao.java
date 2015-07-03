@@ -29,16 +29,17 @@ public interface CompanyDao {
 	public int updateCompanyStatus(final String companyID, final Boolean companyStatus) throws SQLException;
 	
 	/**
-	 * To Insert Company Status
+	 * To Insert Company record
 	 * @return int (Success with int>0)
 	 */
 	
 	public int insertCompanyRecord(Company company) throws SQLException;
 	
 	/**
-	 * To Insert Company Status
+	 * To update Company record
 	 * @return Company
 	 */
-
-
+	
+	public int updateCompanyRecord(Company company) throws SQLException;
+	
 }

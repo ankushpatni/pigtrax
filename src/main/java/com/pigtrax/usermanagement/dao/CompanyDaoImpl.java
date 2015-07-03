@@ -44,19 +44,20 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 	 */
 	public List<Company> getCompanyList() {
 		List<Company> companyList = new ArrayList<Company>();
-		String Qry = "SELECT \"companyId\", \"name\", \"address\", \"city\", \"registrationNumber\", \"email\", \"phone\", \"contactName\", \"payment\", \"paymentDate\", \"isActive\" from pigtrax.\"Company\"";
+		String Qry = "SELECT \"id\",\"companyId\", \"name\", \"address\", \"city\", \"registrationNumber\", \"email\", \"phone\", \"contactName\", \"payment\", \"paymentDate\", \"isActive\" from pigtrax.\"Company\"";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<Map<String, Object>> compRows = jdbcTemplate.queryForList(Qry);
 		for (Map<String, Object> compRow : compRows) {
 			Company comp = new Company();
 			
+			comp.setId((Integer)compRow.get("id"));
 			comp.setCompanyId(String.valueOf(compRow.get("companyId")));
 			comp.setName(String.valueOf(compRow.get("Name")));
 			comp.setAddress(String.valueOf(compRow.get("address")));
 			comp.setCity(String.valueOf(compRow.get("city")));
 			comp.setRegistrationNumber(String.valueOf(compRow.get("registrationNumber")));
 			comp.setEmail(String.valueOf(compRow.get("email")));
-			comp.setPhone((Integer) compRow.get("phone"));
+			comp.setPhone(String.valueOf(compRow.get("phone")));
 			comp.setContactName(String.valueOf(compRow.get("contactName")));
 			comp.setPayment((BigDecimal) compRow.get("payment"));
 			comp.setPaymentDate((Date)compRow.get("paymentDate"));
@@ -106,7 +107,43 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 	@Override
 	public Company findByCompanyID(String companyID) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		List<Company> companyList = new ArrayList<Company>();
+		String Qry = "SELECT \"id\",\"companyId\", \"name\", \"address\", \"city\", \"registrationNumber\", \"email\", \"phone\", \"contactName\", \"payment\", \"paymentDate\", \"isActive\" from pigtrax.\"Company\"  WHERE \"companyId\"=?";
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		Connection conn = dataSource.getConnection();	
+		Company comp = new Company();
+		PreparedStatement pstmt = conn.prepareStatement(Qry);
+		int returnvalue = 0;
+		try {
+			
+			pstmt.setString(1, companyID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while ( rs.next()) {
+				
+				comp.setCompanyId(String.valueOf(rs.getString("companyId")));
+				comp.setName(String.valueOf(rs.getString("Name")));
+				comp.setAddress(String.valueOf(rs.getString("address")));
+				comp.setCity(String.valueOf(rs.getString("city")));
+				comp.setRegistrationNumber(rs.getString("registrationNumber"));
+				comp.setEmail(String.valueOf(rs.getString("email")));
+				comp.setPhone(String.valueOf(rs.getString("phone")));
+				comp.setContactName(String.valueOf(rs.getString("contactName")));
+				comp.setPayment((BigDecimal) rs.getBigDecimal("payment"));
+				comp.setPaymentDate((Date) rs.getDate("paymentDate"));
+				comp.setActive((Boolean) rs.getBoolean("isActive"));
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			// return 0;
+		} finally {
+			pstmt.close();
+			conn.close();
+		}
+		System.out.println(returnvalue);
+		
+		return comp;
 	}
 
 	@Override
@@ -128,7 +165,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 		pstmt.setString(4, company.getCity());
 		pstmt.setString(5, company.getRegistrationNumber());
 		pstmt.setString(6, company.getEmail());
-		pstmt.setLong(7, company.getPhone());
+		pstmt.setString(7, company.getPhone());
 		pstmt.setString(8, company.getContactName());
 		pstmt.setBigDecimal(9, company.getPayment());
 		//pstmt.setDate(10, new  java.sql.Date(company.getPaymentDate().getTime()));
@@ -161,6 +198,36 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 	
 		}
 			
+		return returnvalue;
+	}
+	
+	public int updateCompanyRecord(Company company) throws SQLException {
+		String qry1 = "update pigtrax.\"Company\" SET name=?, address=?, city =?, \"registrationNumber\" =?, email=?, phone=?, \"contactName\"=?, payment=?, \"paymentDate\"=?  WHERE \"companyId\"=?";
+		Connection conn = dataSource.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(qry1);
+		int returnvalue = 0;
+		try
+		{
+			pstmt.setString(1, company.getName());
+			pstmt.setString(2, company.getAddress());
+			pstmt.setString(3, company.getCity());
+			pstmt.setString(4, company.getRegistrationNumber());
+			pstmt.setString(5, company.getEmail());
+			pstmt.setString(6, company.getPhone());
+			pstmt.setString(7, company.getContactName());
+			pstmt.setBigDecimal(8, company.getPayment());
+			pstmt.setDate(9, new java.sql.Date(company.getPaymentDate()
+					.getTime()));
+			pstmt.setString(10, company.getCompanyId());
+
+			returnvalue = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// return 0;
+		} finally {
+			pstmt.close();
+			conn.close();
+		}
 		return returnvalue;
 	}
 

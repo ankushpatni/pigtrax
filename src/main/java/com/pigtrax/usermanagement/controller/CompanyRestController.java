@@ -80,7 +80,15 @@ public class CompanyRestController {
 		int updatedRecord = 0;
 		try 
 		{
-			updatedRecord = companyService.insertCompanyRecord(company);
+			Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
+			if( null == checkCompany )
+			{
+				updatedRecord = companyService.insertCompanyRecord(company);
+			}
+			else
+			{
+				updatedRecord = companyService.updateCompanyRecord(company);
+			}
 			dto.setStatusMessage("Success");
 		} 
 		catch (SQLException e) {

@@ -1,21 +1,59 @@
-var pigTrax = angular.module('pigTrax',['ngResource', 'ui.bootstrap',,'smart-table']);
+'use strict';
 
-//directive to show a confirm prompt
-pigTrax.directive('ngConfirmClick', [ function() {
-	return {
-		priority : -1,
-		restrict : 'A',
-		link : function(scope, element, attrs) {
-			element.bind('click', function(e) {
-				var message = attrs.ngConfirmClick;
-				if (message && !confirm(message)) {
-					e.stopImmediatePropagation();
-					e.preventDefault();
-				}
-			});
-		}
-	}
-} ])
+pigTrax.directive("passwordVerify", function() {
+  return {
+        require: 'ngModel',
+        link: function (scope, elem, attrs, model) {
+            if (!attrs.passwordVerify) {
+                console.error('passwordVerify expects a model as an argument!');
+                return;
+            }
+            scope.$watch(attrs.passwordVerify, function (value) {
+                // Only compare values if the second ctrl has a value.
+                if (model.$viewValue !== undefined && model.$viewValue !== '') {
+                    model.$setValidity('passwordVerify', value === model.$viewValue);
+                }
+            });
+            model.$parsers.push(function (value) {
+                // Mute the nxEqual error if the second ctrl is empty.
+                if (value === undefined || value === '') {
+                    model.$setValidity('passwordVerify', true);
+                    return value;
+                }
+                var isValid = value === scope.$eval(attrs.passwordVerify);
+                model.$setValidity('passwordVerify', isValid);
+                return isValid ? value : undefined;
+            });
+        }
+    };
+})
+.directive('validatePasswordCharacters', function() {
+
+  var REQUIRED_PATTERNS = [
+    // /\d+/,    //numeric values
+    // /[a-z]+/, //lowercase values
+    // /[A-Z]+/, //uppercase values
+    /^\S+$/   //no whitespace allowed
+  ];
+
+  return {
+    require : 'ngModel',
+    link : function($scope, element, attrs, ngModel) {
+      ngModel.$validators.passwordCharacters = function(value) {
+        var status = true;
+        if( value== '')
+        {
+            return true;
+        }
+        angular.forEach(REQUIRED_PATTERNS, function(pattern) {
+          status = status && pattern.test(value);
+        });
+        return status;
+      }; 
+    } // end link
+  }; // end return
+
+})
 .directive('angularValidator',
     function() {
         return {
@@ -198,5 +236,12 @@ pigTrax.directive('ngConfirmClick', [ function() {
             }
         };
     }
-);
-
+)
+.directive("requiredStrix", function() {
+    return {
+        link: function(element) {
+            // insert asterisk after elment 
+            element.after("<span style='color: red'>*</span>");
+        }
+    };
+});

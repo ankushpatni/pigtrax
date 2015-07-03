@@ -14,6 +14,14 @@ public interface CompanyService {
 	public List<Company> getCompanyList();
 	
 	/**
+	 * Load the Company information based on companyId
+	 * @param Company
+	 * @return
+	 * @throws SQLException
+	 */
+	public Company findByCompanyID(String companyID)  throws SQLException;
+	
+	/**
 	 * To update Company Status
 	 * @return List<Company>
 	 */
@@ -25,5 +33,12 @@ public interface CompanyService {
 	 */
 	
 	public int insertCompanyRecord(Company company) throws SQLException;
+	
+	/**
+	 * To update Company record
+	 * @return Company
+	 */
+	
+	public int updateCompanyRecord(Company company) throws SQLException;
 	
 }
