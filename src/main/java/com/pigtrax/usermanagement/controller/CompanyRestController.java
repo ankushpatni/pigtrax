@@ -53,16 +53,15 @@ public class CompanyRestController {
 		try 
 		{
 			updatedRecord = companyService.updateCompanyStatus(companyId, new Boolean(isActive));
-			dto.setStatusMessage("Success");
+			dto.setStatusMessage("SUCCESS");
 		} 
 		catch (SQLException e) {
 			updatedRecord = 0;
-			dto.setStatusMessage("False");
+			dto.setStatusMessage("FALSE");
 			logger.error("Inside updateCompanyStatus()" +e.getErrorCode() + e.getMessage());
 			e.printStackTrace();
 		}
-		dto.setPayload(updatedRecord);
-		dto.setStatusMessage("Success");
+		dto.setPayload(updatedRecord);		
 		return dto;
 	}
 	
@@ -89,16 +88,15 @@ public class CompanyRestController {
 			{
 				updatedRecord = companyService.updateCompanyRecord(company);
 			}
-			dto.setStatusMessage("Success");
+			dto.setStatusMessage("SUCCESS");
 		} 
 		catch (SQLException e) {
 			updatedRecord = 0;
-			dto.setStatusMessage("False");
+			dto.setStatusMessage("FALSE");
 			logger.error("Inside updateCompanyStatus()" +e.getErrorCode() + e.getMessage());
 			e.printStackTrace();
 		}
 		dto.setPayload(updatedRecord);
-		dto.setStatusMessage("Success");
 		return dto;
 	}
 

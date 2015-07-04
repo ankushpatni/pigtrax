@@ -15,7 +15,7 @@ pigTrax.factory("companyServices", function($modal) {
     		});
     		
     		modalInstance.result.then( function(res) {    			
-    			return;
+    			return res;
     		});
     	},
     	editCompanyData: function(companyRow){
@@ -31,7 +31,7 @@ pigTrax.factory("companyServices", function($modal) {
     			}
     		});    		
     		modalInstance.result.then( function(res) {    			
-    			return;
+    			return res;
     		});
     	},
     };

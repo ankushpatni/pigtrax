@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <div id="companyContent" ng-controller="CompanyController" ng-init="getCompanyList()">
-	<button type="button" ng-click="addCompanyData()" class="btn btn-sm btn-success">
+	<button type="button" ng-click="addCompanyData()" class="btn btn-sm btn btn-primary">
 			<i class="glyphicon glyphicon-plus">
 			</i> Add New company
 		</button>
@@ -9,6 +9,7 @@
 			<thead style="background-color: #3399CC">
 			<tr>
 				<th size="5%">Edit</th>
+				<th size="5%">Go To</th>
 				<th st-sort="CompanyID" size="5%">Company ID</th>
 				<th st-sort="name" size="10%">Name</th>
 				<th st-sort="address" size="15%">Address</th>
@@ -23,14 +24,18 @@
 				<th size="5%"></th>
 			</tr>
 		 	<tr>
-				<th colspan="13"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				<th colspan="14"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="row in displayedCollection">
+			<tr ng-repeat="row in displayedCollection track by $index">
 				<td size="5%">
-					<button type="button" class="btn btn-edit btn-sm" ng-click="editCompanyData(row)">
+					<button type="button" class="btn btn-edit btn-xs" ng-click="editCompanyData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span> Edit</a></button>					
+				</td>
+				<td size="5%">  
+					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index)">
+						{{rt.name}}</button>	
 				</td>
 				<td size="5%">{{row.companyId}}</td>
 				<td size="10%">{{row.name}}</td>
@@ -45,12 +50,22 @@
 				<td ng-if="row.active" size="5%">Active</td>
 				<td ng-hide="row.active" size="5%">In Active</td>
 				<td size="5%">
-				<button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
+				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
 					<i class="glyphicon glyphicon-remove-circle">
+					</i>
+				</button>
+				<button ng-hide="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-success">
+					<i class="glyphicon glyphicon glyphicon-ok">
 					</i>
 				</button>
 				</td>
 			</tr>
-			</tbody>
+			</tbody>		
+			<tr style="background-color: #3399CC">
+				<td colspan="14">
+					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
+				</td>
+			</tr>
 		</table>
+		
 </div>

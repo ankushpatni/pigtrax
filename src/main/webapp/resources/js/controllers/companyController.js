@@ -1,6 +1,9 @@
-pigTrax.controller('CompanyController', function($scope, $http, $window, restServices, companyServices) {	
+pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices, companyServices) {	
 	$scope.rowCollection = [];
-
+	$scope.itemsByPage=10;
+	$scope.totalPages;
+	$scope.differentPages=[{"name":"Barn","value":"Barn"},{"name":"Premises","value":"Premises"}];
+	
     //deactivate/activate to the real data holder
     $scope.removeItem = function removeItem(row) {
     	var postParam = {
@@ -16,26 +19,62 @@ pigTrax.controller('CompanyController', function($scope, $http, $window, restSer
 			console.log( "failure message: " + {data: data});
 		});	
     }
+	
+	 $scope.$watch($scope.editCompanyData, $scope.getCompanyList, true);
+	
+	$scope.gotToPage = function(index)
+	{
+		$window.location = 'employee';
+	}
     
-  //add Company Data
-    $scope.editCompanyData = function (companyRow) {    	
-    	companyServices.editCompanyData(companyRow);
-    	return;
-    	
+	$scope.addCompanyData = function () {
+    		var modalInstance = $modal.open ({
+    			templateUrl: 'addCompany',
+    			controller: 'addCompanyCtrl',
+    			backdrop:true,
+    			windowClass : 'cp-model-window',
+				resolve:{
+    				companyData : function(){
+    					return null;
+    				}
+    			}
+    		});
+    		
+    		modalInstance.result.then( function(res) {    			
+    			if(res.statusMessage==="SUCCESS")
+				{
+					$scope.getCompanyList();				
+				}
+    		});
     }
-    
-  //add Company Data
-    $scope.addCompanyData = function () {    	
-    	companyServices.openCompanyAdd();
-    	return;
-    	
-    }
-    
-    $scope.getCompanyList = function(){
+	
+	$scope.editCompanyData = function(companyRow){
+		var modalInstance = $modal.open ({
+    			templateUrl: 'addCompany',
+    			controller: 'addCompanyCtrl',
+    			backdrop:true,
+    			windowClass : 'cp-model-window',
+    			resolve:{
+    				companyData : function(){
+    					return companyRow;
+    				}
+    			}
+    		});    		
+    		modalInstance.result.then( function(res) {
+				if(res.statusMessage==="SUCCESS")
+				{
+					$scope.getCompanyList();				
+				}
+			});
+		
+    	}
+	
+	$scope.getCompanyList = function(){
 		restServices.getCompanyList(function(data){
 			 if(!data.error)
 			 {
-				    $scope.rowCollection = data.payload;
+				$scope.rowCollection = data.payload;
+				$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
 			 }
 		});
 	};

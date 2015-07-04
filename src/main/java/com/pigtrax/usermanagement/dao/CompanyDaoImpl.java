@@ -44,7 +44,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 	 */
 	public List<Company> getCompanyList() {
 		List<Company> companyList = new ArrayList<Company>();
-		String Qry = "SELECT \"id\",\"companyId\", \"name\", \"address\", \"city\", \"registrationNumber\", \"email\", \"phone\", \"contactName\", \"payment\", \"paymentDate\", \"isActive\" from pigtrax.\"Company\"";
+		String Qry = "SELECT \"id\",\"companyId\", \"name\", \"address\", \"city\", \"registrationNumber\", \"email\", \"phone\", \"contactName\", \"payment\", \"paymentDate\", \"isActive\" from pigtrax.\"Company\" order by \"id\" desc ";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<Map<String, Object>> compRows = jdbcTemplate.queryForList(Qry);
 		for (Map<String, Object> compRow : compRows) {
@@ -111,7 +111,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 		String Qry = "SELECT \"id\",\"companyId\", \"name\", \"address\", \"city\", \"registrationNumber\", \"email\", \"phone\", \"contactName\", \"payment\", \"paymentDate\", \"isActive\" from pigtrax.\"Company\"  WHERE \"companyId\"=?";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		Connection conn = dataSource.getConnection();	
-		Company comp = new Company();
+		Company comp = null;
 		PreparedStatement pstmt = conn.prepareStatement(Qry);
 		int returnvalue = 0;
 		try {
@@ -120,7 +120,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 			ResultSet rs = pstmt.executeQuery();
 			
 			while ( rs.next()) {
-				
+				comp = new Company();
 				comp.setCompanyId(String.valueOf(rs.getString("companyId")));
 				comp.setName(String.valueOf(rs.getString("Name")));
 				comp.setAddress(String.valueOf(rs.getString("address")));
@@ -169,7 +169,15 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 		pstmt.setString(8, company.getContactName());
 		pstmt.setBigDecimal(9, company.getPayment());
 		//pstmt.setDate(10, new  java.sql.Date(company.getPaymentDate().getTime()));
-		pstmt.setDate(10, new java.sql.Date(System.currentTimeMillis()));
+		if(company.getPayment() == null || company.getPayment().equals("") || company.getPayment().equals("null"))
+		{
+			pstmt.setDate(10, null);
+		}
+		
+		else
+		{
+			pstmt.setDate(10, new java.sql.Date(System.currentTimeMillis()));
+		}
 		pstmt.setBoolean(11, company.isActive());
 		pstmt.setDate(12,new  java.sql.Date(System.currentTimeMillis()));
 		pstmt.setString(13, "Ankush");
@@ -178,7 +186,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 
 		returnvalue = pstmt.executeUpdate();
 		 
-		System.out.println("Record is inserted into Company table!");
+		System.out.println("Record is inserted into Company table!"+returnvalue);
 
 		} 
 		catch (SQLException e) {
@@ -216,8 +224,14 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 			pstmt.setString(6, company.getPhone());
 			pstmt.setString(7, company.getContactName());
 			pstmt.setBigDecimal(8, company.getPayment());
-			pstmt.setDate(9, new java.sql.Date(company.getPaymentDate()
-					.getTime()));
+			if(company.getPayment() == null || company.getPayment().equals("") || company.getPayment().equals("null"))
+			{
+				pstmt.setDate(9, null);
+			}			
+			else
+			{
+				pstmt.setDate(9, new java.sql.Date(System.currentTimeMillis()));
+			}
 			pstmt.setString(10, company.getCompanyId());
 
 			returnvalue = pstmt.executeUpdate();
