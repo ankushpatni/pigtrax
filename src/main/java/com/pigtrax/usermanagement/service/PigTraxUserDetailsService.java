@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,13 +18,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.pigtrax.usermanagement.dao.interfaces.EmployeeDao;
 
 public class PigTraxUserDetailsService implements UserDetailsService {
+	private static final Logger logger = Logger.getLogger(PigTraxUserDetailsService.class);
 
 	@Autowired
 	private EmployeeDao employeeDao;
 	
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		System.out.println("in pigtrax userdetails service : "+username);
+		logger.info("in pigtrax userdetails service : "+username);
 		com.pigtrax.usermanagement.beans.Employee employee = null;
 		try {
 			employee = employeeDao.findByUserName(username);

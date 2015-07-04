@@ -19,8 +19,7 @@ import com.pigtrax.usermanagement.service.interfaces.CompanyService;
 @RequestMapping("rest/company")
 public class CompanyRestController {
 
-	private static final Logger logger = Logger
-			.getLogger(CompanyRestController.class);
+	private static final Logger logger = Logger.getLogger(CompanyRestController.class);
 
 	@Autowired
 	CompanyService companyService;
@@ -73,9 +72,9 @@ public class CompanyRestController {
 	@RequestMapping(value = "/insertCompanyRecord", method=RequestMethod.POST, produces="application/json")
 	public ServiceResponseDto insertCompanyRecord( @RequestBody Company company)
 	{
-		logger.info("Inside insertCompanyRecord()" );
+		logger.debug("Inside insertCompanyRecord()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		System.out.println("String ---->"+company.toString());
+		logger.info("String ---->"+company.toString());
 		int updatedRecord = 0;
 		try 
 		{
