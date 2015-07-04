@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.0" last-position="1588,1784" last-zoom="0.8"
+<dbmodel pgmodeler-ver="0.8.0" last-position="1386,1630" last-zoom="0.8"
 	 default-owner="postgres">
 <role name="pitraxadmin"
       superuser="true"
@@ -3053,5 +3053,13 @@ nn - Not Null]]></comment>
 	 src-table="pigtrax.&quot;Barn&quot;"
 	 dst-table="pigtrax.&quot;EventLog&quot;"
 	 src-required="false" dst-required="false"/>
+
+<index name="COMPANY_COID" table="pigtrax.&quot;Company&quot;"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="&quot;companyId&quot;"/>
+		</idxelement>
+</index>
 
 </dbmodel>

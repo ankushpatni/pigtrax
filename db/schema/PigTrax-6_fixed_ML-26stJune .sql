@@ -74,6 +74,14 @@ CREATE TABLE pigtrax."Company"(
 ALTER TABLE pigtrax."Company" OWNER TO postgres;
 -- ddl-end --
 
+-- object: "COMPANY_COID" | type: INDEX --
+-- DROP INDEX IF EXISTS pigtrax."COMPANY_COID" CASCADE;
+CREATE INDEX "COMPANY_COID" ON pigtrax."Company"
+	USING btree
+	(
+	  "companyId" ASC NULLS LAST
+	);
+
 -- object: pigtrax."Premise" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."Premise" CASCADE;
 CREATE TABLE pigtrax."Premise"(
