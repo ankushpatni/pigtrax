@@ -39,7 +39,7 @@
 			</div>
             <div>
 				<label class="cp-add-row-labal">Phone<span style='color: red'>*</span></label>
-				<input class="cp-add-row" type="text" placeholder="+1-111-111-1111" name="phone" ng-model="add.phone" maxlength="15" required required-message="'Phone is required'" ng-pattern="/^[+. ]?([1-9]{1})?[-.]?([0-9]{3})?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" invalid-message="'Please input correct number in US format.'"/>
+				<input class="cp-add-row" type="text" placeholder="+1-111-111-1111" name="phone" ng-model="add.phone" maxlength="15" required required-message="'Phone is required'" ng-pattern="/^[\0-9-+]+$/" invalid-message="'Please input correct number in US format.'"/>
 			</div>
             <div>
 				<label class="cp-add-row-labal">Contact Name<span style='color: red'>*</span></label>

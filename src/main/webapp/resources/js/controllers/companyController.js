@@ -4,6 +4,15 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 	$scope.totalPages;
 	$scope.differentPages=[{"name":"Barn","value":"Barn"},{"name":"Premises","value":"Premises"}];
 	
+	$scope.hoverIn = function(){
+        this.hoverEdit = true;
+    };
+
+    $scope.hoverOut = function(){
+        this.hoverEdit = false;
+    };
+
+	
     //deactivate/activate to the real data holder
     $scope.removeItem = function removeItem(row) {
     	var postParam = {

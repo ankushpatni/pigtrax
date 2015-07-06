@@ -8,8 +8,6 @@
 		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: LightGray">  
 			<thead style="background-color: #3399CC">
 			<tr>
-				<th size="5%">Edit</th>
-				<th size="5%">Go To</th>
 				<th st-sort="CompanyID" size="5%">Company ID</th>
 				<th st-sort="name" size="10%">Name</th>
 				<th st-sort="address" size="15%">Address</th>
@@ -20,7 +18,8 @@
 				<th st-sort="contactName" size="8%">Contact Name</th>
 				<th st-sort="payment" size="5%">Payment</th>
 				<th st-sort="paymentDate" size="10%">Payment Date</th>
-				<th st-sort="isActive" size="5%">Active</th>
+				<th size="5%">Edit</th>
+				<th size="5%">Go To</th>
 				<th size="5%"></th>
 			</tr>
 		 	<tr>
@@ -29,14 +28,6 @@
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in displayedCollection track by $index">
-				<td size="5%">
-					<button type="button" class="btn btn-edit btn-xs" ng-click="editCompanyData(row)">
-						<span class="glyphicon glyphicon-pencil" ></span> Edit</a></button>					
-				</td>
-				<td size="5%">  
-					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index)">
-						{{rt.name}}</button>	
-				</td>
 				<td size="5%">{{row.companyId}}</td>
 				<td size="10%">{{row.name}}</td>
 				<td size="15%">{{row.address}}</td>
@@ -47,14 +38,20 @@
 				<td size="8%">{{row.contactName}}</td>
 				<td size="5%">{{row.payment}}</td>
 				<td size="10%">{{row.paymentDate}}</td>
-				<td ng-if="row.active" size="5%">Active</td>
-				<td ng-hide="row.active" size="5%">In Active</td>
 				<td size="5%">
-				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
+					<button type="button" class="btn btn-edit btn-xs" ng-click="editCompanyData(row)">
+						<span class="glyphicon glyphicon-pencil" ></span> Edit</a></button>					
+				</td>
+				<td size="5%">  
+					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index)">
+						{{rt.name}}</button>	
+				</td>
+				<td size="5%">
+				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit">De-Activate</a>
 					<i class="glyphicon glyphicon-remove-circle">
 					</i>
 				</button>
-				<button ng-hide="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-success">
+				<button ng-hide="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-success" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit">Activate</a>
 					<i class="glyphicon glyphicon glyphicon-ok">
 					</i>
 				</button>
