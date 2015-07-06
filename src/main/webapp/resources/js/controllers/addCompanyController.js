@@ -54,12 +54,12 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 					}
 					else
 					{
-						$scope.alertMessage = data;
+						$scope.alertMessage = data.payload;
 						$scope.alertVisible = true;
 					}
 				});
 				res.error(function(data, status, headers, config) {
-					console.log( "failure message: " + {data: data});
+					console.log( data);
 					$scope.alertMessage = data.statusMessage;
 					$scope.alertVisible = true;
 				});

@@ -54,7 +54,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setBoolean(1, !companyStatus);
-				ps.setString(2, companyID);
+				ps.setString(2, companyID.toUpperCase());
 			}
 		});
 	
@@ -66,7 +66,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 		List<Company> companyList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, companyID);
+				ps.setString(1, companyID.toUpperCase());
 			}}, new CompanyMapper());
 
 		if(companyList != null && companyList.size() > 0){
@@ -84,7 +84,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, company.getCompanyId());
+				ps.setString(1, company.getCompanyId().toUpperCase());
 				ps.setString(2, company.getName());
 				ps.setString(3, company.getAddress());
 				ps.setString(4, company.getCity());

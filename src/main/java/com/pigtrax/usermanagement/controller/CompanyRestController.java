@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,7 +53,7 @@ public class CompanyRestController {
 		int updatedRecord;
 		try 
 		{
-			updatedRecord = companyService.updateCompanyStatus(companyId, new Boolean(isActive));
+			updatedRecord = companyService.updateCompanyStatus(companyId.toUpperCase(), new Boolean(isActive));
 			dto.setStatusMessage("SUCCESS");
 		} 
 		catch (SQLException e) {
@@ -78,8 +80,8 @@ public class CompanyRestController {
 		int updatedRecord = 0;
 		try 
 		{
-			Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
-			if( null == checkCompany )
+		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
+			if( 0 == company.getId() )
 			{
 				updatedRecord = companyService.insertCompanyRecord(company);
 			}
@@ -88,6 +90,7 @@ public class CompanyRestController {
 				updatedRecord = companyService.updateCompanyRecord(company);
 			}
 			dto.setStatusMessage("SUCCESS");
+			dto.setPayload(updatedRecord);
 		} 
 		catch (SQLException e) {
 			updatedRecord = 0;
@@ -95,7 +98,19 @@ public class CompanyRestController {
 			logger.error("Inside updateCompanyStatus()" +e.getErrorCode() + e.getMessage());
 			e.printStackTrace();
 		}
-		dto.setPayload(updatedRecord);
+		
+		catch (Exception e) {
+			updatedRecord = 0;
+			dto.setStatusMessage("FALSE");
+			if( e instanceof DuplicateKeyException)
+			{
+				dto.setPayload("Company with ID : "+company.getCompanyId().toUpperCase() + " already present.");
+			}
+			
+			logger.error("Inside updateCompanyStatus()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
+			e.printStackTrace();
+		}
+		
 		return dto;
 	}
 

@@ -59,14 +59,14 @@ CREATE TABLE pigtrax."Company"(
 	city varchar(30) NOT NULL,
 	"registrationNumber" varchar(20) NOT NULL,
 	email varchar(50) NOT NULL,
-	phone integer NOT NULL,
+	phone varchar(15) NOT NULL,
 	"contactName" varchar(50) NOT NULL,
 	payment numeric(12,2),
 	"paymentDate" date,
 	"isActive" bool,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
-	CONSTRAINT "Company_U_CI" UNIQUE (id,"companyId"),
+	CONSTRAINT "Company_U_CI" UNIQUE ("companyId"),
 	CONSTRAINT "Company_PK_CI" PRIMARY KEY (id)
 
 );
