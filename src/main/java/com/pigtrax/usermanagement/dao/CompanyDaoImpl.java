@@ -135,6 +135,7 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 	private static final class CompanyMapper implements RowMapper<Company> {
 		public Company mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Company company = new Company();
+			company.setId(rs.getInt("id"));
 			company.setCompanyId(rs.getString("companyId"));
 			company.setName(rs.getString("name"));
 			company.setAddress(rs.getString("address"));
