@@ -12,6 +12,7 @@ public class Employee {
 	private Date lastUpdated;
 	private String userUpdated;
 	private int userRoleId;
+	private boolean isPortalUser;
 	
 	private boolean enabled;
 
@@ -91,18 +92,23 @@ public class Employee {
 	public boolean isEnabled() {
 		return enabled;
 	}
+	
+	public boolean isPortalUser() {
+		return isPortalUser;
+	}
 
+	public void setPortalUser(boolean isPortalUser) {
+		this.isPortalUser = isPortalUser;
+	}
+
+	
+	
 	@Override
 	public String toString() {
-		
-		return "Employee [ employeeId : " + this.employeeId 
-				+ ", companyId : " + this.companyId
-				+ ", name : " + this.name
-				+ ", isActive : " + this.isActive
-				+ ", lastUpdated : " + this.lastUpdated
-				+ ", userUpdated : " + this.userUpdated
-				+ ", userRoleId : " + this.userRoleId
-				+ "]";
+		return "Employee [id=" + id + ", employeeId=" + employeeId + ", companyId=" + companyId + ", name=" + name + ", ptPassword=" + ptPassword + ", isActive=" + isActive + ", lastUpdated="
+				+ lastUpdated + ", userUpdated=" + userUpdated + ", userRoleId=" + userRoleId + ", isPortalUser=" + isPortalUser + ", enabled=" + enabled + "]";
 	}
+
+	
 
 }

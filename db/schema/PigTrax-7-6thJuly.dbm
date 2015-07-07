@@ -1,0 +1,3170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.0" last-position="2663,871" last-zoom="0.9"
+	 default-owner="postgres">
+<role name="pitraxadmin"
+      superuser="true"
+      password="k3rm1t">
+</role>
+
+<database name="new_database">
+</database>
+
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="pigtrax" rect-visible="true" fill-color="#e1e1e1">
+	<role name="pitraxadmin"/>
+</schema>
+
+<table name="Company">
+	<schema name="pigtrax"/>
+	<role name="postgres"/>
+	<position x="1981.25" y="3151.04"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="companyId" not-null="true">
+		<type name="varchar" length="4"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="address" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="city" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="registrationNumber" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="phone" not-null="true">
+		<type name="varchar" length="15"/>
+	</column>
+	<column name="contactName" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="payment">
+		<type name="numeric" length="12" precision="2"/>
+	</column>
+	<column name="paymentDate">
+		<type name="date"/>
+	</column>
+	<column name="isActive">
+		<type name="bool"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="Company_U_CI" type="uq-constr" table="pigtrax.&quot;Company&quot;">
+		<columns names="companyId" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="Company_PK_CI" type="pk-constr" table="pigtrax.&quot;Company&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Premise">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2976.02" y="3309.95"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="permiseId" not-null="true">
+		<type name="varchar" length="6"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="address" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="city" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="state" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="zipcode" not-null="true">
+		<type name="varchar" length="9"/>
+	</column>
+	<column name="isActive">
+		<type name="bool"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="Premise_U_PI" type="uq-constr" table="pigtrax.&quot;Premise&quot;">
+		<columns names="permiseId" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="Premise_PK_PI" type="pk-constr" table="pigtrax.&quot;Premise&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Company" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Company_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="Company_has_many_premise" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Company&quot;"
+	 dst-table="pigtrax.&quot;Premise&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="4.51965" y="2.83934"/>
+	</label>
+</relationship>
+
+<usertype name="PhaseTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Nursery,Finishing,Weaned Finished,GDU"/>
+</usertype>
+
+<usertype name="VentiliationTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="postgres"/>
+	<enumeration values="Power,Natural,Tunnel"/>
+</usertype>
+
+<usertype name="BarnTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Nursery,Finishing,WF"/>
+</usertype>
+
+<table name="Barn">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="1941.02" y="3565.19"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="barnId" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="location">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="area">
+		<type name="smallint"/>
+	</column>
+	<column name="feederCount">
+		<type name="smallint"/>
+	</column>
+	<column name="waterAccessCount">
+		<type name="smallint"/>
+	</column>
+	<column name="isActive">
+		<type name="bool"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="BARN_U_BI" type="uq-constr" table="pigtrax.&quot;Barn&quot;">
+		<columns names="barnId" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="BARN_PK" type="pk-constr" table="pigtrax.&quot;Barn&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_PhaseType" index="3"/>
+		<object name="id_Premise" index="2"/>
+		<object name="id_VentilationType" index="11"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="PhaseType_fk" index="3"/>
+		<object name="Premise_fk" index="2"/>
+		<object name="VentilationType_fk" index="4"/>
+	</customidxs>
+</table>
+
+<usertype name="SiloTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="postgres"/>
+	<enumeration values="Single,Double,Manual"/>
+</usertype>
+
+<table name="Silo">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="3755.62" y="3396.36"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="siloId" not-null="true">
+		<type name="varchar" length="14"/>
+	</column>
+	<column name="location" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SILO_PK" type="pk-constr" table="pigtrax.&quot;Silo&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="SILO_U_SI" type="uq-constr" table="pigtrax.&quot;Silo&quot;">
+		<columns names="siloId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Barn" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Barn_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="Barn_has_many_Silo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Barn&quot;"
+	 dst-table="pigtrax.&quot;Silo&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="43.5197" y="2.83934"/>
+	</label>
+</relationship>
+
+<table name="Room">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="3196.15" y="3706.9"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="roomId" not-null="true">
+		<type name="varchar" length="4"/>
+	</column>
+	<column name="location" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="isActive">
+		<type name="bool"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" length="30"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="ROOM_PK" type="pk-constr" table="pigtrax.&quot;Room&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="ROOM_U_RI" type="uq-constr" table="pigtrax.&quot;Room&quot;">
+		<columns names="roomId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Barn" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Barn_fk" index="2"/>
+	</customidxs>
+</table>
+
+<table name="Pen">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="3611.15" y="4141.09"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="penId" not-null="true">
+		<type name="varchar" length="4"/>
+	</column>
+	<column name="location" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="isActive">
+		<type name="bool"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PEN_PI" type="pk-constr" table="pigtrax.&quot;Pen&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PEN_U_PI" type="uq-constr" table="pigtrax.&quot;Pen&quot;">
+		<columns names="penId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Room" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Room_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="Room_has_many_Pens" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Room&quot;"
+	 dst-table="pigtrax.&quot;Pen&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-19.1302" y="5.33929"/>
+	</label>
+</relationship>
+
+<usertype name="RoleTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="SuperAdmin,ApprovalAdmin,ViewerAdmin,AccountSupervisor,AccountApproval,AccountViewer"/>
+</usertype>
+
+<table name="Employee">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2018.48" y="3909.45"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="employeeId">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="ptPassword">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="isActive">
+		<type name="bool"/>
+	</column>
+	<column name="isPortalUser" not-null="true">
+		<type name="boolean"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="EMPLOYEE_PK" type="pk-constr" table="pigtrax.&quot;Employee&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="EMPLOYEE_U_EI" type="uq-constr" table="pigtrax.&quot;Employee&quot;">
+		<columns names="employeeId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Company" index="2"/>
+		<object name="id_RoleType" index="9"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Company_fk" index="2"/>
+		<object name="RoleType_fk" index="3"/>
+	</customidxs>
+</table>
+
+<relationship name="Company_has_many_Employee" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Company&quot;"
+	 dst-table="pigtrax.&quot;Employee&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="134.37" y="243.735"/>
+	</label>
+</relationship>
+
+<usertype name="TransportCarriageTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Truck,Trailer"/>
+</usertype>
+
+<table name="TransportDestination">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="3406.77" y="3007.71"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="address">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="city">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="DESTINATIONS_PK" type="pk-constr" table="pigtrax.&quot;TransportDestination&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<usertype name="TrailerTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="DUMMY VALUE"/>
+</usertype>
+
+<table name="TransportJourney">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="3730.96" y="2588.13"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="trailerFunction">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="journeyStartTime">
+		<type name="timestamp"/>
+	</column>
+	<column name="journeyEndTime">
+		<type name="timestamp"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="TRANSPORT_PK" type="pk-constr" table="pigtrax.&quot;TransportJourney&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_TransportDestination" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="TransportDestination_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="TransportJourney_Refers_to_Destinations" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;TransportDestination&quot;"
+	 dst-table="pigtrax.&quot;TransportJourney&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-51.8303" y="7.83936"/>
+	</label>
+</relationship>
+
+<usertype name="AnimalTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Boar,Sow,Piglet,Group"/>
+</usertype>
+
+<usertype name="PhaseOfProductionTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Breeding,Gestation,Maternity,Nursery,Finishing,GDU,Extraflow"/>
+</usertype>
+
+<usertype name="ServiceTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Service,Abortion,NonInPig"/>
+</usertype>
+
+<table name="BreedingEvent">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="4489.04" y="4897.17"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="serviceId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="brgrId">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="breedingDate" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="semenId">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="mateQuality">
+		<type name="smallint"/>
+	</column>
+	<column name="sowCondition">
+		<type name="smallint"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="BREEDING_PK" type="pk-constr" table="pigtrax.&quot;BreedingEvent&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="BREEDING_U_SI" type="uq-constr" table="pigtrax.&quot;BreedingEvent&quot;">
+		<columns names="serviceId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_BreedingServiceType" index="4"/>
+		<object name="id_EmployeeGroup" index="2"/>
+		<object name="id_PigInfo" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="BreedingServiceType_fk" index="4"/>
+		<object name="EmployeeGroup_fk" index="2"/>
+		<object name="PigInfo_fk" index="3"/>
+	</customidxs>
+</table>
+
+<usertype name="PregnancyExamResultEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Positive,Negative,Inconclusive"/>
+</usertype>
+
+<usertype name="PregnancyEventTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="PregnancyExam,Abortion,NotInPig"/>
+</usertype>
+
+<table name="FarrowEvent">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2893.81" y="5196.68"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="farrowId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="farrowDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="liveBorns">
+		<type name="smallint"/>
+	</column>
+	<column name="stillBorns">
+		<type name="smallint"/>
+	</column>
+	<column name="mummies">
+		<type name="smallint"/>
+	</column>
+	<column name="maleBorns">
+		<type name="smallint"/>
+	</column>
+	<column name="femaleBorns">
+		<type name="smallint"/>
+	</column>
+	<column name="weightInKgs">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="inducedBirth">
+		<type name="bool"/>
+	</column>
+	<column name="assistedBirth">
+		<type name="bool"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="sowCondition">
+		<type name="smallint"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="FAROW_PK" type="pk-constr" table="pigtrax.&quot;FarrowEvent&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="FAROW_U_FI" type="uq-constr" table="pigtrax.&quot;FarrowEvent&quot;">
+		<columns names="farrowId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_EmployeeGroup" index="16"/>
+		<object name="id_Pen" index="3"/>
+		<object name="id_PigInfo" index="17"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="EmployeeGroup_fk" index="3"/>
+		<object name="Pen_fk" index="2"/>
+		<object name="PigInfo_fk" index="4"/>
+	</customidxs>
+</table>
+
+<relationship name="Farrow_refers_to_a_pen" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Pen&quot;"
+	 dst-table="pigtrax.&quot;FarrowEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PregnancyEvent">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="3146.8" y="4725.05"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="examDate" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="resultDate">
+		<type name="date"/>
+	</column>
+	<column name="sowCondition">
+		<type name="smallint"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PREGNANCYEXAM_PK" type="pk-constr" table="pigtrax.&quot;PregnancyEvent&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_EmployeeGroup" index="2"/>
+		<object name="id_PigInfo" index="1"/>
+		<object name="id_PregnancyEventType" index="3"/>
+		<object name="id_PregnancyExamResultType" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="EmployeeGroup_fk" index="1"/>
+		<object name="PigInfo_fk" index="2"/>
+		<object name="PregnancyEventType_fk" index="3"/>
+		<object name="PregnancyExamResultType_fk" index="4"/>
+	</customidxs>
+</table>
+
+<usertype name="PigletStatusEventTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Foster,Wean,PigDeath"/>
+</usertype>
+
+<table name="PigletStatus">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2135.82" y="4576.89"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="eventId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="eventDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="numberOfPigs">
+		<type name="smallint"/>
+	</column>
+	<column name="weightInKgs">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="eventReason">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="sowCondition">
+		<type name="smallint"/>
+	</column>
+	<column name="weanGroupId">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PIGLETSTATUS_PK" type="pk-constr" table="pigtrax.&quot;PigletStatus&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PIGLETSTATUS_U_EI" type="uq-constr" table="pigtrax.&quot;PigletStatus&quot;">
+		<columns names="eventId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_PigInfo" index="2"/>
+		<object name="id_PigletStatusEventType" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="PigInfo_fk" index="2"/>
+		<object name="PigletStatusEventType_fk" index="3"/>
+	</customidxs>
+</table>
+
+<usertype name="PigletStatusEventTypeEnum" configuration="enumeration">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<enumeration values="Foster,Wean,PigDeath"/>
+</usertype>
+
+<relationship name="Company_has_many_TransportDestination" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Company&quot;"
+	 dst-table="pigtrax.&quot;TransportDestination&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<usertype name="RemovalTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Death,Destroyed"/>
+</usertype>
+
+<table name="RemovalEvent">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="5101.49" y="3031.37"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="removalId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="removalDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="REMOVAL_PK" type="pk-constr" table="pigtrax.&quot;RemovalEvent&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="REMOVAL_U_RI" type="uq-constr" table="pigtrax.&quot;RemovalEvent&quot;">
+		<columns names="removalId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_GroupEvent" index="3"/>
+		<object name="id_PigInfo" index="4"/>
+		<object name="id_RemovalType" index="5"/>
+		<object name="id_TransportJourney" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="GroupEvent_fk" index="3"/>
+		<object name="PigInfo_fk" index="4"/>
+		<object name="RemovalEvent_uq" index="5"/>
+		<object name="RemovalType_fk" index="6"/>
+		<object name="TransportJourney_fk" index="2"/>
+	</customidxs>
+</table>
+
+<table name="SaleEvent">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="5288.2" y="3947.18"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="numberOfPigsOrigin" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="numberOfPigsDestination" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="reasonForMissingPigs">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="revenueUsd" not-null="true">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="weightInKgs" not-null="true">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="invoiceId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="ticketNumber" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="saleDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SALE_PK" type="pk-constr" table="pigtrax.&quot;SaleEvent&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Barn" index="13"/>
+		<object name="id_GroupEvent" index="15"/>
+		<object name="id_PigInfo" index="16"/>
+		<object name="id_SaleEventType" index="12"/>
+		<object name="id_TransportJourney" index="14"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Barn_fk" index="2"/>
+		<object name="GroupEvent_fk" index="4"/>
+		<object name="PigInfo_fk" index="5"/>
+		<object name="SaleEventType_fk" index="1"/>
+		<object name="SaleEvent_uq" index="6"/>
+		<object name="TransportJourney_fk" index="3"/>
+	</customidxs>
+</table>
+
+<schema name="pigtraxrefdata" rect-visible="true" fill-color="#e1e1e1">
+	<role name="pitraxadmin"/>
+</schema>
+
+<table name="SaleEventType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="7002.19" y="961.86"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="20"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SALETYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;SaleEventType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="SALETYPE_U_DE" type="uq-constr" table="pigtraxrefdata.&quot;SaleEventType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Sale_Refers_Barn" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Barn&quot;"
+	 dst-table="pigtrax.&quot;SaleEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Sale_refer_TransportJoueney" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;TransportJourney&quot;"
+	 dst-table="pigtrax.&quot;SaleEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Removal_refers_TransportJourney" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;TransportJourney&quot;"
+	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<usertype name="FeedEventTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="FeedIn,FeedOut"/>
+</usertype>
+
+<table name="FeedEvent">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="4605.44" y="2592.23"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="ticketNumber" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="feedId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="feedDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="batchId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="feedQuantityKgs" not-null="true">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="feedCost" not-null="true">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="feedMedication">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="FEED_PK" type="pk-constr" table="pigtrax.&quot;FeedEvent&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="FEED_U_TN" type="uq-constr" table="pigtrax.&quot;FeedEvent&quot;">
+		<columns names="ticketNumber" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_FeedEventType" index="7"/>
+		<object name="id_GroupEvent" index="6"/>
+		<object name="id_Silo" index="4"/>
+		<object name="id_TransportJourney" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="FeedEventType_fk" index="5"/>
+		<object name="GroupEvent_fk" index="4"/>
+		<object name="Silo_fk" index="2"/>
+		<object name="TransportJourney_fk" index="3"/>
+	</customidxs>
+</table>
+
+<usertype name="FeedEventTypeEnum" configuration="enumeration">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<enumeration values="FeedIn,FeedOut"/>
+</usertype>
+
+<relationship name="Feed_refers_Silo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Silo&quot;"
+	 dst-table="pigtrax.&quot;FeedEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="GroupEvent">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="5187.15" y="4577.42"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="groupId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="origin" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="beginDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="numberOfPigs" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="weightInKgs" not-null="true">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="inventoryAdjustment">
+		<type name="smallint"/>
+	</column>
+	<column name="groupCloseDateTime">
+		<type name="timestamp"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PIGEVENT_PK" type="pk-constr" table="pigtrax.&quot;GroupEvent&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PIGEVENT_GI_U" type="uq-constr" table="pigtrax.&quot;GroupEvent&quot;">
+		<columns names="groupId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_EmployeeGroup" index="5"/>
+		<object name="id_PhaseOfProductionType" index="13"/>
+		<object name="id_Room" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="EmployeeGroup_fk" index="3"/>
+		<object name="PhaseOfProductionType_fk" index="4"/>
+		<object name="Room_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="Pigevent_refers_room" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Room&quot;"
+	 dst-table="pigtrax.&quot;GroupEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="348.52" y="225.339"/>
+	</label>
+</relationship>
+
+<relationship name="Barn_has_many_Rooms" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Barn&quot;"
+	 dst-table="pigtrax.&quot;Room&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Premise_has_many_Barn" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Premise&quot;"
+	 dst-table="pigtrax.&quot;Barn&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-70.3303" y="10.3393"/>
+	</label>
+</relationship>
+
+<usertype name="GeneticsFuncTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="GGP,GP,P"/>
+</usertype>
+
+<usertype name="GeneticsFunctionEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="GGP,GP,P"/>
+</usertype>
+
+<table name="Genetics">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="5227.71" y="5116.89"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="geneticCo" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="geneticLine" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="id" type="pk-constr" table="pigtrax.&quot;Genetics&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_GeneticsFunctionType" index="2"/>
+		<object name="id_PigInfo" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="GeneticsFunctionType_fk" index="3"/>
+		<object name="Genetics_uq" index="2"/>
+		<object name="PigInfo_fk" index="1"/>
+	</customidxs>
+</table>
+
+<textbox name="Guide To Abbreviationw" italic="true" bold="true" font-size="9">
+	<position x="810.973" y="138.096"/>
+	<comment><![CDATA[pk - Primary Key
+uq - Unique Constraint
+fk - Foreign Key
+nn - Not Null]]></comment>
+</textbox>
+
+<table name="TransportTruck">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2256.39" y="2753.89"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="truckId" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="TRANSPORTTRUCK_PK" type="pk-constr" table="pigtrax.&quot;TransportTruck&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="TANSPORTTRUCK_TI" type="uq-constr" table="pigtrax.&quot;TransportTruck&quot;">
+		<columns names="truckId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Company" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Company_fk" index="2"/>
+	</customidxs>
+</table>
+
+<table name="TransportTrailer">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2628.15" y="2881.9"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="trailerId" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="TANSPORTTAILER_PK" type="pk-constr" table="pigtrax.&quot;TransportTrailer&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="TANSPORTRAILER_TI" type="uq-constr" table="pigtrax.&quot;TransportTrailer&quot;">
+		<columns names="trailerId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Company" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Company_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="Company_has_many_TransportTruck" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Company&quot;"
+	 dst-table="pigtrax.&quot;TransportTruck&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Company_has_many_TransportTrailer" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Company&quot;"
+	 dst-table="pigtrax.&quot;TransportTrailer&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="TransportJourney_Refers_TransportTruck" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;TransportTruck&quot;"
+	 dst-table="pigtrax.&quot;TransportJourney&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="TransportJourney_Refers_TransportTrailer" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;TransportTrailer&quot;"
+	 dst-table="pigtrax.&quot;TransportJourney&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Feed_Refers_TransportJourney" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;TransportJourney&quot;"
+	 dst-table="pigtrax.&quot;FeedEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Sale_Refers_PigEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;SaleEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Feed_Refers_to_GroupId_In_PigEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;FeedEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Removal_Refers_GroupId_In_PigEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="73.6697" y="8.83936"/>
+	</label>
+</relationship>
+
+<usertype name="PregnancyEventType" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="PregnancyExam,Abortion,NotInPig"/>
+</usertype>
+
+<table name="EmployeeGroup">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2309.82" y="4244.22"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="groupId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="isActive">
+		<type name="bool"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="EMPLOYEEGROUP_PK" type="pk-constr" table="pigtrax.&quot;EmployeeGroup&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_EmployeeJobFunction" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="EmployeeJobFunction_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="EmployeeGroup_Responsible_For_FarrowEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;EmployeeGroup&quot;"
+	 dst-table="pigtrax.&quot;FarrowEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="EmployeeGroup_Responsible_For_BreedingEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;EmployeeGroup&quot;"
+	 dst-table="pigtrax.&quot;BreedingEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="EmployeeGroup_Responsible_For_PigEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;EmployeeGroup&quot;"
+	 dst-table="pigtrax.&quot;GroupEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="EmployeeGroup_Responsible_For_PregnancyEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;EmployeeGroup&quot;"
+	 dst-table="pigtrax.&quot;PregnancyEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PigTraxEventMaster">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="3757.68" y="5265.67"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="eventTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PIGTRAXEVENTMASTER_PK" type="pk-constr" table="pigtrax.&quot;PigTraxEventMaster&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_BreedingEvent" index="3"/>
+		<object name="id_FarrowEvent" index="5"/>
+		<object name="id_FeedEvent" index="11"/>
+		<object name="id_GroupEvent" index="2"/>
+		<object name="id_PigInfo" index="10"/>
+		<object name="id_PigletStatus" index="6"/>
+		<object name="id_PregnancyEvent" index="4"/>
+		<object name="id_RemovalEvent" index="12"/>
+		<object name="id_SaleEvent" index="9"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="BreedingEvent_fk" index="2"/>
+		<object name="FarrowEvent_fk" index="4"/>
+		<object name="FeedEvent_fk" index="8"/>
+		<object name="GroupEvent_fk" index="1"/>
+		<object name="PigInfo_fk" index="9"/>
+		<object name="PigletStatus_fk" index="5"/>
+		<object name="PregnancyEvent_fk" index="3"/>
+		<object name="RemovalEvent_fk" index="7"/>
+		<object name="SaleEvent_fk" index="6"/>
+	</customidxs>
+</table>
+
+<relationship name="PigTraxEventMaster_contains_Groupevent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigTraxEventMaster_contains_BreedingEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;BreedingEvent&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigTraxEventMaster_contains_PregnancyEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PregnancyEvent&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigTraxEventMaster_contains_FarrowEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;FarrowEvent&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigTraxEventMaster_contains_PigletStatus" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigletStatus&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigTraxEventMaster_has_many_Sale" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;SaleEvent&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigTraxEventMaster_has_many_Removal" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;RemovalEvent&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigTraxEventMaster_has_many_Feed" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;FeedEvent&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<usertype name="SexTypeEnum" configuration="enumeration">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<enumeration values="Male,Female"/>
+</usertype>
+
+<table name="PigInfo">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="4443.15" y="3596.89"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="pigId">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="sireId">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="damId">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="entryDate">
+		<type name="date"/>
+	</column>
+	<column name="origin">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="gline">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="gcompany">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="birthDate">
+		<type name="timestamp"/>
+	</column>
+	<column name="tattoo">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="alternateTattoo">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="sowCondition">
+		<type name="smallint"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PIGINFO_PK" type="pk-constr" table="pigtrax.&quot;PigInfo&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PIGINFO_U_PI" type="uq-constr" table="pigtrax.&quot;PigInfo&quot;">
+		<columns names="pigId" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PIGINFO_U_TA" type="uq-constr" table="pigtrax.&quot;PigInfo&quot;">
+		<columns names="tattoo" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Barn" index="17"/>
+		<object name="id_Company" index="15"/>
+		<object name="id_Pen" index="16"/>
+		<object name="id_SexType" index="18"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Barn_fk" index="4"/>
+		<object name="Company_fk" index="6"/>
+		<object name="Pen_fk" index="3"/>
+		<object name="SexType_fk" index="5"/>
+	</customidxs>
+</table>
+
+<relationship name="Genetics_refers_PigInfo" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;Genetics&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigletStatus_Refers_PigInfo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;PigletStatus&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="55.5197" y="-66.6606"/>
+	</label>
+</relationship>
+
+<relationship name="PigTraxEventMaster_contains_PigInfoEvents" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Breeding_Refers_to_PigInfo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;BreedingEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="65.8696" y="61.8394"/>
+	</label>
+</relationship>
+
+<relationship name="Pen_has_a_Pig_or_many_piglets" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Pen&quot;"
+	 dst-table="pigtrax.&quot;PigInfo&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PregnancyExam_refers_PigInfo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;PregnancyEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Removal_is_associated_with_piginfo" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Barn_has_many_Pigs" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Barn&quot;"
+	 dst-table="pigtrax.&quot;PigInfo&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Sale_refers_PigInfo" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;SaleEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Farrow_refers_PigInfo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;FarrowEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="EmployeeJobFunction">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2919.05" y="4015.97"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="functionName" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="functionFrom" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="functionTo">
+		<type name="timestamp"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<constraint name="EMPLOYEEJOBFUNCTION_PK" type="pk-constr" table="pigtrax.&quot;EmployeeJobFunction&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="EmployeeJobFunction_Refers_Employee" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Employee&quot;"
+	 dst-table="pigtrax.&quot;EmployeeJobFunction&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="EmployeeGroup_Refers_EmployeeJobFunction" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;EmployeeJobFunction&quot;"
+	 dst-table="pigtrax.&quot;EmployeeGroup&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="TransportJourney_Doneby_an_Employee" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;EmployeeGroup&quot;"
+	 dst-table="pigtrax.&quot;TransportJourney&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="IndividualPigletStatus">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="2192.62" y="5073.35"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="tattooId" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="weightAtBirth">
+		<type name="smallint"/>
+	</column>
+	<column name="weightAtWeaning">
+		<type name="smallint"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="INDIPIGSTATUS_PK" type="pk-constr" table="pigtrax.&quot;IndividualPigletStatus&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="INDIPIGSTATUS_U_TA" type="uq-constr" table="pigtrax.&quot;IndividualPigletStatus&quot;">
+		<columns names="tattooId" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_FarrowEvent" index="6"/>
+		<object name="id_PigletStatus" index="7"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="FarrowEvent_fk" index="1"/>
+		<object name="PigletStatus_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="FarrowEvent_has_many_IndividualPigletStatus" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;FarrowEvent&quot;"
+	 dst-table="pigtrax.&quot;IndividualPigletStatus&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigletStatus_has_many_IndividualPigletStatus" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigletStatus&quot;"
+	 dst-table="pigtrax.&quot;IndividualPigletStatus&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="SaleEvent_refers_SaleEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;SaleEventType&quot;"
+	 dst-table="pigtrax.&quot;SaleEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="VentilationType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="1352.14" y="987.86"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="VENTILATIONTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;VentilationType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="VENTILATIONTYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;VentilationType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="PhaseType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="1865.71" y="983.17"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="72"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PHASETYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;PhaseType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PHASETYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;PhaseType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="RoleType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<appended-sql><![CDATA[INSERT INTO pigtraxrefdata."RoleType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'PigTrax SuperAdmin User',current_timestamp,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."RoleType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'PigTrax Data Config Mgr',current_timestamp,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."RoleType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'PigFarm SuperAdmin User',current_timestamp,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."RoleType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'PigFarm Data Config Mgr',current_timestamp,'pigtraxadmin');]]></appended-sql>
+	<position x="3030.95" y="984.76"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="ROLETYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;RoleType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="ROLETYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;RoleType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="TrailerType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="3531.43" y="958.1"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="TRAILERTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;TrailerType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="TRAILERTYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;TrailerType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="TransportTrailer_Refers_TrailerType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;TrailerType&quot;"
+	 dst-table="pigtrax.&quot;TransportTrailer&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PhaseOfProductionType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="5578.57" y="937.61"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PHASEOFPROD_PK" type="pk-constr" table="pigtraxrefdata.&quot;PhaseOfProductionType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PHASEOFPROD_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;PhaseOfProductionType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="GroupEvent_Refers_PhaseOfProduction" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PhaseOfProductionType&quot;"
+	 dst-table="pigtrax.&quot;GroupEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="BreedingServiceType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="4933.09" y="987.14"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="BREEDINGSERVICETYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;BreedingServiceType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="BREEDINGSERVICETYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;BreedingServiceType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="BreedingEvent_Refers_BreedingServiceType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;BreedingServiceType&quot;"
+	 dst-table="pigtrax.&quot;BreedingEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PregnancyExamResultType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="4446.67" y="952.14"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PREGEXAMRESULT_PK" type="pk-constr" table="pigtraxrefdata.&quot;PregnancyExamResultType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PREGEXAMRESULT_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;PregnancyExamResultType&quot;">
+		<columns names="fieldCode,id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="PregnancyEventType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="4006.67" y="959.28"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PREGNANCYEVENTTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;PregnancyEventType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PREGNANCYEVENTYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;PregnancyEventType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="PregnancyEvent_Refers_PregnancyEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PregnancyEventType&quot;"
+	 dst-table="pigtrax.&quot;PregnancyEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PregnancyEvent_Refers_PregnancyExamResultType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PregnancyExamResultType&quot;"
+	 dst-table="pigtrax.&quot;PregnancyEvent&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PigletStatusEventType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="852.38" y="970.72"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PIGLETSTATUSETYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;PigletStatusEventType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PIGLETSTATUSETYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;PigletStatusEventType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="PigletStatus_Refers_PigletStatusEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PigletStatusEventType&quot;"
+	 dst-table="pigtrax.&quot;PigletStatus&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="FeedEventType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="6074.05" y="951.43"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="FEEDEVENTTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;FeedEventType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="FEEDEVENTYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;FeedEventType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="FeedEvent_Refers_FeedEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;FeedEventType&quot;"
+	 dst-table="pigtrax.&quot;FeedEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="GeneticsFunctionType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="7506.19" y="949.76"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="GENETICSFUNCSTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;GeneticsFunctionType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="GENETICSFUNCTYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;GeneticsFunctionType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Genetics_Refers_GeneticsFunctionType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;GeneticsFunctionType&quot;"
+	 dst-table="pigtrax.&quot;Genetics&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="SexType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<appended-sql><![CDATA[INSERT INTO pigtraxrefdata."SexType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Male',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SexType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Female',CURRENT_TIMESTAMP,'pigtraxadmin');]]></appended-sql>
+	<position x="4046.91" y="436.9"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SEXTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;SexType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="SEXTYPE_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;SexType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="PigInfo_Refers_SexType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;SexType&quot;"
+	 dst-table="pigtrax.&quot;PigInfo&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="RemovalType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="6543.81" y="970"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint" length="2"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="REMOVALTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;RemovalType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="REMOVALTYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;RemovalType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Removal_Refers_RemovalType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;RemovalType&quot;"
+	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="Barn_Refers_Phasetype" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PhaseType&quot;"
+	 dst-table="pigtrax.&quot;Barn&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-42.4804" y="-1.52687"/>
+	</label>
+</relationship>
+
+<table name="PhaseTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="1758.33" y="668.33"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PHASETYPETRANLATION_PK" type="pk-constr" table="pigtraxrefdata.&quot;PhaseTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PHASETYPETRANSLATION_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;PhaseTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="PhaseTypeTranslation_Refers_PhaseType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PhaseType&quot;"
+	 dst-table="pigtraxrefdata.&quot;PhaseTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="VentilationTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="1279.76" y="576.9"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="VENTILATIONTYPETRANSLATION_PK" type="pk-constr" table="pigtraxrefdata.&quot;VentilationTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="VENTILATIONTYPETRANS_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;VentilationTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_VentilationType" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="VentilationType_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="VentilationTypeTranslation_Refers_VentilationType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;VentilationType&quot;"
+	 dst-table="pigtraxrefdata.&quot;VentilationTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Barn_Has_VentilationTypes" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;VentilationType&quot;"
+	 dst-table="pigtrax.&quot;Barn&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="SiloType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="2369" y="984.87"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SILOTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;SiloType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="SILOTYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;SiloType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="SiloTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="2325" y="701.67"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SILOTYPE_TANSLATION_PK" type="pk-constr" table="pigtraxrefdata.&quot;SiloTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="SILOTYPETANS_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;SiloTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="SiloTypeTranslation_Refers_SiloType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;SiloType&quot;"
+	 dst-table="pigtraxrefdata.&quot;SiloTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Silo_Refers_SiloType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;SiloType&quot;"
+	 dst-table="pigtrax.&quot;Silo&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="RoleTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<appended-sql><![CDATA[INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('PT SuperAdmin','en',current_timestamp,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('PT Data Config Mgr','en',current_timestamp,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('Farm SuperAdmin','en',current_timestamp,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('Farm Data Config Mgr','en',current_timestamp,'pigtraxadmin',2);
+
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('PT SuperAdmin_ES','es',current_timestamp,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('PT Data Config Mgr_ES','es',current_timestamp,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('Farm SuperAdmin_ES','es',current_timestamp,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('Farm Data Config Mgr_ES','es',current_timestamp,'pigtraxadmin',2);
+
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('PT SuperAdmin_PR','pr',current_timestamp,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('PT Data Config Mgr_PR','pr',current_timestamp,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('Farm SuperAdmin_PR','pr',current_timestamp,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."RoleTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RoleType") VALUES ('Farm Data Config Mgr_PR','pr',current_timestamp,'pigtraxadmin',2);]]></appended-sql>
+	<position x="2943.33" y="665"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="ROLETYPE_PK_1" type="pk-constr" table="pigtraxrefdata.&quot;RoleTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="ROLETYPE_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;RoleTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_RoleType" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="RoleType_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="RoleTypeTranslation_Refers_RoleType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;RoleType&quot;"
+	 dst-table="pigtraxrefdata.&quot;RoleTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="TrailerTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="3483.33" y="695"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="TRAILERTYPETRANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;TrailerTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="TRAILERTYPETRANS_FL_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;TrailerTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="TrailerTypeTranslation_Refers_TrailerType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;TrailerType&quot;"
+	 dst-table="pigtraxrefdata.&quot;TrailerTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PhaseOfProductionTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="5396.67" y="671.67"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PHASEOFPROD_PK_1" type="pk-constr" table="pigtraxrefdata.&quot;PhaseOfProductionTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PHASEOFPROD_FL_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;PhaseOfProductionTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_PhaseOfProductionType" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="PhaseOfProductionType_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="PhaseOfProductionTypeTranslation_Refers_PhaseOfProductionType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PhaseOfProductionType&quot;"
+	 dst-table="pigtraxrefdata.&quot;PhaseOfProductionTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="BreedingServiceTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="4810" y="654.05"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="BREEDINGSERVTRANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;BreedingServiceTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="BREEDINGSERVTRANS_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;BreedingServiceTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="BreedingServiceTypeTranslation_Refers_BreedingServiceType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;BreedingServiceType&quot;"
+	 dst-table="pigtraxrefdata.&quot;BreedingServiceTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PregnancyEventTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="3882.86" y="595.48"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+</table>
+
+<relationship name="PregnancyEventTypeTranslation_Refers_PregnancyEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PregnancyEventType&quot;"
+	 dst-table="pigtraxrefdata.&quot;PregnancyEventTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PregnancyExamResultTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="4482.86" y="499.76"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PREGEXAMRESULTTYPETANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;PregnancyExamResultTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PREGEXAMRESULTTYPETANS_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;PregnancyExamResultTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="PregnancyExamResultTypeTransla_Refers_PregnancyExamResultType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PregnancyExamResultType&quot;"
+	 dst-table="pigtraxrefdata.&quot;PregnancyExamResultTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="PigletStatusEventTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="792.857" y="579.76"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="PIGLETSTATUSEVENTTYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;PigletStatusEventTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PIGLETSTATUSTYPE_FL_FV_U" type="uq-constr" table="pigtraxrefdata.&quot;PigletStatusEventTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="PigletStatusEventTypeTranslation_Refers_PigletStatusEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;PigletStatusEventType&quot;"
+	 dst-table="pigtraxrefdata.&quot;PigletStatusEventTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="SexTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<appended-sql><![CDATA[INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Male','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Female','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+
+INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Male_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Female_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+
+INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Male_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Female_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+]]></appended-sql>
+	<position x="3264.29" y="431.19"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SEXTYPETRANSLATION_PK" type="pk-constr" table="pigtraxrefdata.&quot;SexTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="SEXTYPETANSLATION_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;SexTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_SexType" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="SexType_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="SexTypeTranslation_Refers_SexType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;SexType&quot;"
+	 dst-table="pigtraxrefdata.&quot;SexTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="RemovalEventTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="6506.43" y="609.05"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="REMOVALEVENTTRANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;RemovalEventTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="REMOVALEVENTTYPE_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;RemovalEventTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="RemovalEventTypeTranslation_Refers_RemovalType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;RemovalType&quot;"
+	 dst-table="pigtraxrefdata.&quot;RemovalEventTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="SaleEventTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="6907.86" y="611.9"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SALEEVENTTYPETRANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;SaleEventTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="SALEEVENTTYPETRANS_FL_FV_U" type="uq-constr" table="pigtraxrefdata.&quot;SaleEventTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="SaleEventType_Refers_SaleEventTypeTranslation" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;SaleEventType&quot;"
+	 dst-table="pigtraxrefdata.&quot;SaleEventTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="FeedEventTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="6010.24" y="488.1"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="FEEDEVENTTYPETRANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;FeedEventTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="FEEDEVENTTYPETRANS_FL_FV_U" type="uq-constr" table="pigtraxrefdata.&quot;FeedEventTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="FeedEventTypeTranslation_Refers_FeedEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;FeedEventType&quot;"
+	 dst-table="pigtraxrefdata.&quot;FeedEventTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="GeneticFunctionTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="7398.33" y="516.67"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="GENETICFUNCTYPETRANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;GeneticFunctionTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="GENETICFUNCTYPETRANS_FV_FL_U" type="uq-constr" table="pigtraxrefdata.&quot;GeneticFunctionTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="GeneticFunctionTypeTranslation_Refers_GeneticsFunctionType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;GeneticsFunctionType&quot;"
+	 dst-table="pigtraxrefdata.&quot;GeneticFunctionTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="EventLog">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="4422.44" y="5303.04"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="eventDate" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="remarks" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="notes" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="EVENTLOG_PK" type="pk-constr" table="pigtrax.&quot;EventLog&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="EventAreaType">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="5491.67" y="351.67"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldCode" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="fieldDescription" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdate" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="EVENTAREATYPE_PK" type="pk-constr" table="pigtraxrefdata.&quot;EventAreaType&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="EVENTAREATYPE_FC_U" type="uq-constr" table="pigtraxrefdata.&quot;EventAreaType&quot;">
+		<columns names="fieldCode" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="EventAreaTypeTranslation">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="4756.67" y="348.33"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="fieldValue" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="fieldLanguage" not-null="true">
+		<type name="char" length="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="EVENTAREATYPETANS_PK" type="pk-constr" table="pigtraxrefdata.&quot;EventAreaTypeTranslation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="EVENTAREATYPETRANS_FC_FV_U" type="uq-constr" table="pigtraxrefdata.&quot;EventAreaTypeTranslation&quot;">
+		<columns names="fieldValue,fieldLanguage" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="EventAreaTypeTranslation_Refers_EventAreaType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;EventAreaType&quot;"
+	 dst-table="pigtraxrefdata.&quot;EventAreaTypeTranslation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="EventLog_Refers_EventAreaType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;EventAreaType&quot;"
+	 dst-table="pigtrax.&quot;EventLog&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="EventLog_Refers_GroupEvent" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;EventLog&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="EventLog_Refers_Barn" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Barn&quot;"
+	 dst-table="pigtrax.&quot;EventLog&quot;"
+	 src-required="false" dst-required="false"/>
+
+<index name="COMPANY_COID" table="pigtrax.&quot;Company&quot;"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="&quot;companyId&quot;"/>
+		</idxelement>
+</index>
+
+<relationship name="Employee_Refers_RoleType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;RoleType&quot;"
+	 dst-table="pigtrax.&quot;Employee&quot;"
+	 src-required="false" dst-required="false"/>
+
+<index name="EMPLOYEE_CI_IN" table="pigtrax.&quot;Employee&quot;"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="&quot;employeeId&quot;"/>
+		</idxelement>
+</index>
+
+<index name="EMPLOYEE_CI_C_IN" table="pigtrax.&quot;Employee&quot;"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="&quot;employeeId&quot;"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="&quot;id_Company&quot;"/>
+		</idxelement>
+</index>
+
+<table name="Country">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="2050" y="365.714"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" length="20" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="COUNTRY_PK" type="pk-constr" table="pigtraxrefdata.&quot;Country&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="COUNTRY_NAME_U" type="uq-constr" table="pigtraxrefdata.&quot;Country&quot;">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="City">
+	<schema name="pigtraxrefdata"/>
+	<role name="pitraxadmin"/>
+	<position x="2805.71" y="420"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="CITY_PK" type="pk-constr" table="pigtraxrefdata.&quot;City&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Country" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Country_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="Country_has_many_City" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;Country&quot;"
+	 dst-table="pigtraxrefdata.&quot;City&quot;"
+	 src-required="false" dst-required="false"/>
+
+<constraint name="CITY_NAME_COUNTRY_U" type="uq-constr" table="pigtraxrefdata.&quot;City&quot;">
+	<columns names="name,id_Country" ref-type="src-columns"/>
+</constraint>
+
+<relationship name="Company_has_many_PigInfo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Company&quot;"
+	 dst-table="pigtrax.&quot;PigInfo&quot;"
+	 src-required="true" dst-required="false"/>
+
+</dbmodel>
