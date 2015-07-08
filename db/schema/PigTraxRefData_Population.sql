@@ -32,3 +32,58 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 
 INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Male_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SexType") VALUES ('Female_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+
+
+--Countries
+INSERT INTO pigtraxrefdata."Country" (name, "lastUpdated", "userUpdated") VALUES ('Brazil', CURRENT_TIMESTAMP, 'pigtraxadmin');
+INSERT INTO pigtraxrefdata."Country" (name, "lastUpdated", "userUpdated") VALUES ('Spain', CURRENT_TIMESTAMP, 'pigtraxadmin');
+INSERT INTO pigtraxrefdata."Country" (name, "lastUpdated", "userUpdated") VALUES ('USA', CURRENT_TIMESTAMP, 'pigtraxadmin');
+
+--City
+--Brazil Cities
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Alegre', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Aracaju', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Belem', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Belo_Horizonte', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Boa_Vista', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Botucatu', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Brasilandia', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Campinas', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Campo Grande', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Canoas', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Cuiaba', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Curitiba', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Diadema', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Florianopolis', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Fortaleza', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Goiania', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Guarulhos', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Joao Pessoa', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Juiz de Fora', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Jundiai', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Londrina', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Macapa', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Maceio', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Manaus', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Natal', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Niteroi', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Nova Hamburgo', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Palmas', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Paranagua', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Pelotas', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Porto Alegre', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Porto Velho', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Recife', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Ribeirao Preto', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Rio de Janeiro', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Salvador', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Santo Andre', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Santos', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Sao Bernardo do Campo', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Sao Jose dos Campos', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Sao Luiz', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Sao Paulo', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Teresina', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+INSERT INTO pigtraxrefdata."City" (name, "lastUpdated", "userUpdated", "id_Country") VALUES ('Vitoria', CURRENT_TIMESTAMP, 'pigtraxadmin', 1);
+
+--Spain Cities
