@@ -1,8 +1,8 @@
-pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices, companyServices) {	
+pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices, sharedProperties) {	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
-	$scope.differentPages=[{"name":"Barn","value":"Barn"},{"name":"Premises","value":"Premises"}];
+	$scope.differentPages=[{"name":"Barn","value":"Barn"},{"name":"Premises","value":"premises"}];
 	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
@@ -31,9 +31,13 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 	
 	 $scope.$watch($scope.editCompanyData, $scope.getCompanyList, true);
 	
-	$scope.gotToPage = function(index)
+	$scope.gotToPage = function(index,row)
 	{
-		$window.location = 'employee';
+		console.log(index);
+		console.log($scope.differentPages[index].value);
+		sharedProperties.setProperty(row.companyId);
+		console.log(sharedProperties.getProperty());
+		$window.location = $scope.differentPages[index].value;
 	}
     
 	$scope.addCompanyData = function () {

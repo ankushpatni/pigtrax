@@ -3,6 +3,8 @@ pigTrax.factory("restServices", function($resource) {
     {
     	"getEmployeeList"      :  {method:"GET", url:"rest/employee/getEmployeeList"},
     	"getCompanyList"   	   :  {method:"GET", url:"rest/company/getCompanyList"},
-    	"updateCompanyStatus"  :  {method:"POST", url:"rest/company/updateCompanyStatus"}
+    	"updateCompanyStatus"  :  {method:"POST", url:"rest/company/updateCompanyStatus"},
+    	"getPremisesList"      :  {method:"GET", url:"rest/premises/getPremisesList"},
+    	"updatePremisesStatus"  :  {method:"POST", url:"rest/premises/updatePremisesStatus"},
     });
 });
