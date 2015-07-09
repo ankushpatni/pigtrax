@@ -24,7 +24,7 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
     	$scope.add.payment = companyData.payment,
     	$scope.add.paymentDate = companyData.paymentDate, 
     	$scope.add.active = companyData.active,
-    	$scope.add.id = companyData.id
+    	$scope.add.id = companyData.id;
 	}
 	
 	$scope.addCompany = function() {

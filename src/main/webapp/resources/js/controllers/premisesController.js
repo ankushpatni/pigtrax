@@ -1,8 +1,9 @@
-pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices, sharedProperties) {	
+pigTrax.controller('PremisesController', function($scope, $http, $window,$modal, restServices, sharedProperties) {	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
-	$scope.differentPages=[{"name":"Premises","value":"premises"}];
+	$scope.companyId = sharedProperties.getProperty();
+	$scope.differentPages=[{"name":"Barn","value":"Barn"}];
 	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
@@ -16,10 +17,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
     //deactivate/activate to the real data holder
     $scope.removeItem = function removeItem(row) {
     	var postParam = {
-    			"companyId" : row.companyId,
+    			"premisesID" : row.permiseId,
     			"isActive" : row.active
     	};
-    	var res = $http.post('rest/company/updateCompanyStatus?companyId='+row.companyId +"&isActive="+row.active, postParam);
+    	var res = $http.post('rest/premises/updatePremisesStatus?premisesID='+row.permiseId +"&isActive="+row.active, postParam);
 		res.success(function(data, status, headers, config) {
 		row.active = !row.active;
 			console.log(data);
@@ -31,23 +32,19 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 	
 	 $scope.$watch($scope.editCompanyData, $scope.getCompanyList, true);
 	
-	$scope.gotToPage = function(index,row)
+	$scope.gotToPage = function(index)
 	{
-		console.log(index);
-		console.log($scope.differentPages[index].value);
-		sharedProperties.setProperty(row.companyId);
-		console.log(sharedProperties.getProperty());
-		$window.location = $scope.differentPages[index].value;
+		$window.location = 'employee';
 	}
     
-	$scope.addCompanyData = function () {
+	$scope.addPremiseData = function () {
     		var modalInstance = $modal.open ({
-    			templateUrl: 'addCompany',
-    			controller: 'addCompanyCtrl',
+    			templateUrl: 'addPremises',
+    			controller: 'addPremisesCtrl',
     			backdrop:true,
     			windowClass : 'cp-model-window',
 				resolve:{
-    				companyData : function(){
+					premisesData : function(){
     					return null;
     				}
     			}
@@ -56,36 +53,39 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
     		modalInstance.result.then( function(res) {    			
     			if(res.statusMessage==="SUCCESS")
 				{
-					$scope.getCompanyList();				
+					$scope.getPremisesList();				
 				}
     		});
     }
 	
-	$scope.editCompanyData = function(companyRow){
+	$scope.editPremiseData = function(premisesData){
 		var modalInstance = $modal.open ({
-    			templateUrl: 'addCompany',
-    			controller: 'addCompanyCtrl',
+    			templateUrl: 'addPremises',
+    			controller: 'addPremisesCtrl',
     			backdrop:true,
     			windowClass : 'cp-model-window',
     			resolve:{
-    				companyData : function(){
-    					return companyRow;
+    				premisesData : function(){
+    					return premisesData;
     				}
     			}
     		});    		
     		modalInstance.result.then( function(res) {
 				if(res.statusMessage==="SUCCESS")
 				{
-					$scope.getCompanyList();				
+					$scope.getPremisesList();				
 				}
 			});
 		
     	}
-	
-	$scope.getCompanyList = function(){
-		restServices.getCompanyList(function(data){
+		
+	$scope.getPremisesList = function(){
+	console.log($scope.companyId);
+		restServices.getPremisesList(function(data){
 			 if(!data.error)
 			 {
+				
+				console.log(data.payload);
 				$scope.rowCollection = data.payload;
 				$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
 			 }
