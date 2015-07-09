@@ -1,4 +1,4 @@
-package com.pigtrax.dto;
+package com.pigtrax.cache.dto;
 
 public class RefDataTranslationDto {
 

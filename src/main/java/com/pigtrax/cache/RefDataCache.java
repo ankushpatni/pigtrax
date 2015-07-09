@@ -13,4 +13,8 @@ public interface RefDataCache {
 
 	Set<String> getAllCountries();
 
+	Map<Integer, String> getPhaseTypeMap(String language);
+
+	Map<Integer, String> getVentilationTypeMap(String language);
+
 }
