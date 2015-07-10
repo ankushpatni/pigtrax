@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.master.location.Premises;
-import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.dao.interfaces.PremisesDao;
 import com.pigtrax.usermanagement.service.interfaces.PremisesService;
 

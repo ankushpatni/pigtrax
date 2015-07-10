@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
-import com.pigtrax.dto.RefDataTranslationDto;
+import com.pigtrax.cache.dto.RefDataTranslationDto;
 
 public class RefDataDaoImpl implements RefDataDao {
 
@@ -29,6 +29,18 @@ public class RefDataDaoImpl implements RefDataDao {
 	@Override
 	public List<RefDataTranslationDto> getSexData() {
 		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_SexType\" FROM pigtraxrefdata.\"SexTypeTranslation\" order by \"fieldLanguage\", \"id_SexType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getPhaseTypeData() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PhaseType\" FROM pigtraxrefdata.\"PhaseTypeTranslation\" order by \"fieldLanguage\", \"id_PhaseType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getVentilationTypeData() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_VentilationType\" FROM pigtraxrefdata.\"VentilationTypeTranslation\" order by \"fieldLanguage\", \"id_VentilationType\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 

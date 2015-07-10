@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
-import com.pigtrax.dto.RefDataTranslationDto;
+import com.pigtrax.cache.dto.RefDataTranslationDto;
 
 public class RefDataCacheImpl implements RefDataCache{
 	
@@ -29,6 +29,11 @@ public class RefDataCacheImpl implements RefDataCache{
 	
 	private Map<String, Map<Integer, String>> sexTypeMap;
 	
+	private Map<String, Map<Integer, String>> phaseTypeMap;
+
+	private Map<String, Map<Integer, String>> ventilationTypeMap;
+
+	
 	/*
 	 * This map is simpler
 	 * <Country, <[List of cities in this country]>>
@@ -40,6 +45,8 @@ public class RefDataCacheImpl implements RefDataCache{
 	public void populateCaches(){
 		roleTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getRoleTypeData()));
 		sexTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSexData()));
+		phaseTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseTypeData()));
+		ventilationTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getVentilationTypeData()));
 		cityCountryMap = Collections.unmodifiableMap(refDataDao.getCountryCityData());
 	}
 
@@ -51,6 +58,16 @@ public class RefDataCacheImpl implements RefDataCache{
 	@Override
 	public Map<Integer, String> getSexTypeMap(String language){
 		return sexTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getPhaseTypeMap(String language){
+		return phaseTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getVentilationTypeMap(String language){
+		return ventilationTypeMap.get(language);
 	}
 	
 	@Override
