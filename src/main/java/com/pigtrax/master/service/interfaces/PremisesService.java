@@ -1,9 +1,9 @@
-package com.pigtrax.usermanagement.service.interfaces;
+package com.pigtrax.master.service.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import com.pigtrax.master.location.Premises;
+import com.pigtrax.master.dto.Premises;
 
 public interface PremisesService {
 	

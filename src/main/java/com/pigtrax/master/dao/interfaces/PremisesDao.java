@@ -1,9 +1,9 @@
-package com.pigtrax.usermanagement.dao.interfaces;
+package com.pigtrax.master.dao.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import com.pigtrax.master.location.Premises;
+import com.pigtrax.master.dto.Premises;
 import com.pigtrax.usermanagement.beans.Company;
 
 public interface PremisesDao {

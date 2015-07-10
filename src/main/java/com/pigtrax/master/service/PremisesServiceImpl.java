@@ -1,4 +1,4 @@
-package com.pigtrax.usermanagement.service;
+package com.pigtrax.master.service;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pigtrax.master.location.Premises;
-import com.pigtrax.usermanagement.dao.interfaces.PremisesDao;
-import com.pigtrax.usermanagement.service.interfaces.PremisesService;
+import com.pigtrax.master.dao.interfaces.PremisesDao;
+import com.pigtrax.master.dto.Premises;
+import com.pigtrax.master.service.interfaces.PremisesService;
 
 @Repository
 public class PremisesServiceImpl implements PremisesService{

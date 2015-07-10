@@ -1,4 +1,4 @@
-package com.pigtrax.usermanagement.dao;
+package com.pigtrax.master.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +13,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pigtrax.master.location.Premises;
-import com.pigtrax.usermanagement.dao.interfaces.PremisesDao;
+import com.pigtrax.master.dao.interfaces.PremisesDao;
+import com.pigtrax.master.dto.Premises;
 import com.pigtrax.util.UserUtil;
 
 

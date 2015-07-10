@@ -1,4 +1,4 @@
-package com.pigtrax.usermanagement.controller;
+package com.pigtrax.master.controller;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pigtrax.master.location.Premises;
+import com.pigtrax.master.dto.Premises;
+import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
-import com.pigtrax.usermanagement.service.interfaces.PremisesService;
 
 @RestController
 @RequestMapping("rest/premises")

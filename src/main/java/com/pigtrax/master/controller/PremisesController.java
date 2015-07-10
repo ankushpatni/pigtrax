@@ -1,4 +1,4 @@
-package com.pigtrax.usermanagement.controller;
+package com.pigtrax.master.controller;
 
 import java.sql.SQLException;
 

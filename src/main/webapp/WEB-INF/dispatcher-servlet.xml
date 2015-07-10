@@ -17,6 +17,10 @@
 	<context:component-scan base-package="com.pigtrax.usermanagement.service" />
 	<context:component-scan base-package="com.pigtrax.cache" />
 	<context:component-scan base-package="com.pigtrax.cache.dao" />
+	<context:component-scan base-package="com.pigtrax.master.controller" />
+	<context:component-scan base-package="com.pigtrax.master.dto" />
+	<context:component-scan base-package="com.pigtrax.master.dao" />
+	<context:component-scan base-package="com.pigtrax.master.service" />
 	
  
 	<mvc:annotation-driven />

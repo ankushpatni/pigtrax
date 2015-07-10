@@ -1,4 +1,4 @@
-package com.pigtrax.master.location;
+package com.pigtrax.master.dto;
 
 import java.util.Date;
 
