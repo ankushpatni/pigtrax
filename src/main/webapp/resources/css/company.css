@@ -7,3 +7,11 @@
 	float : left;
 	align-text:right
 }
+.cp-add-row-premise {
+	width : 58%;
+	margin-top : 5px
+}
+.cp-add-row-premise-companyId {
+	width : 10%;
+	margin-top : 5px
+}

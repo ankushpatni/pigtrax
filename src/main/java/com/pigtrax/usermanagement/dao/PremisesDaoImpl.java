@@ -33,8 +33,8 @@ public class PremisesDaoImpl implements PremisesDao{
 	}
 	
 	@Override
-	public List<Premises> getPremisesList() {
-		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\" from pigtrax.\"Premise\" order by \"id\" desc ";
+	public List<Premises> getPremisesList(int generatedCompanyId) {
+		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\" from pigtrax.\"Premise\" where \"id_Company\" = "+generatedCompanyId+"order by \"id\" desc ";
 		return jdbcTemplate.query(query, new PremisesMapper());
 	}
 
@@ -72,7 +72,7 @@ public class PremisesDaoImpl implements PremisesDao{
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, premises.getPermiseId().toUpperCase());
-				ps.setInt(2, 1);
+				ps.setInt(2, premises.getCompanyId());
 				ps.setString(3, premises.getName());
 				ps.setString(4, premises.getAddress());
 				ps.setString(5, premises.getCity());

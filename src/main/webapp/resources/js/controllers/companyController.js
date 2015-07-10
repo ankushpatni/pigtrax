@@ -37,7 +37,7 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		console.log($scope.differentPages[index].value);
 		sharedProperties.setProperty(row.companyId);
 		console.log(sharedProperties.getProperty());
-		$window.location = $scope.differentPages[index].value;
+		$window.location = $scope.differentPages[index].value+'?generatedCompanyId='+row.id;
 	}
     
 	$scope.addCompanyData = function () {

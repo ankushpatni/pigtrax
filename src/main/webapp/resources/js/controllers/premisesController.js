@@ -2,7 +2,8 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
-	$scope.companyId = sharedProperties.getProperty();
+	$scope.companyId;
+	$scope.generatedCompanyId;
 	$scope.differentPages=[{"name":"Barn","value":"Barn"}];
 	
 	$scope.hoverIn = function(){
@@ -38,14 +39,17 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 	}
     
 	$scope.addPremiseData = function () {
-    		var modalInstance = $modal.open ({
+			var modalInstance = $modal.open ({
     			templateUrl: 'addPremises',
     			controller: 'addPremisesCtrl',
     			backdrop:true,
     			windowClass : 'cp-model-window',
 				resolve:{
 					premisesData : function(){
-    					return null;
+						var premisesData={};
+						premisesData.companyId= $scope.companyId;
+						premisesData.generatedCompanyId = $scope.generatedCompanyId;						
+    					return premisesData;
     				}
     			}
     		});
@@ -53,7 +57,7 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
     		modalInstance.result.then( function(res) {    			
     			if(res.statusMessage==="SUCCESS")
 				{
-					$scope.getPremisesList();				
+					$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);				
 				}
     		});
     }
@@ -66,6 +70,7 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
     			windowClass : 'cp-model-window',
     			resolve:{
     				premisesData : function(){
+    					premisesData.generatedCompanyId = $scope.premisesData;
     					return premisesData;
     				}
     			}
@@ -73,22 +78,31 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
     		modalInstance.result.then( function(res) {
 				if(res.statusMessage==="SUCCESS")
 				{
-					$scope.getPremisesList();				
+					$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);				
 				}
 			});
 		
     	}
 		
-	$scope.getPremisesList = function(){
-	console.log($scope.companyId);
-		restServices.getPremisesList(function(data){
+	$scope.getPremisesList = function(companyId,generatedCompanyId){
+	console.log("companyId--->"+companyId)
+	$scope.companyId = companyId;
+	$scope.generatedCompanyId = generatedCompanyId;
+	var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+generatedCompanyId);
+		res.success(function(data, status, headers, config) {
+			$scope.rowCollection = data.payload;
+			$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		/*restServices.getPremisesList(function(data){
 			 if(!data.error)
 			 {
-				
 				console.log(data.payload);
 				$scope.rowCollection = data.payload;
 				$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
 			 }
-		});
+		},companyId);*/
 	};
 });

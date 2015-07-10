@@ -10,7 +10,8 @@
               <div>
 				<label class="cp-add-row-labal"><spring:message code="label.premise.premiseID" text="Premise ID" /><span style='color: red'>*</span></label>
 				<label class="cp-add-row" ng-show="edit">{{add.permiseId}}</label>
-				<input ng-hide="edit" class="cp-add-row" type="text" placeholder="<spring:message code='label.premise.premiseID' text='Premise ID' />" name="premiseId" ng-model="add.permiseId" maxlength="6" size="5" required required-message="'<spring:message code='label.premise.premiseIDRequired' text='Premise Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.company.premiseIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
+				<label class=".cp-add-row-premise-companyId" ng-hide="edit">{{add.companyId}}</label>
+				<input ng-hide="edit" class="cp-add-row-premise" type="text" placeholder="<spring:message code='label.premise.premiseID' text='Premise ID' />" name="premiseId" ng-model="add.permiseId" maxlength="6" size="5" required required-message="'<spring:message code='label.premise.premiseIDRequired' text='Premise Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.company.premiseIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
 			 <div>
 				<label class="cp-add-row-labal"><spring:message code="label.premise.name" text="Name" /><span style='color: red'>*</span></label>
@@ -32,7 +33,7 @@
 			</div>
 			<div>
 				<label class="cp-add-row-labal"><spring:message code="label.premise.zipcode" text="Zipcode" /><span style='color: red'>*</span></label>
-				<textarea class="cp-add-row" type="text" placeholder="<spring:message code='label.premise.zipcode' text='Zipcode' />" name="zipcode" ng-model="add.zipcode" maxlength="9" required required-message="'<spring:message code='label.premise.zipcodeRequired' text='Zipcode address is required' />'" />
+				<input class="cp-add-row" type="text" placeholder="<spring:message code='label.premise.zipcode' text='Zipcode' />" name="zipcode" ng-model="add.zipcode" maxlength="9" required required-message="'<spring:message code='label.premise.zipcodeRequired' text='Zipcode address is required' />'" />
 			</div>           
         </div>
         <div class="cp-modal-body-btns">

@@ -18,8 +18,8 @@ public class PremisesServiceImpl implements PremisesService{
 	private PremisesDao premisesDao;
 
 	@Override
-	public List<Premises> getPremisesList() {
-		return premisesDao.getPremisesList();
+	public List<Premises> getPremisesList(int generatedCompanyId) {
+		return premisesDao.getPremisesList( generatedCompanyId );
 	}
 
 	@Override

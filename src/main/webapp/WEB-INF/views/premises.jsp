@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
-<div id="premisesContent" ng-controller="PremisesController" ng-init="getPremisesList()">
+<div id="premisesContent" ng-controller="PremisesController" ng-init="getPremisesList('${companyId}',${generatedCompanyId})">
 	<button type="button" ng-click="addPremiseData()" class="btn btn-sm btn btn-primary">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.premise.addNewPremise" text="Add New Premise" />

@@ -32,11 +32,11 @@ public class PremisesRestController {
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getPremisesList", method=RequestMethod.GET, produces="application/json")
-	public ServiceResponseDto getPremisesList()
+	public ServiceResponseDto getPremisesList(@RequestParam int generatedCompanyId)
 	{
 		logger.info("Inside getPremisesList" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		List<Premises> premisesList  = premisesService.getPremisesList();
+		List<Premises> premisesList  = premisesService.getPremisesList(generatedCompanyId);
 		dto.setPayload(premisesList);
 		dto.setStatusMessage("Success");
 		return dto;
