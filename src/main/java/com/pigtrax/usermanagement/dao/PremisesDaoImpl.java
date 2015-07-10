@@ -1,6 +1,5 @@
 package com.pigtrax.usermanagement.dao;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +14,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.master.location.Premises;
-import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.dao.interfaces.PremisesDao;
 import com.pigtrax.util.UserUtil;
+
+
 
 @Repository
 @Transactional
@@ -33,9 +33,16 @@ public class PremisesDaoImpl implements PremisesDao{
 	}
 	
 	@Override
-	public List<Premises> getPremisesList(int generatedCompanyId) {
-		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\" from pigtrax.\"Premise\" where \"id_Company\" = "+generatedCompanyId+"order by \"id\" desc ";
-		return jdbcTemplate.query(query, new PremisesMapper());
+	public List<Premises> getPremisesList(final int generatedCompanyId) {
+		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\" from pigtrax.\"Premise\" where \"id_Company\" = ? order by \"id\" desc ";
+		
+		List<Premises> premisesList = jdbcTemplate.query(query, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, generatedCompanyId);
+			}}, new PremisesMapper());
+		
+		return premisesList;
 	}
 
 
