@@ -76,7 +76,6 @@ public class PremisesRestController {
 	{
 		logger.debug("Inside insertPremisesRecord()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		logger.info("String ---->"+premises.toString());
 		int updatedRecord = 0;
 		try 
 		{

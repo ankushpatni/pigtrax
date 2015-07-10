@@ -29,17 +29,36 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	console.log($scope.premisesAddForm	.$valid);
 		if($scope.premisesAddForm.$valid)
 			{
-				var postParam = {
-						"permiseId" : premisesData.companyId +''+$scope.add.permiseId,
-						"name" : $scope.add.name,
-						"address" : $scope.add.address,
-						"state" : $scope.add.state,
-						"city" : $scope.add.city,
-						"zipcode" : $scope.add.zipcode,
-						"active" : true,
-						"id" : $scope.add.id,
-						"companyId" : premisesData.generatedCompanyId
-				};
+			var postParam;
+				if( premisesData != null && premisesData.permiseId !=null )
+				{
+				console.log();
+					postParam = {
+							"permiseId" : $scope.add.permiseId,
+							"name" : $scope.add.name,
+							"address" : $scope.add.address,
+							"state" : $scope.add.state,
+							"city" : $scope.add.city,
+							"zipcode" : $scope.add.zipcode,
+							"active" : true,
+							"id" : $scope.add.id,
+							"companyId" : premisesData.generatedCompanyId
+					};
+				}
+				else
+				{
+					postParam = {
+							"permiseId" : premisesData.companyId +''+$scope.add.permiseId,
+							"name" : $scope.add.name,
+							"address" : $scope.add.address,
+							"state" : $scope.add.state,
+							"city" : $scope.add.city,
+							"zipcode" : $scope.add.zipcode,
+							"active" : true,
+							"id" : $scope.add.id,
+							"companyId" : premisesData.generatedCompanyId
+					};
+				}
 				console.log(postParam);
 				var res = $http.post('rest/premises/insertPremisesRecord', postParam);
 				res.success(function(data, status, headers, config) {
