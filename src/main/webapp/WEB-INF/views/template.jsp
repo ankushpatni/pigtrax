@@ -32,6 +32,8 @@
 <script src="resources/js/controllers/addCompanyController.js"></script>
 <script src="resources/js/controllers/premisesController.js"></script>
 <script src="resources/js/controllers/addPremisesController.js"></script>
+<script src="resources/js/controllers/barnController.js"></script>
+<script src="resources/js/controllers/addBarnController.js"></script>
 <script src="resources/lib/angular/smart-table.js"></script>
 <script src="resources/lib/angular/smart-table.min.js"></script>
 

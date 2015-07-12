@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
 import com.pigtrax.cache.dto.RefDataTranslationDto;
 
+@Repository
 public class RefDataCacheImpl implements RefDataCache{
 	
 	RefDataDao refDataDao;

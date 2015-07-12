@@ -21,7 +21,6 @@ import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 @RequestMapping("rest/premises")
 public class PremisesRestController {
 	
-	
 	private static final Logger logger = Logger.getLogger(PremisesRestController.class);
 
 	@Autowired
@@ -103,8 +102,8 @@ public class PremisesRestController {
 			dto.setStatusMessage("FALSE");
 			if( e instanceof DuplicateKeyException)
 			{
-				dto.setPayload("Company with ID : "+premises.getPermiseId().toUpperCase() + " already present.");
-				logger.error("Inside updateCompanyStatus()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
+				dto.setPayload("Permise with ID : "+premises.getPermiseId().toUpperCase() + " already present.");
+				logger.error("Inside insertPremisesRecord()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
 			}
 			
 		//	logger.error("Inside updateCompanyStatus()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());

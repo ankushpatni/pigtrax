@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.pigtrax.cache.dto.RefDataTranslationDto;
 
+
 public interface RefDataDao {
 
 	List<RefDataTranslationDto> getRoleTypeData();

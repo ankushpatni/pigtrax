@@ -1,4 +1,4 @@
-pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices, sharedProperties) {	
+pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
@@ -35,8 +35,6 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 	{
 		console.log(index);
 		console.log($scope.differentPages[index].value);
-		sharedProperties.setProperty(row.companyId);
-		console.log(sharedProperties.getProperty());
 		$window.location = $scope.differentPages[index].value+'?generatedCompanyId='+row.id;
 	}
     

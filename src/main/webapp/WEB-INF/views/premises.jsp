@@ -35,7 +35,7 @@
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 				</td>
 				<td style="width:8%">  
-					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index)">
+					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index,row)">
 						{{rt.name}}</button>	
 				</td>
 				<td style="width:20px">

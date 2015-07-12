@@ -1,10 +1,10 @@
-pigTrax.controller('PremisesController', function($scope, $http, $window,$modal, restServices, sharedProperties) {	
+pigTrax.controller('PremisesController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
 	$scope.companyId;
 	$scope.generatedCompanyId;
-	$scope.differentPages=[{"name":"Barn","value":"Barn"}];
+	$scope.differentPages=[{"name":"Barn","value":"barn"}];
 	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
@@ -33,10 +33,12 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 	
 	 $scope.$watch($scope.editCompanyData, $scope.getCompanyList, true);
 	
-	$scope.gotToPage = function(index)
-	{
-		$window.location = 'employee';
-	}
+	 $scope.gotToPage = function(index,row)
+		{
+			console.log(index);
+			console.log($scope.differentPages[index].value);
+			$window.location = $scope.differentPages[index].value+'?generatedPremisesId='+row.id;
+		}
     
 	$scope.addPremiseData = function () {
 			var modalInstance = $modal.open ({

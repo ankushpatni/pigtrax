@@ -1,5 +1,6 @@
 package com.pigtrax.cache.dao;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -12,10 +13,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
 import com.pigtrax.cache.dto.RefDataTranslationDto;
 
+@Repository
 public class RefDataDaoImpl implements RefDataDao {
 
 	JdbcTemplate jdbcTemplate;
