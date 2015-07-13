@@ -142,3 +142,20 @@ INSERT INTO pigtraxrefdata."VentilationTypeTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."VentilationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_VentilationType") VALUES ('Tunnel_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."VentilationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_VentilationType") VALUES ('Unknown_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
+-----------------------Breeding service Type
+INSERT INTO pigtraxrefdata."BreedingServiceType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'AI', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."BreedingServiceType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Natural',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."BreedingServiceType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Unknown',CURRENT_TIMESTAMP,'pigtraxadmin');
+
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('AI','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Natural','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Unknown','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('AI_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Natural_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Unknown_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('AI_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Natural_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Unknown_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
