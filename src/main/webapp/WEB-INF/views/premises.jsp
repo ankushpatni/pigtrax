@@ -1,10 +1,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
-<div id="premisesContent" ng-controller="PremisesController" ng-init="getPremisesList('${companyId}',${generatedCompanyId})">
+<div id="premisesContent" ng-controller="PremisesController" ng-init="getPremisesList('${companyId}',${generatedCompanyId})" class="container-fluid">
+<div class="cl-mcont">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block-flat">
+				<div class="header">
+							<h3>Premises Data</h3>
+						</div>
 	<button type="button" ng-click="addPremiseData()" class="btn btn-sm btn btn-primary">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.premise.addNewPremise" text="Add New Premise" />
 		</button>
-<br> <br>
+<div class="content">
+						<div class="table-responsive">
 		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: LightGray">  
 			<thead style="background-color: #3399CC">
 			<tr>
@@ -56,5 +64,10 @@
 				</td>
 			</tr>
 		</table>
-		
+		</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

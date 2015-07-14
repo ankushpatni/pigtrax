@@ -10,7 +10,7 @@ public class ApplicationController {
 	   @RequestMapping("/")
 	   public String loadMainPage(Model model)  
 	   {
-		   model.addAttribute("contentUrl","home.jsp");
+		   model.addAttribute("contentUrl","dashboard.jsp");
 		   return "template";
 	   }
 }

@@ -22,14 +22,14 @@ CREATE ROLE pitraxadmin WITH
 -- 
 
 -- object: pigtrax | type: SCHEMA --
--- DROP SCHEMA IF EXISTS pigtrax CASCADE;
+DROP SCHEMA IF EXISTS pigtrax CASCADE;
 CREATE SCHEMA pigtrax;
 -- ddl-end --
 ALTER SCHEMA pigtrax OWNER TO pitraxadmin;
 -- ddl-end --
 
 -- object: pigtraxrefdata | type: SCHEMA --
--- DROP SCHEMA IF EXISTS pigtraxrefdata CASCADE;
+DROP SCHEMA IF EXISTS pigtraxrefdata CASCADE;
 CREATE SCHEMA pigtraxrefdata;
 -- ddl-end --
 ALTER SCHEMA pigtraxrefdata OWNER TO pitraxadmin;

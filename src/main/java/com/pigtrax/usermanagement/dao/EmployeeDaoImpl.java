@@ -59,7 +59,7 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 	 */
 	public Employee findByUserName(String username) throws SQLException {
 		Employee employee = null;
-		String Qry = "SELECT \"id\", \"employeeId\", \"name\", \"ptPassword\", \"isActive\", \"isPortalUser\" from pigtrax.\"Employee\" WHERE \"employeeId\"=?";
+		String Qry = "SELECT \"id\", \"employeeId\",\"id_Company\", \"name\", \"ptPassword\", \"isActive\", \"isPortalUser\" from pigtrax.\"Employee\" WHERE \"employeeId\"=?";
 		Connection conn = dataSource.getConnection();		
 		PreparedStatement pstmt = conn.prepareStatement(Qry);
 		pstmt.setString(1, username);
@@ -68,11 +68,11 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 		{
 			employee = new Employee();
 			employee.setEmployeeId(rs.getString(2));
-			employee.setName(rs.getString(3));
-			employee.setPtPassword(rs.getString(4));
-			employee.setActive(rs.getBoolean(5));
-			employee.setPortalUser(rs.getBoolean(6));
-
+			employee.setCompanyId(rs.getInt(3));
+			employee.setName(rs.getString(4));
+			employee.setPtPassword(rs.getString(5));
+			employee.setActive(rs.getBoolean(6));
+			employee.setPortalUser(rs.getBoolean(7));
 		}
 		rs.close();
 		pstmt.close();

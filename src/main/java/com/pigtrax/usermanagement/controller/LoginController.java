@@ -44,7 +44,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String loadHomePage(HttpServletRequest request, Model model) {
-		model.addAttribute("contentUrl","home.jsp");
+		model.addAttribute("contentUrl","dashboard.jsp");
 		return "template"; 
 	}
 	

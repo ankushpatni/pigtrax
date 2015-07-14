@@ -4,9 +4,9 @@ public class EmployeeDto {
      private Integer empId;
      private String name;
      private String email;
-	public Integer getEmpId() {
-		return empId;
-	}
+     private Integer companyId;
+     private Integer userRole;
+     
 	public void setEmpId(Integer empId) {
 		this.empId = empId;
 	}
@@ -21,6 +21,22 @@ public class EmployeeDto {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+	public Integer getUserRole() {
+		return userRole;
+	}
+	public void setUserRole(Integer userRole) {
+		this.userRole = userRole;
+	}
+	public Integer getEmpId() {
+		return empId;
 	}
      
 	@Override

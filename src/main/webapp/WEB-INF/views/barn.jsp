@@ -1,10 +1,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
-<div id="barnContent" ng-controller="BarnController" ng-init="getBarnList('${premisesId}',${generatedPremisesId},true)">
-	<button type="button" ng-click="addBarnData()" class="btn btn-sm btn btn-primary">
+<div id="barnContent" ng-controller="BarnController" ng-init="getBarnList('${premisesId}',${generatedPremisesId},true)" class="container-fluid">
+<div class="cl-mcont">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block-flat">
+				<div class="header">
+							<h3>Barn Data</h3>
+						</div>
+		<button type="button" ng-click="addBarnData()" class="btn btn-sm btn btn-primary">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.barn.addNewBarn" text="Add New Barn" />
 		</button>
-		<br> <br>
+		<div class="content">
+						<div class="table-responsive">
 		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: LightGray">  
 			<thead style="background-color: #3399CC">
 			<tr>
@@ -57,6 +65,10 @@
 					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 				</td>
 			</tr>
-		</table>
-		
+		</table></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
