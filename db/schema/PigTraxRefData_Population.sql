@@ -159,3 +159,80 @@ INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","field
 INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Natural_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Unknown_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
+------------------
+
+INSERT INTO pigtrax."Company"(
+
+            "companyId", name, address, city, "registrationNumber", email,
+
+            phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
+
+            "userUpdated")
+
+VALUES ('1A2B', 'PigTrax', '1 Sovereign Street', 'Leeds', '12345678', 'jimihendrix@gmail.com',
+
+            '+1-111-111-1111', 'Jimmy Hendrix', 3450.50, CURRENT_DATE, true, CURRENT_DATE,
+
+            'pigtraxadmin');
+
+INSERT INTO pigtrax."Employee"(
+
+            "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
+
+            "lastUpdated", "userUpdated", "id_RoleType")
+
+VALUES ('pigtraxsuperadmin',1,'PT 
+
+SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
+
+true, CURRENT_DATE,'pigtraxadmin',1);
+
+INSERT INTO pigtrax."Employee"(
+
+            "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
+
+            "lastUpdated", "userUpdated", "id_RoleType")
+
+VALUES ('pigtraxdatacfgmgr',1,'PT Data Cfg 
+
+Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
+
+CURRENT_DATE,'pigtraxadmin',2);
+
+INSERT INTO pigtrax."Company"(
+
+            "companyId", name, address, city, "registrationNumber", email,
+
+            phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
+
+            "userUpdated")
+
+VALUES ('1Y2Z', 'PigFarm', '1 Shire Oak Street', 'Leeds', '34567899', 'jimmypage@gmail.com',
+
+            '+1-111-111-1111', 'Jimmy Page', 13450.50, CURRENT_DATE, true, CURRENT_DATE,
+
+            'pigtraxadmin');
+
+INSERT INTO pigtrax."Employee"(
+
+            "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
+
+            "lastUpdated", "userUpdated", "id_RoleType")
+
+VALUES ('pigfarmsuperadmin',2,'PF 
+
+SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
+
+true, CURRENT_DATE,'pigtraxadmin',3);
+
+INSERT INTO pigtrax."Employee"(
+
+            "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
+
+            "lastUpdated", "userUpdated", "id_RoleType")
+
+VALUES ('pigfarmdatacfgmgr',2,'PF Data Cfg 
+
+Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
+
+CURRENT_DATE,'pigtraxadmin',4);

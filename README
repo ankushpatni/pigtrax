@@ -1,3 +1,19 @@
+- Install Postgres 9.4 or 9.4 and populate the schema using SQL file checked in <PigTrax-Home>/git-repo/src/db/schema
+
+- Use the PigTrax-7-6thJuly.sql schema checked in git -> db/schema to populate the DB. Just paste it in SQL editor and execute. Refresh the view in pgadmin and you should see pigtrax and pigtraxrefdata schemas in there. The owner of the both the schema is pitraxadmin and the pass for pitraxadmin is k3rm1t (It is in the sql file)
+
+- Use PigTraxRefData_Population.sql in the same directory to populate various ref data.
+The above SQL would also create 4 dummy users in the database. 1 pigtrax super admin, 1 pigtrax data cfg manager, 1 farm super admin,, 1 far data cfg manager. 
+The roles are:
+
+pigtraxsuperadmin
+pigtraxdatacfgmgr
+pigtraxfarmsuperadmin
+pigtraxdatacfgmgr
+
+The password for them is india.
+
+	------------------
 - Get access to the repository.
 - Clone the repo in a local dir, we call it <pigtrax_home>
 - Download and install eclipse, Maven 3.x, Java 8, tomcat 7.
@@ -6,7 +22,8 @@
 	- Generate eclipse .project and .classpath files using command- mvn eclipse:eclipse
 	- mvn clean install should create a war file in target dir
 - Place the war in tomcat/webapps and boot the server
-	
+
+-----------------------------------	
 Deploying war in tomcat through maven:
 - In tomcat-users.xml ($TOMCAT_HOME/conf/) add roles – manager-gui and manager-script and
 
@@ -32,31 +49,3 @@ assign the roles to admin user
 
 - To run from command prompt, execute the command
     mvn clean package tomcat7:redeploy
-
--------------------------------------------------------------
-- Install Postgres 9.4 or 9.4 and populate the schema using SQL file checked in <PigTrax-Home>/git-repo/src/db/schema
-
-- Populate the initial data
-
- INSERT INTO pigtraxrefdata."RoleType"(
-            "fieldCode", "fieldDescription", "lastUpdated", "userUpdated")
-    VALUES (1, 'SuperAdmin', CURRENT_DATE, 'kshitiju');
-
-INSERT INTO pigtrax."UserRole"(
-             "id_RoleType", "lastUpdated", "userUpdated")
-    VALUES ( 1, CURRENT_DATE, 'kshitiju');
-
-
-
-    INSERT INTO pigtrax."Company"(
-            "companyId", name, address, city, "registrationNumber", email,
-            phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
-            "userUpdated")
-    VALUES (1, 'PIG', 'US', 'US', '111', 'abc',
-            111, 'Shitij', 123, CURRENT_DATE, true, CURRENT_DATE,
-            'kshitiju');
-
-INSERT INTO pigtrax."Employee"(
-            "employeeId", "id_Company", name, "ptPassword", "isActive",
-            "lastUpdated", "userUpdated", "id_UserRole")
-    VALUES ('kshitiju',1,'kshitiju','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true,CURRENT_DATE,'ankush',1);
