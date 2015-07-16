@@ -1,26 +1,24 @@
 package com.pigtrax.usermanagement.dto;
 
 public class EmployeeDto {
-     private Integer empId;
+	private Integer id;
+     private String employeeId;
      private String name;
-     private String email;
+     private String ptPassword;
      private Integer companyId;
      private Integer userRole;
+     private boolean isActive;
+     private boolean isPortalUser;
+     private Integer userRoleId;
      
-	public void setEmpId(Integer empId) {
-		this.empId = empId;
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	
 	public Integer getCompanyId() {
@@ -35,12 +33,43 @@ public class EmployeeDto {
 	public void setUserRole(Integer userRole) {
 		this.userRole = userRole;
 	}
-	public Integer getEmpId() {
-		return empId;
+	public String getEmployeeId() {
+		return employeeId;
 	}
      
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getPtPassword() {
+		return ptPassword;
+	}
+	public void setPtPassword(String ptPassword) {
+		this.ptPassword = ptPassword;
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	public boolean isPortalUser() {
+		return isPortalUser;
+	}
+	public void setPortalUser(boolean isPortalUser) {
+		this.isPortalUser = isPortalUser;
+	}
+	public Integer getUserRoleId() {
+		return userRoleId;
+	}
+	public void setUserRoleId(Integer userRoleId) {
+		this.userRoleId = userRoleId;
+	}
 	@Override
 	public String toString() {		
-		return "Employee [ empId : "+this.empId+", name : "+this.name+", email : "+this.email+"]";
+		return "Employee [ empId : "+this.employeeId+", name : "+this.name+"]";
 	}
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.pigtrax.master.dto.Barn;
+import com.pigtrax.pigevents.dto.BarnDto;
 
 public interface BarnService {
 	
@@ -35,4 +36,12 @@ public interface BarnService {
 	 */
 	
 	public int updateBarnRecord(Barn barn) throws SQLException;
+	
+	/**
+	 * Get List of Barns for a given Company Id
+	 * @param companyId
+	 * @return
+	 * @throws SQLException
+	 */
+	List<BarnDto> getBarns(Integer companyId) throws SQLException;
 }

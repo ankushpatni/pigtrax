@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pigtrax.usermanagement.beans.PigTraxUser;
+import com.pigtrax.usermanagement.enums.RoleType;
 
 @Controller
 public class EntryEventController {
@@ -24,10 +25,30 @@ public class EntryEventController {
 	   public String loadEntryEnventPage(HttpServletRequest request, Model model)  
 	   {
 		   PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		   logger.info("Compayny ID : "+activeUser.getCompanyId());
+		   logger.info("Compayny ID : "+activeUser.getCompanyId()+"/ Role : "+activeUser.getUserRole());
+		   if(request.getParameter("companyId") != null) 
+		   {
+			   String companyId = request.getParameter("companyId");
+			   model.addAttribute("CompanyId", Integer.parseInt(companyId));			   
+		   }
+		   else
+		   {
+			   model.addAttribute("CompanyId", activeUser.getCompanyId());
+		   }
+
+		   model.addAttribute("contentUrl","PigInfo_EntryEvent.jsp");
+		   return "template";
+	   }
+	   
+	   
+	   @RequestMapping("/pigEntryEvent")
+	   public String goToEntryEventPage(HttpServletRequest request, Model model)  
+	   {
+		   PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		   logger.info("Compayny ID : "+activeUser.getCompanyId()+"/ Role : "+activeUser.getUserRole());
 		   Locale ln = request.getLocale();
 		   logger.info("Locale selected : "+ln.getLanguage());
-		   if(!request.isUserInRole("1"))
+		   if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) 
 		   {
 			   model.addAttribute("contentUrl","company.jsp");
 		   }

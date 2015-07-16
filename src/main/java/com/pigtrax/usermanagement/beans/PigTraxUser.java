@@ -11,15 +11,17 @@ public class PigTraxUser extends User {
 	private Integer userRole;
 	private Integer companyId;
 	private String companyName;
+	private Integer userRoleCode;
 	
 	
 	 public PigTraxUser(String username, String password, boolean enabled, boolean accountNonExpired,
-	            boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, Integer userRole, Integer companyId, String companyName) {
+	            boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, Integer userRole, Integer companyId, String companyName, Integer userRoleCode) {
 
 	        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 	        this.userRole = userRole;
 	        this.companyId = companyId;
 	        this.companyName = companyName;
+	        this.userRoleCode = userRoleCode;
 	    }
 	
 	public Integer getUserRole() {

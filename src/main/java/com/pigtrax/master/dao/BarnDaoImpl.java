@@ -131,42 +131,20 @@ public class BarnDaoImpl implements BarnDao {
 	 * 
 	 * @throws SQLException
 	 */
-	public List<BarnDto> getBarns(Integer companyId) throws SQLException {
+	public List<Barn> getBarns(final Integer companyId) throws SQLException {
 		BarnDto dto = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		List<BarnDto> barnList = new ArrayList<BarnDto>();
-		String Qry = "SELECT \"id\", \"barnId\",\"id_Premise\",\"id_PhaseType\", \"location\", \"area\",\"feederCount\",\"waterAccessCount\",\"id_VentilationType\" from pigtrax.\"Barn\" where \"id_Premise\" in ( Select \"id\" from pigtrax.\"Premise\" where \"id_Company\" = ?::smallint)";
-		try {
-			conn = jdbcTemplate.getDataSource().getConnection();
-			pstmt = conn.prepareStatement(Qry);
-			pstmt.setString(1, String.valueOf(companyId));
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				dto = new BarnDto();
-				dto.setId(rs.getInt(1));
-				dto.setBarnId(rs.getString(2));
-				dto.setPremiseId(rs.getInt(3));
-				dto.setPhaseTypeId(rs.getInt(4));
-				dto.setLocation(rs.getString(5));
-				dto.setArea(rs.getInt(6));
-				dto.setFeederCount(rs.getInt(7));
-				dto.setWaterAccessCount(rs.getInt(8));
-				//dto.setActive(rs.getBoolean(9));
-				//dto.setLastUpdated(rs.getDate(9));
-				//dto.setUserUpdated(rs.getString(10));
-				dto.setVentilationTypeId(rs.getInt(9));
-				barnList.add(dto);
-			}
-		} finally {
-			if(rs != null)
-				rs.close();
-			if(pstmt != null)
-				pstmt.close();
-			conn.close();
-		}
+		
+		String Qry = "SELECT \"id\", \"barnId\",\"id_Premise\",\"id_PhaseType\", \"location\", \"area\",\"feederCount\",\"waterAccessCount\",\"id_VentilationType\",\"isActive\" from pigtrax.\"Barn\" where \"isActive\" is true and \"id_Premise\" in ( Select \"id\" from pigtrax.\"Premise\" where \"id_Company\" = ?::smallint)";
+		List<Barn> barnList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}}, new BarnMapper());
+		
 		return barnList;
 	}
 

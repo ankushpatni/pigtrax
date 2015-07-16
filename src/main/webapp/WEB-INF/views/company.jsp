@@ -1,3 +1,4 @@
+<%@ page import="com.pigtrax.usermanagement.enums.RoleType" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div id="companyContent" ng-controller="CompanyController"
 	ng-init="getCompanyList()" class="container-fluid">
@@ -43,7 +44,7 @@
 												code="label.company.paymentDate" text="Payment Date" /></th>
 										<th size="5%"><spring:message code="label.company.edit"
 												text="Edit" /></th>
-										<th size="5%"><spring:message code="label.company.goto"
+										<th size="15%"><spring:message code="label.company.goto"
 												text="Go To" /></th>
 										<th size="5%"></th>
 									</tr>
@@ -72,11 +73,23 @@
 												</a>
 											</button>
 										</td>
-										<td size="5%">
+										<td size="15%">
 											<button type="button" class="btn btn btn-info btn-sm"
 												style="margin-bottom: 5px"
 												ng-repeat="rt in differentPages track by $index"
 												ng-click="gotToPage($index,row)">{{rt.name}}</button>
+												<% if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) { %>
+												 <br> <br>
+												<div class="btn-group">								 				
+												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>
+												  <ul role="menu" class="dropdown-menu">
+													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Entry Event</a></li>
+													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Breeding Event</a></li>
+													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Pregnancy Event</a></li>
+													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Farrow Event</a></li>
+												  </ul>
+												</div>
+												<% }  %>
 										</td>
 										<td size="5%">
 											<button ng-if="row.active" type="button"
@@ -94,6 +107,7 @@
 													class="glyphicon glyphicon glyphicon-ok"> </i>
 											</button>
 										</td>
+										
 									</tr>
 								</tbody>
 								<tr style="background-color: #3399CC">
@@ -110,3 +124,14 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="resources/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.js"></script>
+    <script type="text/javascript" src="resources/assets/js/cleanzone.js"></script>
+    <script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+      	//initialize the javascript
+      	App.init();
+      });
+      
+    </script>

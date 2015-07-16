@@ -15,8 +15,7 @@ pigTrax.directive('ngConfirmClick', [ function() {
 			});
 		}
 	}
-} ])
-.directive('angularValidator',
+} ]).directive('angularValidator',
     function() {
         return {
             restrict: 'A',
@@ -127,7 +126,7 @@ pigTrax.directive('ngConfirmClick', [ function() {
                         }
 
                         if (scopeElementModel.$error.required) {
-                            // If there is a custom required message display it
+                        	// If there is a custom required message display it
                             if ("required-message" in element.attributes) {
                                 angular.element(element).after(generateErrorMessage(element.attributes['required-message'].value));
                             }

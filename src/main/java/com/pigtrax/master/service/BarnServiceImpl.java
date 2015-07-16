@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.pigtrax.master.dao.interfaces.BarnDao;
 import com.pigtrax.master.dto.Barn;
 import com.pigtrax.master.service.interfaces.BarnService;
+import com.pigtrax.pigevents.dto.BarnDto;
+import com.pigtrax.master.dto.BarnBuilder;
 
 /**
  * @author Ankush
@@ -22,6 +24,9 @@ public class BarnServiceImpl implements BarnService{
 
 	@Autowired
 	private BarnDao barnDao;
+	
+	@Autowired
+	private BarnBuilder builder;
 
 	@Override
 	public List<Barn> getBarnList(int generatedPremisesId) {
@@ -45,6 +50,18 @@ public class BarnServiceImpl implements BarnService{
 	{
 		return barnDao.updateBarnRecord(barn);
 	}
+	
 
-
+	/**
+	 * Get List of Barns for a given Company Id
+	 * @param companyId
+	 * @return List of BarnDto
+	 * @throws SQLException
+	 */
+	public List<BarnDto> getBarns(Integer companyId) throws SQLException {
+		List<Barn> barnList = barnDao.getBarns(companyId);
+		return builder.convertToDtoList(barnList);
+	}
+	
+	
 }

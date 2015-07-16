@@ -19,6 +19,7 @@ import com.pigtrax.usermanagement.beans.Employee;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dao.interfaces.CompanyDao;
 import com.pigtrax.usermanagement.dao.interfaces.EmployeeDao;
+import com.pigtrax.usermanagement.dto.EmployeeDto;
 
 public class PigTraxUserDetailsService implements UserDetailsService {
 
@@ -30,7 +31,7 @@ public class PigTraxUserDetailsService implements UserDetailsService {
 	
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		com.pigtrax.usermanagement.beans.Employee employee = null;
+		com.pigtrax.usermanagement.dto.EmployeeDto employee = null;
 		Company company = null;
 		try {
 			employee = employeeDao.findByUserName(username);
@@ -52,16 +53,17 @@ public class PigTraxUserDetailsService implements UserDetailsService {
 	 * @param authorities
 	 * @return
 	 */
-	private User buildUserForAuthentication(Employee employee, List<GrantedAuthority> authorities, Company company) {
+	private User buildUserForAuthentication(EmployeeDto employee, List<GrantedAuthority> authorities, Company company) {
 			return new PigTraxUser(employee.getEmployeeId(), 
-					employee.getPtPassword(), employee.isEnabled(), 
-	                        true, true, true, authorities, new Integer(employee.getUserRoleId()), new Integer(employee.getCompanyId()), company.getName()); 
+					employee.getPtPassword(), employee.isActive(), 
+	                        true, true, true, authorities, new Integer(employee.getUserRoleId()), new Integer(employee.getCompanyId()),
+	                        company.getName(), employee.getUserRole()); 
 		}
 	
-	private List<GrantedAuthority> buildUserAuthority(Employee e) {
+	private List<GrantedAuthority> buildUserAuthority(EmployeeDto e) {
 
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-		setAuths.add(new SimpleGrantedAuthority(String.valueOf(e.getUserRoleId())));
+		setAuths.add(new SimpleGrantedAuthority(String.valueOf(e.getUserRole())));
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(
 				setAuths);
 

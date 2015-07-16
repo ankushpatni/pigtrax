@@ -23,6 +23,9 @@
 	<context:component-scan base-package="com.pigtrax.master.service" />	
 	<context:component-scan base-package="com.pigtrax.pigevents.controller" />
 	<context:component-scan base-package="com.pigtrax.pigevents.dao" />
+	<context:component-scan base-package="com.pigtrax.pigevents.dto" />
+	<context:component-scan base-package="com.pigtrax.pigevents.service" />
+	
 	
  
 	<mvc:annotation-driven />

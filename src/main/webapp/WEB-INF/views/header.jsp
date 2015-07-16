@@ -33,7 +33,7 @@
           <ul class="nav navbar-nav navbar-right not-nav">
           <%if (request.getRemoteUser() == null) {  	 
           %>
-           <a href="?locale=en" class="active"> English </a> | <a href="?locale=pt" class="active">Portuguese</a> | <a href="?locale=es" class="active">Spanish</a>
+           <a href="?locale=en"> English </a> | <a href="?locale=pr" >Portuguese</a> | <a href="?locale=es">Spanish</a>
            <% } else { %>
            <li class="button dropdown"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-comments"></i></a>
               <ul class="dropdown-menu messages">

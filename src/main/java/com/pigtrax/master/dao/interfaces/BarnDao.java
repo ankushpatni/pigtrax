@@ -36,6 +36,12 @@ public interface BarnDao {
 	
 	public int updateBarnRecord(Barn barn) throws SQLException;
 	
-	 List<BarnDto> getBarns(Integer companyId) throws SQLException;
+	/**
+	 * Get List of Barns for a given Company Id
+	 * @param companyId
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Barn> getBarns(Integer companyId) throws SQLException;
 	
 }

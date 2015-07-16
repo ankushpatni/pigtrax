@@ -19,5 +19,5 @@ public interface EmployeeDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public Employee findByUserName(String username)  throws SQLException;
+	public EmployeeDto findByUserName(String username)  throws SQLException;
 }

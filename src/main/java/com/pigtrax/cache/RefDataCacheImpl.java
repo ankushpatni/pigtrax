@@ -60,6 +60,7 @@ public class RefDataCacheImpl implements RefDataCache{
 
 	@Override
 	public Map<Integer, String> getSexTypeMap(String language){
+		System.out.println("sex type map = "+sexTypeMap);
 		return sexTypeMap.get(language);
 	}
 	
