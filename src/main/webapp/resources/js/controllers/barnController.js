@@ -1,4 +1,4 @@
-pigTrax.controller('BarnController', function($scope, $http, $window,$modal, restServices, sharedProperties) {	
+pigTrax.controller('BarnController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
