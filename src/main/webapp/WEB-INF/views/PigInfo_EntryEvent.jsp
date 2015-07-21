@@ -11,9 +11,13 @@
  		  <div class="block-flat">
 		   <form name="entryEventSearchForm" >
  		     <div class="head">
-            <h3><spring:message code='label.piginfo.entryeventform.search.heading'  text='Search'/></h3>
-            <p class="color-danger">{{searchErrorMessage}}</p>
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
+ 		     
+ 		     <h3> <spring:message code='label.piginfo.entryeventform.search.heading'  text='Search'/></h3>
+            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.entryeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
+            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
+			
+            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
+ 		    
             <div class="options">
 			 <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary active" ng-click="getPigInformation()"><i class="fa fa-search"></i></button>
