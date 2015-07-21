@@ -3,6 +3,7 @@ package com.pigtrax.usermanagement.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,6 +44,19 @@ public class UtilController {
 		logger.info("Inside getValidationType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		dto.setPayload( refDataCache.getVentilationTypeMap("en"));
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
+	
+	@RequestMapping(value = "/getBreedingServiceType", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getBreedingServiceType(HttpServletRequest request)
+	{
+		logger.info("Inside getBreedingServiceType" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		Locale locale = request.getLocale();
+		String language = locale.getLanguage();
+		dto.setPayload( refDataCache.getBreedingServiceTypeMap(language));
 		dto.setStatusMessage("Success");
 		return dto;
 	}

@@ -35,6 +35,8 @@ public class RefDataCacheImpl implements RefDataCache{
 	private Map<String, Map<Integer, String>> phaseTypeMap;
 
 	private Map<String, Map<Integer, String>> ventilationTypeMap;
+	
+	private Map<String, Map<Integer, String>> breedingServiceTypeMap;
 
 	
 	/*
@@ -51,6 +53,7 @@ public class RefDataCacheImpl implements RefDataCache{
 		phaseTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseTypeData()));
 		ventilationTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getVentilationTypeData()));
 		cityCountryMap = Collections.unmodifiableMap(refDataDao.getCountryCityData());
+		breedingServiceTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getBreedingServiceTypeData()));
 	}
 
 	@Override
@@ -75,6 +78,12 @@ public class RefDataCacheImpl implements RefDataCache{
 	}
 	
 	@Override
+	public Map<Integer, String> getBreedingServiceTypeMap(String language) {
+		System.out.println("breedingServiceTypeMap in Ref Data Cache imple : "+breedingServiceTypeMap.toString());
+		return breedingServiceTypeMap.get(language);
+	}
+	
+	@Override
 	public Set<String> getCitiesForCountry(String city){
 		return cityCountryMap.get(city);
 	}
@@ -94,6 +103,8 @@ public class RefDataCacheImpl implements RefDataCache{
 			}
 			innerMap.put(refDto.getFieldCode(), refDto.getFieldValue());
 		}
+		System.out.println("tmp Map from Ref Data Cache Impl : "+tmpMap.toString());
+		
 		return tmpMap;
 	}
 

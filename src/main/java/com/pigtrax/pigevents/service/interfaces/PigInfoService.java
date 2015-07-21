@@ -6,4 +6,6 @@ public interface PigInfoService {
     public int savePigInformation(PigInfoDto dto) throws Exception;
     
     public PigInfoDto getPigInformation(PigInfoDto dto) throws Exception;
+    
+    public void deletePigInfo(Integer id) throws Exception;
 }  

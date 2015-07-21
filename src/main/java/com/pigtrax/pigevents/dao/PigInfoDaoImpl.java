@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.dao;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +11,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,33 +42,41 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	 * @return int
 	 */
 	public int addPigInformation(final PigInfo pigInfo) throws SQLException, DuplicateKeyException {
-		String Qry = "insert into pigtrax.\"PigInfo\"(\"pigId\", \"sireId\", \"damId\", \"entryDate\", \"origin\", \"gline\", \"gcompany\", \"birthDate\", \"tattoo\", \"alternateTattoo\", \"remarks\", \"sowCondition\", \"lastUpdated\", \"userUpdated\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\") "
+		final String Qry = "insert into pigtrax.\"PigInfo\"(\"pigId\", \"sireId\", \"damId\", \"entryDate\", \"origin\", \"gline\", \"gcompany\", \"birthDate\", \"tattoo\", \"alternateTattoo\", \"remarks\", \"sowCondition\", \"lastUpdated\", \"userUpdated\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\") "
 				+ "values(?,?,?,current_timestamp,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
 		
-		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				
-				logger.info("company id in dao impl = "+pigInfo.getCompanyId());
-				
-				ps.setString(1, pigInfo.getPigId());
-				ps.setString(2, pigInfo.getSireId());
-				ps.setString(3, pigInfo.getDamId());
-				ps.setString(4, pigInfo.getOrigin());
-				ps.setString(5, pigInfo.getGline());
-				ps.setString(6, pigInfo.getGcompany());
-				ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
-				ps.setString(8, pigInfo.getTattoo());
-				ps.setString(9, pigInfo.getAlternateTattoo());
-				ps.setString(10, pigInfo.getRemarks());
-				ps.setInt(11, pigInfo.getSowCondition());
-				ps.setString(12, pigInfo.getUserUpdated());
-				ps.setInt(13, pigInfo.getCompanyId());
-				ps.setInt(14, pigInfo.getPenId());
-				ps.setInt(15, pigInfo.getBarnId());
-				ps.setInt(16, pigInfo.getSexTypeId());
-			}
-		});
+		KeyHolder holder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(
+	    	    new PreparedStatementCreator() {
+	    	        public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	    	            PreparedStatement ps =
+	    	                con.prepareStatement(Qry, new String[] {"id"});
+	    	            ps.setString(1, pigInfo.getPigId());
+	    				ps.setString(2, pigInfo.getSireId());
+	    				ps.setString(3, pigInfo.getDamId());
+	    				ps.setString(4, pigInfo.getOrigin());
+	    				ps.setString(5, pigInfo.getGline());
+	    				ps.setString(6, pigInfo.getGcompany());
+	    				ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
+	    				ps.setString(8, pigInfo.getTattoo());
+	    				ps.setString(9, pigInfo.getAlternateTattoo());
+	    				ps.setString(10, pigInfo.getRemarks());
+	    				ps.setInt(11, pigInfo.getSowCondition());
+	    				ps.setString(12, pigInfo.getUserUpdated());
+	    				ps.setInt(13, pigInfo.getCompanyId());
+	    				ps.setInt(14, pigInfo.getPenId());
+	    				ps.setInt(15, pigInfo.getBarnId());
+	    				ps.setInt(16, pigInfo.getSexTypeId());
+	    			
+	    	            return ps;
+	    	        }
+	    	    },
+	    	    holder);
+		int keyVal = holder.getKey().intValue();
+		logger.info("Key generated = "+keyVal);
+		
+		return keyVal;
 		
 	}
 	
@@ -111,12 +123,13 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	/**
 	 * Get the pig information based on pigId
 	 */
-	public PigInfo getPigInformationByPigId(final String pigId) throws SQLException {
-		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\"  from pigtrax.\"PigInfo\" where \"pigId\" = ?";
+	public PigInfo getPigInformationByPigId(final String pigId, final Integer companyId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\"  from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ?";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, pigId.toUpperCase());
+				ps.setInt(2, companyId);
 			}}, new PigInfoMapper());
 
 		if(pigInfoList != null && pigInfoList.size() > 0){
@@ -129,12 +142,13 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	/**
 	 * Get the pig information based on tattoo
 	 */
-	public PigInfo getPigInformationByTattoo(final String tattoo) throws SQLException {
-		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\" from pigtrax.\"PigInfo\" where \"tattoo\" = ?";
+	public PigInfo getPigInformationByTattoo(final String tattoo, final Integer companyId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\" from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ?";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, tattoo.toUpperCase());
+				ps.setString(1, tattoo.trim());
+				ps.setInt(2, companyId);
 			}}, new PigInfoMapper());
 
 		if(pigInfoList != null && pigInfoList.size() > 0){
@@ -164,6 +178,24 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			pigInfo.setSexTypeId(rs.getInt("id_SexType"));
 			return pigInfo;
 		}
+	}
+	
+	/**
+	 * To delete the given information
+	 * @param id
+	 */
+	
+	@Override
+	public void deletePigInfo(final Integer id) throws SQLException {
+		
+		final String qry = "delete from pigtrax.\"PigInfo\" where \"id\" = ?";
+		
+		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, id);
+			}
+		});
 	}
 }
 

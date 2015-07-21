@@ -11,7 +11,9 @@ public interface PigInfoDao {
    
    public int updatePigInformation(final PigInfo pigInfo) throws SQLException, DuplicateKeyException ;
    
-   public PigInfo getPigInformationByPigId(String pigId) throws SQLException;
+   public PigInfo getPigInformationByPigId(String pigId, Integer companyId) throws SQLException;
    
-   public PigInfo getPigInformationByTattoo(String tattoo) throws SQLException;
+   public PigInfo getPigInformationByTattoo(String tattoo, Integer companyId) throws SQLException;
+   
+   public void deletePigInfo(Integer id) throws SQLException;
 }

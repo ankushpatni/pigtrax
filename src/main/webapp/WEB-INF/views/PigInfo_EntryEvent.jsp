@@ -11,9 +11,13 @@
  		  <div class="block-flat">
 		   <form name="entryEventSearchForm" >
  		     <div class="head">
-            <h3><spring:message code='label.piginfo.entryeventform.search.heading'  text='Search'/></h3>
-            <p class="color-danger">{{searchErrorMessage}}</p>
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
+ 		     
+ 		     <h3> <spring:message code='label.piginfo.entryeventform.search.heading'  text='Search'/></h3>
+            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.entryeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
+            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
+			
+            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
+ 		    
             <div class="options">
 			 <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary active" ng-click="getPigInformation()"><i class="fa fa-search"></i></button>
@@ -23,7 +27,7 @@
                   <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId" > <spring:message code='label.piginfo.entryeventform.search.pigid.option'  text='Pig Id'/>
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad1" class="icheck" value="tattoo"> <spring:message code='label.piginfo.entryeventform.search.tattoo.option'  text='Tattoo'/> 
+                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattoo"> <spring:message code='label.piginfo.entryeventform.search.tattoo.option'  text='Tattoo'/> 
                 </label>
               </div>
             </div>
@@ -39,8 +43,10 @@
               <div class="block-flat">
                 <div class="header">
                   <h3><spring:message code='label.piginfo.entryeventform.entryevent'  text='Entry Event'/></h3>
-                  <p class="color-success">{{alertMessage}}</p>
-				  <p class="color-danger">{{errorMessage}}</p>
+                  <p class="color-success" ng-show="entryEventSuccessMessage"><spring:message code='label.piginfo.entryeventform.submit.success.message' text='Pig information saved successfully'/></p>
+				  <p class="color-danger" ng-show="entryEventErrorMessage"><spring:message code='label.piginfo.entryeventform.submit.error.message' text='An exception occured. Please check the values'/></p>
+				 <p class="color-danger" ng-show="entryEventDuplicateErrorMessage"><spring:message code='label.piginfo.entryeventform.duplicate.error.message' text='A piginfo record already exists with the same Pig Id/ Tattoo'/></p>
+  				  <p class="color-success" ng-show="entryEventDeleteMessage"><spring:message code='label.piginfo.entryeventform.delete.message'  text='Pig information deleted'/></p>
                 </div>
                 <div class="content">
                   <form name="entryEventForm" novalidate angular-validator>
@@ -140,6 +146,7 @@
                     </div>
                     <button class="btn btn-primary" ng-click="addEntryEvent()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default"><spring:message code='label.piginfo.entryeventform.cancel'  text='Cancel'/></button>
+                    <button class="btn btn-danger pull-right" ng-click="deletePigInfo()" ng-show="pigInfo.id != null && pigInfo.id > 0" ng-confirm="<spring:message code='label.piginfo.entryeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.entryeventform.cancel'  text='Delete'/></button>
                   </form>
                 </div>
               </div>
