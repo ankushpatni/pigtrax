@@ -25,9 +25,10 @@
 	
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/bootstrap.daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/lib/jquery.icheck/skins/square/blue.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/assets/lib/jquery.niftymodals/css/component.css">
     <link href="resources/assets/css/style.css" rel="stylesheet">
-     <link href="resources/css/style.css" rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="resources/assets/lib/jquery.icheck/skins/square/blue.css"/>
+      
 	
 	
 	<script src="resources/assets/lib/jquery/jquery.min.js"></script>
@@ -40,7 +41,8 @@
 	<script src="resources/js/services/restServices.js"></script>
 	<script src="resources/js/controllers/employeeController.js"></script>
 	<script src="resources/js/controllers/companyController.js"></script>
-	<script src="resources/js/controllers/entryEventController.js"></script>	
+	<script src="resources/js/controllers/entryEventController.js"></script>
+	<script src="resources/js/controllers/breedingEventController.js"></script>	
 <script src="resources/js/controllers/addCompanyController.js"></script>
 <script src="resources/js/controllers/premisesController.js"></script>
 <script src="resources/js/controllers/addPremisesController.js"></script>
