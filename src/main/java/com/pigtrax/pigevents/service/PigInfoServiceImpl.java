@@ -56,7 +56,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 			catch(DuplicateKeyException sqlEx)
 			{
 				  logger.info("DuplicateKeyException : "+sqlEx.getRootCause()+"/"+sqlEx.getCause());
-					throw new PigTraxException("Duplicate Key Exception occured. Please check Pig Id/ Tattoo", "");
+					throw new PigTraxException("Duplicate Key Exception occured. Please check Pig Id/ Tattoo", "", true);
 			}
 		
 		
