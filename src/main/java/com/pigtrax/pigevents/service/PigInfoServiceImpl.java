@@ -48,7 +48,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 			{
 				if("23505".equals(sqlEx.getSQLState()))
 				{
-					throw new PigTraxException("PigId already exists", sqlEx.getSQLState());
+					throw new PigTraxException("PigId already exists", sqlEx.getSQLState(), true);
 				}
 				else
 					throw new PigTraxException("SqlException occured", sqlEx.getSQLState());

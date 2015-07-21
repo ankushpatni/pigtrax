@@ -44,8 +44,9 @@
                 <div class="header">
                   <h3><spring:message code='label.piginfo.entryeventform.entryevent'  text='Entry Event'/></h3>
                   <p class="color-success" ng-show="entryEventSuccessMessage"><spring:message code='label.piginfo.entryeventform.submit.success.message' text='Pig information saved successfully'/></p>
--				  <p class="color-danger" ng-show="entryEventErrorMessage"><spring:message code='label.piginfo.entryeventform.submit.error.message' text='An exception occured. Please check the values'/></p>
--				  <p class="color-success" ng-show="entryEventDeleteMessage"><spring:message code='label.piginfo.entryeventform.delete.message'  text='Pig information deleted'/></p>
+				  <p class="color-danger" ng-show="entryEventErrorMessage"><spring:message code='label.piginfo.entryeventform.submit.error.message' text='An exception occured. Please check the values'/></p>
+				 <p class="color-danger" ng-show="entryEventDuplicateErrorMessage"><spring:message code='label.piginfo.entryeventform.duplicate.error.message' text='A piginfo record already exists with the same Pig Id/ Tattoo'/></p>
+  				  <p class="color-success" ng-show="entryEventDeleteMessage"><spring:message code='label.piginfo.entryeventform.delete.message'  text='Pig information deleted'/></p>
                 </div>
                 <div class="content">
                   <form name="entryEventForm" novalidate angular-validator>

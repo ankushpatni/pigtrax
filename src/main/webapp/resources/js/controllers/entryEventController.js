@@ -1,4 +1,5 @@
 pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices) {
+	$scope.companyId = "";
 	
 	$scope.clearAllMessages = function()
 	{
@@ -7,6 +8,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.entryEventSuccessMessage = false;
 		$scope.entryEventDeleteMessage = false;
 		$scope.searchErrorMessage = false;
+		$scope.entryEventDuplicateErrorMessage = false;
 	};
 	
 	$scope.clearAllMessages();
@@ -14,6 +16,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	$scope.pigInfo = {};
 	$scope.populateBarns = function(companyId){
 		$scope.pigInfo.companyId = companyId;
+		$scope.companyId  = companyId;
 		restServices.getBarns(companyId, function(data){
 			 if(!data.error)
 			 {
@@ -40,6 +43,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			{
 				var birthDate = document.getElementById("birthDate").value;
 				$scope.pigInfo["birthDate"] = birthDate;
+				$scope.pigInfo["companyId"] = $scope.companyId;
 				restServices.saveEntryEventInformation($scope.pigInfo, function(data){
 					if(!data.error)
 						{
@@ -49,7 +53,10 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 					else
 						{
 							$scope.clearAllMessages();
-							$scope.entryEventErrorMessage = true;
+							if(data.duplicateRecord)
+								$scope.entryEventDuplicateErrorMessage = true;
+							else
+								$scope.entryEventErrorMessage = true;
 						}
 				});
 			}
@@ -75,7 +82,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 					$scope.pigInfo = {};
 					var searchPigInfo = {
 							searchText : $scope.searchText,
-							searchOption : option
+							searchOption : option,
+							companyId : $scope.companyId
 					};
 					restServices.getPigInformation(searchPigInfo, function(data)
 					{

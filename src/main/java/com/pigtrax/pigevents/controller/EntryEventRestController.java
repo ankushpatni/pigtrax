@@ -157,10 +157,12 @@ public class EntryEventRestController {
 			else
 				dto.setStatusMessage("ERROR : Pig Information not found");
 		} catch (PigTraxException e) {
-			e.printStackTrace();
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		}
 		return dto;
