@@ -18,5 +18,7 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getPhaseTypeData();
 
 	List<RefDataTranslationDto> getVentilationTypeData();
+	
+	List<RefDataTranslationDto> getBreedingServiceTypeData();
 
 }

@@ -20,18 +20,20 @@
     <script src="resources/assets/lib/jquery.nestable/jquery.nestable.js" type="text/javascript"></script>
     <script src="resources/assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
     <script src="resources/assets/lib/bootstrap.switch/js/bootstrap-switch.js" type="text/javascript"></script>
-    <script src="resources/assets/lib/bootstrap.datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="resources/assets/lib/bootstrap.datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
     <script src="resources/assets/lib/jquery.icheck/icheck.min.js" type="text/javascript"></script>
     <script src="resources/assets/lib/moment.js/min/moment.min.js" type="text/javascript"></script>
     <script src="resources/assets/lib/bootstrap.daterangepicker/daterangepicker.js" type="text/javascript"></script>
     <script src="resources/assets/lib/bootstrap.slider/js/bootstrap-slider.js" type="text/javascript"></script>
     <script type="text/javascript" src="resources/assets/js/page-form-elements.js"></script>
+    <script src="resources/assets/lib/jquery.niftymodals/js/jquery.modalEffects.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	//initialize the javascript
       	App.init();
       	App.dashboard();
 		App.formElements();
+		$('.md-trigger').modalEffects();
       });
     </script>
   </body>

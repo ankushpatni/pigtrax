@@ -1,12 +1,20 @@
-pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices) {	
-	$scope.alertMessage = "";
-	$scope.errorMessage = "";
+pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices) {
+	
+	$scope.clearAllMessages = function()
+	{
+		$scope.searchDataErrorMessage = false;
+		$scope.entryEventErrorMessage = false;
+		$scope.entryEventSuccessMessage = false;
+		$scope.entryEventDeleteMessage = false;
+		$scope.searchErrorMessage = false;
+	};
+	
+	$scope.clearAllMessages();
 	$scope.searchOption = "";
 	$scope.pigInfo = {};
-	$scope.parent = {birthDate:''};
 	$scope.populateBarns = function(companyId){
 		$scope.pigInfo.companyId = companyId;
-		restServices.getBarns(function(data){
+		restServices.getBarns(companyId, function(data){
 			 if(!data.error)
 			 {
 				    $scope.entryEventMap = data.payload;
@@ -35,13 +43,13 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				restServices.saveEntryEventInformation($scope.pigInfo, function(data){
 					if(!data.error)
 						{
-							$scope.errorMessage = "";
-							$scope.alertMessage = "Pig information saved successfully";
+							$scope.clearAllMessages();
+							$scope.entryEventSuccessMessage = true;
 						}
 					else
 						{
-							$scope.alertMessage = "";
-							$scope.errorMessage = data.statusMessage;
+							$scope.clearAllMessages();
+							$scope.entryEventErrorMessage = true;
 						}
 				});
 			}
@@ -51,10 +59,16 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.getPigInformation = function()
 		{
 			
-			var option = document.getElementById("rad1").value;
-			if($scope.searchText == undefined || option == undefined)
+			var option = "";
+			if(document.getElementById("rad1").checked)
+				 option = document.getElementById("rad1").value;
+			 else if(document.getElementById("rad2").checked)
+				 option = document.getElementById("rad2").value;
+			 
+			if($scope.searchText == undefined || option == "")
 			{
-				   $scope.searchErrorMessage = "Please enter Pig Id/ Tattoo and select the corresponding option";
+				   $scope.clearAllMessages();
+				   $scope.searchErrorMessage = true;
 			}
 			else
 				{
@@ -66,19 +80,32 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 					restServices.getPigInformation(searchPigInfo, function(data)
 					{
 						if(!data.error){
-							$scope.errorMessage = "";
-							$scope.alertMessage = "";
+							$scope.clearAllMessages();
 							$scope.pigInfo = data.payload;			
 							document.getElementById("birthDate").value = $scope.pigInfo.birthDate;
+							
 						}
 						else
 						{
 							$scope.pigInfo = {};
-							$scope.errorMessage = data.statusMessage;
-							$scope.alertMessage = "";
+							$scope.clearAllMessages();
+							$scope.searchDataErrorMessage = true;
+							
 						}
 					});
 				}
-		}
+		};
+		
+		
+		$scope.deletePigInfo = function()
+		{
+			
+				
+					restServices.deletePigInfo($scope.pigInfo.id, function(data){
+						$scope.clearAllMessages();
+						$scope.entryEventDeleteMessage = true;
+					});
+				
+		};
 		
 });

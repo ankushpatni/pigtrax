@@ -55,17 +55,18 @@ public class EntryEventRestController {
 	 * Service to retrive the list of employees
 	 * @return ServiceResponseDto
 	 */
-	@RequestMapping(value = "/getBarns", method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/getBarns", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public ServiceResponseDto getBarns(HttpServletRequest request)
+	public ServiceResponseDto getBarns(HttpServletRequest request, @RequestBody Integer companyId)
 	{
 		logger.info("Inside getBarns method" );
-		Integer companyId = null;
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Locale locale = request.getLocale();
-		
-		if(activeUser != null)
-			companyId = activeUser.getCompanyId();
+		if(companyId == null)
+		{
+			if(activeUser != null)
+				companyId = activeUser.getCompanyId();
+		}
 		ServiceResponseDto dto = new ServiceResponseDto();
 		Map<String, Object> entryEventMap = new HashMap<String, Object>();
 		try {
@@ -151,10 +152,35 @@ public class EntryEventRestController {
 		try {
 			pigInformation = pigInfoService.getPigInformation(pigInformation);
 			dto.setPayload(pigInformation);
-			if(pigInformation != null)
+			if(pigInformation != null && pigInformation.getId() != null)
 				dto.setStatusMessage("Success");
 			else
 				dto.setStatusMessage("ERROR : Pig Information not found");
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+	
+	
+	/**
+	 * Service to delete the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/deletePigInfo", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto deletePigInfo(HttpServletRequest request, @RequestBody Integer id)
+	{
+		logger.info("Inside deletePigInfo method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			pigInfoService.deletePigInfo(id);
+			dto.setPayload(id);
+			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());
