@@ -786,8 +786,8 @@ CREATE TABLE pigtrax."PigInfo"(
 	"id_Barn" integer,
 	"id_SexType" integer,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id),
-	CONSTRAINT "PIGINFO_U_PI" UNIQUE ("pigId"),
-	CONSTRAINT "PIGINFO_U_TA" UNIQUE (tattoo)
+	CONSTRAINT "PIGINFO_U_PI" UNIQUE ("pigId","id_Company"),
+	CONSTRAINT "PIGINFO_U_TA" UNIQUE ("tattoo", "id_Company")
 
 );
 -- ddl-end --
