@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pigtrax.cache.RefDataCache;
@@ -24,9 +25,10 @@ public class RoomController {
 	@Autowired
 	RefDataCache refDataCache;
 	
-	@RequestMapping(value = "/room")
+	@RequestMapping(value = "/room", method=RequestMethod.POST)
 	public String displayRoom(Model model, @RequestParam int generatedBarnId)
 	{
+		System.out.println("Ankush printing---->"+generatedBarnId);
 		model.addAttribute("contentUrl","room.jsp");
 		model.addAttribute("generatedBarnId",generatedBarnId);
 		try

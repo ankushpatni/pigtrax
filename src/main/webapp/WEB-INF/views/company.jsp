@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div id="companyContent" ng-controller="CompanyController"
 	ng-init="getCompanyList()" class="container-fluid">
-
+<form name="companyForm" method="post">
 	<div class="cl-mcont">
 		<div class="row">
 			<div class="col-md-12">
@@ -123,6 +123,8 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" name="generatedCompanyId" id="generatedCompanyId"/>
+	</form>
 </div>
 <script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="resources/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.js"></script>

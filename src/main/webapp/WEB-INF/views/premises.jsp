@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <div id="premisesContent" ng-controller="PremisesController" ng-init="getPremisesList('${companyId}',${generatedCompanyId})" class="container-fluid">
+<form name="premisesForm" method="post">
 <div class="cl-mcont">
 		<div class="row">
 			<div class="col-md-12">
@@ -70,4 +71,6 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" name="generatedPremisesId" id="generatedPremisesId"/>
+	</form>
 </div>

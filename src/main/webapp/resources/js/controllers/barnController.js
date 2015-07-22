@@ -27,7 +27,10 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
 	{
 		console.log(index);
 		console.log($scope.differentPages[index].value);
-		$window.location = $scope.differentPages[index].value+'?generatedBarnId='+row.id;
+		console.log(document.getElementById("generatedBarnId").value);
+		document.getElementById("generatedBarnId").value = row.id;
+		document.forms['barnForm'].action = $scope.differentPages[index].value;
+		document.forms['barnForm'].submit();
 	}
 	
     //deactivate/activate to the real data holder

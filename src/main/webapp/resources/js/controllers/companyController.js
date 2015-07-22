@@ -35,7 +35,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 	{
 		console.log(index);
 		console.log($scope.differentPages[index].value);
-		$window.location = $scope.differentPages[index].value+'?generatedCompanyId='+row.id;
+		document.getElementById("generatedCompanyId").value = row.id;
+		document.forms['companyForm'].action = $scope.differentPages[index].value;
+		document.forms['companyForm'].submit();
+		//$window.location = $scope.differentPages[index].value+'?generatedCompanyId='+row.id;
 	}
     
 	$scope.addCompanyData = function () {
