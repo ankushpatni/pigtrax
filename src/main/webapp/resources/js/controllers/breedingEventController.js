@@ -21,7 +21,7 @@ pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,
 	};
 	
 	$scope.$watch('selectedEmployeeGroup', function() {
-	       alert("group selected");
+	       
 	       $scope.breedingEvent.employeeGroupId = $rootScope.selectedEmployeeGroup.id;
 	   });
 
@@ -119,6 +119,6 @@ pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,
 	$scope.viewEmployeeGroup = function()
 	{
 		$rootScope.viewAddForm = false;
-		alert($rootScope.viewAddForm);
+		
 	};
 });
