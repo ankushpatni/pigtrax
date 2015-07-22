@@ -22,7 +22,7 @@ public class PremisesController {
 	CompanyService companyService;
 	
 	@RequestMapping(value = "/premises", method=RequestMethod.POST)
-	public String displayPremises(Model model, @RequestParam int generatedCompanyId)
+	public String displayPremises(Model model, @RequestParam(value = "generatedCompanyId") int generatedCompanyId)
 	{
 		model.addAttribute("contentUrl","premises.jsp");
 		model.addAttribute("generatedCompanyId",generatedCompanyId);

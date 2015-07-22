@@ -17,8 +17,7 @@
 					</button>
 					<div class="content">
 						<div class="table-responsive" style="overflow-x: hidden">
-						  <form id="companyForm" method="POST">
-							<table st-table="displayedCollection" st-safe-src="rowCollection"
+						 	<table st-table="displayedCollection" st-safe-src="rowCollection"
 								class="table table-striped" style="background-color: LightGray">
 								<thead style="background-color: #3399CC">
 									<tr>
@@ -119,7 +118,6 @@
 								</tr>
 							</table>
 							<input type="hidden" id="selectedCompany" name="selectedCompany"/>
-							</form>
 						</div>
 					</div>
 				</div>
