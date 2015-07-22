@@ -7,4 +7,6 @@ public interface BreedingEventService {
     public int saveBreedingEventInformation(BreedingEventDto dto) throws Exception;
     
     public BreedingEventDto getBreedingEventInformation(String serviceId, Integer companyId) throws Exception;
+    
+    public void deleteBreedingEventInfo(Integer id) throws Exception;
 }  

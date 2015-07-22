@@ -1,17 +1,15 @@
 package com.pigtrax.pigevents.controller;
 
-import java.security.Principal;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.enums.RoleType;
@@ -21,14 +19,14 @@ public class EntryEventController {
 	
 	 private static final Logger logger = Logger.getLogger(EntryEventController.class);
 	
-	   @RequestMapping("/entryEvent")
+	   @RequestMapping(value="/entryEvent", method=RequestMethod.POST)
 	   public String loadEntryEnventPage(HttpServletRequest request, Model model)  
 	   {
 		   PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		   logger.info("Compayny ID : "+activeUser.getCompanyId()+"/ Role : "+activeUser.getUserRole());
-		   if(request.getParameter("companyId") != null) 
+		   if(request.getParameter("selectedCompany") != null) 
 		   {
-			   String companyId = request.getParameter("companyId");
+			   String companyId = request.getParameter("selectedCompany");
 			   model.addAttribute("CompanyId", Integer.parseInt(companyId));			   
 		   }
 		   else

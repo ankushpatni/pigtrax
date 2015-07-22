@@ -51,7 +51,7 @@
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-                      <input type="text" ng-model="breedingEvent.employeeGroupId"  name="employeeGroupId"  class="form-control" readonly = ""/><span class="input-group-addon btn btn-primary md-trigger "  ng-click="getEmployeeGroups()" data-modal="colored-primary"><span class="glyphicon glyphicon-th"></span></span>					   
+                      <input type="text" ng-model="breedingEvent.employeeGroupId"  name="employeeGroupId"  class="form-control" readonly = ""/><span class="input-group-addon btn btn-primary md-trigger " ng-click="viewEmployeeGroup()"  data-modal="colored-primary"><span class="glyphicon glyphicon-th"></span></span>					   
                       </div>
                     </div>
                     <div class="form-group">
@@ -104,9 +104,9 @@
                           <option value=3>3</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" ng-click="addBreedingEvent()"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Cancel'/></button>
-                    <button class="btn btn-danger pull-right" ng-click="deletePigInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
+                    <button class="btn btn-primary" ng-click="addBreedingEvent()" type="submit"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
+                    <button type="button" class="btn btn-danger pull-right" ng-click="deleteBreedingEventInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
                   </form>
                 </div>
               </div>
@@ -114,27 +114,28 @@
             <div class="col-sm-3 col-md-3">        
             </div>
           </div>
-		  
-		  
-		  <div id="colored-primary" class="md-modal colored-header custom-width md-effect-9">
+</div>
+
+  
+		  <div id="colored-primary" class="md-modal colored-header custom-width md-effect-9" ng-controller="EmployeeGroupController" ng-init="getEmployeeGroups()">
                     <div class="md-content">
                       <div class="modal-header">
-                        <h3>Employee Groups</h3>
+                        <h3><spring:message code='label.employeegroup.heading'  text='Employee Groups'/> </h3>
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
-                      <div class="modal-body form">
-					     <p class="color-primary">Please select a group and click to proceed</p>
+                      <div class="modal-body form" ng-hide="viewAddForm">
+					     <p class="color-primary"><spring:message code='label.employeegroup.selection.message'  text='Please select a group and proceed'/></p>
                         <table>
 						<thead>
                            <tr>
-                           	 <th>Select </th>
-                             <th> Group ID </th>
-                             <th> Members </th>
+                           	 <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
+                             <th> <spring:message code='label.employeegroup.list.header.groupId'  text='Group Id'/> </th>
+                             <th> <spring:message code='label.employeegroup.list.header.members'  text='Members'/> </th>
                            </tr>
 						   </thead>
 						   <tbody>
                            <tr ng-repeat="employeeGroup in employeeGroups" ng-if="employeeGroups != null && employeeGroups.length > 0">
-						   <td><input type="radio" ng-model="selected"></td>
+						   <td><input type="radio" ng-model="employeeGroup.selected"></td>
                               <td> {{employeeGroup.groupId}} </td>
                               <td>
                                  <p ng-repeat="employee in employeeGroup.employeeList">  {{employee.name}} ({{employee.employeeId}}) </p>
@@ -142,24 +143,68 @@
                            </tr>
                            <tr ng-if="employeeGroups == null || employeeGroups.length == 0">
                              <td colspan="3">
-                               No groups defined
+                               <spring:message code='label.employeegroup.list.nogroups'  text='No groups defined'/>
                              </td>
                            </tr>
 						   </tbody>
                         </table>
                        
                       </div>
+                      <div class="modal-body form" ng-show="viewAddForm">
+                         <h4> <spring:message code='label.employeegroup.add.heading'  text='Add Employee Group'/></h4>
+					     <p class="color-primary"><spring:message code='label.employeegroup.add.message'  text='Please enter group Id, job function and then select the employees'/></p>
+					     <p class="color-danger" ng-show="employeeGrpAddError"><spring:message code='label.employeegroup.message.add.error'  text='Exception occurred while adding the group'/></p>
+					     <p class="color-success" ng-show="employeeGrpAddSuccess"><spring:message code='label.employeegroup.message.add.success'  text='Employee group added successfully'/></p>
+                          <div class="form-group">
+	                          <label><spring:message code='label.employeegroup.add.groupId'  text='Group Id'/></label>
+	                          <input type="text" placeholder="Enter Group Id" class="form-control" ng-model="employeeGrp.groupId">
+	                          <p class="color-danger" ng-show="employeeGrpGroupIdInvalid"><spring:message code='label.employeegroup.message.groupid.invalid'  text='Group Id is required'/></p>
+	                        </div>
+	                        <div class="form-group">
+	                          <label><spring:message code='label.employeegroup.add.jobFunction'  text='Job Function'/></label>
+	                          <select class="form-control" ng-model="employeeGrp.employeeJobFunction">
+	                            <option value="Any"><spring:message code='label.employeegroup.add.functions.any'  text='Any'/></option>
+	                          </select>
+	                          <p class="color-danger" ng-show="employeeGrpJobFunctionInvalid"><spring:message code='label.employeegroup.message.jobfunction.invalid'  text='Job function is required'/></p>
+	                        </div>
+	                        <div class="row">
+	                        <p class="color-danger" ng-show="employeeGrpEmployeeInvalid"><spring:message code='label.employeegroup.message.employeeselection.invalid'  text='Please select atleast one employee'/></p>
+			                   <table>
+								<thead>
+		                           <tr>
+		                           	 <th><spring:message code='label.employeegroup.employeelist.header.select'  text='Select'/> </th>
+		                             <th> <spring:message code='label.employeegroup.employeelist.header.employeeId'  text='Employee Id'/> </th>
+		                             <th> <spring:message code='label.employeegroup.employeelist.header.name'  text='Name'/> </th>
+		                           </tr>
+								   </thead>
+								   <tbody>
+		                           <tr ng-repeat="employee in employeeList" ng-if="employeeList != null && employeeList.length > 0">
+								   <td><input type="checkbox" ng-model="employee.selected"></td>
+		                              <td> {{employee.employeeId}} </td>
+		                              <td>
+		                                 {{employee.name}}
+		                               </td>
+		                           </tr>
+		                           <tr ng-if="employeeList == null || employeeList.length == 0">
+		                             <td colspan="3">
+		                               <spring:message code='label.employeegroup.employeelist.noemployees'  text='No Employees available'/>
+		                             </td>
+		                           </tr>
+								   </tbody>
+		                        </table>
+	                        </div>
+                       
+                      </div>
                       <div class="modal-footer">
 					    <div class="pull-left">
-						<button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close">Add New Group</button>
+						<button type="button" class="btn btn-primary btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
 						</div>
-                        <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close">Cancel</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close">Proceed</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close" ng-hide="viewAddForm" ng-click="selectEmployeeGroup()"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat" ng-show="viewAddForm" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
                       </div>
                     </div>
                   </div>
-
-</div>
 
 
 		

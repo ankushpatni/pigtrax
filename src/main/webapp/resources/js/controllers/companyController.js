@@ -92,4 +92,19 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 			 }
 		});
 	};
+	
+	
+	$scope.goToPigEvent= function(eventName, companyId)
+	{
+		if(eventName == "EntryEvent")
+		{
+			document.getElementById("companyForm").action="entryEvent";			
+		}
+		else if(eventName == "BreedingEvent")
+		{
+			document.getElementById("companyForm").action="breedingEvent";			
+		}
+		document.getElementById("selectedCompany").value= companyId;
+		document.getElementById("companyForm").submit();
+	}
 });

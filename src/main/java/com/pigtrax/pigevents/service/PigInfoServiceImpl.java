@@ -32,6 +32,9 @@ public class PigInfoServiceImpl implements PigInfoService {
 	
 	
 	public int savePigInformation(PigInfoDto dto) throws Exception {
+		
+		logger.info("adding Pig info  : "+dto.toString());
+		
 		PigInfo pigInfo = builder.convertToBean(dto);
 		logger.info("company id in service = "+pigInfo.getCompanyId());
 		
@@ -46,6 +49,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 				}
 			}catch(SQLException sqlEx)
 			{
+				
 				if("23505".equals(sqlEx.getSQLState()))
 				{
 					throw new PigTraxException("PigId already exists", sqlEx.getSQLState(), true);

@@ -10,6 +10,8 @@ public class EmployeeDto {
      private boolean isActive;
      private boolean isPortalUser;
      private Integer userRoleId;
+     private boolean selected;
+     private Integer employeeJobId;
      
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
@@ -67,6 +69,23 @@ public class EmployeeDto {
 	}
 	public void setUserRoleId(Integer userRoleId) {
 		this.userRoleId = userRoleId;
+	}
+	
+	
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
+	
+	
+	public Integer getEmployeeJobId() {
+		return employeeJobId;
+	}
+	public void setEmployeeJobId(Integer employeeJobId) {
+		this.employeeJobId = employeeJobId;
 	}
 	@Override
 	public String toString() {		

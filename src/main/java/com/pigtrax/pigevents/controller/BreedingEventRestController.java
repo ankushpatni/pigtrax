@@ -84,6 +84,30 @@ public class BreedingEventRestController {
 		return dto;
 	}
 	
+	/**
+	 * Service to delete the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/deleteBreedingEventInfo", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto deleteBreedingEventInfo(HttpServletRequest request, @RequestBody Integer id)
+	{
+		logger.info("Inside deleteBreedingEventInfo method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			breedingEventService.deleteBreedingEventInfo(id);
+			dto.setPayload(id);
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+    
 	
     
 }

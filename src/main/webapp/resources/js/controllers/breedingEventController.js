@@ -1,6 +1,8 @@
-pigTrax.controller('BreedingEventController', function($scope, $http,$window,restServices) {
+pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,$window,restServices) {
 	
 	$scope.companyId = "";
+	$rootScope.companyId = "";
+	$rootScope.selectedEmployeeGroup = {};
 	
 	$scope.clearAllMessages = function()
 	{
@@ -14,7 +16,15 @@ pigTrax.controller('BreedingEventController', function($scope, $http,$window,res
 	$scope.setCompanyId = function(companyId)
 	{
 		$scope.companyId = companyId;
+		$rootScope.companyId = companyId;
+		
 	};
+	
+	$scope.$watch('selectedEmployeeGroup', function() {
+	       
+	       $scope.breedingEvent.employeeGroupId = $rootScope.selectedEmployeeGroup.id;
+	   });
+
 	
 	$scope.getBreedingServiceType = function()
 	{
@@ -87,5 +97,28 @@ pigTrax.controller('BreedingEventController', function($scope, $http,$window,res
 				   $scope.employeeGroups = data.payload;
 				}
 		});
+	};
+	
+	$scope.deleteBreedingEventInfo = function()
+	{	
+		restServices.deleteBreedingEventInfo($scope.breedingEvent.id, function(data){
+			$scope.clearAllMessages();
+			$scope.entryEventDeleteMessage = true;
+			$scope.breedingEvent = {};
+		});
+			
+	};
+	
+	
+	$scope.resetForm = function()
+	{
+		$scope.clearAllMessages();
+		$scope.breedingEvent = {};
+	}
+	
+	$scope.viewEmployeeGroup = function()
+	{
+		$rootScope.viewAddForm = false;
+		
 	};
 });

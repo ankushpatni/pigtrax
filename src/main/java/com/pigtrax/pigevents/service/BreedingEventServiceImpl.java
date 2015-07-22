@@ -84,4 +84,11 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 		BreedingEventDto dto = builder.convertToDto(breedingEvent);
 		return dto;
 	}
+	
+	public void deleteBreedingEventInfo(Integer id) throws Exception {
+		if(id != null)
+		{
+			breedingEventDao.deleteBreedingEventInfo(id);
+		}
+	}
 }

@@ -13,8 +13,6 @@ public interface BreedingEventDao {
    public int updateBreedingEventInformation(final BreedingEvent breedingEvent) throws SQLException, DuplicateKeyException ;
   
    public BreedingEvent getBreedingEventInformation(String serviceId, Integer companyId) throws SQLException;
-//   
-//   public PigInfo getPigInformationByTattoo(String tattoo, Integer companyId) throws SQLException;
-//   
-//   public void deletePigInfo(Integer id) throws SQLException;
+   
+   public void deleteBreedingEventInfo(Integer id) throws SQLException;
 }
