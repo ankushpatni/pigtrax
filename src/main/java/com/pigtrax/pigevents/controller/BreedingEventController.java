@@ -12,6 +12,7 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.enums.RoleType;
@@ -21,14 +22,14 @@ public class BreedingEventController {
 	
 	 private static final Logger logger = Logger.getLogger(BreedingEventController.class);
 	
-	   @RequestMapping("/breedingEvent")
+	   @RequestMapping(value="/breedingEvent", method=RequestMethod.POST)
 	   public String loadBreedingEvent(HttpServletRequest request, Model model)  
 	   {
 		   PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		   logger.info("Compayny ID : "+activeUser.getCompanyId()+"/ Role : "+activeUser.getUserRole());
-		   if(request.getParameter("companyId") != null) 
+		   if(request.getParameter("selectedCompany") != null) 
 		   {
-			   String companyId = request.getParameter("companyId");
+			   String companyId = request.getParameter("selectedCompany");
 			   model.addAttribute("CompanyId", Integer.parseInt(companyId));			   
 		   }
 		   else

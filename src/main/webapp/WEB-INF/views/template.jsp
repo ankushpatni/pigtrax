@@ -42,7 +42,8 @@
 	<script src="resources/js/controllers/employeeController.js"></script>
 	<script src="resources/js/controllers/companyController.js"></script>
 	<script src="resources/js/controllers/entryEventController.js"></script>
-	<script src="resources/js/controllers/breedingEventController.js"></script>	
+	<script src="resources/js/controllers/breedingEventController.js"></script>		
+	<script src="resources/js/controllers/employeeGroupController.js"></script>
 <script src="resources/js/controllers/addCompanyController.js"></script>
 <script src="resources/js/controllers/addPremisesController.js"></script>
 <script src="resources/js/controllers/addBarnController.js"></script>

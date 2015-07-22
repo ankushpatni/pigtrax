@@ -118,7 +118,7 @@
                       <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
                           <input size="16" type="date" id="birthDate" name="birthDate" ng-model="pigInfo.birthDate" readonly="" class="form-control"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                        </div> 
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/></label>
@@ -144,9 +144,9 @@
                           <option>3</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" ng-click="addEntryEvent()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default"><spring:message code='label.piginfo.entryeventform.cancel'  text='Cancel'/></button>
-                    <button class="btn btn-danger pull-right" ng-click="deletePigInfo()" ng-show="pigInfo.id != null && pigInfo.id > 0" ng-confirm="<spring:message code='label.piginfo.entryeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.entryeventform.cancel'  text='Delete'/></button>
+                    <button class="btn btn-primary" ng-click="addEntryEvent()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-danger pull-right" ng-click="deletePigInfo()" type="button" ng-show="pigInfo.id != null && pigInfo.id > 0" ng-confirm-click="<spring:message code='label.piginfo.entryeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.entryeventform.cancel'  text='Delete'/></button>
                   </form>
                 </div>
               </div>

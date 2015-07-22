@@ -17,6 +17,7 @@
 					</button>
 					<div class="content">
 						<div class="table-responsive" style="overflow-x: hidden">
+						  <form id="companyForm" method="POST">
 							<table st-table="displayedCollection" st-safe-src="rowCollection"
 								class="table table-striped" style="background-color: LightGray">
 								<thead style="background-color: #3399CC">
@@ -83,8 +84,8 @@
 												<div class="btn-group">								 				
 												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>
 												  <ul role="menu" class="dropdown-menu">
-													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Entry Event</a></li>
-													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Breeding Event</a></li>
+													<li><a href="#" ng-click="goToPigEvent('EntryEvent',row.id)">Entry Event</a></li>
+													<li><a href="#" ng-click="goToPigEvent('BreedingEvent',row.id)">Breeding Event</a></li>
 													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Pregnancy Event</a></li>
 													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Farrow Event</a></li>
 												  </ul>
@@ -117,6 +118,8 @@
 									</td>
 								</tr>
 							</table>
+							<input type="hidden" id="selectedCompany" name="selectedCompany"/>
+							</form>
 						</div>
 					</div>
 				</div>

@@ -65,8 +65,8 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	    				ps.setInt(11, pigInfo.getSowCondition());
 	    				ps.setString(12, pigInfo.getUserUpdated());
 	    				ps.setInt(13, pigInfo.getCompanyId());
-	    				ps.setInt(14, pigInfo.getPenId());
-	    				ps.setInt(15, pigInfo.getBarnId());
+	    				ps.setObject(14, pigInfo.getPenId());
+	    				ps.setObject(15, pigInfo.getBarnId());
 	    				ps.setInt(16, pigInfo.getSexTypeId());
 	    			
 	    	            return ps;
@@ -110,8 +110,8 @@ public class PigInfoDaoImpl implements PigInfoDao {
 				ps.setInt(11, pigInfo.getSowCondition());
 				ps.setString(12, pigInfo.getUserUpdated());
 				ps.setInt(13, pigInfo.getCompanyId());
-				ps.setInt(14, pigInfo.getPenId());
-				ps.setInt(15, pigInfo.getBarnId());
+				ps.setObject(14, pigInfo.getPenId());
+				ps.setObject(15, pigInfo.getBarnId());
 				ps.setInt(16, pigInfo.getSexTypeId());				
 				ps.setInt(17, pigInfo.getId());
 			}
@@ -173,8 +173,8 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			pigInfo.setRemarks(rs.getString("remarks"));
 			pigInfo.setSowCondition(rs.getInt("sowCondition"));
 			pigInfo.setCompanyId(rs.getInt("id_Company"));
-			pigInfo.setBarnId(rs.getInt("id_Barn"));
-			pigInfo.setPenId(rs.getInt("id_Pen"));
+			pigInfo.setBarnId((rs.getObject("id_Barn")!=null)?(Integer)rs.getObject("id_Barn") : null);
+			pigInfo.setPenId((rs.getObject("id_Pen")!=null)?(Integer)rs.getObject("id_Pen") : null);
 			pigInfo.setSexTypeId(rs.getInt("id_SexType"));
 			return pigInfo;
 		}

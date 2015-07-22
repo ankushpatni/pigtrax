@@ -131,5 +131,17 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			return breedingEvent;
 		}
 	}
+	
+	
+	public void deleteBreedingEventInfo(final Integer id) throws SQLException {
+		final String qry = "delete from pigtrax.\"BreedingEvent\" where \"id\" = ?";
+		
+		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, id);
+			}
+		});
+	}
 }
 

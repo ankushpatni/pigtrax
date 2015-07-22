@@ -129,6 +129,7 @@ public class EntryEventRestController {
 			int rowsInserted = pigInfoService.savePigInformation(pigInformation);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
+			e.printStackTrace();
 			logger.info("is duplicate : "+e.isDuplicateStatus());
 			if(e.isDuplicateStatus())
 			{
@@ -136,6 +137,7 @@ public class EntryEventRestController {
 			}
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		}
 		return dto;

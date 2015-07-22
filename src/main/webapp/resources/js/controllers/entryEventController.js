@@ -49,6 +49,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 						{
 							$scope.clearAllMessages();
 							$scope.entryEventSuccessMessage = true;
+							$scope.pigInfo = {};
 						}
 					else
 						{
@@ -112,8 +113,15 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 					restServices.deletePigInfo($scope.pigInfo.id, function(data){
 						$scope.clearAllMessages();
 						$scope.entryEventDeleteMessage = true;
+						$scope.pigInfo = {};
 					});
 				
 		};
+		
+		$scope.resetForm = function()
+		{
+			$scope.clearAllMessages();
+			$scope.pigInfo = {};
+		}
 		
 });

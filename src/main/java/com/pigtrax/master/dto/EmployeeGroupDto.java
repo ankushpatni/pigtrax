@@ -13,7 +13,10 @@ public class EmployeeGroupDto {
 	private Date lastUpdated;
 	private String userUpdated;
 	private int employeeJobFunctionId;	
+	private String employeeJobFunction;
 	private List<EmployeeDto> employeeList;
+	private int companyId;
+	private boolean selected;
 
 	public int getId() {
 		return id;
@@ -71,6 +74,36 @@ public class EmployeeGroupDto {
 
 	public void setEmployeeList(List<EmployeeDto> employeeList) {
 		this.employeeList = employeeList;
+	}
+	
+	
+
+	public String getEmployeeJobFunction() {
+		return employeeJobFunction;
+	}
+
+	public void setEmployeeJobFunction(String employeeJobFunction) {
+		this.employeeJobFunction = employeeJobFunction;
+	}
+	
+	
+
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
+	
+	
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	@Override
