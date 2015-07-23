@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,16 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
-import com.pigtrax.master.dao.interfaces.BarnDao;
+import com.pigtrax.master.dto.Pen;
 import com.pigtrax.master.service.interfaces.BarnService;
+import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.pigevents.dto.BarnDto;
-import com.pigtrax.pigevents.dto.PenDto;
 import com.pigtrax.pigevents.dto.PigInfoDto;
-import com.pigtrax.pigevents.service.interfaces.PenService;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
-import com.pigtrax.usermanagement.dao.interfaces.EmployeeDao;
-import com.pigtrax.usermanagement.dto.EmployeeDto;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -102,7 +97,7 @@ public class EntryEventRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		Map<String, Object> entryEventMap = new HashMap<String, Object>();
 		try {
-			List<PenDto> penDtoList = penService.getPenList(barnId);
+			List<Pen> penDtoList = penService.getPenListByBarnId(barnId);
 			dto.setPayload(penDtoList);
 		} catch (SQLException e) {
 			e.printStackTrace();
