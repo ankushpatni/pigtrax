@@ -25,7 +25,7 @@ public class PenController {
 	@Autowired
 	RefDataCache refDataCache;
 	
-	@RequestMapping(value = "/room", method=RequestMethod.POST)
+	@RequestMapping(value = "/pen", method=RequestMethod.POST)
 	public String displayPen(Model model, @RequestParam int generatedRoomId)
 	{
 		System.out.println("Ankush printing---->"+generatedRoomId);
