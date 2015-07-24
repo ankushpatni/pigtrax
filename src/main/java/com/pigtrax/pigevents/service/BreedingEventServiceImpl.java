@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.master.dao.interfaces.EmployeeGroupDao;
+import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
@@ -17,10 +19,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.BreedingEventBuilder;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
-import com.pigtrax.pigevents.dto.PigInfoBuilder;
-import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
-import com.pigtrax.pigevents.service.interfaces.PigInfoService;
 
 @Repository
 public class BreedingEventServiceImpl implements BreedingEventService {
@@ -35,12 +34,23 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	@Autowired
 	PigTraxEventMasterDao eventMasterDao;
 	
+	@Autowired
+	EmployeeGroupDao employeeGroupDao;
+	
+	@Autowired
+	PigInfoDao pigInfoDao;
+	
 	@Override
 	public int saveBreedingEventInformation(BreedingEventDto dto)
 			throws Exception {
-		BreedingEvent breedingEvent = builder.convertToBean(dto);
-		
+
 			try{
+				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(dto.getPigInfoId(), dto.getCompanyId());
+				if(pigInfo != null)
+					dto.setPigInfoKey(pigInfo.getId());
+				
+				BreedingEvent breedingEvent = builder.convertToBean(dto);
+				
 				if(dto.getId() == null)
 				{
 				logger.info("Breeding Event Dtoo : "+dto.toString());
@@ -82,9 +92,22 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			throws Exception {
 		BreedingEvent breedingEvent = breedingEventDao.getBreedingEventInformation(serviceId, companyId);
 		BreedingEventDto dto = builder.convertToDto(breedingEvent);
+		
+		if(dto != null)
+		{
+			EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(breedingEvent.getEmployeeGroupId());
+			dto.setEmployeeGroup(employeeGroup);
+			
+			PigInfo pigInfo = pigInfoDao.getPigInformationById(dto.getPigInfoKey());
+			dto.setPigInfoId(pigInfo.getPigId());
+			
+		}
+		
 		return dto;
 	}
 	
+	
+	@Override
 	public void deleteBreedingEventInfo(Integer id) throws Exception {
 		if(id != null)
 		{

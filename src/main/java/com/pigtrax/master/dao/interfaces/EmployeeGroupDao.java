@@ -20,4 +20,6 @@ public interface EmployeeGroupDao {
     int deleteEmployeeGroup(final String groupId, final int companyId) throws SQLException;
     
     int inactivateGroup(final String groupId, final int companyId) throws SQLException;
+    
+    EmployeeGroupDto getEmployeeGroup(Integer employeeGroupIdKey) throws SQLException;
 }

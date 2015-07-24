@@ -15,6 +15,7 @@ public class BreedingEventBuilder {
 			   info.setServiceId(dto.getServiceId());
 			   info.setEmployeeGroupId(dto.getEmployeeGroupId());
 			   info.setPigInfoId(dto.getPigInfoId());
+			   info.setPigInfoKey(dto.getPigInfoKey());
 			   info.setBreedingServiceTypeId(dto.getBreedingServiceTypeId());
 			   info.setBreedingGroupId(dto.getBreedingGroupId());
 			   info.setBreedingDate(dto.getBreedingDate());
@@ -38,6 +39,7 @@ public class BreedingEventBuilder {
 			   dto.setServiceId(info.getServiceId());
 			   dto.setEmployeeGroupId(info.getEmployeeGroupId());
 			   dto.setPigInfoId(info.getPigInfoId());
+			   dto.setPigInfoKey(info.getPigInfoKey());
 			   dto.setBreedingServiceTypeId(info.getBreedingServiceTypeId());
 			   dto.setBreedingGroupId(info.getBreedingGroupId());
 			   dto.setBreedingDate(info.getBreedingDate());

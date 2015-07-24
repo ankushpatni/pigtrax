@@ -33,6 +33,38 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	
+	public EmployeeGroupDaoImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public EmployeeGroupDto getEmployeeGroup(final Integer employeeGroupIdKey)
+			throws SQLException {
+		String qry = "Select EG.\"id\", EG.\"groupId\", EG.\"id_EmployeeJobFunction\", EJF.\"id_Employee\", EJF.\"functionName\", E.\"employeeId\", E.\"name\", EJF.\"functionName\" "
+				+ "from pigtrax.\"EmployeeGroup\" EG "
+				+ "JOIN pigtrax.\"EmployeeJobFunction\" EJF on EG.\"id_EmployeeJobFunction\" = EJF.\"id\" "
+				+ "JOIN pigtrax.\"Employee\" E on EJF.\"id_Employee\" = E.\"id\" "
+				+ "WHERE  EG.\"isActive\" is TRUE and EJF.\"functionTo\" is NULL and EG.\"groupId\" = (select \"groupId\" from pigtrax.\"EmployeeGroup\" where \"id\" = ?) Order by EG.\"groupId\"";
+		List<EmployeeGroupDto> employeeGroupList = jdbcTemplate.query(qry,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, employeeGroupIdKey);
+					}
+				}, new EmployeeGroupMapper());
+
+		
+		if (employeeGroupList != null && employeeGroupList.size() > 0) {
+			return employeeGroupList.get(0);
+		}
+		return null;
+	}
+	
+	
+	
+	
 
 	@Override
 	public List<EmployeeGroupDto> getEmployeeGroups(final Integer companyId)

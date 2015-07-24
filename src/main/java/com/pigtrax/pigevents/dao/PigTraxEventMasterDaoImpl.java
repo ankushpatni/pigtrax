@@ -65,7 +65,7 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
 				ps.setInt(1, breedingEvent.getId());
-				ps.setInt(2, breedingEvent.getPigInfoId());
+				ps.setInt(2, breedingEvent.getPigInfoKey());
 			}
 		});
 	}

@@ -46,7 +46,7 @@
                       required-message="'<spring:message code='label.piginfo.breedingeventform.serviceId.requiredmessage' text='Service Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.serviceId.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  class="form-control">
-				      <p ng-show="breedingEvent.id != null && breedingEvent.id != 0">{{breedingEvent.id.serviceId}}</p>
+				      <p ng-show="breedingEvent.id != null && breedingEvent.id != 0">{{breedingEvent.serviceId}}</p>
                     </div>
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.employeegroup'  text='Employee Group'/></label>
@@ -60,13 +60,13 @@
                       </div>
                     </div>					
 					<div class="form-group">
-                      <label><spring:message code='label.piginfo.breedingeventform.pigInfoId'  text='Pig Info Id'/></label>
-                     <input type="text" ng-model="breedingEvent.pigInfoId"  name="pigInfoId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
+                      <label><spring:message code='label.piginfo.breedingeventform.pigInfoId'  text='Pig Id'/></label>
+                     <input type="text" ng-model="breedingEvent.pigInfoId" id="pigInfoId" name="pigInfoId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
                       required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
-						ng-pattern="/^[0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'"/>
+						ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()"/>
                     </div>
-                   
+					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'><spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  required 
@@ -139,7 +139,7 @@
 						   </thead>
 						   <tbody>
                            <tr ng-repeat="employeeGroup in employeeGroups" ng-if="employeeGroups != null && employeeGroups.length > 0">
-						   <td><input type="radio" name="employeeGrpId" id="employeeGrpId" ng-model="employeeGroup.selected" value="{{employeeGroup.id}}"></td>
+						   <td><input type="radio" name="employeeGrpId" id="employeeGrpId" value="{{employeeGroup.id}}"></td>
                               <td> {{employeeGroup.groupId}} </td>
                               <td>
                                  <p ng-repeat="employee in employeeGroup.employeeList">  {{employee.name}} ({{employee.employeeId}}) </p>

@@ -48,7 +48,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    	                con.prepareStatement(Qry, new String[] {"id"});
 	    	            ps.setString(1, breedingEvent.getServiceId());
 	    				ps.setInt(2, breedingEvent.getEmployeeGroupId());
-	    				ps.setInt(3, breedingEvent.getPigInfoId());
+	    				ps.setInt(3, breedingEvent.getPigInfoKey());
 	    				ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
 	    				ps.setString(5, breedingEvent.getBreedingGroupId());
 	    				ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
@@ -80,7 +80,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 				
 				ps.setString(1, breedingEvent.getServiceId());
 				ps.setInt(2, breedingEvent.getEmployeeGroupId());
-				ps.setInt(3, breedingEvent.getPigInfoId());
+				ps.setInt(3, breedingEvent.getPigInfoKey());
 				ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
 				ps.setString(5, breedingEvent.getBreedingGroupId());
 				ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
@@ -118,6 +118,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			BreedingEvent breedingEvent = new BreedingEvent();
 			breedingEvent.setId(rs.getInt("id"));
 			breedingEvent.setServiceId(rs.getString("serviceId"));
+			breedingEvent.setPigInfoKey(rs.getInt("id_PigInfo"));
 			breedingEvent.setEmployeeGroupId(rs.getInt("id_EmployeeGroup"));
 			breedingEvent.setBreedingServiceTypeId(rs.getInt("id_BreedingServiceType"));
 			breedingEvent.setBreedingGroupId(rs.getString("brgrId"));

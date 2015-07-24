@@ -3,12 +3,13 @@ package com.pigtrax.pigevents.dto;
 import java.util.Date;
 
 import com.pigtrax.master.beans.EmployeeGroup;
+import com.pigtrax.master.dto.EmployeeGroupDto;
 
 public class BreedingEventDto {
     private Integer id;
     private String serviceId;
     private Integer employeeGroupId;
-    private Integer pigInfoId;
+    private String pigInfoId;
     private  Integer breedingServiceTypeId;
     private String breedingGroupId;
     private Date breedingDate;
@@ -19,7 +20,8 @@ public class BreedingEventDto {
     private Date lastUpdated;
     private String userUpdated;
     private Integer companyId;
-    private EmployeeGroup employeeGroup;
+    private Integer pigInfoKey;
+    private EmployeeGroupDto employeeGroup;
 	public Integer getId() {
 		return id;
 	}
@@ -38,10 +40,10 @@ public class BreedingEventDto {
 	public void setEmployeeGroupId(Integer employeeGroupId) {
 		this.employeeGroupId = employeeGroupId;
 	}
-	public Integer getPigInfoId() {
+	public String getPigInfoId() {
 		return pigInfoId;
 	}
-	public void setPigInfoId(Integer pigInfoId) {
+	public void setPigInfoId(String pigInfoId) {
 		this.pigInfoId = pigInfoId;
 	}
 	public Integer getBreedingServiceTypeId() {
@@ -107,11 +109,19 @@ public class BreedingEventDto {
 		this.companyId = companyId;
 	}
 	
-	public EmployeeGroup getEmployeeGroup() {
+	public EmployeeGroupDto getEmployeeGroup() {
 		return employeeGroup;
 	}
-	public void setEmployeeGroup(EmployeeGroup employeeGroup) {
+	public void setEmployeeGroup(EmployeeGroupDto employeeGroup) {
 		this.employeeGroup = employeeGroup;
+	}
+	
+	
+	public Integer getPigInfoKey() {
+		return pigInfoKey;
+	}
+	public void setPigInfoKey(Integer pigInfoKey) {
+		this.pigInfoKey = pigInfoKey;
 	}
 	@Override
     public String toString() {

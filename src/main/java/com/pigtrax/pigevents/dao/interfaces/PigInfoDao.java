@@ -16,4 +16,6 @@ public interface PigInfoDao {
    public PigInfo getPigInformationByTattoo(String tattoo, Integer companyId) throws SQLException;
    
    public void deletePigInfo(Integer id) throws SQLException;
+   
+   PigInfo getPigInformationById(final Integer pigInfoId) throws SQLException;
 }

@@ -6,7 +6,7 @@ public class BreedingEvent {
     private Integer id;
     private String serviceId;
     private Integer employeeGroupId;
-    private Integer pigInfoId;
+    private String pigInfoId;
     private  Integer breedingServiceTypeId;
     private String breedingGroupId;
     private Date breedingDate;
@@ -16,6 +16,8 @@ public class BreedingEvent {
     private Integer sowCondition;
     private Date lastUpdated;
     private String userUpdated;
+    private Integer pigInfoKey;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -34,10 +36,10 @@ public class BreedingEvent {
 	public void setEmployeeGroupId(Integer employeeGroupId) {
 		this.employeeGroupId = employeeGroupId;
 	}
-	public Integer getPigInfoId() {
+	public String getPigInfoId() {
 		return pigInfoId;
 	}
-	public void setPigInfoId(Integer pigInfoId) {
+	public void setPigInfoId(String pigInfoId) {
 		this.pigInfoId = pigInfoId;
 	}
 	public Integer getBreedingServiceTypeId() {
@@ -93,6 +95,12 @@ public class BreedingEvent {
 	}
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
+	}
+	public Integer getPigInfoKey() {
+		return pigInfoKey;
+	}
+	public void setPigInfoKey(Integer pigInfoKey) {
+		this.pigInfoKey = pigInfoKey;
 	}
     
     
