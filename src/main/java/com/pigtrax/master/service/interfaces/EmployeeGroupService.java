@@ -1,5 +1,6 @@
 package com.pigtrax.master.service.interfaces;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.pigtrax.application.exception.PigTraxException;
@@ -11,5 +12,9 @@ public interface EmployeeGroupService {
 	 
 	 List<EmployeeDto> getEmployeeList(Integer companyId, String jobFunction) throws PigTraxException;
 	 
-	 void saveEmployeeGroup(EmployeeGroupDto dto) throws PigTraxException;
+	 String saveEmployeeGroup(EmployeeGroupDto dto) throws PigTraxException;
+	 
+	 EmployeeGroupDto getGroupWithSameEmployees(EmployeeGroupDto employeeGroupDto) throws PigTraxException;
+	 
+	 int inactivateGroup(EmployeeGroupDto employeeGroupDto) throws PigTraxException;
 }

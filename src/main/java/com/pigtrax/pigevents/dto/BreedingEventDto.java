@@ -2,6 +2,8 @@ package com.pigtrax.pigevents.dto;
 
 import java.util.Date;
 
+import com.pigtrax.master.beans.EmployeeGroup;
+
 public class BreedingEventDto {
     private Integer id;
     private String serviceId;
@@ -17,6 +19,7 @@ public class BreedingEventDto {
     private Date lastUpdated;
     private String userUpdated;
     private Integer companyId;
+    private EmployeeGroup employeeGroup;
 	public Integer getId() {
 		return id;
 	}
@@ -102,6 +105,13 @@ public class BreedingEventDto {
 	}
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
+	}
+	
+	public EmployeeGroup getEmployeeGroup() {
+		return employeeGroup;
+	}
+	public void setEmployeeGroup(EmployeeGroup employeeGroup) {
+		this.employeeGroup = employeeGroup;
 	}
 	@Override
     public String toString() {

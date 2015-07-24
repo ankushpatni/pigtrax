@@ -14,4 +14,10 @@ public interface EmployeeGroupDao {
     List<EmployeeDto> getEmployeeList(Integer companyId, String jobFunction) throws SQLException;
     
     void addEmployeeGroup(EmployeeGroupDto employeeGroupDto) throws SQLException, DuplicateKeyException;
+    
+    boolean isGroupExistsWithId(final String groupId, final Integer companyId) throws SQLException;
+    
+    int deleteEmployeeGroup(final String groupId, final int companyId) throws SQLException;
+    
+    int inactivateGroup(final String groupId, final int companyId) throws SQLException;
 }

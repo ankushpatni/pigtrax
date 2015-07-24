@@ -37,11 +37,11 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 	@Override
 	public List<EmployeeGroupDto> getEmployeeGroups(final Integer companyId)
 			throws SQLException {
-		String qry = "Select EG.\"id\", EG.\"groupId\", EG.\"id_EmployeeJobFunction\", EJF.\"id_Employee\", EJF.\"functionName\", E.\"employeeId\", E.\"name\" "
+		String qry = "Select EG.\"id\", EG.\"groupId\", EG.\"id_EmployeeJobFunction\", EJF.\"id_Employee\", EJF.\"functionName\", E.\"employeeId\", E.\"name\", EJF.\"functionName\" "
 				+ "from pigtrax.\"EmployeeGroup\" EG "
 				+ "JOIN pigtrax.\"EmployeeJobFunction\" EJF on EG.\"id_EmployeeJobFunction\" = EJF.\"id\" "
 				+ "JOIN pigtrax.\"Employee\" E on EJF.\"id_Employee\" = E.\"id\" "
-				+ "WHERE  EG.\"isActive\" is true and EJF.\"functionTo\" is NULL and E.\"id_Company\" = ? Order by EG.\"groupId\"";
+				+ "WHERE  EG.\"isActive\" is TRUE and EJF.\"functionTo\" is NULL and E.\"id_Company\" = ? Order by EG.\"groupId\"";
 
 		List<EmployeeGroupDto> employeeGroupList = jdbcTemplate.query(qry,
 				new PreparedStatementSetter() {
@@ -82,12 +82,13 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 				}
 				grp.setId(rs.getInt("id"));
 				grp.setGroupId(groupId);
-				grp.setEmployeeJobFunctionId(rs
-						.getInt("id_EmployeeJobFunction"));
+				grp.setEmployeeJobFunctionId(rs.getInt("id_EmployeeJobFunction"));
+				grp.setEmployeeJobFunction(rs.getString("functionName"));
 
 				employeeDto.setId(rs.getInt("id_Employee"));
 				employeeDto.setEmployeeId(rs.getString("employeeId"));
 				employeeDto.setName(rs.getString("name"));
+				employeeDto.setSelected(true);
 				employeeList.add(employeeDto);
 
 			}
@@ -161,4 +162,68 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 		}
 
 	}
+	
+	
+	@Override
+	public boolean isGroupExistsWithId(final String groupId, final Integer companyId) throws SQLException
+	{
+		final String qry = "Select count(EG.\"id\") from pigtrax.\"EmployeeGroup\" EG join pigtrax.\"EmployeeJobFunction\" EJF on EG.\"id_EmployeeJobFunction\" = EJF.\"id\" "
+				+ " JOIN pigtrax.\"Employee\" E on EJF.\"id_Employee\" = E.\"id\" where EG.\"groupId\" = ? and E.\"id_Company\" = ?";
+		
+			
+		@SuppressWarnings("unchecked")
+		Integer cnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1, groupId);
+					ps.setInt(2, companyId);
+				}
+			},
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getInt(1);
+		            }
+		            return null;
+		          }
+		        });
+		
+		return cnt > 0? true : false;
+	}
+	
+	
+	/**
+	 * Deletes a group from a company
+	 * @param groupId
+	 * @param companyId
+	 * @return
+	 * @throws SQLException
+	 */
+	public int deleteEmployeeGroup(final String groupId, final int companyId)
+			throws SQLException {
+		final String qry = "delete from pigtrax.\"EmployeeGroup\" where \"groupId\" = ? and  \"id_EmployeeJobFunction\" in (select \"id\" from pigtrax.\"EmployeeJobFunction\" where \"id_Employee\" in (select \"id\" from pigtrax.\"Employee\" where \"id_Company\" = ?))";
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				
+				ps.setString(1, groupId);
+				ps.setInt(2, companyId);
+			}
+		});
+	}
+
+	
+	public int inactivateGroup(final String groupId, final int companyId)
+			throws SQLException {
+		final String qry = "update pigtrax.\"EmployeeGroup\" set \"isActive\" = FALSE where \"groupId\" = ? and  \"id_EmployeeJobFunction\" in (select \"id\" from pigtrax.\"EmployeeJobFunction\" where \"id_Employee\" in (select \"id\" from pigtrax.\"Employee\" where \"id_Company\" = ?))";
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				
+				ps.setString(1, groupId);
+				ps.setInt(2, companyId);
+			}
+		});
+	}
+	
 }

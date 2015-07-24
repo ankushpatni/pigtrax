@@ -1,8 +1,9 @@
-pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,$window,restServices) {
+var breedingEventController = pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,$window,restServices) {
 	
 	$scope.companyId = "";
 	$rootScope.companyId = "";
 	$rootScope.selectedEmployeeGroup = {};
+	$scope.breedingEvent = {};
 	
 	$scope.clearAllMessages = function()
 	{
@@ -13,19 +14,22 @@ pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,
 		$scope.searchErrorMessage = false;
 	};
 	
+	
+	$scope.$watch("selectedEmployeeGroup", function(newValue, oldValue) {
+		
+		if (newValue != null && newValue != undefined) {
+			$scope.selectedEmployeeGroup = newValue;
+			
+		}
+	});
+	
 	$scope.setCompanyId = function(companyId)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
 		
 	};
-	
-	$scope.$watch('selectedEmployeeGroup', function() {
-	       
-	       $scope.breedingEvent.employeeGroupId = $rootScope.selectedEmployeeGroup.id;
-	   });
-
-	
+		
 	$scope.getBreedingServiceType = function()
 	{
 		restServices.getBreedingServiceType(function(data){

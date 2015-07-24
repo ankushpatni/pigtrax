@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div id="companyContent" ng-controller="CompanyController"
 	ng-init="getCompanyList()" class="container-fluid">
-<form name="companyForm" method="post">
+<form name="companyForm" method="post" id="companyForm">
 	<div class="cl-mcont">
 		<div class="row">
 			<div class="col-md-12">

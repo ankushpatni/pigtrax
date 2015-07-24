@@ -91,4 +91,18 @@ public class EmployeeDto {
 	public String toString() {		
 		return "Employee [ empId : "+this.employeeId+", name : "+this.name+"]";
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		EmployeeDto dto = (EmployeeDto) obj;
+		int idVal1 = (this.id != null) ?this.id.intValue() : 0;
+		int idVal2 = (dto.getId() != null) ?dto.getId().intValue() : 0;
+		return (idVal1 == idVal2);
+	}
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return this.id.hashCode();
+	}
 }

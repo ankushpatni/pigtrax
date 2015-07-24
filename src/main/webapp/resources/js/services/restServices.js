@@ -14,9 +14,10 @@ pigTrax.factory("restServices", function($resource) {
     	"getBreedingServiceType" : {method:"GET", url:"rest/util/getBreedingServiceType"},
     	"saveBreedingEventInformation" : {method:"POST", url:"rest/breedingEvent/saveBreedingEventInformation"},
     	"deleteBreedingEventInfo" : {method:"POST", url:"rest/breedingEvent/deleteBreedingEventInfo"},
+    	"deleteEmployeeGroup" : {method:"POST", url:"rest/employeeGroup/deleteEmployeeGroup"},
     	"getBreedingEventInformation" : {method:"POST", url:"rest/breedingEvent/getBreedingEventInformation"},    	
     	"saveEmployeeGroup" : {method:"POST", url:"rest/employeeGroup/saveEmployeeGroup"},
     	"getEmployeeGroups" : {method:"POST", url:"rest/employeeGroup/getEmployeeGroups"},
-    	"getEmployeeList" : {method:"POST", url:"rest/employeeGroup/getEmployeeList"}
+    	"getEmployeeList" : {method:"POST", url:"rest/employeeGroup/getEmployeeList"},
     });
 });

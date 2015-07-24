@@ -85,12 +85,62 @@ public class EmployeeGroupRestController {
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try {
 			employeeGroupDto.setUserUpdated(activeUser.getUsername());
-			employeeGroupService.saveEmployeeGroup(employeeGroupDto);
-			dto.setStatusMessage("Success");
+			
+			EmployeeGroupDto matchingGroup = null;
+			
+			if(employeeGroupDto != null && employeeGroupDto.getId()== 0)
+				matchingGroup =  employeeGroupService.getGroupWithSameEmployees(employeeGroupDto);
+			
+			if(matchingGroup != null)
+			{
+				 dto.setDuplicateRecord(true);
+				 dto.setStatusMessage("ERROR : Matching group found");
+				 dto.setPayload(matchingGroup);
+			
+			}
+			else
+			{
+				String status = employeeGroupService.saveEmployeeGroup(employeeGroupDto);
+				if("success".equals(status))
+				{
+					dto.setStatusMessage("Success");
+				}
+				else if("duplicate".equals(status))
+				{
+					dto.setDuplicateRecord(true);
+					dto.setStatusMessage("ERROR : Duplicate record");
+				}
+				else
+				{
+					dto.setStatusMessage("ERROR : Exception");
+				}
+				
+			}
+			
 		} catch (PigTraxException e) {
 			dto.setStatusMessage("Error : Exception occurred ");
 		}
 
+		return dto;
+	}
+	
+	
+	
+	/**
+	 * Service to save the employee group information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/deleteEmployeeGroup", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto deleteEmployeeGroup(HttpServletRequest request, @RequestBody EmployeeGroupDto employeeGroupDto)
+	{
+		logger.info("Inside deleteEmployeeGroup" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			int rowsInserted = employeeGroupService.inactivateGroup(employeeGroupDto);
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR ");
+		}
 		return dto;
 	}
 }
