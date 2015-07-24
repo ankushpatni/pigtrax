@@ -139,9 +139,9 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span></label>
                       <select class="form-control" name="sowCondition" ng-model="pigInfo.sowCondition" required required-message="'<spring:message code='label.piginfo.entryeventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
+                          <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>
+                          <option value="2">2 - <spring:message code='label.piginfo.entryeventform.sowcondition.normal.message'  text='Healthy'/></option>
+                          <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
                         </select>
                     </div>
                     <button class="btn btn-primary" ng-click="addEntryEvent()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
