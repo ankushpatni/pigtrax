@@ -162,7 +162,7 @@ ALTER TABLE pigtrax."Room" OWNER TO pitraxadmin;
 -- DROP TABLE IF EXISTS pigtrax."Pen" CASCADE;
 CREATE TABLE pigtrax."Pen"(
 	id serial NOT NULL,
-	"penId" varchar(4) NOT NULL,
+	"penId" varchar(14) NOT NULL,
 	"id_Room" integer,
 	location varchar(30) NOT NULL,
 	"isActive" bool,
