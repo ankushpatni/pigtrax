@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <div id="roomContent" ng-controller="RoomController" ng-init="getRoomList('${barnId}',${generatedBarnId})" class="container-fluid">
+<form name="penForm" method="post">
 <div class="cl-mcont">
 		<div class="row">
 			<div class="col-md-12">
@@ -61,4 +62,6 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" name="generatedRoomId" id="generatedRoomId"/>
+	</form>
 </div>

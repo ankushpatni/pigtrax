@@ -5,7 +5,7 @@ pigTrax.controller('RoomController', function($scope, $http, $window,$modal, res
 	$scope.premisesId;
 	$scope.generatedPremisesId;
 	$scope.phaseType; 
-	$scope.differentPages=[{"name":"Barn","value":"Barn"}];
+	$scope.differentPages=[{"name":"Pen","value":"pen"}];
 	$scope.validationType;
 	
 	
@@ -18,6 +18,16 @@ pigTrax.controller('RoomController', function($scope, $http, $window,$modal, res
     $scope.hoverOut = function(){
         this.hoverEdit = false;
     };
+    
+    $scope.gotToPage = function(index,row)
+	{
+		console.log(index);
+		console.log($scope.differentPages[index].value);
+		console.log(document.getElementById("generatedRoomId").value);
+		document.getElementById("generatedRoomId").value = row.id;
+		document.forms['penForm'].action = $scope.differentPages[index].value;
+		document.forms['penForm'].submit();
+	}
 	
 	//deactivate/activate to the real data holder
     $scope.removeItem = function removeItem(row) {
