@@ -11,7 +11,7 @@
 </style> 
 <div class="cl-mcont">
           <div class="stats_bar">
-            <div data-step="2" data-intro="&lt;strong&gt;Beautiful Elements&lt;/strong&gt; &lt;br/&gt; If you are looking for a different UI, this is for you!." class="butpro butstyle">
+            <div data-step="2" class="butpro butstyle">
               <div class="sub">
                 <h2>CLIENTS</h2><span id="total_clientes">170</span>
               </div>
