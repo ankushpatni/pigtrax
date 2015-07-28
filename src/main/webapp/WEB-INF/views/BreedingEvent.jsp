@@ -64,9 +64,14 @@
                      <input type="text" ng-model="breedingEvent.pigInfoId" id="pigInfoId" name="pigInfoId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
                       required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()"/>
+						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
                     </div>
-					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'><spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
+					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
+					<label ng-show="breedingEventValidation_ErrCode_1" class="alert alert-warning alert-dismissible">
+					<span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_1' text='Breeding happen within first 5 days' /></label>
+					<label ng-show="breedingEventValidation_ErrCode_2" class="alert alert-warning alert-dismissible"><span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_2' text='Breeding happens between 6 to 14 days' /></label>
+					<label ng-show="breedingEventValidation_ErrCode_3" class="alert alert-warning alert-dismissible"><span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_3' text='Breeding happens between 14 to 60 days' /></label>
+					<label ng-show="breedingEventValidation_ErrCode_4" class="alert alert-warning alert-dismissible"><span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_4' text='Breeding happens within 130 days of pregnancy' /></label>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  required 

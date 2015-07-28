@@ -13,6 +13,7 @@ pigTrax.factory("restServices", function($resource) {
     	"deletePigInfo" : {method:"POST", url:"rest/entryEvent/deletePigInfo"},
     	"getBreedingServiceType" : {method:"GET", url:"rest/util/getBreedingServiceType"},
     	"saveBreedingEventInformation" : {method:"POST", url:"rest/breedingEvent/saveBreedingEventInformation"},
+    	"validateBreedingEvent" : {method:"POST", url:"rest/breedingEvent/validateBreedingEvent"},
     	"deleteBreedingEventInfo" : {method:"POST", url:"rest/breedingEvent/deleteBreedingEventInfo"},
     	"deleteEmployeeGroup" : {method:"POST", url:"rest/employeeGroup/deleteEmployeeGroup"},
     	"getBreedingEventInformation" : {method:"POST", url:"rest/breedingEvent/getBreedingEventInformation"},    	

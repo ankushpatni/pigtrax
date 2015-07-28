@@ -20,6 +20,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.BreedingEventBuilder;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
+import com.pigtrax.pigevents.validation.BreedingEventValidation;
 
 @Repository
 public class BreedingEventServiceImpl implements BreedingEventService {
@@ -40,7 +41,9 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	@Autowired
 	PigInfoDao pigInfoDao;
 	
-	@Override
+	@Autowired
+	BreedingEventValidation validationObj;
+	
 	public int saveBreedingEventInformation(BreedingEventDto dto)
 			throws Exception {
 
@@ -112,6 +115,16 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 		if(id != null)
 		{
 			breedingEventDao.deleteBreedingEventInfo(id);
+		}
+	}
+	
+	@Override
+	public int validateBreedingEvent(BreedingEventDto breedingEventDto)
+	{
+		try {
+			return validationObj.validate(breedingEventDto);
+		} catch (PigTraxException e) {
+			return 1;
 		}
 	}
 }

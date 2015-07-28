@@ -1,7 +1,7 @@
 <%@ page import="com.pigtrax.usermanagement.enums.RoleType" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!-- -Left menu -->
-<div data-position="right" data-step="1" data-intro="&lt;strong&gt;Fixed Sidebar&lt;/strong&gt; &lt;br/&gt; It adjust to your needs." class="cl-sidebar">
+<div data-position="right" data-step="1" class="cl-sidebar">
               <div class="cl-toggle"><i class="fa fa-bars"></i></div>
               <div class="cl-navblock">
                 <div class="menu-space">

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
+import com.pigtrax.pigevents.beans.PregnancyEvent;
 
 public interface PigTraxEventMasterDao {
 	/**
@@ -21,4 +22,15 @@ public interface PigTraxEventMasterDao {
 	 * @throws SQLException
 	 */
 	int updateBreedingEventDetails(BreedingEvent breedingEvent) throws SQLException;
+	
+	/**
+	 * To fetch the PigTraxEventMaster record for a given pigInfo Key
+	 * @param pigInfoKey
+	 * @return
+	 * @throws Exception
+	 */
+	PigTraxEventMaster getEventMasterRecord(final Integer pigInfoKey) throws Exception;
+	
+	
+	int updatePregnancyEventDetails(final PregnancyEvent pregnancyEvent) throws SQLException;
 }

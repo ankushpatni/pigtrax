@@ -14,5 +14,7 @@ public interface BreedingEventDao {
   
    public BreedingEvent getBreedingEventInformation(String serviceId, Integer companyId) throws SQLException;
    
+   BreedingEvent getBreedingEventInformation(final Integer breedingEventId) throws SQLException;
+   
    public void deleteBreedingEventInfo(Integer id) throws SQLException;
 }
