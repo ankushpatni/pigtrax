@@ -14,7 +14,7 @@
 				<label><spring:message code="label.barn.barnID" text="Barn ID" /><span style='color: red'>*</span></label>
 				<label ng-show="edit">{{add.barnId}}</label>
 				<label ng-hide="edit">{{add.premisesId}}</label>
-				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.barn.barnID' text='Barn ID' />" name="barnId" ng-model="add.barnId" maxlength="10" required required-message="'<spring:message code='label.barn.barnIDRequired' text='Barn Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.barn.barnIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
+				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.barn.barnID' text='Barn ID' />" name="barnId" ng-model="add.barnId" maxlength="4" required required-message="'<spring:message code='label.barn.barnIDRequired' text='Barn Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.barn.barnIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.barn.phaseTypeId" text="Phase Type ID" /><span style='color: red'>*</span></label>
@@ -26,15 +26,15 @@
 			</div>
 			<div class="form-group">
 				<label ><spring:message code="label.barn.area" text="Area" /><span style='color: red'>*</span></label>
-				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.area' text='Area' />" name="area" ng-model="add.area" maxlength="8" required required-message="'<spring:message code='label.barn.barnAreaRequired' text='Area is required' />'" />
+				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.area' text='Area' />" name="area" ng-model="add.area" maxlength="8" required required-message="'<spring:message code='label.barn.barnAreaRequired' text='Area is required' />'" ng-pattern="/^[0-9]{1,15}(\.[0-9]+)?$/i" invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 			</div>			
 			<div class="form-group">
 				<label ><spring:message code="label.barn.feederCount" text="Feeder Count" /><span style='color: red'>*</span></label>
-				<input class="form-control" placeholder="<spring:message code='label.barn.feederCount' text='Feeder Count' />" name="feederCount" ng-model="add.feederCount" maxlength="8" required required-message="'<spring:message code='label.barn.feederCountRequired' text='Feeder Count is required' />'"/>
+				<input class="form-control" placeholder="<spring:message code='label.barn.feederCount' text='Feeder Count' />" name="feederCount" ng-model="add.feederCount" maxlength="8" required required-message="'<spring:message code='label.barn.feederCountRequired' text='Feeder Count is required' />'" ng-pattern="/^\d{1,8}?$/i" invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.barn.waterAccessCount" text="Water Access Count" /><span style='color: red'>*</span></label>
-				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.waterAccessCount' text='Water Access Count' />" name="waterAccessCount" ng-model="add.waterAccessCount" maxlength="8" required required-message="'<spring:message code='label.premise.waterAccessCountRequired' text='Water Access Count is required' />'" />
+				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.waterAccessCount' text='Water Access Count' />" name="waterAccessCount" ng-model="add.waterAccessCount" maxlength="8" required required-message="'<spring:message code='label.premise.waterAccessCountRequired' text='Water Access Count is required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.barn.ventilationTypeId" text="Ventilation Type ID" /><span style='color: red'>*</span></label>

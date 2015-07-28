@@ -2,8 +2,8 @@
 <div id="form-primary" 	class="md-modal colored-header md-effect-9">
 	<div class="md-content">
 		<div class="modal-header">
-			<h3  ng-hide="edit">Add Company Data</h3>
-			<h3  ng-show="edit">Edit Company Data</h3>
+			<h3  ng-hide="edit"><spring:message code="label.company.addCompanyData" text="Add Company Data" /></h3>
+			<h3  ng-show="edit"><spring:message code="label.company.editCompanyData" text="Edit Company Data" /></h3>
 			 <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close"  ng-click="cancel()">×</button>
 			
 		</div>

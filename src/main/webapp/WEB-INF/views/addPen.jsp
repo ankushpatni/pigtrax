@@ -14,7 +14,7 @@
 				<label><spring:message code="label.pen.penID" text="Pen ID" /><span style='color: red'>*</span></label>
 				<label ng-show="edit">{{add.penId}}</label>
 				<label ng-hide="edit">{{add.roomId}}</label>
-				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.pen.penID' text='Pen ID' />" name="penId" ng-model="add.penId"  required required-message="'<spring:message code='label.pen.penIDRequired' text='Pen Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.room.roomIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
+				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.pen.penID' text='Pen ID' />" name="penId" ng-model="add.penId" maxlength="4"  required required-message="'<spring:message code='label.pen.penIDRequired' text='Pen Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.room.roomIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.barn.location" text="Location" /><span style='color: red'>*</span></label>
