@@ -15,7 +15,8 @@
                             </li>
                             <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span><spring:message code="label.leftmenu.managemasterdata.link"  text="Manage Master Data"/></span></a>
                               			<ul class="sub-menu">
-                                      <% if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) { %>
+                                      <% if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue())) || 
+                                    		  request.isUserInRole(String.valueOf(RoleType.PigTraxDataConfigMgr.getIntegerValue()))) { %>
                                          	<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.companydata.link"  text="Company Data"/></a></li>
                                       <%}else { %>
 									  <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Data"/></a></li>
