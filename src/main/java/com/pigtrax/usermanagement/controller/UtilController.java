@@ -39,11 +39,13 @@ public class UtilController {
 	}
 	
 	@RequestMapping(value = "/getValidationType", method=RequestMethod.GET, produces="application/json")
-	public ServiceResponseDto getValidationType()
+	public ServiceResponseDto getValidationType(HttpServletRequest request)
 	{
 		logger.info("Inside getValidationType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		dto.setPayload( refDataCache.getVentilationTypeMap("en"));
+		Locale locale = request.getLocale();
+		String language = locale.getLanguage();
+		dto.setPayload( refDataCache.getVentilationTypeMap(language));
 		dto.setStatusMessage("Success");
 		return dto;
 	}
@@ -62,25 +64,15 @@ public class UtilController {
 	}
 	
 	@RequestMapping(value = "/getPhaseType", method=RequestMethod.GET, produces="application/json")
-	public ServiceResponseDto getPhaseType()
+	public ServiceResponseDto getPhaseType(HttpServletRequest request)
 	{
 		logger.info("Inside getPhaseType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		/*List<Map<String,Object>> phaseType = new ArrayList<Map<String,Object>>();
-		Map<Integer,String> phaseTypeMap = refDataCache.getPhaseTypeMap("en");
-		Set<Integer> keySet = phaseTypeMap.keySet();
-		Map<String,Object> inputMap;
-		for(Integer id : keySet)
-		{
-			inputMap = new HashMap();
-			inputMap.put("name", id);
-			inputMap.put("value", phaseTypeMap.get(id));
-			phaseType.add(inputMap);
-		}
-		dto.setPayload(phaseType);*/
 		List<Map<Integer,String>> phaseType = new ArrayList<Map<Integer,String>>();
-		phaseType.add(refDataCache.getPhaseTypeMap("en"));
-		phaseType.add(refDataCache.getVentilationTypeMap("en"));
+		Locale locale = request.getLocale();
+		String language = locale.getLanguage();
+		phaseType.add(refDataCache.getPhaseTypeMap(language));
+		phaseType.add(refDataCache.getVentilationTypeMap(language));
 		dto.setPayload(phaseType);
 		dto.setStatusMessage("Success");
 		return dto;
