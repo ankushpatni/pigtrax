@@ -1,3 +1,4 @@
+<%@ page import="com.pigtrax.usermanagement.enums.RoleType" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!-- -Left menu -->
 <div data-position="right" data-step="1" data-intro="&lt;strong&gt;Fixed Sidebar&lt;/strong&gt; &lt;br/&gt; It adjust to your needs." class="cl-sidebar">
@@ -14,8 +15,11 @@
                             </li>
                             <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span><spring:message code="label.leftmenu.managemasterdata.link"  text="Manage Master Data"/></span></a>
                               			<ul class="sub-menu">
-                                      
+                                      <% if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) { %>
                                          	<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.companydata.link"  text="Company Data"/></a></li>
+                                      <%}else { %>
+									  <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Data"/></a></li>
+									  <%}%>
                                          	<li><a href="#"><spring:message code="label.leftmenu.managemasterdata.locationdata.link"  text="Location Data"/></a></li>
                                          	<li><a href="#"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
                                          </ul>
