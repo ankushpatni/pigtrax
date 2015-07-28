@@ -9,4 +9,6 @@ public interface BreedingEventService {
     public BreedingEventDto getBreedingEventInformation(String serviceId, Integer companyId) throws Exception;
     
     public void deleteBreedingEventInfo(Integer id) throws Exception;
+    
+    int validateBreedingEvent(BreedingEventDto breedingEventDto);
 }  

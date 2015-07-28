@@ -109,5 +109,26 @@ public class BreedingEventRestController {
 	}
     
 	
+	/**
+	 * Service to delete the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/validateBreedingEvent", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto validateBreedingEvent(HttpServletRequest request, @RequestBody BreedingEventDto breedingEventDto)
+	{
+		logger.info("Inside validateBreedingEvent method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			int statusCode = breedingEventService.validateBreedingEvent(breedingEventDto);
+			dto.setPayload(statusCode);
+			dto.setStatusMessage("Success");
+		}  catch (Exception e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+    
+	
     
 }

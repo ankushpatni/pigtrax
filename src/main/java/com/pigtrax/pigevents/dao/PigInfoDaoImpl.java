@@ -29,7 +29,7 @@ import com.pigtrax.util.UserUtil;
 public class PigInfoDaoImpl implements PigInfoDao {
 	private static final Logger logger = Logger.getLogger(PigInfoDaoImpl.class);
 	
-	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate; 
 	
 	@Autowired
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -41,6 +41,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	 * @param PigInfo
 	 * @return int
 	 */
+	@Override
 	public int addPigInformation(final PigInfo pigInfo) throws SQLException, DuplicateKeyException {
 		final String Qry = "insert into pigtrax.\"PigInfo\"(\"pigId\", \"sireId\", \"damId\", \"entryDate\", \"origin\", \"gline\", \"gcompany\", \"birthDate\", \"tattoo\", \"alternateTattoo\", \"remarks\", \"sowCondition\", \"lastUpdated\", \"userUpdated\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\") "
 				+ "values(?,?,?,current_timestamp,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
@@ -126,7 +127,6 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	public PigInfo getPigInformationByPigId(final String pigId, final Integer companyId) throws SQLException {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\"  from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ?";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
-			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, pigId.toUpperCase());
 				ps.setInt(2, companyId);
@@ -145,7 +145,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	public PigInfo getPigInformationByTattoo(final String tattoo, final Integer companyId) throws SQLException {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\" from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ?";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
-			@Override
+			
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tattoo.trim());
 				ps.setInt(2, companyId);

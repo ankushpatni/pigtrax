@@ -13,6 +13,12 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.entryEventDeleteMessage = false;
 		$scope.searchErrorMessage = false;
 		$scope.inValidPigIdFromServer = false;
+		$scope.breedingEventValidation_Success = false;
+		$scope.breedingEventValidation_ErrCode_1 = false;
+		$scope.breedingEventValidation_ErrCode_2 = false;
+		$scope.breedingEventValidation_ErrCode_3 = false;
+		$scope.breedingEventValidation_ErrCode_4 = false;
+		$scope.breedingEventValidation_ErrCode_5 = false;
 	};
 	
 	
@@ -138,11 +144,37 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				companyId : $rootScope.companyId
 		};
 		restServices.getPigInformation(pigInfo, function(data) {
-			if(data.error)
+				if(data.error)
 				{
 					$scope.clearAllMessages();
 					$scope.inValidPigIdFromServer = true;
 				}
+				else
+					{
+						var breedingDate = document.getElementById("breedingDate").value;
+						$scope.breedingEvent["breedingDate"] = breedingDate;
+						$scope.breedingEvent["companyId"] = $rootScope.companyId;
+						restServices.validateBreedingEvent($scope.breedingEvent, function(data){
+						   if(!data.error)
+							   {
+							     var statusCode = data.payload;
+							     $scope.clearAllMessages();
+							     if(statusCode == 0)
+							    	 $scope.breedingEventValidation_Success = true;
+							     else if(statusCode == 1)
+							    	 $scope.breedingEventValidation_ErrCode_1 = true;
+							     else if(statusCode == 2)
+							    	 $scope.breedingEventValidation_ErrCode_2 = true;
+							     else if(statusCode == 3)
+							    	 $scope.breedingEventValidation_ErrCode_3 = true;
+							     else if(statusCode == 4)
+							    	 $scope.breedingEventValidation_ErrCode_4 = true;
+							     else if(statusCode == 5)
+							    	 $scope.breedingEventValidation_ErrCode_5 = true;
+							     
+							   }
+						});
+					}
 		});
 	}
 });

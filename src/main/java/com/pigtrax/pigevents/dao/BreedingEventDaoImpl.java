@@ -113,6 +113,26 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		return null;
 	}
 	
+	
+	
+	@Override
+	public BreedingEvent getBreedingEventInformation(final Integer breedingEventId)
+			throws SQLException {
+		String qry = "Select BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE  where BE.\"id\" = ? ";
+		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, breedingEventId);
+			}}, new BreedingEventMapper());
+
+		logger.info("breedingEventList size : "+breedingEventList.size());
+		if(breedingEventList != null && breedingEventList.size() > 0){
+			return breedingEventList.get(0);
+		}
+		return null;
+	}
+	
+	
 	private static final class BreedingEventMapper implements RowMapper<BreedingEvent> {
 		public BreedingEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
 			BreedingEvent breedingEvent = new BreedingEvent();
