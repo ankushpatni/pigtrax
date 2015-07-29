@@ -32,9 +32,35 @@
               <div class="block-flat">
                 <div class="header">
                   <h3><spring:message code='label.piginfo.breedingeventform.breedingevent'  text='Breeding Event'/></h3>
-                  <p class="color-success" ng-show="entryEventSuccessMessage"><spring:message code='label.piginfo.breedingeventform.submit.success.message' text='Breeding information saved successfully'/></p>
-				  <p class="color-danger" ng-show="entryEventErrorMessage"><spring:message code='label.piginfo.breedingeventform.submit.error.message' text='An exception occurred. Please check the values entered'/></p>
-				  <p class="color-success" ng-show="entryEventDeleteMessage"><spring:message code='label.piginfo.breedingeventform.delete.message'  text='Breeding event information deleted'/></p>
+                  
+                  <div class="alert alert-success alert-white rounded"  ng-show="entryEventSuccessMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.breedingeventform.submit.success.message' text='Breeding information saved successfully'/>
+                  </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="entryEventErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.submit.error.message' text='An exception occurred. Please check the values entered'/>
+                  </div>
+                  <div class="alert alert-success alert-white rounded" ng-show="entryEventDeleteMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.breedingeventform.delete.message'  text='Breeding event information deleted'/>
+                  </div>
+                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_1">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_1' text='Breeding happen within first 5 days, please click submit again to proceed' />
+                  </div>
+                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_2">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_2'  text='Breeding happens between 6 to 14 days, please click submit again to proceed' />
+                  </div>
+                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_3">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_3' text='Breeding happens between 14 to 60 days, please click submit again to proceed' />
+                  </div>
+                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_4"> 
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_4' text='Breeding happens within 130 days of pregnancy, please click submit again to proceed' />
+                  </div>
                 </div>
                 <div class="content">
                   <form name="breedingeventform" novalidate angular-validator>
@@ -67,11 +93,7 @@
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
-					<label ng-show="breedingEventValidation_ErrCode_1" class="alert alert-warning alert-dismissible">
-					<span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_1' text='Breeding happen within first 5 days' /></label>
-					<label ng-show="breedingEventValidation_ErrCode_2" class="alert alert-warning alert-dismissible"><span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_2' text='Breeding happens between 6 to 14 days' /></label>
-					<label ng-show="breedingEventValidation_ErrCode_3" class="alert alert-warning alert-dismissible"><span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_3' text='Breeding happens between 14 to 60 days' /></label>
-					<label ng-show="breedingEventValidation_ErrCode_4" class="alert alert-warning alert-dismissible"><span class="glyphicon glyphicon-warning-sign"></span><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_4' text='Breeding happens within 130 days of pregnancy' /></label>
+					
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  required 
@@ -86,7 +108,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="breedingDate" name="breedingDate" ng-model="breedingEvent.breedingDate" readonly="" class="form-control"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                          <input size="16" type="date" id="breedingDate" name="breedingDate" ng-model="breedingEvent.breedingDate" readonly="" class="form-control" ng-blur="validateBreedingDate()"  format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -114,7 +136,7 @@
                           <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" ng-click="addBreedingEvent()" type="submit"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-primary" ng-click="addBreedingEvent()" type="submit" ng-disabled="inValidPigIdFromServer"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deleteBreedingEventInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
                   </form>

@@ -50,6 +50,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 							$scope.clearAllMessages();
 							$scope.entryEventSuccessMessage = true;
 							$scope.pigInfo = {};
+							
 						}
 					else
 						{
@@ -59,6 +60,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 							else
 								$scope.entryEventErrorMessage = true;
 						}
+					$window.scrollTo(0, 0);
 				});
 			}
 		};
@@ -114,7 +116,9 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 						$scope.clearAllMessages();
 						$scope.entryEventDeleteMessage = true;
 						$scope.pigInfo = {};
+						$window.scrollTo(0, 0);
 					});
+					
 				
 		};
 		

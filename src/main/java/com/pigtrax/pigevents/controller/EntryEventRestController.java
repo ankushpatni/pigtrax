@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
@@ -56,7 +58,8 @@ public class EntryEventRestController {
 	{
 		logger.info("Inside getBarns method" );
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Locale locale = request.getLocale();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
 		if(companyId == null)
 		{
 			if(activeUser != null)
@@ -68,7 +71,7 @@ public class EntryEventRestController {
 			List<BarnDto> barnList = barnService.getBarns(companyId);
 			entryEventMap.put("barnList", barnList);
 			
-			Map<Integer, String> sexTypeMap = refDataCache.getSexTypeMap(locale.getLanguage());
+			Map<Integer, String> sexTypeMap = refDataCache.getSexTypeMap(language);
 			logger.info("Entry event map - sex type : "+ sexTypeMap);
 			entryEventMap.put("sexTypeMap", sexTypeMap);
 			

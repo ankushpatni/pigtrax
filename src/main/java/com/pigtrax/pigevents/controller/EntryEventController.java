@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.enums.RoleType;
@@ -44,8 +46,8 @@ public class EntryEventController {
 	   {
 		   PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		   logger.info("Compayny ID : "+activeUser.getCompanyId()+"/ Role : "+activeUser.getUserRole());
-		   Locale ln = request.getLocale();
-		   logger.info("Locale selected : "+ln.getLanguage());
+		   LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		   logger.info("Locale from cookie : "+localeResolver.resolveLocale(request).getLanguage());
 		   if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) 
 		   {
 			   model.addAttribute("contentUrl","company.jsp");

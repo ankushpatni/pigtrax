@@ -21,7 +21,8 @@ import com.pigtrax.pigevents.dto.BreedingEventDto;
 
 @Component
 //@PropertySource("file:src/main/resources/PigTraxValidation.properties")
-@PropertySource("/WEB-INF/classes/PigTraxValidation.properties")
+//@PropertySource("/WEB-INF/classes/PigTraxValidation.properties")
+@PropertySource("classpath:PigTraxValidation.properties")
 public class BreedingEventValidation {
 	
 	private static final Logger logger = Logger.getLogger(BreedingEventValidation.class);
@@ -136,6 +137,10 @@ public class BreedingEventValidation {
 				  lastBreedingEventDate = new DateTime(breedingEvent.getBreedingDate());
 			  
 			  logger.info("last breeding event date : "+lastBreedingEventDate);
+		  }
+		  else
+		  {
+			  return SUCCESS_CODE;
 		  }
 	  }
 	  

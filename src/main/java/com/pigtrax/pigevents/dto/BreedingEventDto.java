@@ -22,6 +22,8 @@ public class BreedingEventDto {
     private Integer companyId;
     private Integer pigInfoKey;
     private EmployeeGroupDto employeeGroup;
+    private Date pigBirthDate;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -122,6 +124,13 @@ public class BreedingEventDto {
 	}
 	public void setPigInfoKey(Integer pigInfoKey) {
 		this.pigInfoKey = pigInfoKey;
+	}
+		
+	public Date getPigBirthDate() {
+		return pigBirthDate;
+	}
+	public void setPigBirthDate(Date pigBirthDate) {
+		this.pigBirthDate = pigBirthDate;
 	}
 	@Override
     public String toString() {

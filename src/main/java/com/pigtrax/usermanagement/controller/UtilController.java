@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -43,8 +45,8 @@ public class UtilController {
 	{
 		logger.info("Inside getValidationType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		Locale locale = request.getLocale();
-		String language = locale.getLanguage();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
 		dto.setPayload( refDataCache.getVentilationTypeMap(language));
 		dto.setStatusMessage("Success");
 		return dto;
@@ -56,8 +58,8 @@ public class UtilController {
 	{
 		logger.info("Inside getBreedingServiceType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		Locale locale = request.getLocale();
-		String language = locale.getLanguage();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
 		dto.setPayload( refDataCache.getBreedingServiceTypeMap(language));
 		dto.setStatusMessage("Success");
 		return dto;
@@ -69,8 +71,8 @@ public class UtilController {
 		logger.info("Inside getPhaseType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		List<Map<Integer,String>> phaseType = new ArrayList<Map<Integer,String>>();
-		Locale locale = request.getLocale();
-		String language = locale.getLanguage();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
 		phaseType.add(refDataCache.getPhaseTypeMap(language));
 		phaseType.add(refDataCache.getVentilationTypeMap(language));
 		dto.setPayload(phaseType);

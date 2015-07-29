@@ -43,6 +43,23 @@
               <div class="block-flat">
                 <div class="header">
                   <h3><spring:message code='label.piginfo.entryeventform.entryevent'  text='Entry Event'/></h3>
+                  
+                  <div class="alert alert-success alert-white rounded"  ng-show="entryEventSuccessMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.entryeventform.submit.success.message' text='Pig information saved successfully'/>
+                  </div>
+                  <div class="alert alert-danger alert-white rounded"  ng-show="entryEventErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.entryeventform.submit.error.message' text='An exception occured. Please check the values'/>
+                  </div>
+                  <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.entryeventform.duplicate.error.message' text='A piginfo record already exists with the same Pig Id/ Tattoo'/>
+                  </div>
+                  <div class="alert alert-success alert-white rounded"  ng-show="entryEventDeleteMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.entryeventform.delete.message'  text='Pig information deleted'/>
+                  </div>
                   <p class="color-success" ng-show="entryEventSuccessMessage"><spring:message code='label.piginfo.entryeventform.submit.success.message' text='Pig information saved successfully'/></p>
 				  <p class="color-danger" ng-show="entryEventErrorMessage"><spring:message code='label.piginfo.entryeventform.submit.error.message' text='An exception occured. Please check the values'/></p>
 				 <p class="color-danger" ng-show="entryEventDuplicateErrorMessage"><spring:message code='label.piginfo.entryeventform.duplicate.error.message' text='A piginfo record already exists with the same Pig Id/ Tattoo'/></p>
