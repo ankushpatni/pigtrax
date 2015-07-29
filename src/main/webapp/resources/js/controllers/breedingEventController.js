@@ -1,6 +1,6 @@
 var breedingEventController = pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,$window,restServices) {
 	
-	$scope.companyId = "";
+	$scope.companyId = ""; 
 	$rootScope.companyId = "";
 	$rootScope.selectedEmployeeGroup = {};
 	$scope.breedingEvent = {};
