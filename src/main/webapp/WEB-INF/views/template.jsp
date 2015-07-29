@@ -25,6 +25,7 @@
 	
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/bootstrap.daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" type="text/css" href="resources/assets/lib/jquery.icheck/skins/flat/blue.css">
 
     <link href="resources/assets/css/style.css" rel="stylesheet">
       
