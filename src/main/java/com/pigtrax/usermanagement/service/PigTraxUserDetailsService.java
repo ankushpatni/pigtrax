@@ -63,7 +63,7 @@ public class PigTraxUserDetailsService implements UserDetailsService {
 	private List<GrantedAuthority> buildUserAuthority(EmployeeDto e) {
 
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-		setAuths.add(new SimpleGrantedAuthority(String.valueOf(e.getUserRole())));
+		setAuths.add(new SimpleGrantedAuthority("ROLE_"+e.getUserRole()));
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(
 				setAuths);
 
