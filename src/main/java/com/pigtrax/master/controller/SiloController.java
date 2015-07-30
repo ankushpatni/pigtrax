@@ -15,9 +15,9 @@ import com.pigtrax.master.dto.Barn;
 import com.pigtrax.master.service.interfaces.BarnService;
 
 @Controller
-public class RoomController {
+public class SiloController {
 	
-	private static final Logger logger = Logger.getLogger(RoomController.class);
+	private static final Logger logger = Logger.getLogger(SiloController.class);
 
 	@Autowired
 	BarnService barnService;
@@ -25,10 +25,10 @@ public class RoomController {
 	@Autowired
 	RefDataCache refDataCache;
 	
-	@RequestMapping(value = "/room", method=RequestMethod.POST)
-	public String displayRoom(Model model, @RequestParam int generatedBarnId)
+	@RequestMapping(value = "/silo", method=RequestMethod.POST)
+	public String displaySilo(Model model, @RequestParam int generatedBarnId)
 	{
-		model.addAttribute("contentUrl","room.jsp");
+		model.addAttribute("contentUrl","silo.jsp");
 		model.addAttribute("generatedBarnId",generatedBarnId);
 		try
 		{
@@ -45,11 +45,12 @@ public class RoomController {
 		return "template";
 	}
 	
-	@RequestMapping(value = "/addRoom")
-	public String addRoom(Model model)
+	@RequestMapping(value = "/addSilo")
+	public String addSilo(Model model)
 	{
-		model.addAttribute("contentUrl","addRoom.jsp"); 
-		return "addRoom";
+		model.addAttribute("contentUrl","addSilo.jsp"); 
+		return "addSilo";
 	}
+
 
 }
