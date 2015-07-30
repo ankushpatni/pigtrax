@@ -49,7 +49,7 @@ public class BreedingEventController {
 		   logger.info("Compayny ID : "+activeUser.getCompanyId()+"/ Role : "+activeUser.getUserRole());
 		   Locale ln = request.getLocale();
 		   logger.info("Locale selected : "+ln.getLanguage());
-		   if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) 
+		   if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) 
 		   {
 			   model.addAttribute("contentUrl","company.jsp");
 		   }

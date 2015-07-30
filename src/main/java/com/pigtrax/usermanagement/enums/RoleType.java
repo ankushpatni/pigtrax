@@ -1,18 +1,18 @@
 package com.pigtrax.usermanagement.enums;
 
 public enum RoleType {
-	PigTraxSuperAdmin(1),
-	PigTraxDataConfigMgr(2),
-	PigFarmSuperAdmin(3),
-	PigFarmDataConfigMgr(4);
+	PigTraxSuperAdmin("ROLE_1"),
+	PigTraxDataConfigMgr("ROLE_2"),
+	PigFarmSuperAdmin("ROLE_3"),
+	PigFarmDataConfigMgr("ROLE_4");
 	
-	private final Integer roleId;
+	private final String role;
 	
-	RoleType(Integer roleId) {
-		this.roleId = roleId;
+	RoleType(String role) {
+		this.role = role;
 	}
 	
-	public Integer getIntegerValue(){
-		return roleId;
+	public String getRoleValue(){
+		return role;
 	}
 }

@@ -48,7 +48,7 @@ public class EntryEventController {
 		   logger.info("Compayny ID : "+activeUser.getCompanyId()+"/ Role : "+activeUser.getUserRole());
 		   LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		   logger.info("Locale from cookie : "+localeResolver.resolveLocale(request).getLanguage());
-		   if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) 
+		   if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) 
 		   {
 			   model.addAttribute("contentUrl","company.jsp");
 		   }

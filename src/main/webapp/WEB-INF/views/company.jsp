@@ -78,7 +78,7 @@
 												style="margin-bottom: 5px"
 												ng-repeat="rt in differentPages track by $index"
 												ng-click="gotToPage($index,row)">{{rt.name}}</button>
-												<% if(request.isUserInRole(String.valueOf(RoleType.PigTraxSuperAdmin.getIntegerValue()))) { %>
+												<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) { %>
 												 <br> <br>
 												<div class="btn-group">								 				
 												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>
