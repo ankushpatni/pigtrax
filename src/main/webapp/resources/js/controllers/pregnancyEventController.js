@@ -93,7 +93,7 @@ var breedingEventController = pigTrax.controller('PregnancyEventController', fun
 			$scope.pregnancyEvent["examDate"] = examDate;
 			$scope.pregnancyEvent["resultDate"] = resultDate;
 			$scope.pregnancyEvent["companyId"] = $rootScope.companyId;
-			alert(JSON.stringify($scope.pregnancyEvent));
+			//alert(JSON.stringify($scope.pregnancyEvent));
 			restServices.savePregnancyEventInformation($scope.pregnancyEvent, function(data){
 				if(!data.error)
 					{
@@ -150,7 +150,7 @@ var breedingEventController = pigTrax.controller('PregnancyEventController', fun
 	
 	$scope.getPregnancyEventDetails = function(pregnancyEventObj)
 	{
-		alert("came here : "+JSON.stringify(pregnancyEventObj));
+		//alert("came here : "+JSON.stringify(pregnancyEventObj));
 		$scope.pregnancyEvent = pregnancyEventObj;
 	}
 	
