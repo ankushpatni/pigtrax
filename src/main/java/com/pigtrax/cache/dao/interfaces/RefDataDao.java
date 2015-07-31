@@ -20,5 +20,9 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getVentilationTypeData();
 	
 	List<RefDataTranslationDto> getBreedingServiceTypeData();
+	
+	List<RefDataTranslationDto> getPregnancyEventTypeData();
+	
+	List<RefDataTranslationDto> getPregnancyExamResultTypeData();
 
 }

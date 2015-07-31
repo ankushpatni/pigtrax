@@ -145,4 +145,19 @@ public class EmployeeGroupServiceImpl implements EmployeeGroupService {
 			throw new PigTraxException("Execption occurred", ex.getSQLState());
 		}		
 	}
+	
+	/**
+	 * Find the deails of an employee group for a given id
+	 */
+	
+	@Override
+	public EmployeeGroupDto getEmployeeGroup(Integer employeeGroupIdKey)
+			throws PigTraxException {
+		try{
+			return employeeGroupDao.getEmployeeGroup(employeeGroupIdKey);
+		}catch(SQLException e)
+		{
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
+	}
 }

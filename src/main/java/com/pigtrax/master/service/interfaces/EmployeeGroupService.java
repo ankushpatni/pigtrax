@@ -17,4 +17,6 @@ public interface EmployeeGroupService {
 	 EmployeeGroupDto getGroupWithSameEmployees(EmployeeGroupDto employeeGroupDto) throws PigTraxException;
 	 
 	 int inactivateGroup(EmployeeGroupDto employeeGroupDto) throws PigTraxException;
+	 
+	 EmployeeGroupDto getEmployeeGroup(Integer employeeGroupIdKey) throws PigTraxException;
 }

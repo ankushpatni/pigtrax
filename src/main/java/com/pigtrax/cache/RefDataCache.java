@@ -17,6 +17,10 @@ public interface RefDataCache {
 
 	Map<Integer, String> getVentilationTypeMap(String language);
 	
-	Map<Integer, String> getBreedingServiceTypeMap(String language);
+	Map<Integer, String> getBreedingServiceTypeMap(String language);	
+	
+	Map<Integer, String> getPregnancyEventTypeMap(String language);
+	
+	Map<Integer, String> getPregnancyExamResultTypeMap(String language);
 
 }

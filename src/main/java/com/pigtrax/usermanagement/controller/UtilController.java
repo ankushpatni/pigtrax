@@ -80,6 +80,28 @@ public class UtilController {
 		return dto;
 	}
 	
+	@RequestMapping(value = "/getPregnancyEventTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getPregnancyEventTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getPregnancyEventTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		dto.setPayload(refDataCache.getPregnancyEventTypeMap(language));
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 	
+	@RequestMapping(value = "/getPregnancyExamResultTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getPregnancyExamResultTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getPregnancyExamResultTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		dto.setPayload(refDataCache.getPregnancyExamResultTypeMap(language));
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 
 }

@@ -37,6 +37,10 @@ public class RefDataCacheImpl implements RefDataCache{
 	private Map<String, Map<Integer, String>> ventilationTypeMap;
 	
 	private Map<String, Map<Integer, String>> breedingServiceTypeMap;
+	
+	private Map<String, Map<Integer, String>> pregnancyEventTypeMap;
+	
+	private Map<String, Map<Integer, String>> pregnancyExamResultTypeMap;
 
 	
 	/*
@@ -54,6 +58,8 @@ public class RefDataCacheImpl implements RefDataCache{
 		ventilationTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getVentilationTypeData()));
 		cityCountryMap = Collections.unmodifiableMap(refDataDao.getCountryCityData());
 		breedingServiceTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getBreedingServiceTypeData()));
+		pregnancyEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyEventTypeData()));
+		pregnancyExamResultTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyExamResultTypeData()));
 	}
 
 	@Override
@@ -82,7 +88,15 @@ public class RefDataCacheImpl implements RefDataCache{
 		System.out.println("breedingServiceTypeMap in Ref Data Cache imple : "+breedingServiceTypeMap.toString());
 		return breedingServiceTypeMap.get(language);
 	}
-	
+		
+	public Map<Integer, String> getPregnancyEventTypeMap(String language) {
+		return pregnancyEventTypeMap.get(language);
+	}
+
+	public  Map<Integer, String> getPregnancyExamResultTypeMap(String language) {
+		return pregnancyExamResultTypeMap.get(language);
+	}
+
 	@Override
 	public Set<String> getCitiesForCountry(String city){
 		return cityCountryMap.get(city);

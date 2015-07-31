@@ -78,14 +78,14 @@
 												style="margin-bottom: 5px"
 												ng-repeat="rt in differentPages track by $index"
 												ng-click="gotToPage($index,row)">{{rt.name}}</button>
-												<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) { %>
+												<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
 												 <br> <br>
 												<div class="btn-group">								 				
 												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>
 												  <ul role="menu" class="dropdown-menu">
 													<li><a href="#" ng-click="goToPigEvent('EntryEvent',row.id)">Entry Event</a></li>
 													<li><a href="#" ng-click="goToPigEvent('BreedingEvent',row.id)">Breeding Event</a></li>
-													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Pregnancy Event</a></li>
+													<li><a href="#" ng-click="goToPigEvent('PregnancyEvent',row.id)">Pregnancy Event</a></li>
 													<li><a ng-href="entryEvent?companyId={{row.companyId}}">Farrow Event</a></li>
 												  </ul>
 												</div>
@@ -130,11 +130,4 @@
 <script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="resources/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.js"></script>
     <script type="text/javascript" src="resources/assets/js/cleanzone.js"></script>
-    <script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-      	//initialize the javascript
-      	App.init();
-      });
-      
-    </script>
+    <script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>   

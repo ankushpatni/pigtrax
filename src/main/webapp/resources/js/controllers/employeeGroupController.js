@@ -84,11 +84,11 @@ pigTrax.controller('EmployeeGroupController', function($scope, $rootScope, $http
 	}
 		
 	
-	$scope.selectEmployeeGroup = function()
+	$scope.selectEmployeeGroup = function(eventObj)
 	{
 		var groups = $scope.employeeGroups;
 		var selectedGroupId = $('input[name=employeeGrpId]:checked').val();
-		$scope.breedingEvent.employeeGroupId = selectedGroupId;
+		eventObj["employeeGroupId"] = selectedGroupId;
 		var employeeGroups = $scope.employeeGroups;
 		
 		for (var i = 0; i < employeeGroups.length; i++) { 
@@ -96,7 +96,7 @@ pigTrax.controller('EmployeeGroupController', function($scope, $rootScope, $http
 			if(employeeGroups[i].id == selectedGroupId)
 			{
 				$rootScope.selectedEmployeeGroup = employeeGroups[i];
-				$scope.breedingEvent.employeeGroup = employeeGroups[i];
+				eventObj["employeeGroup"] = employeeGroups[i];
 				break;
 			}
 		}

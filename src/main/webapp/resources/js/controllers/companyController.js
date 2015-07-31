@@ -111,6 +111,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		{
 			document.getElementById("companyForm").action="breedingEvent";			
 		}
+		else if(eventName == "PregnancyEvent")
+		{
+			document.getElementById("companyForm").action="pregnancyEvent";		 
+		}
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();
 	}

@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.entryeventform.piginformation'  text='Pig Information'/></h2>
+          <h2><spring:message code='label.piginfo.entryeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="EntryEventController" ng-init="populateBarns(${CompanyId})">
@@ -59,11 +59,7 @@
                   <div class="alert alert-success alert-white rounded"  ng-show="entryEventDeleteMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.entryeventform.delete.message'  text='Pig information deleted'/>
-                  </div>
-                  <p class="color-success" ng-show="entryEventSuccessMessage"><spring:message code='label.piginfo.entryeventform.submit.success.message' text='Pig information saved successfully'/></p>
-				  <p class="color-danger" ng-show="entryEventErrorMessage"><spring:message code='label.piginfo.entryeventform.submit.error.message' text='An exception occured. Please check the values'/></p>
-				 <p class="color-danger" ng-show="entryEventDuplicateErrorMessage"><spring:message code='label.piginfo.entryeventform.duplicate.error.message' text='A piginfo record already exists with the same Pig Id/ Tattoo'/></p>
-  				  <p class="color-success" ng-show="entryEventDeleteMessage"><spring:message code='label.piginfo.entryeventform.delete.message'  text='Pig information deleted'/></p>
+                  </div>                  
                 </div>
                 <div class="content">
                   <form name="entryEventForm" novalidate angular-validator>
@@ -102,52 +98,45 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.sire'  text='Sire'/></label>
                       <input type="text" class="form-control" name="sire" ng-model="pigInfo.sireId" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.sire.placeholder' text='Enter sire'/>" 
-					   ng-pattern="/^[a-z0-9]+$/i" 
-					   invalid-message="'<spring:message code='label.piginfo.entryeventform.sire.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
-					  />
+					     invalid-message="'<spring:message code='label.piginfo.entryeventform.sire.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
+					  />   
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.dam'  text='Dame'/></label>
                        <input type="text" class="form-control" name="dame" ng-model="pigInfo.damId" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.dam.placeholder' text='Enter Dame'/>" 
-					   ng-pattern="/^[a-z0-9]+$/i" 
-					   invalid-message="'<spring:message code='label.piginfo.entryeventform.dam.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
+					     invalid-message="'<spring:message code='label.piginfo.entryeventform.dam.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
 					  />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.origin'  text='Origin'/></label>
-                      <input type="text" class="form-control" name="origin" ng-model="pigInfo.origin" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.origin.placeholder' text='Enter origin'/>" 
-					   ng-pattern="/^[a-z0-9]+$/i" 
+                      <input type="text" class="form-control" name="origin" ng-model="pigInfo.origin" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.origin.placeholder' text='Enter origin'/>" 			   
 					   invalid-message="'<spring:message code='label.piginfo.entryeventform.origin.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gline'  text='Gline'/></label>
                       <input type="text" class="form-control" name="gline" ng-model="pigInfo.gline" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.gline.placeholder' text='Enter gline'/>" 
-					   ng-pattern="/^[a-z0-9]+$/i" 
-					   invalid-message="'<spring:message code='label.piginfo.entryeventform.gline.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+					      invalid-message="'<spring:message code='label.piginfo.entryeventform.gline.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gcompany'  text='GCompany'/></label>
                       <input type="text" class="form-control" name="gcompany" ng-model="pigInfo.gcompany" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.gcompany.placeholder' text='Enter gcompany'/>" 
-					   ng-pattern="/^[a-z0-9]+$/i" 
-					   invalid-message="'<spring:message code='label.piginfo.entryeventform.gcompany.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+					     invalid-message="'<spring:message code='label.piginfo.entryeventform.gcompany.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="birthDate" name="birthDate" ng-model="pigInfo.birthDate" readonly="" class="form-control"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                          <input size="16" type="date" id="birthDate" name="birthDate" ng-model="pigInfo.birthDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div> 
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/></label>
                       <input type="text" class="form-control" name="tattoo" ng-model="pigInfo.tattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.tattoo.placeholder' text='Enter tattoo'/>" 
-					   ng-pattern="/^[a-z0-9]+$/i" 
-					   invalid-message="'<spring:message code='label.piginfo.entryeventform.tattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+					      invalid-message="'<spring:message code='label.piginfo.entryeventform.tattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.alternatetattoo'  text='Alternate Tattoo'/></label>
                       <input type="text" class="form-control" name="alternateTattoo" ng-model="pigInfo.alternateTattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.alternateTattoo.placeholder' text='Enter tattoo'/>" 
-					   ng-pattern="/^[a-z0-9]+$/i" 
-					   invalid-message="'<spring:message code='label.piginfo.entryeventform.alternateTattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+					    invalid-message="'<spring:message code='label.piginfo.entryeventform.alternateTattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.remarks'  text='Remarks'/><span style='color: red'>*</span></label>

@@ -89,6 +89,28 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 		return null;
 	}
    
+   
+   /**
+	 * Retrieves the Pregnancy Event information for a given pig Id 
+	 */
+   @Override
+  public List<PregnancyEvent> getPregnancyEvents(final String pigId, final Integer companyId) throws SQLException{
+	   String qry = "select PE.\"id\", PE.\"id_PigInfo\", PE.\"id_EmployeeGroup\", PE.\"id_PregnancyEventType\", "
+	   		+ "PE.\"id_PregnancyExamResultType\", PE.\"examDate\", PE.\"resultDate\", PE.\"sowCondition\", "
+	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\" from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\""
+	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
+		
+		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, pigId);
+				ps.setInt(2, companyId);
+			}}, new PregnancyEventMapper());
+
+		return pregnancyEventList;
+	}
+   
+    
     @Override
 	public int updatePregnancyEventDetails(final PregnancyEvent pregnancyEvent)
 			throws SQLException, DuplicateKeyException {
@@ -127,5 +149,22 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 			pregnancyEvent.setUserUpdated(rs.getString("userUpdated"));
 			return pregnancyEvent;
 		}
+	}
+   
+ 
+   /**
+    * Delete a pregnancy event based on the primary key id
+    */
+   @Override
+	public void deletePregnancyEvent(final Integer pregnancyEventId)
+			throws SQLException {
+	   final String qry = "delete from pigtrax.\"PregnancyEvent\" where \"id\" = ?";
+		
+		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, pregnancyEventId);
+			}
+		});
 	}
 }

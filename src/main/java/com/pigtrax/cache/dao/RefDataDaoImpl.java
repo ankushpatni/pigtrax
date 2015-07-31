@@ -52,6 +52,18 @@ public class RefDataDaoImpl implements RefDataDao {
 		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_BreedingServiceType\" FROM pigtraxrefdata.\"BreedingServiceTypeTranslation\" order by \"fieldLanguage\", \"id_BreedingServiceType\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
+	
+	@Override
+	public List<RefDataTranslationDto> getPregnancyEventTypeData() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PregnancyEventType\" FROM pigtraxrefdata.\"PregnancyEventTypeTranslation\" order by \"fieldLanguage\", \"id_PregnancyEventType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getPregnancyExamResultTypeData() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PregnancyExamResultType\" FROM pigtraxrefdata.\"PregnancyExamResultTypeTranslation\" order by \"fieldLanguage\", \"id_PregnancyExamResultType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
 
 	@Override
 	public Map<String, Set<String>> getCountryCityData() {

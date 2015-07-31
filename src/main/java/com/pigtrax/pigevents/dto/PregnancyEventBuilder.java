@@ -1,12 +1,20 @@
 package com.pigtrax.pigevents.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
-import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
 
 @Component
 public class PregnancyEventBuilder {
+	
+	/**
+	 * Convert Bean to DTO
+	 * @param dto
+	 * @return
+	 */
 	public PregnancyEvent convertToBean(PregnancyEventDto dto)
 	   {
 		PregnancyEvent info = new PregnancyEvent();
@@ -26,27 +34,43 @@ public class PregnancyEventBuilder {
 		   return info;
 	   }
 	   
-	   
-	   public BreedingEventDto convertToDto(BreedingEvent info)
+	   /**
+	    * Convert DTO to Bean
+	    * @param info
+	    * @return
+	    */
+	   public PregnancyEventDto convertToDto(PregnancyEvent info)
 	   {
-		   BreedingEventDto dto = new BreedingEventDto();
+		   PregnancyEventDto dto = new PregnancyEventDto();
 		   if(info != null)
 		   {
 			   dto.setId(info.getId());
-			   dto.setServiceId(info.getServiceId());
 			   dto.setEmployeeGroupId(info.getEmployeeGroupId());
+			   dto.setExamDate(info.getExamDate());
+			   dto.setLastUpdated(info.getLastUpdated());
 			   dto.setPigInfoId(info.getPigInfoId());
-			   dto.setPigInfoKey(info.getPigInfoKey());
-			   dto.setBreedingServiceTypeId(info.getBreedingServiceTypeId());
-			   dto.setBreedingGroupId(info.getBreedingGroupId());
-			   dto.setBreedingDate(info.getBreedingDate());
-			   dto.setSemenId(info.getSemenId());
-			   dto.setRemarks(info.getRemarks());
+			   dto.setPregnancyEventTypeId(info.getPregnancyEventTypeId());
+			   dto.setPregnancyExamResultTypeId(info.getPregnancyExamResultTypeId());
+			   dto.setResultDate(info.getResultDate());
 			   dto.setSowCondition(info.getSowCondition());
 			   dto.setUserUpdated(info.getUserUpdated());
-			   dto.setMateQuality(info.getMateQuality());
-			   dto.setLastUpdated(info.getLastUpdated());
 		   }
 		   return dto;
+	   }
+	   
+	   
+	   /**
+	    * Convert list of PreganancyEvent to Dto
+	    * @param pregnancyEvents
+	    * @return
+	    */
+	   public List<PregnancyEventDto> convertToDtos(List<PregnancyEvent> pregnancyEvents)
+	   {
+		   List<PregnancyEventDto> pregnancyEventList = new ArrayList<PregnancyEventDto>();
+		   for(PregnancyEvent event : pregnancyEvents)
+		   {
+			   pregnancyEventList.add(convertToDto(event));
+		   }
+		   return pregnancyEventList;
 	   }
 }

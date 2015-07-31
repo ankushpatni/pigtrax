@@ -2,6 +2,8 @@ package com.pigtrax.pigevents.dto;
 
 import java.util.Date;
 
+import com.pigtrax.master.dto.EmployeeGroupDto;
+
 public class PregnancyEventDto {
 	private Integer id;
 	private Integer pigInfoId;
@@ -15,6 +17,7 @@ public class PregnancyEventDto {
 	private Date lastUpdated;
 	private String userUpdated;
 	private int companyId;
+    private EmployeeGroupDto employeeGroup;
 
 	public Integer getId() {
 		return id;
@@ -112,6 +115,14 @@ public class PregnancyEventDto {
 
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
+	}
+
+	public EmployeeGroupDto getEmployeeGroup() {
+		return employeeGroup;
+	}
+
+	public void setEmployeeGroup(EmployeeGroupDto employeeGroup) {
+		this.employeeGroup = employeeGroup;
 	}
 
 	
