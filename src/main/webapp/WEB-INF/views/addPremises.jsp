@@ -11,7 +11,7 @@
 	<div class="modal-body form">
     		<div class="form-group">
 				<label><spring:message code="label.premise.premiseID" text="Premise ID" /><span style='color: red'>*</span></label>
-				<label ng-show="edit">{{add.permiseId}}</label>
+				<label ng-show="edit">{{add.permiseIdEdit}}</label>
 				<label ng-hide="edit">{{add.companyId}}</label>
 				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.premise.premiseID' text='Premise ID' />" name="premiseId" ng-model="add.permiseId" maxlength="2" required required-message="'<spring:message code='label.premise.premiseIDRequired' text='Premise Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.company.premiseIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>

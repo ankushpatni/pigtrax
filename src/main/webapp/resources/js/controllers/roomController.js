@@ -19,13 +19,10 @@ pigTrax.controller('RoomController', function($scope, $http, $window,$modal, res
         this.hoverEdit = false;
     };
     
-    $scope.gotToPage = function(index,row)
+    $scope.gotToPage = function(row)
 	{
-		console.log(index);
-		console.log($scope.differentPages[index].value);
-		console.log(document.getElementById("generatedRoomId").value);
 		document.getElementById("generatedRoomId").value = row.id;
-		document.forms['roomForm'].action = $scope.differentPages[index].value;
+		document.forms['roomForm'].action = 'pen';
 		document.forms['roomForm'].submit();
 	}
 	

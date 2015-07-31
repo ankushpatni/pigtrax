@@ -8,7 +8,7 @@
 			<div class="col-md-12">
 				<div class="block-flat">
 						<div class="header">
-							<h3>Company Data</h3>
+							<h3><spring:message	code="label.company.companyData" text="Company Data" /></h3>
 						</div>
 					<button type="button" ng-click="addCompanyData()" data-modal="form-primary"  class="btn btn-primary btn-flat md-trigger">
 						<i class="glyphicon glyphicon-plus"> </i>
@@ -50,7 +50,7 @@
 									</tr>
 									<tr>
 										<th colspan="14"><input st-search="" class="form-control"
-											placeholder="global search ..." type="text" /></th>
+											placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text" /></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -75,10 +75,9 @@
 										</td>
 										<td size="15%">
 											<button type="button" class="btn btn btn-info btn-sm"
-												style="margin-bottom: 5px"
-												ng-repeat="rt in differentPages track by $index"
-												ng-click="gotToPage($index,row)">{{rt.name}}</button>
-												<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
+												style="margin-bottom: 5px" 	
+												ng-click="gotToPage(row)"><spring:message code="label.company.premises" text="Premises" /></button>
+												<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) { %>
 												 <br> <br>
 												<div class="btn-group">								 				
 												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>

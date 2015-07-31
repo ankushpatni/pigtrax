@@ -33,13 +33,10 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 	
 	 $scope.$watch($scope.editCompanyData, $scope.getCompanyList, true);
 	
-	 $scope.gotToPage = function(index,row)
+	 $scope.gotToPage = function(row)
 		{
-			console.log(index);
-			console.log($scope.differentPages[index].value);
-			
 			document.getElementById("generatedPremisesId").value = row.id;
-			document.forms['premisesForm'].action = $scope.differentPages[index].value;
+			document.forms['premisesForm'].action = 'barn';
 			document.forms['premisesForm'].submit();
 			//$window.location = $scope.differentPages[index].value+'?generatedPremisesId='+row.id;
 		}

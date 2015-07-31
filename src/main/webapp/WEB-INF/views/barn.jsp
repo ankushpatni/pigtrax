@@ -6,7 +6,7 @@
 			<div class="col-md-12">
 				<div class="block-flat">
 				<div class="header">
-							<h3>Barn Data</h3>
+							<h3><spring:message	code="label.barn.barnData" text="Barn Data" /></h3>
 						</div>
 		<button type="button" ng-click="addBarnData()" class="btn btn-sm btn btn-primary">
 			<i class="glyphicon glyphicon-plus">
@@ -29,7 +29,7 @@
 				<th style="width:20px"></th>
 			</tr>
 		 	<tr>
-				<th colspan="10"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				<th colspan="10"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -45,16 +45,20 @@
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editBarnData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 				</td>
-				<td style="width:8%">  
-					<!-- <button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index,row)">
-						{{rt.name}}</button> -->
-							<div class="btn-group">								 				
-							  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle" ><spring:message code="label.company.goto" text="Go To" /> <span class="caret"></span></button>
+				<td style="width:15%">  
+					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-click="gotToPage('room',row)">
+						<spring:message code="label.barn.room" text="Room" /></button>
+					<br>
+					<br>
+					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-click="gotToPage('silo',row)">
+						<spring:message code="label.barn.silo" text="Silo" /></button>	
+							<%-- <div class="btn-group">								 				
+							  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle"><spring:message code="label.company.goto" text="Go To" /> <span class="caret"></span></button>
 							  <ul role="menu" class="dropdown-menu">
-								<li><a ng-click="gotToPage(room,row)">Room</a></li>
-								<li><a ng-click="gotToPage(silo,row)">Silo</a></li>
+								<li><a href="#" ng-click="gotToPage('room',row)"><spring:message code="label.barn.room" text="Room" /></a></li>
+								<li><a href="#" ng-click="gotToPage('silo',row)"><spring:message code="label.barn.silo" text="Silo" /></a></li>
 							  </ul>
-							</div>	
+							</div>	 --%>
 				</td>
 				<td style="width:20px">
 				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.deactivate" text="De-Activate" /></a>

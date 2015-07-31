@@ -16,7 +16,8 @@ pigTrax.controller('addPenCtrl', function($scope, $http, $window, $modalInstance
 		$scope.add.location = penData.location;
 		$scope.add.active = penData.active;		
 		$scope.add.id = penData.id;
-		$scope.add.penId = penData.penId
+		$scope.add.penIdEdit = penData.penId;
+		$scope.add.penId = 1;
     	
 	}
 	
@@ -28,7 +29,7 @@ pigTrax.controller('addPenCtrl', function($scope, $http, $window, $modalInstance
 				if( penData != null && penData.penId !=null )
 				{
 					postParam = {
-							"penId" : $scope.add.penId,
+							"penId" : penData.penId,
 							"location" : $scope.add.location,
 							"active" : penData.active,
 							"id" : $scope.add.id,
@@ -70,4 +71,3 @@ pigTrax.controller('addPenCtrl', function($scope, $http, $window, $modalInstance
 		$modalInstance.dismiss('add');
 	}
 });
-

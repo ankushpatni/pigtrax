@@ -23,7 +23,7 @@
 				<th style="width:20%"><spring:message code="label.premise.edit" text="Edit" /></th>
 			</tr>
 		 	<tr>
-				<th colspan="4"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				<th colspan="4"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>

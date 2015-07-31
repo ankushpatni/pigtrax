@@ -13,7 +13,8 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	if(premisesData != null && premisesData.permiseId !=null )
 	{
 		$scope.edit = true;
-		$scope.add.permiseId = premisesData.permiseId,
+		$scope.add.permiseIdEdit = premisesData.permiseId,
+		$scope.add.permiseId = 1,
     	$scope.add.name = premisesData.name,
     	$scope.add.address = premisesData.address,
 		$scope.add.state = premisesData.state;
@@ -34,7 +35,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 				{
 				console.log();
 					postParam = {
-							"permiseId" : $scope.add.permiseId,
+							"permiseId" : premisesData.permiseId,
 							"name" : $scope.add.name,
 							"address" : $scope.add.address,
 							"state" : $scope.add.state,

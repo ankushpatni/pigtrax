@@ -1,5 +1,6 @@
 package com.pigtrax.master.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Barn {
@@ -9,7 +10,7 @@ public class Barn {
 	public int premiseId;
 	public int phaseTypeId;
 	public String location;
-	public int area;
+	public BigDecimal area;
 	public int feederCount;
 	public int waterAccessCount;
 	private boolean isActive;
@@ -48,10 +49,10 @@ public class Barn {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public int getArea() {
+	public BigDecimal getArea() {
 		return area;
 	}
-	public void setArea(int area) {
+	public void setArea(BigDecimal area) {
 		this.area = area;
 	}
 	public int getFeederCount() {

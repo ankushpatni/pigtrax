@@ -16,7 +16,8 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 		$scope.add.location = roomData.location;
 		$scope.add.active = roomData.active;		
 		$scope.add.id = roomData.id;
-		$scope.add.roomId = roomData.roomId
+		$scope.add.roomIdEdit = roomData.roomId;
+		$scope.add.roomId = 1;
     	
 	}
 	
@@ -27,7 +28,7 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 				if( roomData != null && roomData.roomId !=null )
 				{
 					postParam = {
-							"roomId" : $scope.add.roomId,
+							"roomId" : roomData.roomId,
 							"location" : $scope.add.location,
 							"active" : roomData.active,
 							"id" : $scope.add.id,

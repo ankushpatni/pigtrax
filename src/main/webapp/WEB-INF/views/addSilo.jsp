@@ -12,7 +12,7 @@
     
               <div class="form-group">
 				<label><spring:message code="label.silo.siloID" text="Silo ID" /><span style='color: red'>*</span></label>
-				<label ng-show="edit">{{add.siloId}}</label>
+				<label ng-show="edit">{{add.siloIdEdit}}</label>
 				<label ng-hide="edit">{{add.barnId}}</label>
 				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.silo.siloID' text='Silo ID' />" name="siloId" ng-model="add.siloId" maxlength="4" required required-message="'<spring:message code='label.silo.siloIDRequired' text='Silo Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.silo.siloIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>

@@ -31,12 +31,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 	
 	 $scope.$watch($scope.editCompanyData, $scope.getCompanyList, true);
 	
-	$scope.gotToPage = function(index,row)
+	$scope.gotToPage = function(row)
 	{
-		console.log(index);
-		console.log($scope.differentPages[index].value);
 		document.getElementById("generatedCompanyId").value = row.id;
-		document.forms['companyForm'].action = $scope.differentPages[index].value;
+		document.forms['companyForm'].action = 'premises';
 		document.forms['companyForm'].submit();
 		//$window.location = $scope.differentPages[index].value+'?generatedCompanyId='+row.id;
 	}

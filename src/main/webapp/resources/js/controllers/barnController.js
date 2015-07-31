@@ -23,13 +23,10 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
 		console.log("phaseType--123-->");
 	}
 	
-	$scope.gotToPage = function(index,row)
+	$scope.gotToPage = function(page,row)
 	{
-		console.log(index);
-		console.log($scope.differentPages[index].value);
-		console.log(document.getElementById("generatedBarnId").value);
 		document.getElementById("generatedBarnId").value = row.id;
-		document.forms['barnForm'].action = $scope.differentPages[index].value;
+		document.forms['barnForm'].action = page;
 		document.forms['barnForm'].submit();
 	}
 	

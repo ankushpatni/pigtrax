@@ -17,7 +17,8 @@ pigTrax.controller('addSiloCtrl', function($scope, $http, $window, $modalInstanc
 		$scope.add.location = siloData.location;
 		$scope.add.id = siloData.id;
 		$scope.add.siloType = siloData.siloType;
-		$scope.add.siloId = siloData.siloId
+		$scope.add.siloIdEdit = siloData.siloId;
+		$scope.add.siloId = 1;
     	
 	}
 	
@@ -28,7 +29,7 @@ pigTrax.controller('addSiloCtrl', function($scope, $http, $window, $modalInstanc
 				if( siloData != null && siloData.siloId !=null )
 				{
 					postParam = {
-							"siloId" : $scope.add.siloId,
+							"siloId" : siloData.siloId,
 							"location" : $scope.add.location,
 							"id" : $scope.add.id,
 							"barnId" : siloData.generatedBarnId,

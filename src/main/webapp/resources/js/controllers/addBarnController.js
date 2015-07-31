@@ -14,7 +14,7 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 	if(barnData != null && barnData.barnId !=null )
 	{
 		$scope.edit = true;
-		$scope.add.barnId = barnData.barnId;
+		$scope.add.barnIdEdit = barnData.barnId;
 		console.log($scope.add.barnId);
     	$scope.add.phaseTypeId = barnData.phaseTypeId;
     	$scope.add.location = barnData.location;
@@ -24,6 +24,7 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 		$scope.add.active = barnData.active;		
 		$scope.add.ventilationTypeId = barnData.ventilationTypeId;
 		$scope.add.id = barnData.id
+		$scope.add.barnId = 1;
     	
 	}
 	
@@ -36,7 +37,7 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 				if( barnData != null && barnData.barnId !=null )
 				{
 					postParam = {
-							"barnId" : $scope.add.barnId,
+							"barnId" : barnData.barnId,
 							"phaseTypeId" : $scope.add.phaseTypeId,
 							"location" : $scope.add.location,
 							"area" : $scope.add.area,

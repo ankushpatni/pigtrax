@@ -12,7 +12,7 @@
     
               <div class="form-group">
 				<label><spring:message code="label.barn.barnID" text="Barn ID" /><span style='color: red'>*</span></label>
-				<label ng-show="edit">{{add.barnId}}</label>
+				<label ng-show="edit">{{add.barnIdEdit}}</label>
 				<label ng-hide="edit">{{add.premisesId}}</label>
 				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.barn.barnID' text='Barn ID' />" name="barnId" ng-model="add.barnId" maxlength="4" required required-message="'<spring:message code='label.barn.barnIDRequired' text='Barn Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.barn.barnIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
@@ -26,7 +26,7 @@
 			</div>
 			<div class="form-group">
 				<label ><spring:message code="label.barn.area" text="Area" /><span style='color: red'>*</span></label>
-				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.area' text='Area' />" name="area" ng-model="add.area" maxlength="8" required required-message="'<spring:message code='label.barn.barnAreaRequired' text='Area is required' />'" ng-pattern="/^[0-9]{1,15}(\.[0-9]+)?$/i" invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
+				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.area' text='Area' />" name="area" ng-model="add.area" maxlength="18" required required-message="'<spring:message code='label.barn.barnAreaRequired' text='Area is required' />'" ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
 			</div>			
 			<div class="form-group">
 				<label ><spring:message code="label.barn.feederCount" text="Feeder Count" /><span style='color: red'>*</span></label>
@@ -48,5 +48,4 @@
         </div>
        </div>
     </form>
-</div>
 </div>

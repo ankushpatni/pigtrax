@@ -99,7 +99,7 @@ public class BarnDaoImpl implements BarnDao {
 				ps.setInt(2, barn.getPremiseId());
 				ps.setInt(3, barn.getPhaseTypeId());
 				ps.setString(4, barn.getLocation());
-				ps.setInt(5, barn.getArea());
+				ps.setBigDecimal(5, barn.getArea());
 				ps.setInt(6, barn.getFeederCount());
 				ps.setInt(7, barn.getWaterAccessCount());
 				ps.setBoolean(8, barn.isActive());
@@ -119,7 +119,7 @@ public class BarnDaoImpl implements BarnDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, barn.getPhaseTypeId());
 				ps.setString(2, barn.getLocation());
-				ps.setInt(3, barn.getArea());
+				ps.setBigDecimal(3, barn.getArea());
 				ps.setInt(4, barn.getFeederCount());
 				ps.setInt(5, barn.getWaterAccessCount());
 				ps.setDate(6, new java.sql.Date(System.currentTimeMillis()));
@@ -138,7 +138,7 @@ public class BarnDaoImpl implements BarnDao {
 			barn.setPremiseId(rs.getInt("id_Premise"));
 			barn.setPhaseTypeId(rs.getInt("id_PhaseType"));
 			barn.setLocation(rs.getString("location"));
-			barn.setArea(rs.getInt("area"));
+			barn.setArea(rs.getBigDecimal("area"));
 			barn.setFeederCount(rs.getInt("feederCount"));
 			barn.setWaterAccessCount(rs.getInt("waterAccessCount"));
 			barn.setActive(rs.getBoolean("isActive"));
@@ -170,4 +170,6 @@ public class BarnDaoImpl implements BarnDao {
 		return barnList;
 	}
 
+
 }
+

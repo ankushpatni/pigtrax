@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class BarnDto {
@@ -8,7 +9,7 @@ public class BarnDto {
     private Integer premiseId;
     private Integer phaseTypeId;
     private String location;
-    private Integer area;
+    private BigDecimal area;
     private Integer feederCount;
     private Integer waterAccessCount;
     private boolean isActive;
@@ -45,10 +46,10 @@ public class BarnDto {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Integer getArea() {
+	public BigDecimal getArea() {
 		return area;
 	}
-	public void setArea(Integer area) {
+	public void setArea(BigDecimal area) {
 		this.area = area;
 	}
 	public Integer getFeederCount() {
@@ -87,7 +88,5 @@ public class BarnDto {
 	public void setVentilationTypeId(Integer ventilationTypeId) {
 		this.ventilationTypeId = ventilationTypeId;
 	}
-    
-    
     
 }

@@ -6,7 +6,7 @@
 			<div class="col-md-12">
 				<div class="block-flat">
 				<div class="header">
-							<h3>Premises Data</h3>
+							<h3><spring:message	code="label.premise.premiseData" text="Premises Data" /></h3>
 						</div>
 	<button type="button" ng-click="addPremiseData()" class="btn btn-sm btn btn-primary">
 			<i class="glyphicon glyphicon-plus">
@@ -28,7 +28,7 @@
 				<th style="width:20px"></th>
 			</tr>
 		 	<tr>
-				<th colspan="9"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				<th colspan="9"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -44,8 +44,8 @@
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 				</td>
 				<td style="width:8%">  
-					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index,row)">
-						{{rt.name}}</button>	
+					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-click="gotToPage(row)">
+						<spring:message code="label.premise.barn" text="Barn" /></button>	
 				</td>
 				<td style="width:20px">
 				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.deactivate" text="De-Activate" /></a>

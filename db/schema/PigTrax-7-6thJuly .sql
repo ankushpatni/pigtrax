@@ -100,7 +100,7 @@ CREATE TABLE pigtrax."Barn"(
 	"id_Premise" integer,
 	"id_PhaseType" integer,
 	location varchar(30),
-	area smallint,
+	area numeric(12,2),
 	"feederCount" smallint,
 	"waterAccessCount" smallint,
 	"isActive" bool,
