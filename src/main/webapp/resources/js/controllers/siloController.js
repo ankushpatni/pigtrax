@@ -1,10 +1,7 @@
-pigTrax.controller('RoomController', function($scope, $http, $window,$modal, restServices) {	
+pigTrax.controller('SiloController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
-	$scope.premisesId;
-	$scope.generatedPremisesId;
-	$scope.phaseType; 
 	$scope.differentPages=[{"name":"Pen","value":"pen"}];
 	$scope.validationType;
 	
@@ -23,19 +20,19 @@ pigTrax.controller('RoomController', function($scope, $http, $window,$modal, res
 	{
 		console.log(index);
 		console.log($scope.differentPages[index].value);
-		console.log(document.getElementById("generatedRoomId").value);
-		document.getElementById("generatedRoomId").value = row.id;
-		document.forms['roomForm'].action = $scope.differentPages[index].value;
-		document.forms['roomForm'].submit();
+		console.log(document.getElementById("generatedSiloId").value);
+		document.getElementById("generatedSiloId").value = row.id;
+		document.forms['siloForm'].action = $scope.differentPages[index].value;
+		document.forms['siloForm'].submit();
 	}
 	
 	//deactivate/activate to the real data holder
     $scope.removeItem = function removeItem(row) {
     	var postParam = {
-    			"roomID" : row.barnId,
+    			"siloID" : row.barnId,
     			"isActive" : row.active
     	};
-    	var res = $http.post('rest/room/updateRoomStatus?roomId='+row.roomId +"&isActive="+row.active, postParam);
+    	var res = $http.post('rest/silo/updateSiloStatus?siloId='+row.siloId +"&isActive="+row.active, postParam);
 		res.success(function(data, status, headers, config) {
 		row.active = !row.active;
 		});
@@ -44,18 +41,18 @@ pigTrax.controller('RoomController', function($scope, $http, $window,$modal, res
 		});	
     }
 	
-	$scope.addRoomData = function () {
+	$scope.addSiloData = function () {
 			var modalInstance = $modal.open ({
-    			templateUrl: 'addRoom',
-    			controller: 'addRoomCtrl',
+    			templateUrl: 'addSilo',
+    			controller: 'addSiloCtrl',
     			backdrop:true,
     			windowClass : 'cp-model-window',
 				resolve:{
-					roomData : function(){
-						var roomData={};
-						roomData.barnId= $scope.barnId;
-						roomData.generatedBarnId = $scope.generatedBarnId;	
-    					return roomData;
+					siloData : function(){
+						var siloData={};
+						siloData.barnId= $scope.barnId;
+						siloData.generatedBarnId = $scope.generatedBarnId;	
+    					return siloData;
     				}
     			}
     		});
@@ -63,39 +60,39 @@ pigTrax.controller('RoomController', function($scope, $http, $window,$modal, res
     		modalInstance.result.then( function(res) {    			
     			if(res.statusMessage==="SUCCESS")
 				{
-    				$scope.getRoomList($scope.barnId,$scope.generatedBarnId);				
+    				$scope.getSiloList($scope.barnId,$scope.generatedBarnId);				
 				}
     		});
     }
 	
-	$scope.editRoomData = function(roomData){
+	$scope.editSiloData = function(siloData){
 		var modalInstance = $modal.open ({
-				templateUrl: 'addRoom',
-				controller: 'addRoomCtrl',
+				templateUrl: 'addSilo',
+				controller: 'addSiloCtrl',
 				backdrop:true,
 				windowClass : 'cp-model-window',
     			resolve:{
-    				roomData : function(){
-						roomData.barnId= $scope.barnId;
-						roomData.generatedBarnId = $scope.generatedBarnId;	
-    					return roomData;
+    				siloData : function(){
+						siloData.barnId= $scope.barnId;
+						siloData.generatedBarnId = $scope.generatedBarnId;	
+    					return siloData;
     				}
     			}
     		});    		
     		modalInstance.result.then( function(res) {
 				if(res.statusMessage==="SUCCESS")
 				{
-					$scope.getRoomList($scope.barnId,$scope.generatedBarnId);				
+					$scope.getSiloList($scope.barnId,$scope.generatedBarnId);				
 				}
 			});
 		
     	}
 		
-	$scope.getRoomList = function(barnId,generatedBarnId){
+	$scope.getSiloList = function(barnId,generatedBarnId){
 		$scope.barnId = barnId;
 		$scope.generatedBarnId = generatedBarnId;
 		
-		var res = $http.get('rest/room/getRoomList?generatedBarnId='+generatedBarnId);
+		var res = $http.get('rest/silo/getSiloList?generatedBarnId='+generatedBarnId);
 			res.success(function(data, status, headers, config) {
 				$scope.rowCollection = data.payload;
 				$scope.totalPages = Math.ceil($scope.rowCollection.length/10);

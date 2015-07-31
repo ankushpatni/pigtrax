@@ -9,7 +9,7 @@ public class Silo {
 	public String siloId;
 	public int barnId;
 	public String location;
-	private boolean isActive;
+	private int siloType;
 	private Date lastUpdated;
 	private String userUpdated;
 	
@@ -37,12 +37,6 @@ public class Silo {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public boolean isActive() {
-		return isActive;
-	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
 	public Date getLastUpdated() {
 		return lastUpdated;
 	}
@@ -55,10 +49,17 @@ public class Silo {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	
+	public int getSiloType() {
+		return siloType;
+	}
+	public void setSiloType(int siloType) {
+		this.siloType = siloType;
+	}
 	@Override
 	public String toString() {
 		return "Silo [id=" + id + ", siloId=" + siloId + ", barnId=" + barnId
-				+ ", location=" + location + ", isActive=" + isActive
+				+ ", location=" + location + ", isActive=" + siloType
 				+ ", lastUpdated=" + lastUpdated + ", userUpdated="
 				+ userUpdated + "]";
 	}

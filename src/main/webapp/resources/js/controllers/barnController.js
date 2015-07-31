@@ -5,7 +5,7 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
 	$scope.premisesId;
 	$scope.generatedPremisesId;
 	$scope.phaseType; 
-	$scope.differentPages=[{"name":"Room","value":"room"}];
+	$scope.differentPages=[{"name":"Room","value":"room"},{"name":"Silo","value":"silo"}];
 	$scope.validationType;
 	
 	
@@ -107,7 +107,8 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
 			 var res1 = $http.get('rest/util/getPhaseType');
       			res1.success(function(data, status, headers, config) {
 					$scope.phaseType = data.payload[0];		
-					$scope.validationType = data.payload[1];					
+					$scope.validationType = data.payload[1];	
+					console.log($scope.phaseType);
       			});
       			res1.error(function(data, status, headers, config) {
       				console.log( "failure message: " + {data: data});

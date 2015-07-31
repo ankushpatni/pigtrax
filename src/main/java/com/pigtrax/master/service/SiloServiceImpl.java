@@ -4,11 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.pigtrax.master.dao.interfaces.SiloDao;
 import com.pigtrax.master.dto.Silo;
 import com.pigtrax.master.service.interfaces.SiloService;
 
+/**
+ * @author Ankush
+ *
+ */
+@Repository
 public class SiloServiceImpl implements SiloService{
 
 	@Autowired
