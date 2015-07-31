@@ -46,8 +46,15 @@
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 				</td>
 				<td style="width:8%">  
-					<button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index,row)">
-						{{rt.name}}</button>	
+					<!-- <button type="button" class="btn btn btn-info btn-sm" style="margin-bottom:5px" ng-repeat ="rt in differentPages track by $index" ng-click="gotToPage($index,row)">
+						{{rt.name}}</button> -->
+							<div class="btn-group">								 				
+							  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle" ><spring:message code="label.company.goto" text="Go To" /> <span class="caret"></span></button>
+							  <ul role="menu" class="dropdown-menu">
+								<li><a ng-click="gotToPage(room,row)">Room</a></li>
+								<li><a ng-click="gotToPage(silo,row)">Silo</a></li>
+							  </ul>
+							</div>	
 				</td>
 				<td style="width:20px">
 				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.deactivate" text="De-Activate" /></a>

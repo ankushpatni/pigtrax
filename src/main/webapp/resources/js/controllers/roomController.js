@@ -25,8 +25,8 @@ pigTrax.controller('RoomController', function($scope, $http, $window,$modal, res
 		console.log($scope.differentPages[index].value);
 		console.log(document.getElementById("generatedRoomId").value);
 		document.getElementById("generatedRoomId").value = row.id;
-		document.forms['penForm'].action = $scope.differentPages[index].value;
-		document.forms['penForm'].submit();
+		document.forms['roomForm'].action = $scope.differentPages[index].value;
+		document.forms['roomForm'].submit();
 	}
 	
 	//deactivate/activate to the real data holder

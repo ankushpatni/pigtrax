@@ -28,7 +28,6 @@ public class RoomController {
 	@RequestMapping(value = "/room", method=RequestMethod.POST)
 	public String displayRoom(Model model, @RequestParam int generatedBarnId)
 	{
-		System.out.println("Ankush printing---->"+generatedBarnId);
 		model.addAttribute("contentUrl","room.jsp");
 		model.addAttribute("generatedBarnId",generatedBarnId);
 		try

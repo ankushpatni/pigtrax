@@ -21,8 +21,8 @@ public class RoomServiceImpl implements RoomService{
 	private RoomDao roomDao;
 
 	@Override
-	public List<Room> getRoomList(int generatedPremisesId) {
-		return roomDao.getRoomList( generatedPremisesId );
+	public List<Room> getRoomList(int generatedBarnId) {
+		return roomDao.getRoomList( generatedBarnId );
 	}
 
 	@Override
