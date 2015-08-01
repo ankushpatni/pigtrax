@@ -128,7 +128,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", \"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\"  from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ?";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, pigId.toUpperCase());
+				ps.setString(1, pigId.trim());
 				ps.setInt(2, companyId);
 			}}, new PigInfoMapper());
 

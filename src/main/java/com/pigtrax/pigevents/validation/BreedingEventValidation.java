@@ -68,7 +68,7 @@ public class BreedingEventValidation {
 		period = env.getProperty("BREEDING_EVENT_TIME_PERIOD4");		
 		BREEDING_EVENT_TIME_PERIOD4 = Integer.parseInt((period != null) ? period.trim() : "0");
 		
-		System.out.println(BREEDING_EVENT_TIME_PERIOD1+"--"+BREEDING_EVENT_TIME_PERIOD2+"--"+BREEDING_EVENT_TIME_PERIOD3+"--"+BREEDING_EVENT_TIME_PERIOD4);
+		logger.info(BREEDING_EVENT_TIME_PERIOD1+"--"+BREEDING_EVENT_TIME_PERIOD2+"--"+BREEDING_EVENT_TIME_PERIOD3+"--"+BREEDING_EVENT_TIME_PERIOD4);
 	}
 	
   /**
@@ -126,7 +126,7 @@ public class BreedingEventValidation {
 		  }
 		  if(breedingEventId != null && breedingEventId>0)
 		  {
-			  System.out.println("breedingEventId not null : //"+breedingEventId);
+			  logger.info("breedingEventId not null : //"+breedingEventId);
 			  BreedingEvent breedingEvent = null;
 				try {
 					breedingEvent = breedingEventDao.getBreedingEventInformation(breedingEventId);
