@@ -179,7 +179,7 @@ INSERT INTO pigtraxrefdata."PregnancyExamResultTypeTranslation" ("fieldValue","f
 INSERT INTO pigtraxrefdata."PregnancyExamResultTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyExamResultType") VALUES ('Positive_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PregnancyExamResultTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyExamResultType") VALUES ('Negative_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."PregnancyExamResultTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyExamResultType") VALUES ('Inconclusive_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."PregnancyExamResultTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyExamResultType") VALUES ('Unknown_PR','pr]',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."PregnancyExamResultTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyExamResultType") VALUES ('Unknown_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 --------------------PregnancyEventType
 INSERT INTO pigtraxrefdata."PregnancyEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Pregnancy Exam', CURRENT_TIMESTAMP,'pigtraxadmin');
@@ -201,6 +201,28 @@ INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldL
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Abortion_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Non in Pig_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Unknown_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+------SiloType
+INSERT INTO pigtraxrefdata."SiloType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Single', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SiloType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Manual',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SiloType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Double',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SiloType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Unknown',CURRENT_TIMESTAMP,'pigtraxadmin');
+
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Single','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Manual','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Double','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Unknown','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Single_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Manual_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Double_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Unknown_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+
+
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Single_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Manual_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Double_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SiloType") VALUES ('Unknown_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+
 
 -----------------
 INSERT INTO pigtrax."Company"(

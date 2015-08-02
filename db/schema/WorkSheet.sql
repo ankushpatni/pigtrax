@@ -48,6 +48,40 @@ CREATE TABLE pigtraxstaging."PigInfoDuplicateDetailsTemp"(
 ALTER TABLE pigtraxstaging."PigInfoDuplicateDetailsTemp" OWNER TO pigtraxadmin;
 -- ddl-end --
 
+DROP TABLE IF EXISTS pigtraxstaging."SowHistory" CASCADE;
+CREATE TABLE pigtraxstaging."SowHistory"(
+	id serial NOT NULL,
+	"srcLineNumber" varchar(20),
+	"pigId" varchar(30),
+	"eventDate" date,
+	"eventNameString" varchar(30),
+	"liveBorns" smallint,
+	"stillBorns" smallint,
+	mummies smallint,
+	"birthWeight" numeric(10,2),
+	"numberAtPigletStatusEvent" smallint,
+	"pigletStatusWeight" numeric(10,2),
+	reason varchar(255),
+	CONSTRAINT "SOWHISTORY_PK" PRIMARY KEY (id)
+);
+-- ddl-end --
+ALTER TABLE pigtraxstaging."SowHistory" OWNER TO pigtraxadmin;
+-- ddl-end --
+
+DROP INDEX IF EXISTS pigtraxstaging."SOWHISTORY_PIGID_IN" CASCADE;
+CREATE INDEX "SOWHISTORY_PIGID_IN" ON pigtraxstaging."SowHistory"
+	USING btree
+	(
+	  "pigId" ASC NULLS LAST
+	);
+
+DROP INDEX IF EXISTS pigtraxstaging."SOWHISTORY_EVENTDATE_IN" CASCADE;
+CREATE INDEX "SOWHISTORY_EVENTDATE_IN" ON pigtraxstaging."SowHistory"
+	USING btree
+	(
+	  "eventDate" ASC NULLS LAST
+	);
+
 
 -- object: pigtraxstaging."PigInfo" | type: TABLE --
 DROP TABLE IF EXISTS pigtraxstaging."PigInfo" CASCADE;
@@ -140,7 +174,7 @@ BEGIN
 							HAVING count(*) > 1
 							);
 	INSERT INTO pigtraxstaging."PigInfoDuplicateDetailsTemp" ( SELECT pi."pigId", pi."srcLineNumber" 
-								   FROM pigtraxstaging."PigInfo" pi, "PigInfoCountTemp" pict
+								   FROM pigtraxstaging."PigInfo" pi, pigtraxstaging."PigInfoCountTemp" pict
 								   WHERE pict."pigId" = pi."pigId"
 								 );
 	SELECT string_agg("pigId", ', ') into duplicateids FROM pigtraxstaging."PigInfoDuplicateDetailsTemp";
@@ -394,6 +428,7 @@ DECLARE
 	nullpiginfoid varchar(10000) = null;
 	nullpiginfoidfk varchar(10000) = null;
 	nulleventdate varchar(10000) = null;
+	zeropigletsonbirth varchar(10000) = null;
 BEGIN
 --Log initial count
 	SELECT COUNT(1) INTO farroweventcount FROM pigtraxstaging."FarrowEvent";
@@ -429,6 +464,15 @@ BEGIN
 -- Log the number of rows after delete
 	SELECT COUNT(1) INTO farroweventcount FROM pigtraxstaging."FarrowEvent";
 	INSERT INTO pigtraxstaging."StagingLog" ("eventName", "logCode", "logMessage", "logData", "logDateTime") VALUES ('FarrowEvent','POST_NULL_DATE_DEL_COUNT', 'Total Number of rows which have null event date: ' || farroweventcount, '' || farroweventcount, CURRENT_TIMESTAMP);
+--Check which rows have 0 as number of piglets. Raise them as exception
+	SELECT string_agg("srcLineNumber", ', ') into zeropigletsonbirth FROM pigtraxstaging."FarrowEvent" WHERE "liveBorns" = 0 AND stillBorns = 0 AND mummies = 0;
+	INSERT INTO pigtraxstaging."StagingLog" ("eventName", "logCode", "logMessage", "logData", "logDateTime") VALUES ('FarrowEvent', 'NILL_PIGLETS_AT_FARROW', 'Following line numbers have 0 piglets associated with farrow event. They will be deleted' , zeropigletsonbirth, CURRENT_TIMESTAMP);
+	DELETE FROM pigtraxstaging."FarrowEvent" WHERE "liveBorns" = 0 AND stillBorns = 0 AND mummies = 0;
+
+-- Log the number of rows after delete
+	SELECT COUNT(1) INTO farroweventcount FROM pigtraxstaging."FarrowEvent";
+	INSERT INTO pigtraxstaging."StagingLog" ("eventName", "logCode", "logMessage", "logData", "logDateTime") VALUES ('FarrowEvent','POST_DELETE_ZERO_PIGLET_COUNT', 'Total Number of rows which have null event date: ' || farroweventcount, '' || farroweventcount, CURRENT_TIMESTAMP);
+
 					 
 	RETURN 0;
 END;   
@@ -820,3 +864,46 @@ OWNER TO pitraxadmin;
 --select * from  pigtraxstaging."StagingLog";
 --select * from pigtraxstaging."SalesEvent" order by id asc;
 ---Test SQL END
+
+
+CREATE OR REPLACE FUNCTION pigtraxstaging."PopulateSowHistory"() RETURNS int AS
+$$
+BEGIN
+	INSERT into pigtraxstaging."SowHistory" 
+	(
+	"srcLineNumber", 
+	"pigId", 
+	"eventDate" ,
+	"eventNameString", 
+	"liveBorns",
+	"stillBorns",
+	mummies,
+	"birthWeight",
+	"numberAtPigletStatusEvent", 
+	"pigletStatusWeight", 
+	reason
+	) 
+	SELECT pi."srcLineNumber", pi."pigId", pi."eventDate", pi."eventNameString", 0 AS "liveBorns", 0 AS "stillBorns", 0 AS "mummies", 0 AS "birthWeight", 0 as "numberAtPigletStatus", 0 AS "pigletStatusWeight", null as "reason" from pigtraxstaging."PigInfo" pi
+	UNION ALL
+	SELECT be."srcLineNumber", be."pigId", be."eventDate", be."eventNameString", 0 AS "liveBorns", 0 AS "stillBorns", 0 AS "mummies", 0 AS "birthWeight", 0 as "numberAtPigletStatus", 0 AS "pigletStatusWeight", null as "reason" from pigtraxstaging."BreedingEvent" be
+	UNION ALL
+	SELECT fe."srcLineNumber", fe."pigId", fe."eventDate", fe."eventNameString", fe."liveBorns", fe."stillBorns", fe."mummies", fe."weightInKgs" AS "birthWeight", 0 as "numberAtPigletStatus", 0 AS "pigletStatusWeight", null as "reason" from pigtraxstaging."FarrowEvent" fe
+	UNION ALL
+	SELECT pse."srcLineNumber", pse."pigId", pse."eventDate", pse."eventNameString", 0 AS "liveBorns", 0 AS "stillBorns", 0 AS "mummies", 0 AS "birthWeight", pse."numberOfPigs" AS "numberAtPigletStatus", pse."weightInKgs" AS "pigletStatusWeight", pse.reason as "reason" from pigtraxstaging."PigletStatusEvent" pse
+	order by "pigId","eventDate" ;
+	RETURN 0;
+END;   
+$$
+LANGUAGE plpgsql VOLATILE NOT LEAKPROOF;
+ALTER FUNCTION pigtraxstaging."PopulateSowHistory"()
+OWNER TO pitraxadmin;
+
+
+--Execute the procs and identify issues
+select pigtraxstaging."PigInfoDataValidation"();
+select pigtraxstaging."BreedingEventDataValidation"();
+select pigtraxstaging."FarrowEventDataValidation"();
+select pigtraxstaging."PigletStatusEventDataValidation"();
+
+--PopulateSowHistory
+select pigtraxstaging."PopulateSowHistory"();
