@@ -9,7 +9,7 @@ public class Silo {
 	public String siloId;
 	public int barnId;
 	public String location;
-	private int siloType;
+	private int siloTypeId;
 	private Date lastUpdated;
 	private String userUpdated;
 	
@@ -50,16 +50,16 @@ public class Silo {
 		this.userUpdated = userUpdated;
 	}
 	
-	public int getSiloType() {
-		return siloType;
+	public int getSiloTypeId() {
+		return siloTypeId;
 	}
-	public void setSiloType(int siloType) {
-		this.siloType = siloType;
+	public void setSiloTypeId(int siloTypeId) {
+		this.siloTypeId = siloTypeId;
 	}
 	@Override
 	public String toString() {
 		return "Silo [id=" + id + ", siloId=" + siloId + ", barnId=" + barnId
-				+ ", location=" + location + ", isActive=" + siloType
+				+ ", location=" + location + ", isActive=" + siloTypeId
 				+ ", lastUpdated=" + lastUpdated + ", userUpdated="
 				+ userUpdated + "]";
 	}

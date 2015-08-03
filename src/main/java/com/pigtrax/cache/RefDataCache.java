@@ -22,5 +22,7 @@ public interface RefDataCache {
 	Map<Integer, String> getPregnancyEventTypeMap(String language);
 	
 	Map<Integer, String> getPregnancyExamResultTypeMap(String language);
+	
+	Map<Integer, String> getSiloTypeMap(String language);
 
 }

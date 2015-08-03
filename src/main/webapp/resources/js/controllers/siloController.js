@@ -4,6 +4,7 @@ pigTrax.controller('SiloController', function($scope, $http, $window,$modal, res
 	$scope.totalPages;
 	$scope.differentPages=[{"name":"Pen","value":"pen"}];
 	$scope.validationType;
+	$scope.siloType;
 	
 	
 	console.log($scope.differentPages);
@@ -18,9 +19,6 @@ pigTrax.controller('SiloController', function($scope, $http, $window,$modal, res
     
     $scope.gotToPage = function(index,row)
 	{
-		console.log(index);
-		console.log($scope.differentPages[index].value);
-		console.log(document.getElementById("generatedSiloId").value);
 		document.getElementById("generatedSiloId").value = row.id;
 		document.forms['siloForm'].action = $scope.differentPages[index].value;
 		document.forms['siloForm'].submit();
@@ -51,7 +49,8 @@ pigTrax.controller('SiloController', function($scope, $http, $window,$modal, res
 					siloData : function(){
 						var siloData={};
 						siloData.barnId= $scope.barnId;
-						siloData.generatedBarnId = $scope.generatedBarnId;	
+						siloData.generatedBarnId = $scope.generatedBarnId;
+						siloData.siloType = $scope.siloType;
     					return siloData;
     				}
     			}
@@ -74,7 +73,8 @@ pigTrax.controller('SiloController', function($scope, $http, $window,$modal, res
     			resolve:{
     				siloData : function(){
 						siloData.barnId= $scope.barnId;
-						siloData.generatedBarnId = $scope.generatedBarnId;	
+						siloData.generatedBarnId = $scope.generatedBarnId;
+						siloData.siloType = $scope.siloType;
     					return siloData;
     				}
     			}
@@ -88,9 +88,21 @@ pigTrax.controller('SiloController', function($scope, $http, $window,$modal, res
 		
     	}
 		
-	$scope.getSiloList = function(barnId,generatedBarnId){
+	$scope.getSiloList = function(barnId,generatedBarnId,flag){
 		$scope.barnId = barnId;
 		$scope.generatedBarnId = generatedBarnId;
+		
+		if(flag)
+		{
+			 var res1 = $http.get('rest/util/getSiloType');
+      			res1.success(function(data, status, headers, config) {
+					$scope.siloType = data.payload[0];						
+					console.log($scope.siloType);
+      			});
+      			res1.error(function(data, status, headers, config) {
+      				console.log( "failure message: " + {data: data});
+      			});
+		}
 		
 		var res = $http.get('rest/silo/getSiloList?generatedBarnId='+generatedBarnId);
 			res.success(function(data, status, headers, config) {

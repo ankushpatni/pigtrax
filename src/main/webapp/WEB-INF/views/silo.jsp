@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
-<div id="siloContent" ng-controller="SiloController" ng-init="getSiloList('${barnId}',${generatedBarnId})" class="container-fluid">
+<div id="siloContent" ng-controller="SiloController" ng-init="getSiloList('${barnId}',${generatedBarnId},true)" class="container-fluid">
 <form name="siloForm" method="post">
 <div class="cl-mcont">
 		<div class="row">
@@ -29,8 +29,8 @@
 			<tbody>
 			<tr ng-repeat="row in displayedCollection track by $index">
 				<td style="width:20%">{{row.siloId}}</td>
-				<td style="width:30%">{row.location}}</td>
-				<td style="width:30%">{siloType[row.siloType]}</td>
+				<td style="width:30%">{{row.location}}</td>
+				<td style="width:30%">{{siloType[row.siloTypeId]}}</td>
 				<td style="width: 20%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editSiloData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

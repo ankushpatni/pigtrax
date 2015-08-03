@@ -98,7 +98,7 @@ public class SiloDaoImpl implements SiloDao {
 				ps.setString(3, silo.getLocation());
 				ps.setDate(4, new java.sql.Date(System.currentTimeMillis()));
 				ps.setString(5, UserUtil.getLoggedInUser());
-				ps.setInt(6, silo.getSiloType());
+				ps.setInt(6, silo.getSiloTypeId());
 			}
 		});
 	}
@@ -114,7 +114,7 @@ public class SiloDaoImpl implements SiloDao {
 				ps.setString(1, silo.getLocation());
 				ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
 				ps.setString(3, UserUtil.getLoggedInUser());
-				ps.setInt(4, silo.getSiloType());
+				ps.setInt(4, silo.getSiloTypeId());
 				ps.setString(5, silo.getSiloId());
 
 			}
@@ -128,7 +128,7 @@ public class SiloDaoImpl implements SiloDao {
 			silo.setSiloId(rs.getString("siloId"));
 			silo.setBarnId(rs.getInt("id_Barn"));
 			silo.setLocation(rs.getString("location"));
-			silo.setSiloType(rs.getInt("id_SiloType"));
+			silo.setSiloTypeId(rs.getInt("id_SiloType"));
 			return silo;
 		}
 	}

@@ -103,5 +103,19 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	@RequestMapping(value = "/getSiloType", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getSiloType(HttpServletRequest request)
+	{
+		logger.info("Inside getPhaseType" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<Map<Integer,String>> siloType = new ArrayList<Map<Integer,String>>();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		siloType.add(refDataCache.getSiloTypeMap(language));
+		dto.setPayload(siloType);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 
 }

@@ -22,7 +22,7 @@
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.silo.siloTypeId" text="Silo Type" /><span style='color: red'>*</span></label>
-				<select class="form-control" type="text" placeholder="<spring:message code='label.silo.siloTypeId'  text='Silo Type'/>" name="siloType" ng-model="add.siloType" required required-message="'<spring:message code='label.silo.siloTypeRequired' text='Silo Type is required' />'" ng-options="k as v for (k, v) in siloType"/>	
+				<select class="form-control" type="text" placeholder="<spring:message code='label.silo.siloTypeId'  text='Silo Type'/>" name="siloType" ng-model="add.siloTypeId" required required-message="'<spring:message code='label.silo.siloTypeRequired' text='Silo Type is required' />'" ng-options="k as v for (k, v) in siloType"/>	
 			</div>
 			<div class="modal-footer">
 

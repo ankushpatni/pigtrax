@@ -24,5 +24,7 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getPregnancyEventTypeData();
 	
 	List<RefDataTranslationDto> getPregnancyExamResultTypeData();
+	
+	List<RefDataTranslationDto> getSiloTypeData();
 
 }

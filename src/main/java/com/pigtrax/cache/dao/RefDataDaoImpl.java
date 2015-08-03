@@ -64,6 +64,13 @@ public class RefDataDaoImpl implements RefDataDao {
 		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PregnancyExamResultType\" FROM pigtraxrefdata.\"PregnancyExamResultTypeTranslation\" order by \"fieldLanguage\", \"id_PregnancyExamResultType\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
+	
+	@Override
+	public List<RefDataTranslationDto> getSiloTypeData() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_SiloType\" FROM pigtraxrefdata.\"SiloTypeTranslation\" order by \"fieldLanguage\", \"id_SiloType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+
 
 	@Override
 	public Map<String, Set<String>> getCountryCityData() {

@@ -7,7 +7,7 @@ pigTrax.controller('addSiloCtrl', function($scope, $http, $window, $modalInstanc
 	$scope.city;
 	$scope.add.barnId = siloData.barnId;
 	$scope.generatedBarnId = siloData.generatedBarnId;
-	$scope.siloType = {1: "Nursery", 2: "Finishing", 3: "Weaned Finished", 4: "GDU", 5: "Unknown"};
+	$scope.siloType = siloData.siloType;
 	
 	console.log(siloData);
 	if(siloData != null && siloData.siloId !=null )
@@ -16,7 +16,7 @@ pigTrax.controller('addSiloCtrl', function($scope, $http, $window, $modalInstanc
 		$scope.add.barnId = siloData.barnId;
 		$scope.add.location = siloData.location;
 		$scope.add.id = siloData.id;
-		$scope.add.siloType = siloData.siloType;
+		$scope.add.siloTypeId = siloData.siloTypeId;
 		$scope.add.siloIdEdit = siloData.siloId;
 		$scope.add.siloId = 1;
     	
@@ -33,7 +33,7 @@ pigTrax.controller('addSiloCtrl', function($scope, $http, $window, $modalInstanc
 							"location" : $scope.add.location,
 							"id" : $scope.add.id,
 							"barnId" : siloData.generatedBarnId,
-							"siloType" : $scope.add.siloType
+							"siloTypeId" : $scope.add.siloTypeId
 					};
 				}
 				else
@@ -42,7 +42,7 @@ pigTrax.controller('addSiloCtrl', function($scope, $http, $window, $modalInstanc
 							"siloId" : siloData.barnId +''+$scope.add.siloId,
 							"location" : $scope.add.location,
 							"barnId" : siloData.generatedBarnId,
-							"siloType" : $scope.add.siloType
+							"siloTypeId" : $scope.add.siloTypeId
 						};
 				}
 				console.log(postParam);
