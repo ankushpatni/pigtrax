@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/bootstrap.daterangepicker/daterangepicker-bs3.css">
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/jquery.icheck/skins/square/blue.css">
-
+    <link href="resources/assets/css/polyglot-language-switcher-2.css" rel="stylesheet">
     <link href="resources/assets/css/style.css" rel="stylesheet">
       
 	
@@ -58,6 +58,8 @@
 <script src="resources/js/controllers/pregnancyEventController.js"></script>
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
+	<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
+	<script src="resources/js/services/jquery-polyglot.language.switcher.js"></script>
 	
   </head>
   <body>

@@ -30,11 +30,18 @@
             </li>
           </ul>
           <%} %>
-          <ul class="nav navbar-nav navbar-right not-nav">
           <%if (request.getRemoteUser() == null) {  	 
-          %>
-           <a href="?locale=en"> English </a> | <a href="?locale=pr" >Portuguese</a> | <a href="?locale=es">Spanish</a>
-           <% } else { %>
+          %>          
+          <div class="polyglot-language-switcher pull-right active">
+			    <ul style="display: none">
+			        <li><a href="?locale=en" title="English (US)"  data-lang-id="en_US"><img src="resources/assets/img/flags/us.png" alt="United States"> English (US)</a></li>			        
+			        <li><a href="?locale=pr" title="Portuguese" data-lang-id="pr_PR"><img src="resources/assets/img/flags/pt.png" alt="Portuguese"> Portuguese</a></li>
+			        <li><a href="?locale=es" title="Spanish" data-lang-id="es_ES"><img src="resources/assets/img/flags/es.png" alt="Spain"> Español</a></li>
+			    </ul>
+			</div>
+			<% } else { %>
+          <ul class="nav navbar-nav navbar-right not-nav">
+           
            <li class="button dropdown"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-comments"></i></a>
               <ul class="dropdown-menu messages">
                 <li>
@@ -74,10 +81,14 @@
               </ul>
             </li>
             <%} %>
-            <li class="button"><a href="javascript:;" class="speech-button"><i class="fa fa-microphone"></i></a></li>
           </ul>
         </div>
       </div>
     </div>
     <!-- -- Header Ends -->
+    <script>
+    jQuery(document).ready(function ($) {
+        $('.polyglot-language-switcher').polyglotLanguageSwitcher();
+    });
+</script> 
     

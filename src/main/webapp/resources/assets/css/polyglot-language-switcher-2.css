@@ -26,7 +26,12 @@ License URI: http://www.opensource.org/licenses/mit-license.php
 /* Global Styles
 /* ---------------------------------------------------------------------- */
 .polyglot-language-switcher {
-	font: 14px/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif; /* edit or delete so that the switcher inherits the font styles of your project */
+	font: 12px/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif; /* edit or delete so that the switcher inherits the font styles of your project */
+	width: 200px; 
+	font-family: 'Open Sans', sans-serif; 
+	outline: 0 none;
+    text-decoration: none;
+    color: #3078ef;
 }
 
 .polyglot-language-switcher,
