@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.pigtrax.master.dao.interfaces.TransportTrailerDao;
 import com.pigtrax.master.dto.TransportTrailer;
 import com.pigtrax.master.service.interfaces.TransportTrailerService;
 
+@Repository
 public class TransportTrailerServiceImpl implements TransportTrailerService{
 	
 	@Autowired
