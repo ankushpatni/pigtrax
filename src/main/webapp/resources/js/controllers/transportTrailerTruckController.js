@@ -24,8 +24,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 		document.forms['siloForm'].submit();
 	}
 	
-	//deactivate/activate to the real data holder
-    $scope.deleteTransportTruckData = function removeItem(row) {
+	$scope.deleteTransportTruckData = function removeItem(row) {
     	var postParam = {
 				"id" : row.id							
 			};
@@ -35,8 +34,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 			res.success(function(data, status, headers, config) {
 				if(data.statusMessage==="SUCCESS")
 				{
-					$modalInstance.close(data);					
-					return data;
+					$scope.getTransportTrailerTruck($scope.generatedCompanyId);
 				}
 				else
 				{
@@ -49,6 +47,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 				$scope.alertMessage = data.statusMessage;
 				$scope.alertVisible = true;
 			});
+			
     }
 	
 	$scope.addTransportTruckData = function () {
@@ -61,6 +60,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 					truckTrailorData : function(){
 						var truckData={};
 						truckData.generatedCompanyId =  $scope.generatedCompanyId;
+						truckData.truck = true;
     					return truckData;
     				}
     			}
@@ -69,34 +69,60 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
     		modalInstance.result.then( function(res) {    			
     			if(res.statusMessage==="SUCCESS")
 				{
-    				$scope.getSiloList($scope.barnId,$scope.generatedBarnId);				
+    				$scope.getTransportTrailerTruck($scope.generatedCompanyId);				
 				}
     		});
     }
 	
-	$scope.editSiloData = function(siloData){
-		var modalInstance = $modal.open ({
-				templateUrl: 'addSilo',
-				controller: 'addSiloCtrl',
-				backdrop:true,
-				windowClass : 'cp-model-window',
-    			resolve:{
-    				siloData : function(){
-						siloData.barnId= $scope.barnId;
-						siloData.generatedBarnId = $scope.generatedBarnId;
-						siloData.siloType = $scope.siloType;
-    					return siloData;
-    				}
-    			}
-    		});    		
-    		modalInstance.result.then( function(res) {
-				if(res.statusMessage==="SUCCESS")
+	$scope.deleteTransportTrailerData = function removeItem(row) {
+    	var postParam = {
+				"id" : row.id							
+			};
+	
+			console.log(postParam);
+			var res = $http.post('rest/transportTrailerTruck/insertTransportTrailerRecord', postParam);
+			res.success(function(data, status, headers, config) {
+				if(data.statusMessage==="SUCCESS")
 				{
-					$scope.getSiloList($scope.barnId,$scope.generatedBarnId);				
+					$scope.getTransportTrailerTruck($scope.generatedCompanyId);
+				}
+				else
+				{
+					$scope.alertMessage = data.payload;
+					$scope.alertVisible = true;
 				}
 			});
+			res.error(function(data, status, headers, config) {
+				console.log( data);
+				$scope.alertMessage = data.statusMessage;
+				$scope.alertVisible = true;
+			});
+			
+    }
+	
+	$scope.addTransportTrailerData = function () {
+		var modalInstance = $modal.open ({
+			templateUrl: 'addTruck',
+			controller: 'addTruckTrailorCtrl',
+			backdrop:true,
+			windowClass : 'cp-model-window',
+			resolve:{
+				truckTrailorData : function(){
+					var trailorData={};
+					trailorData.generatedCompanyId =  $scope.generatedCompanyId;
+					trailorData.truck = false;
+					return trailorData;
+				}
+			}
+		});
 		
-    	}
+		modalInstance.result.then( function(res) {    			
+			if(res.statusMessage==="SUCCESS")
+			{
+				$scope.getTransportTrailerTruck($scope.generatedCompanyId);				
+			}
+		});
+}
 		
 	$scope.getTransportTrailerTruck = function(generatedCompanyId){
 		$scope.generatedCompanyId = generatedCompanyId;

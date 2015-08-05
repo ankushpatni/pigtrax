@@ -4,6 +4,7 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 	$scope.alertMessage;
 	$scope.generatedCompanyId = truckTrailorData.generatedCompanyId;
 	$scope.transportTrailerType = truckTrailorData.transportTrailerType;
+	$scope.truck = truckTrailorData.truck;
 		
 	$scope.addTransportTruck = function() {
 		if($scope.truckAddForm.$valid)
@@ -11,6 +12,37 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 			var postParam = {
 							"transportTruckId" : $scope.add.transportTruckId,
 							"companyId" : truckTrailorData.generatedCompanyId							
+						};
+				
+				console.log(postParam);
+				var res = $http.post('rest/transportTrailerTruck/insertTransportTruckRecord', postParam);
+				res.success(function(data, status, headers, config) {
+					if(data.statusMessage==="SUCCESS")
+					{
+						$modalInstance.close(data);					
+						return data;
+					}
+					else
+					{
+						$scope.alertMessage = data.payload;
+						$scope.alertVisible = true;
+					}
+				});
+				res.error(function(data, status, headers, config) {
+					console.log( data);
+					$scope.alertMessage = data.statusMessage;
+					$scope.alertVisible = true;
+				});
+			};
+	}
+	
+	$scope.addTransportTrailer = function() {
+		if($scope.truckAddForm.$valid)
+			{
+			var postParam = {
+							"transportTrailerId" : $scope.add.transportTrailerId,
+							"companyId" : truckTrailorData.generatedCompanyId,
+							"trailerTypeId" : $scope.add.trailerTypeId
 						};
 				
 				console.log(postParam);
