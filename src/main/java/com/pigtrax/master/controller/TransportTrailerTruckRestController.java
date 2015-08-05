@@ -1,13 +1,15 @@
 package com.pigtrax.master.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.pigtrax.master.dto.Silo;
-import com.pigtrax.master.service.interfaces.SiloService;
+import com.pigtrax.master.dto.TransportTruck;
 import com.pigtrax.master.service.interfaces.TransportTrailerService;
 import com.pigtrax.master.service.interfaces.TransportTruckService;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -52,5 +53,52 @@ public class TransportTrailerTruckRestController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	/**
+	 * Service to insert  the premises record
+	 * @return Company
+	 */
+	@RequestMapping(value = "/insertTransportTruckRecord", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto insertTransportTruckRecord( @RequestBody TransportTruck transportTruck)
+	{
+		logger.debug("Inside insertTransportTruckRecord()" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		int updatedRecord = 0;
+		try 
+		{
+		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
+			if( 0 == transportTruck.getId() )
+			{
+				updatedRecord = transportTruckServiceImpl.insertTransportTruck(transportTruck);
+			}
+			else
+			{
+				updatedRecord = transportTruckServiceImpl.updateTransportTruck(transportTruck);
+			}
+			dto.setStatusMessage("SUCCESS");
+			dto.setPayload(updatedRecord);
+		} 
+		catch (SQLException e) {
+			updatedRecord = 0;
+			dto.setStatusMessage("FALSE");
+			logger.error("Inside insertTransportTruckRecord/updateTransportTruckRecord" +((SQLException) e).getLocalizedMessage() + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		catch (Exception e) {
+			updatedRecord = 0;
+			dto.setStatusMessage("FALSE");
+			if( e instanceof DuplicateKeyException)
+			{
+				dto.setPayload("TransportTruck with ID : "+transportTruck.getTransportTruckId().toUpperCase() + " already present.");
+				logger.error("Inside insertTransportTruckRecord()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
+			}
+			logger.error("Inside updateCompanyStatus()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 
 }

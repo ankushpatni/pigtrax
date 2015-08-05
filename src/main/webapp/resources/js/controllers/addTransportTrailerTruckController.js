@@ -14,7 +14,7 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 						};
 				
 				console.log(postParam);
-				var res = $http.post('rest/transportTrailerTruck/insertSiloRecord', postParam);
+				var res = $http.post('rest/transportTrailerTruck/insertTransportTruckRecord', postParam);
 				res.success(function(data, status, headers, config) {
 					if(data.statusMessage==="SUCCESS")
 					{

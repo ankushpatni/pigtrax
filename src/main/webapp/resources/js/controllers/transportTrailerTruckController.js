@@ -25,18 +25,30 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 	}
 	
 	//deactivate/activate to the real data holder
-    $scope.removeItem = function removeItem(row) {
+    $scope.deleteTransportTruckData = function removeItem(row) {
     	var postParam = {
-    			"siloID" : row.barnId,
-    			"isActive" : row.active
-    	};
-    	var res = $http.post('rest/silo/updateSiloStatus?siloId='+row.siloId +"&isActive="+row.active, postParam);
-		res.success(function(data, status, headers, config) {
-		row.active = !row.active;
-		});
-		res.error(function(data, status, headers, config) {
-			console.log( "failure message: " + {data: data});
-		});	
+				"id" : row.id							
+			};
+	
+			console.log(postParam);
+			var res = $http.post('rest/transportTrailerTruck/insertTransportTruckRecord', postParam);
+			res.success(function(data, status, headers, config) {
+				if(data.statusMessage==="SUCCESS")
+				{
+					$modalInstance.close(data);					
+					return data;
+				}
+				else
+				{
+					$scope.alertMessage = data.payload;
+					$scope.alertVisible = true;
+				}
+			});
+			res.error(function(data, status, headers, config) {
+				console.log( data);
+				$scope.alertMessage = data.statusMessage;
+				$scope.alertVisible = true;
+			});
     }
 	
 	$scope.addTransportTruckData = function () {
