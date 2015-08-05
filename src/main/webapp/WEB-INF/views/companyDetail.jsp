@@ -71,7 +71,11 @@
 				<div class="modal-footer">
 					<button class="btn btn-primary btn-flat md-close" ng-click="gotToPageFromDetails('${CompanyId.id}')">
 						<spring:message code="label.company.goToPremise" text="Go To Premises" />
-					</button>					
+					</button>
+					
+					<button class="btn btn-primary btn-flat md-close" ng-click="gotToTransportFromDetails()">
+						<spring:message code="label.company.goToTransportPage" text="Go To Transport Page" />
+					</button>						
 				</div>
 			</div>
 			
