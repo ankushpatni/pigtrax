@@ -88,6 +88,7 @@ public class TransportDestinationDaoImpl implements TransportDestinationDao{
 
 	@Override
 	public int updateTransportDestinationRecord( final TransportDestination transportDestination) throws SQLException {
+
 		String query = "DELETE FROM pigtrax.\"TransportDestination\"  WHERE \"id\"=?";
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override

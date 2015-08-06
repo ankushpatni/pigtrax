@@ -25,7 +25,6 @@ public class TransportDestinationController {
 	@RequestMapping(value = "/addTransportDestination")
 	public String addTransportDestination(Model model)
 	{
-		System.out.println("Ankush here");
 		model.addAttribute("contentUrl","addTransportDestination.jsp"); 
 		return "addTransportDestination";
 	}
