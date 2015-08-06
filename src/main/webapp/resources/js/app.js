@@ -23,7 +23,7 @@ pigTrax.directive('ngConfirmClick', [ function() {
 
                 // This is the DOM form element
                 var DOMForm = angular.element(element)[0];
-
+                console.log(DOMForm.name);
                 // This is the the scope form model
                 // All validation states are containted here
                 var scopeForm = scope[DOMForm.name];
