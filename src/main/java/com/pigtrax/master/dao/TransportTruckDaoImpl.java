@@ -87,17 +87,12 @@ public class TransportTruckDaoImpl implements TransportTruckDao{
 
 	@Override
 	public int updateTransportTruck(final TransportTruck transportTruck) throws SQLException {
-		String query = "update pigtrax.\"TransportTruck\" SET truckId=?, \"lastUpdated\"=?,"
-				+ " \"userUpdated\"=?  WHERE \"id\"=?";
+		String query = "DELETE FROM pigtrax.\"TransportTruck\""
+				+ " WHERE \"id\"=?";
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-
-				ps.setString(1, transportTruck.getTransportTruckId());
-				ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
-				ps.setString(3, UserUtil.getLoggedInUser());
-				ps.setInt(4, transportTruck.getId());
-
+				ps.setInt(1, transportTruck.getId());
 			}
 		});
 	}

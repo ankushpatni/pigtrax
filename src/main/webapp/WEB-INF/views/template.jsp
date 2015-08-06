@@ -55,6 +55,8 @@
 <script src="resources/js/controllers/roomController.js"></script>
 <script src="resources/js/controllers/siloController.js"></script>
 <script src="resources/js/controllers/penController.js"></script>
+<script src="resources/js/controllers/transportTrailerTruckController.js"></script>
+<script src="resources/js/controllers/addTransportTrailerTruckController.js"></script>
 <script src="resources/js/controllers/pregnancyEventController.js"></script>
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>

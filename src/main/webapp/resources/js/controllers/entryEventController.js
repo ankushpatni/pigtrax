@@ -2,7 +2,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	$scope.companyId = "";
 	
 	$scope.clearAllMessages = function()
-	{
+	{ 
 		$scope.searchDataErrorMessage = false;
 		$scope.entryEventErrorMessage = false;
 		$scope.entryEventSuccessMessage = false;
