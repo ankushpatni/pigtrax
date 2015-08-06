@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.validation;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -69,7 +70,7 @@ public class BreedingEventValidation {
 		BREEDING_EVENT_TIME_PERIOD4 = Integer.parseInt((period != null) ? period.trim() : "0");
 		
 		logger.info(BREEDING_EVENT_TIME_PERIOD1+"--"+BREEDING_EVENT_TIME_PERIOD2+"--"+BREEDING_EVENT_TIME_PERIOD3+"--"+BREEDING_EVENT_TIME_PERIOD4);
-	}
+	} 
 	
   /**
    * Business validation method
@@ -85,8 +86,6 @@ public class BreedingEventValidation {
 	  Integer entryEventId = null;
 	  Integer breedingEventId = null;
 	  Integer pregnancyEventId = null;
-	  Integer farrowEventId = null;
-	  Integer pigletStatusId = null;
 	  
 	  DateTime lastPregnancyExamDate = null;
 	  DateTime lastPregnancyResultDate = null;
@@ -97,36 +96,34 @@ public class BreedingEventValidation {
 	  DateTime currentBreedingEventDate = new DateTime(breedingEventDto.getBreedingDate());
 	  
 	  
-	  PigTraxEventMaster eventMaster = null;
+	  List<PigTraxEventMaster> eventMasterList = null;
 		try {
-			eventMaster = eventMasterDao.getEventMasterRecord(pigInfoKey);
+			eventMasterList = eventMasterDao.getEventMasterRecords(pigInfoKey); 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new PigTraxException(e.getMessage(),"");
 		}
-	  if(eventMaster == null)
+	  if(eventMasterList == null)
 	  {
 		  logger.info("Event master record not found");
 		  return ERR_CODE_NO_EVENT_MASTER;
 	  }
 	  else
 	  {
-		  entryEventId = pigInfoKey;
-		  breedingEventId = eventMaster.getBreedingEventId();
-		  pregnancyEventId = eventMaster.getPregnancyEventId();
+		  pregnancyEventId = findLastPregnancyEventId(eventMasterList);		  
+		  breedingEventId = findLastBreedingEventId(eventMasterList);
 		  
-		  //Checking if there is a pregnancy Event
-		  if(pregnancyEventId != null && pregnancyEventId>0)
+		  logger.info("pregnancyEventId/breedingEventId " +pregnancyEventId+"/"+breedingEventId);
+		  
+		  if(breedingEventId == -1)
 		  {
-			  
-			  PregnancyEvent pregnancyEvent = pregnancyEventDao.getPregnancyEvent(pregnancyEventId);
-			  lastPregnancyExamDate = new DateTime(pregnancyEvent.getExamDate());
-			  lastPregnancyResultDate = new DateTime(pregnancyEvent.getResultDate());
-			  logger.info("pregnancyEventId not null : "+lastPregnancyExamDate+"//"+pregnancyEventId);
-			  			  
+			  logger.info("This is the first breeding event");
+			  return SUCCESS_CODE;
 		  }
-		  if(breedingEventId != null && breedingEventId>0)
+		  else
 		  {
-			  logger.info("breedingEventId not null : //"+breedingEventId);
+			  entryEventId = pigInfoKey;
+			  //Find out the last breeding Date
 			  BreedingEvent breedingEvent = null;
 				try {
 					breedingEvent = breedingEventDao.getBreedingEventInformation(breedingEventId);
@@ -134,82 +131,126 @@ public class BreedingEventValidation {
 					throw new PigTraxException(e.getMessage(), "");
 				}
 			  if(breedingEvent != null)
-				  lastBreedingEventDate = new DateTime(breedingEvent.getBreedingDate());
-			  
+				  lastBreedingEventDate = new DateTime(breedingEvent.getBreedingDate());			  
 			  logger.info("last breeding event date : "+lastBreedingEventDate);
-		  }
-		  else
-		  {
-			  return SUCCESS_CODE;
+			  
+			  if(pregnancyEventId == -1)
+			  {
+				  
+				  fromDateToCompare = lastBreedingEventDate;
+				  durationDays = Days.daysBetween(fromDateToCompare.withTimeAtStartOfDay() , currentBreedingEventDate.withTimeAtStartOfDay() ).getDays() ;	
+				  if(durationDays <= BREEDING_EVENT_TIME_PERIOD1)
+				  {
+					  logger.info("Breeding happens within first 5 days");
+					  return ERR_CODE_01;
+				  }
+				  else if(durationDays >= BREEDING_EVENT_TIME_PERIOD1 && durationDays <= BREEDING_EVENT_TIME_PERIOD2)
+				  {
+					  logger.info("Breeding happens between 6 to 14 days");
+					  return ERR_CODE_02;
+				  }
+				  else if(durationDays > BREEDING_EVENT_TIME_PERIOD2 && durationDays <= BREEDING_EVENT_TIME_PERIOD3)
+				  {
+					  logger.info("Breeding happens between 14 to 60 days");
+					  return ERR_CODE_03;
+				  }
+			  }
+			  //Checking if there is a pregnancy Event
+			  else if(pregnancyEventId != -1)
+			  {
+				  
+				  PregnancyEvent pregnancyEvent = pregnancyEventDao.getPregnancyEvent(pregnancyEventId);
+				  lastPregnancyExamDate = new DateTime(pregnancyEvent.getExamDate());
+				  lastPregnancyResultDate = new DateTime(pregnancyEvent.getResultDate());
+				  logger.info("pregnancyEventId not null : "+lastPregnancyExamDate+"//"+pregnancyEventId);
+				  
+				  
+				  if(lastPregnancyExamDate.isBefore(lastBreedingEventDate))
+				  {
+					  fromDateToCompare = lastBreedingEventDate;
+					  durationDays = Days.daysBetween(fromDateToCompare.withTimeAtStartOfDay() , currentBreedingEventDate.withTimeAtStartOfDay() ).getDays() ;	
+					  if(durationDays <= BREEDING_EVENT_TIME_PERIOD1)
+					  {
+						  logger.info("Breeding happens within first 5 days");
+						  return ERR_CODE_01;
+					  }
+					  else if(durationDays >= BREEDING_EVENT_TIME_PERIOD1 && durationDays <= BREEDING_EVENT_TIME_PERIOD2)
+					  {
+						  logger.info("Breeding happens between 6 to 14 days");
+						  return ERR_CODE_02;
+					  }
+					  else if(durationDays > BREEDING_EVENT_TIME_PERIOD2 && durationDays <= BREEDING_EVENT_TIME_PERIOD3)
+					  {
+						  logger.info("Breeding happens between 14 to 60 days");
+						  return ERR_CODE_03;
+					  }
+				  }
+				  else 
+				  {
+					  fromDateToCompare = lastPregnancyExamDate;
+					  logger.info("Comparing with pregnancy date");
+					  durationDays = Days.daysBetween(fromDateToCompare.withTimeAtStartOfDay() , currentBreedingEventDate.withTimeAtStartOfDay() ).getDays() ;		  
+					  if(durationDays <= BREEDING_EVENT_TIME_PERIOD3)
+					  {
+						  logger.info("Breeding happens btween 130 days of the pregnancy");
+						   return ERR_CODE_04;
+					  }
+					  else
+					  {
+						  logger.info("Perfect time");
+						  return SUCCESS_CODE;
+					  }
+				  }	  
+			  }			  
 		  }
 	  }
 	  
-	  if(lastPregnancyExamDate == null && lastBreedingEventDate == null)
-	  {
-		  logger.info("This is the first breeding event");
-		  return SUCCESS_CODE;
-	  }
-	  else if(lastPregnancyExamDate != null && lastBreedingEventDate != null)
-	  {
-		  logger.info("comparing dates : "+(lastPregnancyExamDate.isBefore(lastBreedingEventDate)));
-		  if(lastPregnancyExamDate.isBefore(lastBreedingEventDate))
-		  {
-			  fromDateToCompare = lastBreedingEventDate;
-			  durationDays = Days.daysBetween(fromDateToCompare.withTimeAtStartOfDay() , currentBreedingEventDate.withTimeAtStartOfDay() ).getDays() ;	
-			  if(durationDays <= BREEDING_EVENT_TIME_PERIOD1)
-			  {
-				  logger.info("Breeding happens within first 5 days");
-				  return ERR_CODE_01;
-			  }
-			  else if(durationDays >= BREEDING_EVENT_TIME_PERIOD1 && durationDays <= BREEDING_EVENT_TIME_PERIOD2)
-			  {
-				  logger.info("Breeding happens between 6 to 14 days");
-				  return ERR_CODE_02;
-			  }
-			  else if(durationDays > BREEDING_EVENT_TIME_PERIOD2 && durationDays <= BREEDING_EVENT_TIME_PERIOD3)
-			  {
-				  logger.info("Breeding happens between 14 to 60 days");
-				  return ERR_CODE_03;
-			  }
-		  }
-		  else 
-		  {
-			  fromDateToCompare = lastPregnancyExamDate;
-			  logger.info("Comparing with pregnancy date");
-			  durationDays = Days.daysBetween(fromDateToCompare.withTimeAtStartOfDay() , currentBreedingEventDate.withTimeAtStartOfDay() ).getDays() ;		  
-			  if(durationDays <= BREEDING_EVENT_TIME_PERIOD3)
-			  {
-				  logger.info("Breeding happens btween 130 days of the pregnancy");
-				   return ERR_CODE_04;
-			  }
-			  else
-			  {
-				  logger.info("Perfect time");
-				  return SUCCESS_CODE;
-			  }
-		  }
-	  }
-	  else if(lastPregnancyExamDate == null)
-	  {
-		  fromDateToCompare = lastBreedingEventDate;
-		  durationDays = Days.daysBetween(fromDateToCompare.withTimeAtStartOfDay() , currentBreedingEventDate.withTimeAtStartOfDay() ).getDays() ;	
-		  if(durationDays <= BREEDING_EVENT_TIME_PERIOD1)
-		  {
-			  logger.info("Breeding happens within first 5 days");
-			  return ERR_CODE_01;
-		  }
-		  else if(durationDays >= BREEDING_EVENT_TIME_PERIOD1 && durationDays <= BREEDING_EVENT_TIME_PERIOD2)
-		  {
-			  logger.info("Breeding happens between 6 to 14 days");
-			  return ERR_CODE_02;
-		  }
-		  else if(durationDays > BREEDING_EVENT_TIME_PERIOD2 && durationDays <= BREEDING_EVENT_TIME_PERIOD3)
-		  {
-			  logger.info("Breeding happens between 14 to 60 days");
-			  return ERR_CODE_03;
-		  }
-	  }
 	  return SUCCESS_CODE;
 	 
+  }
+  
+  
+  /**
+   * Find the last pregnancy event Id for a given 
+   * list of events of a specific pig
+   * @param eventMasterList
+   * @return
+   */
+  private int findLastPregnancyEventId(List<PigTraxEventMaster> eventMasterList)
+  {
+	  if(eventMasterList != null)
+	  {
+		  for(PigTraxEventMaster eventMaster : eventMasterList)
+		  {
+			  if(eventMaster.getPregnancyEventId() != null && eventMaster.getPregnancyEventId() > 0)
+			  {
+				  return eventMaster.getPregnancyEventId();
+			  }
+		  }
+	  }
+	  
+	  return -1;
+  }
+  
+  /**
+   * Find the last breeding event Id for a given 
+   * list of events of a specific pig
+   * @param eventMasterList
+   * @return
+   */
+  private int findLastBreedingEventId(List<PigTraxEventMaster> eventMasterList)
+  {
+	  if(eventMasterList != null)
+	  {
+		  for(PigTraxEventMaster eventMaster : eventMasterList)
+		  {
+			  if(eventMaster.getBreedingEventId() != null && eventMaster.getBreedingEventId() > 0)
+			  {
+				  return eventMaster.getBreedingEventId();
+			  }
+		  }
+	  }
+	  
+	  return -1;
   }
 }

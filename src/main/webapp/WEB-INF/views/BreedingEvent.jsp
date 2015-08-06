@@ -5,27 +5,71 @@
         </div>
 		 
  <div class="cl-mcont" ng-controller="BreedingEventController" ng-init="setCompanyId(${CompanyId})">
- <div class="row">
+ 
+  <div class="row">
  		  <div class="col-sm-3 col-md-3"></div>
  		  <div class="col-sm-6 col-md-6">
  		  <div class="block-flat">
 		   <form name="breedingEventSearchForm" >
  		     <div class="head">
-            <h3> <spring:message code='label.piginfo.breedingeventform.search.heading'  text='Search'/></h3>
-            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
+ 		     
+ 		     <h3> <spring:message code='label.piginfo.breedingeventform.search.heading'  text='Search'/></h3>
+            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.errormessage' text='Please enter Pig Id/ Tattoo/ Service Id and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.data.errormessage' text='Breeding event information not found for the search criteria'/></p>
-			<div class="input-group">
+			
             <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.breedingeventform.search.placeholder'  text='Search by service id ...'/>" class="form-control">
-
-			 <span class="input-group-btn">
-          <button type="button" class="btn btn-primary" ng-click="getBreedingEventInformation()"><i class="fa fa-search"></i></button></span>
+ 		    
+            <div class="options">
+			 <div class="btn-group pull-right">
+                <button type="button" class="btn btn-primary active" ng-click="getBreedingEventInformation()"><i class="fa fa-search"></i></button>
+              </div>
+              <div class="form-group">
+                <label class="radio-inline">
+                  <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId" > <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
+                </label>
+				<label class="radio-inline">
+                  <input type="radio" name="rad1"  id="rad3" class="icheck" value="serviceId"> <spring:message code='label.piginfo.breedingeventform.search.serviceId.option'  text='Service Id'/> 
+                </label>
+              </div>
             </div>
+          </div>
+		  </form>
+		  <form name="breedingEventSearchResultForm"  ng-if="breedingEventList != null && breedingEventList.length != 0" >
+ 		     <div class="head">
+            <h3> <spring:message code='label.piginfo.breedingeventform.searchresults.heading'  text='Breeding Events'/></h3>
+             <table>
+				<thead>
+                     <tr>
+                       <th><spring:message code='label.piginfo.breedingeventform.serviceId'  text='Service Id'/> </th>
+                       <th><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/> </th>
+                       <th><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/> </th>
+                       <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                   <tr ng-repeat="breedingEventDto in breedingEventList">
+                    <td>{{breedingEventDto.serviceId}}</td>
+                    <td>{{breedingEventDto.breedingServiceType}}</td>
+                    <td>{{breedingEventDto.breedingDate | date : 'yyyy-MM-dd'}}</td>
+                    <td><button type="button" class="btn btn-edit btn-xs"
+												ng-click="getBreedingEventDetails(breedingEventDto)">
+												<span class="glyphicon glyphicon-pencil"></span>
+												<spring:message code="label.employeegroup.list.edit" text="Edit" />												
+											</button></td>
+                   </tr>
+                 </tbody>
+             </table>
           </div>
 		  </form>
           </div>
  		  </div>
  		  <div class="col-sm-3 col-md-3"></div>
  		</div>
+ 
+ 
           <div class="row" >
 		  <div class="col-sm-3 col-md-3"></div>
             <div class="col-sm-6 col-md-6">

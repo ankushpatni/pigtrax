@@ -18,6 +18,11 @@ public class PregnancyEventDto {
 	private String userUpdated;
 	private int companyId;
     private EmployeeGroupDto employeeGroup;
+	private String searchText;
+	private String searchOption;
+	private String pregnancyEventType;
+	private String language;
+	
 
 	public Integer getId() {
 		return id;
@@ -125,6 +130,38 @@ public class PregnancyEventDto {
 		this.employeeGroup = employeeGroup;
 	}
 
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public String getSearchOption() {
+		return searchOption;
+	}
+
+	public void setSearchOption(String searchOption) {
+		this.searchOption = searchOption;
+	}
+
+	public String getPregnancyEventType() {
+		return pregnancyEventType;
+	}
+
+	public void setPregnancyEventType(String pregnancyEventType) {
+		this.pregnancyEventType = pregnancyEventType;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
 	
 	
 }

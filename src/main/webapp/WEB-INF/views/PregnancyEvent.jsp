@@ -14,20 +14,31 @@
             <h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.data.errormessage' text='Pregnancy event information not found for the search criteria'/></p>
-			<div class="input-group">
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pregnancyeventform.search.placeholder'  text='Search by pig id ...'/>" class="form-control">
+			
+            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pregnancyeventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
 
-			 <span class="input-group-btn">
-          <button type="button" class="btn btn-primary" ng-click="getPregnancyEventInformation()"><i class="fa fa-search"></i></button></span>
-            </div>
+			 <div class="options">
+			 <div class="btn-group pull-right">
+                <button type="button" class="btn btn-primary active" ng-click="getPregnancyEventInformation()"><i class="fa fa-search"></i></button>
+              </div>
+              <div class="form-group">
+                <label class="radio-inline">
+                  <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId" > <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
+                </label>				
+              </div>
+            </div>            
           </div>
 		  </form>
-		  <form name="breedingEventSearchResultForm"  ng-if="pregnancyEventList != null && pregnancyEventList.length != 0" >
+		  <form name="pregnancyEventSearchResultForm"  ng-if="pregnancyEventList != null && pregnancyEventList.length != 0" >
  		     <div class="head">
             <h3> <spring:message code='label.piginfo.pregnancyeventform.searchresults.heading'  text='Pregnancy Events'/></h3>
              <table>
 				<thead>
                      <tr>
+                       <th><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventType'  text='Pregnancy Event Type'/> </th>
                        <th><spring:message code='label.piginfo.pregnancyeventform.examDate'  text='Exam Date'/> </th>
                        <th><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
@@ -35,6 +46,7 @@
                  </thead>
                  <tbody>
                    <tr ng-repeat="pregnancyEventDto in pregnancyEventList">
+                    <td>{{pregnancyEventDto.pregnancyEventType}}</td>
                     <td>{{pregnancyEventDto.examDate | date : 'yyyy-MM-dd'}}</td>
                     <td>{{pregnancyEventDto.resultDate | date : 'yyyy-MM-dd'}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs"

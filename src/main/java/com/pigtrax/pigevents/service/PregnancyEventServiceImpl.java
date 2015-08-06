@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.master.service.interfaces.EmployeeGroupService;
 import com.pigtrax.pigevents.beans.PigInfo;
@@ -41,6 +42,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	
 	@Autowired
 	PigInfoDao pigInfoDao;
+	
+	@Autowired
+	RefDataCache refDataCache;
 	
 	
 	@Override
@@ -83,22 +87,25 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	private int addPregnancyEventInformation(PregnancyEvent pregnancyEvent) throws SQLException
 	{
 		int pergnancyEventId = pregnancyEventDao.addPregnancyEventdDetails(pregnancyEvent);
-				
+		
 		PigTraxEventMaster master = new PigTraxEventMaster();
-		pregnancyEvent.setId(pergnancyEventId);
-		eventMasterDao.updatePregnancyEventDetails(pregnancyEvent); 
+		master.setPigInfoId(pregnancyEvent.getPigInfoId());
+		master.setUserUpdated(pregnancyEvent.getUserUpdated());
+		master.setEventTime(pregnancyEvent.getExamDate());
+		master.setPregnancyEventId(pergnancyEventId);
+		eventMasterDao.insertEntryEventDetails(master);
+		
 		return pergnancyEventId;		
 	}
 	
 	
 	@Override
-	public List<PregnancyEventDto> getPregnancyEvents(String pigId,
-			Integer companyId) throws PigTraxException { 
-		
+	public List<PregnancyEventDto> getPregnancyEvents(PregnancyEventDto pregnancyEventDto) throws PigTraxException { 
+		 
 		List<PregnancyEvent> pregnancyEvents = null;
 		List<PregnancyEventDto> pregnancyEventDtoList = new ArrayList<PregnancyEventDto>();
 		try {
-			pregnancyEvents = pregnancyEventDao.getPregnancyEvents(pigId, companyId);
+			pregnancyEvents = pregnancyEventDao.getPregnancyEvents(pregnancyEventDto.getSearchText(), pregnancyEventDto.getSearchOption(), pregnancyEventDto.getCompanyId());
 			pregnancyEventDtoList =  builder.convertToDtos(pregnancyEvents);
 			
 			for(PregnancyEventDto dto : pregnancyEventDtoList)
@@ -109,7 +116,10 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 				
 				//Get the pig id for a given pigIdInfo
 				PigInfo pigInfo = pigInfoDao.getPigInformationById(dto.getPigInfoId());
-				dto.setPigId(pigInfo.getPigId());				
+				dto.setPigId(pigInfo.getPigId());		
+				
+				dto.setPregnancyEventType(refDataCache.getPregnancyEventTypeMap(pregnancyEventDto.getLanguage()).get(dto.getPregnancyEventTypeId()));
+				
 			}
 			
 			return pregnancyEventDtoList;

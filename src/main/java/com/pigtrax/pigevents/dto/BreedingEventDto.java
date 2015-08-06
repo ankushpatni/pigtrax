@@ -23,7 +23,12 @@ public class BreedingEventDto {
     private Integer pigInfoKey;
     private EmployeeGroupDto employeeGroup;
     private Date pigBirthDate;
+	private String searchText;
+	private String searchOption;
+	private String breedingServiceType;
+	private String language;
     
+	
 	public Integer getId() {
 		return id;
 	}
@@ -131,6 +136,31 @@ public class BreedingEventDto {
 	}
 	public void setPigBirthDate(Date pigBirthDate) {
 		this.pigBirthDate = pigBirthDate;
+	}		
+	public String getSearchText() {
+		return searchText;
+	}
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+	public String getSearchOption() {
+		return searchOption;
+	}
+	public void setSearchOption(String searchOption) {
+		this.searchOption = searchOption;
+	}	
+	public String getBreedingServiceType() {
+		return breedingServiceType;
+	}
+	public void setBreedingServiceType(String breedingServiceType) {
+		this.breedingServiceType = breedingServiceType;
+	}
+		
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	@Override
     public String toString() {

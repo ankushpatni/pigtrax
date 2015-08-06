@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
@@ -61,12 +63,16 @@ public class PregnancyEventRestController {
 	 */
 	@RequestMapping(value = "/getPregnancyEventInformation", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public ServiceResponseDto getPregnancyEventInformation( @RequestBody PregnancyEventDto pregnancyEventDto)
+	public ServiceResponseDto getPregnancyEventInformation(HttpServletRequest request, @RequestBody PregnancyEventDto pregnancyEventDto)
 	{
 		logger.info("Inside getBreedingEventInformation method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			List<PregnancyEventDto> pregnancyEventDtoList = pregnancyEventService.getPregnancyEvents(pregnancyEventDto.getPigId(), pregnancyEventDto.getCompanyId());
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			pregnancyEventDto.setLanguage(language);
+			
+			List<PregnancyEventDto> pregnancyEventDtoList = pregnancyEventService.getPregnancyEvents(pregnancyEventDto);
 			if(pregnancyEventDtoList != null && pregnancyEventDtoList.size() > 0)
 			{
 				dto.setPayload(pregnancyEventDtoList);

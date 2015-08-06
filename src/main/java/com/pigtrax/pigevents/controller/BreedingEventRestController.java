@@ -1,5 +1,7 @@
 package com.pigtrax.pigevents.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
@@ -59,15 +63,21 @@ public class BreedingEventRestController {
 	 */
 	@RequestMapping(value = "/getBreedingEventInformation", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public ServiceResponseDto getBreedingEventInformation( @RequestBody BreedingEventDto breedingEventDto)
+	public ServiceResponseDto getBreedingEventInformation(HttpServletRequest request, @RequestBody BreedingEventDto breedingEventDto)
 	{
 		logger.info("Inside getBreedingEventInformation method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			breedingEventDto = breedingEventService.getBreedingEventInformation(breedingEventDto.getServiceId(), breedingEventDto.getCompanyId());
-			if(breedingEventDto != null && breedingEventDto.getId() != null)
+				
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			breedingEventDto.setLanguage(language);
+			
+			List<BreedingEventDto> breedingEventDtoList = breedingEventService.getBreedingEventInformationList(breedingEventDto);
+			logger.info("size : "+(breedingEventDtoList != null ? breedingEventDtoList.size() : 0));
+			if(breedingEventDtoList != null && breedingEventDtoList.size() > 0)
 			{
-				dto.setPayload(breedingEventDto);
+				dto.setPayload(breedingEventDtoList);
 				dto.setStatusMessage("Success");
 			}
 			else
@@ -75,9 +85,6 @@ public class BreedingEventRestController {
 				dto.setStatusMessage("ERROR : Breeding Event information not available ");
 			}
 		} catch (PigTraxException e) {
-			e.printStackTrace();
-			dto.setStatusMessage("ERROR : "+e.getMessage());
-		} catch (Exception e) {
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		}

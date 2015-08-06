@@ -9,7 +9,7 @@ import com.pigtrax.pigevents.dto.PregnancyEventDto;
 public interface PregnancyEventService {
    public int savePregnancyEventInformation(PregnancyEventDto pregnancyEventDto) throws PigTraxException;
    
-   List<PregnancyEventDto> getPregnancyEvents(final String pigId, final Integer companyId) throws PigTraxException;
+   List<PregnancyEventDto> getPregnancyEvents(PregnancyEventDto pregnancyEventDto) throws PigTraxException; 
    
    void deletePregnancyEvent(Integer pregnancyEventId) throws PigTraxException;
 }

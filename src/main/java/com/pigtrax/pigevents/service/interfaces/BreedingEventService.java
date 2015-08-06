@@ -1,14 +1,18 @@
 package com.pigtrax.pigevents.service.interfaces;
 
+import java.util.List;
+
+import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
-import com.pigtrax.pigevents.dto.PigInfoDto;
 
 public interface BreedingEventService {
     public int saveBreedingEventInformation(BreedingEventDto dto) throws Exception;
     
-    public BreedingEventDto getBreedingEventInformation(String serviceId, Integer companyId) throws Exception;
+    public BreedingEventDto getBreedingEventInformation(BreedingEventDto breedingEventDto) throws Exception;
     
     public void deleteBreedingEventInfo(Integer id) throws Exception;
     
     int validateBreedingEvent(BreedingEventDto breedingEventDto);
+    
+    List<BreedingEventDto> getBreedingEventInformationList(BreedingEventDto breedingEventDto) throws PigTraxException;
 }  

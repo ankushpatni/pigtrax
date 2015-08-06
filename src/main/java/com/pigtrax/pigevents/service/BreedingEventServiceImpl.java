@@ -1,14 +1,18 @@
 package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.EmployeeGroupDao;
 import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.pigevents.beans.BreedingEvent;
@@ -19,6 +23,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.BreedingEventBuilder;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
+import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
 import com.pigtrax.pigevents.validation.BreedingEventValidation;
 
@@ -40,6 +45,9 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	
 	@Autowired
 	PigInfoDao pigInfoDao;
+	
+	@Autowired
+	RefDataCache refDataCache;
 	
 	@Autowired
 	BreedingEventValidation validationObj;
@@ -85,30 +93,56 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 		int breedingEventId = breedingEventDao.addBreedingEventInformation(breedingEvent);
 				
 		PigTraxEventMaster master = new PigTraxEventMaster();
-		breedingEvent.setId(breedingEventId);
-		eventMasterDao.updateBreedingEventDetails(breedingEvent);
+		master.setPigInfoId(breedingEvent.getPigInfoKey());
+		master.setUserUpdated(breedingEvent.getUserUpdated());
+		master.setEventTime(breedingEvent.getBreedingDate());
+		master.setBreedingEventId(breedingEventId);
+		eventMasterDao.insertEntryEventDetails(master);
+		
 		return breedingEventId;		
-	}
+	} 
+	
 	
 	@Override
-	public BreedingEventDto getBreedingEventInformation(String serviceId, Integer companyId)
-			throws Exception {
-		BreedingEvent breedingEvent = breedingEventDao.getBreedingEventInformation(serviceId, companyId);
-		BreedingEventDto dto = builder.convertToDto(breedingEvent);
-		
-		if(dto != null)
+	public List<BreedingEventDto> getBreedingEventInformationList(BreedingEventDto breedingEventDto)
+			throws PigTraxException {
+		List<BreedingEvent> breedingEventList = null;//breedingEventDao.getBreedingEventInformation(breedingEventDto.getServiceId(), breedingEventDto.getCompanyId());
+		List<BreedingEventDto> breedingEventDtoList = null;
+		try{
+			if(breedingEventDto != null && breedingEventDto.getSearchOption().equals("pigId"))
+			{
+				breedingEventList =  breedingEventDao.getBreedingEventInformationByPigId(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId());
+			}
+			else if(breedingEventDto != null && breedingEventDto.getSearchOption().equals("tattoo"))
+			{
+				breedingEventList =  breedingEventDao.getBreedingEventInformationByTattoo(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId());
+			}
+			else  
+			{
+				breedingEventList =  breedingEventDao.getBreedingEventInformationByServiceId(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId());
+			}
+			breedingEventDtoList = builder.convertToDtos(breedingEventList);
+			
+			for(BreedingEventDto breedingEvent_Dto : breedingEventDtoList)
+			{
+				EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(breedingEvent_Dto.getEmployeeGroupId());
+				breedingEvent_Dto.setEmployeeGroup(employeeGroup);
+				
+				PigInfo pigInfo = pigInfoDao.getPigInformationById(breedingEvent_Dto.getPigInfoKey());
+				breedingEvent_Dto.setPigInfoId(pigInfo.getPigId());
+								
+				breedingEvent_Dto.setBreedingServiceType(refDataCache.getBreedingServiceTypeMap(breedingEventDto.getLanguage()).get(breedingEvent_Dto.getBreedingServiceTypeId()));
+				
+			}
+		}catch(SQLException sqlEx)
 		{
-			EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(breedingEvent.getEmployeeGroupId());
-			dto.setEmployeeGroup(employeeGroup);
-			
-			PigInfo pigInfo = pigInfoDao.getPigInformationById(dto.getPigInfoKey());
-			dto.setPigInfoId(pigInfo.getPigId());
-			
+			throw new PigTraxException(sqlEx.getMessage(), sqlEx.getSQLState());
 		}
 		
-		return dto;
-	}
+		return breedingEventDtoList;
+	}	
 	
+
 	
 	@Override
 	public void deleteBreedingEventInfo(Integer id) throws Exception {
@@ -122,9 +156,27 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	public int validateBreedingEvent(BreedingEventDto breedingEventDto)
 	{
 		try {
+			logger.info("values : "+breedingEventDto.getPigInfoId()+"/"+breedingEventDto.getCompanyId());
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(breedingEventDto.getPigInfoId(), breedingEventDto.getCompanyId());
+			if(pigInfo != null)
+				breedingEventDto.setPigInfoKey(pigInfo.getId());
+			
 			return validationObj.validate(breedingEventDto);
-		} catch (PigTraxException e) {
-			return 1;
 		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		catch (PigTraxException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	@Override
+	public BreedingEventDto getBreedingEventInformation(
+			BreedingEventDto breedingEventDto) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

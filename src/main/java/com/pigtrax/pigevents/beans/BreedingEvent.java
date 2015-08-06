@@ -17,6 +17,7 @@ public class BreedingEvent {
     private Date lastUpdated;
     private String userUpdated;
     private Integer pigInfoKey;
+    private String breedingServiceType;
     
 	public Integer getId() {
 		return id;
@@ -101,6 +102,12 @@ public class BreedingEvent {
 	}
 	public void setPigInfoKey(Integer pigInfoKey) {
 		this.pigInfoKey = pigInfoKey;
+	}
+	public String getBreedingServiceType() {
+		return breedingServiceType;
+	}
+	public void setBreedingServiceType(String breedingServiceType) {
+		this.breedingServiceType = breedingServiceType;
 	}
     
     

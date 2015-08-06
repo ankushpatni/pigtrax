@@ -51,8 +51,15 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	
 	$scope.getBreedingEventInformation = function()
 	{
+		var option = "";
+		if(document.getElementById("rad1").checked)
+			 option = document.getElementById("rad1").value;
+		 else if(document.getElementById("rad2").checked)
+			 option = document.getElementById("rad2").value;
+		 else if(document.getElementById("rad3").checked)
+			 option = document.getElementById("rad3").value;
 		
-		if($scope.searchText == undefined || $scope.searchText == "")
+		if($scope.searchText == undefined || $scope.searchText == ""|| option == "")
 		{
 			   $scope.clearAllMessages();
 			   $scope.searchErrorMessage = true;
@@ -60,20 +67,22 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		else
 			{
 				var searchBreedEvent = {
+						searchText : $scope.searchText,
+						searchOption : option,
 						serviceId : $scope.searchText,
 						companyId : $scope.companyId
 						
 				};
-				
 				restServices.getBreedingEventInformation(searchBreedEvent, function(data){
 					$scope.clearAllMessages();
 					if(!data.error){
-						$scope.breedingEvent = data.payload;	
+						$scope.breedingEventList = data.payload;	
 						document.getElementById("breedingDate").value = $scope.breedingEvent.breedingDate;
 					}
 					else
 					{
-						$scope.breedingEvent = {};
+						$scope.breedingEventList = [];
+						$scope.breedingEvent = {};						
 						$scope.clearAllMessages();
 						$scope.searchDataErrorMessage = true;
 						
@@ -96,13 +105,15 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 						$scope.clearAllMessages();
 						$scope.entryEventSuccessMessage = true;
 						$scope.breedingEvent = {};
+						if($scope.breedingEventList != null && $scope.breedingEventList.length > 0)
+							$scope.getBreedingEventInformation();
 					}
 				else
 					{
 						$scope.clearAllMessages();
 						$scope.entryEventErrorMessage = true;
 					}
-					$window.scrollTo(0, 0);
+					$window.scrollTo(0, 5);
 			});
 		}
 	}
@@ -117,6 +128,9 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				} 
 			else
 			{
+				var breedingDate = document.getElementById("breedingDate").value;
+				$scope.breedingEvent["breedingDate"] = breedingDate;
+				$scope.breedingEvent["companyId"] = $rootScope.companyId;
 				restServices.validateBreedingEvent($scope.breedingEvent, function(data){
 			   		if(!data.error)
 				   {
@@ -139,7 +153,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 						     else if(statusCode == 5)
 						    	 $scope.breedingEventValidation_ErrCode_5 = true;
 					    	 $scope.confirmClick = true;
-					    	$window.scrollTo(0, 0);
+					    	$window.scrollTo(0, 5);
 					   	 }
 				   }
 				});
@@ -163,8 +177,9 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		restServices.deleteBreedingEventInfo($scope.breedingEvent.id, function(data){
 			$scope.clearAllMessages();
 			$scope.entryEventDeleteMessage = true;
-			$scope.breedingEvent = {};
-			$window.scrollTo(0, 0);
+			$scope.breedingEvent = {};			
+			$scope.getBreedingEventInformation();
+			$window.scrollTo(0, 5);
 		});
 			
 	};
@@ -215,4 +230,10 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		var breedingDate = $scope.breedingEvent.breedingDate;
 		
 	}
-});
+	
+	$scope.getBreedingEventDetails = function(breedingEventObj) 
+	{
+		$scope.breedingEvent = breedingEventObj;
+	}
+	
+}); 

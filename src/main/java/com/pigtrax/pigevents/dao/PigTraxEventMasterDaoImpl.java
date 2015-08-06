@@ -38,15 +38,24 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	 * @throws SQLException
 	 */
 	public int insertEntryEventDetails(final PigTraxEventMaster master) throws SQLException {
-		String Qry = "insert into pigtrax.\"PigTraxEventMaster\"( \"eventTime\", \"id_PigInfo\", \"lastUpdated\", \"userUpdated\") "
-				+ "values(current_timestamp,?,current_timestamp,?)";
+		String Qry = "insert into pigtrax.\"PigTraxEventMaster\"( \"eventTime\", \"id_PigInfo\", \"lastUpdated\", \"userUpdated\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", \"id_FarrowEvent\", \"id_PigletStatus\", \"id_SaleEvent\", \"id_FeedEvent\", \"id_RemovalEvent\") "
+				+ "values(?,?,current_timestamp,?,?,?,?,?,?,?,?,?)";
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 		
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
-				ps.setInt(1, master.getPigInfoId());
-				ps.setString(2, master.getUserUpdated());
+				ps.setDate(1, new java.sql.Date(master.getEventTime().getTime()));
+				ps.setInt(2, master.getPigInfoId());
+				ps.setString(3, master.getUserUpdated());
+				ps.setObject(4, (master.getGroupEventId() != null)?master.getGroupEventId():null);
+				ps.setObject(5, (master.getBreedingEventId() != null)?master.getBreedingEventId():null);
+				ps.setObject(6, (master.getPregnancyEventId() != null)?master.getPregnancyEventId():null);
+				ps.setObject(7, (master.getFarrowEventId() != null)?master.getFarrowEventId():null);
+				ps.setObject(8, (master.getPigletStatusId() != null)?master.getPigletStatusId():null);
+				ps.setObject(9, (master.getSaleEventId() != null)?master.getSaleEventId():null);
+				ps.setObject(10, (master.getFeedEventId() != null)?master.getFeedEventId():null);
+				ps.setObject(11, (master.getRemovalEventId() != null)?master.getRemovalEventId():null);
 			}
 		});
 		
@@ -93,21 +102,18 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	
 	
 	
-	public PigTraxEventMaster getEventMasterRecord(final Integer pigInfoKey) throws Exception
+	public List<PigTraxEventMaster> getEventMasterRecords(final Integer pigInfoKey) throws Exception
 	{
 		String qry = "select \"id\", \"eventTime\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", "
 				+ "\"id_FarrowEvent\", \"id_PigletStatus\", \"lastUpdated\", \"userUpdated\", \"id_SaleEvent\", \"id_PigInfo\", \"id_FeedEvent\", \"id_RemovalEvent\" "
-				+ " from pigtrax.\"PigTraxEventMaster\" where \"id_PigInfo\" = ?";
+				+ " from pigtrax.\"PigTraxEventMaster\" where \"id_PigInfo\" = ? order by \"id\" desc ";
 		
 		List<PigTraxEventMaster> eventMasterList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, pigInfoKey);
 			}}, new PigTraxEventMasterMapper());
 
-		if(eventMasterList != null && eventMasterList.size() > 0){
-			return eventMasterList.get(0);
-		}
-		return null;
+		return eventMasterList;
 	}
 	
 	/**

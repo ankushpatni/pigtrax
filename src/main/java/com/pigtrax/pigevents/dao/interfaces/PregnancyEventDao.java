@@ -13,7 +13,7 @@ public interface PregnancyEventDao {
    
    int addPregnancyEventdDetails(PregnancyEvent pregnancyEvent) throws SQLException;
    
-   List<PregnancyEvent> getPregnancyEvents(final String pigId, final Integer companyId) throws SQLException;
+   List<PregnancyEvent> getPregnancyEvents(String pigId, String searchOption, Integer companyId) throws SQLException;
    
    void deletePregnancyEvent(Integer pregnancyEventId) throws SQLException;
    

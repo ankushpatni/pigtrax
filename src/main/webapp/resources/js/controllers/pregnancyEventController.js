@@ -1,4 +1,4 @@
-var breedingEventController = pigTrax.controller('PregnancyEventController', function($scope,$rootScope, $http,$window,restServices) {
+var pregnancyEventController = pigTrax.controller('PregnancyEventController', function($scope,$rootScope, $http,$window,restServices) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -106,7 +106,7 @@ var breedingEventController = pigTrax.controller('PregnancyEventController', fun
 						$scope.clearAllMessages();
 						$scope.entryEventErrorMessage = true;
 					}
-					$window.scrollTo(0, 0);
+					$window.scrollTo(0, 5);
 			});
 		}
     };
@@ -117,7 +117,13 @@ var breedingEventController = pigTrax.controller('PregnancyEventController', fun
      */
     $scope.getPregnancyEventInformation = function()
 	{		
-		if($scope.searchText == undefined || $scope.searchText == "")
+    	var option = "";
+		if(document.getElementById("rad1").checked)
+			 option = document.getElementById("rad1").value;
+		 else if(document.getElementById("rad2").checked)
+			 option = document.getElementById("rad2").value;
+    	
+		if($scope.searchText == undefined || $scope.searchText == "" || option == "")
 		{
 			   $scope.clearAllMessages();
 			   $scope.searchErrorMessage = true;
@@ -125,6 +131,8 @@ var breedingEventController = pigTrax.controller('PregnancyEventController', fun
 		else
 		{
 			var searchPregnancyEvent = {
+					searchText : $scope.searchText,
+					searchOption : option,
 					pigId : $scope.searchText, 
 					companyId : $scope.companyId
 					
@@ -166,7 +174,7 @@ var breedingEventController = pigTrax.controller('PregnancyEventController', fun
 				$scope.entryEventDeleteMessage = true;
 				$scope.pregnancyEvent = {};
 				$scope.getPregnancyEventInformation();
-				$window.scrollTo(0, 0);
+				$window.scrollTo(0, 5);
 				}
 		});
 	}

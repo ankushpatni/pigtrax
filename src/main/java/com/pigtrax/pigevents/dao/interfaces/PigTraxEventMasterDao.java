@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
@@ -29,7 +30,7 @@ public interface PigTraxEventMasterDao {
 	 * @return
 	 * @throws Exception
 	 */
-	PigTraxEventMaster getEventMasterRecord(final Integer pigInfoKey) throws Exception;
+	List<PigTraxEventMaster>  getEventMasterRecords(final Integer pigInfoKey) throws Exception;
 	
 	
 	int updatePregnancyEventDetails(final PregnancyEvent pregnancyEvent) throws SQLException;
