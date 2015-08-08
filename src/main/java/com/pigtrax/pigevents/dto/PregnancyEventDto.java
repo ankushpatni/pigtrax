@@ -22,7 +22,9 @@ public class PregnancyEventDto {
 	private String searchOption;
 	private String pregnancyEventType;
 	private String language;
-	
+	private int breedingEventId;
+	private BreedingEventDto breedingEventDto;
+	private String breedingServiceId;
 
 	public Integer getId() {
 		return id;
@@ -160,6 +162,30 @@ public class PregnancyEventDto {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public int getBreedingEventId() {
+		return breedingEventId;
+	}
+
+	public void setBreedingEventId(int breedingEventId) {
+		this.breedingEventId = breedingEventId;
+	}
+
+	public BreedingEventDto getBreedingEventDto() {
+		return breedingEventDto;
+	}
+
+	public void setBreedingEventDto(BreedingEventDto breedingEventDto) {
+		this.breedingEventDto = breedingEventDto;
+	}
+
+	public String getBreedingServiceId() {
+		return breedingServiceId;
+	}
+
+	public void setBreedingServiceId(String breedingServiceId) {
+		this.breedingServiceId = breedingServiceId;
 	}
 	
 	

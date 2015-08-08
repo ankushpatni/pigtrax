@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
@@ -23,7 +21,6 @@ import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.BreedingEventBuilder;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
-import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
 import com.pigtrax.pigevents.validation.BreedingEventValidation;
 
@@ -178,5 +175,18 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			BreedingEventDto breedingEventDto) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public BreedingEventDto checkForBreedingServiceId(String pigId, String serviceId,
+			int companyId) throws PigTraxException {
+		try {
+			BreedingEvent breedingEvent =  breedingEventDao.checkForBreedingServiceId(pigId, serviceId, companyId);
+			if(breedingEvent != null)
+				return builder.convertToDto(breedingEvent);
+			return null;
+		} catch (SQLException e) {
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
 	}
 }

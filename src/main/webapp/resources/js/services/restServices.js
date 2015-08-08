@@ -22,6 +22,7 @@ pigTrax.factory("restServices", function($resource) {
     	"getEmployeeList" : {method:"POST", url:"rest/employeeGroup/getEmployeeList"},
     	"getPregnancyEventTypes" : {method:"GET", url:"rest/util/getPregnancyEventTypes"}, 
     	"getPregnancyExamResultTypes" : {method:"GET", url:"rest/util/getPregnancyExamResultTypes"},
+    	"checkForBreedingServiceId" : {method:"POST", url:"rest/pregnancyEvent/checkForBreedingServiceId"},
     	"savePregnancyEventInformation" : {method:"POST", url:"rest/pregnancyEvent/savePregnancyEventInformation"},
     	"getPregnancyEventInformation" : {method:"POST", url:"rest/pregnancyEvent/getPregnancyEventInformation"},  
     	"deletePregnancyEvent" : {method:"POST", url:"rest/pregnancyEvent/deletePregnancyEvent"},

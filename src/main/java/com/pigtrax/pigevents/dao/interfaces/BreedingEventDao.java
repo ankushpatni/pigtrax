@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.dao.DuplicateKeyException;
 
+import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.BreedingEvent;
 
 public interface BreedingEventDao {
@@ -23,4 +24,6 @@ public interface BreedingEventDao {
    BreedingEvent getBreedingEventInformation(final Integer breedingEventId) throws SQLException;
    
    public void deleteBreedingEventInfo(Integer id) throws SQLException;
+   
+   BreedingEvent checkForBreedingServiceId(String pigId, String serviceId, int companyId) throws SQLException; 
 }

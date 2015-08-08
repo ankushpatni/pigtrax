@@ -21,6 +21,7 @@ public class PregnancyEventBuilder {
 		   if(dto != null)
 		   {
 			   info.setId(dto.getId());
+			   info.setBreedingEventId(dto.getBreedingEventId());
 			   info.setEmployeeGroupId(dto.getEmployeeGroupId());
 			   info.setExamDate(dto.getExamDate());
 			   info.setLastUpdated(dto.getLastUpdated());
@@ -45,6 +46,7 @@ public class PregnancyEventBuilder {
 		   if(info != null)
 		   {
 			   dto.setId(info.getId());
+			   dto.setBreedingEventId(info.getBreedingEventId());
 			   dto.setEmployeeGroupId(info.getEmployeeGroupId());
 			   dto.setExamDate(info.getExamDate());
 			   dto.setLastUpdated(info.getLastUpdated());

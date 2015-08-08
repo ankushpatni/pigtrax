@@ -89,6 +89,7 @@
                 <div class="content">
                   <form name="pregnancyeventform" novalidate angular-validator>
                   <input type=hidden name="id" ng-model="pregnancyEvent.id"/>
+				  <input type=hidden name="breedingEventId" ng-model="pregnancyEvent.breedingEventId"/>
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.pigInfoId'  text='Pig Id'/></label>
                      <input type="text" ng-model="pregnancyEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
@@ -97,6 +98,20 @@
 						invalid-message="'<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
+					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
+					
+					
+					<div class="form-group">
+                      <label><spring:message code='label.piginfo.pregnancyeventform.breedingServiceId'  text='Breeding Service Id'/></label>
+                      <div data-min-view="2" class="input-group col-md-7 col-xs-9"  >
+                     	<input type="text" ng-model="pregnancyEvent.breedingServiceId" id="serviceId" name="serviceId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.breedingeventserviceid.placeholder'  text='Enter Breeding Service Id'/>" 
+                      	required-message="'<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' />'"
+						ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.invalidmessage' text='Only alpha numeric values are allowed' />'" ng-blur="checkForBreedingServiceId()" ng-focus="clearMessages()"/>
+						<span class="input-group-addon btn btn-primary" ng-click="searchBreedingService(pregnancyEvent.pigId, pregnancyEvent.companyId)"  data-target="#searchBreedingService"><span class="fa fa-search"></span></span>
+						</div>
+                    </div>
+					<label ng-show="inValidServiceIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.serviceId.server.invalidmessage' text='Invalid Service Id for the selected Pig Id' /></label>					
 					
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.employeegroup'  text='Employee Group'/></label>
@@ -114,19 +129,19 @@
                       <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventType'  text='Pregnancy Event Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="sexType" ng-model="pregnancyEvent.pregnancyEventTypeId"  required 
                       required-message="'<spring:message code='label.piginfo.pregnancyeventform.pregnancyeventtype.requiredmessage' text='Pregnancy Event Type is required' />'"
-                       ng-options="k as v for (k, v) in pregnancyEventTypes">
+                       ng-options="k as v for (k, v) in pregnancyEventTypes" ng-change="changePregnancyEventType()">
                         </select>
                     </div>
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyExamResultType'  text='Pregnancy Exam Result Type'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId"  required 
+                       <select class="form-control"  name="examResultType" id="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId"  required 
                       required-message="'<spring:message code='label.piginfo.pregnancyeventform.pregnancyexamresulttype.requiredmessage' text='Pregnancy Exam Result Type is required' />'"
                        ng-options="k as v for (k, v) in pregnancyExamResultTypes">
                         </select>
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.examDate'  text='Exam Date'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.pregnancyeventform.examDate'  text='Exam Date'/></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
                           <input size="16" type="date" id="examDate" name="examDate" ng-model="pregnancyEvent.examDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
@@ -156,6 +171,46 @@
             </div>
           </div>
 		  
+		  <!-- - Breeding Service Id search Modal -->
+		  <div id="searchBreedingService" class="modal colored-header custom-width">
+                    <div class="md-content">
+                      <div class="modal-header">
+                        <h3><spring:message code='label.piginfo.breedingeventform.searchresults.heading'  text='Breeding Events'/> </h3>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
+                      </div>
+                      <div class="modal-body form" >
+                      <table>
+                       <thead>
+                           <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
+                           <th><spring:message code='label.piginfo.breedingeventform.serviceId'  text='Service Id'/> </th>
+	                       <th><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/> </th>
+	                       <th><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/> </th>
+                       </thead>
+                       <tbody>
+	                   <tr ng-repeat="breedingEventObj in breedingEventList" ng-if="breedingEventList != null && breedingEventList.length > 0">
+	                    <td><input type="radio" name="breedingEventDtoId" id="breedingEventDtoId" ng-model="pregnancyEvent.breedingEventDto" ng-value="breedingEventObj"></td>
+	                    <td>{{breedingEventObj.serviceId}}</td>
+	                    <td>{{breedingEventObj.breedingServiceType}}</td>
+	                    <td>{{breedingEventObj.breedingDate | date : 'yyyy-MM-dd'}}</td>
+	                   </tr>
+	                   <tr ng-if="breedingEventList == null || breedingEventList.length == 0">
+	                     <td colspan=4">
+	                       No breeding services done
+	                     </td>
+	                   </tr>
+	                   
+	                 </tbody>
+                      </table>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="breedingEventList == null || breedingEventList.length == 0" ng-click="selectBreedingEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      </div>
+                      
+                     </div>
+            </div>
+		  
+		  <!-- -- Employee Group Modal -->
 		  <div id="selectEmployeeGroupModal" class="modal colored-header custom-width" ng-controller="EmployeeGroupController" ng-init="getEmployeeGroups()">
                     <div class="md-content">
                       <div class="modal-header">

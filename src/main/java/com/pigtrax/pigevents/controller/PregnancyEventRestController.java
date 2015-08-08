@@ -16,7 +16,9 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.dto.BreedingEventDto;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
+import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -30,6 +32,9 @@ public class PregnancyEventRestController {
 	
 	@Autowired
 	PregnancyEventService pregnancyEventService;
+	
+	@Autowired
+	BreedingEventService  breedingEventService;
 	
 	/**
 	 * Service to save the pig information
@@ -116,5 +121,37 @@ public class PregnancyEventRestController {
 	}
     
 		
+	/**
+	 * Service to delete the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/checkForBreedingServiceId", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto checkForBreedingServiceId(HttpServletRequest request, @RequestBody PregnancyEventDto searchEventDto)
+	{
+		logger.info("Inside deletePregnancyEvent method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			BreedingEventDto breedingEventDto = breedingEventService.checkForBreedingServiceId(searchEventDto.getPigId(), searchEventDto.getBreedingServiceId(), searchEventDto.getCompanyId());
+			if(breedingEventDto != null && breedingEventDto.getId() > 0)
+			{
+				dto.setPayload(breedingEventDto);
+				dto.setStatusMessage("Success"); 
+			} 
+			else
+				dto.setStatusMessage("ERROR : Not found");
+		}
+		catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+    
+
     
 }

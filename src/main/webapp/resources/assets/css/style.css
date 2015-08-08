@@ -792,7 +792,7 @@ body.modal-open,
   -moz-transition: width 300ms linear;
   /* Firefox 4-15 */
   -o-transition: width 300ms linear;
-  /* Opera 10.50�12.00 */
+  /* Opera 10.50ï¿½12.00 */
   transition: width 500ms linear;
 }
 #cl-wrapper.animate-collapse #pcont {
@@ -902,7 +902,7 @@ body.modal-open,
   -moz-transition: width 300ms linear;
   /* Firefox 4-15 */
   -o-transition: width 300ms linear;
-  /* Opera 10.50�12.00 */
+  /* Opera 10.50ï¿½12.00 */
   transition: width 500ms linear;
 }
 .sb-collapsed .cl-sidebar .collapse-button .search {
@@ -3115,7 +3115,7 @@ div.dataTables_length label select {
 .ui-datepicker .ui-datepicker-prev span:after,
 .ui-datepicker .ui-datepicker-next span:after {
   cursor: pointer;
-  content: "";
+  content: "ï„„";
   font-family: FontAwesome;
   display: block;
   position: absolute;
@@ -3128,7 +3128,7 @@ div.dataTables_length label select {
   right: 2px;
 }
 .ui-datepicker .ui-datepicker-next span:after {
-  content: "";
+  content: "ï„…";
   right: 0;
 }
 .ui-datepicker table th {
@@ -3752,15 +3752,15 @@ h1:first-child {
   text-align: center;
 }
 .dd-item > button:before {
-  content: '';
+  content: 'ï�§';
   display: block;
   position: absolute;
-  width: 100%;
+  width: 100%; 
   text-align: center;
   text-indent: 0;
 }
 .dd-item > button[data-action="collapse"]:before {
-  content: '';
+  content: 'ï�¨';
 }
 .dd-placeholder,
 .dd-empty {
@@ -4939,8 +4939,21 @@ button::-moz-focus-inner {
 }
 /*Modals*/
 .modal {
-  overflow: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height:80%;
+  z-index: 2000;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
 }
+
 .modal-content {
   border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -5128,7 +5141,7 @@ button::-moz-focus-inner {
   text-indent: inherit;
 }
 .gritter-close:after {
-  content: '×';
+  content: 'Ã—';
   position: absolute;
   color: #FFF;
   left: 10px;
@@ -5168,7 +5181,7 @@ button::-moz-focus-inner {
   text-indent: inherit;
 }
 .gritter-item-wrapper.clean .gritter-close:after {
-  content: '×';
+  content: 'Ã—';
   position: absolute;
   color: #FFF;
   top: 50%;

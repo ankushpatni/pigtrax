@@ -13,6 +13,7 @@ public class PregnancyEvent {
 	private Integer sowCondition;
 	private Date lastUpdated;
 	private String userUpdated;
+	private int breedingEventId;
 
 	public Integer getId() {
 		return id;
@@ -94,4 +95,14 @@ public class PregnancyEvent {
 		this.userUpdated = userUpdated;
 	}
 
+	public int getBreedingEventId() {
+		return breedingEventId;
+	}
+
+	public void setBreedingEventId(int breedingEventId) {
+		this.breedingEventId = breedingEventId;
+	}
+
+	
+	
 }

@@ -5,6 +5,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	$rootScope.selectedEmployeeGroup = {};
 	$scope.pregnancyEvent = {};
 	$scope.confirmClick = false;
+	$scope.breedingEventList = [];
 	
 	$scope.clearAllMessages = function()
 	{
@@ -15,6 +16,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.searchErrorMessage = false;
 		$scope.inValidPigIdFromServer = false;
 		$scope.confirmClick = false;
+		$scope.requiredPigIdMessage = false;
+		$scope.inValidServiceIdFromServer = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -60,25 +63,70 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	 */
 	$scope.checkForPigId = function()
 	{
-	    var pigInfo = {
-				searchText : $scope.pregnancyEvent.pigId,
-				searchOption : "pigId",
-				companyId : $rootScope.companyId
-		};
-		restServices.getPigInformation(pigInfo, function(data) {
-			if(data.error)
+		if($scope.pregnancyEvent.pigId != undefined && $scope.pregnancyEvent.pigId != "")
+			{
+			    var pigInfo = {
+						searchText : $scope.pregnancyEvent.pigId,
+						searchOption : "pigId",
+						companyId : $rootScope.companyId
+				};
+				restServices.getPigInformation(pigInfo, function(data) {
+					if(data.error)
+					{
+						$scope.clearAllMessages();
+						$scope.inValidPigIdFromServer = true;				
+					}
+					else
+					{
+						$scope.inValidPigIdFromServer = false;
+						$scope.requiredPigIdMessage = false;
+						var pigInfo = data.payload;
+						if($scope.pregnancyEvent.breedingServiceId != undefined && $scope.pregnancyEvent.breedingServiceId != "")
+							$scope.checkForBreedingServiceId();
+					}
+						
+				});
+			}
+	};
+	
+	
+	/**
+	 * check the validity of pigId
+	 */
+	$scope.checkForBreedingServiceId = function()
+	{
+		
+		if($scope.pregnancyEvent.breedingServiceId != undefined && $scope.pregnancyEvent.breedingServiceId != "" 
+		&& ($scope.pregnancyEvent.pigId  == undefined || $scope.pregnancyEvent.pigId == ""))
+	    {
+			$scope.requiredPigIdMessage = true;
+	    }
+		else if($scope.pregnancyEvent.breedingServiceId != undefined && $scope.pregnancyEvent.breedingServiceId != "")
 			{
 				$scope.clearAllMessages();
-				$scope.inValidPigIdFromServer = true;
+			    var searchBreedingService = {
+						pigId : $scope.pregnancyEvent.pigId,
+						companyId : $rootScope.companyId,
+						breedingServiceId : $scope.pregnancyEvent.breedingServiceId
+				};			    
+				restServices.checkForBreedingServiceId(searchBreedingService, function(data) {
+					if(data.error)
+					{
+						$scope.clearAllMessages();
+						$scope.inValidServiceIdFromServer = true;
+					}
+					else
+					{
+					 $scope.inValidServiceIdFromServer = false;
+					 $scope.pregnancyEvent.breedingEventDto = data.payload;
+					 $scope.pregnancyEvent.breedingServiceId = $scope.pregnancyEvent.breedingEventDto.serviceId;
+					 $scope.pregnancyEvent.breedingEventId = $scope.pregnancyEvent.breedingEventDto.id;
+					}
+						
+				});
 			}
-			else
-			{
-				$scope.inValidPigIdFromServer = false;
-			  var pigInfo = data.payload;
-			}
-				
-		});
 	};
+	
 		
 	
 	/**
@@ -195,5 +243,53 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.pregnancyEvent = {};
 	}
 	
+	
+	$scope.searchBreedingService = function(pigId, selectedCompanyId)
+	{
+		$scope.clearAllMessages();
+		if(pigId == undefined  || pigId == "")
+		{			
+			$scope.requiredPigIdMessage = true;
+			$('#searchBreedingService').modal('hide');
+		}
+		else{
+		
+			var searchBreedEvent = {
+					searchText : pigId,
+					searchOption : "pigId",
+					companyId : $rootScope.companyId
+					
+			};
+			
+			restServices.getBreedingEventInformation(searchBreedEvent, function(data){
+				$scope.clearAllMessages();
+				 $("#searchBreedingService").modal("show");
+				if(!data.error){
+					$scope.breedingEventList = data.payload;
+				}
+				else
+				{
+					$scope.breedingEventList = [];  
+				}
+			});
+		}
+	};
+	
+	$scope.selectBreedingEventService = function()
+	{
+		$scope.pregnancyEvent.breedingServiceId = $scope.pregnancyEvent.breedingEventDto.serviceId;
+		$scope.pregnancyEvent.breedingEventId = $scope.pregnancyEvent.breedingEventDto.id;
+		$('#searchBreedingService').modal('hide');
+	}
+	
+	
+	$scope.changePregnancyEventType = function()
+	{
+		if($scope.pregnancyEvent.pregnancyEventTypeId != 1)
+		{
+			$("#examDate").attr("disabled","");
+			$("#examResultType").attr("disabled",""); 
+		}
+	}
 	
 });

@@ -15,4 +15,6 @@ public interface BreedingEventService {
     int validateBreedingEvent(BreedingEventDto breedingEventDto);
     
     List<BreedingEventDto> getBreedingEventInformationList(BreedingEventDto breedingEventDto) throws PigTraxException;
+    
+    BreedingEventDto checkForBreedingServiceId(String pigId, String serviceId, int companyId) throws PigTraxException;
 }  
