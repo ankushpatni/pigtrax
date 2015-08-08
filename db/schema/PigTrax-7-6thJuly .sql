@@ -323,11 +323,12 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 CREATE TABLE pigtrax."PregnancyEvent"(
 	id serial NOT NULL,
 	"id_PigInfo" integer,
+	"id_BreedingEvent" integer NOT NULL,
 	"id_EmployeeGroup" integer,
 	"id_PregnancyEventType" integer,
 	"id_PregnancyExamResultType" integer,
-	"examDate" date NOT NULL,
-	"resultDate" date,
+	"examDate" date,
+	"resultDate" date NOT NULL,
 	"sowCondition" smallint,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
@@ -840,6 +841,14 @@ ALTER TABLE pigtrax."PregnancyEvent" ADD CONSTRAINT "PigInfo_fk" FOREIGN KEY ("i
 REFERENCES pigtrax."PigInfo" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+-- object: "BreedingEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PregnancyEvent" DROP CONSTRAINT IF EXISTS "BreedingEvent_fk" CASCADE;
+ALTER TABLE pigtrax."PregnancyEvent" ADD CONSTRAINT "BreedingEvent_fk" FOREIGN KEY ("id_BreedingEvent")
+REFERENCES pigtrax."BreedingEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."RemovalEvent" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
