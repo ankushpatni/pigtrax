@@ -54,6 +54,13 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		$window.location = 'transportTrailerAndTruck';
 	}
 	
+	$scope.gotToTransportFromDetailsCompany = function(row)
+	{
+		document.getElementById("generatedCompanyId").value = row.id;
+		document.forms['companyForm'].action = 'transportTrailerAndTruckWithCompanyId';
+		document.forms['companyForm'].submit();
+	}
+	
 	$scope.addCompanyData = function () {
     		var modalInstance = $modal.open ({
     			templateUrl: 'addCompany',

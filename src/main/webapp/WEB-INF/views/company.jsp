@@ -77,6 +77,10 @@
 											<button type="button" class="btn btn btn-info btn-sm"
 												style="margin-bottom: 5px" 	
 												ng-click="gotToPage(row)"><spring:message code="label.company.premises" text="Premises" /></button>
+												<br> <br>
+											<button type="button" class="btn btn btn-info btn-sm"
+												style="margin-bottom: 5px" 	
+												ng-click="gotToTransportFromDetailsCompany(row)"><spring:message code="label.company.goToTransportPage" text="Go To Transport Page" /></button>
 												<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) { %>
 												 <br> <br>
 												<div class="btn-group">								 				

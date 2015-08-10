@@ -48,5 +48,14 @@ public class TransportTrailerTruckController {
 		return "addTruck";
 	}
 	
+	@RequestMapping(value = "/transportTrailerAndTruckWithCompanyId")
+	public String displayTransportTrailerAndTruckWithCompanyId(Model model, @RequestParam int generatedCompanyId)
+	{
+		
+		model.addAttribute("contentUrl","transportTrailerTruck.jsp");
+		model.addAttribute("generatedCompanyId",generatedCompanyId);
+		return "template";
+	}
+	
 
 }
