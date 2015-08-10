@@ -315,8 +315,5 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	}
 	
 	
-	$scope.validateResultDate = function()
-	{
-		alert(JSON.stringify($scope.pregnancyEvent.breedingEventDto));
-	}
+	
 });

@@ -160,7 +160,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date ng-blur="validateResultDate()"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                          <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                     </div>                   
                     <div class="form-group">
