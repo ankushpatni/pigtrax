@@ -18,6 +18,9 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.confirmClick = false;
 		$scope.requiredPigIdMessage = false;
 		$scope.inValidServiceIdFromServer = false;
+		$scope.pregnancyEventValidation_ErrCode_1 = false;
+		$scope.pregnancyEventValidation_ErrCode_2 = false;
+		$scope.pregnancyEventValidation_ErrCode_3 = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -141,21 +144,40 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 			$scope.pregnancyEvent["examDate"] = examDate;
 			$scope.pregnancyEvent["resultDate"] = resultDate;
 			$scope.pregnancyEvent["companyId"] = $rootScope.companyId;
-			//alert(JSON.stringify($scope.pregnancyEvent));
-			restServices.savePregnancyEventInformation($scope.pregnancyEvent, function(data){
+			
+			restServices.validatePregnancyEvent($scope.pregnancyEvent, function(data){
 				if(!data.error)
-					{
-						$scope.clearAllMessages();
-						$scope.entryEventSuccessMessage = true;
-						$scope.pregnancyEvent = {};
-					}
-				else
-					{
-						$scope.clearAllMessages();
-						$scope.entryEventErrorMessage = true;
-					}
-					$window.scrollTo(0, 5);
+				{
+				   $scope.clearAllMessages();
+				   var statusCode = data.payload;
+				   if(statusCode == 0)
+				   {
+						//alert(JSON.stringify($scope.pregnancyEvent));
+						restServices.savePregnancyEventInformation($scope.pregnancyEvent, function(data){
+							if(!data.error)
+								{
+									$scope.clearAllMessages();
+									$scope.entryEventSuccessMessage = true;
+									$scope.pregnancyEvent = {};
+								}
+							else
+								{
+									$scope.clearAllMessages();
+									$scope.entryEventErrorMessage = true;
+								}
+								$window.scrollTo(0, 5);  
+						});
+				   }
+				   else if(statusCode == 1)
+					   $scope.pregnancyEventValidation_ErrCode_1 = true;
+				   else if(statusCode == 2)
+					   $scope.pregnancyEventValidation_ErrCode_2 = true;
+				   else if(statusCode == 3)
+					   $scope.pregnancyEventValidation_ErrCode_3 = true;
+				}
 			});
+			
+			
 		}
     };
     
@@ -284,7 +306,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	
 	
 	$scope.changePregnancyEventType = function()
-	{
+	{		
 		if($scope.pregnancyEvent.pregnancyEventTypeId != 1)
 		{
 			$("#examDate").attr("disabled","");
@@ -292,4 +314,9 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		}
 	}
 	
+	
+	$scope.validateResultDate = function()
+	{
+		alert(JSON.stringify($scope.pregnancyEvent.breedingEventDto));
+	}
 });

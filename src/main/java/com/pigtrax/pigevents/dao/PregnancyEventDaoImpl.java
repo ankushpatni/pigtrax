@@ -30,7 +30,7 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 
 	private static final Logger logger = Logger.getLogger(PigInfoDaoImpl.class);
 	
-	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate; 
 	
 	@Autowired
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -54,7 +54,7 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 	    	            ps.setInt(2, pregnancyEvent.getBreedingEventId());
 	    				ps.setInt(3, pregnancyEvent.getEmployeeGroupId());
 	    				ps.setInt(4, pregnancyEvent.getPregnancyEventTypeId());
-	    				ps.setInt(5, pregnancyEvent.getPregnancyExamResultTypeId());
+	    				ps.setObject(5, pregnancyEvent.getPregnancyExamResultTypeId());
 	    				ps.setDate(6, new java.sql.Date(pregnancyEvent.getExamDate().getTime()));
 	    				ps.setDate(7,  new java.sql.Date(pregnancyEvent.getResultDate().getTime()));
 	    				ps.setInt(8, pregnancyEvent.getSowCondition());

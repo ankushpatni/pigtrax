@@ -23,18 +23,19 @@ import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.PregnancyEventBuilder;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
+import com.pigtrax.pigevents.validation.PregnancyEventValidation;
 
 @Repository
 public class PregnancyEventServiceImpl implements PregnancyEventService {
 	private static final Logger logger = Logger.getLogger(PregnancyEventServiceImpl.class);
 	
-	@Autowired
+	@Autowired 
 	PregnancyEventDao pregnancyEventDao;
 	
 	@Autowired
 	PregnancyEventBuilder builder;
 	
-	@Autowired
+	@Autowired 
 	PigTraxEventMasterDao eventMasterDao;
 	
 	@Autowired
@@ -45,6 +46,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	
 	@Autowired
 	RefDataCache refDataCache;
+	
+	@Autowired
+	PregnancyEventValidation pregnancyEventValidation;
 	
 	
 	@Override
@@ -141,6 +145,13 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 		{
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
+	}
+	
+	/**
+	 * To validate Pregnancy Event Dto
+	 */
+	public int validatePregnancyEvent(PregnancyEventDto pregnancyEventDto) {		
+		return pregnancyEventValidation.validate(pregnancyEventDto);		
 	}
 	
 }

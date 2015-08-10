@@ -36,6 +36,7 @@ public class PregnancyEventRestController {
 	@Autowired
 	BreedingEventService  breedingEventService;
 	
+		
 	/**
 	 * Service to save the pig information
 	 * @return ServiceResponseDto
@@ -152,6 +153,16 @@ public class PregnancyEventRestController {
 		return dto;
 	}
     
+	
+	@RequestMapping(value = "/validatePregnancyEvent", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	@ResponseBody
+	public ServiceResponseDto validatePregnancyEvent(HttpServletRequest request, @RequestBody PregnancyEventDto pregnancyEventDto)
+	{
+		ServiceResponseDto dto = new ServiceResponseDto();
+		int statusCode = pregnancyEventService.validatePregnancyEvent(pregnancyEventDto);
+		dto.setPayload(statusCode);
+		return dto;
+	}
 
     
 }

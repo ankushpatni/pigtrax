@@ -84,7 +84,18 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.pregnancyeventform.delete.message'  text='Pregnancy event information deleted'/>
                   </div>
-                  
+                  <div class="alert alert-danger alert-white rounded" ng-show="pregnancyEventValidation_ErrCode_1">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventValidation.ErrCode1'  text='Pregnancy date doesn\'t fall in the accepted duration of the service date'/>
+                  </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="pregnancyEventValidation_ErrCode_2">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventValidation.ErrCode2'  text='Abortion date doesn\'t fall in the accepted duration of the service date'/>
+                  </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="pregnancyEventValidation_ErrCode_3">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventValidation.ErrCode3'  text='Not in pig date doesn\'t fall in the accepted duration of the service date'/>
+                  </div>
                 </div>
                 <div class="content">
                   <form name="pregnancyeventform" novalidate angular-validator>
@@ -135,7 +146,7 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyExamResultType'  text='Pregnancy Exam Result Type'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="examResultType" id="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId"  required 
+                       <select class="form-control"  name="examResultType" id="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId"   
                       required-message="'<spring:message code='label.piginfo.pregnancyeventform.pregnancyexamresulttype.requiredmessage' text='Pregnancy Exam Result Type is required' />'"
                        ng-options="k as v for (k, v) in pregnancyExamResultTypes">
                         </select>
@@ -149,7 +160,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                          <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date ng-blur="validateResultDate()"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                     </div>                   
                     <div class="form-group">
