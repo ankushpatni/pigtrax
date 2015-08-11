@@ -74,14 +74,26 @@
 											</button>
 										</td>
 										<td size="15%">
-											<button type="button" class="btn btn btn-info btn-sm"
+											<!--<button type="button" class="btn btn btn-info btn-sm"
 												style="margin-bottom: 5px" 	
 												ng-click="gotToPage(row)"><spring:message code="label.company.premises" text="Premises" /></button>
 												<br> <br>
 											<button type="button" class="btn btn btn-info btn-sm"
 												style="margin-bottom: 5px" 	
-												ng-click="gotToTransportFromDetailsCompany(row)"><spring:message code="label.company.goToTransportPage" text="Go To Transport Page" /></button>
-												<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) { %>
+												ng-click="gotToTransportFromDetailsCompany(row)"><spring:message code="label.company.goToTransportPage" text="Go To Transport Page" /></button>-->
+											<button type="button" class="btn btn btn-info btn-sm"
+												style="margin-bottom: 5px" 	
+												ng-click="gotToPage(row)"><spring:message code="label.company.premises" text="Premises" />
+											</button>
+											<br> <br>	
+											<div class="btn-group">								 				
+											  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Transport <span class="caret"></span></button>
+											  <ul role="menu" class="dropdown-menu">
+												<li><a href="#" ng-click="gotToTransportFromDetailsCompany(row,'transportTrailerAndTruckWithCompanyId')"><spring:message code="label.transportTrailer.truckAndtraile" text="Truck And Trailer" /></a></li>
+												<li><a href="#" ng-click="gotToTransportFromDetailsCompany(row,'transportDestinationWithCompanyId')"><spring:message code="label.transportDestination.gotToTranportDestination" text="Destination" /></a></li>
+											  </ul>
+											</div>
+											<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) { %>
 												 <br> <br>
 												<div class="btn-group">								 				
 												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>
