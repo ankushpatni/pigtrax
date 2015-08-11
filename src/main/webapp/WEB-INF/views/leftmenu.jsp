@@ -19,9 +19,10 @@
                                     		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
                                          	<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.companydata.link"  text="Company Data"/></a></li>
                                       <%}else { %>
-									  <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Data"/></a></li>
-									  <%}%>
-                                         	<li><a href="#"><spring:message code="label.leftmenu.managemasterdata.locationdata.link"  text="Location Data"/></a></li>
+									  <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
+									   <li><a href="transportTrailerAndTruck"><spring:message code="label.transportTrailer.truckAndtrailer"  text="Truck And Trailer"/></a></li>
+									   <li><a href="transportTrailerAndTruck"><spring:message code="label.transportDestination.gotToTranportDestination"  text="Destination"/></a></li>
+									  <%}%>									  
                                          	<li><a href="#"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
                                          </ul>
                                 </li>      
