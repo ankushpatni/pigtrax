@@ -89,6 +89,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.breedingeventform.delete.message'  text='Breeding event information deleted'/>
                   </div>
+                  <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.breedingeventform.duplicate.error.message' text='A breeding event record already exists with the same service id'/>
+                  </div>  
                   <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_1' text='Breeding happen within first 5 days, please click submit again to proceed' />

@@ -47,7 +47,10 @@ public class BreedingEventRestController {
 			int rowsInserted = breedingEventService.saveBreedingEventInformation(breedingEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
-			e.printStackTrace();
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();

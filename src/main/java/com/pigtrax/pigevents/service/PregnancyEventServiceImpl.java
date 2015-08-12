@@ -22,6 +22,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.PregnancyEventBuilder;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
+import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
 import com.pigtrax.pigevents.validation.PregnancyEventValidation;
 
@@ -49,6 +50,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	
 	@Autowired
 	PregnancyEventValidation pregnancyEventValidation;
+	
+	@Autowired
+	BreedingEventService breedingEventService;
 	
 	
 	@Override
@@ -81,7 +85,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 		catch(DuplicateKeyException sqlEx)
 		{
 			  logger.info("DuplicateKeyException : "+sqlEx.getRootCause()+"/"+sqlEx.getCause());
-				throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "");
+				throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "", true);
 		}
 	}
 	
@@ -114,6 +118,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 			
 			for(PregnancyEventDto dto : pregnancyEventDtoList)
 			{
+				
+				dto.setBreedingEventDto(breedingEventService.getBreedingEventInformation(dto.getBreedingEventId()));
+				
 				//Get the employee group details
 				EmployeeGroupDto empGrpDto = employeeGroupService.getEmployeeGroup(dto.getEmployeeGroupId());
 				dto.setEmployeeGroup(empGrpDto);
@@ -126,11 +133,37 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 				
 			}
 			
+			if(pregnancyEventDto.getPregnancyEventType()!= null && pregnancyEventDto.getPregnancyEventType().length() > 0)
+				pregnancyEventDtoList = filterByPregnancyEventType(pregnancyEventDto.getPregnancyEventType(), pregnancyEventDtoList);
+			
 			return pregnancyEventDtoList;
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
 	}
+	
+	
+	/**
+	 * Filter the list of events for the given pregnancy event type
+	 * @param pregnancyEventType
+	 * @param pregnancyEventList
+	 * @return
+	 */
+	private List<PregnancyEventDto> filterByPregnancyEventType(String pregnancyEventType, List<PregnancyEventDto> pregnancyEventList)
+	{
+		List<PregnancyEventDto> filteredList = null;
+		if(pregnancyEventList != null)
+		{
+			filteredList = new ArrayList<PregnancyEventDto>();
+			for(PregnancyEventDto dto : pregnancyEventList)
+			{
+				if(pregnancyEventType != null && "Pregnancy Event".equals(pregnancyEventType) && dto.getPregnancyEventTypeId() == 1)
+					filteredList.add(dto);					
+			}
+		}
+		return filteredList;
+	}
+	
 	
 	/**
 	 * Delete a pregnancy event based on the primary key ID
@@ -152,6 +185,17 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	 */
 	public int validatePregnancyEvent(PregnancyEventDto pregnancyEventDto) {		
 		return pregnancyEventValidation.validate(pregnancyEventDto);		
+	}
+	
+	@Override
+	public PregnancyEventDto getPregnancyEventInformation( 
+			Integer pregnancyEventId, String language) throws PigTraxException {
+		PregnancyEvent pregnancyEvent = pregnancyEventDao.getPregnancyEvent(pregnancyEventId);
+		PregnancyEventDto eventDto =  builder.convertToDto(pregnancyEvent);
+		eventDto.setBreedingEventDto(breedingEventService.getBreedingEventInformation(eventDto.getBreedingEventId()));
+		eventDto.setPregnancyEventType(refDataCache.getPregnancyEventTypeMap(language).get(eventDto.getPregnancyEventTypeId()));
+		
+		return eventDto;
 	}
 	
 }

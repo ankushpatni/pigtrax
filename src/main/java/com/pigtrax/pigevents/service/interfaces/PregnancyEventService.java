@@ -1,6 +1,5 @@
 package com.pigtrax.pigevents.service.interfaces;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.pigtrax.application.exception.PigTraxException;
@@ -10,6 +9,8 @@ public interface PregnancyEventService {
    public int savePregnancyEventInformation(PregnancyEventDto pregnancyEventDto) throws PigTraxException;
    
    List<PregnancyEventDto> getPregnancyEvents(PregnancyEventDto pregnancyEventDto) throws PigTraxException; 
+   
+   public PregnancyEventDto getPregnancyEventInformation(Integer pregnancyEventId, String language) throws PigTraxException; 
    
    void deletePregnancyEvent(Integer pregnancyEventId) throws PigTraxException;
    

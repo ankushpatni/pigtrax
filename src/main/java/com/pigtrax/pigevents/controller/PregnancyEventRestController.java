@@ -53,10 +53,12 @@ public class PregnancyEventRestController {
 			int rowsInserted = pregnancyEventService.savePregnancyEventInformation(pregnancyEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
-			e.printStackTrace();
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
 			dto.setStatusMessage("ERROR : "+e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {			
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		}		
 		return dto; 
