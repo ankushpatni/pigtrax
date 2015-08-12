@@ -72,8 +72,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 	@Override
 	public int updateGroupEventDetails(final GroupEvent groupEvent)
 			throws SQLException {
-		final String Qry = "update pigtrax.\"GroupEvent\" set \"origin\" = ?, \"beginDateTime\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?,"
-			+ "\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"inventoryAdjustment\" = ?, \"remarks\" = ?,  \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_PhaseOfProductionType\" = ? where \"id\" = ? ";
+		final String Qry = "update pigtrax.\"GroupEvent\" set \"origin\" = ?, \"beginDateTime\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?," +
+			"\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"inventoryAdjustment\" = ?, \"remarks\" = ?,  \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_PhaseOfProductionType\" = ? where \"id\" = ? ";
 
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
