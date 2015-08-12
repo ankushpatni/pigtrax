@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.master.dao.interfaces.PenDao;
 import com.pigtrax.master.dto.Pen;
 import com.pigtrax.master.service.interfaces.PenService;
@@ -47,6 +48,18 @@ public class PenServiceImpl implements PenService {
 
 	public List<Pen> getPenListByBarnId(Integer barnId) throws SQLException {
 		List<Pen> penList = penDao.getPenListByBarnId(barnId);
+		return penList;
+	}
+	
+	@Override
+	public List<Pen> getPenListByCompanyId(Integer companyId)
+			throws PigTraxException {
+		List<Pen> penList;
+		try {
+			penList = penDao.getPenListByCompanyId(companyId);
+		} catch (SQLException e) {
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
 		return penList;
 	}
 

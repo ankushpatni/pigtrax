@@ -21,7 +21,7 @@ public interface BreedingEventDao {
    
    public List<BreedingEvent> getBreedingEventInformationByServiceId(String searchText, Integer companyId) throws SQLException;
    
-   BreedingEvent getBreedingEventInformation(final Integer breedingEventId) throws SQLException;
+   BreedingEvent getBreedingEventInformation(Integer breedingEventId) throws SQLException;
    
    public void deleteBreedingEventInfo(Integer id) throws SQLException;
    

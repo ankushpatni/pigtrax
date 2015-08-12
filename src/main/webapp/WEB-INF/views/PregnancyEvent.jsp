@@ -96,6 +96,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventValidation.ErrCode3'  text='Not in pig date doesn\'t fall in the accepted duration of the service date'/>
                   </div>
+                  <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.pregnancyeventform.duplicate.error.message' text='A pregnancy event record already exists with the same details'/>
+                  </div>  
                 </div>
                 <div class="content">
                   <form name="pregnancyeventform" novalidate angular-validator>
@@ -205,8 +209,8 @@
 	                    <td>{{breedingEventObj.breedingDate | date : 'yyyy-MM-dd'}}</td>
 	                   </tr>
 	                   <tr ng-if="breedingEventList == null || breedingEventList.length == 0">
-	                     <td colspan=4">
-	                       No breeding services done
+	                     <td colspan="4">
+	                       <spring:message code='label.pregnancyeventform.list.breedingevents.noresults'  text='No breeding events found'/>
 	                     </td>
 	                   </tr>
 	                   

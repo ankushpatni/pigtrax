@@ -111,7 +111,10 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				else
 					{
 						$scope.clearAllMessages();
-						$scope.entryEventErrorMessage = true;
+						if(data.duplicateRecord)
+							$scope.entryEventDuplicateErrorMessage = true;
+						else
+							$scope.entryEventErrorMessage = true;
 					}
 					$window.scrollTo(0, 5);
 			});

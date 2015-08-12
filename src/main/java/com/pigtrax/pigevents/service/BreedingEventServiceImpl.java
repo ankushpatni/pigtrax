@@ -80,7 +80,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			catch(DuplicateKeyException sqlEx)
 			{
 				  logger.info("DuplicateKeyException : "+sqlEx.getRootCause()+"/"+sqlEx.getCause());
-					throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "");
+					throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "", true);
 			}
 	}
 	
@@ -171,10 +171,14 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	}
 	
 	@Override
-	public BreedingEventDto getBreedingEventInformation(
-			BreedingEventDto breedingEventDto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public BreedingEventDto getBreedingEventInformation(Integer breedingEventId) throws PigTraxException {
+		BreedingEvent breedingEvent;
+		try {
+			breedingEvent = breedingEventDao.getBreedingEventInformation(breedingEventId);
+		} catch (SQLException e) {
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		} 
+		return builder.convertToDto(breedingEvent);
 	}
 	
 	@Override
@@ -189,4 +193,6 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
 	}
+	
+	
 }

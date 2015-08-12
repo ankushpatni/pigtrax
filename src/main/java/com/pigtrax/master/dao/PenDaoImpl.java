@@ -108,6 +108,17 @@ public class PenDaoImpl implements PenDao {
 
 		  return penList;
 	}
+	 
+	 
+	 public List<Pen> getPenListByCompanyId(final Integer companyId) throws SQLException {
+		  String Qry = "Select \"id\", \"penId\", \"id_Room\", \"location\", \"isActive\" from pigtrax.\"Pen\" where  \"isActive\" is true and "
+		  		+ "\"id_Room\" in (Select \"id\" from pigtrax.\"Room\" where \"id_Barn\" = (select \"id\" from pigtrax.\"Barn\" where \"id_Premise\" = (select \"id\" from pigtrax.\"Premise\" where \"id_Company\" = ?)) and  \"isActive\" is true)";
+		  List<Pen> penList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, companyId);
+				}}, new PenMapper()); 
+		  return penList;    
+	}
 
 	private static final class PenMapper implements RowMapper<Pen> {
 		public Pen mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -118,7 +129,7 @@ public class PenDaoImpl implements PenDao {
 			pen.setLocation(rs.getString("location"));
 			pen.setActive(rs.getBoolean("isActive"));
 			return pen;
-		}
+		}  
 	}
 
 }

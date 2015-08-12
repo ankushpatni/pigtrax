@@ -8,7 +8,9 @@ import com.pigtrax.pigevents.dto.BreedingEventDto;
 public interface BreedingEventService {
     public int saveBreedingEventInformation(BreedingEventDto dto) throws Exception;
     
-    public BreedingEventDto getBreedingEventInformation(BreedingEventDto breedingEventDto) throws Exception;
+   // public BreedingEventDto getBreedingEventInformation(BreedingEventDto breedingEventDto) throws PigTraxException;
+    
+    public BreedingEventDto getBreedingEventInformation(Integer breedingEventId) throws PigTraxException;
     
     public void deleteBreedingEventInfo(Integer id) throws Exception;
     

@@ -3,6 +3,7 @@ package com.pigtrax.master.service.interfaces;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.master.dto.Pen;
 
 public interface PenService {
@@ -36,6 +37,14 @@ public interface PenService {
 	public int updatePenRecord(Pen pen) throws SQLException;
 	
 	List<Pen> getPenListByBarnId(Integer barnId) throws SQLException;
+	
+	/**
+	 * Get the list of Pen for a given company
+	 * @param companyId
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Pen> getPenListByCompanyId(Integer companyId) throws PigTraxException;
 
 
 }
