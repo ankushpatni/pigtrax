@@ -323,7 +323,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "PregnancyEvent_fk" CASCADE;
 ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "PregnancyEvent_fk" FOREIGN KEY ("id_PregnancyEvent")
 REFERENCES pigtrax."PregnancyEvent" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
+ON DELETE SET NULL ON UPDATE CASCADE; 
 -- ddl-end --
 
 -- object: pigtrax."PregnancyEvent" | type: TABLE --
