@@ -319,12 +319,7 @@ REFERENCES pigtrax."Pen" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "PregnancyEvent_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "PregnancyEvent_fk" CASCADE;
-ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "PregnancyEvent_fk" FOREIGN KEY ("id_PregnancyEvent")
-REFERENCES pigtrax."PregnancyEvent" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE; 
--- ddl-end --
+
 
 -- object: pigtrax."PregnancyEvent" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."PregnancyEvent" CASCADE;
@@ -345,6 +340,13 @@ CREATE TABLE pigtrax."PregnancyEvent"(
 );
 -- ddl-end --
 ALTER TABLE pigtrax."PregnancyEvent" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "PregnancyEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "PregnancyEvent_fk" CASCADE;
+ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "PregnancyEvent_fk" FOREIGN KEY ("id_PregnancyEvent")
+REFERENCES pigtrax."PregnancyEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE; 
 -- ddl-end --
 
 -- object: pigtrax."PigletStatus" | type: TABLE --
