@@ -303,6 +303,7 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"userUpdated" varchar(20) NOT NULL,
 	"id_EmployeeGroup" integer,
 	"id_PigInfo" integer,
+	"id_PregnancyEvent" integer,
 	CONSTRAINT "FAROW_PK" PRIMARY KEY (id),
 	CONSTRAINT "FAROW_U_FI" UNIQUE ("farrowId")
 
@@ -315,6 +316,13 @@ ALTER TABLE pigtrax."FarrowEvent" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "Pen_fk" CASCADE;
 ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "Pen_fk" FOREIGN KEY ("id_Pen")
 REFERENCES pigtrax."Pen" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "PregnancyEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "PregnancyEvent_fk" CASCADE;
+ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "PregnancyEvent_fk" FOREIGN KEY ("id_PregnancyEvent")
+REFERENCES pigtrax."PregnancyEvent" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
