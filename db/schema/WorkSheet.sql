@@ -465,9 +465,9 @@ BEGIN
 	SELECT COUNT(1) INTO farroweventcount FROM pigtraxstaging."FarrowEvent";
 	INSERT INTO pigtraxstaging."StagingLog" ("eventName", "logCode", "logMessage", "logData", "logDateTime") VALUES ('FarrowEvent','POST_NULL_DATE_DEL_COUNT', 'Total Number of rows which have null event date: ' || farroweventcount, '' || farroweventcount, CURRENT_TIMESTAMP);
 --Check which rows have 0 as number of piglets. Raise them as exception
-	SELECT string_agg("srcLineNumber", ', ') into zeropigletsonbirth FROM pigtraxstaging."FarrowEvent" WHERE "liveBorns" = 0 AND stillBorns = 0 AND mummies = 0;
+	SELECT string_agg("srcLineNumber", ', ') into zeropigletsonbirth FROM pigtraxstaging."FarrowEvent" WHERE "liveBorns" = 0 AND "stillBorns" = 0 AND mummies = 0;
 	INSERT INTO pigtraxstaging."StagingLog" ("eventName", "logCode", "logMessage", "logData", "logDateTime") VALUES ('FarrowEvent', 'NILL_PIGLETS_AT_FARROW', 'Following line numbers have 0 piglets associated with farrow event. They will be deleted' , zeropigletsonbirth, CURRENT_TIMESTAMP);
-	DELETE FROM pigtraxstaging."FarrowEvent" WHERE "liveBorns" = 0 AND stillBorns = 0 AND mummies = 0;
+	DELETE FROM pigtraxstaging."FarrowEvent" WHERE "liveBorns" = 0 AND "stillBorns" = 0 AND mummies = 0;
 
 -- Log the number of rows after delete
 	SELECT COUNT(1) INTO farroweventcount FROM pigtraxstaging."FarrowEvent";
