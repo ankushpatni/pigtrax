@@ -263,7 +263,7 @@ CREATE TABLE pigtrax."BreedingEvent"(
 	id serial NOT NULL,
 	"serviceId" varchar(30) NOT NULL,
 	"id_EmployeeGroup" integer,
-	"id_PigInfo" integer,
+	"id_PigInfo" integer NOT NULL,
 	"id_BreedingServiceType" integer,
 	"brgrId" varchar(30),
 	"breedingDate" date NOT NULL,
