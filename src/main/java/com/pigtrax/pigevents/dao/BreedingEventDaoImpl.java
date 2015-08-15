@@ -63,7 +63,12 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    	            	ps.setNull(4, java.sql.Types.INTEGER);
 	    				}
 	    				ps.setString(5, breedingEvent.getBreedingGroupId());
-	    				ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
+	    				if(breedingEvent.getBreedingDate() != null){
+	    					ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
+	    				}
+	    				else{
+	    					ps.setNull(6, java.sql.Types.DATE);
+	    				}
 	    				ps.setString(7, breedingEvent.getSemenId());
 	    				ps.setString(8, breedingEvent.getRemarks());
 	    				if(breedingEvent.getMateQuality() != null){
