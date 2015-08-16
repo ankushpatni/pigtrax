@@ -61,6 +61,7 @@
 <script src="resources/js/controllers/addTransportDestinationController.js"></script>
 <script src="resources/js/controllers/pregnancyEventController.js"></script>
 <script src="resources/js/controllers/farrowEventController.js"></script>
+<script src="resources/js/controllers/groupEventController.js"></script>
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
 	<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>

@@ -509,6 +509,7 @@ CREATE TABLE pigtrax."GroupEvent"(
 	remarks varchar(255),
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"id_Company" integer,
 	CONSTRAINT "PIGEVENT_PK" PRIMARY KEY (id),
 	CONSTRAINT "PIGEVENT_GI_U" UNIQUE ("groupId")
 
@@ -517,6 +518,12 @@ CREATE TABLE pigtrax."GroupEvent"(
 ALTER TABLE pigtrax."GroupEvent" OWNER TO pitraxadmin;
 -- ddl-end --
 
+-- object: "Company_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Premise" DROP CONSTRAINT IF EXISTS "Company_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEvent" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_Company")
+REFERENCES pigtrax."Company" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 -- object: "Barn_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."Room" DROP CONSTRAINT IF EXISTS "Barn_fk" CASCADE;

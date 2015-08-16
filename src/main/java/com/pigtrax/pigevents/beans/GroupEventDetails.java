@@ -1,33 +1,35 @@
-package com.pigtrax.pigevents.dto;
+package com.pigtrax.pigevents.beans;
 
 import java.util.Date;
 
-public class GroupEventDto {
+public class GroupEventDetails {
 	
-	private Integer id;
-	private String groupId;
+	private Integer id;	
 	private String origin;
 	private Date dateOfEntry;
-	private Integer roomId;
-	private Integer employeeGroupId;
 	private Integer numberOfPigs;
 	private Integer weightInKgs;
 	private Integer inventoryAdjustment;
 	private String remarks;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer roomId;
+	private Integer employeeGroupId;	
 	private Integer phaseOfProductionTypeId;
+	private String groupId;
 	
-	//groupevent fields
-	
-	private Date groupStartDateTime;
-	private Date groupCloseDateTime;
-	private boolean isActive;
-	private String remarksGroupEvent;
-	private Date lastUpdatedGroupEvent;
-	private String userUpdatedGroupEvent;
-	
-	
+	public Date getDateOfEntry() {
+		return dateOfEntry;
+	}
+	public void setDateOfEntry(Date dateOfEntry) {
+		this.dateOfEntry = dateOfEntry;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -45,12 +47,6 @@ public class GroupEventDto {
 	}
 	public void setOrigin(String origin) {
 		this.origin = origin;
-	}
-	public Date getDateOfEntry() {
-		return dateOfEntry;
-	}
-	public void setDateOfEntry(Date dateOfEntry) {
-		this.dateOfEntry = dateOfEntry;
 	}
 	public Integer getRoomId() {
 		return roomId;
@@ -83,16 +79,10 @@ public class GroupEventDto {
 		this.inventoryAdjustment = inventoryAdjustment;
 	}
 	public Date getGroupCloseDateTime() {
-		return groupCloseDateTime;
+		return dateOfEntry;
 	}
-	public void setGroupCloseDateTime(Date groupCloseDateTime) {
-		this.groupCloseDateTime = groupCloseDateTime;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setGroupCloseDateTime(Date dateOfEntry) {
+		this.dateOfEntry = dateOfEntry;
 	}
 	public Date getLastUpdated() {
 		return lastUpdated;
@@ -111,36 +101,5 @@ public class GroupEventDto {
 	}
 	public void setPhaseOfProductionTypeId(Integer phaseOfProductionTypeId) {
 		this.phaseOfProductionTypeId = phaseOfProductionTypeId;
-	}
-	public Date getGroupStartDateTime() {
-		return groupStartDateTime;
-	}
-	public void setGroupStartDateTime(Date groupStartDateTime) {
-		this.groupStartDateTime = groupStartDateTime;
-	}
-	public boolean isActive() {
-		return isActive;
-	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-	public String getRemarksGroupEvent() {
-		return remarksGroupEvent;
-	}
-	public void setRemarksGroupEvent(String remarksGroupEvent) {
-		this.remarksGroupEvent = remarksGroupEvent;
-	}
-	public Date getLastUpdatedGroupEvent() {
-		return lastUpdatedGroupEvent;
-	}
-	public void setLastUpdatedGroupEvent(Date lastUpdatedGroupEvent) {
-		this.lastUpdatedGroupEvent = lastUpdatedGroupEvent;
-	}
-	public String getUserUpdatedGroupEvent() {
-		return userUpdatedGroupEvent;
-	}
-	public void setUserUpdatedGroupEvent(String userUpdatedGroupEvent) {
-		this.userUpdatedGroupEvent = userUpdatedGroupEvent;
-	}
-
+	}	
 }

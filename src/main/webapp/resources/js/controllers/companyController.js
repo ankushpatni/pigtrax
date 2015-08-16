@@ -132,6 +132,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		{
 			document.getElementById("companyForm").action="farrowEvent";		 
 		}
+		else if(eventName === "GroupEvent")
+		{
+			document.getElementById("companyForm").action="groupEvent";		 
+		}
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();
 	}

@@ -102,6 +102,7 @@
 													<li><a href="#" ng-click="goToPigEvent('BreedingEvent',row.id)">Breeding Event</a></li>
 													<li><a href="#" ng-click="goToPigEvent('PregnancyEvent',row.id)">Pregnancy Event</a></li>
 													<li><a href="#" ng-click="goToPigEvent('FarrowEvent',row.id)">Farrow Event</a></li>
+													<li><a href="#" ng-click="goToPigEvent('GroupEvent',row.id)">Group Event</a></li>
 												  </ul>
 												</div>
 												<% }  %>
