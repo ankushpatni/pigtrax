@@ -82,7 +82,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	    				}
 	    				ps.setString(14, farrowEvent.getUserUpdated());
 	    				
-	    				if(farrowEvent.getEmployeeGroupId() != null){
+	    				if(farrowEvent.getEmployeeGroupId() != null && farrowEvent.getEmployeeGroupId() != 0){
 	    					ps.setInt(15, farrowEvent.getEmployeeGroupId());
 	    				}
 	    				else{
@@ -298,7 +298,7 @@ private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final
 					ps.setNull(14, java.sql.Types.INTEGER);
 				}
 				
-				if(farrowEvent.getEmployeeGroupId() != null){
+				if(farrowEvent.getEmployeeGroupId() != null && farrowEvent.getEmployeeGroupId() != 0){
 					ps.setInt(15, farrowEvent.getEmployeeGroupId());
 				}
 				else{

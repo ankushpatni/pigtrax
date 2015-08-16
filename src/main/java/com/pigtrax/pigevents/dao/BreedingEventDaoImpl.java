@@ -47,7 +47,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    	            PreparedStatement ps =
 	    	                con.prepareStatement(Qry, new String[] {"id"});
 	    	            ps.setString(1, breedingEvent.getServiceId());
-	    	            if(breedingEvent.getEmployeeGroupId() != null){
+	    	            if(breedingEvent.getEmployeeGroupId() != null && breedingEvent.getEmployeeGroupId() != 0){
 	    	            	ps.setInt(2, breedingEvent.getEmployeeGroupId());
 	    	            }
 	    	            else{
@@ -107,7 +107,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
 				ps.setString(1, breedingEvent.getServiceId());
-				if(breedingEvent.getEmployeeGroupId() != null){
+				if(breedingEvent.getEmployeeGroupId() != null && breedingEvent.getEmployeeGroupId() != 0){
 					ps.setInt(2, breedingEvent.getEmployeeGroupId());
 				}
 				else{
