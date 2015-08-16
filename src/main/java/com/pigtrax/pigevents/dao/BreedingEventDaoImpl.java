@@ -47,15 +47,43 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    	            PreparedStatement ps =
 	    	                con.prepareStatement(Qry, new String[] {"id"});
 	    	            ps.setString(1, breedingEvent.getServiceId());
-	    				ps.setInt(2, breedingEvent.getEmployeeGroupId());
+	    	            if(breedingEvent.getEmployeeGroupId() != null){
+	    	            	ps.setInt(2, breedingEvent.getEmployeeGroupId());
+	    	            }
+	    	            else{
+	    	            	ps.setNull(2, java.sql.Types.INTEGER);
+	    	            }
+	    	            
 	    				ps.setInt(3, breedingEvent.getPigInfoKey());
-	    				ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
+	    				
+	    				if(breedingEvent.getBreedingServiceTypeId() != null){
+	    					ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
+	    				}
+	    				else{
+	    	            	ps.setNull(4, java.sql.Types.INTEGER);
+	    				}
 	    				ps.setString(5, breedingEvent.getBreedingGroupId());
-	    				ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
+	    				if(breedingEvent.getBreedingDate() != null){
+	    					ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
+	    				}
+	    				else{
+	    					ps.setNull(6, java.sql.Types.DATE);
+	    				}
 	    				ps.setString(7, breedingEvent.getSemenId());
 	    				ps.setString(8, breedingEvent.getRemarks());
-	    				ps.setInt(9, breedingEvent.getMateQuality());
-	    				ps.setInt(10, breedingEvent.getSowCondition());
+	    				if(breedingEvent.getMateQuality() != null){
+	    					ps.setInt(9, breedingEvent.getMateQuality());
+	    				}
+	    				else{
+	    					ps.setNull(9, java.sql.Types.INTEGER);
+	    				}
+	    				
+	    				if(breedingEvent.getSowCondition() != null ){
+	    					ps.setInt(10, breedingEvent.getSowCondition());
+	    				}
+	    				else{
+	    					ps.setNull(10, java.sql.Types.INTEGER);
+	    				}
 	    				ps.setString(11, breedingEvent.getUserUpdated());
 	    			
 	    	            return ps;
@@ -79,15 +107,47 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
 				ps.setString(1, breedingEvent.getServiceId());
-				ps.setInt(2, breedingEvent.getEmployeeGroupId());
+				if(breedingEvent.getEmployeeGroupId() != null){
+					ps.setInt(2, breedingEvent.getEmployeeGroupId());
+				}
+				else{
+					ps.setNull(2, java.sql.Types.INTEGER);
+				}
+				
 				ps.setInt(3, breedingEvent.getPigInfoKey());
-				ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
+				
+				if(breedingEvent.getBreedingServiceTypeId() != null){
+					ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
+				}
+				else{
+					ps.setNull(4, java.sql.Types.INTEGER);
+				}
+				
 				ps.setString(5, breedingEvent.getBreedingGroupId());
-				ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
+				
+				if(breedingEvent.getBreedingDate() != null){
+					ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
+				}
+				else{
+					ps.setNull(6, java.sql.Types.DATE);
+				}
+				
 				ps.setString(7, breedingEvent.getSemenId());
 				ps.setString(8, breedingEvent.getRemarks());
-				ps.setInt(9, breedingEvent.getMateQuality());
-				ps.setInt(10, breedingEvent.getSowCondition());
+				
+				if(breedingEvent.getMateQuality() != null){
+					ps.setInt(9, breedingEvent.getMateQuality());
+				}
+				else{
+					ps.setNull(9, java.sql.Types.INTEGER);
+				}
+				
+				if(breedingEvent.getSowCondition() != null){
+					ps.setInt(10, breedingEvent.getSowCondition());
+				}
+				else{
+					ps.setNull(10, java.sql.Types.INTEGER);
+				}
 				ps.setString(11, breedingEvent.getUserUpdated());				
 				ps.setInt(12, breedingEvent.getId());
 			}
