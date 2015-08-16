@@ -6,14 +6,12 @@ import com.pigtrax.pigevents.beans.GroupEvent;
 
 public interface GroupEventDao {
 	
-	GroupEvent getGroupEventByGroupId(String groupId);
+	GroupEvent getGroupEventByGroupId(final String groupId) throws SQLException;
 	
-	GroupEvent getGroupEventById(Integer id);
-	   
-	int updateGroupEventDetails(GroupEvent groupEvent) throws SQLException;
-	   
-	int addGroupEventDetails(GroupEvent groupEvent) throws SQLException;
-	 
-	void deleteGroupEventByGroupId(Integer id) throws SQLException;
+	int addGroupEvent(final GroupEvent groupEvent) throws SQLException;
+	
+	int updateGroupEvent(final GroupEvent groupEvent) throws SQLException;
+	
+	int updateGroupEventStatus( final String groupI, final Boolean groupStatus ) throws SQLException;
 
 }

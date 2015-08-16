@@ -2,18 +2,17 @@ package com.pigtrax.pigevents.service.interfaces;
 
 import java.sql.SQLException;
 
+import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEvent;
 
 public interface GroupEventService {
-
-	GroupEvent getGroupEventByGroupId(String groupId);
 	
-	GroupEvent getGroupEventById(Integer id);
-	   
-	int updateGroupEventDetails(GroupEvent groupEvent) throws SQLException;
-	   
-	int addGroupEventDetails(GroupEvent groupEvent) throws SQLException;
-	 
-	void deleteGroupEventByGroupId(Integer id) throws SQLException;
+GroupEvent getGroupEventByGroupId(final String groupId) throws SQLException;
+	
+	int addGroupEvent(final GroupEvent groupEvent) throws PigTraxException;
+	
+	int updateGroupEvent(final GroupEvent groupEvent) throws SQLException;
+	
+	int updateGroupEventStatus( final String groupI, final Boolean groupStatus ) throws SQLException;
 
 }
