@@ -33,7 +33,6 @@ var breedingEventController = pigTrax.controller('GroupEventController', functio
 		if($scope.groupEventForm.$valid)
 		{
 		
-		console.log($scope.groupEvent.groupStartDateTime);
 			var postParam = {
 			
 					"groupId" : $scope.groupEvent.groupId,
@@ -42,7 +41,6 @@ var breedingEventController = pigTrax.controller('GroupEventController', functio
 					"groupCloseDateTime" : document.getElementById("groupCloseDateTime").value,					
 					"remarks" : $scope.groupEvent.remark,
 				};
-			console.log(postParam);
 			
 			restServices.saveGroupEventInformation(postParam, function(data){
 				if(!data.error)
@@ -72,6 +70,31 @@ var breedingEventController = pigTrax.controller('GroupEventController', functio
 	$scope.changeGroupEventStatus = function()
 	{
 		console.log('change group event status');
+	}
+	
+	$scope.getGroupEventInformation = function ()
+	{
+		console.log('Group ID is '+ $scope.searchText);
+		
+		restServices.getGroupEventInformation($scope.searchText, function(data){
+			console.log(data);
+			if(!data.error)
+				{
+					$scope.clearAllMessages();					
+				}
+			else
+				{
+					if(data.recordNotPresent)
+					{
+						$scope.searchDataErrorMessage = true;
+					}
+					else
+					{
+						$scope.entryEventErrorMessage = true;
+					}
+				}
+				$window.scrollTo(0, 5);  
+		});
 	}
 
 });

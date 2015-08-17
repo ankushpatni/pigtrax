@@ -7,7 +7,7 @@ import com.pigtrax.pigevents.beans.GroupEvent;
 
 public interface GroupEventService {
 	
-GroupEvent getGroupEventByGroupId(final String groupId) throws SQLException;
+GroupEvent getGroupEventByGroupId(final String groupId) throws PigTraxException;
 	
 	int addGroupEvent(final GroupEvent groupEvent) throws PigTraxException;
 	

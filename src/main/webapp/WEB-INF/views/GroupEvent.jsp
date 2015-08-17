@@ -13,13 +13,9 @@
 			 		     <div class="head">
 			            	<h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h3>
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.groupEventForm.search.data.errormessage' text='Group event information not found for the search criteria'/></p>
-					   		 <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.groupEventForm.search.placeholder'  text='Search by Group Id ...'/>" class="form-control" style="width:90%;display:inline">
+					   		 <input type="text" name="search" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.groupEventForm.search.placeholder'  text='Search by Group Id ...'/>" class="form-control" style="width:90%;display:inline">
 							 <button type="button" class="btn btn-primary active" ng-click="getGroupEventInformation()"><i class="fa fa-search"></i></button>
-						 	<div>
-						 		<div class="btn-group pull-right">
-			               			 
-			              		</div>
-			            	</div>            
 			          	</div>
 					  </form>	
 				 </div>

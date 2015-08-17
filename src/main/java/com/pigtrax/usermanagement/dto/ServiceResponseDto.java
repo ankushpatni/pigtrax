@@ -16,6 +16,7 @@ public class ServiceResponseDto implements Serializable {
 	private String statusMessage;
 	private Object payload;
 	private boolean duplicateRecord;
+	private boolean recordNotPresent;
 
 	public String getStatusMessage() {
 		return statusMessage;
@@ -40,6 +41,14 @@ public class ServiceResponseDto implements Serializable {
 
 	public void setDuplicateRecord(boolean duplicateRecord) {
 		this.duplicateRecord = duplicateRecord;
+	}
+
+	public boolean isRecordNotPresent() {
+		return recordNotPresent;
+	}
+
+	public void setRecordNotPresent(boolean recordNotPresent) {
+		this.recordNotPresent = recordNotPresent;
 	}
 
 	/**

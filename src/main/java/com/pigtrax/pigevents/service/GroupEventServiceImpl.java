@@ -35,17 +35,22 @@ public class GroupEventServiceImpl implements GroupEventService{
 
 	@Override
 	public GroupEvent getGroupEventByGroupId(String groupId)
-			throws SQLException {		
-		return groupEventDao.getGroupEventByGroupId(groupId);
+			throws PigTraxException {
+		try 
+		{
+			return groupEventDao.getGroupEventByGroupId(groupId);
+		}
+		catch (SQLException e)
+		{
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
 	}
 
 	@Override
 	@Transactional("ptxJTransactionManager")
 	public int addGroupEvent(GroupEvent groupEvent) throws PigTraxException {
 		try {
-			System.out.println("ankush-------1111------>");
 			int generatedId = groupEventDao.addGroupEvent(groupEvent);
-			System.out.println("ankush------------->"+ generatedId);
 			/*PigTraxEventMaster master = new PigTraxEventMaster();
 			master.setUserUpdated(UserUtil.getLoggedInUser());
 			master.setEventTime(groupEvent.getGroupStartDateTime());
