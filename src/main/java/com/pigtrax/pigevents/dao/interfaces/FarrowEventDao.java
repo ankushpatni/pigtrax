@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.pigtrax.pigevents.beans.FarrowEvent;
-import com.pigtrax.pigevents.beans.PregnancyEvent;
 
 public interface FarrowEventDao {
 	
@@ -15,6 +14,8 @@ public interface FarrowEventDao {
    int addFarrowEventDetails(FarrowEvent farrowEvent) throws SQLException;
    
    List<FarrowEvent> getFarrowEvents(String pigId, String searchOption, Integer companyId) throws SQLException;
+   
+   FarrowEvent getFarrowEvent(String farrowId, Integer companyId);
     
    void deleteFarrowEvent(Integer farrowEventId) throws SQLException;
    

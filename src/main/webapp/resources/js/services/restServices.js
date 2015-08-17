@@ -34,5 +34,9 @@ pigTrax.factory("restServices", function($resource) {
     	"deleteFarrowEvent" : {method:"POST", url:"rest/farrowEvent/deleteFarrowEvent"},
     	"saveGroupEventInformation" : {method:"POST", url:"rest/groupEvent/addGroupEvent"},
 		"getGroupEventInformation" : {method:"POST", url:"rest/groupEvent/getGroupEventInformation"}
+    	"getPigletEventInformation" : {method:"POST", url:"rest/pigletEvent/getPigletEventInformation"},
+    	"getFarrowEventDetails": {method:"POST", url:"rest/farrowEvent/getFarrowEventDetails"}  ,
+    	"savePigletEventInformation" : {method:"POST", url:"rest/pigletEvent/savePigletEventInformation"},
+    	"deletePigletEvent" : {method:"POST", url:"rest/pigletEvent/deletePigletEvent"}
     });
 });

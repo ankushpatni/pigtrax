@@ -33,6 +33,7 @@ public class FarrowEventDto {
 	private String searchOption;
 	private Integer companyId;
 	private String language;
+	private boolean pigletsAdded;
 	
 	public Integer getId() {
 		return id;
@@ -195,6 +196,12 @@ public class FarrowEventDto {
 	}
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	public boolean isPigletsAdded() {
+		return pigletsAdded;
+	}
+	public void setPigletsAdded(boolean pigletsAdded) {
+		this.pigletsAdded = pigletsAdded;
 	}
 	
 	 

@@ -77,7 +77,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		
 	
 	/**
-	 * To add a pregnancy event
+	 * To add a farrow event
 	 */
 	$scope.addFarrowEvent = function()
     {
