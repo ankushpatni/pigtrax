@@ -381,6 +381,22 @@ Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true,
 
 CURRENT_DATE,'pigtraxadmin',4);
 
+INSERT INTO pigtrax."Employee"(
+
+            "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
+
+            "lastUpdated", "userUpdated", "id_RoleType")
+
+VALUES ('praveenfarmemployee1',3, 'Alan', null, true, false, CURRENT_DATE,'pigtraxadmin',null);
+
+INSERT INTO pigtrax."Employee"(
+
+            "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
+
+            "lastUpdated", "userUpdated", "id_RoleType")
+
+VALUES ('praveenfarmemployee2',3, 'Tom', null, true, false, CURRENT_DATE,'pigtraxadmin',null);
+
 
 INSERT INTO pigtrax."Company"(
 
