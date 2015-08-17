@@ -50,10 +50,10 @@ public class PigletEventDaoImpl implements PigletEventDao {
 	    	            PreparedStatement ps =
 	    	                con.prepareStatement(Qry, new String[] {"id"});
 	    	            ps.setString(1, pigletEvent.getTattooId());
-	    	            ps.setDouble(2, pigletEvent.getWeightAtBirth());
-	    				ps.setDouble(3, pigletEvent.getWeightAtWeaning());
+	    	            ps.setObject(2, pigletEvent.getWeightAtBirth(), java.sql.Types.DOUBLE);
+	    				ps.setObject(3, pigletEvent.getWeightAtWeaning(), java.sql.Types.DOUBLE);
 	    				ps.setString(4, pigletEvent.getUserUpdated());
-	    				ps.setObject(5, pigletEvent.getFarrowEventId());
+	    				ps.setObject(5, pigletEvent.getFarrowEventId(), java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -135,10 +135,10 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
 				ps.setString(1, pigletEvent.getTattooId());
-				ps.setDouble(2, pigletEvent.getWeightAtBirth());
-				ps.setDouble(3, pigletEvent.getWeightAtWeaning());				
+				ps.setObject(2, pigletEvent.getWeightAtBirth(), java.sql.Types.DOUBLE);
+				ps.setObject(3, pigletEvent.getWeightAtWeaning(), java.sql.Types.DOUBLE);				
 				ps.setString(4, pigletEvent.getUserUpdated());	
-				ps.setInt(5, pigletEvent.getFarrowEventId());
+				ps.setObject(5, pigletEvent.getFarrowEventId(), java.sql.Types.INTEGER);
 				ps.setInt(6, pigletEvent.getId());
 			}
 		});

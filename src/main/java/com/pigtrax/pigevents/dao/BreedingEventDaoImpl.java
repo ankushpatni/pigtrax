@@ -96,7 +96,9 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		return keyVal;
 	}
 	
-	
+	/**
+	 * Update the Breeding event details for a given pig Id
+	 */
 	@Override
 	public int updateBreedingEventInformation(final BreedingEvent breedingEvent)
 			throws SQLException, DuplicateKeyException {
@@ -155,6 +157,9 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	}
 	
 	
+	/**
+	 * Retrieve the breeding event information for a given serviceId and companyId
+	 */
 	@Override
 	public BreedingEvent getBreedingEventInformation(final String serviceId, final Integer companyId)
 			throws SQLException {
@@ -174,10 +179,16 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	}
 	
 	
+	/**
+	 * Retrive the breeding event information for a given pig Id and company Id
+	 */
 	@Override
 	public List<BreedingEvent> getBreedingEventInformationByPigId(final String serviceId, final Integer companyId)
 			throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   where PI.\"pigId\" = ? and PI.\"id_Company\" = ?";
+		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
+				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
+				+ " where PI.\"pigId\" = ? and PI.\"id_Company\" = ?";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -188,24 +199,37 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		return breedingEventList;
 	}
 	
+	/**
+	 * Retrive the breeding event information based on the given tattoo and company Id
+	 */
+	
 	@Override 
-	public List<BreedingEvent> getBreedingEventInformationByTattoo(final String serviceId, final Integer companyId)
+	public List<BreedingEvent> getBreedingEventInformationByTattoo(final String tattoo, final Integer companyId)
 			throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   where PI.\"tattoo\" = ? and PI.\"id_Company\" = ?";
+		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
+				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
+				+ " where PI.\"tattoo\" = ? and PI.\"id_Company\" = ?";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, serviceId);
+				ps.setString(1, tattoo);
 				ps.setInt(2, companyId);
 			}}, new BreedingEventMapper()); 
 
 		return breedingEventList;
 	}
 	
+	/**
+	 * Retrive the breeding event information for a given service Id and company Id
+	 */
 	@Override
 	public List<BreedingEvent> getBreedingEventInformationByServiceId(final String serviceId, final Integer companyId)
 			throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   where BE.\"serviceId\" = ? and PI.\"id_Company\" = ?";
+		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
+				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   "
+				+ "where BE.\"serviceId\" = ? and PI.\"id_Company\" = ?";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -217,10 +241,15 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	}
 	
 	
+	/**
+	 * Retrive the breeding event information for a given breeding event id
+	 */
 	@Override
 	public BreedingEvent getBreedingEventInformation(final Integer breedingEventId)
 			throws SQLException {
-		String qry = "Select BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE  where BE.\"id\" = ? ";
+		String qry = "Select BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\","
+				+ " BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\""
+				+ " from pigtrax.\"BreedingEvent\" BE  where BE.\"id\" = ? ";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -255,7 +284,9 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		}
 	}
 	
-	
+	/**
+	 * Delete the breeding event information based for the given id
+	 */	
 	public void deleteBreedingEventInfo(final Integer id) throws SQLException {
 		final String qry = "delete from pigtrax.\"BreedingEvent\" where \"id\" = ?";
 		
@@ -267,12 +298,16 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		});
 	}
 	
-	
+	/**
+	 * Check if the breeding event exists with a given service Id for pig Id
+	 */
 	@Override
 	public BreedingEvent checkForBreedingServiceId(final String pigId,final String serviceId,
 			final int companyId) throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\" "
-				+ "from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   where BE.\"serviceId\" = ? and PI.\"id_Company\" = ? and PI.\"pigId\" = ?";
+		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
+				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   "
+				+ "where BE.\"serviceId\" = ? and PI.\"id_Company\" = ? and PI.\"pigId\" = ?";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {

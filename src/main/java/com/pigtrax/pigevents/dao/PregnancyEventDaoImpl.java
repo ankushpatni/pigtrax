@@ -49,15 +49,33 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 	    	    new PreparedStatementCreator() {
 	    	        public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 	    	            PreparedStatement ps =
-	    	                con.prepareStatement(Qry, new String[] {"id"});
+	    	                con.prepareStatement(Qry, new String[] {"id"});	    	           
 	    	            ps.setInt(1, pregnancyEvent.getPigInfoId());
 	    	            ps.setInt(2, pregnancyEvent.getBreedingEventId());
-	    				ps.setInt(3, pregnancyEvent.getEmployeeGroupId());
-	    				ps.setInt(4, pregnancyEvent.getPregnancyEventTypeId());
-	    				ps.setObject(5, pregnancyEvent.getPregnancyExamResultTypeId());
-	    				ps.setDate(6, new java.sql.Date(pregnancyEvent.getExamDate().getTime()));
+	    	            if(pregnancyEvent.getEmployeeGroupId() != null && pregnancyEvent.getEmployeeGroupId() != 0)
+	    	            	ps.setInt(3, pregnancyEvent.getEmployeeGroupId());
+	    	            else
+	    	            	ps.setNull(3, java.sql.Types.INTEGER);
+	    	            if(pregnancyEvent.getPregnancyEventTypeId() != null && pregnancyEvent.getPregnancyEventTypeId() != 0)
+	    	            	ps.setInt(4, pregnancyEvent.getPregnancyEventTypeId());
+	    	            else 
+	    	            	ps.setNull(4, java.sql.Types.INTEGER);
+	    	            if(pregnancyEvent.getPregnancyExamResultTypeId() != null && pregnancyEvent.getPregnancyExamResultTypeId() != 0)
+	    	            	ps.setObject(5, pregnancyEvent.getPregnancyExamResultTypeId());
+	    	            else
+	    	            	ps.setNull(5, java.sql.Types.INTEGER);
+	    	            
+	    	            if(pregnancyEvent.getExamDate() != null)
+	    	            	ps.setDate(6, new java.sql.Date(pregnancyEvent.getExamDate().getTime()));
+	    	            else
+	    	            	ps.setNull(6, java.sql.Types.DATE);
+	    	            
 	    				ps.setDate(7,  new java.sql.Date(pregnancyEvent.getResultDate().getTime()));
-	    				ps.setInt(8, pregnancyEvent.getSowCondition());
+	    				if(pregnancyEvent.getSowCondition() != null && pregnancyEvent.getSowCondition() != 0)
+	    					ps.setInt(8, pregnancyEvent.getSowCondition());
+	    				else
+	    					ps.setNull(8, java.sql.Types.INTEGER);
+	    				
 	    				ps.setString(9, pregnancyEvent.getUserUpdated());
 	    			
 	    	            return ps;
@@ -158,12 +176,33 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
 				ps.setInt(1, pregnancyEvent.getPigInfoId());
-				ps.setInt(2, pregnancyEvent.getEmployeeGroupId());
-				ps.setInt(3, pregnancyEvent.getPregnancyEventTypeId());
-				ps.setInt(4, pregnancyEvent.getPregnancyExamResultTypeId());
-				ps.setDate(5, new java.sql.Date(pregnancyEvent.getExamDate().getTime()));
+				if(pregnancyEvent.getEmployeeGroupId() != null && pregnancyEvent.getEmployeeGroupId() != 0)
+					ps.setInt(2, pregnancyEvent.getEmployeeGroupId());
+				else
+					ps.setNull(2, java.sql.Types.INTEGER);
+				
+				if(pregnancyEvent.getPregnancyEventTypeId() != null && pregnancyEvent.getPregnancyEventTypeId() != 0)
+					ps.setInt(3, pregnancyEvent.getPregnancyEventTypeId());
+				else
+					ps.setNull(3, java.sql.Types.INTEGER);
+				
+				if(pregnancyEvent.getPregnancyEventTypeId() != null && pregnancyEvent.getPregnancyEventTypeId() != 0)
+					ps.setInt(4, pregnancyEvent.getPregnancyExamResultTypeId());
+				else
+					ps.setNull(4, java.sql.Types.INTEGER);
+				
+				if(pregnancyEvent.getExamDate() != null)
+					ps.setDate(5, new java.sql.Date(pregnancyEvent.getExamDate().getTime()));
+				else
+					ps.setNull(5, java.sql.Types.DATE);
+				
 				ps.setDate(6,new java.sql.Date(pregnancyEvent.getResultDate().getTime()));
-				ps.setInt(7, pregnancyEvent.getSowCondition());
+				
+				if(pregnancyEvent.getSowCondition() != null && pregnancyEvent.getSowCondition() != 0)
+					ps.setInt(7, pregnancyEvent.getSowCondition());
+				else
+					ps.setNull(7, java.sql.Types.INTEGER);
+				
 				ps.setString(8, pregnancyEvent.getUserUpdated());	
 				ps.setInt(9, pregnancyEvent.getBreedingEventId());
 				ps.setInt(10, pregnancyEvent.getId());

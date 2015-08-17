@@ -59,16 +59,30 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	    				ps.setString(4, pigInfo.getOrigin());
 	    				ps.setString(5, pigInfo.getGline());
 	    				ps.setString(6, pigInfo.getGcompany());
-	    				ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
+	    				if(pigInfo.getBirthDate() != null)
+	    					ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
+	    				else
+	    					ps.setNull(7, java.sql.Types.DATE);
+	    				
 	    				ps.setString(8, pigInfo.getTattoo());
 	    				ps.setString(9, pigInfo.getAlternateTattoo());
 	    				ps.setString(10, pigInfo.getRemarks());
-	    				ps.setInt(11, pigInfo.getSowCondition());
+	    				
+	    				if( pigInfo.getSowCondition()!= null &&  pigInfo.getSowCondition() != 0)
+	    					ps.setInt(11, pigInfo.getSowCondition());
+	    				else
+	    					ps.setNull(11, java.sql.Types.INTEGER);
 	    				ps.setString(12, pigInfo.getUserUpdated());
+	    				
 	    				ps.setInt(13, pigInfo.getCompanyId());
-	    				ps.setObject(14, pigInfo.getPenId());
-	    				ps.setObject(15, pigInfo.getBarnId());
-	    				ps.setInt(16, pigInfo.getSexTypeId());
+	    				
+	    				if(pigInfo.getPenId() != null && pigInfo.getPenId() != 0)
+	    					ps.setObject(14, pigInfo.getPenId());
+	    				else
+	    					ps.setNull(14,  java.sql.Types.INTEGER);
+	    				
+	    				ps.setObject(15, pigInfo.getBarnId(), java.sql.Types.INTEGER);
+	    				ps.setObject(16, pigInfo.getSexTypeId(), java.sql.Types.INTEGER);
 	    			
 	    	            return ps;
 	    	        }
@@ -104,16 +118,26 @@ public class PigInfoDaoImpl implements PigInfoDao {
 				ps.setString(4, pigInfo.getOrigin());
 				ps.setString(5, pigInfo.getGline());
 				ps.setString(6, pigInfo.getGcompany());
-				ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
+				if(pigInfo.getBirthDate() != null)
+					ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
+				else
+					ps.setNull(7, java.sql.Types.DATE);
 				ps.setString(8, pigInfo.getTattoo());
 				ps.setString(9, pigInfo.getAlternateTattoo());
 				ps.setString(10, pigInfo.getRemarks());
-				ps.setInt(11, pigInfo.getSowCondition());
+				if(pigInfo.getSowCondition() != null && pigInfo.getSowCondition() != 0)
+					ps.setInt(11, pigInfo.getSowCondition());
+				else
+					ps.setNull(11, java.sql.Types.INTEGER);
+				
 				ps.setString(12, pigInfo.getUserUpdated());
 				ps.setInt(13, pigInfo.getCompanyId());
-				ps.setObject(14, pigInfo.getPenId());
-				ps.setObject(15, pigInfo.getBarnId());
-				ps.setInt(16, pigInfo.getSexTypeId());				
+				if(pigInfo.getPenId() != null && pigInfo.getPenId() != 0)
+					ps.setObject(14, pigInfo.getPenId());
+				else
+					ps.setNull(14, java.sql.Types.INTEGER);
+				ps.setObject(15, pigInfo.getBarnId(), java.sql.Types.INTEGER);
+				ps.setObject(16, pigInfo.getSexTypeId(), java.sql.Types.INTEGER);				
 				ps.setInt(17, pigInfo.getId());
 			}
 		});

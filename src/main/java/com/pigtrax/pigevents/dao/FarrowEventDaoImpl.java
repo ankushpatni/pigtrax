@@ -64,12 +64,12 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	    	            else{
 	    	            	ps.setNull(3, java.sql.Types.INTEGER);
 	    	            }
-	    				ps.setObject(4, farrowEvent.getLiveBorns());
-	    				ps.setObject(5, farrowEvent.getStillBorns());
-	    				ps.setObject(6, farrowEvent.getMummies());
-	    				ps.setObject(7, farrowEvent.getMaleBorns());
-	    				ps.setObject(8, farrowEvent.getFemaleBorns());
-	    				ps.setDouble(9, farrowEvent.getWeightInKgs());
+	    				ps.setObject(4, farrowEvent.getLiveBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(5, farrowEvent.getStillBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(6, farrowEvent.getMummies(), java.sql.Types.INTEGER);
+	    				ps.setObject(7, farrowEvent.getMaleBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(8, farrowEvent.getFemaleBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(9, farrowEvent.getWeightInKgs(), java.sql.Types.DOUBLE);
 	    				ps.setBoolean(10, farrowEvent.isInducedBirth());
 	    				ps.setBoolean(11, farrowEvent.isAssistedBirth());
 	    				ps.setString(12, farrowEvent.getRemarks());
@@ -313,7 +313,7 @@ private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final
 					ps.setNull(9, java.sql.Types.INTEGER);
 				}
 				
-				ps.setDouble(10, farrowEvent.getWeightInKgs());
+				ps.setObject(10, farrowEvent.getWeightInKgs(), java.sql.Types.DOUBLE);
 				ps.setBoolean(11, farrowEvent.isInducedBirth());
 				ps.setBoolean(12, farrowEvent.isAssistedBirth());
 				ps.setString(13, farrowEvent.getRemarks());
@@ -380,7 +380,7 @@ private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final
 			farrowEvent.setSowCondition(rs.getInt("sowCondition"));
 			return farrowEvent;
 		}
-	}
+	} 
    
  
    /**
