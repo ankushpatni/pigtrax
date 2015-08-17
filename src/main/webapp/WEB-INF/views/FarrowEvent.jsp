@@ -149,15 +149,15 @@
                     <label><spring:message code='label.piginfo.farroweventform.pigletinfo'  text='Piglet Information'/></label>
                     <table class="table">
                      <tr>
-                       <td> <label>Live Borns </label></td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label>Still Borns</label> </td><td><input type="text" ng-value = "0" name="farrowId" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="text" ng-value = "0" name="farrowId" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label>Male Borns</label> </td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label>Female Borns</label> </td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label>Mummies</label> </td><td> <input type="text" ng-value="0"  name="farrowId" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="text" ng-value="0"  name="farrowId" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
                        <td>&nbsp;</td>
 					   <td>&nbsp;</td>
                      </tr>
@@ -184,7 +184,7 @@
                   			<input type="radio" name="rad1" id="birthType" class="icheck" value="induced" ng-model="farrowEvent.inducedBirth"> <spring:message code='label.piginfo.farroweventform.inducedBirth'  text='Induced Birth'/>
                 		</label>
                 		<label class="radio-inline">
-                  			<input type="radio" name="rad1"  id="birthType" class="icheck" value="assisted" ng-model="farrowEvent.assistedBirth"> <spring:message code='label.piginfo.farroweventform.search.tattoo.option'  text='Assisted Birth'/> 
+                  			<input type="radio" name="rad1"  id="birthType" class="icheck" value="assisted" ng-model="farrowEvent.assistedBirth"> <spring:message code='label.piginfo.farroweventform.assistedBirth'  text='Assisted Birth'/> 
                 		</label>		
               		</div>
                     
@@ -243,7 +243,7 @@
 	                   </tr>
 	                   <tr ng-if="pregnancyEventList == null || pregnancyEventList.length == 0">
 	                     <td colspan="3">
-	                       <spring:message code='label.farroweventform.list.pregnancyevents.noresults'  text='No pregnancy events found'/>
+	                       <spring:message code='label.piginfo.farroweventform.list.pregnancyevents.noresults'  text='No pregnancy events found'/>
 	                     </td>
 	                   </tr>
 	                   

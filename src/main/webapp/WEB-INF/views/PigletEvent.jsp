@@ -81,15 +81,8 @@
                   <div class="alert alert-success alert-white rounded" ng-show="entryEventDeleteMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.pigleteventform.delete.message'  text='Piglet event information deleted'/>
-                  </div>     
-                  <div class="alert alert-danger alert-white rounded" ng-show="farrowEventValidation_ErrCode_1">
-                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pigleteventform.farrowEventValidation_ErrCode1.message' text='Piglet event doesn\'t fall between the acceptated duration of the service date'/>
-                  </div>        
-                  <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
-                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.pigleteventform.duplicate.error.message' text='A piglet record already exists with the same farrow id'/>
                   </div>    
+                  
                 </div>
                 <div class="content">
                   <form name="pigleteventform" novalidate angular-validator>
@@ -102,9 +95,9 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.pigleteventform.farrowId.invalidmessage' text='Only Alpha numeric values are allowed' />'" ng-blur="checkForFarrowId()" ng-focus="clearMessages()"/>
                     </div>
-					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.server.invalidmessage' text='Invalid Farrow Id for the company' /></label>
-					<label ng-show="pigletsAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.server.pigletsaddedmessage' text='All piglets information added for the selected farrow event.' /></label>
-					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.requiredmessage' text='Farrow Id is required' /></label>	
+					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.server.invalidmessage' text='Invalid Farrow Id for the company' /></label>
+					<label ng-show="pigletsAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.server.pigletsaddedmessage' text='All piglets information added for the selected farrow event.' /></label>
+					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.requiredmessage' text='Farrow Id is required' /></label>	
 					 <div class="form-group"> 
                       <label><spring:message code='label.piginfo.pigleteventform.tattooId'  text='Tattoo Id'/><span style='color: red'>*</span></label>
                      <input type="text" required ng-model="pigletEvent.tattooId" id="tattooId" name="tattooId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.tattooId.placeholder'  text='Enter Tatto Id of the piglet'/>" 
