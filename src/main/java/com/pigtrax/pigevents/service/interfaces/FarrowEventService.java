@@ -13,5 +13,9 @@ public interface FarrowEventService {
    void deleteFarrowEvent(Integer farrowEventId) throws PigTraxException;
    
    int validateFarrowEvent(FarrowEventDto farrowEventDto);
+   
+   FarrowEventDto getFarrowEventDetails(Integer farrowEventId) throws PigTraxException;
+   
+   FarrowEventDto getFarrowEventDetails(FarrowEventDto farrowEventDto) throws PigTraxException;
 }
 

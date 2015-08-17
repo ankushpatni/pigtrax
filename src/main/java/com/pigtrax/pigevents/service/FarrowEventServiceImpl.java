@@ -22,7 +22,9 @@ import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.FarrowEventBuilder;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
+import com.pigtrax.pigevents.dto.PigletEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
+import com.pigtrax.pigevents.service.interfaces.PigletEventService;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
 import com.pigtrax.pigevents.validation.FarrowEventValidation;
 
@@ -53,6 +55,9 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	
 	@Autowired
 	PregnancyEventService pregnancyEventService;
+	
+	@Autowired
+	PigletEventService pigletEventService;
 	
 	
 	@Override
@@ -154,6 +159,34 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
+	}
+	
+	@Override
+	public FarrowEventDto getFarrowEventDetails(Integer farrowEventId)
+			throws PigTraxException {
+		FarrowEvent farrowEvent = farrowEventDao.getFarrowEvent(farrowEventId);
+		return builder.convertToDto(farrowEvent);
+	}
+	
+	@Override
+	public FarrowEventDto getFarrowEventDetails(FarrowEventDto farrowEventDto)
+			throws PigTraxException {
+		List<FarrowEventDto> farrowEvents = getFarrowEvents(farrowEventDto);
+		if(farrowEvents != null && farrowEvents.size() > 0)
+		{
+		  //Check if there are 	
+		  FarrowEventDto dto = farrowEvents.get(0);
+		  int liveBorns = dto.getLiveBorns();		  
+		  List<PigletEventDto> pigletEventDtoList = pigletEventService.getPigletEventsByFarrowId(dto.getFarrowId(), farrowEventDto.getCompanyId());
+		  int cntPigletsAdded = (pigletEventDtoList != null) ? pigletEventDtoList.size() : 0;
+		  if(liveBorns > cntPigletsAdded)		  
+			  dto.setPigletsAdded(false);
+		  else 
+			  dto.setPigletsAdded(true);
+		  return dto;
+		}
+		
+		return null;
 	}
 	
 }

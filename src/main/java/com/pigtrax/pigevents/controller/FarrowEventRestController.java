@@ -152,5 +152,27 @@ public class FarrowEventRestController {
 		return dto;
 	}
 	
+	@RequestMapping(value = "/getFarrowEventDetails", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	@ResponseBody
+	public ServiceResponseDto getFarrowEventDetails(HttpServletRequest request, @RequestBody FarrowEventDto farrowEventDto)
+	{
+		ServiceResponseDto dto = new ServiceResponseDto();
+		FarrowEventDto eventDto;
+		try {
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			farrowEventDto.setLanguage(language);
+			
+			eventDto = farrowEventService.getFarrowEventDetails(farrowEventDto);
+			if(eventDto != null && eventDto.getId() > 0)
+				dto.setPayload(eventDto);
+			else
+				dto.setStatusMessage("ERROR: Not found");
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR: Not found");
+		}
+		return dto;
+	}
+	
     
 }

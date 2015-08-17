@@ -120,9 +120,9 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	   
 	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
-		   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
+		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\""
-		   		+ " from pigtrax.\"FarrowEvent\" "
+		   		+ " from pigtrax.\"FarrowEvent\" FE "
 		   		+ " WHERE FE.\"id\" = ? ";
 		
 		List<FarrowEvent> farrowEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -137,6 +137,32 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 		return null;
 	}
    
+   
+	/**
+	 * Retrieves the Pregnancy Event information for a given Id  
+	 */
+  public FarrowEvent getFarrowEvent(final String farrowId, final Integer companyId) { 
+	   
+	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
+		   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
+		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\""
+		   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PregnancyEvent\" PE on FE.\"id_PregnancyEvent\"=PE.\"id\""
+		   		+ " JOIN pigtrax.\"PigInfo\" PI  on PE.\"id_PigInfo\" = PI.\"id\" "
+		   		+ " WHERE FE.\"farrowId\" = ? and PI.\"id_Company\" = ?";
+		
+		List<FarrowEvent> farrowEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, farrowId);
+				ps.setInt(2, companyId);
+			}}, new FarrowEventMapper());
+
+		if(farrowEventList != null && farrowEventList.size() > 0){
+			return farrowEventList.get(0);
+		}
+		return null;
+	}   
    
    /**
 	 * Retrieves the Pregnancy Event information for a given pig Id 
