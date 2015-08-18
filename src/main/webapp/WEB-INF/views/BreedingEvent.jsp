@@ -150,8 +150,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.breedingeventform.breedinggroupId'  text='Breeding Group Id' placeholder="<spring:message code='label.piginfo.breedingeventform.breedinggroupId.placeholder'  text='Enter Breeding group Id'/>"/></label>
-                      <input type="text" ng-model="breedingEvent.breedingGroupId"  name="breedingGroupId"  class="form-control" />
+                      <label><spring:message code='label.piginfo.breedingeventform.breedinggroupId'  text='Breeding Group Id'/></label>
+                      <input type="text" ng-model="breedingEvent.breedingGroupId"  name="breedingGroupId"  class="form-control"  placeholder="<spring:message code='label.piginfo.breedingeventform.breedinggroupId.placeholder'  text='Enter Breeding group Id'/>"/>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/><span style='color: red'>*</span></label>
