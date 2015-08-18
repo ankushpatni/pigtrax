@@ -117,5 +117,19 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	@RequestMapping(value = "/getPhaseOfProductionType", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getPhaseOfProductionType(HttpServletRequest request)
+	{
+		logger.info("Inside getPhaseType" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<Map<Integer,String>> phaseOfProductionType = new ArrayList<Map<Integer,String>>();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		phaseOfProductionType.add(refDataCache.getPhaseOfProductionTypeMap(language));
+		dto.setPayload(phaseOfProductionType);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 
 }

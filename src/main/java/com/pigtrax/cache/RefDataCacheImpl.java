@@ -43,6 +43,8 @@ public class RefDataCacheImpl implements RefDataCache{
 	private Map<String, Map<Integer, String>> pregnancyExamResultTypeMap;
 	
 	private Map<String, Map<Integer, String>> siloTypeMap;
+	
+	private Map<String, Map<Integer, String>> phaseOfProductionTypeMap;
 
 	
 	/*
@@ -63,6 +65,7 @@ public class RefDataCacheImpl implements RefDataCache{
 		pregnancyEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyEventTypeData()));
 		pregnancyExamResultTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyExamResultTypeData()));
 		siloTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSiloTypeData()));
+		phaseOfProductionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseOfProductionType()));
 	}
 
 	@Override
@@ -113,6 +116,11 @@ public class RefDataCacheImpl implements RefDataCache{
 	@Override
 	public Map<Integer, String> getSiloTypeMap(String language){
 		return siloTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getPhaseOfProductionTypeMap(String language){
+		return phaseOfProductionTypeMap.get(language);
 	}
 	
 	private Map<String, Map<Integer, String>> convertToMap(List<RefDataTranslationDto> rolesList) {

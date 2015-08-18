@@ -2,7 +2,9 @@ package com.pigtrax.pigevents.service.interfaces;
 
 import java.sql.SQLException;
 
+import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
+import com.pigtrax.pigevents.dto.GroupEventDto;
 
 public interface GroupEventDetailsService {
 
@@ -12,7 +14,7 @@ public interface GroupEventDetailsService {
 	   
 	int updateGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException;
 	   
-	int addGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException;
+	int addGroupEventDetails(final GroupEventDto groupEventDto) throws PigTraxException;
 	 
 	void deleteGroupEventDetailsByGroupId(final Integer id) throws SQLException;
 }

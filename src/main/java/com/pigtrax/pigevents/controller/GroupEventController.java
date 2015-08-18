@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
@@ -41,6 +42,10 @@ public class GroupEventController {
 				   model.addAttribute("CompanyId", activeUser.getCompanyId());
 				   model.addAttribute("CompanyName", company.getName());
 			   }
+			   if(request.getParameter("searchedGroupid") != null) 
+			   {
+				   model.addAttribute("searchedGroupid", request.getParameter("searchedGroupid"));
+			   }
 		   }catch(Exception ex)
 		   {
 			   
@@ -48,6 +53,20 @@ public class GroupEventController {
 		   model.addAttribute("contentUrl","GroupEvent.jsp");
 		   return "template";
 	   }
-	   
+	  
+	  @RequestMapping(value = "/addGroupEventDetail", method=RequestMethod.POST)
+		public String addPremises(HttpServletRequest request,Model model)
+		{
+			model.addAttribute("contentUrl","addGroupEventDetail.jsp"); 
+			model.addAttribute("groupId",request.getParameter("searchedGroupid"));
+			model.addAttribute("groupGeneratedId",request.getParameter("groupGeneratedIdSeq"));
+			model.addAttribute("companyId",request.getParameter("companyId"));
+			 
+			 if(request.getParameter("groupEventId") != null) 
+			   {
+				 model.addAttribute("groupEventId",request.getParameter("groupEventId"));
+			   }
+			return "template";
+		}	   
 
 }

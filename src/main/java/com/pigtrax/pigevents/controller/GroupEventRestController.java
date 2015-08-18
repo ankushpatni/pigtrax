@@ -1,7 +1,5 @@
 package com.pigtrax.pigevents.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -10,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
@@ -18,7 +15,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEvent;
-import com.pigtrax.pigevents.dto.PregnancyEventDto;
+import com.pigtrax.pigevents.dto.GroupEventDto;
+import com.pigtrax.pigevents.service.interfaces.GroupEventDetailsService;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -33,6 +31,9 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	@Autowired
 	GroupEventService groupEventService;
 	
+	@Autowired
+	GroupEventDetailsService groupEventDetailsService;
+	
 	/**
 	 * Service to save the pig information
 	 * @return ServiceResponseDto
@@ -41,7 +42,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	@ResponseBody
 	public ServiceResponseDto addGroupEvent(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
 	{
-		logger.info("Inside savePregnancyEventInformation method" ); 
+		logger.info("Inside addGroupEvent method" ); 
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
@@ -92,7 +93,32 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		return dto;
 	}
 	
-	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/addGroupEventDetail", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto addGroupEventDetail(HttpServletRequest request, @RequestBody GroupEventDto groupEventDto)
+	{
+		logger.info("Inside addGroupEventDetail method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEventDto.setUserUpdated(activeUser.getUsername());
+			int rowsInserted = groupEventDetailsService.addGroupEventDetails(groupEventDto);
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
 	
 
 }

@@ -16,7 +16,7 @@ public class GroupEventDetails {
 	private Integer roomId;
 	private Integer employeeGroupId;	
 	private Integer phaseOfProductionTypeId;
-	private String groupId;
+	private int groupId;
 	
 	public Date getDateOfEntry() {
 		return dateOfEntry;
@@ -36,10 +36,10 @@ public class GroupEventDetails {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getGroupId() {
+	public int getGroupId() {
 		return groupId;
 	}
-	public void setGroupId(String groupId) {
+	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
 	public String getOrigin() {
@@ -78,12 +78,7 @@ public class GroupEventDetails {
 	public void setInventoryAdjustment(Integer inventoryAdjustment) {
 		this.inventoryAdjustment = inventoryAdjustment;
 	}
-	public Date getGroupCloseDateTime() {
-		return dateOfEntry;
-	}
-	public void setGroupCloseDateTime(Date dateOfEntry) {
-		this.dateOfEntry = dateOfEntry;
-	}
+	
 	public Date getLastUpdated() {
 		return lastUpdated;
 	}

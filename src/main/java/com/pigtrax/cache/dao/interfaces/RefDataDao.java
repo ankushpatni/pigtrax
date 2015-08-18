@@ -26,5 +26,7 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getPregnancyExamResultTypeData();
 	
 	List<RefDataTranslationDto> getSiloTypeData();
+	
+	List<RefDataTranslationDto> getPhaseOfProductionType() ;
 
 }

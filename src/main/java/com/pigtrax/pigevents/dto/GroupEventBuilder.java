@@ -16,7 +16,7 @@ public class GroupEventBuilder {
 	 * @param dto
 	 * @return
 	 */
-	public GroupEventDetails convertToBean(GroupEventDto dto)
+	public static GroupEventDetails convertToBean(GroupEventDto dto)
 	   {
 		GroupEventDetails groupEventDetails = new GroupEventDetails();
 		   if(dto != null)
@@ -30,7 +30,6 @@ public class GroupEventBuilder {
 				groupEventDetails.setNumberOfPigs(dto.getNumberOfPigs());
 				groupEventDetails.setWeightInKgs(dto.getWeightInKgs());
 				groupEventDetails.setInventoryAdjustment(dto.getInventoryAdjustment());
-				groupEventDetails.setGroupCloseDateTime(dto.getGroupCloseDateTime());
 				groupEventDetails.setRemarks(dto.getRemarks());
 				groupEventDetails.setLastUpdated(dto.getLastUpdated());
 				groupEventDetails.setUserUpdated(dto.getUserUpdated());
@@ -58,7 +57,6 @@ public class GroupEventBuilder {
 				dto.setNumberOfPigs(groupEventDetails.getNumberOfPigs());
 				dto.setWeightInKgs(groupEventDetails.getWeightInKgs());
 				dto.setInventoryAdjustment(groupEventDetails.getInventoryAdjustment());
-				dto.setGroupCloseDateTime(groupEventDetails.getGroupCloseDateTime());
 				dto.setRemarks(groupEventDetails.getRemarks());
 				dto.setLastUpdated(groupEventDetails.getLastUpdated());
 				dto.setUserUpdated(groupEventDetails.getUserUpdated());

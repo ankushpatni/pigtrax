@@ -2,10 +2,12 @@ package com.pigtrax.pigevents.dto;
 
 import java.util.Date;
 
+import com.pigtrax.master.dto.EmployeeGroupDto;
+
 public class GroupEventDto {
 	
 	private Integer id;
-	private String groupId;
+	private int groupId;
 	private String origin;
 	private Date dateOfEntry;
 	private Integer roomId;
@@ -17,6 +19,7 @@ public class GroupEventDto {
 	private Date lastUpdated;
 	private String userUpdated;
 	private Integer phaseOfProductionTypeId;
+	private EmployeeGroupDto employeeGroup;
 	
 	//groupevent fields
 	
@@ -34,10 +37,10 @@ public class GroupEventDto {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getGroupId() {
+	public int getGroupId() {
 		return groupId;
 	}
-	public void setGroupId(String groupId) {
+	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
 	public String getOrigin() {
@@ -142,5 +145,12 @@ public class GroupEventDto {
 	public void setUserUpdatedGroupEvent(String userUpdatedGroupEvent) {
 		this.userUpdatedGroupEvent = userUpdatedGroupEvent;
 	}
+	public EmployeeGroupDto getEmployeeGroup() {
+		return employeeGroup;
+	}
+	public void setEmployeeGroup(EmployeeGroupDto employeeGroup) {
+		this.employeeGroup = employeeGroup;
+	}
+	
 
 }
