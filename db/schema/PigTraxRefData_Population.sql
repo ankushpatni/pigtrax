@@ -397,6 +397,9 @@ INSERT INTO pigtrax."Employee"(
 
 VALUES ('praveenfarmemployee2',3, 'Tom', null, true, false, CURRENT_DATE,'pigtraxadmin',null);
 
+INSERT into pigtrax."EmployeeJobFunction" ("functionName", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values ('ANY',CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',9);
+
+INSERT into pigtrax."EmployeeJobFunction" ("functionName", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values ('ANY',CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',10);
 
 INSERT INTO pigtrax."Company"(
 
