@@ -34,19 +34,20 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	@Override
-	public GroupEventDetails groupEventDetailsListByGroupId(final String groupId) {
-		 String qry = "select \"id\", \"groupId\", \"origin\", \"dateOfEntry\", \"id_Room\", "
-			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"inventoryAdjustment\", "
-			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_PhaseOfProductionType\" from pigtrax.\"GroupEventDetails\" where \"groupId\" = ?";
-				
+	public List<GroupEventDetails> groupEventDetailsListByGroupId(final int groupId) {
+		
+		 String qry = "select \"id\", \"id_GroupEvent\", \"origin\", \"dateOfEntry\", \"id_Room\", "
+			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
+			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_PhaseOfProductionType\" from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = ?";
+		 
 				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 					@Override
 					public void setValues(PreparedStatement ps) throws SQLException {
-						ps.setString(1, groupId);
+						ps.setInt(1, groupId);
 					}}, new GroupEventDetailsMapper());
 
 				if(groupEventDetailsList != null && groupEventDetailsList.size() > 0){
-					return groupEventDetailsList.get(0);
+					return groupEventDetailsList;
 				}
 				return null;
 	}
@@ -168,18 +169,18 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 			public GroupEventDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
 				GroupEventDetails groupEventDetails = new GroupEventDetails();
 				groupEventDetails.setId(rs.getInt("id"));
-				groupEventDetails.setGroupId(rs.getInt("groupId"));
+				groupEventDetails.setGroupId(rs.getInt("id_GroupEvent"));
 				groupEventDetails.setOrigin(rs.getString("origin"));
 				groupEventDetails.setDateOfEntry(rs.getDate("dateOfEntry"));
-				groupEventDetails.setRoomId(rs.getInt("roomId"));
-				groupEventDetails.setEmployeeGroupId(rs.getInt("employeeGroupId"));
+				groupEventDetails.setRoomId(rs.getInt("id_Room"));
+				groupEventDetails.setEmployeeGroupId(rs.getInt("id_EmployeeGroup"));
 				groupEventDetails.setNumberOfPigs(rs.getInt("numberOfPigs"));
 				groupEventDetails.setWeightInKgs(rs.getInt("weightInKgs"));
-				groupEventDetails.setInventoryAdjustment(rs.getInt("inventoryAdjustment"));
+				groupEventDetails.setInventoryAdjustment(rs.getInt("indeventoryAdjustment"));
 				groupEventDetails.setRemarks(rs.getString("remarks"));
 				groupEventDetails.setLastUpdated(rs.getDate("lastUpdated"));
 				groupEventDetails.setUserUpdated(rs.getString("userUpdated"));
-				groupEventDetails.setPhaseOfProductionTypeId(rs.getInt("phaseOfProductionTypeId"));
+				groupEventDetails.setPhaseOfProductionTypeId(rs.getInt("id_PhaseOfProductionType"));
 				return groupEventDetails;
 			}
 		}

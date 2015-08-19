@@ -1,13 +1,13 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
 import java.sql.SQLException;
+import java.util.List;
 
-import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 
 public interface GroupEventDetailsDao {
 	
-	GroupEventDetails groupEventDetailsListByGroupId(final String groupId);
+	List<GroupEventDetails> groupEventDetailsListByGroupId(final int groupId);
 	
 	GroupEventDetails groupEventDetailsListById(final Integer id) ;
 	   

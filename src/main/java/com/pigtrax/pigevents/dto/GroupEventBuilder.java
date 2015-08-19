@@ -43,7 +43,7 @@ public class GroupEventBuilder {
 	    * @param info
 	    * @return
 	    */
-	   public GroupEventDto convertToDto(GroupEventDetails groupEventDetails)
+	   public static GroupEventDto convertToDto(GroupEventDetails groupEventDetails)
 	   {
 		   GroupEventDto dto = new GroupEventDto();
 		   if(groupEventDetails != null)
@@ -60,7 +60,7 @@ public class GroupEventBuilder {
 				dto.setRemarks(groupEventDetails.getRemarks());
 				dto.setLastUpdated(groupEventDetails.getLastUpdated());
 				dto.setUserUpdated(groupEventDetails.getUserUpdated());
-				dto.setPhaseOfProductionTypeId(dto.getPhaseOfProductionTypeId());
+				dto.setPhaseOfProductionTypeId(groupEventDetails.getPhaseOfProductionTypeId());
 		   }
 		   return dto;
 	   }
@@ -70,7 +70,7 @@ public class GroupEventBuilder {
 	    * @param pregnancyEvents
 	    * @return
 	    */
-	   public List<GroupEventDto> convertToDtos(List<GroupEventDetails> groupEventDetailsL)
+	   public static List<GroupEventDto> convertToDtos(List<GroupEventDetails> groupEventDetailsL)
 	   {
 		   List<GroupEventDto> groupEventList = new ArrayList<GroupEventDto>();
 		   for(GroupEventDetails groupEventDetails : groupEventDetailsL)

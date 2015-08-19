@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.service.interfaces;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
@@ -8,7 +9,7 @@ import com.pigtrax.pigevents.dto.GroupEventDto;
 
 public interface GroupEventDetailsService {
 
-	GroupEventDetails groupEventDetailsListByGroupId(final String groupId);
+	List<GroupEventDetails> groupEventDetailsListByGroupId(final int groupId);
 	
 	GroupEventDetails groupEventDetailsListById(final Integer id) ;
 	   

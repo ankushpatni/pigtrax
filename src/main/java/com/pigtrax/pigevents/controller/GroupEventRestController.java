@@ -1,5 +1,7 @@
 package com.pigtrax.pigevents.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -47,7 +49,17 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			groupEvent.setUserUpdated(activeUser.getUsername());
-			int rowsInserted = groupEventService.addGroupEvent(groupEvent);
+			int rowsInserted = 0;
+			if(null != groupEvent && groupEvent.getId() == 0)
+			{
+				rowsInserted = groupEventService.addGroupEvent(groupEvent);
+				dto.setRecordAdded(true);
+			}
+			else if( null != groupEvent && groupEvent.getId() !=0)
+			{
+				rowsInserted = groupEventService.updateGroupEvent(groupEvent);
+				dto.setRecordUpdated(true);
+			}
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
 			if(e.isDuplicateStatus())
@@ -75,10 +87,10 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 			String language = localeResolver.resolveLocale(request).getLanguage();
 			
-			GroupEvent groupEvent = groupEventService.getGroupEventByGroupId(groupId);
-			if(groupEvent != null)
+			List groupEventAndDetail = groupEventService.getGroupEventAndDetailByGroupId(groupId);
+			if(groupEventAndDetail != null && groupEventAndDetail.size()>0 )
 			{
-				dto.setPayload(groupEvent);
+				dto.setPayload(groupEventAndDetail);
 				dto.setStatusMessage("Success");
 			} 
 			else

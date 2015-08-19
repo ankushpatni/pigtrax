@@ -21,15 +21,7 @@ public class GroupEventDto {
 	private Integer phaseOfProductionTypeId;
 	private EmployeeGroupDto employeeGroup;
 	
-	//groupevent fields
-	
-	private Date groupStartDateTime;
-	private Date groupCloseDateTime;
-	private boolean isActive;
-	private String remarksGroupEvent;
-	private Date lastUpdatedGroupEvent;
-	private String userUpdatedGroupEvent;
-	
+	//groupevent fields	
 	
 	public Integer getId() {
 		return id;
@@ -85,12 +77,7 @@ public class GroupEventDto {
 	public void setInventoryAdjustment(Integer inventoryAdjustment) {
 		this.inventoryAdjustment = inventoryAdjustment;
 	}
-	public Date getGroupCloseDateTime() {
-		return groupCloseDateTime;
-	}
-	public void setGroupCloseDateTime(Date groupCloseDateTime) {
-		this.groupCloseDateTime = groupCloseDateTime;
-	}
+	
 	public String getRemarks() {
 		return remarks;
 	}
@@ -115,36 +102,7 @@ public class GroupEventDto {
 	public void setPhaseOfProductionTypeId(Integer phaseOfProductionTypeId) {
 		this.phaseOfProductionTypeId = phaseOfProductionTypeId;
 	}
-	public Date getGroupStartDateTime() {
-		return groupStartDateTime;
-	}
-	public void setGroupStartDateTime(Date groupStartDateTime) {
-		this.groupStartDateTime = groupStartDateTime;
-	}
-	public boolean isActive() {
-		return isActive;
-	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-	public String getRemarksGroupEvent() {
-		return remarksGroupEvent;
-	}
-	public void setRemarksGroupEvent(String remarksGroupEvent) {
-		this.remarksGroupEvent = remarksGroupEvent;
-	}
-	public Date getLastUpdatedGroupEvent() {
-		return lastUpdatedGroupEvent;
-	}
-	public void setLastUpdatedGroupEvent(Date lastUpdatedGroupEvent) {
-		this.lastUpdatedGroupEvent = lastUpdatedGroupEvent;
-	}
-	public String getUserUpdatedGroupEvent() {
-		return userUpdatedGroupEvent;
-	}
-	public void setUserUpdatedGroupEvent(String userUpdatedGroupEvent) {
-		this.userUpdatedGroupEvent = userUpdatedGroupEvent;
-	}
+	
 	public EmployeeGroupDto getEmployeeGroup() {
 		return employeeGroup;
 	}

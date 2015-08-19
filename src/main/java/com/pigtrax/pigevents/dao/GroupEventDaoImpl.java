@@ -92,10 +92,25 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
-					ps.setDate(1, new java.sql.Date(groupEvent
+					if( null != groupEvent.getGroupStartDateTime())
+					{
+						ps.setDate(1, new java.sql.Date(groupEvent
 							.getGroupStartDateTime().getTime()));
+					}
+					else
+					{
+						ps.setNull(1, java.sql.Types.DATE);
+					}
+					if( null != groupEvent.getGroupStartDateTime())
+					{
 					ps.setDate(2, new java.sql.Date(groupEvent
 							.getGroupCloseDateTime().getTime()));
+					}
+					else
+					{
+						ps.setNull(2, java.sql.Types.DATE);
+					}
+					
 					ps.setBoolean(3, groupEvent.isActive());
 					ps.setString(4, groupEvent.getRemarks());
 					ps.setDate(5, new java.sql.Date(System.currentTimeMillis()));

@@ -2,6 +2,8 @@ package com.pigtrax.pigevents.service;
 
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.pigevents.beans.GroupEvent;
-import com.pigtrax.pigevents.beans.PigTraxEventMaster;
+import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
-import com.pigtrax.util.UserUtil;
 
 @Repository
 public class GroupEventServiceImpl implements GroupEventService{
@@ -32,6 +34,9 @@ public class GroupEventServiceImpl implements GroupEventService{
 	@Autowired 
 	PigTraxEventMasterDao eventMasterDao;
 	
+	@Autowired 
+	GroupEventDetailsDao groupEventDetailsDao;
+	
 
 	@Override
 	public GroupEvent getGroupEventByGroupId(String groupId)
@@ -45,6 +50,32 @@ public class GroupEventServiceImpl implements GroupEventService{
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
 	}
+	
+	@Override
+	public List getGroupEventAndDetailByGroupId(String groupId)
+			throws PigTraxException {
+		try 
+		{
+			List phaseType = new ArrayList();
+			GroupEvent groupEvent =  groupEventDao.getGroupEventByGroupId(groupId);
+			if(null != groupEvent)
+			{
+				phaseType.add(groupEvent);
+				List<GroupEventDetails> groupEventDetailsList = groupEventDetailsDao.groupEventDetailsListByGroupId(groupEvent.getId());
+				if(null != groupEventDetailsList)
+				{
+					phaseType.add(groupEventDetailsList);
+				}
+			}
+			return phaseType;
+		}
+		catch (SQLException e)
+		{
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
+	}
+	
+	
 
 	@Override
 	@Transactional("ptxJTransactionManager")
@@ -82,9 +113,17 @@ public class GroupEventServiceImpl implements GroupEventService{
 	}
 
 	@Override
-	public int updateGroupEvent(GroupEvent groupEvent) throws SQLException {
+	public int updateGroupEvent(GroupEvent groupEvent) throws PigTraxException {
 		
-		return groupEventDao.updateGroupEvent(groupEvent);
+		try {
+			int generatedId = groupEventDao.updateGroupEvent(groupEvent);
+			return generatedId;
+		} 
+		catch (SQLException sqlEx) {
+			
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());			
+		} 
 	}
 
 	@Override

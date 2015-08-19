@@ -7,6 +7,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.groupEventDetailList = [];
 	$scope.confirmClick = false;
 	$scope.phaseOfProductionType = {};
+	$scope.roomList={};
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
 	{
@@ -17,6 +18,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			if(!data.error)
 				{
 					$scope.phaseOfProductionType = data.payload[0];	
+					$scope.groupEvent = data.payload[0];
+					$scope.groupEventDetailList	= data.payload[1];
 									
 				}
 			else
@@ -67,7 +70,13 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"groupStartDateTime" : document.getElementById("groupStartDateTime").value,
 					"groupCloseDateTime" : document.getElementById("groupCloseDateTime").value,					
 					"remarks" : $scope.groupEvent.remarks,
+					
 				};
+				if($scope.groupEvent.id != undefined && $scope.groupEvent.id >0)
+				{
+					postParam.id = $scope.groupEvent.id;
+					postParam.active = $scope.groupEvent.active;
+				}
 			
 			restServices.saveGroupEventInformation(postParam, function(data){
 				if(!data.error)
@@ -108,7 +117,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			if(!data.error)
 				{
 					$scope.clearAllMessages();
-					$scope.groupEvent = data.payload;	
+					$scope.groupEvent = data.payload[0];
+					$scope.groupEventDetailList	= data.payload[1];				
 					$window.scrollTo(0,550);					
 				}
 			else
@@ -123,43 +133,10 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 						$scope.entryEventErrorMessage = true;
 					}
 				}
-				//$window.scrollTo(0, 5);  
 		});
 	}
 	
-/*	$scope.addGroupEventDetailData = function () {
-			var modalInstance = $modal.open ({
-    			templateUrl: 'addGroupEventDetail',
-    			controller: 'addGroupEventDetailCtrl',
-    			backdrop:true,
-    			windowClass : 'cp-model-window',
-				resolve:{
-					addGroupEventDetailData : function(){
-						var addGroupEventDetailData={};
-						if($scope.searchText != undefined || $scope.searchText !== "")
-						{
-							addGroupEventDetailData.groupId= $scope.searchText;
-						}
-						else
-						{
-							addGroupEventDetailData.groupId = $scope.groupEvent.groupId;
-						}
-						addGroupEventDetailData.phaseOfProductionType = $scope.phaseOfProductionType;
-						addGroupEventDetailData.companyId = $scope.companyId;
-    					return addGroupEventDetailData;
-    				}
-    			}
-    		});
-    		
-    		modalInstance.result.then( function(res) {    			
-    			if(res.statusMessage==="SUCCESS")
-				{
-					//$scope.getBarnList($scope.premisesId,$scope.generatedPremisesId);				
-				}
-    		});
-    }*/
-	
-	$scope.addGroupEventDetailData = function(groupId,groupDetailId)
+	$scope.addGroupEventDetailData = function(groupEventId)
 	{
 		document.getElementById("searchedGroupid").value = $scope.groupEvent.groupId;
 		document.getElementById("groupEventId").value = groupEventId;
