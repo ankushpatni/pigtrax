@@ -11,9 +11,9 @@ public interface GroupEventDetailsService {
 
 	List<GroupEventDetails> groupEventDetailsListByGroupId(final int groupId);
 	
-	GroupEventDetails groupEventDetailsListById(final Integer id) ;
+	GroupEventDto groupEventDetailsListById(final Integer id) throws PigTraxException;
 	   
-	int updateGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException;
+	int updateGroupEventDetails(final GroupEventDto groupEventDto) throws PigTraxException;
 	   
 	int addGroupEventDetails(final GroupEventDto groupEventDto) throws PigTraxException;
 	 

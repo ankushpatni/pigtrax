@@ -39,11 +39,11 @@ public class GroupEventServiceImpl implements GroupEventService{
 	
 
 	@Override
-	public GroupEvent getGroupEventByGroupId(String groupId)
+	public GroupEvent getGroupEventByGroupId(String groupId, int companyId)
 			throws PigTraxException {
 		try 
 		{
-			return groupEventDao.getGroupEventByGroupId(groupId);
+			return groupEventDao.getGroupEventByGroupId(groupId,companyId);
 		}
 		catch (SQLException e)
 		{
@@ -52,12 +52,12 @@ public class GroupEventServiceImpl implements GroupEventService{
 	}
 	
 	@Override
-	public List getGroupEventAndDetailByGroupId(String groupId)
+	public List getGroupEventAndDetailByGroupId(String groupId, int companyId)
 			throws PigTraxException {
 		try 
 		{
 			List phaseType = new ArrayList();
-			GroupEvent groupEvent =  groupEventDao.getGroupEventByGroupId(groupId);
+			GroupEvent groupEvent =  groupEventDao.getGroupEventByGroupId(groupId,companyId);
 			if(null != groupEvent)
 			{
 				phaseType.add(groupEvent);

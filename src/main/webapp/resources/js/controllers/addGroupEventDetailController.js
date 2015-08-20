@@ -15,7 +15,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
 		$scope.groupEvent.groupId = groupGeneratedId;
-		console.log(groupGeneratedId);
+		console.log(groupDetailId);
 		restServices.getPhaseOfProductionType("", function(data){
 			console.log(data);
 			if(!data.error)
@@ -29,8 +29,27 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 				} 
 		});
 		
+		if( groupDetailId)
+		{
+			$scope.getGroupEventDetail(groupDetailId);
+		}
+		
 	};
 	
+	$scope.getGroupEventDetail = function(groupDetailId)
+    {
+		restServices.getGroupEventDetail(groupDetailId, function(data){
+			console.log(data);
+			if(!data.error)
+				{
+					$scope.groupEvent = data.payload;
+				}
+			else
+				{
+					
+				}
+		});
+    }
 	
 	
 	$scope.addGroupEventDetail = function()
@@ -68,7 +87,8 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
     
     $scope.gotoGroupEvent = function()
     {
-    	document.getElementById("searchedGroupid").value = $scope.groupAlphaId;		
+    	document.getElementById("searchedGroupid").value = $scope.groupAlphaId;	
+		document.getElementById("selectedCompany").value = $scope.companyId;		
 		document.forms['groupEventDetailAddForm'].action = 'groupEvent';
 		document.forms['groupEventDetailAddForm'].submit();
     }	

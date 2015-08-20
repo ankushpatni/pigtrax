@@ -55,8 +55,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 
 	@Override
 	public GroupEventDetails groupEventDetailsListById(final Integer id) {
-		 String qry = "select \"id\", \"groupId\", \"origin\", \"dateOfEntry\", \"id_Room\", "
-			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"inventoryAdjustment\", "
+		 String qry = "select \"id\", \"id_GroupEvent\", \"origin\", \"dateOfEntry\", \"id_Room\", "
+			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
 			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_PhaseOfProductionType\" from pigtrax.\"GroupEventDetails\" where \"id\" = ?";
 				
 				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -75,7 +75,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	public int updateGroupEventDetails(final GroupEventDetails groupEventDetails)
 			throws SQLException {
 		final String Qry = "update pigtrax.\"GroupEventDetails\" set \"origin\" = ?, \"dateOfEntry\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?," +
-			"\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"inventoryAdjustment\" = ?, \"remarks\" = ?,  \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_PhaseOfProductionType\" = ? where \"id\" = ? ";
+			"\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"indeventoryAdjustment\" = ?, \"remarks\" = ?,  \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_PhaseOfProductionType\" = ? where \"id\" = ? ";
 
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
@@ -83,12 +83,24 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				ps.setString(1, groupEventDetails.getOrigin());
 				ps.setDate(2, new java.sql.Date(groupEventDetails.getDateOfEntry()
 						.getTime()));
-				ps.setInt(3, groupEventDetails.getRoomId());
-				ps.setInt(4, groupEventDetails.getEmployeeGroupId());
+				if(groupEventDetails.getRoomId() != null && groupEventDetails.getRoomId() != 0)
+ 	            	ps.setInt(3, groupEventDetails.getRoomId());
+ 	            else
+ 	            	ps.setNull(3, java.sql.Types.INTEGER);
+				if(groupEventDetails.getEmployeeGroupId() != null && groupEventDetails.getEmployeeGroupId() != 0)
+ 	            	ps.setInt(4, groupEventDetails.getEmployeeGroupId());
+ 	            else
+ 	            	ps.setNull(4, java.sql.Types.INTEGER);
+				
 				ps.setInt(5, groupEventDetails.getNumberOfPigs());
 				ps.setInt(6, groupEventDetails.getWeightInKgs());
-				ps.setInt(7, groupEventDetails.getInventoryAdjustment());
-				ps.setString(8, groupEventDetails.getRemarks());
+				
+				if(groupEventDetails.getInventoryAdjustment() != null && groupEventDetails.getInventoryAdjustment() != 0)
+ 	            	ps.setInt(7, groupEventDetails.getInventoryAdjustment());
+ 	            else
+ 	            	ps.setNull(7, java.sql.Types.INTEGER);
+ 			
+ 	            ps.setString(8, groupEventDetails.getRemarks());
 				ps.setString(9, groupEventDetails.getUserUpdated());
 				ps.setInt(10, groupEventDetails.getPhaseOfProductionTypeId());
 				ps.setInt(11, groupEventDetails.getId());

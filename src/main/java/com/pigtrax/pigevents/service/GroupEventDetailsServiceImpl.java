@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.master.dto.EmployeeGroupDto;
+import com.pigtrax.master.service.interfaces.EmployeeGroupService;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dto.GroupEventBuilder;
@@ -25,6 +27,9 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsServiceIm
 	
 	@Autowired
 	RefDataCache refDataCache;
+	
+	@Autowired
+	EmployeeGroupService employeeGroupService;
 
 	@Override
 	public List<GroupEventDetails> groupEventDetailsListByGroupId(int groupId) {
@@ -32,14 +37,35 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsServiceIm
 	}
 
 	@Override
-	public GroupEventDetails groupEventDetailsListById(Integer id) {
-		return groupEventDetailsDao.groupEventDetailsListById(id);
+	public GroupEventDto groupEventDetailsListById(Integer id) throws PigTraxException {
+		GroupEventDto groupEventDto = null;
+		GroupEventDetails groupEventDetails = groupEventDetailsDao
+				.groupEventDetailsListById(id);
+
+		if (null != groupEventDetails) {
+			groupEventDto = GroupEventBuilder.convertToDto(groupEventDetails);
+			// Get the employee group details
+			EmployeeGroupDto empGrpDto;
+
+			empGrpDto = employeeGroupService.getEmployeeGroup(groupEventDto
+					.getEmployeeGroupId());
+
+			groupEventDto.setEmployeeGroup(empGrpDto);
+		}
+
+		return groupEventDto;
 	}
 
 	@Override
-	public int updateGroupEventDetails(GroupEventDetails groupEventDetails)
-			throws SQLException {
-		return groupEventDetailsDao.updateGroupEventDetails(groupEventDetails);
+	public int updateGroupEventDetails(GroupEventDto groupEventDetails)
+			throws PigTraxException {
+		try {
+			return groupEventDetailsDao.updateGroupEventDetails(GroupEventBuilder.convertToBean(groupEventDetails));
+		} 
+		catch (SQLException e)
+		{
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
 	}
 
 	@Override

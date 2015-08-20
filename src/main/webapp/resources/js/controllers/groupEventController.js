@@ -11,10 +11,10 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
 	{
+	console.log(companyId);
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
 		restServices.getPhaseOfProductionType("", function(data){
-			console.log(data);
 			if(!data.error)
 				{
 					$scope.phaseOfProductionType = data.payload[0];	
@@ -31,7 +31,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		if( searchedGroupid)
 		{
 			$scope.searchText = searchedGroupid
-			$scope.getGroupEventInformation(searchedGroupid);
+			$scope.getGroupEventInformation(searchedGroupid,true);
+			$scope.entryEventSuccessMessage = true;
 		}
 		
 	};
@@ -108,18 +109,25 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		console.log('change group event status');
 	}
 	
-	$scope.getGroupEventInformation = function (searchGroupEvent)
+	$scope.getGroupEventInformation = function (searchGroupEvent,flag)
 	{
 		console.log('Group ID is '+ $scope.searchText);
+		var postParam = {
+				
+				"groupId" : searchGroupEvent,
+				"companyId" : $rootScope.companyId,
+			};
 		
-		restServices.getGroupEventInformation(searchGroupEvent, function(data){
+		restServices.getGroupEventInformation(postParam, function(data){
 			console.log(data);
 			if(!data.error)
 				{
 					$scope.clearAllMessages();
 					$scope.groupEvent = data.payload[0];
 					$scope.groupEventDetailList	= data.payload[1];				
-					$window.scrollTo(0,550);					
+					$window.scrollTo(0,550);
+					if(flag)					
+					$scope.entryEventSuccessMessage = true;					
 				}
 			else
 				{

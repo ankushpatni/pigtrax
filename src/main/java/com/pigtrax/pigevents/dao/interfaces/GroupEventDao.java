@@ -6,7 +6,7 @@ import com.pigtrax.pigevents.beans.GroupEvent;
 
 public interface GroupEventDao {
 	
-	GroupEvent getGroupEventByGroupId(final String groupId) throws SQLException;
+	GroupEvent getGroupEventByGroupId(final String groupId, final int companyId) throws SQLException;
 	
 	int addGroupEvent(final GroupEvent groupEvent) throws SQLException;
 	
