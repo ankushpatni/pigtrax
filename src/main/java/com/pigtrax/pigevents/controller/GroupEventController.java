@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.service.interfaces.CompanyService;
@@ -22,6 +24,9 @@ public class GroupEventController {
 	 
 	 @Autowired
 	 CompanyService companyService;
+	 
+	 @Autowired
+	 GroupEventService groupEventService;
 	 
 	  @RequestMapping(value="/groupEvent", method=RequestMethod.POST)
 	   public String loadGroupEvent(HttpServletRequest request, Model model)  
@@ -59,13 +64,35 @@ public class GroupEventController {
 		{
 			model.addAttribute("contentUrl","addGroupEventDetail.jsp"); 
 			model.addAttribute("groupId",request.getParameter("searchedGroupid"));
-			model.addAttribute("groupGeneratedId",request.getParameter("groupGeneratedIdSeq"));
 			model.addAttribute("companyId",request.getParameter("companyId"));
+			model.addAttribute("groupEventId",request.getParameter("groupEventId"));
+			
+			
 			 
-			 if(request.getParameter("groupEventId") != null) 
+			 if(request.getParameter("groupGeneratedIdSeq") != null && ! "undefined".equals(request.getParameter("groupGeneratedIdSeq"))) 
 			   {
-				 model.addAttribute("groupEventId",request.getParameter("groupEventId"));
+				 model.addAttribute("groupGeneratedId",request.getParameter("groupGeneratedIdSeq"));
+					
 			   }
+			 else if(null != request.getParameter("companyId"))
+			 {
+				 try 
+				 {
+					GroupEvent groupEvent =  groupEventService.getGroupEventByGroupId(request.getParameter("searchedGroupid"),Integer.parseInt(request.getParameter("companyId")));
+					if(null != groupEvent)
+					{
+						model.addAttribute("groupGeneratedId",groupEvent.getId());
+					}
+					
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					//dto.setStatusMessage("ERROR : "+e.getMessage());
+				}
+				 catch (PigTraxException e1) {
+						e1.printStackTrace();
+						//dto.setStatusMessage("ERROR : "+e.getMessage());
+					}					
+			 }
 			return "template";
 		}	   
 
