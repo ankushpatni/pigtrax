@@ -132,6 +132,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			else
 				{
 					$scope.groupEvent = {};
+					$scope.groupEventDetailList=[];
+					$scope.clearAllMessages();
 					if(data.recordNotPresent)
 					{
 						$scope.searchDataErrorMessage = true;
