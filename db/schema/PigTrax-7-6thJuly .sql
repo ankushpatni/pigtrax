@@ -1882,3 +1882,28 @@ ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "GroupEvent_fk" FOREIGN K
 REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+--Views
+CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
+as(
+SELECT co.id AS companyserialid, co."companyId", pr.id AS premiseserialid, pr."permiseId", ba.id AS barnserialid, ba."barnId", si.id, si."siloId"
+FROM
+pigtrax."Company" AS co
+LEFT OUTER JOIN pigtrax."Premise" AS pr ON co.id=pr."id_Company"
+LEFT OUTER JOIN pigtrax."Barn" AS ba ON pr.id = ba."id_Premise"
+LEFT OUTER JOIN pigtrax."Silo" AS si ON ba.id = si."id_Barn"
+ORDER BY co.id, pr.id
+)
+
+
+CREATE OR REPLACE VIEW pigtrax."CompPremBarnRoomPenVw"
+as(
+SELECT co.id AS companyserialid, co."companyId", pr.id AS premiseserialid, pr."permiseId", ba.id AS barnserialid, ba."barnId", ro.id AS roomserrialid, ro."roomId", pe.id AS penserialid, pe."penId" 
+FROM
+pigtrax."Company" AS co
+LEFT OUTER JOIN pigtrax."Premise" AS pr ON co.id=pr."id_Company"
+LEFT OUTER JOIN pigtrax."Barn" AS ba ON pr.id = ba."id_Premise"
+LEFT OUTER JOIN pigtrax."Room" AS ro ON ba.id = ro."id_Barn"
+LEFT OUTER JOIN pigtrax."Pen" AS pe ON ro.id = pe."id_Room"
+ORDER BY co.id, pr.id
+)
