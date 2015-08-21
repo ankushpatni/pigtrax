@@ -15,10 +15,12 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
+import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
+import com.pigtrax.util.UserUtil;
 
 @Repository
 public class GroupEventServiceImpl implements GroupEventService{
@@ -82,11 +84,12 @@ public class GroupEventServiceImpl implements GroupEventService{
 	public int addGroupEvent(GroupEvent groupEvent) throws PigTraxException {
 		try {
 			int generatedId = groupEventDao.addGroupEvent(groupEvent);
-			/*PigTraxEventMaster master = new PigTraxEventMaster();
+			PigTraxEventMaster master = new PigTraxEventMaster();
 			master.setUserUpdated(UserUtil.getLoggedInUser());
 			master.setEventTime(groupEvent.getGroupStartDateTime());
 			master.setGroupEventId(generatedId);
-			eventMasterDao.insertEntryEventDetails(master);*/
+			master.setLastUpdated( new java.sql.Date(System.currentTimeMillis()));
+			eventMasterDao.insertEntryEventDetails(master);
 			
 			return generatedId;
 		} 

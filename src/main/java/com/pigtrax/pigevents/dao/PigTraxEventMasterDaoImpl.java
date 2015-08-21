@@ -46,7 +46,10 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
 				ps.setDate(1, new java.sql.Date(master.getEventTime().getTime()));
-				ps.setInt(2, master.getPigInfoId());
+				if(null != master.getPigInfoId())
+					ps.setInt(2, master.getPigInfoId());
+				else
+					ps.setNull(2, java.sql.Types.INTEGER);
 				ps.setString(3, master.getUserUpdated());
 				ps.setObject(4, (master.getGroupEventId() != null)?master.getGroupEventId():null);
 				ps.setObject(5, (master.getBreedingEventId() != null)?master.getBreedingEventId():null);
