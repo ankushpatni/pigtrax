@@ -473,7 +473,6 @@ CREATE TABLE pigtrax."FeedEvent"(
 	"feedId" varchar(30) NOT NULL,
 	"feedDateTime" timestamp NOT NULL,
 	"id_Silo" integer,
-	"id_TransportJourney" integer,
 	"id_GroupEvent" integer,
 	"id_FeedEventType" integer,
 	"batchId" varchar(30) NOT NULL,
@@ -614,13 +613,6 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ALTER TABLE pigtrax."TransportJourney" DROP CONSTRAINT IF EXISTS "TransportTrailer_fk" CASCADE;
 ALTER TABLE pigtrax."TransportJourney" ADD CONSTRAINT "TransportTrailer_fk" FOREIGN KEY ("id_TransportTrailer")
 REFERENCES pigtrax."TransportTrailer" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
-
--- object: "TransportJourney_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."FeedEvent" DROP CONSTRAINT IF EXISTS "TransportJourney_fk" CASCADE;
-ALTER TABLE pigtrax."FeedEvent" ADD CONSTRAINT "TransportJourney_fk" FOREIGN KEY ("id_TransportJourney")
-REFERENCES pigtrax."TransportJourney" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
