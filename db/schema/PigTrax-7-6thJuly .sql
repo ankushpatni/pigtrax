@@ -242,7 +242,6 @@ CREATE TABLE pigtrax."TransportJourney"(
 	"userUpdated" varchar(20) NOT NULL,
 	"id_TransportTruck" integer,
 	"id_TransportTrailer" integer,
-	"id_EmployeeGroup" integer,
 	CONSTRAINT "TRANSPORT_PK" PRIMARY KEY (id)
 
 );
@@ -473,6 +472,7 @@ CREATE TABLE pigtrax."FeedEvent"(
 	"feedId" varchar(30) NOT NULL,
 	"feedDateTime" timestamp NOT NULL,
 	"id_Silo" integer,
+	"id_TransportJourney" integer,
 	"id_GroupEvent" integer,
 	"id_FeedEventType" integer,
 	"batchId" varchar(30) NOT NULL,
@@ -613,6 +613,13 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ALTER TABLE pigtrax."TransportJourney" DROP CONSTRAINT IF EXISTS "TransportTrailer_fk" CASCADE;
 ALTER TABLE pigtrax."TransportJourney" ADD CONSTRAINT "TransportTrailer_fk" FOREIGN KEY ("id_TransportTrailer")
 REFERENCES pigtrax."TransportTrailer" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "TransportJourney_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FeedEvent" DROP CONSTRAINT IF EXISTS "TransportJourney_fk" CASCADE;
+ALTER TABLE pigtrax."FeedEvent" ADD CONSTRAINT "TransportJourney_fk" FOREIGN KEY ("id_TransportJourney")
+REFERENCES pigtrax."TransportJourney" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -906,13 +913,6 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ALTER TABLE pigtrax."EmployeeGroup" DROP CONSTRAINT IF EXISTS "EmployeeJobFunction_fk" CASCADE;
 ALTER TABLE pigtrax."EmployeeGroup" ADD CONSTRAINT "EmployeeJobFunction_fk" FOREIGN KEY ("id_EmployeeJobFunction")
 REFERENCES pigtrax."EmployeeJobFunction" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
-
--- object: "EmployeeGroup_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."TransportJourney" DROP CONSTRAINT IF EXISTS "EmployeeGroup_fk" CASCADE;
-ALTER TABLE pigtrax."TransportJourney" ADD CONSTRAINT "EmployeeGroup_fk" FOREIGN KEY ("id_EmployeeGroup")
-REFERENCES pigtrax."EmployeeGroup" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
