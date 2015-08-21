@@ -206,5 +206,63 @@ pigTrax.directive('ngConfirmClick', [ function() {
 		      })
 		    }
 		  }
-		});
+		})
+.directive('myReset', function(){
+	  return {
+		     restrict: 'A',
+		    /* scope: {
+		       text: '='
+		     },*/
+		     link: function(scope, element, attrs){
+		       scope.changeText = function(){
+		          var DOMForm = angular.element(element)[0];
+
+		                // This is the the scope form model
+		                // All validation states are containted here
+		                 var scopeForm = scope[DOMForm.name];
+
+		                // Set the default submitted state to false
+		               // scopeForm.submitted = false;
+		                 for (var i = 0; i < DOMForm.length; i++) {
+		                        // This ensures we are only watching form fields
+		                        if (i in DOMForm) {
+		                            var element1 = DOMForm[i];
+		                            ////ankush
+		                        if (!(element1.name in scopeForm)) {
+		                                continue;
+		                         }
+		                    var formField = scopeForm[element1.name];
+
+		                   /*  var elementSiblings = angular.element(element1).parent().children();
+		                    for (var j = 0; i < elementSiblings.length; j++) {
+		                        if (angular.element(elementSiblings[j]).hasClass("validationMessage")) {
+		                            angular.element(elementSiblings[j]).remove();
+		                        }
+		                    }*/
+		                     var elementSiblings = angular.element(element1).parent().children();
+		                    for (var k = 0; k < elementSiblings.length; k++) {
+		                        if (angular.element(elementSiblings[k]).hasClass("validationMessage")) {
+		                            angular.element(elementSiblings[k]).remove();
+		                        }
+		                    }
+		                    scope[element1.form.name].submitted = false;
+							scope[element1.form.name].$dirty = false;
+
+		                    // Only add/remove validation classes if the field is $dirty or the form has been submitted
+		                    if (scope[element1.form.name].submitted) {
+		                        
+		                            angular.element(element1.parentNode).removeClass('has-error');
+
+		                            // This is extra for users wishing to implement the .has-error class on the field itself
+		                            // instead of on the parent element. Note that Bootstrap requires the .has-error class to be on the parent element
+		                            angular.element(element1).removeClass('has-error');
+		                       
+		                    }     /////ankush
+		                            
+		                        }
+		                    }
+		       };
+		     },
+		  };
+		});		
 

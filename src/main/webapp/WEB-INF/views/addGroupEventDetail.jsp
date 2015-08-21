@@ -75,7 +75,7 @@
                   
 			<button class="btn btn-primary btn-flat md-close"  ng-click="addGroupEventDetail()" ng-hide="groupEvent.id>0"><spring:message code="label.premise.add" text="Add" /></button>
 			<button class="btn btn-primary btn-flat md-close"  ng-click="addGroupEventDetail()" ng-show="groupEvent.id>0"><spring:message code="label.premise.edit" text="Edit" /></button>
-            <button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
+            <button class="btn btn-default btn-flat md-close"  ng-click="gotoGroupEvent()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
 			<input type="hidden" name="searchedGroupid" id="searchedGroupid"/>
 			<input type="hidden" name="selectedCompany" id="selectedCompany"/>
                   </form>

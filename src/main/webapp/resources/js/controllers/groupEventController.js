@@ -50,6 +50,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	{
 		$scope.clearAllMessages();
 		$scope.groupEvent = {};
+		$scope.changeText();
 	}
 	
 	$scope.addGroupEvent = function()

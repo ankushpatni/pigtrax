@@ -43,7 +43,7 @@
                   </div>
                 </div>
                 <div class="content">
-                  <form name="groupEventForm" novalidate angular-validator>
+                  <form name="groupEventForm" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="groupEvent.id"/>
 				  <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.groupId'  text='Group Id'/></label>
