@@ -1893,7 +1893,7 @@ LEFT OUTER JOIN pigtrax."Premise" AS pr ON co.id=pr."id_Company"
 LEFT OUTER JOIN pigtrax."Barn" AS ba ON pr.id = ba."id_Premise"
 LEFT OUTER JOIN pigtrax."Silo" AS si ON ba.id = si."id_Barn"
 ORDER BY co.id, pr.id
-)
+);
 
 
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnRoomPenVw"
@@ -1906,4 +1906,4 @@ LEFT OUTER JOIN pigtrax."Barn" AS ba ON pr.id = ba."id_Premise"
 LEFT OUTER JOIN pigtrax."Room" AS ro ON ba.id = ro."id_Barn"
 LEFT OUTER JOIN pigtrax."Pen" AS pe ON ro.id = pe."id_Room"
 ORDER BY co.id, pr.id
-)
+);
