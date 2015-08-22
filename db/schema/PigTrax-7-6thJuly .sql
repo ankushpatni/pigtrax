@@ -349,11 +349,12 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: pigtrax."PigletStatus" | type: TABLE --
--- DROP TABLE IF EXISTS pigtrax."PigletStatus" CASCADE;
+DROP TABLE IF EXISTS pigtrax."PigletStatus" CASCADE;
 CREATE TABLE pigtrax."PigletStatus"(
 	id serial NOT NULL,
-	"eventId" varchar(30) NOT NULL,
-	"id_PigInfo" integer,
+	"id_PigInfo" integer not null,
+	"fosterFrom" integer,
+	"fosterTo" integer,
 	"id_PigletStatusEventType" integer,
 	"eventDateTime" timestamp NOT NULL,
 	"numberOfPigs" smallint,
@@ -364,8 +365,8 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"weanGroupId" varchar(30),
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
-	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id),
-	CONSTRAINT "PIGLETSTATUS_U_EI" UNIQUE ("eventId")
+	"id_FarrowEvent" int NOT NULL,
+	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id)
 
 );
 -- ddl-end --
@@ -806,7 +807,14 @@ ALTER TABLE pigtrax."Genetics" ADD CONSTRAINT "Genetics_uq" UNIQUE ("id_PigInfo"
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
-ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "PigInfo_fk" FOREIGN KEY ("id_PigInfo")
+ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "PigInfo_FosterFrom_fk" FOREIGN KEY ("fosterFrom")
+REFERENCES pigtrax."PigInfo" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "PigInfo_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
+ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "PigInfo_FosterTo_fk" FOREIGN KEY ("fosterTo")
 REFERENCES pigtrax."PigInfo" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
@@ -926,7 +934,6 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_FarrowEvent" integer,
-	"id_PigletStatus" integer,
 	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId")
 
@@ -939,13 +946,6 @@ ALTER TABLE pigtrax."IndividualPigletStatus" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtrax."IndividualPigletStatus" DROP CONSTRAINT IF EXISTS "FarrowEvent_fk" CASCADE;
 ALTER TABLE pigtrax."IndividualPigletStatus" ADD CONSTRAINT "FarrowEvent_fk" FOREIGN KEY ("id_FarrowEvent")
 REFERENCES pigtrax."FarrowEvent" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
-
--- object: "PigletStatus_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."IndividualPigletStatus" DROP CONSTRAINT IF EXISTS "PigletStatus_fk" CASCADE;
-ALTER TABLE pigtrax."IndividualPigletStatus" ADD CONSTRAINT "PigletStatus_fk" FOREIGN KEY ("id_PigletStatus")
-REFERENCES pigtrax."PigletStatus" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

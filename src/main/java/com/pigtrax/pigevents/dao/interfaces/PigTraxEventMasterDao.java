@@ -16,6 +16,16 @@ public interface PigTraxEventMasterDao {
 	 */
 	int insertEntryEventDetails(PigTraxEventMaster master) throws SQLException;
 	
+	
+	/**
+	 * Insert the entry event details of a pig info
+	 * @param master
+	 * @return
+	 * @throws SQLException
+	 */
+	int updatePigletStatusEventMasterDetails(PigTraxEventMaster master) throws SQLException;
+	
+	
 	/**
 	 * update the breeding event details of a given pigInfoId
 	 * @param breedingEvent

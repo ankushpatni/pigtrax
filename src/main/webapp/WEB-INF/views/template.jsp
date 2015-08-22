@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <html ng-app="pigTrax">
-  <head>
+  <head> 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -64,6 +64,7 @@
 	<script src="resources/js/controllers/groupEventController.js"></script>
 	<script src="resources/js/controllers/pigletEventController.js"></script>
 	<script src="resources/js/controllers/addGroupEventDetailController.js"></script>	
+	<script src="resources/js/controllers/pigletStatusEventController.js"></script> 
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
 	<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>

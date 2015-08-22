@@ -1,7 +1,11 @@
 package com.pigtrax.pigevents.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 
 @Component
@@ -59,5 +63,15 @@ public class PigInfoBuilder {
 		   dto.setSexTypeId(info.getSexTypeId());
 	   }
 	   return dto;
+   }
+   
+   public List<PigInfoDto> convertToDtos(List<PigInfo> piglist)
+   {
+	   List<PigInfoDto> pigDtolist = new ArrayList<PigInfoDto>();
+	   for(PigInfo pig : piglist)
+	   {
+		   pigDtolist.add(convertToDto(pig));
+	   }
+	   return pigDtolist;
    }
 }

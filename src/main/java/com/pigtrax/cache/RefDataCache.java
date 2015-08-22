@@ -25,6 +25,10 @@ public interface RefDataCache {
 	
 	Map<Integer, String> getSiloTypeMap(String language);
 	
+<<<<<<< HEAD
+	Map<Integer, String> getPigletStatusEventType(String language);
+=======
 	Map<Integer, String> getPhaseOfProductionTypeMap(String language);
+>>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 
 }

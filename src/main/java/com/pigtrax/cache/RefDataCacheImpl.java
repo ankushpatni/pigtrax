@@ -44,7 +44,11 @@ public class RefDataCacheImpl implements RefDataCache{
 	
 	private Map<String, Map<Integer, String>> siloTypeMap;
 	
+<<<<<<< HEAD
+	private Map<String, Map<Integer, String>> pigletStatusEventTypeMap;
+=======
 	private Map<String, Map<Integer, String>> phaseOfProductionTypeMap;
+>>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 
 	
 	/*
@@ -65,7 +69,11 @@ public class RefDataCacheImpl implements RefDataCache{
 		pregnancyEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyEventTypeData()));
 		pregnancyExamResultTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyExamResultTypeData()));
 		siloTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSiloTypeData()));
+<<<<<<< HEAD
+		pigletStatusEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPigletStatusEventType()));
+=======
 		phaseOfProductionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseOfProductionType()));
+>>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 	}
 
 	@Override
@@ -140,6 +148,11 @@ public class RefDataCacheImpl implements RefDataCache{
 
 	public void setRefDataDao(RefDataDao refDataDao) {
 		this.refDataDao = refDataDao;
+	}
+	
+	@Override
+	public Map<Integer, String> getPigletStatusEventType(String language) {
+		return pigletStatusEventTypeMap.get(language);
 	}
 	
 }

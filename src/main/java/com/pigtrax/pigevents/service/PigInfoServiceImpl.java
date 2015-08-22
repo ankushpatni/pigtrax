@@ -1,6 +1,8 @@
 package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +91,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 		{
 				info =  pigInfoDao.getPigInformationByPigId(dto.getSearchText(), dto.getCompanyId());
 		}
-		else
+		else 
 		{
 			info =  pigInfoDao.getPigInformationByTattoo(dto.getSearchText(), dto.getCompanyId());
 		}
@@ -106,5 +108,20 @@ public class PigInfoServiceImpl implements PigInfoService {
 			pigInfoDao.deletePigInfo(id);
 		}
 		
+	}
+	
+	
+	@Override
+	public List<PigInfoDto> getAllFosterPigs(PigInfoDto dto) throws Exception{
+		
+		List<PigInfoDto> pigInfoDtoList = new ArrayList<PigInfoDto>();
+
+		if(dto != null && dto.getSearchOption().equals("pigId"))
+		{
+			List<PigInfo> pigInfoList =  pigInfoDao.getAllFosterPigs(dto);
+			pigInfoDtoList =  builder.convertToDtos(pigInfoList);
+		}
+		
+		return pigInfoDtoList;
 	}
 }

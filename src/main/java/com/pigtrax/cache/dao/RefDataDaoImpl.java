@@ -1,6 +1,7 @@
 package com.pigtrax.cache.dao;
 
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -11,12 +12,14 @@ import java.util.Set;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
 import com.pigtrax.cache.dto.RefDataTranslationDto;
+import com.pigtrax.pigevents.beans.FarrowEvent;
 
 @Repository
 public class RefDataDaoImpl implements RefDataDao {
@@ -78,6 +81,12 @@ public class RefDataDaoImpl implements RefDataDao {
 	}
 
 
+	@Override
+	public List<RefDataTranslationDto> getPigletStatusEventType() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PigletStatusEventType\" FROM pigtraxrefdata.\"PigletStatusEventTypeTranslation\" order by \"fieldLanguage\", \"id_PigletStatusEventType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+
 
 	@Override
 	public Map<String, Set<String>> getCountryCityData() {
@@ -119,4 +128,37 @@ public class RefDataDaoImpl implements RefDataDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	
+	/**
+	 * Get the fieldCode for a given Id
+	 * @param id
+	 * @param referenceDataTable
+	 * @return
+	 */
+	public Integer getFieldCodeForId(final Integer id, String referenceDataTable)
+	{
+		String query = "SELECT \"fieldCode\" FROM pigtraxrefdata.\""+referenceDataTable+"\" where \"id\" = ?";		
+		
+		List<Integer> fieldCodes = jdbcTemplate.query(query, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setInt(1, id);
+ 			}}, new FieldMapper());	
+		
+		if(fieldCodes != null && fieldCodes.size() > 0)
+			return fieldCodes.get(0);
+		return null;
+	}
+	
+	private static final class FieldMapper implements RowMapper<Integer>
+	{
+
+		@Override
+		public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			return rs.getInt(1);
+		}
+		
+	}
+	
 }

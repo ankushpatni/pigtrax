@@ -1,10 +1,12 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.dao.DuplicateKeyException;
 
 import com.pigtrax.pigevents.beans.PigInfo;
+import com.pigtrax.pigevents.dto.PigInfoDto;
 
 public interface PigInfoDao {
    public int addPigInformation(PigInfo pigInfo) throws SQLException, DuplicateKeyException;
@@ -18,4 +20,6 @@ public interface PigInfoDao {
    public void deletePigInfo(Integer id) throws SQLException;
    
    PigInfo getPigInformationById(final Integer pigInfoId) throws SQLException;
+   
+   List<PigInfo> getAllFosterPigs(PigInfoDto pigInfo) throws SQLException;
 }
