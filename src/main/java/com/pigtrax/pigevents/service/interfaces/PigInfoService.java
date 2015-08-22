@@ -11,5 +11,5 @@ public interface PigInfoService {
     
     void deletePigInfo(Integer id) throws Exception;
     
-    List<PigInfoDto> getAllFosterPigs(PigInfoDto pigInfo) throws Exception;
+    List<PigInfoDto> getAllFosterPigs(PigInfoDto pigInfo) throws Exception; 
 }  

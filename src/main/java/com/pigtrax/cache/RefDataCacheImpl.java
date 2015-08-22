@@ -20,7 +20,7 @@ public class RefDataCacheImpl implements RefDataCache{
 	 * Most of the maps has following structure
 	 * <fieldLanguage, <fieldCode, fieldLable>>
 	 * 
-	 * <en, <Male, 1>>
+	 * <en, <Male, 1>> 
 	 * <en, <Female, 2>>
 	 * <pr, <Male_pr, 3>>
 	 * 
@@ -43,12 +43,9 @@ public class RefDataCacheImpl implements RefDataCache{
 	private Map<String, Map<Integer, String>> pregnancyExamResultTypeMap;
 	
 	private Map<String, Map<Integer, String>> siloTypeMap;
-	
-<<<<<<< HEAD
+	   
 	private Map<String, Map<Integer, String>> pigletStatusEventTypeMap;
-=======
 	private Map<String, Map<Integer, String>> phaseOfProductionTypeMap;
->>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 
 	
 	/*
@@ -69,11 +66,8 @@ public class RefDataCacheImpl implements RefDataCache{
 		pregnancyEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyEventTypeData()));
 		pregnancyExamResultTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyExamResultTypeData()));
 		siloTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSiloTypeData()));
-<<<<<<< HEAD
 		pigletStatusEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPigletStatusEventType()));
-=======
 		phaseOfProductionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseOfProductionType()));
->>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 	}
 
 	@Override
@@ -128,7 +122,7 @@ public class RefDataCacheImpl implements RefDataCache{
 	
 	@Override
 	public Map<Integer, String> getPhaseOfProductionTypeMap(String language){
-		return phaseOfProductionTypeMap.get(language);
+		return phaseOfProductionTypeMap.get(language); 
 	}
 	
 	private Map<String, Map<Integer, String>> convertToMap(List<RefDataTranslationDto> rolesList) {

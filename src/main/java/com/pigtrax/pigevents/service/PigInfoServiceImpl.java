@@ -97,11 +97,11 @@ public class PigInfoServiceImpl implements PigInfoService {
 		}
 		return builder.convertToDto(info);
 	}
-	
+	   
 	/**
 	 * To delete the given information
 	 */
-	@Override
+
 	public void deletePigInfo(Integer id) throws Exception {
 		if(id != null)
 		{
@@ -110,9 +110,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 		
 	}
 	
-	
-	@Override
-	public List<PigInfoDto> getAllFosterPigs(PigInfoDto dto) throws Exception{
+	public List<PigInfoDto> getAllFosterPigs(PigInfoDto dto) throws Exception{ 
 		
 		List<PigInfoDto> pigInfoDtoList = new ArrayList<PigInfoDto>();
 

@@ -23,9 +23,9 @@ import com.pigtrax.pigevents.beans.FarrowEvent;
 
 @Repository
 public class RefDataDaoImpl implements RefDataDao {
-
+ 
 	JdbcTemplate jdbcTemplate;
-
+ 
 	@Override
 	public List<RefDataTranslationDto> getRoleTypeData() {
 		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_RoleType\" FROM pigtraxrefdata.\"RoleTypeTranslation\" order by \"fieldLanguage\", \"id_RoleType\"; ";
