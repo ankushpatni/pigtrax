@@ -131,7 +131,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 						searchOption : "pigId",
 						companyId : $rootScope.companyId
 				};
-			    alert(JSON.stringify(pigInfo));
+			    //alert(JSON.stringify(pigInfo));
 				restServices.getAllFosterPigs(pigInfo, function(data) {
 					if(data.error)
 					{
