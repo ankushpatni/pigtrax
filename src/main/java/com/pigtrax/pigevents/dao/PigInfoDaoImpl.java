@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
+import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.util.UserUtil;
 
@@ -49,7 +50,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 		KeyHolder holder = new GeneratedKeyHolder();
 
 		jdbcTemplate.update(
-	    	    new PreparedStatementCreator() {
+	    	    new PreparedStatementCreator() { 
 	    	        public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 	    	            PreparedStatement ps =
 	    	                con.prepareStatement(Qry, new String[] {"id"});
@@ -241,6 +242,26 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			return pigInfoList.get(0);
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * Get all foster pigs
+	 */
+	@Override
+	public List<PigInfo> getAllFosterPigs(final PigInfoDto pigInfo) throws SQLException {
+		String qry = "SELECT PI.* FROM pigtrax.\"PigTraxEventMaster\" PEM INNER JOIN (SELECT \"id_PigInfo\", MAX(\"id\") AS maxid FROM pigtrax.\"PigTraxEventMaster\" "
+					+" GROUP BY \"id_PigInfo\") PEM_SUB ON PEM.\"id_PigInfo\" = PEM_SUB.\"id_PigInfo\" AND PEM.\"id\" = PEM_SUB.maxid and \"id_FarrowEvent\" is not null  "
+					+ "JOIN pigtrax.\"PigInfo\" PI on PEM.\"id_PigInfo\" = PI.\"id\" and PI.\"id_Company\" = ? and PI.\"pigId\" <> ?"	;
+		
+		
+		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){		
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, pigInfo.getCompanyId());
+				ps.setString(2, pigInfo.getSearchText());
+			}}, new PigInfoMapper()); 
+		
+		return pigInfoList;
 	}
 }
 

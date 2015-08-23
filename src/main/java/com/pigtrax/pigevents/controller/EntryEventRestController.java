@@ -1,9 +1,9 @@
 package com.pigtrax.pigevents.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -191,5 +191,30 @@ public class EntryEventRestController {
 		}
 		return dto;
 	}
-    
+   
+	/**
+	 * Service to retrieve all foster pigs
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getAllFosterPigs", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getAllFosterPigs(HttpServletRequest request, @RequestBody PigInfoDto pigInformation)
+	{
+		logger.info("Inside getAllFosterPigs method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<PigInfoDto> fosterList = new ArrayList<PigInfoDto>();
+		try {
+			fosterList = pigInfoService.getAllFosterPigs(pigInformation);
+			dto.setPayload(fosterList);
+			if(fosterList != null)
+				dto.setStatusMessage("Success");
+			else
+				dto.setStatusMessage("ERROR : No Foster Pigs found");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
 }

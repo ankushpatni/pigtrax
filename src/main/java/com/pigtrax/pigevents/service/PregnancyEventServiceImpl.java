@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.cache.dao.interfaces.RefDataDao;
 import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.master.service.interfaces.EmployeeGroupService;
 import com.pigtrax.pigevents.beans.PigInfo;
@@ -53,6 +54,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	
 	@Autowired
 	BreedingEventService breedingEventService;
+	
+	@Autowired
+	RefDataDao refDataDao;
 	
 	
 	@Override
@@ -151,13 +155,17 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	 */
 	private List<PregnancyEventDto> filterByPregnancyEventType(String pregnancyEventType, List<PregnancyEventDto> pregnancyEventList)
 	{
+		
+		
 		List<PregnancyEventDto> filteredList = null;
 		if(pregnancyEventList != null)
 		{
 			filteredList = new ArrayList<PregnancyEventDto>();
 			for(PregnancyEventDto dto : pregnancyEventList)
 			{
-				if(pregnancyEventType != null && "Pregnancy Event".equals(pregnancyEventType) && dto.getPregnancyEventTypeId() == 1)
+				Integer fieldCode = refDataDao.getFieldCodeForId(dto.getPregnancyEventTypeId(), "PregnancyEventType");
+				
+				if(pregnancyEventType != null &&  fieldCode == 1)
 					filteredList.add(dto);					
 			}
 		}

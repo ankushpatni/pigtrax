@@ -20,7 +20,7 @@ public class RefDataCacheImpl implements RefDataCache{
 	 * Most of the maps has following structure
 	 * <fieldLanguage, <fieldCode, fieldLable>>
 	 * 
-	 * <en, <Male, 1>>
+	 * <en, <Male, 1>> 
 	 * <en, <Female, 2>>
 	 * <pr, <Male_pr, 3>>
 	 * 
@@ -43,7 +43,8 @@ public class RefDataCacheImpl implements RefDataCache{
 	private Map<String, Map<Integer, String>> pregnancyExamResultTypeMap;
 	
 	private Map<String, Map<Integer, String>> siloTypeMap;
-	
+	   
+	private Map<String, Map<Integer, String>> pigletStatusEventTypeMap;
 	private Map<String, Map<Integer, String>> phaseOfProductionTypeMap;
 
 	
@@ -65,6 +66,7 @@ public class RefDataCacheImpl implements RefDataCache{
 		pregnancyEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyEventTypeData()));
 		pregnancyExamResultTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyExamResultTypeData()));
 		siloTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSiloTypeData()));
+		pigletStatusEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPigletStatusEventType()));
 		phaseOfProductionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseOfProductionType()));
 	}
 
@@ -120,7 +122,7 @@ public class RefDataCacheImpl implements RefDataCache{
 	
 	@Override
 	public Map<Integer, String> getPhaseOfProductionTypeMap(String language){
-		return phaseOfProductionTypeMap.get(language);
+		return phaseOfProductionTypeMap.get(language); 
 	}
 	
 	private Map<String, Map<Integer, String>> convertToMap(List<RefDataTranslationDto> rolesList) {
@@ -140,6 +142,11 @@ public class RefDataCacheImpl implements RefDataCache{
 
 	public void setRefDataDao(RefDataDao refDataDao) {
 		this.refDataDao = refDataDao;
+	}
+	
+	@Override
+	public Map<Integer, String> getPigletStatusEventType(String language) {
+		return pigletStatusEventTypeMap.get(language);
 	}
 	
 }

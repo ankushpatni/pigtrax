@@ -6,7 +6,7 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
 
 public interface FarrowEventService {
-   public int saveFarrowEventInformation(FarrowEventDto farrowEventDto) throws PigTraxException;
+   int saveFarrowEventInformation(FarrowEventDto farrowEventDto) throws PigTraxException;
    
    List<FarrowEventDto> getFarrowEvents(FarrowEventDto farrowEventDto) throws PigTraxException; 
    

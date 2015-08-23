@@ -6,11 +6,11 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.dto.PigletEventDto;
 
 public interface PigletEventService {
-   public int savePigletEventInformation(PigletEventDto pigletEventDto) throws PigTraxException;
+   int savePigletEventInformation(PigletEventDto pigletEventDto) throws PigTraxException;
    
-   public List<PigletEventDto> getPigletEvents(PigletEventDto pigletEventDto) throws PigTraxException; 
+   List<PigletEventDto> getPigletEvents(PigletEventDto pigletEventDto) throws PigTraxException; 
    
-   public List<PigletEventDto> getPigletEventsByFarrowId(String farrowId, Integer companyId) throws PigTraxException; 
+   List<PigletEventDto> getPigletEventsByFarrowId(String farrowId, Integer companyId) throws PigTraxException;
    
    void deletePigletEvent(Integer pigletEventId) throws PigTraxException;   
 }

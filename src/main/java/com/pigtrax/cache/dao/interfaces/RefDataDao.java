@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.pigtrax.cache.dto.RefDataTranslationDto;
 
-
+   
 public interface RefDataDao {
 
 	List<RefDataTranslationDto> getRoleTypeData();
@@ -26,7 +26,9 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getPregnancyExamResultTypeData();
 	
 	List<RefDataTranslationDto> getSiloTypeData();
+	List<RefDataTranslationDto> getPigletStatusEventType();
 	
+	Integer getFieldCodeForId(Integer id, String referenceDataTable);
 	List<RefDataTranslationDto> getPhaseOfProductionType() ;
 
 }
