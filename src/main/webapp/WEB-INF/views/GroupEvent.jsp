@@ -87,7 +87,7 @@
             </div>
           </div>
 		  
-		<button type="button" ng-click="addGroupEventDetailData(groupEvent.groupId)" class="btn btn-sm btn btn-primary" ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">
+		<button type="button" ng-click="addGroupEventDetailData()" class="btn btn-sm btn btn-primary" ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.groupEventDetail.addAddPigstoGroup" text="Add Pigs to Group" />
 		</button>

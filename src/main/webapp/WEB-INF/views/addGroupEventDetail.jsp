@@ -32,7 +32,7 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="dateOfEntryFlag" ><spring:message code='label.groupEventDetail.dateOfEntry.conditionMaessag' text='Date Of Entry should be greater than Group Start Date.' /></label>
 					</div>
 					<div class="form-group">
-						<label><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /><span style='color: red'>*</span></label>e
+						<label><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /><span style='color: red'>*</span></label>
 						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.numberOfPigs' text='Number Of Pigs' />" name="numberOfPigs" ng-model="groupEvent.numberOfPigs" maxlength="8" required required-message="'<spring:message code='label.groupEventDetail.numberOfPigs.required' text='Number Of Pigs required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 					</div>
 					<div class="form-group">
