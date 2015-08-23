@@ -5,7 +5,7 @@
 			<h3 ng-show="edit"><spring:message code="label.groupEventDetail.edit.detail" text="Edit Group Event Detail" /></h3>
 </div>
 		 
- <div class="cl-mcont" ng-controller="AddGroupEventDetailController" ng-init="setCompanyId('${companyId}','${groupId}','${groupEventId}','${groupGeneratedId}')">
+ <div class="cl-mcont" ng-controller="AddGroupEventDetailController" ng-init="setCompanyId('${companyId}','${groupId}','${groupEventId}','${groupGeneratedId}','${groupStartDateTime}')">
  
         <div class="row" >
 		  <div class="col-sm-3 col-md-3"></div>
@@ -28,8 +28,11 @@
 							 <input size="16" type="date" id="dateOfEntry" name="groupEvent.dateOfEntry" ng-model="groupEvent.dateOfEntry" readonly="" class="form-control" format-date required-message="'<spring:message code='label.groupEventDetail.dateOfEntry.required' text='Date of Entry is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
 						</div>
 					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="dateOfEntryFlag" ><spring:message code='label.groupEventDetail.dateOfEntry.conditionMaessag' text='Date Of Entry should be greater than Group Start Date.' /></label>
+					</div>
 					<div class="form-group">
-						<label><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /><span style='color: red'>*</span></label>
+						<label><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /><span style='color: red'>*</span></label>e
 						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.numberOfPigs' text='Number Of Pigs' />" name="numberOfPigs" ng-model="groupEvent.numberOfPigs" maxlength="8" required required-message="'<spring:message code='label.groupEventDetail.numberOfPigs.required' text='Number Of Pigs required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 					</div>
 					<div class="form-group">

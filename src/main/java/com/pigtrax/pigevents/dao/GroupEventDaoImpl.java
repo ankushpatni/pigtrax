@@ -70,8 +70,16 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 				ps.setString(1, groupEvent.getGroupId().toUpperCase());
 				ps.setDate(2, new java.sql.Date(groupEvent
 						.getGroupStartDateTime().getTime()));
+				if( null != groupEvent.getGroupCloseDateTime())
+				{
 				ps.setDate(3, new java.sql.Date(groupEvent
 						.getGroupCloseDateTime().getTime()));
+				}
+				else
+				{
+					ps.setNull(3, java.sql.Types.DATE);
+				}
+				
 				ps.setBoolean(4, true);
 				ps.setString(5, groupEvent.getRemarks());
 				ps.setString(6, UserUtil.getLoggedInUser());

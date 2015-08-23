@@ -40,6 +40,7 @@ pigTrax.factory("restServices", function($resource) {
     	"deletePigletEvent" : {method:"POST", url:"rest/pigletEvent/deletePigletEvent"},
     	"getPhaseOfProductionType" :{method:"GET", url:"rest/util/getPhaseOfProductionType"},
 		"addGroupEventDetail" : {method:"POST", url:"rest/groupEvent/addGroupEventDetail"},
-		"getGroupEventDetail" : {method:"POST", url:"rest/groupEvent/getGroupEventDetail"}
+		"getGroupEventDetail" : {method:"POST", url:"rest/groupEvent/getGroupEventDetail"},
+		"addTransportJourney" : {method:"POST", url:"rest/transportJourney/addTransportJourney"}
     });
 });

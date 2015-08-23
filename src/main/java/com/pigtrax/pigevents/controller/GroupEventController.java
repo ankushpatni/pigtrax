@@ -72,6 +72,7 @@ public class GroupEventController {
 			 if(request.getParameter("groupGeneratedIdSeq") != null && ! "undefined".equals(request.getParameter("groupGeneratedIdSeq"))) 
 			   {
 				 model.addAttribute("groupGeneratedId",request.getParameter("groupGeneratedIdSeq"));
+				 model.addAttribute("groupStartDateTime",request.getParameter("groupStartDateTimeAdd"));
 					
 			   }
 			 else if(null != request.getParameter("companyId"))
@@ -82,6 +83,7 @@ public class GroupEventController {
 					if(null != groupEvent)
 					{
 						model.addAttribute("groupGeneratedId",groupEvent.getId());
+						model.addAttribute("groupStartDateTime",groupEvent.getGroupStartDateTime());
 					}
 					
 				} catch (NumberFormatException e) {

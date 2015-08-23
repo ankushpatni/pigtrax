@@ -62,7 +62,7 @@
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupdaterequired" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.requiredMessage' text='Group Start Date is required' /></label>
 					</div>
-                    <div class="form-group">
+                    <div class="form-group" ng-show="(groupEvent.id != null && groupEvent.id > 0)">
                       <label><spring:message code='label.piginfo.groupEventForm.groupCloseDateTime'  text='Group Close Date'/></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
                           <input size="16" type="date" id="groupCloseDateTime" name="groupCloseDateTime" ng-model="groupEvent.groupCloseDateTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
@@ -89,7 +89,7 @@
 		  
 		<button type="button" ng-click="addGroupEventDetailData(groupEvent.groupId)" class="btn btn-sm btn btn-primary" ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus">
-			</i> <spring:message code="label.groupEventDetail.addNewGroupEventDetail" text="Add New Event Detail" />
+			</i> <spring:message code="label.groupEventDetail.addAddPigstoGroup" text="Add Pigs to Group" />
 		</button>
 	<form name="groupEventFormAdd" method="post">	
 		<div class="content" ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">
@@ -138,6 +138,8 @@
 		<input type="hidden" name="groupEventId" id="groupEventId"/>			
 		<input type="hidden" name="groupGeneratedIdSeq" id="groupGeneratedIdSeq"/>
 		<input type="hidden" name="companyId" id="companyId"/>
+		<input type="hidden" name="groupStartDateTimeAdd" id="groupStartDateTimeAdd"/>
+		
 	</form>	  		
 		<div class="md-overlay"></div>
 </div>	

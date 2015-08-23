@@ -8,6 +8,10 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.confirmClick = false;
 	$scope.phaseOfProductionType = {};
 	$scope.roomList={};
+	$scope.transportDestination;
+	$scope.transportTruck;
+	$scope.transportTrailer;
+		
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
 	{
@@ -35,6 +39,19 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			$scope.entryEventSuccessMessage = true;
 		}
 		
+		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
+			res1.success(function(data, status, headers, config) {
+				
+				console.log(data);
+				$scope.transportDestination = data.payload[0];	
+				$scope.transportTruck = data.payload[1];
+				$scope.transportTrailer = data.payload[2];
+				
+			});
+			res1.error(function(data, status, headers, config) {
+				console.log( "failure message: " + {data: data});
+			});
+		
 	};
 	
 	$scope.clearAllMessages = function()
@@ -48,14 +65,36 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.resetForm = function()
 	{
-		$scope.clearAllMessages();
+		/*$scope.clearAllMessages();
 		$scope.groupEvent = {};
-		$scope.changeText();
+		$scope.changeText();*/
+		
+		var modalInstance = $modal.open ({
+			templateUrl: 'transportJourney',
+			controller: 'addTransportJourneyCtrl',
+			backdrop:true,
+			windowClass : 'cp-model-window',
+			resolve:{
+				transportJourneyData : function(){
+					var transportJourneyData={};
+					transportJourneyData.transportDestination = $scope.transportDestination;
+					transportJourneyData.transportTruck = $scope.transportTruck;
+					transportJourneyData.transportTrailer = $scope.transportTrailer;
+					return transportJourneyData;
+				}
+			}
+		});
+		
+		modalInstance.result.then( function(res) {    			
+			if(res.statusMessage==="SUCCESS")
+			{
+				$scope.getPenList($scope.roomId,$scope.generatedRoomId);				
+			}
+		});
 	}
 	
 	$scope.addGroupEvent = function()
 	{
-	console.log(document.getElementById("groupStartDateTime").value);
 		if(document.getElementById("groupStartDateTime").value === "")
 		{
 			$scope.groupdaterequired = true;
@@ -153,6 +192,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		document.getElementById("groupEventId").value = groupEventId;
 		document.getElementById("groupGeneratedIdSeq").value = $scope.groupEvent.id;
 		document.getElementById("companyId").value = $scope.companyId;
+		document.getElementById("groupStartDateTimeAdd").value = document.getElementById("groupStartDateTime").value;
 		
 		document.forms['groupEventFormAdd'].action = 'addGroupEventDetail';
 		document.forms['groupEventFormAdd'].submit();

@@ -8,13 +8,15 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	$scope.groupEvent.employeeGroup = {};
 	$scope.phaseOfProductionType ={};
 	$scope.roomType = {};
+	$scope.dateOfEntryFlag =  false;
 	
-	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId)
+	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId,groupStartDateTime)
 	{
 		$scope.groupAlphaId = groupId;
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
 		$scope.groupEvent.groupId = groupGeneratedId;
+		$scope.groupStartDateTime = groupStartDateTime;
 		console.log(groupDetailId);
 		restServices.getPhaseOfProductionType("", function(data){
 			console.log(data);
@@ -59,7 +61,20 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 			var dateOfEntry = document.getElementById("dateOfEntry").value;
 			$scope.groupEvent["dateOfEntry"] = dateOfEntry;
 			
-			console.log($scope.groupEvent);
+			if(dateOfEntry<$scope.groupStartDateTime)
+			{
+				$scope.dateOfEntryFlag =  true;
+				return;
+			}
+			else
+			{
+				$scope.dateOfEntryFlag =  false;
+			}
+			
+			if(angular.isObject($scope.groupEvent.employeeGroupId))
+			{
+				$scope.groupEvent.employeeGroupId = 0;
+			}
 			
 			restServices.addGroupEventDetail($scope.groupEvent, function(data){
 				console.log(data);
