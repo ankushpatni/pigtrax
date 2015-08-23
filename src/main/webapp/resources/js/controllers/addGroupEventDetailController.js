@@ -18,18 +18,30 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		$scope.groupEvent.groupId = groupGeneratedId;
 		$scope.groupStartDateTime = groupStartDateTime;
 		console.log(groupDetailId);
-		restServices.getPhaseOfProductionType("", function(data){
+		/*restServices.getPhaseOfProductionType($scope.companyId, function(data){
 			console.log(data);
 			if(!data.error)
 				{
 					$scope.phaseOfProductionType = data.payload[0];	
+					$scope.roomType = data.payload[1];
 									
 				}
 			else
 				{
 					console.log( "failure message: " + {data: data});
 				} 
-		});
+		});*/
+		
+		var res2 = $http.get('rest/util/getPhaseOfProductionType?companyId='+$scope.companyId);
+			res2.success(function(data, status, headers, config) {
+				console.log(data);
+				$scope.phaseOfProductionType = data.payload[0];	
+				$scope.roomType = data.payload[1];
+				
+			});
+			res2.error(function(data, status, headers, config) {
+				console.log( "failure message: " + {data: data});
+			});
 		
 		if( groupDetailId)
 		{

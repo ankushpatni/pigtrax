@@ -1,9 +1,7 @@
 package com.pigtrax.usermanagement.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,11 +11,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.master.service.interfaces.RoomService;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -28,6 +28,9 @@ public class UtilController {
 	
 	@Autowired
 	RefDataCache refDataCache;
+	
+	@Autowired
+	RoomService roomService;
 	
 	@RequestMapping(value = "/getCityCountryList", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getCityCountryList(HttpServletRequest request	)
@@ -119,7 +122,7 @@ public class UtilController {
 	}
 	
 	@RequestMapping(value = "/getPhaseOfProductionType", method=RequestMethod.GET, produces="application/json")
-	public ServiceResponseDto getPhaseOfProductionType(HttpServletRequest request)
+	public ServiceResponseDto getPhaseOfProductionType(HttpServletRequest request,  @RequestParam Integer companyId)
 	{
 		logger.info("Inside getPhaseType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
@@ -127,6 +130,7 @@ public class UtilController {
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		phaseOfProductionType.add(refDataCache.getPhaseOfProductionTypeMap(language));
+		phaseOfProductionType.add(roomService.getRoomListBasedOnCompanyId(companyId));
 		dto.setPayload(phaseOfProductionType);
 		dto.setStatusMessage("Success");
 		return dto;

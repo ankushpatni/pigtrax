@@ -119,6 +119,25 @@ public class RoomDaoImpl implements RoomDao {
 			}
 		});
 	}
+	
+	public List<Room> getRoomListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
+	{
+		String query = "SELECT \"roomserrialid\" as \"id\",\"roomId\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"roomId\" != '' and companyserialid = ?";
+	//CompPremBarnRoomPenVw
+		List<Room> roomList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, generatedCompanyId);
+					}
+				}, new RoomMapperList());
+	
+		if (roomList != null && roomList.size() > 0) {
+			return  roomList;
+		}
+		return null;
+	}
 
 	private static final class RoomMapper implements RowMapper<Room> {
 		public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -128,6 +147,15 @@ public class RoomDaoImpl implements RoomDao {
 			room.setBarnId(rs.getInt("id_Barn"));
 			room.setLocation(rs.getString("location"));
 			room.setActive(rs.getBoolean("isActive"));
+			return room;
+		}
+	}
+	
+	private static final class RoomMapperList implements RowMapper<Room> {
+		public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Room room = new Room();
+			room.setId(rs.getInt("id"));
+			room.setRoomId(rs.getString("roomId"));
 			return room;
 		}
 	}
