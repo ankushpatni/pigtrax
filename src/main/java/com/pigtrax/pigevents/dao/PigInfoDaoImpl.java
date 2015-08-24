@@ -1,6 +1,5 @@
 package com.pigtrax.pigevents.dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dto.PigInfoDto;
-import com.pigtrax.usermanagement.beans.Company;
-import com.pigtrax.util.UserUtil;
 
 @Repository
 @Transactional
@@ -205,6 +202,30 @@ public class PigInfoDaoImpl implements PigInfoDao {
 		}
 	}
 	
+	private static final class FosterInfoMapper implements RowMapper<PigInfo> {
+		public PigInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PigInfo pigInfo = new PigInfo();
+			pigInfo.setId(rs.getInt("id"));
+			pigInfo.setPigId(rs.getString("pigId"));
+			pigInfo.setSireId(rs.getString("sireId"));
+			pigInfo.setDamId(rs.getString("damId"));
+			pigInfo.setOrigin(rs.getString("origin"));
+			pigInfo.setGline(rs.getString("gline"));
+			pigInfo.setGcompany(rs.getString("gcompany"));
+			pigInfo.setBirthDate(rs.getDate("birthDate"));
+			pigInfo.setTattoo(rs.getString("tattoo"));
+			pigInfo.setAlternateTattoo(rs.getString("alternateTattoo"));
+			pigInfo.setRemarks(rs.getString("remarks"));
+			pigInfo.setSowCondition(rs.getInt("sowCondition"));
+			pigInfo.setCompanyId(rs.getInt("id_Company"));
+			pigInfo.setBarnId((rs.getObject("id_Barn")!=null)?(Integer)rs.getObject("id_Barn") : null);
+			pigInfo.setPenId((rs.getObject("id_Pen")!=null)?(Integer)rs.getObject("id_Pen") : null);
+			pigInfo.setSexTypeId(rs.getInt("id_SexType"));
+			pigInfo.setCurrentFarrowEventDate(rs.getDate("eventTime")!= null?rs.getDate("eventTime"):null);
+			return pigInfo;
+		}
+	}
+	
 	/**
 	 * To delete the given information
 	 * @param id
@@ -250,7 +271,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	 */
 	@Override
 	public List<PigInfo> getAllFosterPigs(final PigInfoDto pigInfo) throws SQLException {
-		String qry = "SELECT PI.* FROM pigtrax.\"PigTraxEventMaster\" PEM INNER JOIN (SELECT \"id_PigInfo\", MAX(\"id\") AS maxid FROM pigtrax.\"PigTraxEventMaster\" "
+		String qry = "SELECT PI.*,PEM.\"eventTime\" FROM pigtrax.\"PigTraxEventMaster\" PEM INNER JOIN (SELECT \"id_PigInfo\", MAX(\"id\") AS maxid FROM pigtrax.\"PigTraxEventMaster\" "
 					+" GROUP BY \"id_PigInfo\") PEM_SUB ON PEM.\"id_PigInfo\" = PEM_SUB.\"id_PigInfo\" AND PEM.\"id\" = PEM_SUB.maxid and \"id_FarrowEvent\" is not null  "
 					+ "JOIN pigtrax.\"PigInfo\" PI on PEM.\"id_PigInfo\" = PI.\"id\" and PI.\"id_Company\" = ? and PI.\"pigId\" <> ?"	;
 		
@@ -259,7 +280,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, pigInfo.getCompanyId());
 				ps.setString(2, pigInfo.getSearchText());
-			}}, new PigInfoMapper()); 
+			}}, new FosterInfoMapper()); 
 		
 		return pigInfoList;
 	}

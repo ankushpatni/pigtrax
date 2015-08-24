@@ -104,7 +104,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 				{
 				   $scope.clearAllMessages();
 				   var statusCode = data.payload;
-				   alert("statusCode = "+statusCode);
+				   //alert("statusCode = "+statusCode);
 				   if(statusCode == 0)
 				   {
 						//alert(JSON.stringify($scope.farrowEvent));

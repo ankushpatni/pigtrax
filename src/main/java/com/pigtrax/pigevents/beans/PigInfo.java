@@ -21,6 +21,7 @@ public class PigInfo {
 	private Integer barnId;
 	private Integer sexTypeId;
 	private String userUpdated;
+	private Date currentFarrowEventDate;
 
 	public Integer getId() {
 		return id;
@@ -168,6 +169,14 @@ public class PigInfo {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	
+	public Date getCurrentFarrowEventDate() {
+		return currentFarrowEventDate;
+	}
+
+	public void setCurrentFarrowEventDate(Date currentFarrowEventDate) {
+		this.currentFarrowEventDate = currentFarrowEventDate;
+	}
 
 	@Override
 	public String toString() {
@@ -190,6 +199,7 @@ public class PigInfo {
 		buffer.append(", "+"penId : "+this.penId);
 		buffer.append(", "+"barnId : "+this.barnId);
 		buffer.append(", "+"sexTypeId"+this.sexTypeId);
+		buffer.append(", "+"currentFarrowEventDate"+this.currentFarrowEventDate);
 		buffer.append(" ] ");
 		return buffer.toString();
 	}

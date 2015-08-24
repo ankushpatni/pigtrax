@@ -40,6 +40,7 @@ pigTrax.factory("restServices", function($resource) {
     	"deletePigletEvent" : {method:"POST", url:"rest/pigletEvent/deletePigletEvent"},
     	"savePigletStatusEventInformation" : {method:"POST", url:"rest/pigletStatusEvent/savePigletStatusEventInformation"},
     	"getPigletStatusEventInformation" : {method:"POST", url:"rest/pigletStatusEvent/getPigletStatusEventInformation"},
+    	"validatePigletStatusEvent" : {method:"POST", url:"rest/pigletStatusEvent/validatePigletStatusEvent"},    	
     	"deletePigletEvent" : {method:"POST", url:"rest/pigletStatusEvent/deletePigletStatusEventInformation"},
     	"getAllFosterPigs" : {method:"POST", url:"rest/entryEvent/getAllFosterPigs"},    	
     	"getPhaseOfProductionType" :{method:"GET", url:"rest/util/getPhaseOfProductionType"},

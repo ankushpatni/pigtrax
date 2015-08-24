@@ -18,7 +18,16 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.confirmClick = false;
 		$scope.requiredPigIdMessage = false;
 		$scope.inValidServiceIdFromServer = false;
+		$scope.breedingEventValidation_ErrCode_1 = false;
 	};
+	
+	$scope.resetForm = function()
+	{
+		$scope.clearAllMessages();
+		$scope.pigletStatusEvent = {};
+		$scope.changeText();
+		
+	}
 	
 	$scope.loadPage = function(companyId)
 	{
@@ -162,6 +171,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	{
 		$scope.pigletStatusEvent.fosterToPigId = $scope.pigletStatusEvent.fosterDto.pigId;
 		$scope.pigletStatusEvent.fosterTo = $scope.pigletStatusEvent.fosterDto.id;
+		$scope.pigletStatusEvent.fosterToDateTime = $scope.pigletStatusEvent.fosterDto.currentFarrowEventDate;
 		$('#searchFosters').modal('hide');
 	}	
 	
@@ -176,28 +186,57 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		{
 			$scope.pigletStatusEvent["eventDateTime"] = document.getElementById("eventDateTime").value;
 			$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
-			//alert(JSON.stringify($scope.farrowEvent));
 			delete $scope.pigletStatusEvent.fosterDto;
-			restServices.savePigletStatusEventInformation($scope.pigletStatusEvent, function(data){
-				if(!data.error)
-					{
-						$scope.clearAllMessages();
-						$scope.entryEventSuccessMessage = true;
-						$scope.pigletStatusEvent = {};
-					}
-				else
-					{
-						$scope.clearAllMessages();
-						if(data.duplicateRecord)
-							$scope.entryEventDuplicateErrorMessage = true;
-						else
-							$scope.entryEventErrorMessage = true;
-					}
-					$window.scrollTo(0, 5);  
-			});				
+			restServices.validatePigletStatusEvent($scope.pigletStatusEvent, function(data){
+		   		if(!data.error)
+			   {
+		   			var statusCode = data.payload;
+				     $scope.clearAllMessages();
+				     if(statusCode == 0)
+				     {
+				    		$scope.confirmAddPigletStatusEvent();
+				    }
+				     else
+				    {
+				    	 //alert(statusCode);
+				    	 if(statusCode == 1)
+					    	 $scope.pigletstatusEventValidation_ErrCode_1 = true;
+					     else if(statusCode == 2)
+					    	 $scope.pigletstatusEventValidation_ErrCode_2 = true;
+					     else if(statusCode == 3)
+					    	 $scope.pigletstatusEventValidation_ErrCode_3 = true;
+				    	 $scope.confirmClick = true;
+				    	$window.scrollTo(0, 5);
+				   	 }
+			   }
+			});
 			
 		}
     };
+    
+	$scope.confirmAddPigletStatusEvent = function()
+	{
+		//alert(JSON.stringify($scope.pigletStatusEvent));
+		
+		restServices.savePigletStatusEventInformation($scope.pigletStatusEvent, function(data){
+			if(!data.error)
+				{
+					$scope.clearAllMessages();
+					$scope.entryEventSuccessMessage = true;
+					$scope.pigletStatusEvent = {};
+				}
+			else
+				{
+					$scope.clearAllMessages();
+					if(data.duplicateRecord)
+						$scope.entryEventDuplicateErrorMessage = true;
+					else
+						$scope.entryEventErrorMessage = true;
+				}
+				$window.scrollTo(0, 5);  
+		});		
+	
+	};
     
    //method to search the piglet events on pig id or farrow id. Farrow it will give one set and pig id may return multiple sets. 
     $scope.searchPigletStatusEvents = function()
@@ -237,7 +276,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				}
 			});
 		}
-    }
+    };
 	
    
 	

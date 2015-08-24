@@ -1,7 +1,6 @@
 package com.pigtrax.pigevents.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +33,7 @@ public class PigletStatusEventRestController {
 	
 	
 	/**
-	 * Service to save the PigletStatus event information
+	 * Service to save/update the PigletStatus event information
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/savePigletStatusEventInformation", method=RequestMethod.POST, produces="application/json", consumes="application/json")
@@ -46,7 +45,7 @@ public class PigletStatusEventRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			pigletStatusEventDto.setUserUpdated(activeUser.getUsername());
-			int rowsInserted = pigletStatusEventService.savePigletStatusEvent(pigletStatusEventDto);
+			pigletStatusEventService.savePigletStatusEvent(pigletStatusEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
 			if(e.isDuplicateStatus())
@@ -63,7 +62,7 @@ public class PigletStatusEventRestController {
 	
 	
 	/**
-	 * Service to get piglet status information
+	 * Service to get Pigletstatus information
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getPigletStatusEventInformation", method=RequestMethod.POST, produces="application/json", consumes="application/json")
@@ -119,5 +118,25 @@ public class PigletStatusEventRestController {
 		}
 		return dto;
 	}
+	
+	/**
+	 * Service to validate the Piglet status event
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/validatePigletStatusEvent", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto validatePigletStatusEvent(HttpServletRequest request, @RequestBody PigletStatusEventDto pigletStatusEventDto)
+	{
+		logger.info("Inside validatePigletStatusEvent method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			int statusCode = pigletStatusEventService.validatePigletStatusEvent(pigletStatusEventDto);
+			dto.setPayload(statusCode);
+			dto.setStatusMessage("Success");
+		}  catch (Exception e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}	
     
 }
