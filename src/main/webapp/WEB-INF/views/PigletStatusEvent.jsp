@@ -143,7 +143,7 @@
                          <td>&nbsp; </td>
                          <td>No of Pigs </td>
                          <td>Weight (kg) </td>
-                         <td>Pig Id </td>
+                         <td>PigId - Foster To/From </td>
                         </tr>
                      </thead>
                      <tbody>
