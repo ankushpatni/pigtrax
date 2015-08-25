@@ -62,7 +62,7 @@ public class PigletStatusEventRestController {
 	
 	
 	/**
-	 * Service to get Pigletstatus information
+	 * Service to get Piglet status information
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getPigletStatusEventInformation", method=RequestMethod.POST, produces="application/json", consumes="application/json")

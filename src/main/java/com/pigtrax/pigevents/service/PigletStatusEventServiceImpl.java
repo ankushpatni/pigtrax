@@ -2,11 +2,8 @@ package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -14,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
-import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
@@ -30,8 +26,6 @@ import com.pigtrax.pigevents.validation.PigletStatusEventValidation;
 import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 @Service
 public class PigletStatusEventServiceImpl implements PigletStatusEventService {
-
-	private static final Logger logger = Logger.getLogger(PigletStatusEventService.class);
 	
 	@Autowired
 	FarrowEventDao farrowEventDao;
@@ -66,7 +60,6 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		try{
 		if(pigletStatusEventDto != null)
 		{
-			//FarrowEvent farrowEvent = farrowEventDao.getFarrowEvent(pigletStatusEventDto.getFarrowEventId());
 			
 			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletStatusEventDto.getPigId(), pigletStatusEventDto.getCompanyId());
 			pigletStatusEventDto.setPigInfoId(pigInfo.getId());
@@ -75,16 +68,14 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			//delete the records if present
 			deletePigletStatusEvent(pigletStatusEventDto);
 	
-			if(pigletStatusEventDto.getWeanPigNum() != null && pigletStatusEventDto.getWeanPigNum() > 0 &&
-					pigletStatusEventDto.getWeanPigWt() != null && pigletStatusEventDto.getWeanPigWt() > 0)
+			if(pigletStatusEventDto.getWeanPigNum() != null && pigletStatusEventDto.getWeanPigNum() > 0)
 			{
 				event.setPigletStatusEventTypeId(PigletStatusEventType.Wean.getTypeCode());
 				event.setNumberOfPigs(pigletStatusEventDto.getWeanPigNum());
 				event.setWeightInKgs(pigletStatusEventDto.getWeanPigWt());
 				eventId = addPigletStatusEvent(event);
 			}
-			if(pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0 &&
-					pigletStatusEventDto.getFosterPigWt() != null && pigletStatusEventDto.getFosterPigWt() > 0)
+			if(pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0)
 			{
 				event.setPigletStatusEventTypeId(PigletStatusEventType.FosterOut.getTypeCode());
 				event.setNumberOfPigs(pigletStatusEventDto.getFosterPigNum());
@@ -97,8 +88,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				eventId = addPigletStatusEvent(fosterInEvent);
 			}
 			
-			if(pigletStatusEventDto.getDeathPigNum() != null && pigletStatusEventDto.getDeathPigNum() > 0 &&
-					pigletStatusEventDto.getDeathPigWt() != null && pigletStatusEventDto.getDeathPigWt() > 0)
+			if(pigletStatusEventDto.getDeathPigNum() != null && pigletStatusEventDto.getDeathPigNum() > 0)
 			{
 				event.setPigletStatusEventTypeId(PigletStatusEventType.Death.getTypeCode());
 				event.setNumberOfPigs(pigletStatusEventDto.getDeathPigNum());
@@ -184,7 +174,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			}
 		}	 
 	 /**
-	  * Get pigletStatus events based on pigId / Farrow ID
+	  * Get pigletStatus events based on Pig Id / Tattoo ID
 	  */
 	 @Override
 	public List<PigletStatusEventDto> getPigletStatusEvents(
@@ -196,7 +186,6 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 						pigletEventStatusDto.getSearchOption(), pigletEventStatusDto.getCompanyId());
 				
 				Integer farrowid =0;
-				//Map<Integer, List<PigletStatusEventDto>> pigletEventsMap = new  HashMap<Integer, List<PigletStatusEventDto>>();
 				PigletStatusEventDto fosterInEvent = null;
 				subList = new ArrayList<PigletStatusEventDto>();
 			   for(PigletStatusEvent pigletStatusEvent : pigletStatusEvents)
@@ -241,9 +230,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   
 				   } else{ //foster in case					   
 					   fosterInEvent.setFosterinId(pigletStatusEvent.getId()); 
-				   }
-				   
-				   
+				   }				      
 				   
 			   }
 			   
@@ -253,26 +240,5 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				throw new PigTraxException(e.getMessage(), e.getSQLState());
 			}
 	}
-	 
-	  private Map<Integer, List<PigletStatusEventDto>> populateMap(List<PigletStatusEventDto> pigletStatusEventDtoList)
-	  {
-		  Map<Integer, List<PigletStatusEventDto>> pigletEventsMap = new  HashMap<Integer, List<PigletStatusEventDto>>();
-		  List<PigletStatusEventDto> subList = null;
-		  if(pigletStatusEventDtoList != null)
-		  {
-			  
-			  int farrowEventId = 0;
-			  for(PigletStatusEventDto dto : pigletStatusEventDtoList)
-			  {	 
-				  if(dto.getFarrowEventId() != farrowEventId)
-				  {
-					  subList = new ArrayList<PigletStatusEventDto>();
-					  pigletEventsMap.put(dto.getFarrowEventId(), subList);
-					  farrowEventId = dto.getFarrowEventId();
-				  }
-				  subList.add(dto);
-			  }
-		  }
-		  return pigletEventsMap;
-	  }
+
 }

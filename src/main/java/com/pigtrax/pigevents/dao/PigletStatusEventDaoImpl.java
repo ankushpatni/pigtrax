@@ -18,7 +18,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
 import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
 
@@ -163,10 +162,10 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	
 	
 	/**
-	 * To get the list of PigletStatus events of a given farrowId and companyId
+	 * To get the list of PigletStatus events of a given tattooId and companyId
 	 */
 
-	private List<PigletStatusEvent> getPigletStatusEventsByFarrowId(final String farrowId,
+	private List<PigletStatusEvent> getPigletStatusEventsByTattooId(final String tattooId,
 			final Integer companyId) {
 		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
 		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
@@ -176,12 +175,12 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		   		+ "JOIN pigtrax.\"FarrowEvent\" FE ON PSE.\"id_FarrowEvent\" = FE.\"id\" "
 		   		+ "JOIN pigtrax.\"PregnancyEvent\" PE on FE.\"id_PregnancyEvent\" = PE.\"id\" "
 		   		+ "JOIN pigtrax.\"PigInfo\" PI on PE.\"id_PigInfo\" = PI.\"id\" "
-		   		+ " WHERE FE.\"farrowId\" = ? and PI.\"id_Company\" = ? PSE.\"id_FarrowEvent\" ";
+		   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? order by PSE.\"id_FarrowEvent\" ";
  		
  		List<PigletStatusEvent> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
  			public void setValues(PreparedStatement ps) throws SQLException {
- 				ps.setString(1, farrowId);
+ 				ps.setString(1, tattooId);
  				ps.setInt(2, companyId);
  			}}, new PigletStatusEventMapper());
 
@@ -210,8 +209,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		   if(searchOption ==null) searchOption = "pigId";
 		   else if("PIGId".equalsIgnoreCase(searchOption))
 			   pigletStatusEventList = getPigletStatusEventsByPigId(searchText, companyId);
-		   else if("FARROWID".equalsIgnoreCase(searchOption))
-			   pigletStatusEventList = getPigletStatusEventsByFarrowId(searchText, companyId);
+		   else if("TATTOOID".equalsIgnoreCase(searchOption))
+			   pigletStatusEventList = getPigletStatusEventsByTattooId(searchText, companyId);
 		  return pigletStatusEventList; 
 	}
 	

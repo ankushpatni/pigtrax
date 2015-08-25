@@ -17,8 +17,12 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.inValidPigIdFromServer = false;
 		$scope.confirmClick = false;
 		$scope.requiredPigIdMessage = false;
+		$scope.eventDateTimerequired = false;
 		$scope.inValidServiceIdFromServer = false;
-		$scope.breedingEventValidation_ErrCode_1 = false;
+		$scope.pigletstatusEventValidation_ErrCode_1 = false;
+		$scope.pigletstatusEventValidation_ErrCode_2 = false;
+		$scope.pigletstatusEventValidation_ErrCode_3 = false;
+		$scope.pigletstatuseventform.$setUntouched();
 	};
 	
 	$scope.resetForm = function()
@@ -169,7 +173,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	
 	$scope.selectFoster = function()
 	{
-		$scope.pigletStatusEvent.fosterToPigId = $scope.pigletStatusEvent.fosterDto.pigId;
+		$scope.pigletStatusEvent.fosterToPigId = $scope.pigletStatusEvent.fosterDto.pigId  + " ["+$scope.pigletStatusEvent.fosterDto.currentFarrowEventDate+"]";
 		$scope.pigletStatusEvent.fosterTo = $scope.pigletStatusEvent.fosterDto.id;
 		$scope.pigletStatusEvent.fosterToDateTime = $scope.pigletStatusEvent.fosterDto.currentFarrowEventDate;
 		$('#searchFosters').modal('hide');
@@ -185,6 +189,16 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		if($scope.pigletstatuseventform.$valid)
 		{
 			$scope.pigletStatusEvent["eventDateTime"] = document.getElementById("eventDateTime").value;
+			if($scope.pigletStatusEvent["eventDateTime"] === "")
+			{
+				$scope.eventDateTimerequired = true;
+				return;
+			}	
+			if($scope.pigletStatusEvent["fosterPigNum"] !== "" && ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === ""))
+			{
+				$scope.fosterToPigIdrequired = true;
+				return;
+			}
 			$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
 			delete $scope.pigletStatusEvent.fosterDto;
 			restServices.validatePigletStatusEvent($scope.pigletStatusEvent, function(data){
