@@ -78,8 +78,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 	public int addGroupEvent(final GroupEvent groupEvent) throws SQLException {
 
 		final String Qry = "insert into pigtrax.\"GroupEvent\"(\"groupId\", \"groupStartDateTime\", \"groupCloseDateTime\", \"isActive\","
-				+ " \"remarks\", \"lastUpdated\",\"userUpdated\", \"id_Company\" , \"currentInventory\",\"previousGroupId\", \"id_PhaseOfProductionType\") "
-				+ "values(?,?,?,?,?,current_timestamp,?,?,?,?,?)";
+				+ " \"remarks\", \"lastUpdated\",\"userUpdated\", \"id_Company\" , \"previousGroupId\", \"id_PhaseOfProductionType\") "
+				+ "values(?,?,?,?,?,current_timestamp,?,?,?,?)";
 
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -104,22 +104,22 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 				ps.setString(5, groupEvent.getRemarks());
 				ps.setString(6, UserUtil.getLoggedInUser());
 				ps.setInt(7, groupEvent.getCompanyId());
-				if(null != groupEvent.getCurrentInventory())
+				/*if(null != groupEvent.getCurrentInventory())
 				{
 					ps.setInt(8, groupEvent.getCurrentInventory());
 				}
 				else
 				{
 					ps.setInt(8, java.sql.Types.INTEGER);
-				}
-				ps.setString(9, groupEvent.getPreviousGroupId());
+				}*/
+				ps.setString(8, groupEvent.getPreviousGroupId());
 				if(null != groupEvent.getPhaseOfProductionTypeId())
 				{
-					ps.setInt(10, groupEvent.getPhaseOfProductionTypeId());
+					ps.setInt(9, groupEvent.getPhaseOfProductionTypeId());
 				}
 				else
 				{
-					ps.setInt(10, java.sql.Types.INTEGER);
+					ps.setInt(9, java.sql.Types.INTEGER);
 				}
 				
 				return ps;
@@ -148,7 +148,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 					{
 						ps.setNull(1, java.sql.Types.DATE);
 					}
-					if( null != groupEvent.getGroupStartDateTime())
+					if( null != groupEvent.getGroupCloseDateTime())
 					{
 					ps.setDate(2, new java.sql.Date(groupEvent
 							.getGroupCloseDateTime().getTime()));
