@@ -14,8 +14,7 @@ public class GroupEventDetails {
 	private Date lastUpdated;
 	private String userUpdated;
 	private Integer roomId;
-	private Integer employeeGroupId;	
-	private Integer phaseOfProductionTypeId;
+	private Integer employeeGroupId;
 	private int groupId;
 	
 	public Date getDateOfEntry() {
@@ -91,10 +90,4 @@ public class GroupEventDetails {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
-	public Integer getPhaseOfProductionTypeId() {
-		return phaseOfProductionTypeId;
-	}
-	public void setPhaseOfProductionTypeId(Integer phaseOfProductionTypeId) {
-		this.phaseOfProductionTypeId = phaseOfProductionTypeId;
-	}	
 }

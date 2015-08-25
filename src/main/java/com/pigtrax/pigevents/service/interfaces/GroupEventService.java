@@ -19,5 +19,9 @@ GroupEvent getGroupEventByGroupId(final String groupId, final int companyId) thr
 	
 	List<Map<Integer,String>> getGroupEventAndDetailByGroupId(String groupId, int companyId)
 			throws PigTraxException;
+	
+	public int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws PigTraxException;
+	
+	 GroupEvent getGroupEventByGeneratedGroupId(final int groupId,  final int companyId);
 
 }

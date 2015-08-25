@@ -510,8 +510,11 @@ CREATE TABLE pigtrax."GroupEvent"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Company" integer,
+	"currentInventory" smallint,
+	"previousGroupId" varchar(20),
+	"id_PhaseOfProductionType" integer,
 	CONSTRAINT "PIGEVENT_PK" PRIMARY KEY (id),
-	CONSTRAINT "PIGEVENT_GI_U" UNIQUE ("groupId")
+	CONSTRAINT "PIGEVENT_GI_U" UNIQUE ("groupId","id_Company")
 
 );
 -- ddl-end --
@@ -537,7 +540,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE pigtrax."Barn" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
 REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
+
 
 -- object: pigtrax."Genetics" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."Genetics" CASCADE;
@@ -1845,8 +1848,7 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Room" integer,
-	"id_EmployeeGroup" integer,
-	"id_PhaseOfProductionType" integer,
+	"id_EmployeeGroup" integer,	
 	"id_GroupEvent" integer,
 	CONSTRAINT "GROUPDEVENTDETAIL_PK" PRIMARY KEY (id)
 
@@ -1869,17 +1871,17 @@ REFERENCES pigtrax."EmployeeGroup" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "PhaseOfProductionType_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "PhaseOfProductionType_fk" CASCADE;
-ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "PhaseOfProductionType_fk" FOREIGN KEY ("id_PhaseOfProductionType")
-REFERENCES pigtraxrefdata."PhaseOfProductionType" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
-
 -- object: "GroupEvent_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
 ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
 REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "PhaseOfProductionType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "PhaseOfProductionType_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEvent" ADD CONSTRAINT "PhaseOfProductionType_fk" FOREIGN KEY ("id_PhaseOfProductionType")
+REFERENCES pigtraxrefdata."PhaseOfProductionType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

@@ -61,13 +61,6 @@
 							<p ng-repeat="employee in groupEvent.employeeGroup.employeeList">{{employee.name}} ( Id : {{employee.id}})</p>
 						</div>
                       </div>
-                    </div>	
-
-			        <div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/></label>
-                       <select class="form-control"  name="phaseOfProductionTypeId" id="phaseOfProductionTypeId" ng-model="groupEvent.phaseOfProductionTypeId"   
-                         ng-options="k as v for (k, v) in phaseOfProductionType">
-                        </select>
                     </div>
 					<div class="form-group">
 				<label><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></label>

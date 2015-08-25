@@ -33,7 +33,6 @@ public class GroupEventBuilder {
 				groupEventDetails.setRemarks(dto.getRemarks());
 				groupEventDetails.setLastUpdated(dto.getLastUpdated());
 				groupEventDetails.setUserUpdated(dto.getUserUpdated());
-				groupEventDetails.setPhaseOfProductionTypeId(dto.getPhaseOfProductionTypeId());
 		   }
 		   return groupEventDetails;
 	   }
@@ -60,7 +59,6 @@ public class GroupEventBuilder {
 				dto.setRemarks(groupEventDetails.getRemarks());
 				dto.setLastUpdated(groupEventDetails.getLastUpdated());
 				dto.setUserUpdated(groupEventDetails.getUserUpdated());
-				dto.setPhaseOfProductionTypeId(groupEventDetails.getPhaseOfProductionTypeId());
 		   }
 		   return dto;
 	   }
