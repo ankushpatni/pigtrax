@@ -88,10 +88,21 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.pigletstatuseventform.delete.message'  text='Piglet Status event information deleted'/>
                   </div>     
-                   
+                  <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_1">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_1' text='Wean should happen within 0-60 days of farrow event, please change the date and submit again to proceed' />
+                  </div>  
+                  <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_2">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_2' text='Wean should happen within 0-50 days of foster event, please change the date and submit again to proceed' />
+                  </div>                         
+                  <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_3">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_3' text='Pig count should be same as farrow event, please adjust and submit again to proceed' />
+                  </div>                               
                 </div>
                 <div class="content">
-                  <form name="pigletstatuseventform" novalidate angular-validator>
+                  <form name="pigletstatuseventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="pigletStatusEvent.id"/>
                    <input type=hidden name="fosterTo" ng-model="pigletStatusEvent.fosterTo"/>
 				  <input type=hidden name="pigInfoId" ng-model="pigletStatusEvent.pigInfoId"/>
@@ -116,6 +127,7 @@
 				    <div class=" block-flat bars-widget" ng-if="pigletStatusEvent.farrowEventId != null && pigletStatusEvent.farrowEventId>0">
 		                <div class="spk4 pull-right spk-widget"></div>
 		                <h4>Farrow Details</h4>
+		                <P>Farrow Event Date : {{pigletStatusEvent.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</P>
 		                <p>Live Borns : {{pigletStatusEvent.farrowEventDto.liveBorns}}</p>
 		                <p>Male Borns : {{pigletStatusEvent.farrowEventDto.maleBorns}}</p>
 		                <p>Female Borns : {{pigletStatusEvent.farrowEventDto.femaleBorns}}</p>
@@ -131,7 +143,7 @@
                          <td>&nbsp; </td>
                          <td>No of Pigs </td>
                          <td>Weight (kg) </td>
-                         <td>Pig Id </td>
+                         <td>PigId - Foster To/From </td>
                         </tr>
                      </thead>
                      <tbody>
@@ -146,7 +158,7 @@
                          <td><input type="text" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
                          <td><input type="text" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
                          <td><div data-min-view="2" class="input-group col-md-9 col-xs-11" >
-                            <input type="text" ng-value="0" name="fosterToPigId" ng-model="pigletStatusEvent.fosterToPigId"  maxlength="10"  size="10" class="input-sm  form-control">
+                            <input type="text" ng-value="0" name="fosterToPigId" readonly ng-model="pigletStatusEvent.fosterToPigId"  maxlength="10"  size="10" class="input-sm  form-control">
 							<span>
                             <button type="button" class="btn btn-primary active" ng-click="getAllFosterPigs()" data-target="#searchFosters"><i class="fa fa-search"></i></button>
 									</span>					
@@ -224,8 +236,8 @@
                        <tbody>
 	                   <tr ng-repeat="farrowEventObj in farrowEventList" ng-if="farrowEventList != null && farrowEventList.length > 0">
 	                    <td><input type="radio" name="farrowEventDtoId" id="farrowEventDtoId" ng-model="pigletStatusEvent.farrowEventDto" ng-value="farrowEventObj"></td>
-	                    <td>{{farrowEventObj.farrowId | date : 'yyyy-MM-dd'}}</td>
-	                    <td>{{farrowEventObj.farrowDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{farrowEventObj.farrowId}}</td>
+	                    <td>{{farrowEventObj.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
 	                   </tr>
 	                   <tr ng-if="farrowEventList == null || farrowEventList.length == 0">
 	                     <td colspan="3">
@@ -262,7 +274,7 @@
 	                   <tr ng-repeat="fosterObj in fosterPigList" ng-if="fosterPigList != null && fosterPigList.length > 0">
 	                    <td><input type="radio" name="fosterId" id="fosterId" ng-model="pigletStatusEvent.fosterDto" ng-value="fosterObj"></td>
 	                    <td>{{fosterObj.pigId}}</td>
-	                    <td>{{fosterObj.birthDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{fosterObj.currentFarrowEventDate | date : 'yyyy-MM-dd'}}</td>
 	                   </tr>
 	                   <tr ng-if="fosterPigList == null || fosterPigList.length == 0">
 	                     <td colspan="3">

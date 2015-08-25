@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 
 @Component
@@ -61,6 +60,7 @@ public class PigInfoBuilder {
 		   dto.setPenId(info.getPenId());
 		   dto.setBarnId(info.getBarnId());
 		   dto.setSexTypeId(info.getSexTypeId());
+		   dto.setCurrentFarrowEventDate(info.getCurrentFarrowEventDate());
 	   }
 	   return dto;
    }

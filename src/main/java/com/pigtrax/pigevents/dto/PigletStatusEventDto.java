@@ -12,6 +12,7 @@ public class PigletStatusEventDto {
 	private Integer pigInfoId;
 	private Integer fosterFrom;
 	private Integer fosterTo;
+	private Date fosterToDateTime;
 	private Integer pigletStatusEventTypeId;
 	private Date eventDateTime;
 	private Integer numberOfPigs;
@@ -302,6 +303,13 @@ public class PigletStatusEventDto {
 	public void setPigletStatusEventType(String pigletStatusEventType) {
 		this.pigletStatusEventType = pigletStatusEventType;
 	}
+	
+	public Date getFosterToDateTime() {
+		return fosterToDateTime;
+	}
 
+	public void setFosterToDateTime(Date fosterToDateTime) {
+		this.fosterToDateTime = fosterToDateTime;
+	}
 	
 }

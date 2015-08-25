@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,13 @@ import com.pigtrax.pigevents.dto.PigletStatusEventBuilder;
 import com.pigtrax.pigevents.dto.PigletStatusEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletStatusEventService;
+import com.pigtrax.pigevents.validation.PigletStatusEventValidation;
 import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 @Service
 public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 
+	private static final Logger logger = Logger.getLogger(PigletStatusEventService.class);
+	
 	@Autowired
 	FarrowEventDao farrowEventDao;
 	
@@ -50,6 +54,9 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 	@Autowired
 	FarrowEventService farrowEventService;
 	
+	@Autowired
+	PigletStatusEventValidation validationObj;	
+	
 	 @Override
 	public int savePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto)
 			throws PigTraxException {
@@ -59,7 +66,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		try{
 		if(pigletStatusEventDto != null)
 		{
-			FarrowEvent farrowEvent = farrowEventDao.getFarrowEvent(pigletStatusEventDto.getFarrowEventId());
+			//FarrowEvent farrowEvent = farrowEventDao.getFarrowEvent(pigletStatusEventDto.getFarrowEventId());
 			
 			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletStatusEventDto.getPigId(), pigletStatusEventDto.getCompanyId());
 			pigletStatusEventDto.setPigInfoId(pigInfo.getId());
@@ -145,10 +152,22 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			return pigletStatusId;	 	
 		}
 	
+	 //validate Piglet status event
+		@Override
+		public int validatePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto)
+		{
+			try {				
+				return validationObj.validate(pigletStatusEventDto);
+			}
+			catch (PigTraxException e) {
+				e.printStackTrace();
+				return -1;
+			}
+		}	 
 	
 	 
 		/**
-		 * Delete a pregnancy event based on the primary key ID
+		 * Delete all Piglet status event based on the primary key ID
 		 */
 		@Override
 		public void deletePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto)
