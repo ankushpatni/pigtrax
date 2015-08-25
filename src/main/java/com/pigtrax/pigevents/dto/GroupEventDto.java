@@ -18,8 +18,8 @@ public class GroupEventDto {
 	private String remarks;
 	private Date lastUpdated;
 	private String userUpdated;
-	private Integer phaseOfProductionTypeId;
 	private EmployeeGroupDto employeeGroup;
+	private Integer companyId;
 	
 	//groupevent fields	
 	
@@ -96,12 +96,6 @@ public class GroupEventDto {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
-	public Integer getPhaseOfProductionTypeId() {
-		return phaseOfProductionTypeId;
-	}
-	public void setPhaseOfProductionTypeId(Integer phaseOfProductionTypeId) {
-		this.phaseOfProductionTypeId = phaseOfProductionTypeId;
-	}
 	
 	public EmployeeGroupDto getEmployeeGroup() {
 		return employeeGroup;
@@ -109,6 +103,10 @@ public class GroupEventDto {
 	public void setEmployeeGroup(EmployeeGroupDto employeeGroup) {
 		this.employeeGroup = employeeGroup;
 	}
-	
-
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 }

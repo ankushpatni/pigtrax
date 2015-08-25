@@ -7,6 +7,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.groupEventDetailList = [];
 	$scope.confirmClick = false;
 	$scope.phaseOfProductionType = {};
+	$scope.phaseOfProductionTypeForNewAdd = {};
 	$scope.roomList={};
 	$scope.transportDestination;
 	$scope.transportTruck;
@@ -18,19 +19,35 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	console.log(companyId);
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
-		restServices.getPhaseOfProductionType("", function(data){
+		/*restServices.getPhaseOfProductionType("", function(data){
 			if(!data.error)
 				{
 					$scope.phaseOfProductionType = data.payload[0];	
-					$scope.groupEvent = data.payload[0];
-					$scope.groupEventDetailList	= data.payload[1];
-									
 				}
 			else
 				{
 					console.log( "failure message: " + {data: data});
 				} 
-		});
+		});*/
+		
+		var res2 = $http.get('rest/util/getPhaseOfProductionType?companyId='+$scope.companyId);
+			res2.success(function(data, status, headers, config) {
+				console.log(data);
+				$scope.phaseOfProductionType = data.payload[0];	
+				$scope.roomList = data.payload[1];
+				$scope.phaseOfProductionTypeForNewAdd = data.payload[0];
+				console.log($scope.phaseOfProductionTypeForNewAdd );
+				for( var x in $scope.phaseOfProductionTypeForNewAdd) {
+					if( x == 2 || x == 4 || x == 5)
+						{		
+						delete $scope.phaseOfProductionTypeForNewAdd[x];
+						}
+					}
+				
+			});
+			res2.error(function(data, status, headers, config) {
+				console.log( "failure message: " + {data: data});
+			});
 		
 		if( searchedGroupid)
 		{
@@ -111,6 +128,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"groupStartDateTime" : document.getElementById("groupStartDateTime").value,
 					"groupCloseDateTime" : document.getElementById("groupCloseDateTime").value,					
 					"remarks" : $scope.groupEvent.remarks,
+					"phaseOfProductionTypeId" : $scope.groupEvent.phaseOfProductionTypeId,
 					
 				};
 				if($scope.groupEvent.id != undefined && $scope.groupEvent.id >0)

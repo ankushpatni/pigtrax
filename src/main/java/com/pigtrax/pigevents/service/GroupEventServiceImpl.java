@@ -54,6 +54,11 @@ public class GroupEventServiceImpl implements GroupEventService{
 	}
 	
 	@Override
+	public GroupEvent getGroupEventByGeneratedGroupId(final int groupId,  final int companyId) {
+				return groupEventDao.getGroupEventByGeneratedGroupId(groupId,companyId);		
+	}
+	
+	@Override
 	public List getGroupEventAndDetailByGroupId(String groupId, int companyId)
 			throws PigTraxException {
 		try 
@@ -133,6 +138,20 @@ public class GroupEventServiceImpl implements GroupEventService{
 	public int updateGroupEventStatus(String groupId, Boolean groupStatus)
 			throws SQLException {
 		return groupEventDao.updateGroupEventStatus(groupId, groupStatus);
+	}
+	
+	public int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws PigTraxException
+	{
+
+		try {
+			int generatedId = groupEventDao.updateGroupEventCurrentInventory(groupEvent);
+			return generatedId;
+		} 
+		catch (SQLException sqlEx) {
+			
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());			
+		} 
 	}
 
 	

@@ -13,6 +13,9 @@ public class GroupEvent {
 	private String remarks;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer currentInventory;
+	private String previousGroupId;
+	private Integer phaseOfProductionTypeId;
 	
 	public Integer getCompanyId() {
 		return companyId;
@@ -68,4 +71,23 @@ public class GroupEvent {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	public Integer getCurrentInventory() {
+		return currentInventory;
+	}
+	public void setCurrentInventory(Integer currentInventory) {
+		this.currentInventory = currentInventory;
+	}
+	public String getPreviousGroupId() {
+		return previousGroupId;
+	}
+	public void setPreviousGroupId(String previousGroupId) {
+		this.previousGroupId = previousGroupId;
+	}
+	public Integer getPhaseOfProductionTypeId() {
+		return phaseOfProductionTypeId;
+	}
+	public void setPhaseOfProductionTypeId(Integer phaseOfProductionTypeId) {
+		this.phaseOfProductionTypeId = phaseOfProductionTypeId;
+	}
+	
 }

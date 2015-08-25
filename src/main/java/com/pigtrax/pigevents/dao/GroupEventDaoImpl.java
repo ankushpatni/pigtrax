@@ -39,7 +39,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 			throws SQLException {
 		
 		String qry = "select \"id\", \"groupId\", \"groupStartDateTime\", \"groupCloseDateTime\", \"isActive\", "
-		   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_Company\" from pigtrax.\"GroupEvent\" where \"groupId\" = ? and \"id_Company\" = ?";
+		   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_Company\", \"currentInventory\",\"previousGroupId\", \"id_PhaseOfProductionType\" "+
+				"from pigtrax.\"GroupEvent\" where \"groupId\" = ? and \"id_Company\" = ?";
 			
 			List<GroupEvent> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
@@ -53,13 +54,32 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 			}
 			return null;
 	}
+	
+	public GroupEvent getGroupEventByGeneratedGroupId(final int groupId, final int companyId)
+	{
+		String qry = "select \"id\", \"groupId\", \"groupStartDateTime\", \"groupCloseDateTime\", \"isActive\", "
+		   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\",\"id_Company\",  \"currentInventory\",\"previousGroupId\", \"id_PhaseOfProductionType\" "+
+				"from pigtrax.\"GroupEvent\" where  \"id\" = ? and \"id_Company\" = ?";
+			
+			List<GroupEvent> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					ps.setInt(2, companyId);
+				}}, new GroupEventMapper());
+
+			if(groupEventList != null && groupEventList.size() > 0){
+				return groupEventList.get(0);
+			}
+			return null;
+	}
 
 	@Override
 	public int addGroupEvent(final GroupEvent groupEvent) throws SQLException {
 
 		final String Qry = "insert into pigtrax.\"GroupEvent\"(\"groupId\", \"groupStartDateTime\", \"groupCloseDateTime\", \"isActive\","
-				+ " \"remarks\", \"lastUpdated\",\"userUpdated\", \"id_Company\") "
-				+ "values(?,?,?,?,?,current_timestamp,?,?)";
+				+ " \"remarks\", \"lastUpdated\",\"userUpdated\", \"id_Company\" , \"previousGroupId\", \"id_PhaseOfProductionType\") "
+				+ "values(?,?,?,?,?,current_timestamp,?,?,?,?)";
 
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -84,6 +104,24 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 				ps.setString(5, groupEvent.getRemarks());
 				ps.setString(6, UserUtil.getLoggedInUser());
 				ps.setInt(7, groupEvent.getCompanyId());
+				/*if(null != groupEvent.getCurrentInventory())
+				{
+					ps.setInt(8, groupEvent.getCurrentInventory());
+				}
+				else
+				{
+					ps.setInt(8, java.sql.Types.INTEGER);
+				}*/
+				ps.setString(8, groupEvent.getPreviousGroupId());
+				if(null != groupEvent.getPhaseOfProductionTypeId())
+				{
+					ps.setInt(9, groupEvent.getPhaseOfProductionTypeId());
+				}
+				else
+				{
+					ps.setInt(9, java.sql.Types.INTEGER);
+				}
+				
 				return ps;
 			}
 		}, holder);
@@ -97,7 +135,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 	public int updateGroupEvent(final GroupEvent groupEvent) throws SQLException
 	{
 		String query = "update pigtrax.\"GroupEvent\" SET \"groupStartDateTime\"=?, \"groupCloseDateTime\"=?, \"isActive\"=?, \"remarks\"=?, \"lastUpdated\"=?,"+
-				" \"userUpdated\"=?  WHERE \"groupId\"=?";
+				" \"userUpdated\"=? , \"currentInventory\"=? ,\"previousGroupId\" =? , \"id_PhaseOfProductionType\" = ? where \"groupId\" = ? and \"id_Company\" = ?";
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
@@ -110,7 +148,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 					{
 						ps.setNull(1, java.sql.Types.DATE);
 					}
-					if( null != groupEvent.getGroupStartDateTime())
+					if( null != groupEvent.getGroupCloseDateTime())
 					{
 					ps.setDate(2, new java.sql.Date(groupEvent
 							.getGroupCloseDateTime().getTime()));
@@ -124,7 +162,27 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 					ps.setString(4, groupEvent.getRemarks());
 					ps.setDate(5, new java.sql.Date(System.currentTimeMillis()));
 					ps.setString(6, UserUtil.getLoggedInUser());
-					ps.setString(7, groupEvent.getGroupId());
+					
+					if(null != groupEvent.getCurrentInventory())
+					{
+						ps.setInt(7, groupEvent.getCurrentInventory());
+					}
+					else
+					{
+						ps.setInt(7, java.sql.Types.INTEGER);
+					}
+					ps.setString(8, groupEvent.getPreviousGroupId());
+					if(null != groupEvent.getPhaseOfProductionTypeId())
+					{
+						ps.setInt(9, groupEvent.getPhaseOfProductionTypeId());
+					}
+					else
+					{
+						ps.setInt(9, java.sql.Types.INTEGER);
+					}
+					
+					ps.setString(10, groupEvent.getGroupId());
+					ps.setInt(11, groupEvent.getCompanyId());
 				}
 			});	
 	}
@@ -143,6 +201,21 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 		});
 	}
 	
+	public int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws SQLException{
+		
+		String query = "update pigtrax.\"GroupEvent\" SET \"currentInventory\"=?  where \"id\" = ? and \"id_Company\" = ?";
+
+		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, groupEvent.getCurrentInventory());				
+				ps.setInt(2,groupEvent.getId());
+				ps.setInt(3, groupEvent.getCompanyId());
+			}
+		});
+		
+	}
+	
 	 private static final class GroupEventMapper implements RowMapper<GroupEvent> {
 			public GroupEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
 				GroupEvent groupEvent = new GroupEvent();
@@ -155,6 +228,9 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 				groupEvent.setLastUpdated(rs.getDate("lastUpdated"));
 				groupEvent.setUserUpdated(rs.getString("userUpdated"));
 				groupEvent.setCompanyId(rs.getInt("id_Company"));
+				groupEvent.setCurrentInventory(rs.getInt("currentInventory"));
+				groupEvent.setPreviousGroupId(rs.getString("previousGroupId"));
+				groupEvent.setPhaseOfProductionTypeId(rs.getInt("id_PhaseOfProductionType"));
 				return groupEvent;
 			}
 		}

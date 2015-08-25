@@ -61,9 +61,12 @@ public class RoomServiceImpl implements RoomService{
 		try
 		{
 		List<Room> roomList =  roomDao.getRoomListBasedOnCompanyId(generatedCompanyId);
-			for(Room room : roomList)
+			if(null != roomList && roomList.size()>0)
 			{
-				roomIdMap.put(room.getId(),room.getRoomId());
+				for(Room room : roomList)
+				{
+					roomIdMap.put(room.getId(),room.getRoomId());
+				}
 			}
 		}
 		catch(SQLException e)

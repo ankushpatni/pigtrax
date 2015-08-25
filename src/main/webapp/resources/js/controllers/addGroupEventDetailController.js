@@ -17,7 +17,8 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		$rootScope.companyId = companyId;
 		$scope.groupEvent.groupId = groupGeneratedId;
 		$scope.groupStartDateTime = groupStartDateTime;
-		console.log(groupDetailId);
+		$scope.groupEvent.companyId = companyId;
+		console.log($scope.groupEvent.companyId);
 		/*restServices.getPhaseOfProductionType($scope.companyId, function(data){
 			console.log(data);
 			if(!data.error)
@@ -42,11 +43,13 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 			res2.error(function(data, status, headers, config) {
 				console.log( "failure message: " + {data: data});
 			});
-		
-		if( groupDetailId)
+		console.log(groupDetailId);
+		if(groupDetailId != 'undefined' )
 		{
+		console.log(groupDetailId);
 			$scope.getGroupEventDetail(groupDetailId);
 		}
+		
 		
 	};
 	
@@ -57,6 +60,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 			if(!data.error)
 				{
 					$scope.groupEvent = data.payload;
+					$scope.groupEvent.companyId = $rootScope.companyId;
 				}
 			else
 				{
@@ -87,7 +91,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 			{
 				$scope.groupEvent.employeeGroupId = 0;
 			}
-			
+			$scope.groupEvent.companyId = $rootScope.companyId;
 			restServices.addGroupEventDetail($scope.groupEvent, function(data){
 				console.log(data);
 				if(!data.error)

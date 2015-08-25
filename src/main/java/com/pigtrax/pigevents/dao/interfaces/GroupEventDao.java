@@ -13,5 +13,9 @@ public interface GroupEventDao {
 	int updateGroupEvent(final GroupEvent groupEvent) throws SQLException;
 	
 	int updateGroupEventStatus( final String groupI, final Boolean groupStatus ) throws SQLException;
+	
+	int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws SQLException;
+	
+	GroupEvent getGroupEventByGeneratedGroupId(final int groupId, final int companyId);
 
 }
