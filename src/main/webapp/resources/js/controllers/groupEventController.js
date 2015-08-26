@@ -16,39 +16,28 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
 	{
-	console.log(companyId);
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
-		/*restServices.getPhaseOfProductionType("", function(data){
-			if(!data.error)
-				{
-					$scope.phaseOfProductionType = data.payload[0];	
-				}
-			else
-				{
-					console.log( "failure message: " + {data: data});
-				} 
-		});*/
-		
+				
 		var res2 = $http.get('rest/util/getPhaseOfProductionType?companyId='+$scope.companyId);
 			res2.success(function(data, status, headers, config) {
-				console.log(data);
 				$scope.phaseOfProductionType = data.payload[0];	
 				$scope.roomList = data.payload[1];
-				$scope.phaseOfProductionTypeForNewAdd = data.payload[0];
-				console.log($scope.phaseOfProductionTypeForNewAdd );
-				for( var x in $scope.phaseOfProductionTypeForNewAdd) {
-					if( x == 2 || x == 4 || x == 5)
+				//$scope.phaseOfProductionTypeForNewAdd = data.payload[0];
+				for( var x in $scope.phaseOfProductionType) {
+					if( x == 1 || x == 3 )
 						{		
-						delete $scope.phaseOfProductionTypeForNewAdd[x];
+						var obje = $scope.phaseOfProductionType[x];
+						$scope.phaseOfProductionTypeForNewAdd[x] = $scope.phaseOfProductionType[x];
 						}
 					}
-				
+					console.log($scope.phaseOfProductionTypeForNewAdd);
 			});
+			
 			res2.error(function(data, status, headers, config) {
 				console.log( "failure message: " + {data: data});
 			});
-		
+			
 		if( searchedGroupid)
 		{
 			$scope.searchText = searchedGroupid
@@ -59,7 +48,6 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
 			res1.success(function(data, status, headers, config) {
 				
-				console.log(data);
 				$scope.transportDestination = data.payload[0];	
 				$scope.transportTruck = data.payload[1];
 				$scope.transportTrailer = data.payload[2];
@@ -110,6 +98,34 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		});
 	}
 	
+	$scope.moveToAnotherGroup = function()
+	{
+	console.log($scope.phaseOfProductionType);
+		var modalInstance = $modal.open ({
+			templateUrl: 'moveToAnotherGroup',
+			controller: 'moveToAnotherGroupCtrl',
+			backdrop:true,
+			windowClass : 'cp-model-window',
+			resolve:{
+				moveToAnotherGroup : function(){
+					var moveToAnotherGroup={};
+					moveToAnotherGroup.phaseOfProductionType = $scope.phaseOfProductionType;
+					moveToAnotherGroup.companyId = $rootScope.companyId;
+					moveToAnotherGroup.groupGeneratedIdSeq = $scope.groupEvent.id;
+					moveToAnotherGroup.previousGroupId = $scope.groupEvent.groupId;
+					return moveToAnotherGroup;
+				}
+			}
+		});
+		
+		modalInstance.result.then( function(res) {   
+			if(res.statusMessage==="Success")
+			{
+				$scope.getGroupEventInformation($scope.groupEvent.groupId,false,true);
+			}
+		});
+	}
+	
 	$scope.addGroupEvent = function()
 	{
 		if(document.getElementById("groupStartDateTime").value === "")
@@ -129,6 +145,9 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"groupCloseDateTime" : document.getElementById("groupCloseDateTime").value,					
 					"remarks" : $scope.groupEvent.remarks,
 					"phaseOfProductionTypeId" : $scope.groupEvent.phaseOfProductionTypeId,
+					"fromMove" : false,
+					"previousGroupId" : $scope.groupEvent.previousGroupId,
+					"currentInventory" : $scope.groupEvent.currentInventory,
 					
 				};
 				if($scope.groupEvent.id != undefined && $scope.groupEvent.id >0)
@@ -167,13 +186,13 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		console.log('change group event status');
 	}
 	
-	$scope.getGroupEventInformation = function (searchGroupEvent,flag)
+	$scope.getGroupEventInformation = function (searchGroupEvent,flag,flag1)
 	{
 		console.log('Group ID is '+ $scope.searchText);
 		var postParam = {
 				
 				"groupId" : searchGroupEvent,
-				"companyId" : $rootScope.companyId,
+				"companyId" : $scope.companyId,
 			};
 		
 		restServices.getGroupEventInformation(postParam, function(data){
@@ -185,7 +204,9 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					$scope.groupEventDetailList	= data.payload[1];				
 					$window.scrollTo(0,550);
 					if(flag)					
-					$scope.entryEventSuccessMessage = true;					
+						$scope.entryEventSuccessMessage = true;		
+					if(flag1)	
+						$scope.moveEntryEventSuccessMessage = true;					
 				}
 			else
 				{

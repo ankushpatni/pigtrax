@@ -8,7 +8,7 @@ public class GroupEventDetails {
 	private String origin;
 	private Date dateOfEntry;
 	private Integer numberOfPigs;
-	private Integer weightInKgs;
+	private Double weightInKgs;
 	private Integer inventoryAdjustment;
 	private String remarks;
 	private Date lastUpdated;
@@ -65,10 +65,10 @@ public class GroupEventDetails {
 	public void setNumberOfPigs(Integer numberOfPigs) {
 		this.numberOfPigs = numberOfPigs;
 	}
-	public Integer getWeightInKgs() {
+	public Double getWeightInKgs() {
 		return weightInKgs;
 	}
-	public void setWeightInKgs(Integer weightInKgs) {
+	public void setWeightInKgs(Double weightInKgs) {
 		this.weightInKgs = weightInKgs;
 	}
 	public Integer getInventoryAdjustment() {

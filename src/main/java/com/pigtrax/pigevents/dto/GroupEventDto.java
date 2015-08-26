@@ -13,7 +13,7 @@ public class GroupEventDto {
 	private Integer roomId;
 	private Integer employeeGroupId;
 	private Integer numberOfPigs;
-	private Integer weightInKgs;
+	private Double weightInKgs;
 	private Integer inventoryAdjustment;
 	private String remarks;
 	private Date lastUpdated;
@@ -65,10 +65,10 @@ public class GroupEventDto {
 	public void setNumberOfPigs(Integer numberOfPigs) {
 		this.numberOfPigs = numberOfPigs;
 	}
-	public Integer getWeightInKgs() {
+	public Double getWeightInKgs() {
 		return weightInKgs;
 	}
-	public void setWeightInKgs(Integer weightInKgs) {
+	public void setWeightInKgs(Double weightInKgs) {
 		this.weightInKgs = weightInKgs;
 	}
 	public Integer getInventoryAdjustment() {

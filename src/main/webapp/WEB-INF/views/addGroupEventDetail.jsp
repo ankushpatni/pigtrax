@@ -33,7 +33,7 @@
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /><span style='color: red'>*</span></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.numberOfPigs' text='Number Of Pigs' />" name="numberOfPigs" ng-model="groupEvent.numberOfPigs" maxlength="8" required required-message="'<spring:message code='label.groupEventDetail.numberOfPigs.required' text='Number Of Pigs required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
+						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.numberOfPigs' text='Number of Alive Pigs' />" name="numberOfPigs" ng-model="groupEvent.numberOfPigs" maxlength="8" required required-message="'<spring:message code='label.groupEventDetail.numberOfPigs.required' text='Number Of Pigs required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /><span style='color: red'>*</span></label>

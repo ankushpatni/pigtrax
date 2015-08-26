@@ -93,7 +93,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
  	            	ps.setNull(4, java.sql.Types.INTEGER);
 				
 				ps.setInt(5, groupEventDetails.getNumberOfPigs());
-				ps.setInt(6, groupEventDetails.getWeightInKgs());
+				ps.setDouble(6, groupEventDetails.getWeightInKgs());
 				
 				if(groupEventDetails.getInventoryAdjustment() != null && groupEventDetails.getInventoryAdjustment() != 0)
  	            	ps.setInt(7, groupEventDetails.getInventoryAdjustment());
@@ -136,7 +136,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	    	            	ps.setNull(5, java.sql.Types.INTEGER);
 	    	            
 	    	            ps.setInt(6, groupEventDetails.getNumberOfPigs());
-	    	            ps.setInt(7, groupEventDetails.getWeightInKgs());
+	    	            ps.setDouble(7, groupEventDetails.getWeightInKgs());
 	    	            
 	    	            if(groupEventDetails.getInventoryAdjustment() != null && groupEventDetails.getInventoryAdjustment() != 0)
 	    	            	ps.setInt(8, groupEventDetails.getInventoryAdjustment());
@@ -180,7 +180,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				groupEventDetails.setRoomId(rs.getInt("id_Room"));
 				groupEventDetails.setEmployeeGroupId(rs.getInt("id_EmployeeGroup"));
 				groupEventDetails.setNumberOfPigs(rs.getInt("numberOfPigs"));
-				groupEventDetails.setWeightInKgs(rs.getInt("weightInKgs"));
+				groupEventDetails.setWeightInKgs(rs.getDouble("weightInKgs"));
 				groupEventDetails.setInventoryAdjustment(rs.getInt("indeventoryAdjustment"));
 				groupEventDetails.setRemarks(rs.getString("remarks"));
 				groupEventDetails.setLastUpdated(rs.getDate("lastUpdated"));

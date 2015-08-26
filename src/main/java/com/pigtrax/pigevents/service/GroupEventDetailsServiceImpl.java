@@ -73,22 +73,22 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsServiceIm
 		{
 			GroupEvent groupEvent = groupEventService.getGroupEventByGeneratedGroupId(groupEventDto.getGroupId(),groupEventDto.getCompanyId());
 			GroupEventDetails previousGroupEventDetails = groupEventDetailsDao.groupEventDetailsListById(groupEventDto.getId());
-			inventoryUpdatevalue = groupEventDto.getNumberOfPigs();
+			//inventoryUpdatevalue = groupEventDto.getNumberOfPigs();
 			if(null != groupEventDto && groupEventDto.getNumberOfPigs() !=0)
 			{
 				inventoryUpdatevalue = groupEventDto.getNumberOfPigs();
-				if(null != groupEventDto.getInventoryAdjustment() && groupEventDto.getInventoryAdjustment()>0)
+				/*if(null != groupEventDto.getInventoryAdjustment() && groupEventDto.getInventoryAdjustment()>0)
 				{
 					inventoryUpdatevalue = inventoryUpdatevalue-groupEventDto.getInventoryAdjustment();					
-				}
+				}*/
 			}
 			if(null != previousGroupEventDetails && previousGroupEventDetails.getNumberOfPigs() !=0)
 			{
 				previousInventoryValue = previousGroupEventDetails.getNumberOfPigs();
-				if(null != previousGroupEventDetails.getInventoryAdjustment() && previousGroupEventDetails.getInventoryAdjustment()>0)
+				/*if(null != previousGroupEventDetails.getInventoryAdjustment() && previousGroupEventDetails.getInventoryAdjustment()>0)
 				{
 					previousInventoryValue = inventoryUpdatevalue-groupEventDto.getInventoryAdjustment();					
-				}
+				}*/
 			}
 			returnValue = groupEventDetailsDao.updateGroupEventDetails(GroupEventBuilder.convertToBean(groupEventDto));
 
@@ -116,10 +116,10 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsServiceIm
 			if(null != groupEventDto && groupEventDto.getNumberOfPigs() !=0)
 			{
 				inventoryUpdatevalue = groupEventDto.getNumberOfPigs();
-				if(null != groupEventDto.getInventoryAdjustment() && groupEventDto.getInventoryAdjustment()>0)
+				/*if(null != groupEventDto.getInventoryAdjustment() && groupEventDto.getInventoryAdjustment()>0)
 				{
 					inventoryUpdatevalue = inventoryUpdatevalue-groupEventDto.getInventoryAdjustment();					
-				}
+				}*/
 				if(groupEvent.getCurrentInventory() != null)
 				{
 					groupEvent.setCurrentInventory(groupEvent.getCurrentInventory() + inventoryUpdatevalue);

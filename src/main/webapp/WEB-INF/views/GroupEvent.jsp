@@ -41,6 +41,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.groupEventform..duplicate.error.message' text='A Group event record already exists with the same Group Id'/>
                   </div>
+				  <div class="alert alert-success alert-white rounded"  ng-show="moveEntryEventSuccessMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.groupEventform.submit.success.messageMove' text='Group Event information has been moved successfully to new Group Event'/>
+                  </div>				 
                 </div>
                 <div class="content">
                   <form name="groupEventForm" novalidate angular-validator my-reset>
@@ -72,19 +76,21 @@
                       <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/></label>
                        <select ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage" class="form-control"  name="phaseOfProductionTypeId" id="phaseOfProductionTypeId" ng-model="groupEvent.phaseOfProductionTypeId"   
                          ng-options="k as v for (k, v) in phaseOfProductionTypeForNewAdd"> </select>
-                         <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">: {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       
+                         <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       
                     </div>
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.currentInventory'  text='Current Inventory'/></label>
-                      <label ng-show="(groupEvent.currentInventory >= 0)">{{groupEvent.currentInventory}}</label>
+                      <label ng-show="(groupEvent.currentInventory >= 0)"> : {{groupEvent.currentInventory}}</label>
                       <%-- <input type="text" ng-model="groupEvent.remarks" id="currentInventory" name="currentInventory"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
                        ng-focus="clearMessages()"/> --%>
+					   <label ng-hide="(groupEvent.currentInventory >= 0)"> : 0</label>
                    </div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.previousGroupId'  text='Previous Group'/></label>
                      <%--  <input type="text" ng-model="groupEvent.previousGroupId" id="previousGroupId" name="previousGroupId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
                        ng-focus="clearMessages()"/> --%>
-                       <label ng-show="(groupEvent.previousGroupId != null)">{{groupEvent.previousGroupId}}</label>
+                       <label ng-show="(groupEvent.previousGroupId != null)"> : {{groupEvent.previousGroupId}}</label>
+					   <label ng-hide="(groupEvent.previousGroupId != null)"> -- </label>
                    </div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
@@ -95,20 +101,22 @@
                       <label><spring:message code='label.piginfo.groupEventForm.saleEventId'  text='Sale Event'/></label>
                      <%--  <input type="text" ng-model="groupEvent.previousGroupId" id="previousGroupId" name="previousGroupId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
                        ng-focus="clearMessages()"/> --%>
-                       <label ng-show="(groupEvent.saleEventId != null)">{{groupEvent.saleEventId}}</label>
+                       <label ng-show="(groupEvent.saleEventId != null)"> : {{groupEvent.saleEventId}}</label>
+					   <label ng-hide="(groupEvent.saleEventId != null)"> -- </label>
                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.removalEventId'  text='Removal Event'/></label>
                      <%--  <input type="text" ng-model="groupEvent.previousGroupId" id="previousGroupId" name="previousGroupId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
                        ng-focus="clearMessages()"/> --%>
-                       <label ng-show="(groupEvent.removalEventId != null)">{{groupEvent.removalEventId}}</label>
+                       <label ng-show="(groupEvent.removalEventId != null)"> : {{groupEvent.removalEventId}}</label>
+					   <label ng-hide="(groupEvent.removalEventId != null)"> -- </label>
                    </div>
 
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-hide="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
-                    <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus()" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button> <button type="button" class="btn btn-success pull-right" ng-click="changeGroupEventStatus()" ng-show="groupEvent.id != null && groupEvent.id > 0 && !groupEvent.active" ><spring:message code='label.piginfo.groupEventform.Activate'  text='Activate'/></button>					
+                    <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus()" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button> <button type="button" class="btn btn-success pull-right" ng-click="changeGroupEventStatus()" ng-show="groupEvent.id != null && groupEvent.id > 0 && !groupEvent.active" ><spring:message code='label.piginfo.groupEventform.Activate'  text='Activate'/></button>					
 				  </form>
                 </div>
               </div>

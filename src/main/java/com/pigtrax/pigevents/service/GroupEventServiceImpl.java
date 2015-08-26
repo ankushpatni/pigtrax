@@ -95,6 +95,23 @@ public class GroupEventServiceImpl implements GroupEventService{
 			master.setGroupEventId(generatedId);
 			master.setLastUpdated( new java.sql.Date(System.currentTimeMillis()));
 			eventMasterDao.insertEntryEventDetails(master);
+			groupEvent.setId(generatedId);
+			
+			if(groupEvent.isFromMove())
+			{
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGroupId(groupEvent.getPreviousGroupId(), groupEvent.getCompanyId());
+				if(null != groupEventUpdate )
+				{
+					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - groupEvent.getCurrentInventory());
+					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+				}
+				GroupEventDetails groupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				if(null!=groupEventDetails)
+				{
+					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+				}
+				
+			}
 			
 			return generatedId;
 		} 
@@ -152,6 +169,17 @@ public class GroupEventServiceImpl implements GroupEventService{
 				throw new PigTraxException("SqlException occured",
 						sqlEx.getSQLState());			
 		} 
+	}
+	
+	public GroupEventDetails getGroupeventDetailsFromgroupEvent(GroupEvent groupEvent)
+	{
+		GroupEventDetails groupEventDetails = new GroupEventDetails();
+		groupEventDetails.setGroupId(groupEvent.getId());
+		groupEventDetails.setNumberOfPigs(groupEvent.getCurrentInventory());
+		groupEventDetails.setDateOfEntry(groupEvent.getGroupStartDateTime());
+		groupEventDetails.setWeightInKgs(groupEvent.getWeightInKgs());
+		groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
+		return groupEventDetails;
 	}
 
 	

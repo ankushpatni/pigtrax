@@ -50,7 +50,7 @@ public class TransportJourneyRestController {
 	 */
 	@RequestMapping(value = "/getTransportJourneyMasterData", method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
-	public ServiceResponseDto savePregnancyEventInformation(@RequestParam int generatedCompanyId)
+	public ServiceResponseDto getTransportJourneyMasterData(@RequestParam int generatedCompanyId)
 	{
 		logger.info("Inside getTransportJourneyMasterData method" ); 
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
