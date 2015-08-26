@@ -355,7 +355,7 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"id_PigInfo" integer not null,
 	"fosterFrom" integer,
 	"fosterTo" integer,
-	"id_PigletStatusEventType" integer,
+	"id_PigletStatusEventType" integer NOT NULL,
 	"eventDateTime" timestamp NOT NULL,
 	"numberOfPigs" smallint,
 	"weightInKgs" numeric(20,2),
@@ -366,8 +366,8 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_FarrowEvent" int NOT NULL,
-	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id)
-
+	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id),
+	CONSTRAINT "PIGLETSTATUS_U_FI" UNIQUE ("id_PigInfo", "id_PigletStatusEventType", "id_FarrowEvent")
 );
 -- ddl-end --
 ALTER TABLE pigtrax."PigletStatus" OWNER TO pitraxadmin;
