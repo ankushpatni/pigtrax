@@ -145,7 +145,7 @@
 		                   </tr>
 		                  </thead>
 		                  <tbody>
-		                   <tr ng-repeat="fosterInObj in fosterInRecords" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
+		                    <tr ng-repeat="fosterInObj in fosterInRecords" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
 		                      <td>{{fosterInObj.pigId}}</td>
 		                      <td>{{fosterInObj.numberOfPigs}}</td>
 		                      <td>{{fosterInObj.weightInKgs}}</td>
