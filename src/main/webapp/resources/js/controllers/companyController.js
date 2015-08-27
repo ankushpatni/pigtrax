@@ -142,7 +142,7 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		}
 		else if(eventName == "PigletStatusEvent")
 		{
-			document.getElementById("companyForm").action="loadPigletStatusEvent";		 
+			document.getElementById("companyForm").action="pigletStatusEvent";		 
 		}
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();

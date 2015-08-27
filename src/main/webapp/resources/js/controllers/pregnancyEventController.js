@@ -307,11 +307,11 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	
 	$scope.changePregnancyEventType = function()
 	{		
-		if($scope.pregnancyEvent.pregnancyEventTypeId != 1)
+		/*if($scope.pregnancyEvent.pregnancyEventTypeId != 1)
 		{
 			$("#examDate").attr("disabled","");
 			$("#examResultType").attr("disabled",""); 
-		}
+		}*/ 
 	}
 	
 	

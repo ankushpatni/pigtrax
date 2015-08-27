@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
 import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
+import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 
 
 @Repository
@@ -55,7 +56,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	    	            ps.setObject(2, pigletStatusEvent.getPigletStatusEventTypeId(), java.sql.Types.INTEGER);
 	    	            ps.setObject(3, new java.sql.Date(pigletStatusEvent.getEventDateTime().getTime()), java.sql.Types.DATE);
 	    	            ps.setInt(4,  pigletStatusEvent.getNumberOfPigs());
-	    	            ps.setDouble(5,  pigletStatusEvent.getWeightInKgs());
+	    	            ps.setObject(5,  pigletStatusEvent.getWeightInKgs(),java.sql.Types.DOUBLE);
 	    	            ps.setString(6,  pigletStatusEvent.getEventReason());
 	    	            ps.setString(7,  pigletStatusEvent.getRemarks());
 	    	            ps.setObject(8,  pigletStatusEvent.getSowCondition(), java.sql.Types.INTEGER);
@@ -93,7 +94,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	    	            ps.setObject(2, pigletStatusEvent.getPigletStatusEventTypeId(), java.sql.Types.INTEGER);
 	    	            ps.setObject(3, new java.sql.Date(pigletStatusEvent.getEventDateTime().getTime()), java.sql.Types.DATE);
 	    	            ps.setInt(4,  pigletStatusEvent.getNumberOfPigs());
-	    	            ps.setDouble(5,  pigletStatusEvent.getWeightInKgs());
+	    	            ps.setObject(5,  pigletStatusEvent.getWeightInKgs(),java.sql.Types.DOUBLE);
 	    	            ps.setString(6,  pigletStatusEvent.getEventReason());
 	    	            ps.setString(7,  pigletStatusEvent.getRemarks()); 
 	    	            ps.setObject(8,  pigletStatusEvent.getSowCondition(), java.sql.Types.INTEGER);
@@ -235,6 +236,54 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			
 			return pigletStatusEvent;
 		}
+	}
+	
+	
+	private static final class FosterInEventMapper implements RowMapper<PigletStatusEvent> {
+		public PigletStatusEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PigletStatusEvent pigletStatusEvent = new PigletStatusEvent();
+			pigletStatusEvent.setId(rs.getInt("id"));
+			pigletStatusEvent.setPigInfoId(rs.getInt("id_PigInfo"));
+			pigletStatusEvent.setFosterFrom(rs.getInt("fosterFrom"));
+			pigletStatusEvent.setFosterTo(rs.getInt("fosterTo"));
+			pigletStatusEvent.setPigletStatusEventTypeId(rs.getInt("id_PigletStatusEventType")); 
+			pigletStatusEvent.setEventDateTime(rs.getDate("eventDateTime"));
+			pigletStatusEvent.setNumberOfPigs(rs.getInt("numberOfPigs"));
+			pigletStatusEvent.setWeightInKgs(rs.getDouble("weightInKgs"));
+			pigletStatusEvent.setEventReason(rs.getString("eventReason"));
+			pigletStatusEvent.setRemarks(rs.getString("remarks"));
+			pigletStatusEvent.setSowCondition(rs.getInt("sowCondition"));
+			pigletStatusEvent.setWeanGroupId(rs.getString("weanGroupId"));
+			pigletStatusEvent.setLastUpdated(rs.getDate("lastUpdated"));
+			pigletStatusEvent.setUserUpdated(rs.getString("userUpdated"));
+			pigletStatusEvent.setFarrowEventId(rs.getInt("id_FarrowEvent"));
+			pigletStatusEvent.setPigId(rs.getString("pigId"));
+			return pigletStatusEvent;
+		}
+	}
+	
+	/**
+	 * To retrieve the fosterIn Events for a given pigInfoId
+	 */
+	@Override
+	public List<PigletStatusEvent> getFosterInRecords(final String pigId, final Integer companyId) {
+		// TODO Auto-generated method stub
+		String qry = "SELECT PS.\"id\", PS.\"id_PigInfo\", PS.\"fosterFrom\", PS.\"fosterTo\", PS.\"id_PigletStatusEventType\", "+ 
+				"PS.\"eventDateTime\", PS.\"numberOfPigs\", PS.\"weightInKgs\", PS.\"eventReason\", "+ 
+				"PS.\"remarks\", PS.\"sowCondition\", PS.\"weanGroupId\", PS.\"lastUpdated\", PS.\"userUpdated\", "+ 
+				"PS.\"id_FarrowEvent\", PI.\"pigId\"  FROM pigtrax.\"PigletStatus\" PS "
+				+ "JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where PI.\"pigId\" = ? "
+				+ "and PS.\"id_PigletStatusEventType\" = ? and PI.\"id_Company\" = ?";
+		
+		List<PigletStatusEvent> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setString(1, pigId);
+ 				ps.setInt(2, PigletStatusEventType.FosterIn.getTypeCode());
+ 				ps.setInt(3, companyId); 
+ 			}}, new FosterInEventMapper());
+
+		return pigletStatusEventList;
 	}
 	
 }

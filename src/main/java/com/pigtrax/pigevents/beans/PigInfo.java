@@ -22,6 +22,15 @@ public class PigInfo {
 	private Integer sexTypeId;
 	private String userUpdated;
 	private Date currentFarrowEventDate;
+	private Integer farrowId;
+
+	public Integer getFarrowId() {
+		return farrowId;
+	}
+
+	public void setFarrowId(Integer farrowId) {
+		this.farrowId = farrowId;
+	}
 
 	public Integer getId() {
 		return id;

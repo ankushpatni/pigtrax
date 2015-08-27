@@ -23,7 +23,16 @@ public class PigInfoDto {
 	private String userUpdated;
 	private String searchText;
 	private String searchOption;
-	private Date currentFarrowEventDate;
+	private Date  currentFarrowEventDate;
+	private Integer farrowEventId;
+
+	public Integer getFarrowEventId() {
+		return farrowEventId;
+	}
+
+	public void setFarrowEventId(Integer farrowEventId) {
+		this.farrowEventId = farrowEventId;
+	}
 
 	public Date getCurrentFarrowEventDate() {
 		return currentFarrowEventDate;

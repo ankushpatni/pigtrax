@@ -140,7 +140,7 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, companyId);
-				ps.setString(2, jobFunction);
+				ps.setString(2, jobFunction.toUpperCase());
 			}
 		}, new EmployeeMapper());
 

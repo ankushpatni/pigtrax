@@ -222,6 +222,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			pigInfo.setPenId((rs.getObject("id_Pen")!=null)?(Integer)rs.getObject("id_Pen") : null);
 			pigInfo.setSexTypeId(rs.getInt("id_SexType"));
 			pigInfo.setCurrentFarrowEventDate(rs.getDate("eventTime")!= null?rs.getDate("eventTime"):null);
+			pigInfo.setFarrowId((rs.getObject("id_FarrowEvent")!=null)?(Integer)rs.getObject("id_FarrowEvent") : null);
 			return pigInfo;
 		}
 	}
@@ -271,7 +272,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	 */
 	@Override
 	public List<PigInfo> getAllFosterPigs(final PigInfoDto pigInfo) throws SQLException {
-		String qry = "SELECT PI.*,PEM.\"eventTime\" FROM pigtrax.\"PigTraxEventMaster\" PEM INNER JOIN (SELECT \"id_PigInfo\", MAX(\"id\") AS maxid FROM pigtrax.\"PigTraxEventMaster\" "
+		String qry = "SELECT PI.*,PEM.\"eventTime\",PEM.\"id_FarrowEvent\" FROM pigtrax.\"PigTraxEventMaster\" PEM INNER JOIN (SELECT \"id_PigInfo\", MAX(\"id\") AS maxid FROM pigtrax.\"PigTraxEventMaster\" "
 					+" GROUP BY \"id_PigInfo\") PEM_SUB ON PEM.\"id_PigInfo\" = PEM_SUB.\"id_PigInfo\" AND PEM.\"id\" = PEM_SUB.maxid and \"id_FarrowEvent\" is not null  "
 					+ "JOIN pigtrax.\"PigInfo\" PI on PEM.\"id_PigInfo\" = PI.\"id\" and PI.\"id_Company\" = ? and PI.\"pigId\" <> ?"	;
 		
