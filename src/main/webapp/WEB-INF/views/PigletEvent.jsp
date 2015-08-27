@@ -85,7 +85,7 @@
                   
                 </div>
                 <div class="content">
-                  <form name="pigleteventform" novalidate angular-validator>
+                  <form name="pigleteventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="pigletEvent.pigletId"/>  
 				  <input type=hidden name="farrowEventId" ng-model="pigletEvent.farrowEventId"/>
 					 <div class="form-group"> 

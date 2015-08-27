@@ -78,9 +78,10 @@ public class PigletStatusEventValidation {
 	  int weanPigNum = pigletStatusEventDto.getWeanPigNum() !=null?pigletStatusEventDto.getWeanPigNum().intValue():0;
 	  int fosterPigNum = pigletStatusEventDto.getFosterPigNum() !=null?pigletStatusEventDto.getFosterPigNum().intValue():0;
 	  int deathPigNum = pigletStatusEventDto.getDeathPigNum() !=null?pigletStatusEventDto.getDeathPigNum().intValue():0;
+	  int fostInPigCnt = pigletStatusEventDto.getTotalfoserInCnt() != null ? pigletStatusEventDto.getTotalfoserInCnt().intValue() : 0;
 	  int totalpigs = weanPigNum + fosterPigNum + deathPigNum;
 	  
-	  if(totalpigs != liveBorn) {
+	  if(totalpigs > (liveBorn+fostInPigCnt)) {
 		  logger.info("Pig count does not match with the farrow event");
 		  return ERR_CODE_03;
 	  }

@@ -49,7 +49,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		
 	$scope.setPigletStatusDetails = function(pigletStatusObj)
 	{
-		$scope.pigletStatusEvent = pigletStatusObj; 
+		$scope.pigletStatusEvent = pigletStatusObj;
+		$scope.getFosterInRecords();
 		$scope.editBtnclicked = true;
 	}	
 	
@@ -143,6 +144,17 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 					if(!data.error)
 					{
 					   $scope.fosterInRecords = data.payload;
+					   var records = $scope.fosterInRecords;
+					   var totalfoserInCnt = 0;
+					   if(records != null && records.length > 0)
+						   {
+						    for(var i=0; i<records.length; i++)
+						    	{
+						    	totalfoserInCnt += records[i].numberOfPigs;
+						     	}
+						   }
+					   $scope.pigletStatusEvent["totalfoserInCnt"] = totalfoserInCnt;
+					   
 					}
 				});
 			}
@@ -230,6 +242,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				     {
 				    		$scope.confirmAddPigletStatusEvent();
 							$scope.clearAllMessages();
+
 							
 				    }
 				     else
@@ -260,6 +273,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 					$scope.clearAllMessages();
 					$scope.entryEventSuccessMessage = true;
 					$scope.pigletStatusEvent = {};
+					$scope.fosterInRecords = [];
 				}
 			else
 				{

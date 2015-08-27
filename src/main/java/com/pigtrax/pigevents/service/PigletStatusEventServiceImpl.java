@@ -187,7 +187,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 						pigletEventStatusDto.getSearchOption(), pigletEventStatusDto.getCompanyId());
 				
 				Integer farrowid =0;
-				PigletStatusEventDto fosterInEvent = null;
+				PigletStatusEventDto fosterInEvent = new PigletStatusEventDto();
 				subList = new ArrayList<PigletStatusEventDto>();
 			   for(PigletStatusEvent pigletStatusEvent : pigletStatusEvents)
 			   {
@@ -223,6 +223,9 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   fosterInEvent.setFosterPigNum(pigletStatusEvent.getNumberOfPigs());
 					   fosterInEvent.setFosterPigWt(pigletStatusEvent.getWeightInKgs());
 					   fosterInEvent.setFosterTo(pigletStatusEvent.getFosterTo());
+					 	//Get the pig id for a given pigIdInfo
+					   PigInfo fosterToPigInfo = pigInfoDao.getPigInformationById(pigletStatusEvent.getFosterTo());
+					   fosterInEvent.setFosterToPigId(fosterToPigInfo.getPigId());
 					   
 				   } else if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.Death.getTypeCode())){
 					   fosterInEvent.setDeathId(pigletStatusEvent.getId());

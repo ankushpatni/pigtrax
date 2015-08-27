@@ -38,8 +38,19 @@ public class PigletStatusEventDto {
     private String searchText;
     private String searchOption;
     private String pigletStatusEventType;
+    private Integer totalfoserInCnt;
 
-    public Integer getFosterFarrowId() {
+    
+    
+    public Integer getTotalfoserInCnt() {
+		return totalfoserInCnt;
+	}
+
+	public void setTotalfoserInCnt(Integer totalfoserInCnt) {
+		this.totalfoserInCnt = totalfoserInCnt;
+	}
+
+	public Integer getFosterFarrowId() {
 		return fosterFarrowId;
 	}
 
