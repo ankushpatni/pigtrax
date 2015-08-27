@@ -19,6 +19,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.requiredPigIdMessage = false;
 		$scope.eventDateTimerequired = false;
 		$scope.inValidServiceIdFromServer = false;
+		$scope.fosterToPigIdrequired = false;
 		$scope.pigletstatusEventValidation_ErrCode_1 = false;
 		$scope.pigletstatusEventValidation_ErrCode_2 = false;
 		$scope.pigletstatusEventValidation_ErrCode_3 = false;
@@ -128,9 +129,30 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	{
 		$scope.pigletStatusEvent.farrowEventId = $scope.pigletStatusEvent.farrowEventDto.id;
 		$('#searchFarrowEvents').modal('hide');
+		$scope.getFosterInRecords();
 	}
 	
 	
+	$scope.getFosterInRecords = function()
+	{
+		alert($scope.pigletStatusEvent.pigId);
+		if($scope.pigletStatusEvent.pigId != null)
+			{
+			    var pigletStatusEventForSearch = {
+			    		pigId : $scope.pigletStatusEvent.pigId , 
+			    		companyId : $rootScope.companyId
+			    };
+			    
+			    alert(JSON.stringify(pigletStatusEventForSearch));
+				restServices.getFosterInRecords($scope.pigletStatusEventForSearch, function(data){
+					alert("response from method");
+					if(!data.error)
+					{
+					   $scope.fosterInRecords = data.payload;
+					}
+				});
+			}
+	}
 	
 	/**
      * retrieve all foster pigs
@@ -173,8 +195,10 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	
 	$scope.selectFoster = function()
 	{
+		
 		$scope.pigletStatusEvent.fosterToPigId = $scope.pigletStatusEvent.fosterDto.pigId  + " ["+$scope.pigletStatusEvent.fosterDto.currentFarrowEventDate+"]";
 		$scope.pigletStatusEvent.fosterTo = $scope.pigletStatusEvent.fosterDto.id;
+		$scope.pigletStatusEvent.fosterFarrowId = $scope.pigletStatusEvent.fosterDto.farrowEventId;
 		$scope.pigletStatusEvent.fosterToDateTime = $scope.pigletStatusEvent.fosterDto.currentFarrowEventDate;
 		$('#searchFosters').modal('hide');
 	}	
@@ -194,10 +218,12 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				$scope.eventDateTimerequired = true;
 				return;
 			}	
-			if($scope.pigletStatusEvent["fosterPigNum"] !== "" && ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === ""))
-			{
-				$scope.fosterToPigIdrequired = true;
-				return;
+			if(($scope.pigletStatusEvent["fosterPigNum"] != undefined)){
+				if($scope.pigletStatusEvent["fosterPigNum"] != "" 
+					&& ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === "")){
+					$scope.fosterToPigIdrequired = true;
+					return;
+				}
 			}
 			$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
 			delete $scope.pigletStatusEvent.fosterDto;
@@ -205,10 +231,12 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		   		if(!data.error)
 			   {
 		   			var statusCode = data.payload;
-				     $scope.clearAllMessages();
+				     
 				     if(statusCode == 0)
 				     {
 				    		$scope.confirmAddPigletStatusEvent();
+							$scope.clearAllMessages();
+							
 				    }
 				     else
 				    {

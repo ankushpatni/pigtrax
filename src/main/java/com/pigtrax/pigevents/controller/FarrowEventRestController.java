@@ -70,6 +70,7 @@ public class FarrowEventRestController {
 			int rowsInserted = farrowEventService.saveFarrowEventInformation(farrowEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
+			e.printStackTrace();
 			if(e.isDuplicateStatus())
 			{
 				dto.setDuplicateRecord(true);
@@ -148,6 +149,7 @@ public class FarrowEventRestController {
 	{
 		ServiceResponseDto dto = new ServiceResponseDto();
 		int statusCode = farrowEventService.validateFarrowEvent(farrowEventDto);
+		logger.info("status Code = "+statusCode);
 		dto.setPayload(statusCode);
 		return dto;
 	}

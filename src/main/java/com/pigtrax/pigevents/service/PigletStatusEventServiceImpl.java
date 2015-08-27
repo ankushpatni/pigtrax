@@ -112,13 +112,14 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 	 @Transactional("ptxJTransactionManager")
 		private int addPigletStatusEvent(PigletStatusEvent pigletStatusEvent) throws SQLException
 		{
-			int pigletStatusId = pigletStatusEventDao.addPigletStatusEvent(pigletStatusEvent);
+			int pigletStatusId = pigletStatusEventDao.addPigletStatusEvent(pigletStatusEvent); 
 			
 			PigTraxEventMaster master = new PigTraxEventMaster();
 			master.setPigInfoId(pigletStatusEvent.getPigInfoId());
 			master.setUserUpdated(pigletStatusEvent.getUserUpdated());
 			master.setEventTime(pigletStatusEvent.getEventDateTime());
 			master.setPigletStatusId(pigletStatusId);
+			master.setFarrowEventId(pigletStatusEvent.getFarrowEventId());
 			
 			eventMasterDao.insertEntryEventDetails(master);
 			
@@ -239,6 +240,17 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			} catch (SQLException e) {
 				throw new PigTraxException(e.getMessage(), e.getSQLState());
 			}
+	}
+	 
+	 
+	 /**
+	  * To retrieve the foster In records for a given Pig Info Id
+	  */
+	 @Override
+	public List<PigletStatusEventDto> getFosterInRecords(String pigId, Integer companyId) {
+		List<PigletStatusEvent> fosterInRecords = pigletStatusEventDao.getFosterInRecords(pigId, companyId);		
+		List<PigletStatusEventDto> fosterInDtoRecords = builder.convertToDtos(fosterInRecords);		
+		return fosterInDtoRecords;
 	}
 
 }

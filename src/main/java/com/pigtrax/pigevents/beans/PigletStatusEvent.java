@@ -18,6 +18,15 @@ public class PigletStatusEvent {
 	private Date lastUpdated;
 	private String userUpdated;
 	private Integer farrowEventId;
+	private Integer fosterFarrowEventId;
+
+	public Integer getFosterFarrowEventId() {
+		return fosterFarrowEventId;
+	}
+
+	public void setFosterFarrowEventId(Integer fosterFarrowEventId) {
+		this.fosterFarrowEventId = fosterFarrowEventId;
+	}
 
 	public Integer getId() {
 		return id;

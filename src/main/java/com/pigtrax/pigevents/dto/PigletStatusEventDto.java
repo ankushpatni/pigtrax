@@ -30,7 +30,8 @@ public class PigletStatusEventDto {
     private Integer fosterPigNum;
     private Double fosterPigWt;
     private String fosterToPigId;
-    private Integer deathPigNum;
+    private Integer fosterFarrowId;
+	private Integer deathPigNum;
     private Double deathPigWt;
     private String language;
     private Integer companyId;
@@ -38,7 +39,14 @@ public class PigletStatusEventDto {
     private String searchOption;
     private String pigletStatusEventType;
 
+    public Integer getFosterFarrowId() {
+		return fosterFarrowId;
+	}
 
+	public void setFosterFarrowId(Integer fosterFarrowId) {
+		this.fosterFarrowId = fosterFarrowId;
+	}
+	
 	public Integer getWeanId() {
 		return weanId;
 	}

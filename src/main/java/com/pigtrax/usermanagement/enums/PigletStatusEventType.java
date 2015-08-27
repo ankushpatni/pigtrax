@@ -1,9 +1,9 @@
 package com.pigtrax.usermanagement.enums;
 
 public enum PigletStatusEventType {
-	Wean(1),
-	FosterIn(2),
-	FosterOut(3),
+	FosterIn(1),
+	FosterOut(2),
+	Wean(3),
 	Death(4);
 	
 	private final int role;
