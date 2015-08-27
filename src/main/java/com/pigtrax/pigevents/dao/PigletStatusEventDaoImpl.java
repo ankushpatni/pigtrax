@@ -238,6 +238,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		}
 	}
 	
+<<<<<<< HEAD
 	
 	private static final class FosterInEventMapper implements RowMapper<PigletStatusEvent> {
 		public PigletStatusEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -282,6 +283,28 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  				ps.setInt(2, PigletStatusEventType.FosterIn.getTypeCode());
  				ps.setInt(3, companyId); 
  			}}, new FosterInEventMapper());
+=======
+	/**
+	 * To retrieve the fosterIn Events for a given pigInfoId
+	 */
+	@Override
+	public List<PigletStatusEvent> getFosterInRecords(final String pigId, final Integer companyId) {
+		// TODO Auto-generated method stub
+		String qry = "SELECT PS.\"id\", PS.\"id_PigInfo\", PS.\"fosterFrom\", PS.\"fosterTo\", PS.\"id_PigletStatusEventType\", "+ 
+				"PS.\"eventDateTime\", PS.\"numberOfPigs\", PS.\"weightInKgs\", PS.\"eventReason\", "+ 
+				"PS.\"remarks\", PS.\"sowCondition\", PS.\"weanGroupId\", PS.\"lastUpdated\", PS.\"userUpdated\", "+ 
+				"PS.\"id_FarrowEvent\"  FROM pigtrax.\"PigletStatus\" PS "
+				+ "JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where PI.\"pigId\" = ? "
+				+ "and PS.\"id_PigletStatusEventType\" = ? and PI.\"id_Company\" = ?";
+		
+		List<PigletStatusEvent> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setString(1, pigId);
+ 				ps.setInt(2, PigletStatusEventType.FosterIn.getTypeCode());
+ 				ps.setInt(3, companyId); 
+ 			}}, new PigletStatusEventMapper());
+>>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 
 		return pigletStatusEventList;
 	}

@@ -146,7 +146,11 @@
 		                  </thead>
 		                  <tbody>
 		                   <tr ng-repeat="fosterInObj in fosterInRecords" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
+<<<<<<< HEAD
 		                      <td>{{fosterInObj.pigId}}</td>
+=======
+		                      <td>{{fosterInObj.pigInfoId}}</td>
+>>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 		                      <td>{{fosterInObj.numberOfPigs}}</td>
 		                      <td>{{fosterInObj.weightInKgs}}</td>
 		                   </tr>		                  

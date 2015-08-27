@@ -135,10 +135,24 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	
 	$scope.getFosterInRecords = function()
 	{
+<<<<<<< HEAD
 		if($scope.pigletStatusEvent.pigId != null)
 			{  
 				$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
 				restServices.getFosterInRecords($scope.pigletStatusEvent, function(data){
+=======
+		alert($scope.pigletStatusEvent.pigId);
+		if($scope.pigletStatusEvent.pigId != null)
+			{
+			    var pigletStatusEventForSearch = {
+			    		pigId : $scope.pigletStatusEvent.pigId , 
+			    		companyId : $rootScope.companyId
+			    };
+			    
+			    alert(JSON.stringify(pigletStatusEventForSearch));
+				restServices.getFosterInRecords($scope.pigletStatusEventForSearch, function(data){
+					alert("response from method");
+>>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 					if(!data.error)
 					{
 					   $scope.fosterInRecords = data.payload;

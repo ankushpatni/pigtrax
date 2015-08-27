@@ -19,7 +19,10 @@ public class PigletStatusEvent {
 	private String userUpdated;
 	private Integer farrowEventId;
 	private Integer fosterFarrowEventId;
+<<<<<<< HEAD
 	private String pigId;
+=======
+>>>>>>> branch 'master' of vidyar@s18367010.onlinehome-server.info:/opt/git/pigtrax.git
 
 	public Integer getFosterFarrowEventId() {
 		return fosterFarrowEventId;
