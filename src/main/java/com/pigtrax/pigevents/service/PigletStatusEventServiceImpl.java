@@ -247,7 +247,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 	  * To retrieve the foster In records for a given Pig Info Id
 	  */
 	 @Override
-	public List<PigletStatusEventDto> getFosterInRecords(String pigId, Integer companyId) { 
+	public List<PigletStatusEventDto> getFosterInRecords(String pigId, Integer companyId) {
 		List<PigletStatusEvent> fosterInRecords = pigletStatusEventDao.getFosterInRecords(pigId, companyId);		
 		List<PigletStatusEventDto> fosterInDtoRecords = builder.convertToDtos(fosterInRecords);		
 		return fosterInDtoRecords;

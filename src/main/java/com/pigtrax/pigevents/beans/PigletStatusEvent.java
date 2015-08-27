@@ -19,6 +19,7 @@ public class PigletStatusEvent {
 	private String userUpdated;
 	private Integer farrowEventId;
 	private Integer fosterFarrowEventId;
+
 	private String pigId;
 
 	public Integer getFosterFarrowEventId() {

@@ -237,7 +237,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			return pigletStatusEvent;
 		}
 	}
-	
+
 	
 	private static final class FosterInEventMapper implements RowMapper<PigletStatusEvent> {
 		public PigletStatusEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -282,8 +282,6 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  				ps.setInt(2, PigletStatusEventType.FosterIn.getTypeCode());
  				ps.setInt(3, companyId); 
  			}}, new FosterInEventMapper());
-
 		return pigletStatusEventList;
 	}
-	
 }

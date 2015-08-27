@@ -138,7 +138,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		if($scope.pigletStatusEvent.pigId != null)
 			{  
 				$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
-				restServices.getFosterInRecords($scope.pigletStatusEvent, function(data){
+			    
+				restServices.getFosterInRecords($scope.pigletStatusEvent, function(data){				
 					if(!data.error)
 					{
 					   $scope.fosterInRecords = data.payload;
