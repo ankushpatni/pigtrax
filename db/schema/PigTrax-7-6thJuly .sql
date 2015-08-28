@@ -366,6 +366,7 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_FarrowEvent" int NOT NULL,
+	"id_fosterFarrowEvent" int,
 	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "PIGLETSTATUS_U_FI" UNIQUE ("id_PigInfo", "id_PigletStatusEventType", "id_FarrowEvent")
 );
