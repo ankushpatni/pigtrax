@@ -39,10 +39,19 @@ public class PigletStatusEventDto {
     private String searchOption;
     private String pigletStatusEventType;
     private Integer totalfoserInCnt;
+    private String fosterFromPigId; 
+    private Integer fosterFarrowEventId;
+    
+    
+    public Integer getFosterFarrowEventId() {
+		return fosterFarrowEventId;
+	}
 
-    
-    
-    public Integer getTotalfoserInCnt() {
+	public void setFosterFarrowEventId(Integer fosterFarrowEventId) {
+		this.fosterFarrowEventId = fosterFarrowEventId;
+	}
+
+	public Integer getTotalfoserInCnt() {
 		return totalfoserInCnt;
 	}
 
@@ -330,5 +339,15 @@ public class PigletStatusEventDto {
 	public void setFosterToDateTime(Date fosterToDateTime) {
 		this.fosterToDateTime = fosterToDateTime;
 	}
+
+	public String getFosterFromPigId() {
+		return fosterFromPigId;
+	}
+
+	public void setFosterFromPigId(String fosterFromPigId) {
+		this.fosterFromPigId = fosterFromPigId;
+	}  
+	
+	
 	
 }

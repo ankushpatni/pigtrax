@@ -6,12 +6,11 @@ import java.util.List;
 import org.springframework.dao.DuplicateKeyException;
 
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
+import com.pigtrax.pigevents.dto.PigletStatusEventDto;
 
 public interface PigletStatusEventDao {
 	
 	int addPigletStatusEvent(PigletStatusEvent pigletStatusEvent) throws SQLException, DuplicateKeyException;
-	
-	int updatePigletStatusEvent(PigletStatusEvent pigletStatusEvent) throws SQLException, DuplicateKeyException;
 	
 	PigletStatusEvent getPigletStatusEventInformation(Integer pigletStatusEventId);
 	
@@ -19,6 +18,12 @@ public interface PigletStatusEventDao {
 	
 	void deletePigletStatusEvent(Integer id) throws SQLException;
 	
-	List<PigletStatusEvent> getFosterInRecords(String pigId, Integer companyId);
+	List<PigletStatusEvent> getFosterInRecords(String pigId, Integer companyId, Integer farrowEventId);
+	
+	List<PigletStatusEvent> getPigletStatusEventsByFarrowEventId(Integer farrowEventId);
+	
+	void deletePigletStatusEventsByFarrowId(Integer farrowEventId) throws SQLException;
+	
+	PigletStatusEvent getFosterInRecord(Integer farrowEventId) throws SQLException;
 	
 }

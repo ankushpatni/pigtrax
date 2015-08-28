@@ -1,17 +1,23 @@
 package com.pigtrax.pigevents.dto;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
-import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 
 @Component
 public class PigletStatusEventBuilder {
 	
+	@Autowired
+	PigInfoDao pigInfoDao;
 	/**
 	 * Convert Bean to DTO
 	 * @param dto
@@ -37,8 +43,8 @@ public class PigletStatusEventBuilder {
 			   info.setSowCondition(dto.getSowCondition());
 			   info.setUserUpdated(dto.getUserUpdated());
 			   info.setWeanGroupId(dto.getWeanGroupId());
-			   info.setFosterFarrowEventId(dto.getFosterFarrowId());
-			   
+			   info.setFosterFarrowEventId(dto.getFosterFarrowEventId());
+			    
 		   }
 		   return info;
 	   }
@@ -48,9 +54,10 @@ public class PigletStatusEventBuilder {
 	    * @param info
 	    * @return
 	    */
-	   public PigletStatusEventDto convertToDto(PigletStatusEvent info)
+	   public PigletStatusEventDto convertToDto(PigletStatusEvent info) throws SQLException
 	   {
 		   PigletStatusEventDto dto = new PigletStatusEventDto();
+		   PigInfo pigInfo = null;
 		   
 		   if(info != null)
 		   { 
@@ -70,31 +77,46 @@ public class PigletStatusEventBuilder {
 			   dto.setUserUpdated(info.getUserUpdated());
 			   dto.setWeanGroupId(info.getWeanGroupId());
 			   dto.setPigId(info.getPigId());
+			   dto.setFosterFarrowEventId(info.getFosterFarrowEventId());
+			   
+			   if(dto.getFosterFrom() != null && dto.getFosterFrom() > 0)
+			   {
+				   pigInfo = pigInfoDao.getPigInformationById(dto.getFosterFrom());
+				   dto.setFosterFromPigId(pigInfo.getPigId());		
+			   }
+			   if(dto.getFosterTo() != null && dto.getFosterTo() > 0)
+			   {
+				   pigInfo = pigInfoDao.getPigInformationById(dto.getFosterTo());
+				   dto.setFosterToPigId(pigInfo.getPigId());		
+			   }
+			  
 		   }		   
 		   return dto; 
 	   }
 	   
 	   
-	   public PigletStatusEvent generateFosterInEvent(PigletStatusEvent pigletStatusEvent)
+	   public PigletStatusEvent generateFosterInEvent(PigletStatusEventDto pigletStatusEventDto)
 	   {
 		   PigletStatusEvent fosterInEvent = null;
-		   if(pigletStatusEvent != null)
+		   if(pigletStatusEventDto != null)
 		   {
 			   fosterInEvent = new PigletStatusEvent();
-			   fosterInEvent.setEventDateTime(pigletStatusEvent.getEventDateTime());
-			   fosterInEvent.setPigInfoId(pigletStatusEvent.getFosterTo());
-			   fosterInEvent.setFosterTo(pigletStatusEvent.getFosterTo());
+			   fosterInEvent.setEventDateTime(pigletStatusEventDto.getEventDateTime());
+			   fosterInEvent.setPigInfoId(pigletStatusEventDto.getFosterTo());
+			   fosterInEvent.setFosterTo(pigletStatusEventDto.getFosterTo());
 			   fosterInEvent.setPigletStatusEventTypeId(PigletStatusEventType.FosterIn.getTypeCode());
-			   fosterInEvent.setFosterFrom(pigletStatusEvent.getFosterFrom());
-			   fosterInEvent.setNumberOfPigs(pigletStatusEvent.getNumberOfPigs());
-			   fosterInEvent.setWeightInKgs(pigletStatusEvent.getWeightInKgs());
-			   fosterInEvent.setEventReason(pigletStatusEvent.getEventReason());
-			   fosterInEvent.setRemarks(pigletStatusEvent.getRemarks());
+			   fosterInEvent.setFosterFrom(pigletStatusEventDto.getPigInfoId());
+			   fosterInEvent.setNumberOfPigs(pigletStatusEventDto.getFosterPigNum());
+			   fosterInEvent.setWeightInKgs(pigletStatusEventDto.getFosterPigWt());
+			   fosterInEvent.setEventReason(pigletStatusEventDto.getEventReason());
+			   fosterInEvent.setRemarks(pigletStatusEventDto.getRemarks());
 			   fosterInEvent.setSowCondition(null);
-			   fosterInEvent.setWeanGroupId(pigletStatusEvent.getWeanGroupId());
-			   fosterInEvent.setUserUpdated(pigletStatusEvent.getUserUpdated());
-			   fosterInEvent.setFarrowEventId(pigletStatusEvent.getFosterFarrowEventId()); 
+			   fosterInEvent.setWeanGroupId(pigletStatusEventDto.getWeanGroupId());
+			   fosterInEvent.setUserUpdated(pigletStatusEventDto.getUserUpdated());
+			   fosterInEvent.setFarrowEventId(pigletStatusEventDto.getFosterFarrowEventId()); 
+			   fosterInEvent.setFosterFarrowEventId(pigletStatusEventDto.getFarrowEventId());
 		   }
+		   System.out.println("before returning : "+fosterInEvent.getFarrowEventId()+"/"+fosterInEvent.getFosterFarrowEventId());
 		   return fosterInEvent;
 	   }
 	   
@@ -103,9 +125,10 @@ public class PigletStatusEventBuilder {
 	    * @param pregnancyEvents
 	    * @return
 	    */
-	   public List<PigletStatusEventDto> convertToDtos(List<PigletStatusEvent> pigletStatusEvents)
+	   public List<PigletStatusEventDto> convertToDtos(List<PigletStatusEvent> pigletStatusEvents)  throws PigTraxException
 	   {
 		   List<PigletStatusEventDto> pigletStatusEventList = null;
+		   try{
 		   if(pigletStatusEvents != null)
 		   {
 			   pigletStatusEventList = new ArrayList<PigletStatusEventDto>();
@@ -113,7 +136,11 @@ public class PigletStatusEventBuilder {
 			   {
 				   pigletStatusEventList.add(convertToDto(event));
 			   }
-		   }			   
+		   }	
+		   }catch(SQLException sqlEx)
+		   {
+			   throw new PigTraxException(sqlEx.getMessage(), sqlEx.getSQLState());
+		   }
 		   return pigletStatusEventList;
 	   }
 	   

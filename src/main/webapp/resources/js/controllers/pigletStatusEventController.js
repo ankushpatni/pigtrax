@@ -24,6 +24,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.pigletstatusEventValidation_ErrCode_2 = false;
 		$scope.pigletstatusEventValidation_ErrCode_3 = false;
 		$scope.pigletstatuseventform.$setUntouched();
+		$scope.pigletStatusEventAlreadyAdded = false;
 	};
 	
 	$scope.resetForm = function()
@@ -49,13 +50,15 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		
 	$scope.setPigletStatusDetails = function(pigletStatusObj)
 	{
-		$scope.pigletStatusEvent = pigletStatusObj;
+		$scope.clearAllMessages();
+		$scope.pigletStatusEvent = pigletStatusObj;		
 		$scope.getFosterInRecords();
 		$scope.editBtnclicked = true;
 	}	
 	
 	$scope.deletePigletEvent = function()
 	{
+		$scope.clearAllMessages();
 		restServices.deletePigletEvent($scope.pigletStatusEvent, function(data){
 			if(!data.error)
 				{
@@ -72,7 +75,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
      * Search for the farrow events
      */
     $scope.searchFarrowEvent = function()
-	{	   
+	{	$scope.clearAllMessages();
 		if($scope.pigletStatusEvent.pigId != undefined && $scope.pigletStatusEvent.pigId != "")
 			{
 			    var pigInfo = {
@@ -85,7 +88,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 					{
 						$scope.clearAllMessages();
 						$scope.inValidPigIdFromServer = true;		
-						
+						$scope.pigletStatusEvent = {};
 					}
 					else
 					{
@@ -128,14 +131,33 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	
 	$scope.selectFarrowEvent = function()
 	{
+		$scope.clearAllMessages(); 
 		$scope.pigletStatusEvent.farrowEventId = $scope.pigletStatusEvent.farrowEventDto.id;
-		$('#searchFarrowEvents').modal('hide');
-		$scope.getFosterInRecords();
+		
+		restServices.getPigletStatusEventsByFarrowEventId($scope.pigletStatusEvent.farrowEventId, function(data){
+			$scope.fosterInRecords = [];
+			if(!data.error)
+			{
+				$('#searchFarrowEvents').modal('hide');
+				$scope.pigletStatusEventAlreadyAdded = false;
+				$scope.getFosterInRecords();				
+			}
+			else
+			{
+				$('#searchFarrowEvents').modal('hide');
+				$scope.clearAllMessages();
+				$scope.pigletStatusEventAlreadyAdded = true;
+				$scope.pigletStatusEvent = {};
+			}
+		});
+		
+		
 	}
 	
 	
 	$scope.getFosterInRecords = function()
 	{
+		$scope.clearAllMessages(); 
 		if($scope.pigletStatusEvent.pigId != null)
 			{  
 				$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
@@ -164,7 +186,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
      * retrieve all foster pigs
      */
     $scope.getAllFosterPigs = function()
-	{	  
+	{	$scope.clearAllMessages(); 
 		if($scope.pigletStatusEvent.pigId != undefined && $scope.pigletStatusEvent.pigId != "")
 			{
 			    var pigInfo = {
@@ -201,10 +223,10 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	
 	$scope.selectFoster = function()
 	{
-		
+		$scope.clearAllMessages(); 
 		$scope.pigletStatusEvent.fosterToPigId = $scope.pigletStatusEvent.fosterDto.pigId  + " ["+$scope.pigletStatusEvent.fosterDto.currentFarrowEventDate+"]";
 		$scope.pigletStatusEvent.fosterTo = $scope.pigletStatusEvent.fosterDto.id;
-		$scope.pigletStatusEvent.fosterFarrowId = $scope.pigletStatusEvent.fosterDto.farrowEventId;
+		$scope.pigletStatusEvent.fosterFarrowEventId = $scope.pigletStatusEvent.fosterDto.farrowEventId;
 		$scope.pigletStatusEvent.fosterToDateTime = $scope.pigletStatusEvent.fosterDto.currentFarrowEventDate;
 		$('#searchFosters').modal('hide');
 	}	
@@ -216,6 +238,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	 */
 	$scope.addPigletStatusEvent = function()
     {
+		$scope.clearAllMessages();
+		//alert("fosterToPigId"+$scope.pigletStatusEvent["fosterToPigId"]);
 		if($scope.pigletstatuseventform.$valid)
 		{
 			$scope.pigletStatusEvent["eventDateTime"] = document.getElementById("eventDateTime").value;
@@ -224,15 +248,15 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				$scope.eventDateTimerequired = true;
 				return;
 			}	
-			if(($scope.pigletStatusEvent["fosterPigNum"] != undefined)){
-				if($scope.pigletStatusEvent["fosterPigNum"] != "" 
-					&& ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === "")){
+			if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null 
+					&& ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === null)){				
 					$scope.fosterToPigIdrequired = true;
-					return;
-				}
+					return;				
 			}
+			$scope.clearAllMessages();
 			$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
 			delete $scope.pigletStatusEvent.fosterDto;
+			//alert($scope.pigletStatusEvent.farrowEventId);
 			restServices.validatePigletStatusEvent($scope.pigletStatusEvent, function(data){
 		   		if(!data.error)
 			   {
@@ -291,6 +315,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
    //method to search the piglet events on pig id or farrow id. Farrow it will give one set and pig id may return multiple sets. 
     $scope.searchPigletStatusEvents = function()
     {
+    	$scope.clearAllMessages(); 
     	var option = "";
 		if(document.getElementById("rad1").checked)
 			 option = document.getElementById("rad1").value;
