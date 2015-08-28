@@ -25,7 +25,7 @@ public class PigletStatusEventController {
 	 @Autowired
 	 CompanyService companyService;
 	
-	   @RequestMapping(value="/loadPigletStatusEvent", method=RequestMethod.POST)
+	   @RequestMapping(value="/pigletStatusEvent", method=RequestMethod.POST)
 	   public String loadPigletStatusEvent(HttpServletRequest request, Model model)  
 	   {
 		   PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

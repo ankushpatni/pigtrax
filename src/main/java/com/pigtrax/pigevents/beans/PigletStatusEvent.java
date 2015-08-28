@@ -18,6 +18,17 @@ public class PigletStatusEvent {
 	private Date lastUpdated;
 	private String userUpdated;
 	private Integer farrowEventId;
+	private Integer fosterFarrowEventId;
+
+	private String pigId;
+
+	public Integer getFosterFarrowEventId() {
+		return fosterFarrowEventId;
+	}
+
+	public void setFosterFarrowEventId(Integer fosterFarrowEventId) {
+		this.fosterFarrowEventId = fosterFarrowEventId;
+	}
 
 	public Integer getId() {
 		return id;
@@ -137,6 +148,14 @@ public class PigletStatusEvent {
 
 	public void setFarrowEventId(Integer farrowEventId) {
 		this.farrowEventId = farrowEventId;
+	}
+
+	public String getPigId() {
+		return pigId;
+	}
+
+	public void setPigId(String pigId) {
+		this.pigId = pigId;
 	}
 	
 	

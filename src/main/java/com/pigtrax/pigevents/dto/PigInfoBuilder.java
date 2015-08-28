@@ -61,6 +61,7 @@ public class PigInfoBuilder {
 		   dto.setBarnId(info.getBarnId());
 		   dto.setSexTypeId(info.getSexTypeId());
 		   dto.setCurrentFarrowEventDate(info.getCurrentFarrowEventDate());
+		   dto.setFarrowEventId(info.getFarrowId());
 	   }
 	   return dto;
    }

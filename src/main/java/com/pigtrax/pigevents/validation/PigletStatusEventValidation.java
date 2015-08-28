@@ -78,9 +78,10 @@ public class PigletStatusEventValidation {
 	  int weanPigNum = pigletStatusEventDto.getWeanPigNum() !=null?pigletStatusEventDto.getWeanPigNum().intValue():0;
 	  int fosterPigNum = pigletStatusEventDto.getFosterPigNum() !=null?pigletStatusEventDto.getFosterPigNum().intValue():0;
 	  int deathPigNum = pigletStatusEventDto.getDeathPigNum() !=null?pigletStatusEventDto.getDeathPigNum().intValue():0;
+	  int fostInPigCnt = pigletStatusEventDto.getTotalfoserInCnt() != null ? pigletStatusEventDto.getTotalfoserInCnt().intValue() : 0;
 	  int totalpigs = weanPigNum + fosterPigNum + deathPigNum;
 	  
-	  if(totalpigs != liveBorn) {
+	  if(totalpigs > (liveBorn+fostInPigCnt)) {
 		  logger.info("Pig count does not match with the farrow event");
 		  return ERR_CODE_03;
 	  }
@@ -88,19 +89,21 @@ public class PigletStatusEventValidation {
 	  int durationDays = 0;	  
 	  DateTime farrowEventDate = new DateTime(pigletStatusEventDto.getFarrowEventDto().getFarrowDateTime());
 	  DateTime weanEventDate = new DateTime(pigletStatusEventDto.getEventDateTime());
-	  DateTime fosterinEventDate = new DateTime(pigletStatusEventDto.getFosterToDateTime());
 	  durationDays = Days.daysBetween(farrowEventDate,weanEventDate).getDays() ;	
+	  
 	  if(weanEventDate.isBefore(farrowEventDate) || durationDays > PIGLET_STATUS_FARROW_END_DURATION || durationDays< PIGLET_STATUS_FARROW_START_DURATION)
 	  {
 		  logger.info("Weaning should happen within 0-60 days of farrow event");
 		  return ERR_CODE_01;
-	  } else{
-		  durationDays = Days.daysBetween(fosterinEventDate,weanEventDate).getDays() ;
-		  if(weanEventDate.isBefore(fosterinEventDate) || durationDays > PIGLET_STATUS_FOSTERIN_END_DURATION || durationDays< PIGLET_STATUS_FOSTERIN_START_DURATION){
-			  logger.info("Weaning should happen within 0-50 days of farrow event");
-			  return ERR_CODE_02;
-			  
-		  }
+	  } 
+	  
+	  if(pigletStatusEventDto.getFosterToDateTime() != null){
+			DateTime fosterinEventDate = new DateTime(pigletStatusEventDto.getFosterToDateTime());
+			durationDays = Days.daysBetween(fosterinEventDate,weanEventDate).getDays() ;
+			if(weanEventDate.isBefore(fosterinEventDate) || durationDays > PIGLET_STATUS_FOSTERIN_END_DURATION || durationDays< PIGLET_STATUS_FOSTERIN_START_DURATION){
+				logger.info("Weaning should happen within 0-50 days of farrow event");
+			return ERR_CODE_02;
+		 }
 		  
 	  }
 	  return SUCCESS_CODE;	 

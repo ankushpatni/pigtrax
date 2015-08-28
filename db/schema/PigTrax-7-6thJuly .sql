@@ -351,7 +351,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- object: pigtrax."PigletStatus" | type: TABLE --
 DROP TABLE IF EXISTS pigtrax."PigletStatus" CASCADE;
 CREATE TABLE pigtrax."PigletStatus"(
-	id serial NOT NULL,
+	id serial NOT NULL, 
 	"id_PigInfo" integer not null,
 	"fosterFrom" integer,
 	"fosterTo" integer,

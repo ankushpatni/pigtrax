@@ -14,4 +14,6 @@ public interface PigletStatusEventService {
 	void deletePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto) throws PigTraxException;
 	
 	int validatePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto);
+	
+	List<PigletStatusEventDto> getFosterInRecords(String pigId, Integer companyId);
 }

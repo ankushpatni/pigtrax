@@ -37,6 +37,7 @@ public class PigletStatusEventBuilder {
 			   info.setSowCondition(dto.getSowCondition());
 			   info.setUserUpdated(dto.getUserUpdated());
 			   info.setWeanGroupId(dto.getWeanGroupId());
+			   info.setFosterFarrowEventId(dto.getFosterFarrowId());
 			   
 		   }
 		   return info;
@@ -67,7 +68,8 @@ public class PigletStatusEventBuilder {
 			   dto.setRemarks(info.getRemarks());
 			   dto.setSowCondition(info.getSowCondition());
 			   dto.setUserUpdated(info.getUserUpdated());
-			   dto.setWeanGroupId(info.getWeanGroupId()); 
+			   dto.setWeanGroupId(info.getWeanGroupId());
+			   dto.setPigId(info.getPigId());
 		   }		   
 		   return dto; 
 	   }
@@ -80,7 +82,7 @@ public class PigletStatusEventBuilder {
 		   {
 			   fosterInEvent = new PigletStatusEvent();
 			   fosterInEvent.setEventDateTime(pigletStatusEvent.getEventDateTime());
-			   fosterInEvent.setPigInfoId(pigletStatusEvent.getPigInfoId());
+			   fosterInEvent.setPigInfoId(pigletStatusEvent.getFosterTo());
 			   fosterInEvent.setFosterTo(pigletStatusEvent.getFosterTo());
 			   fosterInEvent.setPigletStatusEventTypeId(PigletStatusEventType.FosterIn.getTypeCode());
 			   fosterInEvent.setFosterFrom(pigletStatusEvent.getFosterFrom());
@@ -88,10 +90,10 @@ public class PigletStatusEventBuilder {
 			   fosterInEvent.setWeightInKgs(pigletStatusEvent.getWeightInKgs());
 			   fosterInEvent.setEventReason(pigletStatusEvent.getEventReason());
 			   fosterInEvent.setRemarks(pigletStatusEvent.getRemarks());
-			   fosterInEvent.setSowCondition(pigletStatusEvent.getSowCondition());
+			   fosterInEvent.setSowCondition(null);
 			   fosterInEvent.setWeanGroupId(pigletStatusEvent.getWeanGroupId());
 			   fosterInEvent.setUserUpdated(pigletStatusEvent.getUserUpdated());
-			   fosterInEvent.setFarrowEventId(pigletStatusEvent.getFarrowEventId());
+			   fosterInEvent.setFarrowEventId(pigletStatusEvent.getFosterFarrowEventId()); 
 		   }
 		   return fosterInEvent;
 	   }
@@ -101,37 +103,20 @@ public class PigletStatusEventBuilder {
 	    * @param pregnancyEvents
 	    * @return
 	    */
-	   public PigletStatusEventDto convertToDtos(PigletStatusEvent pigletStatusEvent)
+	   public List<PigletStatusEventDto> convertToDtos(List<PigletStatusEvent> pigletStatusEvents)
 	   {
-		   PigletStatusEventDto fosterInEvent = new PigletStatusEventDto();
-
-			   //generic fields
-			   fosterInEvent.setEventDateTime(pigletStatusEvent.getEventDateTime());
-			   fosterInEvent.setPigInfoId(pigletStatusEvent.getPigInfoId());
-			   fosterInEvent.setEventReason(pigletStatusEvent.getEventReason());
-			   fosterInEvent.setRemarks(pigletStatusEvent.getRemarks());
-			   fosterInEvent.setSowCondition(pigletStatusEvent.getSowCondition());
-			   fosterInEvent.setWeanGroupId(pigletStatusEvent.getWeanGroupId());
-			   fosterInEvent.setUserUpdated(pigletStatusEvent.getUserUpdated());
-			   fosterInEvent.setFarrowEventId(pigletStatusEvent.getFarrowEventId());
-			   
-			   if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.Wean.getTypeCode())){
-				   //fosterInEvent.setWeanGroupId(weanGroupId);
-				   fosterInEvent.setWeanPigNum(pigletStatusEvent.getNumberOfPigs());
-				   fosterInEvent.setWeanPigWt(pigletStatusEvent.getWeightInKgs());
-				   //fosterInEvent.setWeightInKgs(weightInKgs);
-				   
-			   } else if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.FosterOut.getTypeCode())){
-				   
-				   fosterInEvent.setFosterPigNum(pigletStatusEvent.getNumberOfPigs());
-				   fosterInEvent.setFosterPigWt(pigletStatusEvent.getWeightInKgs());
-				   //fosterInEvent.setFosterToPigId(pigletStatusEvent.getFosterTo());
-				   fosterInEvent.setFosterTo(pigletStatusEvent.getFosterTo());
-			   } else if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.Death.getTypeCode())){
-				   fosterInEvent.setDeathPigNum(pigletStatusEvent.getNumberOfPigs());
-				   fosterInEvent.setDeathPigWt(pigletStatusEvent.getWeightInKgs());
+		   List<PigletStatusEventDto> pigletStatusEventList = null;
+		   if(pigletStatusEvents != null)
+		   {
+			   pigletStatusEventList = new ArrayList<PigletStatusEventDto>();
+			   for(PigletStatusEvent event : pigletStatusEvents)
+			   {
+				   pigletStatusEventList.add(convertToDto(event));
 			   }
-			   
-		   return fosterInEvent;
+		   }			   
+		   return pigletStatusEventList;
 	   }
+	   
+	   
+	   
 }
