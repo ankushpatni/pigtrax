@@ -74,7 +74,7 @@
                     </div> 
 					 <div class="form-group">
                       <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/></label>
-                       <select ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage" class="form-control"  name="phaseOfProductionTypeId" id="phaseOfProductionTypeId" ng-model="groupEvent.phaseOfProductionTypeId"   
+                       <select ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage" class="form-control"  required required-message="'<spring:message code='label.groupEventDetail.phaseOfProduction.required' text='Phase Of Production is required' />'" name="phaseOfProductionTypeId" id="phaseOfProductionTypeId" ng-model="groupEvent.phaseOfProductionTypeId"   
                          ng-options="k as v for (k, v) in phaseOfProductionTypeForNewAdd"> </select>
                          <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       
                     </div>
@@ -91,6 +91,10 @@
                        ng-focus="clearMessages()"/> --%>
                        <label ng-show="(groupEvent.previousGroupId != null)"> : {{groupEvent.previousGroupId}}</label>
 					   <label ng-hide="(groupEvent.previousGroupId != null)"> -- </label>
+                   </div>
+				    <div class="form-group">
+                      <label><spring:message code='label.piginfo.groupEventForm.groupEventDerived'  text='Group Event Derived'/></label>
+                        <label> : {{followedGroupIdString}}</label>
                    </div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
@@ -114,9 +118,10 @@
 
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-hide="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
-					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>
+					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
-                    <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus()" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button> <button type="button" class="btn btn-success pull-right" ng-click="changeGroupEventStatus()" ng-show="groupEvent.id != null && groupEvent.id > 0 && !groupEvent.active" ><spring:message code='label.piginfo.groupEventform.Activate'  text='Activate'/></button>					
+                    <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus(false)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button>
+                    <button type="button" class="btn btn-success pull-right" ng-click="changeGroupEventStatus(true)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && !groupEvent.active" ><spring:message code='label.piginfo.groupEventform.Activate'  text='Activate'/></button>					
 				  </form>
                 </div>
               </div>

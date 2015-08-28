@@ -188,15 +188,15 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 	}
 
 	@Override
-	public int updateGroupEventStatus(final String groupId, final Boolean groupStatus)
+	public int updateGroupEventStatus(final GroupEvent groupEvent)
 			throws SQLException {
-		String query = "update pigtrax.\"GroupEvent\" SET \"isActive\"=?  WHERE \"groupId\"=?";
+		String query = "update pigtrax.\"GroupEvent\" SET \"isActive\"=?  WHERE \"id\"=?";
 
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setBoolean(1, !groupStatus);
-				ps.setString(2, groupId.toUpperCase());
+				ps.setBoolean(1, groupEvent.isActive());
+				ps.setInt(2, groupEvent.getId());
 			}
 		});
 	}
@@ -214,6 +214,23 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 			}
 		});
 		
+	}
+	
+	@Override
+	public String getListoFFollowerId(final String groupId)
+			throws SQLException {
+		
+		String returnString = null;
+		String qry = "Select string_agg(\"groupId\", ', ')  from pigtrax.\"GroupEvent\" where \"previousGroupId\" = ?";
+		PreparedStatement ps = jdbcTemplate.getDataSource().getConnection().prepareStatement(qry);
+		ps.setString(1, groupId);
+
+		ResultSet result = ps.executeQuery();
+		if(null !=result)
+		while(result.next()) {
+			returnString = result.getString(1);
+		}
+		return returnString;
 	}
 	
 	 private static final class GroupEventMapper implements RowMapper<GroupEvent> {

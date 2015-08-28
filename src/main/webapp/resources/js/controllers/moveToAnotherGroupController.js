@@ -1,22 +1,40 @@
 pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $modalInstance,moveToAnotherGroup,restServices) {	
 	$scope.moveToAnotherGroup = moveToAnotherGroup;
 	$scope.phaseOfProductionType = moveToAnotherGroup.phaseOfProductionType;
+	$scope.dateFormat = 'yyyy-mm-dd';
 	
 	
 	$scope.addMoveGroupEvent = function() {
-		if(document.getElementById("groupStartDateTime").value === "")
-		{
-			$scope.groupdaterequired = true;
-			console.log($scope.groupdaterequired);
-			return;
-		}
+	
+		var groupStartDateTimeAnother = document.getElementById("groupStartDateTimeAnother").value;
+		console.log(groupStartDateTimeAnother);
+		
 		if($scope.moveGroupeventAddForm.$valid)
 		{
+			if( groupStartDateTimeAnother === "")
+			{
+				$scope.groupdaterequiredMove = true;
+				console.log($scope.groupdaterequiredMove);
+				return;
+			}
+			if( groupStartDateTimeAnother < $scope.moveToAnotherGroup.groupStartDateTime)
+			{
+				$scope.groupdaterequiredMove = true;
+				console.log($scope.groupdaterequiredMove);
+				return;
+			}
+			if($scope.moveGroupevent.currentInventory > $scope.moveToAnotherGroup.pigCount)
+			{
+				console.log($scope.moveGroupevent.currentInventory );
+				$scope.noOfPigsCanBeTransfered = true;
+				return;
+			}
+			
 			var postParam = {
 			
 					"groupId" : $scope.moveGroupevent.groupId,
 					"companyId" : $scope.companyId,
-					"groupStartDateTime" : document.getElementById("groupStartDateTime").value,
+					"groupStartDateTime" : document.getElementById("groupStartDateTimeAnother").value,
 					"currentInventory" : $scope.moveGroupevent.currentInventory,					
 					"remarks" : $scope.moveGroupevent.remarks,
 					"phaseOfProductionTypeId" : $scope.moveGroupevent.phaseOfProductionTypeId,
@@ -27,8 +45,6 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 				};				
 			
 			restServices.saveGroupEventInformation(postParam, function(data){
-			console.log('Ankush');
-			console.log(data);
 				if(!data.error)
 					{
 					$modalInstance.close(data);					
@@ -48,6 +64,12 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 			});
 		}
 	}
+	
+	$scope.open = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.opened = true;
+  };
 	
 	$scope.cancel = function(){
 		$modalInstance.dismiss('add');
