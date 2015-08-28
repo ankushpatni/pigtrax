@@ -145,7 +145,26 @@ public class GroupEventServiceImpl implements GroupEventService{
 	public int updateGroupEvent(GroupEvent groupEvent) throws PigTraxException {
 		
 		try {
-			int generatedId = groupEventDao.updateGroupEvent(groupEvent);
+			int generatedId =0;
+			if(null!=groupEvent && groupEvent.isFromMove())
+			{
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGroupId(groupEvent.getPreviousGroupId(), groupEvent.getCompanyId());
+				if(null != groupEventUpdate )
+				{
+					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - groupEvent.getCurrentInventory());
+					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+				}
+				GroupEventDetails groupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				if(null!=groupEventDetails)
+				{
+					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+				}
+				
+			}
+			else
+			{
+				generatedId = groupEventDao.updateGroupEvent(groupEvent);
+			}
 			return generatedId;
 		} 
 		catch (SQLException sqlEx) {

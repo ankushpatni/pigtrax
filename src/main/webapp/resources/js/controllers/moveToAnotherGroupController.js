@@ -2,6 +2,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	$scope.moveToAnotherGroup = moveToAnotherGroup;
 	$scope.phaseOfProductionType = moveToAnotherGroup.phaseOfProductionType;
 	$scope.dateFormat = 'yyyy-mm-dd';
+	$scope.moveGroupevent={};
 	
 	
 	$scope.addMoveGroupEvent = function() {
@@ -41,6 +42,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 					"fromMove" : true,
 					"previousGroupId" : $scope.moveToAnotherGroup.previousGroupId,
 					"weightInKgs" : $scope.moveGroupevent.weightInKgs,
+					"id" : $scope.moveGroupevent.id,
 					
 				};				
 			
@@ -64,6 +66,47 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 			});
 		}
 	}
+	
+	$scope.getGroupEventInformation = function (searchGroupEvent)
+	{
+		console.log('Group ID is '+ $scope.searchText);
+		var postParam = {
+				
+				"groupId" : searchGroupEvent,
+				"companyId" : $scope.companyId,
+			};
+		
+		restServices.getGroupEventInformation(postParam, function(data){
+			console.log(data);
+			if(!data.error)
+				{
+					//$scope.clearAllMessages();
+					$scope.moveGroupevent = data.payload[0];
+					$scope.moveGroupevent.groupStartDateTimeAnother = $scope.moveGroupevent.groupStartDateTime;
+					$scope.moveGroupevent.currentInventory	= 0;	
+					$scope.moveGroupevent.weightInKgs = 0;						
+					$scope.moveGroupevent.remarks = '';
+				}
+			else
+				{
+					if(data.recordNotPresent)
+					{
+					$scope.moveGroupevent ={};
+						$scope.searchDataErrorMessage = true;
+					}
+					
+				}
+		});
+	}
+	
+	$scope.clearForm = function()
+	{
+		if(!$scope.moveGroupevent.searchExisting)
+		{
+			$scope.moveGroupevent ={};
+		}
+	}
+	
 	
 	$scope.open = function($event) {
 		$event.preventDefault();
