@@ -75,7 +75,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 			}
 			else
 			{
-				return pregnancyEventDao.updatePregnancyEventDetails(pregnancyEvent); 
+				return pregnancyEventDao.updatePregnancyEventDetails(pregnancyEvent);  
 			}
 		}catch(SQLException sqlEx)
 		{
