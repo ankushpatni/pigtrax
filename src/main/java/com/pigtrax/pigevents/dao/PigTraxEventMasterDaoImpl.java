@@ -108,27 +108,6 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 		});
 	}
 	
-	/**
-	 * update the pregnancy event details of a given pigInfoId
-	 * @param PregnancyEvent
-	 * @return
-	 * @throws SQLException
-	 */
-	public int updatePregnancyEventDetails(final PregnancyEvent pregnancyEvent)
-			throws SQLException {
-		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = current_timestamp, \"id_PregnancyEvent\" = ?, \"lastUpdated\"=current_timestamp where \"id_PigInfo\" = ?";
-		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
-			
-			public void setValues(PreparedStatement ps) throws SQLException {
-				
-				ps.setInt(1, pregnancyEvent.getId());
-				ps.setInt(2, pregnancyEvent.getPigInfoId());
-			}
-		});
-	}
-	
-	
-	
 	
 	public List<PigTraxEventMaster> getEventMasterRecords(final Integer pigInfoKey) throws Exception
 	{
@@ -167,5 +146,27 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 			eventMaster.setRemovalEventId(rs.getInt("id_RemovalEvent"));
 			return eventMaster;
 		}
+	}
+	
+	/**
+	 * Delete the piglet status event entries for a given farrow event id
+	 * @param farrowEventId
+	 * @return
+	 * @throws SQLException
+	 */
+	@Override
+	public int deletePigletStatusEvents(final Integer farrowEventId)
+			throws SQLException {
+		final String qry = "delete from pigtrax.\"PigTraxEventMaster\" where \"id_PigletStatus\" IN "
+				+ "(select \"id\" from pigtrax.\"PigletStatus\" where \"id_FarrowEvent\" = ? or \"id_fosterFarrowEvent\" = ?)";
+				
+		int rowsDeleted = this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, farrowEventId);
+				ps.setInt(2, farrowEventId);
+			}
+		});
+		return rowsDeleted;
 	}
 }

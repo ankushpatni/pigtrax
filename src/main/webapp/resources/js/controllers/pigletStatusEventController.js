@@ -56,10 +56,10 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.editBtnclicked = true;
 	}	
 	
-	$scope.deletePigletEvent = function()
+	$scope.deletePigletStatusEvent = function()
 	{
 		$scope.clearAllMessages();
-		restServices.deletePigletEvent($scope.pigletStatusEvent, function(data){
+		restServices.deletePigletStatusEvent($scope.pigletStatusEvent, function(data){
 			if(!data.error)
 				{
 					$scope.clearAllMessages();
@@ -133,7 +133,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	{
 		$scope.clearAllMessages(); 
 		$scope.pigletStatusEvent.farrowEventId = $scope.pigletStatusEvent.farrowEventDto.id;
-		
+		$scope.clearPigletInformation();
 		restServices.getPigletStatusEventsByFarrowEventId($scope.pigletStatusEvent.farrowEventId, function(data){
 			$scope.fosterInRecords = [];
 			if(!data.error)
@@ -154,6 +154,28 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		
 	}
 	
+	
+	$scope.clearPigletInformation = function()
+	{
+		$scope.pigletStatusEvent["fosterFrom"] = null;
+		$scope.pigletStatusEvent["fosterTo"] = null;
+		$scope.pigletStatusEvent["fosterToDateTime"] = null;
+		$scope.pigletStatusEvent["eventDateTime"] = null;
+		$scope.pigletStatusEvent["eventReason"] = null;
+		$scope.pigletStatusEvent["remarks"] = null;
+		$scope.pigletStatusEvent["sowCondition"] = null;
+		$scope.pigletStatusEvent["weanGroupId"] = null;
+		
+		$scope.pigletStatusEvent["weanPigNum"] = null;
+		$scope.pigletStatusEvent["weanPigWt"] = null;
+		$scope.pigletStatusEvent["fosterPigNum"] = null;
+		$scope.pigletStatusEvent["fosterPigWt"] = null;
+		$scope.pigletStatusEvent["fosterToPigId"] = null;
+		$scope.pigletStatusEvent["fosterFarrowEventId"] = null;
+		$scope.pigletStatusEvent["deathPigNum"] = null;
+		$scope.pigletStatusEvent["deathPigWt"] = null;
+		$scope.fosterInRecords = [];
+	}
 	
 	$scope.getFosterInRecords = function()
 	{

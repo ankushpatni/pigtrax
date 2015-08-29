@@ -105,10 +105,10 @@ public class PigletStatusEventRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			pigletStatusEventService.deletePigletStatusEvent(pigletStatusEventDto);
-			dto.setPayload(pigletStatusEventDto);
+			//dto.setPayload(pigletStatusEventDto);
 			dto.setStatusMessage("Success");
 		}
-		catch (PigTraxException e) {
+		catch (PigTraxException e) { 
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		} 
