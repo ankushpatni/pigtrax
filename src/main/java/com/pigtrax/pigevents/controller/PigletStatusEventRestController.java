@@ -152,9 +152,41 @@ public class PigletStatusEventRestController {
 		logger.info("Inside getFosterInRecords method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			List<PigletStatusEventDto> fosterInRecords = pigletStatusEventService.getFosterInRecords(pigletStatusEventDto.getPigId(), pigletStatusEventDto.getCompanyId()); 
+			List<PigletStatusEventDto> fosterInRecords = pigletStatusEventService.getFosterInRecords(pigletStatusEventDto.getPigId(), pigletStatusEventDto.getCompanyId(), pigletStatusEventDto.getFarrowEventId()); 
 			dto.setPayload(fosterInRecords);
 			dto.setStatusMessage("Success");
+		}  catch (Exception e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}	
+	
+	
+	/**
+	 * To get the foster In Records for a given Pig Info Id
+	 * @param pigletStatusEventDto
+	 * @return
+	 */
+	@RequestMapping(value = "/getPigletStatusEventsByFarrowEventId", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPigletStatusEventsByFarrowEventId( @RequestBody Integer farrowEventId)
+	{
+		logger.info("Inside getFosterInRecords method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			List<PigletStatusEventDto> pigletStatusEvents = pigletStatusEventService.getPigletStatusEventsByFarrowEventId(farrowEventId);
+			if(pigletStatusEvents != null && pigletStatusEvents.size() > 0)
+			{
+				dto.setPayload(false);
+				dto.setStatusMessage("ERROR");
+			}
+			else
+			{
+				dto.setPayload(true);
+				dto.setStatusMessage("Success");
+			} 			
+			
 		}  catch (Exception e) {
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());

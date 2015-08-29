@@ -48,7 +48,7 @@
                        <th><spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid'  text='Wean Group Id'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
-                 </thead> 
+                 </thead>   
                  <tbody>
                    <tr ng-repeat="pigletStatusEventDto in pigletStatusEventList"> 
 					<td >{{pigletStatusEventDto.farrowEventDto.farrowId}}</td>                   
@@ -106,7 +106,7 @@
                   <input type=hidden name="id" ng-model="pigletStatusEvent.id"/>
                    <input type=hidden name="fosterTo" ng-model="pigletStatusEvent.fosterTo"/>
 				  <input type=hidden name="pigInfoId" ng-model="pigletStatusEvent.pigInfoId"/>				  
-				  <input type=hidden name="fosterFarrowId" ng-model="pigletStatusEvent.fosterFarrowId"/>
+				  <input type=hidden name="fosterFarrowId" ng-model="pigletStatusEvent.fosterFarrowEventId"/>
 				  
 				  
 					 <div class="form-group"> 
@@ -124,9 +124,9 @@
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
-					
-				    <div class=" block-flat bars-widget" ng-if="pigletStatusEvent.farrowEventId != null && pigletStatusEvent.farrowEventId>0">
-		                <div class="spk4 pull-right spk-widget"></div>
+					<label ng-show="pigletStatusEventAlreadyAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.pigletStatusEventCreated' text='Piglet Status already captured for the selected Pig Id ana farrow event. Use search feature to modify it.' /></label>
+				    <div class=" block-flat bars-widget" ng-if="pigletStatusEvent.farrowEventId != null && pigletStatusEvent.farrowEventId>0 && !pigletStatusEventAlreadyAdded">
+		                <div class="spk4 pull-right spk-widget"></div>  
 		                <h4>Farrow Details</h4><div></div>
 		                <div>Farrow Event Date : {{pigletStatusEvent.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</div>
 		                <div>Live Borns : {{pigletStatusEvent.farrowEventDto.liveBorns}}</div>
@@ -146,7 +146,7 @@
 		                  </thead>
 		                  <tbody>
 		                    <tr ng-repeat="fosterInObj in fosterInRecords" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
-		                      <td>{{fosterInObj.pigId}}</td>
+		                      <td>{{fosterInObj.fosterFromPigId}}</td>
 		                      <td>{{fosterInObj.numberOfPigs}}</td>
 		                      <td>{{fosterInObj.weightInKgs}}</td>
 		                   </tr>		                  
@@ -178,13 +178,13 @@
                        <tr>
                          <td><spring:message code='label.piginfo.pigletstatuseventform.wean' text='Wean' /> </td>
                          <td><input type="number" min="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control"> </td>
-                         <td><input type="number" min="1" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> </td>
+                         <td><input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> </td>
                          <td><spring:message code='label.piginfo.pigletstatuseventform.notApplicable' text='N/A' /> </td>
                        </tr>
                        <tr>
                         <td><spring:message code='label.piginfo.pigletstatuseventform.foster' text='Foster' /> </td>
                          <td><input type="number" min="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
-                         <td><input type="number" min="1" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control"> </td>
+                         <td><input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control"> </td>
                          <td><div data-min-view="2" class="input-group col-md-9 col-xs-11" >
                             <input type="text" ng-value="0" name="fosterToPigId" readonly ng-model="pigletStatusEvent.fosterToPigId"  maxlength="30"  size="30" class="input-sm  form-control">
 							<span>
@@ -231,7 +231,7 @@
                       class="form-control" placeholder="<spring:message code='label.piginfo.pigletstatuseventform.remarks.placeholder' text='Enter remarks'/>"></textarea>
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.sowcondition'  text='Sow Condition'/></label>
                       <select class="form-control" name="sowCondition" ng-model="pigletStatusEvent.sowCondition" 
                       ng-required="true" required-message="'<spring:message code='label.piginfo.pigletstatuseventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
                            <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>

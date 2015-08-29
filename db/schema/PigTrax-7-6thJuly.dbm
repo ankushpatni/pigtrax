@@ -3,11 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<<<<<<< HEAD
-<dbmodel pgmodeler-ver="0.8.0" last-position="3770,3863" last-zoom="0.8"
-=======
-<dbmodel pgmodeler-ver="0.8.0" last-position="2663,871" last-zoom="0.9"
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
+<dbmodel pgmodeler-ver="0.8.0" last-position="4084,2002" last-zoom="0.9"
 	 default-owner="postgres">
 <role name="pitraxadmin"
       superuser="true"
@@ -983,16 +979,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="ticketNumber" not-null="true">
 		<type name="varchar" length="30"/>
 	</column>
-	<column name="feedId" not-null="true">
+	<column name="feedContentId" not-null="true">
 		<type name="varchar" length="30"/>
 	</column>
-	<column name="feedDateTime" not-null="true">
+	<column name="initialFeedEntryDateTime" not-null="true">
 		<type name="timestamp"/>
 	</column>
 	<column name="batchId" not-null="true">
 		<type name="varchar" length="30"/>
 	</column>
-	<column name="feedQuantityKgs" not-null="true">
+	<column name="initialFeedQuantityKgs" not-null="true">
 		<type name="numeric" length="20" precision="2"/>
 	</column>
 	<column name="feedCost" not-null="true">
@@ -1015,17 +1011,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_FeedEventType" index="7"/>
-		<object name="id_GroupEvent" index="6"/>
-		<object name="id_Silo" index="4"/>
-		<object name="id_TransportJourney" index="5"/>
+		<object name="id_TransportJourney" index="8"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="FeedEventType_fk" index="5"/>
-		<object name="GroupEvent_fk" index="4"/>
-		<object name="Silo_fk" index="2"/>
-		<object name="TransportJourney_fk" index="3"/>
+		<object name="TransportJourney_fk" index="2"/>
 	</customidxs>
 </table>
 
@@ -1035,40 +1025,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<enumeration values="FeedIn,FeedOut"/>
 </usertype>
 
-<relationship name="Feed_refers_Silo" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;Silo&quot;"
-	 dst-table="pigtrax.&quot;FeedEvent&quot;"
-	 src-required="false" dst-required="false"/>
-
 <table name="GroupEvent">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-<<<<<<< HEAD
-	<position x="5187.15" y="4576.17"/>
-=======
 	<position x="5187.15" y="4577.42"/>
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
 	<column name="groupId" not-null="true">
 		<type name="varchar" length="30"/>
 	</column>
-<<<<<<< HEAD
-	<column name="groupStartDateTime" not-null="true">
-		<type name="timestamp"/>
-	</column>
-	<column name="groupCloseDateTime">
-		<type name="timestamp"/>
-	</column>
-	<column name="isActive" not-null="true">
-		<type name="bool"/>
-	</column>
-=======
 	<column name="origin" not-null="true">
 		<type name="varchar" length="20"/>
 	</column>
@@ -1087,7 +1053,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="groupCloseDateTime">
 		<type name="timestamp"/>
 	</column>
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
 	<column name="remarks">
 		<type name="varchar" length="255"/>
 	</column>
@@ -1103,38 +1068,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="PIGEVENT_GI_U" type="uq-constr" table="pigtrax.&quot;GroupEvent&quot;">
 		<columns names="groupId" ref-type="src-columns"/>
 	</constraint>
-<<<<<<< HEAD
 </table>
 
-=======
-
-	<customidxs object-type="column">
-		<object name="id_EmployeeGroup" index="5"/>
-		<object name="id_PhaseOfProductionType" index="13"/>
-		<object name="id_Room" index="4"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="EmployeeGroup_fk" index="3"/>
-		<object name="PhaseOfProductionType_fk" index="4"/>
-		<object name="Room_fk" index="1"/>
-	</customidxs>
-</table>
-
-<relationship name="Pigevent_refers_room" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;Room&quot;"
-	 dst-table="pigtrax.&quot;GroupEvent&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="348.52" y="225.339"/>
-	</label>
-</relationship>
-
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
 <relationship name="Barn_has_many_Rooms" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
@@ -1172,11 +1107,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Genetics">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-<<<<<<< HEAD
-	<position x="5230.21" y="5289.39"/>
-=======
 	<position x="5227.71" y="5116.89"/>
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1334,19 +1265,6 @@ nn - Not Null]]></comment>
 	 dst-table="pigtrax.&quot;SaleEvent&quot;"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="Feed_Refers_to_GroupId_In_PigEvent" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;GroupEvent&quot;"
-	 dst-table="pigtrax.&quot;FeedEvent&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
 <relationship name="Removal_Refers_GroupId_In_PigEvent" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
@@ -1416,18 +1334,6 @@ nn - Not Null]]></comment>
 	 dst-table="pigtrax.&quot;BreedingEvent&quot;"
 	 src-required="false" dst-required="false"/>
 
-<<<<<<< HEAD
-=======
-<relationship name="EmployeeGroup_Responsible_For_PigEvent" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;EmployeeGroup&quot;"
-	 dst-table="pigtrax.&quot;GroupEvent&quot;"
-	 src-required="false" dst-required="false"/>
-
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
 <relationship name="EmployeeGroup_Responsible_For_PregnancyEvent" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
@@ -2017,18 +1923,6 @@ INSERT INTO pigtraxrefdata."RoleType" ("fieldCode","fieldDescription","lastUpdat
 	</constraint>
 </table>
 
-<<<<<<< HEAD
-=======
-<relationship name="GroupEvent_Refers_PhaseOfProduction" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtraxrefdata.&quot;PhaseOfProductionType&quot;"
-	 dst-table="pigtrax.&quot;GroupEvent&quot;"
-	 src-required="false" dst-required="false"/>
-
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
 <table name="BreedingServiceType">
 	<schema name="pigtraxrefdata"/>
 	<role name="pitraxadmin"/>
@@ -2199,19 +2093,6 @@ INSERT INTO pigtraxrefdata."RoleType" ("fieldCode","fieldDescription","lastUpdat
 		<columns names="fieldCode" ref-type="src-columns"/>
 	</constraint>
 </table>
-
-<relationship name="FeedEvent_Refers_FeedEventType" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtraxrefdata.&quot;FeedEventType&quot;"
-	 dst-table="pigtrax.&quot;FeedEvent&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
 
 <table name="GeneticsFunctionType">
 	<schema name="pigtraxrefdata"/>
@@ -3202,11 +3083,87 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 	 dst-table="pigtrax.&quot;PigInfo&quot;"
 	 src-required="true" dst-required="false"/>
 
-<<<<<<< HEAD
+<table name="FeedEventDetails">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="5411.11" y="2434.44"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="feedEventDate" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="weightInKgs">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="remarks">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp" length="20"/>
+	</column>
+	<constraint name="FEEDEVENTDETAILS_PK" type="pk-constr" table="pigtrax.&quot;FeedEventDetails&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_FeedEvent" index="4"/>
+		<object name="id_FeedEventType" index="7"/>
+		<object name="id_GroupEvent" index="6"/>
+		<object name="id_Silo" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="FeedEventType_fk" index="4"/>
+		<object name="FeedEvent_fk" index="1"/>
+		<object name="GroupEvent_fk" index="3"/>
+		<object name="Silo_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="FeedEvent_has_many_FeedEventDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;FeedEvent&quot;"
+	 dst-table="pigtrax.&quot;FeedEventDetails&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="FeedEventDetails_REfers_Silo" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Silo&quot;"
+	 dst-table="pigtrax.&quot;FeedEventDetails&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="GroupEvent_has_many_FeedEventDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;FeedEventDetails&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="FeedEventDetails_Refers_FeedEventType" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtraxrefdata.&quot;FeedEventType&quot;"
+	 dst-table="pigtrax.&quot;FeedEventDetails&quot;"
+	 src-required="false" dst-required="false"/>
+
 <table name="GroupEventDetails">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="5213.75" y="4963.75"/>
+	<position x="5788.89" y="4875.56"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -3220,26 +3177,49 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 		<type name="smallint"/>
 	</column>
 	<column name="weightInKgs" not-null="true">
-		<type name="numeric" length="10" precision="2"/>
+		<type name="numeric" length="20" precision="2"/>
 	</column>
-	<column name="indeventoryAdjustment">
+	<column name="inventoryAdjustment">
 		<type name="smallint"/>
 	</column>
 	<column name="remarks">
 		<type name="varchar" length="255"/>
 	</column>
 	<column name="lastUpdated" not-null="true">
-		<type name="timestamp"/>
+		<type name="timestamp" length="20"/>
 	</column>
 	<column name="userUpdated" not-null="true">
-		<type name="varchar" length="20"/>
+		<type name="varchar" length="250"/>
 	</column>
-	<constraint name="GROUPDEVENTDETAIL_PK" type="pk-constr" table="pigtrax.&quot;GroupEventDetails&quot;">
+	<constraint name="GROUPDEVENENTDETAILS_PK" type="pk-constr" table="pigtrax.&quot;GroupEventDetails&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_EmployeeGroup" index="11"/>
+		<object name="id_GroupEvent" index="10"/>
+		<object name="id_PhaseOfProductionType" index="12"/>
+		<object name="id_Room" index="9"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="EmployeeGroup_fk" index="3"/>
+		<object name="GroupEvent_fk" index="1"/>
+		<object name="PhaseOfProductionType_fk" index="4"/>
+		<object name="Room_fk" index="2"/>
+	</customidxs>
 </table>
 
-<relationship name="GroupEventDetailsRefer_ToRoom" type="rel1n"
+<relationship name="GroupEvent_has_many_GroupEventDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;GroupEventDetails&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Room_has_many_GroupEventDetails" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
@@ -3248,7 +3228,7 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 	 dst-table="pigtrax.&quot;GroupEventDetails&quot;"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="GroupEventDetails_REfers_To_EmployeeGroup" type="rel1n"
+<relationship name="EmployeeGroup_has_many_GroupEventDetails" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
@@ -3264,25 +3244,6 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 	 custom-color="#83af1f"
 	 src-table="pigtraxrefdata.&quot;PhaseOfProductionType&quot;"
 	 dst-table="pigtrax.&quot;GroupEventDetails&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="src-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
-<relationship name="GroupEvent_has_many_GroupEventDetails" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;GroupEvent&quot;"
-	 dst-table="pigtrax.&quot;GroupEventDetails&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="dst-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
-=======
->>>>>>> bde3d6551c8944de26afdd03d32dd81569335501
 </dbmodel>

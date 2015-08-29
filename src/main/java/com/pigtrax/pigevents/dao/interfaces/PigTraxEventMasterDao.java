@@ -42,6 +42,11 @@ public interface PigTraxEventMasterDao {
 	 */
 	List<PigTraxEventMaster>  getEventMasterRecords(final Integer pigInfoKey) throws Exception;
 	
-	
-	int updatePregnancyEventDetails(final PregnancyEvent pregnancyEvent) throws SQLException;
+	/**
+	 * Delete the piglet status event entries for a given farrow event id
+	 * @param farrowEventId
+	 * @return
+	 * @throws SQLException
+	 */
+	int deletePigletStatusEvents(Integer farrowEventId) throws SQLException;
 }
