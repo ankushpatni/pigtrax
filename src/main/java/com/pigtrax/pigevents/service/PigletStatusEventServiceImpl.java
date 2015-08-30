@@ -82,6 +82,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setFosterFrom(null);
 				event.setFosterTo(null);
 				event.setFosterFarrowEventId(null);
+				event.setEventDateTime(pigletStatusEventDto.getWeanEventDateTime());
 				eventId = addPigletStatusEvent(event);
 			}
 			if(pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0)
@@ -93,6 +94,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setFosterFrom(pigletStatusEventDto.getPigInfoId());
 				event.setFosterTo(pigletStatusEventDto.getFosterTo());
 				event.setFosterFarrowEventId(null);
+				event.setEventDateTime(pigletStatusEventDto.getFosterEventDateTime());
 				eventId = addPigletStatusEvent(event);
 				
 				PigletStatusEvent fosterInEvent = builder.generateFosterInEvent(pigletStatusEventDto);   
@@ -108,6 +110,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setFosterFrom(null);
 				event.setFosterTo(null);
 				event.setFosterFarrowEventId(null);
+				event.setEventDateTime(pigletStatusEventDto.getDeathEventDateTime());
 				logger.info("farrow event id "+event.getFarrowEventId());
 				eventId = addPigletStatusEvent(event);
 			}					
@@ -214,12 +217,14 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setWeanId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setWeanPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setWeanPigWt(pigletStatusEvent.getWeightInKgs());
+					   pigletStatusEventDto.setWeanEventDateTime(pigletStatusEvent.getEventDateTime());
 					   
 				   } else if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.FosterOut.getTypeCode())){
 					   pigletStatusEventDto.setFosterId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setFosterPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setFosterPigWt(pigletStatusEvent.getWeightInKgs());
 					   pigletStatusEventDto.setFosterTo(pigletStatusEvent.getFosterTo());
+					   pigletStatusEventDto.setFosterEventDateTime(pigletStatusEvent.getEventDateTime());
 					 	//Get the pig id for a given pigIdInfo
 					   if(pigletStatusEvent.getFosterTo() != null && pigletStatusEvent.getFosterTo() > 0)
 					   {
@@ -239,6 +244,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setDeathId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setDeathPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setDeathPigWt(pigletStatusEvent.getWeightInKgs());
+					   pigletStatusEventDto.setDeathEventDateTime(pigletStatusEvent.getEventDateTime());
 				   } else{ //foster in case					   
 					   pigletStatusEventDto.setFosterinId(pigletStatusEvent.getId()); 
 					   

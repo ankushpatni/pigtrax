@@ -101,7 +101,7 @@ public class PigletStatusEventBuilder {
 		   if(pigletStatusEventDto != null)
 		   {
 			   fosterInEvent = new PigletStatusEvent();
-			   fosterInEvent.setEventDateTime(pigletStatusEventDto.getEventDateTime());
+			   fosterInEvent.setEventDateTime(pigletStatusEventDto.getFosterEventDateTime());
 			   fosterInEvent.setPigInfoId(pigletStatusEventDto.getFosterTo());
 			   fosterInEvent.setFosterTo(pigletStatusEventDto.getFosterTo());
 			   fosterInEvent.setPigletStatusEventTypeId(PigletStatusEventType.FosterIn.getTypeCode());
