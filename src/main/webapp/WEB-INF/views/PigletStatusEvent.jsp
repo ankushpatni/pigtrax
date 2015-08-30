@@ -322,7 +322,7 @@
 	                   </tr>
 	                   <tr ng-if="fosterPigList == null || fosterPigList.length == 0">
 	                     <td colspan="3">
-	                       <spring:message code='label.piginfo.pigletstatuseventform.list.farrowevents.noresults'  text='No Forsters found'/>
+	                       <spring:message code='label.piginfo.pigletstatuseventform.list.farrowevents.noresults'  text='No Fosters found'/>
 	                     </td>
 	                   </tr>
 	                   
