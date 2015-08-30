@@ -12,6 +12,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.transportDestination;
 	$scope.transportTruck;
 	$scope.transportTrailer;
+	$scope.followedGroupIdString;
 		
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
@@ -113,6 +114,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					moveToAnotherGroup.companyId = $rootScope.companyId;
 					moveToAnotherGroup.groupGeneratedIdSeq = $scope.groupEvent.id;
 					moveToAnotherGroup.previousGroupId = $scope.groupEvent.groupId;
+					moveToAnotherGroup.pigCount = $scope.groupEvent.currentInventory;
+					moveToAnotherGroup.groupStartDateTime = document.getElementById("groupStartDateTime").value;
 					return moveToAnotherGroup;
 				}
 			}
@@ -181,9 +184,40 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		}
 	}
 	
-	$scope.changeGroupEventStatus = function()
+	$scope.changeGroupEventStatus = function(flag)
 	{
 		console.log('change group event status');
+			var postParam = {
+					
+					"id" : $scope.groupEvent.id,
+					"companyId" : $rootScope.companyId,
+					"active" : flag,
+					
+				};
+			
+			restServices.updateGroupEventInformation(postParam, function(data){
+				if(!data.error)
+					{
+						$scope.clearAllMessages();
+						$scope.entryEventSuccessMessage = true;
+						$scope.groupEvent.active = flag;
+					}
+				else
+					{
+						$scope.clearAllMessages();
+						console.log(data.duplicateRecord);
+						if(data.duplicateRecord)
+						{
+							$scope.groupEventDuplicateErrorMessage = true;
+						}
+						else
+						{
+						$scope.entryEventErrorMessage = true;
+						}
+					}
+					$window.scrollTo(0,5);  
+			});
+		
 	}
 	
 	$scope.getGroupEventInformation = function (searchGroupEvent,flag,flag1)
@@ -201,7 +235,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 				{
 					$scope.clearAllMessages();
 					$scope.groupEvent = data.payload[0];
-					$scope.groupEventDetailList	= data.payload[1];				
+					$scope.groupEventDetailList	= data.payload[1];	
+					$scope.followedGroupIdString = data.payload[2];						
 					$window.scrollTo(0,550);
 					if(flag)					
 						$scope.entryEventSuccessMessage = true;		

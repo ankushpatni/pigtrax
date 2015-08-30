@@ -73,6 +73,10 @@ public class GroupEventServiceImpl implements GroupEventService{
 				{
 					phaseType.add(groupEventDetailsList);
 				}
+				if(null != groupEvent)
+				{
+					phaseType.add(groupEventDao.getListoFFollowerId(groupEvent.getGroupId()));
+				}
 			}
 			return phaseType;
 		}
@@ -141,7 +145,26 @@ public class GroupEventServiceImpl implements GroupEventService{
 	public int updateGroupEvent(GroupEvent groupEvent) throws PigTraxException {
 		
 		try {
-			int generatedId = groupEventDao.updateGroupEvent(groupEvent);
+			int generatedId =0;
+			if(null!=groupEvent && groupEvent.isFromMove())
+			{
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGroupId(groupEvent.getPreviousGroupId(), groupEvent.getCompanyId());
+				if(null != groupEventUpdate )
+				{
+					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - groupEvent.getCurrentInventory());
+					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+				}
+				GroupEventDetails groupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				if(null!=groupEventDetails)
+				{
+					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+				}
+				
+			}
+			else
+			{
+				generatedId = groupEventDao.updateGroupEvent(groupEvent);
+			}
 			return generatedId;
 		} 
 		catch (SQLException sqlEx) {
@@ -152,9 +175,17 @@ public class GroupEventServiceImpl implements GroupEventService{
 	}
 
 	@Override
-	public int updateGroupEventStatus(String groupId, Boolean groupStatus)
-			throws SQLException {
-		return groupEventDao.updateGroupEventStatus(groupId, groupStatus);
+	public int updateGroupEventStatus(GroupEvent groupEvent)
+			throws PigTraxException {
+		
+		try {
+			return groupEventDao.updateGroupEventStatus(groupEvent);
+		} 
+		catch (SQLException sqlEx) {
+			
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());			
+		} 
 	}
 	
 	public int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws PigTraxException
@@ -180,6 +211,19 @@ public class GroupEventServiceImpl implements GroupEventService{
 		groupEventDetails.setWeightInKgs(groupEvent.getWeightInKgs());
 		groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
 		return groupEventDetails;
+	}
+	
+	public String getListoFFollowerId(final String groupId) throws PigTraxException 
+	{
+		try
+		{
+			return  groupEventDao.getListoFFollowerId(groupId);			
+		} 
+		catch (SQLException sqlEx)
+		{
+			throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());			
+		} 
 	}
 
 	

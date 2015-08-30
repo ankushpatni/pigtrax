@@ -246,7 +246,7 @@
                   </form>
                 </div>
               </div>
-            </div>
+            </div> 
             <div class="col-sm-3 col-md-3">         
             </div>
           </div>

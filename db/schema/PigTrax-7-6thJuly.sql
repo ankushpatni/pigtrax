@@ -471,16 +471,13 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 CREATE TABLE pigtrax."FeedEvent"(
 	id serial NOT NULL,
 	"ticketNumber" varchar(30) NOT NULL,
-	"feedId" varchar(30) NOT NULL,
-	"feedDateTime" timestamp NOT NULL,
-	"id_Silo" integer,
-	"id_TransportJourney" integer,
-	"id_GroupEvent" integer,
-	"id_FeedEventType" integer,
+	"feedContentId" varchar(30) NOT NULL,
+	"initialFeedEntryDateTime" timestamp NOT NULL,
 	"batchId" varchar(30) NOT NULL,
-	"feedQuantityKgs" numeric(20,2) NOT NULL,
+	"initialFeedQuantityKgs" numeric(20,2) NOT NULL,
 	"feedCost" numeric(20,2) NOT NULL,
 	"feedMedication" varchar(255),
+	"id_TransportJourney" integer,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	CONSTRAINT "FEED_PK" PRIMARY KEY (id),
@@ -491,13 +488,6 @@ CREATE TABLE pigtrax."FeedEvent"(
 ALTER TABLE pigtrax."FeedEvent" OWNER TO pitraxadmin;
 -- ddl-end --
 
-
--- object: "Silo_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."FeedEvent" DROP CONSTRAINT IF EXISTS "Silo_fk" CASCADE;
-ALTER TABLE pigtrax."FeedEvent" ADD CONSTRAINT "Silo_fk" FOREIGN KEY ("id_Silo")
-REFERENCES pigtrax."Silo" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: pigtrax."GroupEvent" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."GroupEvent" CASCADE;
@@ -635,12 +625,6 @@ REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "GroupEvent_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."FeedEvent" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
-ALTER TABLE pigtrax."FeedEvent" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
-REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: "GroupEvent_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."RemovalEvent" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
@@ -1162,12 +1146,6 @@ CREATE TABLE pigtraxrefdata."FeedEventType"(
 ALTER TABLE pigtraxrefdata."FeedEventType" OWNER TO pitraxadmin;
 -- ddl-end --
 
--- object: "FeedEventType_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."FeedEvent" DROP CONSTRAINT IF EXISTS "FeedEventType_fk" CASCADE;
-ALTER TABLE pigtrax."FeedEvent" ADD CONSTRAINT "FeedEventType_fk" FOREIGN KEY ("id_FeedEventType")
-REFERENCES pigtraxrefdata."FeedEventType" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: pigtraxrefdata."GeneticsFunctionType" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtraxrefdata."GeneticsFunctionType" CASCADE;
@@ -1885,6 +1863,56 @@ ALTER TABLE pigtrax."GroupEvent" ADD CONSTRAINT "PhaseOfProductionType_fk" FOREI
 REFERENCES pigtraxrefdata."PhaseOfProductionType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+-- object: pigtrax."FeedEventDetails" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."FeedEventDetails" CASCADE;
+CREATE TABLE pigtrax."FeedEventDetails"(
+	id serial NOT NULL,
+	"feedEventDate" timestamp NOT NULL,
+	"weightInKgs" numeric(20,2),
+	remarks varchar(255),
+	"id_FeedEvent" integer NOT NULL,
+	"id_Silo" integer NOT NULL,
+	"id_GroupEvent" integer,
+	"id_FeedEventType" integer,
+	"userUpdated" varchar(20) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	CONSTRAINT "FEEDEVENTDETAILS_PK" PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE pigtrax."FeedEventDetails" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "FeedEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FeedEventDetails" DROP CONSTRAINT IF EXISTS "FeedEvent_fk" CASCADE;
+ALTER TABLE pigtrax."FeedEventDetails" ADD CONSTRAINT "FeedEvent_fk" FOREIGN KEY ("id_FeedEvent")
+REFERENCES pigtrax."FeedEvent" (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "Silo_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FeedEventDetails" DROP CONSTRAINT IF EXISTS "Silo_fk" CASCADE;
+ALTER TABLE pigtrax."FeedEventDetails" ADD CONSTRAINT "Silo_fk" FOREIGN KEY ("id_Silo")
+REFERENCES pigtrax."Silo" (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "GroupEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FeedEventDetails" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
+ALTER TABLE pigtrax."FeedEventDetails" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
+REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "FeedEventType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FeedEventDetails" DROP CONSTRAINT IF EXISTS "FeedEventType_fk" CASCADE;
+ALTER TABLE pigtrax."FeedEventDetails" ADD CONSTRAINT "FeedEventType_fk" FOREIGN KEY ("id_FeedEventType")
+REFERENCES pigtraxrefdata."FeedEventType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"

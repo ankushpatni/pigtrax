@@ -85,7 +85,7 @@
                   
                 </div>
                 <div class="content">
-                  <form name="pigleteventform" novalidate angular-validator my-reset>
+                  <form novalidate angular-validator angular-validator-submit="addPigletEvent(pigleteventform)" name="pigleteventform">
                   <input type=hidden name="id" ng-model="pigletEvent.pigletId"/>  
 				  <input type=hidden name="farrowEventId" ng-model="pigletEvent.farrowEventId"/>
 					 <div class="form-group"> 
@@ -120,8 +120,8 @@
 						ng-pattern="/^[0-9]+$/i"
 						invalid-message="'<spring:message code='label.numeric.errormessage' text='Only numeric values are allowed' />'"/>
                     </div>						
-                    <button class="btn btn-primary" ng-click="addPigletEvent()" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-primary" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-default" type="button" ng-click="pigleteventform.reset()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletEvent()" ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0" ng-confirm-click="<spring:message code='label.piginfo.pigleteventformform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigleteventform.delete'  text='Delete'/></button>
                   </form>
                 </div> 

@@ -162,11 +162,9 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		@Override
 		public void deletePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto)
 				throws PigTraxException {
-			try{  
+			try{
 				pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventDto().getId());
 				eventMasterDao.deletePigletStatusEvents( pigletStatusEventDto.getFarrowEventDto().getId());
-				
-				
 			}
 			catch(SQLException e)
 			{

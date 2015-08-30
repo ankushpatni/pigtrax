@@ -183,6 +183,40 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		return dto;
 	}
 	
+	@RequestMapping(value = "/updateGroupEventInformation", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto updateGroupEventInformation(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside addGroupEventDetail method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent.setUserUpdated(activeUser.getUsername());
+			int rowsInserted;
+			if(null != groupEvent && groupEvent.getId() != null && groupEvent.getId() >=0)
+			{
+				rowsInserted = groupEventService.updateGroupEventStatus(groupEvent);
+				dto.setStatusMessage("Success");
+			}
+			else
+			{
+				dto.setStatusMessage("ERROR : GroupId is wrong");
+			}
+			
+		}
+		catch (PigTraxException e)
+		{
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
 	
 
 }

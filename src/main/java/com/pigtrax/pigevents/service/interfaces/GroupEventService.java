@@ -15,7 +15,7 @@ GroupEvent getGroupEventByGroupId(final String groupId, final int companyId) thr
 	
 	int updateGroupEvent(final GroupEvent groupEvent) throws PigTraxException;
 	
-	int updateGroupEventStatus( final String groupI, final Boolean groupStatus ) throws SQLException;
+	int updateGroupEventStatus( final GroupEvent groupEvent ) throws PigTraxException;
 	
 	List<Map<Integer,String>> getGroupEventAndDetailByGroupId(String groupId, int companyId)
 			throws PigTraxException;
@@ -23,5 +23,7 @@ GroupEvent getGroupEventByGroupId(final String groupId, final int companyId) thr
 	public int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws PigTraxException;
 	
 	 GroupEvent getGroupEventByGeneratedGroupId(final int groupId,  final int companyId);
+	 
+	 public String getListoFFollowerId(final String groupId) throws PigTraxException ;
 
 }
