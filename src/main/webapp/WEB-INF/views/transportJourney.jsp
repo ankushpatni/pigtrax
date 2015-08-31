@@ -3,7 +3,7 @@
 	<div class="md-content">
 <div class="modal-header">
 	<h3 ng-hide="edit"><spring:message code="label.transportJourney.add" text="Add Transport Journey" /></h3>
-	<h3 ng-show="edit"><spring:message code="label.transportJourney.add" text="Edit Transport Journey" /></h3>
+	<h3 ng-show="edit"><spring:message code="label.transportJourney.edit" text="Edit Transport Journey" /></h3>
     <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close"  ng-click="cancel()">×</button>
     
 </div>
