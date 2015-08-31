@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<div id="form-primary" 	class="md-modal colored-header md-effect-9">
+<div id="transportJourneyModal" class="modal colored-header custom-width" ng-init="init()" ng-controller="addTransportJourneyCtrl">
 	<div class="md-content">
 <div class="modal-header">
 	<h3 ng-hide="edit"><spring:message code="label.transportJourney.add" text="Add Transport Journey" /></h3>
@@ -7,7 +7,7 @@
     <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close"  ng-click="cancel()">×</button>
     
 </div>
-<form name="transportJourneyForm" novalidate angular-validator>
+<form name="transportJourneyForm" novalidate angular-validator> 
 <div class="modal-body form">
     
               <div class="form-group">
