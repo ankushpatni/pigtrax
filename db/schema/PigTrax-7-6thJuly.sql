@@ -276,6 +276,8 @@ CREATE TABLE pigtrax."BreedingEvent"(
 	CONSTRAINT "BREEDING_U_SI" UNIQUE ("serviceId")
 
 );
+
+CREATE UNIQUE INDEX BREEDING_U_SI_IDX ON pigtrax."BreedingEvent" (lower("serviceId"));
 -- ddl-end --
 ALTER TABLE pigtrax."BreedingEvent" OWNER TO pitraxadmin;
 -- ddl-end --
