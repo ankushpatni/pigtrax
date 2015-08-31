@@ -160,7 +160,10 @@ public class BarnDaoImpl implements BarnDao {
 		ResultSet rs = null;
 		
 		
-		String Qry = "SELECT \"id\", \"barnId\",\"id_Premise\",\"id_PhaseType\", \"location\", \"area\",\"feederCount\",\"waterAccessCount\",\"id_VentilationType\",\"isActive\" from pigtrax.\"Barn\" where \"isActive\" is true and \"id_Premise\" in ( Select \"id\" from pigtrax.\"Premise\" where \"id_Company\" = ?::smallint)";
+		String Qry = "SELECT \"id\", \"barnId\",\"id_Premise\",\"id_PhaseType\", \"location\", "
+				+ "\"area\",\"feederCount\",\"waterAccessCount\",\"id_VentilationType\",\"isActive\" "
+				+ "from pigtrax.\"Barn\" where \"isActive\" is true and \"id_Premise\" in "
+				+ "( Select \"id\" from pigtrax.\"Premise\" where \"id_Company\" = ?::smallint) order by \"barnId\"";
 		List<Barn> barnList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
