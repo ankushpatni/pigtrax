@@ -7,19 +7,15 @@ public class FeedEvent {
 	
 	private Integer id;
 	private String ticketNumber;
-	private Integer feedId;
-	private Date feedDateTime;
-	private Integer siloId;
-	private Integer transportJourneyId;
-	private Integer groupEventId;
-	private Integer feedEventType;
+	private String feedContentId;
+	private Date initialFeedEntryDateTime;
 	private String batchId;
-	private Integer feedQuantity;
+	private Integer initialFeedQuantityKgs;
 	private BigDecimal feedCost;
 	private String feedMedication;
+	private Integer transportJourneyId;
 	private Date lastUpdated;
 	private String userUpdated;
-	
 	public Integer getId() {
 		return id;
 	}
@@ -32,41 +28,17 @@ public class FeedEvent {
 	public void setTicketNumber(String ticketNumber) {
 		this.ticketNumber = ticketNumber;
 	}
-	public Integer getFeedId() {
-		return feedId;
+	public String getFeedContentId() {
+		return feedContentId;
 	}
-	public void setFeedId(Integer feedId) {
-		this.feedId = feedId;
+	public void setFeedContentId(String feedContentId) {
+		this.feedContentId = feedContentId;
 	}
-	public Date getFeedDateTime() {
-		return feedDateTime;
+	public Date getInitialFeedEntryDateTime() {
+		return initialFeedEntryDateTime;
 	}
-	public void setFeedDateTime(Date feedDateTime) {
-		this.feedDateTime = feedDateTime;
-	}
-	public Integer getSiloId() {
-		return siloId;
-	}
-	public void setSiloId(Integer siloId) {
-		this.siloId = siloId;
-	}
-	public Integer getTransportJourneyId() {
-		return transportJourneyId;
-	}
-	public void setTransportJourneyId(Integer transportJourneyId) {
-		this.transportJourneyId = transportJourneyId;
-	}
-	public Integer getGroupEventId() {
-		return groupEventId;
-	}
-	public void setGroupEventId(Integer groupEventId) {
-		this.groupEventId = groupEventId;
-	}
-	public Integer getFeedEventType() {
-		return feedEventType;
-	}
-	public void setFeedEventType(Integer feedEventType) {
-		this.feedEventType = feedEventType;
+	public void setInitialFeedEntryDateTime(Date initialFeedEntryDateTime) {
+		this.initialFeedEntryDateTime = initialFeedEntryDateTime;
 	}
 	public String getBatchId() {
 		return batchId;
@@ -74,11 +46,11 @@ public class FeedEvent {
 	public void setBatchId(String batchId) {
 		this.batchId = batchId;
 	}
-	public Integer getFeedQuantity() {
-		return feedQuantity;
+	public Integer getInitialFeedQuantityKgs() {
+		return initialFeedQuantityKgs;
 	}
-	public void setFeedQuantity(Integer feedQuantity) {
-		this.feedQuantity = feedQuantity;
+	public void setInitialFeedQuantityKgs(Integer initialFeedQuantityKgs) {
+		this.initialFeedQuantityKgs = initialFeedQuantityKgs;
 	}
 	public BigDecimal getFeedCost() {
 		return feedCost;
@@ -91,6 +63,12 @@ public class FeedEvent {
 	}
 	public void setFeedMedication(String feedMedication) {
 		this.feedMedication = feedMedication;
+	}
+	public Integer getTransportJourneyId() {
+		return transportJourneyId;
+	}
+	public void setTransportJourneyId(Integer transportJourneyId) {
+		this.transportJourneyId = transportJourneyId;
 	}
 	public Date getLastUpdated() {
 		return lastUpdated;

@@ -7,12 +7,13 @@ import com.pigtrax.pigevents.beans.FeedEvent;
 
 public interface FeedEventDao {
 	
-	List<FeedEvent> getFeedEventByGroupId(final int groupEventId) throws SQLException;
+	public List<FeedEvent> getFeedEventById(final int id)
+			throws SQLException ;
 	
-	FeedEvent getFeedEventByFeedId(final String feedId) throws SQLException;
+	List<FeedEvent> getFeedEventByTicketNumber(final String ticketNumber) throws SQLException;
 	
-	FeedEvent getFeedEventByGeneratedFeedId(final int generatedFeedId) throws SQLException;
-	
+	/*FeedEvent getFeedEventByGeneratedFeedId(final int generatedFeedId) throws SQLException;
+	*/
 	int addFeedEvent(final FeedEvent groupEvent) throws SQLException;
 	
 	int updateFeedEvent(final FeedEvent groupEvent) throws SQLException;
