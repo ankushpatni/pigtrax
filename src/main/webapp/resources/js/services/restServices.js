@@ -41,7 +41,7 @@ pigTrax.factory("restServices", function($resource) {
     	"savePigletStatusEventInformation" : {method:"POST", url:"rest/pigletStatusEvent/savePigletStatusEventInformation"},
     	"getPigletStatusEventInformation" : {method:"POST", url:"rest/pigletStatusEvent/getPigletStatusEventInformation"},
     	"validatePigletStatusEvent" : {method:"POST", url:"rest/pigletStatusEvent/validatePigletStatusEvent"},    	
-    	"deletePigletEvent" : {method:"POST", url:"rest/pigletStatusEvent/deletePigletStatusEventInformation"},
+    	"deletePigletStatusEvent" : {method:"POST", url:"rest/pigletStatusEvent/deletePigletStatusEventInformation"},
     	"getAllFosterPigs" : {method:"POST", url:"rest/entryEvent/getAllFosterPigs"},    	
     	"getFosterInRecords" : {method:"POST", url:"rest/pigletStatusEvent/getFosterInRecords"},
     	"getPigletStatusEventsByFarrowEventId" : {method:"POST", url:"rest/pigletStatusEvent/getPigletStatusEventsByFarrowEventId"},

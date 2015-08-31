@@ -70,8 +70,8 @@
  		</div>	
  		
           <div class="row" >
-		  <div class="col-sm-3 col-md-3"></div>
-            <div class="col-sm-6 col-md-6">
+ 		  <div class="col-sm-2 col-md-2"></div> 
+            <div class="col-sm-9 col-md-9">
               <div class="block-flat">
                 <div class="header">
                   <h3><spring:message code='label.piginfo.pigletstatuseventform.pigletStatusEvent'  text='Piglet Status'/></h3>
@@ -102,7 +102,7 @@
                   </div>                               
                 </div>
                 <div class="content">
-                  <form name="pigletstatuseventform" novalidate angular-validator my-reset>
+                  <form name="pigletstatuseventform" novalidate angular-validator my-reset> 
                   <input type=hidden name="id" ng-model="pigletStatusEvent.id"/>
                    <input type=hidden name="fosterTo" ng-model="pigletStatusEvent.fosterTo"/>
 				  <input type=hidden name="pigInfoId" ng-model="pigletStatusEvent.pigInfoId"/>				  
@@ -124,7 +124,7 @@
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
-					<label ng-show="pigletStatusEventAlreadyAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.pigletStatusEventCreated' text='Piglet Status already captured for the selected Pig Id ana farrow event. Use search feature to modify it.' /></label>
+					<label ng-show="pigletStatusEventAlreadyAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.pigletStatusEventCreated' text='Piglet Status already captured for the selected Pig Id and farrow event. Use search feature to modify it.' /></label>
 				    <div class=" block-flat bars-widget" ng-if="pigletStatusEvent.farrowEventId != null && pigletStatusEvent.farrowEventId>0 && !pigletStatusEventAlreadyAdded">
 		                <div class="spk4 pull-right spk-widget"></div>  
 		                <h4>Farrow Details</h4><div></div>
@@ -164,55 +164,67 @@
 					</div>    -->
  					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="fosterToPigIdrequired" ><spring:message code='label.piginfo.pigletstatuseventform.fosterToPigId.requiredMessage' text='Pig Id for foster is required' /></label>
-					</div>					                    
+					</div>	
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="eventDateTimerequired" ><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime.requiredMessage' text='Event Date is required' /></label>
+					</div>				                    
                     <table class="table">
                      <thead>
                        <tr>
-                         <td>&nbsp; </td>
-                         <td><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /> </td>
-                         <td><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /> </td>
-                         <td><spring:message code='label.piginfo.pigletstatuseventform.fosterToPigId' text='Foster To - Pig Id' /></td>
+                         <td width="20%">&nbsp; </td>
+                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /> </td>
+                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /> </td>
+                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.fosterToPigId' text='Foster To - Pig Id' /></td>
+                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/></td>
                         </tr>
                      </thead>
                      <tbody>
                        <tr>
-                         <td><spring:message code='label.piginfo.pigletstatuseventform.wean' text='Wean' /> </td>
-                         <td><input type="number" min="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control"> </td>
-                         <td><input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> </td>
-                         <td><spring:message code='label.piginfo.pigletstatuseventform.notApplicable' text='N/A' /> </td>
+                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.wean' text='Wean' /> </td>
+                         <td width="20%"><input type="number" min="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control"> </td>
+                         <td width="20%"><input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> </td>
+                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.notApplicable' text='N/A' /> </td>
+                          <td width="20%">
+                         <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                          <input size="16" type="date" id="weanEventDateTime" name="weanEventDateTime" ng-model="pigletStatusEvent.weanEventDateTime" readonly
+                          class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                         </td>
                        </tr>
                        <tr>
-                        <td><spring:message code='label.piginfo.pigletstatuseventform.foster' text='Foster' /> </td>
-                         <td><input type="number" min="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
-                         <td><input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control"> </td>
-                         <td><div data-min-view="2" class="input-group col-md-9 col-xs-11" >
+                        <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.foster' text='Foster' /> </td>
+                         <td width="20%"><input type="number" min="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
+                         <td width="20%"><input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control"> </td>
+                         <td width="20%"><div data-min-view="2" class="input-group col-md-9 col-xs-11" >
                             <input type="text" ng-value="0" name="fosterToPigId" readonly ng-model="pigletStatusEvent.fosterToPigId"  maxlength="30"  size="30" class="input-sm  form-control">
 							<span>
                             <button type="button" class="btn btn-primary active" ng-click="getAllFosterPigs()" data-target="#searchFosters"><i class="fa fa-search"></i></button>
 									</span>					
                             </div>
                             </td>   
+                         <td width="20%">
+                         <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                          <input size="16" type="date" id="fosterEventDateTime" name="fosterEventDateTime" ng-model="pigletStatusEvent.fosterEventDateTime" readonly
+                          class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                         </td>
                         </tr>
                         <tr>
-                        <td><spring:message code='label.piginfo.pigletstatuseventform.death' text='Death' /> </td>
-                         <td><input type="number" min="1" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control"> </td>
-                         <td><input type="number" min="1" ng-value="0" name="deathPigWt" ng-model="pigletStatusEvent.deathPigWt"  maxlength="10"  step="0.01" size="10" class="form-control"> </td>
-                         <td>&nbsp; </td>                         
+                        <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.death' text='Death' /> </td>
+                         <td width="20%"><input type="number" min="1" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control"> </td>
+                         <td width="20%"><input type="number" min="0" ng-value="0" name="deathPigWt" ng-model="pigletStatusEvent.deathPigWt"  maxlength="10"  step="0.01" size="10" class="form-control"> </td>
+                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.notApplicable' text='N/A' />  </td>   
+                         <td width="20%">
+                         <div data-date-format="yyyy-mm-dd" class="input-group date datetime col-sm-4 pull-right "  >
+                          <input size="16" type="date" id="deathEventDateTime" name="eventDateTime" ng-model="pigletStatusEvent.deathEventDateTime" readonly
+                          class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                         </td>                      
                         </tr>
                      </tbody>
                     
                     </table>                    
-                    </div>                    
-                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="eventDateTime" name="eventDateTime" ng-model="pigletStatusEvent.eventDateTime" readonly
-                          class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
-                    </div>
- 					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="eventDateTimerequired" ><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime.requiredMessage' text='Event Date is required' /></label>
-					</div>                   
+                    </div>		                   
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid'  text='Weaning Group Id'/></label>
                       <input type="text" ng-model="pigletStatusEvent.weanGroupId"  name="weaningGroupId"  class="form-control" 
@@ -233,7 +245,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.sowcondition'  text='Sow Condition'/></label>
                       <select class="form-control" name="sowCondition" ng-model="pigletStatusEvent.sowCondition" 
-                      ng-required="true" required-message="'<spring:message code='label.piginfo.pigletstatuseventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
+                       required-message="'<spring:message code='label.piginfo.pigletstatuseventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
                            <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>
                           <option value="2">2 - <spring:message code='label.piginfo.entryeventform.sowcondition.normal.message'  text='Healthy'/></option>
                           <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
@@ -242,12 +254,12 @@
                     
                     <button class="btn btn-primary" ng-click="addPigletStatusEvent()" type="submit" ng-disabled="inValidPigIdFromServer || pigletStatusEvent.farrowEventId == null"><spring:message code='label.piginfo.pigletstatuseventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pigletstatuseventform.cancel'  text='Clear Form'/></button>
-                    <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletEvent()" ng-show="editBtnclicked" ng-confirm-click="<spring:message code='label.piginfo.pigletstatuseventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigletstatuseventform.delete'  text='Delete'/></button>
+                    <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletStatusEvent()" ng-show="editBtnclicked" ng-confirm-click="<spring:message code='label.piginfo.pigletstatuseventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigletstatuseventform.delete'  text='Delete'/></button>
                   </form>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-3 col-md-3">         
+            </div> 
+             <div class="col-sm-2 col-md-2">      
             </div>
           </div>
 		  
@@ -310,7 +322,7 @@
 	                   </tr>
 	                   <tr ng-if="fosterPigList == null || fosterPigList.length == 0">
 	                     <td colspan="3">
-	                       <spring:message code='label.piginfo.pigletstatuseventform.list.farrowevents.noresults'  text='No Forsters found'/>
+	                       <spring:message code='label.piginfo.pigletstatuseventform.list.farrowevents.noresults'  text='No Fosters found'/>
 	                     </td>
 	                   </tr>
 	                   

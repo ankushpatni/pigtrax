@@ -259,15 +259,22 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	 * Delete the piglet status events for a given farrow event Id
 	 */
 	@Override
-	public void deletePigletStatusEventsByFarrowId(final Integer farrowEventId)
+	public void deletePigletStatusEventsByFarrowId(final Integer pigInfoId, final Integer farrowEventId)
 			throws SQLException {
-		final String qry = "delete from pigtrax.\"PigletStatus\" where \"id_FarrowEvent\" = ? or \"id_fosterFarrowEvent\" = ?";
+		//final String qry = "delete from pigtrax.\"PigletStatus\" where \"id_FarrowEvent\" = ? or \"id_fosterFarrowEvent\" = ?";
+		
+		final String qry = "delete from pigtrax.\"PigletStatus\" where "
+				+ "(\"id_FarrowEvent\" = ? and \"id_PigletStatusEventType\" <> ?) or "
+				+ "(\"id_fosterFarrowEvent\" = ? and \"id_PigletStatusEventType\" = ? and \"id_PigInfo\" <> ?)";
 		
 		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, farrowEventId);
-				ps.setInt(2, farrowEventId); 
+				ps.setInt(2, PigletStatusEventType.FosterIn.getTypeCode());
+				ps.setInt(3, farrowEventId); 
+				ps.setInt(4, PigletStatusEventType.FosterIn.getTypeCode());
+				ps.setInt(5, pigInfoId); 
 			}
 		});
 	}

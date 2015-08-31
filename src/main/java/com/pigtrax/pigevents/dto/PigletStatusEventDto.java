@@ -41,6 +41,10 @@ public class PigletStatusEventDto {
     private Integer totalfoserInCnt;
     private String fosterFromPigId; 
     private Integer fosterFarrowEventId;
+    private Date weanEventDateTime;
+    private Date fosterEventDateTime;
+    private Date deathEventDateTime;
+    
     
     
     public Integer getFosterFarrowEventId() {
@@ -346,6 +350,30 @@ public class PigletStatusEventDto {
 
 	public void setFosterFromPigId(String fosterFromPigId) {
 		this.fosterFromPigId = fosterFromPigId;
+	}
+
+	public Date getWeanEventDateTime() {
+		return weanEventDateTime;
+	}
+
+	public void setWeanEventDateTime(Date weanEventDateTime) {
+		this.weanEventDateTime = weanEventDateTime;
+	}
+
+	public Date getFosterEventDateTime() {
+		return fosterEventDateTime;
+	}
+
+	public void setFosterEventDateTime(Date fosterEventDateTime) {
+		this.fosterEventDateTime = fosterEventDateTime;
+	}
+
+	public Date getDeathEventDateTime() {
+		return deathEventDateTime;
+	}
+
+	public void setDeathEventDateTime(Date deathEventDateTime) {
+		this.deathEventDateTime = deathEventDateTime;
 	}  
 	
 	

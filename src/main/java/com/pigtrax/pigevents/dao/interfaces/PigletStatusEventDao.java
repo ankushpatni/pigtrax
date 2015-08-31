@@ -22,7 +22,7 @@ public interface PigletStatusEventDao {
 	
 	List<PigletStatusEvent> getPigletStatusEventsByFarrowEventId(Integer farrowEventId);
 	
-	void deletePigletStatusEventsByFarrowId(Integer farrowEventId) throws SQLException;
+	void deletePigletStatusEventsByFarrowId(Integer pigInfoId, Integer farrowEventId) throws SQLException;
 	
 	PigletStatusEvent getFosterInRecord(Integer farrowEventId) throws SQLException;
 	
