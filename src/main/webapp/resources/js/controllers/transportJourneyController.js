@@ -1,9 +1,22 @@
-pigTrax.controller('addTransportJourneyCtrl', function($scope, $http, $window, $modalInstance,transportJourneyData,restServices) {	
+pigTrax.controller('addTransportJourneyCtrl', function($scope, $http, $window,restServices) {	
+	 
+	$scope.init= function()
+    {
+		alert("init");
+		var transportJourneyData={};
+		transportJourneyData.transportDestination = $scope.transportDestination;
+		transportJourneyData.transportTruck = $scope.transportTruck;
+		transportJourneyData.transportTrailer = $scope.transportTrailer;
+		alert(JSON.stringify(transportJourneyData));
+		//return transportJourneyData;
+    }
 	
 	$scope.alertVisible = false;
 	$scope.transportDestination=transportJourneyData.transportDestination;
 	$scope.transportTruck=transportJourneyData.transportTruck;
 	$scope.transportTrailer=transportJourneyData.transportTrailer;
+	
+	$scope.getPenList($scope.roomId,$scope.generatedRoomId);		
 	
 	$scope.transportJourney;
 	
@@ -30,6 +43,6 @@ pigTrax.controller('addTransportJourneyCtrl', function($scope, $http, $window, $
 	}
 	
 	$scope.cancel = function(){
-		$modalInstance.dismiss('add');
+		//$modalInstance.dismiss('add');
 	}
 });

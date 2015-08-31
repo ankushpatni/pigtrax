@@ -119,7 +119,7 @@
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-hide="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-default" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus(false)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button>
                     <button type="button" class="btn btn-success pull-right" ng-click="changeGroupEventStatus(true)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && !groupEvent.active" ><spring:message code='label.piginfo.groupEventform.Activate'  text='Activate'/></button>					
 				  </form>
@@ -184,3 +184,10 @@
 	</form>	  		
 		<div class="md-overlay"></div>
 </div>	
+<jsp:include page="transportJourney.jsp"></jsp:include>
+
+
+		
+		
+		
+		

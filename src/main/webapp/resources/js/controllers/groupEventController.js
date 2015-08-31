@@ -75,7 +75,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.groupEvent = {};
 		$scope.changeText();*/
 		
-		var modalInstance = $modal.open ({
+		/*var modalInstance = $modal.open ({
 			templateUrl: 'transportJourney',
 			controller: 'addTransportJourneyCtrl',
 			backdrop:true,
@@ -96,7 +96,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			{
 				$scope.getPenList($scope.roomId,$scope.generatedRoomId);				
 			}
-		});
+		});*/
 	}
 	
 	$scope.moveToAnotherGroup = function()
