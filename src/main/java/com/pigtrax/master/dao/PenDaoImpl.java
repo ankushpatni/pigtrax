@@ -100,7 +100,7 @@ public class PenDaoImpl implements PenDao {
 	
 	 public List<Pen> getPenListByBarnId(final Integer barnId) throws SQLException {
 		  String Qry = "Select \"id\", \"penId\", \"id_Room\", \"location\", \"isActive\" from pigtrax.\"Pen\" where  \"isActive\" is true and "
-		  		+ "\"id_Room\" in (Select \"id\" from pigtrax.\"Room\" where \"id_Barn\" = ? and  \"isActive\" is true)";
+		  		+ "\"id_Room\" in (Select \"id\" from pigtrax.\"Room\" where \"id_Barn\" = ? and  \"isActive\" is true) order by \"penId\" ";
 		  List<Pen> penList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){
 				public void setValues(PreparedStatement ps) throws SQLException {
 					ps.setInt(1, barnId);

@@ -159,6 +159,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 									$scope.clearAllMessages();
 									$scope.entryEventSuccessMessage = true;
 									$scope.pregnancyEvent = {};
+									$scope.changeText();
 								}
 							else
 								{
@@ -263,6 +264,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	{
 		$scope.clearAllMessages();
 		$scope.pregnancyEvent = {};
+		$scope.changeText();
 	}
 	
 	

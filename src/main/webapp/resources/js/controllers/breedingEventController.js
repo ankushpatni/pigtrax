@@ -105,6 +105,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 						$scope.clearAllMessages();
 						$scope.entryEventSuccessMessage = true;
 						$scope.breedingEvent = {};
+						$scope.changeText();
 						if($scope.breedingEventList != null && $scope.breedingEventList.length > 0)
 							$scope.getBreedingEventInformation();
 					}
@@ -192,6 +193,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	{
 		$scope.clearAllMessages();
 		$scope.breedingEvent = {};
+		$scope.changeText();
 	}
 	
 	$scope.viewEmployeeGroup = function()

@@ -24,10 +24,10 @@
               </div>
               <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId" > <spring:message code='label.piginfo.entryeventform.search.pigid.option'  text='Pig Id'/>
+                  <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId"  > <spring:message code='label.piginfo.entryeventform.search.pigid.option'  text='Pig Id'/>
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattoo"> <spring:message code='label.piginfo.entryeventform.search.tattoo.option'  text='Tattoo'/> 
+                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattoo" > <spring:message code='label.piginfo.entryeventform.search.tattoo.option'  text='Tattoo'/> 
                 </label>
               </div>
             </div>
@@ -62,7 +62,7 @@
                   </div>                  
                 </div>
                 <div class="content">
-                  <form name="entryEventForm" novalidate angular-validator>
+                  <form name="entryEventForm" novalidate angular-validator my-reset>
                   <input type=hidden name="companyId" ng-model="pigInfo.companyId" value="${CompanyId}"/>
                   <input type=hidden name="id" ng-model="pigInfo.id"/>
                     <div class="form-group">

@@ -91,7 +91,7 @@
                   </div>
                   <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.breedingeventform.duplicate.error.message' text='A breeding event record already exists with the same service id'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.duplicate.error.message' text='A breeding event record already exists with the same service id'/>
                   </div>  
                   <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
@@ -111,7 +111,7 @@
                   </div>
                 </div>
                 <div class="content">
-                  <form name="breedingeventform" novalidate angular-validator>
+                  <form name="breedingeventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="breedingEvent.id"/>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.serviceId'  text='Service Id'/><span style='color: red'>*</span></label>

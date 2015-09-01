@@ -110,10 +110,11 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 						//alert(JSON.stringify($scope.farrowEvent));
 						restServices.saveFarrowEventInformation($scope.farrowEvent, function(data){
 							if(!data.error)
-								{
+								{ 
 									$scope.clearAllMessages();
 									$scope.entryEventSuccessMessage = true;
 									$scope.farrowEvent = {};
+									$scope.changeText();
 								}
 							else
 								{
@@ -221,6 +222,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	{
 		$scope.clearAllMessages();
 		$scope.farrowEvent = {};
+		$scope.changeText();
 	} 
 	
 	

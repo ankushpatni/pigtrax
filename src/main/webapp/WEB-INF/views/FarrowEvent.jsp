@@ -95,7 +95,7 @@
                   </div>    
                 </div>
                 <div class="content">
-                  <form name="farroweventform" novalidate angular-validator>
+                  <form name="farroweventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="farrowEvent.id"/>
 				  <input type=hidden name="pregnancyEventId" ng-model="farrowEvent.pregnancyEventId"/>
 				  

@@ -50,6 +50,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 							$scope.clearAllMessages();
 							$scope.entryEventSuccessMessage = true;
 							$scope.pigInfo = {};
+							$scope.changeText();
 							
 						}
 					else
@@ -126,6 +127,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		{
 			$scope.clearAllMessages();
 			$scope.pigInfo = {};
+			$scope.changeText();
 		}
 		
 });

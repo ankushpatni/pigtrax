@@ -102,7 +102,7 @@
                   </div>  
                 </div>
                 <div class="content">
-                  <form name="pregnancyeventform" novalidate angular-validator>
+                  <form name="pregnancyeventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="pregnancyEvent.id"/>
 				  <input type=hidden name="breedingEventId" ng-model="pregnancyEvent.breedingEventId"/>
 					 <div class="form-group">
