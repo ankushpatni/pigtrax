@@ -21,7 +21,7 @@
 				</div>
             </div>
              <div class="form-group">
-               <label><spring:message code='label.transportJourney..groupCloseDateTime'  text='Group Close Date'/></label>
+               <label><spring:message code='label.transportJourney.journeyEndTime'  text='Journey EndTime'/></label>
                <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7">
                    <input size="16" type="date" id="journeyEndTime" name="journeyEndTime" ng-model="transportJourney.journeyEndTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                  </div>
@@ -46,8 +46,8 @@
             </div>
 			<div class="modal-footer">
 
-            <button class="btn btn-primary btn-flat md-close"  ng-click="addTransportJourney()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-primary btn-flat md-close"  ng-click="addTransportJourney()" ng-show="edit"><spring:message code="label.premise.edit" text="Edit" /></button>
+            <button class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-click="addTransportJourney()"><spring:message code="label.premise.add" text="Add" /></button>
+			<!--<button class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-click="addTransportJourney()" ng-show="edit"><spring:message code="label.premise.edit" text="Edit" /></button>-->
             <button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
         </div>
        </div>

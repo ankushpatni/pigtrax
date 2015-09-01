@@ -37,7 +37,7 @@ public class TransportJourneyDaoImpl implements TransportJourneyDao{
 	public TransportJourney getTransportJourneyById(final int id) throws SQLException {
 		String qry = "select \"id\", \"trailerFunction\", \"journeyStartTime\", \"journeyEndTime\", \"id_TransportDestination\", "
 		   		+ " \"id_TransportTruck\", \"id_TransportTrailer\", \"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"FeedEvent\" where \"id_GroupEvent\" = ? ";
+		   		"from pigtrax.\"TransportJourney\" where \"id\" = ? ";
 			
 			List<TransportJourney> transportJourneyList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override

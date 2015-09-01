@@ -14,11 +14,13 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.pigtrax.pigevents.beans.FeedEventDetail;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDetailDao;
 import com.pigtrax.util.UserUtil;
 
+@Repository
 public class FeedEventDetailDaoImpl implements FeedEventDetailDao {
 
 private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.class);

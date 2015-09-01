@@ -50,5 +50,7 @@ pigTrax.factory("restServices", function($resource) {
 		"getGroupEventDetail" : {method:"POST", url:"rest/groupEvent/getGroupEventDetail"},
 		"addTransportJourney" : {method:"POST", url:"rest/transportJourney/addTransportJourney"},
 		"updateGroupEventInformation" : {method:"POST", url:"rest/groupEvent/updateGroupEventInformation"},
+		"addFeedEvent" : {method:"POST",url:"rest/feedEvent/addFeedEvent"},
+		"getFeedEventInformation" : {method:"POST",url:"rest/feedEvent/getFeedEventInformation"},
     });
 });

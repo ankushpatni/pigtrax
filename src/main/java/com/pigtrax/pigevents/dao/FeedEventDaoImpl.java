@@ -57,7 +57,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 	}
 
 	@Override
-	public List<FeedEvent> getFeedEventByTicketNumber(final String ticketNumber) throws SQLException {
+	public FeedEvent getFeedEventByTicketNumber(final String ticketNumber) throws SQLException {
 		String qry = "select \"id\", \"ticketNumber\", \"feedContentId\", \"initialFeedEntryDateTime\", \"batchId\", "
 		   		+ "\"initialFeedQuantityKgs\", \"feedCost\", \"feedMedication\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\" "+
 		   		"from pigtrax.\"FeedEvent\" where \"ticketNumber\" = ? ";
@@ -69,7 +69,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 				}}, new FeedEventMapper());
 
 			if(feedEventList != null && feedEventList.size() > 0){
-				return feedEventList;
+				return feedEventList.get(0);
 			}
 			return null;
 	}
@@ -115,7 +115,10 @@ public class FeedEventDaoImpl implements FeedEventDao
 				ps.setInt(5, feedEvent.getInitialFeedQuantityKgs());
 				ps.setBigDecimal(6, feedEvent.getFeedCost());
 				ps.setString(7, feedEvent.getFeedMedication());
-				ps.setInt(8, feedEvent.getTransportJourneyId());
+				if(null != feedEvent.getTransportJourneyId())
+					ps.setInt(8, feedEvent.getTransportJourneyId());
+				else
+					ps.setNull(8,  java.sql.Types.INTEGER);
 				ps.setString(9, UserUtil.getLoggedInUser());				
 				return ps;
 			}

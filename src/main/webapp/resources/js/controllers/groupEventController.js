@@ -71,9 +71,9 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.resetForm = function()
 	{
-		/*$scope.clearAllMessages();
+		$scope.clearAllMessages();
 		$scope.groupEvent = {};
-		$scope.changeText();*/
+		$scope.changeText();
 		
 		/*var modalInstance = $modal.open ({
 			templateUrl: 'transportJourney',
