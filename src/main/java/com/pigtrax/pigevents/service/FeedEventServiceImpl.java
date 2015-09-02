@@ -7,10 +7,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.FeedEvent;
 import com.pigtrax.pigevents.beans.FeedEventDetail;
+import com.pigtrax.pigevents.beans.TransportJourney;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDao;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDetailDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
@@ -45,12 +47,21 @@ public class FeedEventServiceImpl implements FeedEventService
 	}
 
 	@Override
+	@Transactional("ptxJTransactionManager")
 	public int addFeedEvent(FeedEvent feedEvent) throws PigTraxException
 	{
 		int returnValue = 0;
 		try
 		{
 			returnValue = feedEventDao.addFeedEvent(feedEvent);
+			if (null != feedEvent.getTransportJourney())
+			{
+				TransportJourney transportJourney = feedEvent
+						.getTransportJourney();
+				transportJourney.setUserUpdated(feedEvent.getUserUpdated());
+				transportJourneyDao.addTransportJourney(feedEvent
+						.getTransportJourney());
+			}
 		} 
 		catch (SQLException e)
 		{

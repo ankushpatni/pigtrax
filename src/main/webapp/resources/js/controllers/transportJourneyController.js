@@ -1,4 +1,4 @@
-pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http, $window,restServices) {	
+pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http, $window,restServices,transportJourneyService) {	
 	var transportJourneyData={};
 	
 	$scope.init= function()
@@ -26,8 +26,10 @@ pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http
 				$scope.transportJourney.journeyStartTime =  document.getElementById("journeyStartTime").value;
 			if(document.getElementById("journeyEndTime").value != "")
 				$scope.transportJourney.journeyEndTime = document.getElementById("journeyEndTime").value;
+				
+			transportJourneyService.transportJourney = $scope.transportJourney;
 			
-			restServices.addTransportJourney($scope.transportJourney, function(data){
+			/*restServices.addTransportJourney($scope.transportJourney, function(data){
 				if(!data.error)
 					{
 					//$rootScope.selectedTrailerDetails.transportJourneyId = data.payLoad
@@ -40,7 +42,7 @@ pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http
 					{
 						
 					} 
-			});
+			});*/
 	}
 	}
 	

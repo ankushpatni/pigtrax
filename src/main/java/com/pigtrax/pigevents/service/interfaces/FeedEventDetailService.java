@@ -1,21 +1,22 @@
 package com.pigtrax.pigevents.service.interfaces;
 
 import java.sql.SQLException;
-import java.util.List;
 
+import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.FeedEvent;
+import com.pigtrax.pigevents.beans.FeedEventDetail;
 
 public interface FeedEventDetailService {
 	
-	public List<FeedEvent> getFeedEventById(final int id)
+	public FeedEventDetail getFeedEventDetailById(final int id)
 			throws SQLException ;
 	
-	List<FeedEvent> getFeedEventByTicketNumber(final String ticketNumber) throws SQLException;
+	public FeedEventDetail getFeedEventDetailByFeedEventId(final String feedEventId) throws SQLException;
 	
 	/*FeedEvent getFeedEventByGeneratedFeedId(final int generatedFeedId) throws SQLException;
 	*/
-	int addFeedEvent(final FeedEvent groupEvent) throws SQLException;
+	int addFeedEventDetail(final FeedEventDetail feedEventDetail) throws PigTraxException;
 	
-	int updateFeedEvent(final FeedEvent groupEvent) throws SQLException;
+	int updateFeedEventDetail(final FeedEventDetail feedEventDetail) throws PigTraxException;
 
 }

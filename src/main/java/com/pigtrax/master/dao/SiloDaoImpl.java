@@ -120,6 +120,25 @@ public class SiloDaoImpl implements SiloDao {
 			}
 		});
 	}
+	
+	public List<Silo> getSiloListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
+	{
+		String query = "SELECT \"id\" as \"id\",\"siloId\" from pigtrax.\"CompPremBarnSiloVw\" where \"siloId\" != '' and companyserialid = ?";
+	//CompPremBarnRoomPenVw
+		List<Silo> siloList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, generatedCompanyId);
+					}
+				}, new SiloMapperList());
+	
+		if (siloList != null && siloList.size() > 0) {
+			return  siloList;
+		}
+		return null;
+	}
 
 	private static final class SiloMapper implements RowMapper<Silo> {
 		public Silo mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -129,6 +148,15 @@ public class SiloDaoImpl implements SiloDao {
 			silo.setBarnId(rs.getInt("id_Barn"));
 			silo.setLocation(rs.getString("location"));
 			silo.setSiloTypeId(rs.getInt("id_SiloType"));
+			return silo;
+		}
+	}
+	
+	private static final class SiloMapperList implements RowMapper<Silo> {
+		public Silo mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Silo silo = new Silo();
+			silo.setId(rs.getInt("id"));
+			silo.setSiloId(rs.getString("siloId"));
 			return silo;
 		}
 	}

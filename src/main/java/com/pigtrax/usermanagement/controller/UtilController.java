@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.master.service.interfaces.SiloService;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -31,6 +32,9 @@ public class UtilController {
 	
 	@Autowired
 	RoomService roomService;
+	
+	@Autowired
+	SiloService siloService;
 	
 	@RequestMapping(value = "/getCityCountryList", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getCityCountryList(HttpServletRequest request	)
@@ -135,5 +139,21 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	@RequestMapping(value = "/getFeedEventDetailMasterData", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getFeedEventDetailMasterData(HttpServletRequest request,  @RequestParam Integer companyId)
+	{
+		logger.info("Inside getPhaseType" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<Map<Integer,String>> phaseOfProductionType = new ArrayList<Map<Integer,String>>();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		phaseOfProductionType.add(refDataCache.getFeedEventTypeMap(language));
+		phaseOfProductionType.add(siloService.getSiloListBasedOnCompanyId(companyId));
+		dto.setPayload(phaseOfProductionType);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
 
 }

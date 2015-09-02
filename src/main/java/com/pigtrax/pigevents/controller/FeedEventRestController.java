@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.FeedEvent;
-import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.FeedEventDetail;
 import com.pigtrax.pigevents.service.interfaces.FeedEventDetailService;
 import com.pigtrax.pigevents.service.interfaces.FeedEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
@@ -100,6 +100,63 @@ public class FeedEventRestController {
 		} 
 		return dto;
 	}
+	@RequestMapping(value = "/getFeedEventDetailMasterData", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getFeedEventDetailMasterData(HttpServletRequest request, @RequestBody FeedEvent feedEvent)
+	{
+		logger.info("Inside getGroupEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			
+			List feedEventAndDetail = feedEventService.getFeedEventAndDetailByTicketNumber(feedEvent.getTicketNumber());
+			if(feedEventAndDetail != null && feedEventAndDetail.size()>0 )
+			{
+				dto.setPayload(feedEventAndDetail);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
 	
+	@RequestMapping(value = "/addFeedEventDetail", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto addFeedEventDetail(HttpServletRequest request, @RequestBody FeedEventDetail feedEventDetail)
+	{
+		logger.info("Inside addGroupEvent method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			feedEventDetail.setUserUpdated(activeUser.getUsername());
+			int rowsInserted = 0;
+			if(null != feedEventDetail && (feedEventDetail.getId() == null || feedEventDetail.getId() == 0) )
+			{
+				rowsInserted = feedEventDetailService.addFeedEventDetail(feedEventDetail);
+				dto.setRecordAdded(true);
+			}
+			else if( null != feedEventDetail && feedEventDetail.getId() !=0)
+			{
+				rowsInserted = feedEventDetailService.updateFeedEventDetail(feedEventDetail);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
 
 }

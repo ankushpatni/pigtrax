@@ -1,4 +1,14 @@
-var feedEventController = pigTrax.controller('FeedEventController', function($scope,$rootScope, $http,$window,$modal,restServices) {
+
+transportJourneyService = pigTrax.service('transportJourneyService', function() {
+    var transportJourney = "hello";
+});
+
+feedEventService = pigTrax.service('feedEventService', function() {
+    var feedEvent = "hello";
+	var feedEventData={};
+});
+
+var feedEventController = pigTrax.controller('FeedEventController', function($scope,$rootScope, $http,$window,$modal,restServices,transportJourneyService,feedEventService) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -15,8 +25,6 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;		
 	};
-	
-	
 	
 	$scope.resetForm = function()
 	{
@@ -39,6 +47,8 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 				if(document.getElementById("initialFeedEntryDateTime").value != "")
 					$scope.feedEvent.initialFeedEntryDateTime =  document.getElementById("initialFeedEntryDateTime").value;
 				$scope.feedEvent.transportJourneyId = 1;
+				$scope.feedEvent.transportJourney = transportJourneyService.transportJourney;
+				console.log($scope.feedEvent.transportJourney);
 				restServices.addFeedEvent($scope.feedEvent, function(data){
 					if(!data.error)
 						{
@@ -68,7 +78,6 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 				
 				"ticketNumber" : $scope.searchText,
 			};
-		
 		restServices.getFeedEventInformation(postParam, function(data){
 			console.log(data);
 			if(!data.error)
@@ -76,6 +85,10 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 					$scope.clearAllMessages();
 					$scope.feedEvent = data.payload[0];
 					$scope.feedEventDetailList	= data.payload[1];	
+					//feedEventService.feedEventData.feedEventId = $scope.feedEvent.id;
+					//feedEventService.feedEventData.feedContentId = $scope.feedEvent.feedContentId;
+					$rootScope.feedEventId = $scope.feedEvent.id;
+					$rootScope.feedContentId = $scope.feedEvent.feedContentId;
 					$window.scrollTo(0,550);
 							
 				}

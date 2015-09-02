@@ -26,5 +26,7 @@ public interface RefDataCache {
 	Map<Integer, String> getSiloTypeMap(String language);
 	Map<Integer, String> getPigletStatusEventType(String language);
 	Map<Integer, String> getPhaseOfProductionTypeMap(String language);
+	
+	Map<Integer, String> getFeedEventTypeMap(String language);
 
 }

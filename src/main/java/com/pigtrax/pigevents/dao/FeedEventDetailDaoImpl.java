@@ -92,11 +92,26 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 					ps.setNull(1, java.sql.Types.DATE);
 				}
 				
-				ps.setBigDecimal(2, feedEventDetail.getWeightInKgs());
+				if( null != feedEventDetail.getWeightInKgs())
+				{
+					ps.setBigDecimal(2, feedEventDetail.getWeightInKgs());
+				}
+				else
+				{
+					ps.setNull(2, java.sql.Types.INTEGER);
+				}
+				
 				ps.setString(3, feedEventDetail.getRemarks() );
 				ps.setInt(4, feedEventDetail.getFeedEventId());
 				ps.setInt(5, feedEventDetail.getSiloId());
-				ps.setInt(6, feedEventDetail.getGroupEventId());
+				if( null != feedEventDetail.getGroupEventId())
+				{
+					ps.setInt(6, feedEventDetail.getGroupEventId());
+				}
+				else
+				{
+					ps.setNull(6, java.sql.Types.INTEGER);
+				}
 				ps.setInt(7, feedEventDetail.getFeedEventTypeId());
 				ps.setString(8, UserUtil.getLoggedInUser());				
 				return ps;
@@ -125,11 +140,25 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 					{
 						ps.setNull(1, java.sql.Types.DATE);
 					}
-					
-					ps.setBigDecimal(2, feedEventDetail.getWeightInKgs());
+					if( null != feedEventDetail.getWeightInKgs())
+					{
+						ps.setBigDecimal(2, feedEventDetail.getWeightInKgs());
+					}
+					else
+					{
+						ps.setNull(2, java.sql.Types.INTEGER);
+					}
+					//ps.setBigDecimal(2, feedEventDetail.getWeightInKgs());
 					ps.setString(3, feedEventDetail.getRemarks() );
 					ps.setInt(4, feedEventDetail.getSiloId());
-					ps.setInt(5, feedEventDetail.getGroupEventId());
+					if( null != feedEventDetail.getGroupEventId())
+					{
+						ps.setInt(5, feedEventDetail.getGroupEventId());
+					}
+					else
+					{
+						ps.setNull(5, java.sql.Types.INTEGER);
+					}
 					ps.setInt(6, feedEventDetail.getFeedEventTypeId());
 					ps.setString(7, UserUtil.getLoggedInUser());
 					ps.setInt(8, feedEventDetail.getId());

@@ -30,5 +30,7 @@ public interface RefDataDao {
 	
 	Integer getFieldCodeForId(Integer id, String referenceDataTable);
 	List<RefDataTranslationDto> getPhaseOfProductionType() ;
+	
+	public List<RefDataTranslationDto> getFeedEventType();
 
 }

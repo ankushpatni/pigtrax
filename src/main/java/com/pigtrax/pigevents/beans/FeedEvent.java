@@ -16,6 +16,8 @@ public class FeedEvent {
 	private Integer transportJourneyId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private TransportJourney transportJourney; 
+	
 	public Integer getId() {
 		return id;
 	}
@@ -82,4 +84,11 @@ public class FeedEvent {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	public TransportJourney getTransportJourney() {
+		return transportJourney;
+	}
+	public void setTransportJourney(TransportJourney transportJourney) {
+		this.transportJourney = transportJourney;
+	}
+	
 }

@@ -46,8 +46,9 @@ public class RefDataCacheImpl implements RefDataCache{
 	   
 	private Map<String, Map<Integer, String>> pigletStatusEventTypeMap;
 	private Map<String, Map<Integer, String>> phaseOfProductionTypeMap;
-
 	
+	private Map<String, Map<Integer, String>> feedEventTypeMap;
+		
 	/*
 	 * This map is simpler
 	 * <Country, <[List of cities in this country]>>
@@ -68,6 +69,7 @@ public class RefDataCacheImpl implements RefDataCache{
 		siloTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSiloTypeData()));
 		pigletStatusEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPigletStatusEventType()));
 		phaseOfProductionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseOfProductionType()));
+		feedEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFeedEventType()));
 	}
 
 	@Override
@@ -124,6 +126,12 @@ public class RefDataCacheImpl implements RefDataCache{
 	public Map<Integer, String> getPhaseOfProductionTypeMap(String language){
 		return phaseOfProductionTypeMap.get(language); 
 	}
+	
+	@Override
+	public Map<Integer, String> getFeedEventTypeMap(String language){
+		return feedEventTypeMap.get(language); 
+	}
+	
 	
 	private Map<String, Map<Integer, String>> convertToMap(List<RefDataTranslationDto> rolesList) {
 		Map<String, Map<Integer, String>> tmpMap = new HashMap<String, Map<Integer, String>>();

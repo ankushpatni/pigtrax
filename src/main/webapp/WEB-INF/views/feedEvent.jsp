@@ -94,9 +94,9 @@
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
 					  <span class="btn btn-primary" ng-click="viewTransportJourney()" data-toggle="modal" data-target="#transportJourneyModal"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="feedEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"  class="form-control" readonly = ""/>
-					  <p>Transport Destination : <small>{{selectedTrailerDetails.transportDestination}}</small></p>
-					  <div ng-show="selectedTrailerDetails.transportJourneyId != null && feedEvent.transportJourneyId > 0">
-							<p>Transport Destination : <small>{{selectedTrailerDetails.transportDestination}}</small></p>
+					 <!-- <p>Trailer Function : <small>{{feedEvent.transportJourney.trailerFunction}}</small></p>-->
+					  <div ng-show="feedEvent.transportJourney.trailerFunction != null && feedEvent.transportJourney.trailerFunction != ''">
+							<p>Trailer Function : <small>{{feedEvent.transportJourney.trailerFunction}}</small></p>
 						</div>
                       </div>
                     </div>
@@ -112,10 +112,13 @@
             </div>
           </div>
 		  
-		<button type="button" ng-click="addFeedEventDetailData()" class="btn btn-sm btn btn-primary" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
-			<i class="glyphicon glyphicon-plus">
-			</i> <spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" />
-		</button>
+		<!--<button type="button" ng-click="addFeedEventDetailData()" data-toggle="modal" data-target="#addFeedEventDetailModal" class="btn btn-sm btn btn-primary" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
+			<i class="glyphicon glyphicon-plus"></i> 
+			<spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" />
+		</button>-->
+		 <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  > 
+			<span class="btn btn-primary" ng-click="addFeedEventDetailData()" data-toggle="modal" data-target="#addFeedEventDetailModal"><spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" /><span class="glyphicon glyphicon-plus" style="margin-left:5px"></span></span>	
+          </div>
 		 
 	<form name="groupEventFormAdd" method="post">	
 		<div class="content" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
@@ -123,6 +126,7 @@
 			<table st-table="displayedCollection" st-safe-src="feedEventDetailList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">
 					<tr>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>
@@ -165,11 +169,7 @@
 		
 	</form>	  		
 		<div class="md-overlay"></div>
+		<jsp:include page="transportJourney.jsp"></jsp:include>
+		<jsp:include page="addFeedEventDetail.jsp"></jsp:include>
 </div>	
-<jsp:include page="transportJourney.jsp"></jsp:include>
-
-
-		
-		
-		
-		
+	

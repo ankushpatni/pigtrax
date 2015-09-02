@@ -1919,7 +1919,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
 as(
-SELECT co.id AS companyserialid, co."companyId", pr.id AS premiseserialid, pr."permiseId", ba.id AS barnserialid, ba."barnId", si.id, si."siloId"
+SELECT co.id AS companyserialid, co."companyId", pr.id AS premiseserialid, pr."permiseId", ba.id AS barnserialid, ba."barnId", si.id AS siloserrialid, si."siloId"
 FROM
 pigtrax."Company" AS co
 LEFT OUTER JOIN pigtrax."Premise" AS pr ON co.id=pr."id_Company"
