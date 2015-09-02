@@ -189,7 +189,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
 				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
 				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
-				+ " where PI.\"pigId\" = ? and PI.\"id_Company\" = ? and BE.\"gestationRecord\" is true order by BE.\"id\" desc";
+				+ " where PI.\"pigId\" = ? and PI.\"id_Company\" = ? order by BE.\"id\" desc";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -210,7 +210,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
 				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
 				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
-				+ " where PI.\"tattoo\" = ? and PI.\"id_Company\" = ? and BE.\"gestationRecord\" is true order by BE.\"id\" desc";
+				+ " where PI.\"tattoo\" = ? and PI.\"id_Company\" = ?  order by BE.\"id\" desc";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -229,7 +229,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			throws SQLException {
 		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
 				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
-				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\" and BE.\"gestationRecord\" is true order by BE.\"id\" desc   "
+				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
 				+ "where BE.\"serviceId\" = ? and PI.\"id_Company\" = ?";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
