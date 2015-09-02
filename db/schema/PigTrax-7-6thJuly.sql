@@ -272,6 +272,7 @@ CREATE TABLE pigtrax."BreedingEvent"(
 	"sowCondition" smallint,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"gestationRecord" boolean,
 	CONSTRAINT "BREEDING_PK" PRIMARY KEY (id),
 	CONSTRAINT "BREEDING_U_SI" UNIQUE ("serviceId")
 
