@@ -18,6 +18,7 @@ public class BreedingEvent {
     private String userUpdated;
     private Integer pigInfoKey;
     private String breedingServiceType;
+    private boolean gestationRecord;
     
 	public Integer getId() {
 		return id;
@@ -108,6 +109,12 @@ public class BreedingEvent {
 	}
 	public void setBreedingServiceType(String breedingServiceType) {
 		this.breedingServiceType = breedingServiceType;
+	}
+	public boolean isGestationRecord() {
+		return gestationRecord;
+	}
+	public void setGestationRecord(boolean gestationRecord) {
+		this.gestationRecord = gestationRecord;
 	}
     
     

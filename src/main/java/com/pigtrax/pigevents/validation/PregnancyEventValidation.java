@@ -36,6 +36,7 @@ public class PregnancyEventValidation {
 	private int ERR_CODE_01 = 1;
 	private int ERR_CODE_02 = 2;
 	private int ERR_CODE_03 = 3;
+	private int ERR_CODE_04 = 4;
 	
 	/**
 	 * Load the property values
@@ -79,9 +80,13 @@ public class PregnancyEventValidation {
 	  DateTime serviceDate = new DateTime(pregnancyEventDto.getBreedingEventDto().getBreedingDate());
 	  
 	  int duration = Days.daysBetween(serviceDate, resultDate).getDays();
-	  
+	 
 	  //In case of pregnancy event
-	  if(pregnancyEventType == 1 && (duration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || duration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION))
+	  if(duration <= 0)
+	  {
+		  return ERR_CODE_04;
+	  }
+	  else if(pregnancyEventType == 1 && (duration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || duration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION))
 	  {
 		  return ERR_CODE_01;
 	  }

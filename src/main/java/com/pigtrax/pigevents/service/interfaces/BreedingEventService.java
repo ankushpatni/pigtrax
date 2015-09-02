@@ -12,9 +12,11 @@ public interface BreedingEventService {
     
     void deleteBreedingEventInfo(Integer id) throws Exception;
     
-    int validateBreedingEvent(BreedingEventDto breedingEventDto);
+    String validateBreedingEvent(BreedingEventDto breedingEventDto);
     
     List<BreedingEventDto> getBreedingEventInformationList(BreedingEventDto breedingEventDto) throws PigTraxException;
     
     BreedingEventDto checkForBreedingServiceId(String pigId, String serviceId, int companyId) throws PigTraxException;
+    
+    BreedingEventDto getGestationRecord(Integer pigInfoId);
 }  

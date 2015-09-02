@@ -93,21 +93,33 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.duplicate.error.message' text='A breeding event record already exists with the same service id'/>
                   </div>  
-                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_1">
+                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_WarnCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_1' text='Breeding happen within first 5 days, please click submit again to proceed' />
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_WarnCode_1' text='Breeding happen within first 5 days, please click submit again to proceed' />
                   </div>
-                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_2">
+                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_WarnCode_2">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_2'  text='Breeding happens between 6 to 14 days, please click submit again to proceed' />
+                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_WarnCode_2'  text='Breeding happens between 19 to 60 days and the pig is not pregnant' />
                   </div>
-                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_3">
+                  <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_BirthDate">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_3' text='Breeding happens between 14 to 60 days, please click submit again to proceed' />
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_BirthDate' text='Birth date of the pig can not be later than breeding date' />
                   </div>
-                  <div class="alert alert-warning alert-white rounded" ng-show="breedingEventValidation_ErrCode_4"> 
+                  <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_4' text='Breeding happens within 130 days of pregnancy, please click submit again to proceed' />
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_1' text='Breeding happens between 6 to 18 days' />
+                  </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_2"> 
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_2' text='Breeding happens between 19 to 60 days and the pig is pregnant' />
+                  </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_3"> 
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_3' text='Breeding happens between 19 to 60 days and no pregnacy check done' />
+                  </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_4"> 
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_4' text='Breeding date earlier than gestation window' />
                   </div>
                 </div>
                 <div class="content">
@@ -139,6 +151,7 @@
                       required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
+						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null">Gestation window started on {{breedingEvent.gestationRecordDate}}</label>
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					

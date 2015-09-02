@@ -44,7 +44,7 @@ public class BreedingEventRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			breedingEventDto.setUserUpdated(activeUser.getUsername());
-			int rowsInserted = breedingEventService.saveBreedingEventInformation(breedingEventDto);
+			int rowsInserted = breedingEventService.saveBreedingEventInformation(breedingEventDto); 
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
 			if(e.isDuplicateStatus())
@@ -130,7 +130,7 @@ public class BreedingEventRestController {
 		logger.info("Inside validateBreedingEvent method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			int statusCode = breedingEventService.validateBreedingEvent(breedingEventDto);
+			String statusCode = breedingEventService.validateBreedingEvent(breedingEventDto); 
 			dto.setPayload(statusCode);
 			dto.setStatusMessage("Success");
 		}  catch (Exception e) {
@@ -140,5 +140,32 @@ public class BreedingEventRestController {
 	}
     
 	
+	/**
+	 * Service to get GestationRecord for the given pig id
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getGestationRecord", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getGestationRecord(HttpServletRequest request, @RequestBody Integer pigInfoId)
+	{
+		logger.info("Inside validateBreedingEvent method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			BreedingEventDto breedingEventDto = breedingEventService.getGestationRecord(pigInfoId);  
+			if(breedingEventDto != null)
+			{
+				dto.setPayload(breedingEventDto);
+				dto.setStatusMessage("Success");
+			}
+			else
+			{
+				dto.setStatusMessage("ERROR");
+			}
+		}  catch (Exception e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+    
     
 }
