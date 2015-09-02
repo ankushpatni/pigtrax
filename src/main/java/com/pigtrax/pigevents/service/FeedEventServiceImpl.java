@@ -53,14 +53,24 @@ public class FeedEventServiceImpl implements FeedEventService
 		int returnValue = 0;
 		try
 		{
-			returnValue = feedEventDao.addFeedEvent(feedEvent);
 			if (null != feedEvent.getTransportJourney())
 			{
 				TransportJourney transportJourney = feedEvent
 						.getTransportJourney();
 				transportJourney.setUserUpdated(feedEvent.getUserUpdated());
-				transportJourneyDao.addTransportJourney(feedEvent
+				int transportJourneyId = transportJourneyDao.addTransportJourney(feedEvent
 						.getTransportJourney());
+				
+				if(transportJourneyId !=0 )
+				{
+					feedEvent.setTransportJourneyId(transportJourneyId);
+					returnValue = feedEventDao.addFeedEvent(feedEvent);
+				}
+				else
+				{
+					throw new PigTraxException("Not able to create transport journey",null);
+				}
+				
 			}
 		} 
 		catch (SQLException e)
@@ -98,6 +108,10 @@ public class FeedEventServiceImpl implements FeedEventService
 				if(null != feedEventDetailsList)
 				{
 					eventAndDetailList.add(feedEventDetailsList);
+				}
+				else
+				{
+					eventAndDetailList.add(null);
 				}
 				if(null != feedEvent)
 				{

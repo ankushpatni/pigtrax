@@ -1,52 +1,46 @@
-pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http, $window,restServices,transportJourneyService) {	
-	var transportJourneyData={};
+pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http, $window, $modalInstance,restServices, transportJourneyMasterData) {
+	
+	$scope.transportDestination = transportJourneyMasterData.transportDestination;
+	$scope.transportTruck = transportJourneyMasterData.transportTruck ;
+	$scope.transportTrailer = transportJourneyMasterData.transportTrailer;
+	
+	$scope.datepickers = {
+        firstdate: false,
+        secondDate: false
+      }
+	
+	if(null != transportJourneyMasterData.transportJourney && transportJourneyMasterData.transportJourney != undefined)
+	{
+		$scope.transportJourney = transportJourneyMasterData.transportJourney;
+	}
 	
 	$scope.init= function()
     {
-		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
-			res1.success(function(data, status, headers, config) {
-				console.log(data);
-				$scope.transportDestination = data.payload[0];	
-				$scope.transportTruck = data.payload[1];
-				$scope.transportTrailer = data.payload[2];
-				
-			});
-			res1.error(function(data, status, headers, config) {
-				console.log( "failure message: " + {data: data});
-			});	
+		
 	}
 	
-	$scope.transportJourney;
-	
-	$scope.addTransportJourney = function() {
-	
-		if($scope.transportJourneyForm.$valid)
-			{
-			if(document.getElementById("journeyStartTime").value != "")
-				$scope.transportJourney.journeyStartTime =  document.getElementById("journeyStartTime").value;
-			if(document.getElementById("journeyEndTime").value != "")
-				$scope.transportJourney.journeyEndTime = document.getElementById("journeyEndTime").value;
-				
-			transportJourneyService.transportJourney = $scope.transportJourney;
-			
-			/*restServices.addTransportJourney($scope.transportJourney, function(data){
-				if(!data.error)
-					{
-					//$rootScope.selectedTrailerDetails.transportJourneyId = data.payLoad
-					$rootScope.selectedTrailerDetails.transportDestination = $scope.transportDestination[$scope.transportJourneyForm.transportDestinationId];
-					$rootScope.selectedTrailerDetails.transportTruck = $scope.transportTruck[$scope.transportJourneyForm.transportTruckId];
-					$rootScope.selectedTrailerDetails.transportTrailer = $scope.transportTrailer[$scope.transportJourneyForm.transportTrailerId];
-						console.log(data);
-					}
-				else
-					{
-						
-					} 
-			});*/
-	}
+	$scope.addTransportJourney = function()
+	{
+		if ($scope.transportJourneyForm.$valid)
+		{
+			if (document.getElementById("journeyStartTime").value != "")
+				$scope.transportJourney.journeyStartTime = document
+						.getElementById("journeyStartTime").value;
+			if (document.getElementById("journeyEndTime").value != "")
+				$scope.transportJourney.journeyEndTime = document
+						.getElementById("journeyEndTime").value;
+
+			$modalInstance.close($scope.transportJourney);
+		}
 	}
 	
 	$scope.cancel = function(){
-		//$modalInstance.dismiss('add');
+		$modalInstance.dismiss('add');
 	}
+	
+	$scope.open = function($event,index) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.datepickers[index] = true;
+  };
 });

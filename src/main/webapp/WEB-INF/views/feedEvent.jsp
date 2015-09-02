@@ -92,11 +92,14 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span class="btn btn-primary" ng-click="viewTransportJourney()" data-toggle="modal" data-target="#transportJourneyModal"><span class="glyphicon glyphicon-user"></span></span>	
-                      <input type="hidden" ng-model="feedEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"  class="form-control" readonly = ""/>
-					 <!-- <p>Trailer Function : <small>{{feedEvent.transportJourney.trailerFunction}}</small></p>-->
-					  <div ng-show="feedEvent.transportJourney.trailerFunction != null && feedEvent.transportJourney.trailerFunction != ''">
-							<p>Trailer Function : <small>{{feedEvent.transportJourney.trailerFunction}}</small></p>
+					  <span ng-hide="(feedEvent.transportJourney.id != null && feedEvent.transportJourney.trailerFunction != 0) || entryEventSuccessMessage" class="btn btn-primary" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
+                      <input type="hidden" ng-model="feedEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"/>
+					  <div ng-show="(feedEvent.transportJourney.trailerFunction != null && feedEvent.transportJourney.trailerFunction != '') ||
+							(feedEvent.transportJourney.id != 0 && feedEvent.transportJourney.id != null)">
+							<p><spring:message code="label.transportJourney.trailerFunction" text="Trailer Function" /> : <small>{{feedEvent.transportJourney.trailerFunction}}</small></p>
+							<p><spring:message code='label.transportJourney.transportDestinationId'  text='Transport Destination'/> : <small>{{transportDestination[feedEvent.transportJourney.transportDestinationId]}}</small></p>
+							<p><spring:message code='label.transportJourney.transportTruckId'  text='Transport Truck'/> : <small>{{transportTruck[feedEvent.transportJourney.transportTruckId]}}</small></p>
+							<p><spring:message code='label.transportJourney.transportTrailerId'  text='Transport Trailer'/> : <small>{{transportTrailer[feedEvent.transportJourney.transportTrailerId]}}</small></p>
 						</div>
                       </div>
                     </div>
@@ -169,7 +172,5 @@
 		
 	</form>	  		
 		<div class="md-overlay"></div>
-		<jsp:include page="transportJourney.jsp"></jsp:include>
-		<jsp:include page="addFeedEventDetail.jsp"></jsp:include>
-</div>	
+	</div>	
 	

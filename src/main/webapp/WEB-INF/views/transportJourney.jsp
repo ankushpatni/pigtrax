@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<div id="transportJourneyModal" class="modal colored-header custom-width" ng-init="init()" ng-controller="addTransportJourneyCtrl">
+<div id="transportJourneyModal" class="md-modal colored-header md-effect-9" ng-init="init()">
 	<div class="md-content">
 <div class="modal-header">
 	<h3 ng-hide="edit"><spring:message code="label.transportJourney.add" text="Add Transport Journey" /></h3>
@@ -17,13 +17,22 @@
 			<div class="form-group">
                  <label><spring:message code='label.transportJourney.journeyStartTime'  text='Journey StartTime'/></label>
                  <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7">
-                     <input size="16" type="date" id="journeyStartTime" name="journeyStartTime" ng-model="transportJourney.journeyStartTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                    <!-- <input size="16" type="date" id="journeyStartTime" name="journeyStartTime" ng-model="transportJourney.journeyStartTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>-->
+					
+					 <input type="text" datepicker-popup="yyyy-MM-dd" class="form-control" datepicker-popup="shortDate" id="journeyStartTime" name="journeyStartTime" ng-model="transportJourney.journeyStartTime" is-open="datepickers.firstdate" />
+							<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open($event,'firstdate')"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
 				</div>
             </div>
              <div class="form-group">
                <label><spring:message code='label.transportJourney.journeyEndTime'  text='Journey EndTime'/></label>
                <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7">
-                   <input size="16" type="date" id="journeyEndTime" name="journeyEndTime" ng-model="transportJourney.journeyEndTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                   <!--<input size="16" type="date" id="journeyEndTime" name="journeyEndTime" ng-model="transportJourney.journeyEndTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>-->
+				    <input type="text" datepicker-popup="yyyy-MM-dd" class="form-control" datepicker-popup="shortDate" id="journeyEndTime" name="journeyEndTime" ng-model="transportJourney.journeyEndTime" is-open="datepickers.secondDate" />
+							<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open($event,'secondDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
                  </div>
              </div> 
 			<div class="form-group">
@@ -39,7 +48,7 @@
                 </select>
             </div>
             <div class="form-group">
-              <label><spring:message code='label.transportJourney.transportTrailerId'  text='Room'/></label>
+              <label><spring:message code='label.transportJourney.transportTrailerId'  text='Transport Trailer'/></label>
                <select class="form-control"  name="transportTrailerId" id="transportTrailerId" ng-model="transportJourney.transportTrailerId"   
                  ng-options="k as v for (k, v) in transportTrailer">
                 </select>
