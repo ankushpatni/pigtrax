@@ -26,4 +26,6 @@ public interface BreedingEventDao {
    void deleteBreedingEventInfo(Integer id) throws SQLException;
    
    BreedingEvent checkForBreedingServiceId(String pigId, String serviceId, int companyId) throws SQLException; 
+   
+   BreedingEvent getGestationRecord(final Integer pigInfoId);
 }

@@ -27,6 +27,8 @@ public class BreedingEventDto {
 	private String searchOption;
 	private String breedingServiceType;
 	private String language;
+	private boolean gestationRecord;
+	private Date gestationRecordDate;
     
 	
 	public Integer getId() {
@@ -161,6 +163,19 @@ public class BreedingEventDto {
 	}
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	
+	public boolean isGestationRecord() {
+		return gestationRecord;
+	}
+	public void setGestationRecord(boolean gestationRecord) {
+		this.gestationRecord = gestationRecord;
+	}
+	public Date getGestationRecordDate() {
+		return gestationRecordDate;
+	}
+	public void setGestationRecordDate(Date gestationRecordDate) {
+		this.gestationRecordDate = gestationRecordDate;
 	}
 	@Override
     public String toString() {

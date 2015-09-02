@@ -150,7 +150,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	}
 	
 	@Override
-	public int validateBreedingEvent(BreedingEventDto breedingEventDto)
+	public String validateBreedingEvent(BreedingEventDto breedingEventDto)
 	{
 		try {
 			logger.info("values : "+breedingEventDto.getPigInfoId()+"/"+breedingEventDto.getCompanyId());
@@ -162,11 +162,11 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			return -1;
+			return "ERR_GENERAL";
 		}
 		catch (PigTraxException e) {
 			e.printStackTrace();
-			return -1;
+			return "ERR_GENERAL";
 		}
 	}
 	
@@ -193,6 +193,14 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
 	}
+ 
 	
+	@Override
+	public BreedingEventDto getGestationRecord(Integer pigInfoId) {
+		BreedingEvent event = breedingEventDao.getGestationRecord(pigInfoId);
+		if(event != null)
+			return builder.convertToDto(event);
+		return null;
+	}
 	
 }

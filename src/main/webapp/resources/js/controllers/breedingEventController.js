@@ -15,11 +15,12 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.searchErrorMessage = false;
 		$scope.inValidPigIdFromServer = false;
 		$scope.breedingEventValidation_Success = false;
+		$scope.breedingEventValidation_WarnCode_1 = false;
+		$scope.breedingEventValidation_WarnCode_2 = false;
 		$scope.breedingEventValidation_ErrCode_1 = false;
 		$scope.breedingEventValidation_ErrCode_2 = false;
 		$scope.breedingEventValidation_ErrCode_3 = false;
-		$scope.breedingEventValidation_ErrCode_4 = false;
-		$scope.breedingEventValidation_ErrCode_5 = false;
+		$scope.breedingEventValidation_ErrCode_BirthDate = false;
 		$scope.confirmClick = false;
 	};
 	
@@ -99,6 +100,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			var breedingDate = document.getElementById("breedingDate").value;
 			$scope.breedingEvent["breedingDate"] = breedingDate;
 			$scope.breedingEvent["companyId"] = $rootScope.companyId;
+			//alert(JSON.stringify($scope.breedingEvent)); 
 			restServices.saveBreedingEventInformation($scope.breedingEvent, function(data){
 				if(!data.error)
 					{
@@ -140,23 +142,59 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				   {
 			   			var statusCode = data.payload;
 					     $scope.clearAllMessages();
-					     if(statusCode == 0)
+					     if(statusCode == "SUCCESS-00")
 					     {
-					    		$scope.confirmAddBreedingEvent();
+					    	   $scope.breedingEvent["gestationRecord"] = true; 
+					    	   $scope.confirmAddBreedingEvent();
 					    }
 					     else
 					    {
-					    	 if(statusCode == 1)
+					    	 if(statusCode == "ERR_BIRTHDATE_NOT_MATCHING")
+					    	 {
+					    		 $scope.clearAllMessages();
+						    	 $scope.breedingEventValidation_ErrCode_BirthDate = true;
+					    	 }
+					    	 else if(statusCode == "WARN-01")
+					    	 {
+					    		 $scope.clearAllMessages();
+						    	 $scope.breedingEventValidation_WarnCode_1 = true;
+						    	 $scope.breedingEvent["gestationRecord"] = false; 
+						    	 $scope.confirmClick = true;
+					    	 }
+						     else if(statusCode == "WARN-02")
+						     {
+						    	 $scope.clearAllMessages();
+						    	 $scope.breedingEventValidation_WarnCode_2 = true;
+						    	 $scope.breedingEvent["gestationRecord"] = true; 
+						    	 $scope.confirmClick = true;
+						     }
+						     else if(statusCode == "ERR-01")
+						    	 {
+						    	 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_1 = true;
-						     else if(statusCode == 2)
+						    	 }
+						     else if(statusCode == "ERR-02")
+						    	 {
+						    	 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_2 = true;
-						     else if(statusCode == 3)
+						    	 }
+						     else if(statusCode == "ERR-03")
+						    	 {
+						    	 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_3 = true;
-						     else if(statusCode == 4)
-						    	 $scope.breedingEventValidation_ErrCode_4 = true;
-						     else if(statusCode == 5)
-						    	 $scope.breedingEventValidation_ErrCode_5 = true;
-					    	 $scope.confirmClick = true;
+						    	 }
+						     else if(statusCode == "ERR-04")
+					    	 {
+					    	 $scope.clearAllMessages();
+					    	 $scope.breedingEventValidation_ErrCode_4 = true;
+					    	 }
+						     else if(statusCode == "ERR_GENERAL")
+					    	 {
+						    	 $scope.clearAllMessages();
+					    	 $scope.entryEventErrorMessage = true;
+					    	 }
+					    	 
+					    	 
 					    	$window.scrollTo(0, 5);
 					   	 }
 				   }
@@ -221,8 +259,15 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			else
 			{
 				$scope.inValidPigIdFromServer = false;
-			  var pigInfo = data.payload;
-			  $scope.breedingEvent["pigBirthDate"] = pigInfo.birthDate;
+				var pigInfo = data.payload;
+				$scope.breedingEvent["pigBirthDate"] = pigInfo.birthDate;
+				restServices.getGestationRecord(pigInfo.id, function(data){
+					if(!data.error)
+						{
+						   var gestationRecord  = data.payload;
+						   $scope.breedingEvent["gestationRecordDate"] = gestationRecord.breedingDate;
+						}
+				});
 			}
 				
 		});

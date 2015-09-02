@@ -245,4 +245,23 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 			}
 		});
 	}
+   
+   
+   /**
+    * 
+    * @param breedingEventId
+    * @return 
+    */
+   public List<PregnancyEvent> getPregnancyEvents(final Integer breedingEventId)
+   {
+	String sql = "select * from pigtrax.\"PregnancyEvent\" where \"id_BreedingEvent\" = ?";
+
+	List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {				
+				ps.setInt(1, breedingEventId);
+			}}, new PregnancyEventMapper());
+
+		return pregnancyEventList;	
+   }
 }

@@ -29,6 +29,7 @@ public class BreedingEventBuilder {
 			   info.setUserUpdated(dto.getUserUpdated());
 			   info.setMateQuality(dto.getMateQuality());
 			   info.setLastUpdated(dto.getLastUpdated());
+			   info.setGestationRecord(dto.isGestationRecord());
 		   }
 		   return info;
 	   }
@@ -53,6 +54,7 @@ public class BreedingEventBuilder {
 			   dto.setUserUpdated(info.getUserUpdated());
 			   dto.setMateQuality(info.getMateQuality());
 			   dto.setLastUpdated(info.getLastUpdated());
+			   dto.setGestationRecord(info.isGestationRecord());
 		   }
 		   return dto;
 	   }
