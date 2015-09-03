@@ -22,6 +22,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.pregnancyEventValidation_ErrCode_2 = false;
 		$scope.pregnancyEventValidation_ErrCode_3 = false;
 		$scope.pregnancyEventValidation_ErrCode_4 = false;
+		$scope.malePigIdentified = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -85,8 +86,16 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 						$scope.inValidPigIdFromServer = false;
 						$scope.requiredPigIdMessage = false;
 						var pigInfo = data.payload;
+						if(pigInfo.sexTypeId == 2)
+							{
 						if($scope.pregnancyEvent.breedingServiceId != undefined && $scope.pregnancyEvent.breedingServiceId != "")
 							$scope.checkForBreedingServiceId();
+							}
+						else
+							{
+							$scope.clearAllMessages();
+							$scope.malePigIdentified = true;
+							}
 					}
 						
 				});

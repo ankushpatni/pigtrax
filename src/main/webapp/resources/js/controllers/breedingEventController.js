@@ -22,6 +22,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.breedingEventValidation_ErrCode_3 = false;
 		$scope.breedingEventValidation_ErrCode_BirthDate = false;
 		$scope.confirmClick = false;
+		$scope.malePigIdentified = false;
 	};
 	
 	
@@ -260,14 +261,23 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			{
 				$scope.inValidPigIdFromServer = false;
 				var pigInfo = data.payload;
-				$scope.breedingEvent["pigBirthDate"] = pigInfo.birthDate;
-				restServices.getGestationRecord(pigInfo.id, function(data){
-					if(!data.error)
-						{
-						   var gestationRecord  = data.payload;
-						   $scope.breedingEvent["gestationRecordDate"] = gestationRecord.breedingDate;
-						}
-				});
+				if(pigInfo.sexTypeId == 2)
+					{
+						$scope.breedingEvent["pigBirthDate"] = pigInfo.birthDate;
+						$scope.breedingEvent["sowCondition"] = pigInfo.sowCondition;
+						restServices.getGestationRecord(pigInfo.id, function(data){
+							if(!data.error)
+								{
+								   var gestationRecord  = data.payload;
+								   $scope.breedingEvent["gestationRecordDate"] = gestationRecord.breedingDate;
+								}
+						});
+					}
+				else
+					{
+						$scope.clearAllMessages();
+						$scope.malePigIdentified = true;
+					}
 			}
 				
 		});
