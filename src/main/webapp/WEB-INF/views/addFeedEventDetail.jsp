@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<div id="addFeedEventDetailModal" class="modal colored-header custom-width" ng-init="init()" ng-controller="AddFeedEventDetailController">
+<div id="addFeedEventDetailModal" class="md-modal colored-header md-effect-9" ng-init="init()">
 	<div class="md-content">
 <div class="modal-header">
 	<h3 ng-hide="edit"><spring:message code="label.feedEventDetail.add" text="Add Feed Event Detail" /></h3>
@@ -8,15 +8,23 @@
 </div>
 <form name="feedEventDetailAddForm" novalidate angular-validator method="post">
 <div class="modal-body form">
+ 				  <div class="alert alert-danger alert-white rounded" ng-show="entryEventErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.submit.error.message' text='An exception occurred. Please check the values entered'/>
+                  </div>
 					<input type=hidden name="id" ng-model="feedEventDetail.id"/>
     				<div class="form-group">
 						<label><spring:message code="label.feedEventDetail.feedEventId" text="Feed Event" /></label>
-						<label>{{$rootScope.feedContentId}}</label>
+						<label>{{feedEventId}}</label>
 					 </div>
 					<div class="form-group">
 						<label ><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /><span style='color: red'>*</span></label>
 						<div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-							 <input size="16" type="date" id="feedEventDate" name="feedEventDate" ng-model="feedEventDetail.feedEventDate" readonly="" class="form-control" format-date required-message="'<spring:message code='label.feedEventDetail.feedEventDate.required' text='Feed Event Date is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+							<!-- <input size="16" type="date" id="feedEventDate" name="feedEventDate" ng-model="feedEventDetail.feedEventDate" readonly="" class="form-control" format-date required-message="'<spring:message code='label.feedEventDetail.feedEventDate.required' text='Feed Event Date is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>-->
+							 
+							 <input type="text" datepicker-popup="yyyy-MM-dd" class="form-control" datepicker-popup="shortDate" id="feedEventDate" name="feedEventDate" ng-model="feedEventDetail.feedEventDate" is-open="opened"/>
+							<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 						</div>
 					</div>
 					<div>
@@ -46,8 +54,10 @@
                   
 			<button class="btn btn-primary btn-flat md-close"  ng-click="addFeedEventDetail()" ng-hide="feedEventDetail.id>0"><spring:message code="label.premise.add" text="Add" /></button>
 			<button class="btn btn-primary btn-flat md-close"  ng-click="addFeedEventDetail()" ng-show="feedEventDetail.id>0"><spring:message code="label.premise.edit" text="Edit" /></button>
-            <button class="btn btn-default btn-flat md-close"  ng-click="gotoFeedEvent()"><spring:message code="label.premise.cancel" text="Cancel" /></button> 
+            <button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button> 
          </div>
+		 <input type="hidden" name="feedEventTicketNumber" id="feedEventTicketNumber"/>
+		 <input type="hidden" name="selectedCompany" id="selectedCompany"/>
     </form>
 </div>
 </div>

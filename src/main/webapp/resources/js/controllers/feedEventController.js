@@ -7,9 +7,11 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	$scope.transportTruck;
 	$scope.transportTrailer;
 	$scope.feedEventDetailList={};
+	$scope.siloList={};
+	$scope.feedEventType={};	
 	
 	
-	$scope.setCompanyId = function(companyId)
+	$scope.setCompanyId = function(companyId,ticketNumber)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
@@ -24,6 +26,23 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		res1.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+		
+		var res2 = $http.get('rest/util/getFeedEventDetailMasterData?companyId='+$rootScope.companyId);
+		res2.success(function(data, status, headers, config) {
+			console.log(data);
+			$scope.siloList = data.payload[1];	
+			$scope.feedEventType = data.payload[0];				
+		});
+		res2.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		
+		if( ticketNumber)
+		{
+			$scope.searchText = ticketNumber;
+			$scope.getFeedEvent();
+			$scope.entryEventDetailSuccessMessage = true;
+		}
 	};
 	
 	$scope.resetForm = function()
@@ -38,6 +57,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		$scope.entryEventErrorMessage = false;
 		$scope.groupEventDuplicateErrorMessage = false;
 		$scope.searchDataErrorMessage = false;
+		$scope.entryEventDetailSuccessMessage = false;
 	};
 	
 	$scope.addFeedEvent = function() 
@@ -128,6 +148,33 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		modalInstance.result.then( function(res) { 
 			console.log(res);
 			$scope.feedEvent.transportJourney = res;
+		});
+	}
+	
+	$scope.addFeedEventDetail = function()
+	{
+		var modalInstance = $modal.open ({
+			templateUrl: 'addFeedEventDetail',
+			controller: 'addFeedEventDetailCtrl',
+			backdrop:true,
+			windowClass : 'cp-model-window',
+			resolve:{
+				feedEventDetailData : function(){
+					var feedEventDetailData={};
+					feedEventDetailData.siloList = $scope.siloList;	
+					feedEventDetailData.feedEventType = $scope.feedEventType ;
+					feedEventDetailData.feedEventId = $scope.feedEvent.feedContentId;
+					feedEventDetailData.ticketNumber = $scope.feedEvent.ticketNumber;
+					feedEventDetailData.companyId = $scope.companyId;
+					feedEventDetailData.feedId = $scope.feedEvent.id;
+					return feedEventDetailData;
+				}
+			}
+		});
+		
+		modalInstance.result.then( function(res) { 
+			$scope.entryEventDetailSuccessMessage = true;
+			$scope.getFeedEvent();
 		});
 	}
 	

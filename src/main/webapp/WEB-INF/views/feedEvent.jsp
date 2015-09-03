@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.feedEventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="FeedEventController" ng-init="setCompanyId('${CompanyId}')">
+ <div class="cl-mcont" ng-controller="FeedEventController" ng-init="setCompanyId('${CompanyId}','${feedEventTicketNumber}')">
    <div class="row">
 	 		  <div class="col-sm-3 col-md-3"></div> 
 	 		  <div class="col-sm-6 col-md-6">
@@ -33,6 +33,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform.submit.success.message' text='Feed Event information saved successfully'/>
                   </div>
+                  <div class="alert alert-success alert-white rounded"  ng-show="entryEventDetailSuccessMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform.details.submit.success.message' text='Feed Event detail information saved successfully'/>
+                  </div>
                   <div class="alert alert-danger alert-white rounded" ng-show="entryEventErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.submit.error.message' text='An exception occurred. Please check the values entered'/>
@@ -55,7 +59,8 @@
                    </div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.ticketNumber'  text='Ticket Number'/><span style='color: red'>*</span></label>
-                      <input type="text" ng-model="feedEvent.ticketNumber" id="ticketNumber" name="ticketNumber"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.ticketNumber.placeholder'  text='Enter Ticket Number'/>" 
+                      <label ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">{{feedEvent.ticketNumber}}</label>
+                      <input type="text" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage" ng-model="feedEvent.ticketNumber" id="ticketNumber" name="ticketNumber"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.ticketNumber.placeholder'  text='Enter Ticket Number'/>" 
                        required required-message="'<spring:message code='label.piginfo.feedEventForm.ticketNumber.requiredMessage' text='Ticket Number is required' />'" ng-focus="clearMessages()"/>
                    </div>
                     <div class="form-group">
@@ -115,13 +120,13 @@
             </div>
           </div>
 		  
-		<!--<button type="button" ng-click="addFeedEventDetailData()" data-toggle="modal" data-target="#addFeedEventDetailModal" class="btn btn-sm btn btn-primary" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
+		<button type="button" ng-click="addFeedEventDetail()" class="btn btn-sm btn btn-primary" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus"></i> 
 			<spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" />
-		</button>-->
-		 <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  > 
-			<span class="btn btn-primary" ng-click="addFeedEventDetailData()" data-toggle="modal" data-target="#addFeedEventDetailModal"><spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" /><span class="glyphicon glyphicon-plus" style="margin-left:5px"></span></span>	
-          </div>
+		</button>
+		<!-- <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  > 
+			<span class="btn btn-primary" ng-click="addFeedEventDetailData()"><spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" /><span class="glyphicon glyphicon-plus" style="margin-left:5px"></span></span>	
+          </div>-->
 		 
 	<form name="groupEventFormAdd" method="post">	
 		<div class="content" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
@@ -134,9 +139,9 @@
 						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventId" text="Feed Event" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
+						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.groupEventId" text="Group Event" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
+						<th style="width:25%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.edit" text="Edit" /></th>
 					</tr>
 	 			</thead>
@@ -144,12 +149,12 @@
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:10%">{{$index+1}}</td>
 					<td style="width:10%">{{row.feedEventDate}}</td>
-					<td style="width:25%">{{row.weightInKgs}}</td>
+					<td style="width:10%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{row.remarks}}</td>
 					<td style="width:25%">{{row.feedEventId}}</td>
-					<td style="width:10%">{{row.siloId}}</td>
+					<td style="width:25%">{{siloList[row.siloId]}}</td>
 					<td style="width:10%">{{row.groupEventId}}</td>
-					<td style="width:10%">{{row.feedEventTypeId}}</td>
+					<td style="width:25%">{{feedEventType[row.feedEventTypeId]}}</td>
 					<td style="width: 8%">
 						<button type="button" class="btn btn-edit btn-xs" ng-click="addFeedEventDetailData(row.id)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

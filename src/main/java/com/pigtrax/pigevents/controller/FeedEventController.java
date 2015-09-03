@@ -49,10 +49,10 @@ public class FeedEventController {
 				   model.addAttribute("CompanyId", activeUser.getCompanyId());
 				   model.addAttribute("CompanyName", company.getName());
 			   }
-			   /*if(request.getParameter("searchedGroupid") != null) 
+			   if(request.getParameter("feedEventTicketNumber") != null) 
 			   {
-				   model.addAttribute("searchedGroupid", request.getParameter("searchedGroupid"));
-			   }*/
+				   model.addAttribute("feedEventTicketNumber", request.getParameter("feedEventTicketNumber"));
+			   }
 		   }catch(Exception ex)
 		   {
 			   
@@ -60,5 +60,14 @@ public class FeedEventController {
 		   model.addAttribute("contentUrl","feedEvent.jsp");
 		   return "template";
 	   }
+	 
+	 
+	 @RequestMapping(value = "/addFeedEventDetail")
+		public String addPremises(Model model)
+		{
+			model.addAttribute("contentUrl","addFeedEventDetail.jsp"); 
+			return "addFeedEventDetail";
+		}
+
 
 }
