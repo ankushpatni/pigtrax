@@ -43,7 +43,7 @@
                   </div>
                    <div class="alert alert-danger alert-white rounded"  ng-show="groupEventDuplicateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform..duplicate.error.message' text='A Feed event record already exists with the same Feed Content Id'/>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform..duplicate.error.message' text='A Feed event record already exists with the same Ticket Number'/>
                   </div>		 
                 </div>
                 <div class="content">
@@ -97,7 +97,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span ng-hide="(feedEvent.transportJourney.id != null && feedEvent.transportJourney.trailerFunction != 0) || entryEventSuccessMessage" class="btn btn-primary" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span ng-hide="(feedEvent.transportJourney.id != null && feedEvent.transportJourney.trailerFunction != 0)" class="btn btn-primary" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="feedEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"/>
 					  <div ng-show="(feedEvent.transportJourney.trailerFunction != null && feedEvent.transportJourney.trailerFunction != '') ||
 							(feedEvent.transportJourney.id != 0 && feedEvent.transportJourney.id != null)">
@@ -109,8 +109,8 @@
                       </div>
                     </div>
                     					
-                  	<button class="btn btn-primary" ng-click="addFeedEvent()" type="submit" ng-hide="feedEvent.id != null && feedEvent.id > 0"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addFeedEvent()" type="submit" ng-show="feedEvent.id != null && feedEvent.id > 0"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+                  	<button class="btn btn-primary" ng-click="addFeedEvent()" type="submit" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
+					<button class="btn btn-primary" ng-click="addFeedEvent()" type="submit" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                    </form>
                 </div>
@@ -156,7 +156,7 @@
 					<td style="width:10%">{{row.groupEventId}}</td>
 					<td style="width:25%">{{feedEventType[row.feedEventTypeId]}}</td>
 					<td style="width: 8%">
-						<button type="button" class="btn btn-edit btn-xs" ng-click="addFeedEventDetailData(row.id)">
+						<button type="button" class="btn btn-edit btn-xs" ng-click="addFeedEventDetail(row.id)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 					</td>				
 				</tr>

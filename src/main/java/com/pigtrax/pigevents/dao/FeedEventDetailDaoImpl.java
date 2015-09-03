@@ -33,7 +33,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	}
 
 	@Override
-	public List<FeedEventDetail> getFeedEventDetailById(final int id)
+	public FeedEventDetail getFeedEventDetailById(final int id)
 			throws SQLException {
 		String qry = "select \"id\", \"feedEventDate\", \"weightInKgs\", \"remarks\", \"id_FeedEvent\", "
 		   		+ "\"id_Silo\", \"id_GroupEvent\", \"id_FeedEventType\",\"lastUpdated\", \"userUpdated\" "+
@@ -46,7 +46,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 				}}, new FeedEventDetailMapper());
 
 			if(feedEventDetailList != null && feedEventDetailList.size() > 0){
-				return feedEventDetailList;
+				return feedEventDetailList.get(0);
 			}
 			return null;
 	}
@@ -104,7 +104,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 				ps.setString(3, feedEventDetail.getRemarks() );
 				ps.setInt(4, feedEventDetail.getFeedEventId());
 				ps.setInt(5, feedEventDetail.getSiloId());
-				if( null != feedEventDetail.getGroupEventId())
+				if( null != feedEventDetail.getGroupEventId() && feedEventDetail.getGroupEventId()>0)
 				{
 					ps.setInt(6, feedEventDetail.getGroupEventId());
 				}
@@ -151,7 +151,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 					//ps.setBigDecimal(2, feedEventDetail.getWeightInKgs());
 					ps.setString(3, feedEventDetail.getRemarks() );
 					ps.setInt(4, feedEventDetail.getSiloId());
-					if( null != feedEventDetail.getGroupEventId())
+					if( null != feedEventDetail.getGroupEventId() && feedEventDetail.getGroupEventId()>0)
 					{
 						ps.setInt(5, feedEventDetail.getGroupEventId());
 					}

@@ -115,7 +115,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 				ps.setInt(5, feedEvent.getInitialFeedQuantityKgs());
 				ps.setBigDecimal(6, feedEvent.getFeedCost());
 				ps.setString(7, feedEvent.getFeedMedication());
-				if(null != feedEvent.getTransportJourneyId())
+				if(null != feedEvent.getTransportJourneyId() && feedEvent.getTransportJourneyId()>0)
 					ps.setInt(8, feedEvent.getTransportJourneyId());
 				else
 					ps.setNull(8,  java.sql.Types.INTEGER);
@@ -162,7 +162,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 					
 					ps.setString(6, feedEvent.getFeedMedication());
 					
-					if(feedEvent.getTransportJourneyId() != null )
+					if(feedEvent.getTransportJourneyId() != null  && feedEvent.getTransportJourneyId()>0)
 						ps.setInt(7, feedEvent.getTransportJourneyId());
 					else
 						ps.setNull(7, java.sql.Types.INTEGER);

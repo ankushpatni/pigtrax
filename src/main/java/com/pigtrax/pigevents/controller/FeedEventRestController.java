@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,7 +65,9 @@ public class FeedEventRestController {
 				dto.setDuplicateRecord(true);
 			}
 			dto.setStatusMessage("ERROR : "+e.getMessage());
-		} catch (Exception e) {			
+		} 
+		catch (Exception e)
+		{			
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		}		
 		return dto; 
@@ -157,6 +160,32 @@ public class FeedEventRestController {
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		}		
 		return dto; 
+	}
+	
+	@RequestMapping(value = "/getFeedEventDetailInformation",  method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getFeedEventDetailInformation(HttpServletRequest request, @RequestParam Integer id)
+	{
+		logger.info("Inside getGroupEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			
+			FeedEventDetail feedEventDetail = feedEventDetailService.getFeedEventDetailById(id);
+			if(feedEventDetail != null  )
+			{
+				dto.setPayload(feedEventDetail);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
 	}
 
 }

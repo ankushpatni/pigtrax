@@ -20,15 +20,21 @@ public class FeedEventDetailServiceImpl implements FeedEventDetailService{
 	FeedEventDetailDao feedEventDetailDao;
 	
 	@Override
-	public FeedEventDetail getFeedEventDetailById(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public FeedEventDetail getFeedEventDetailById(int id) throws PigTraxException {
+		try
+		{
+			return( feedEventDetailDao.getFeedEventDetailById(id));
+			
+		} 
+		catch (SQLException e)
+		{
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
 	}
 
 	@Override
 	public FeedEventDetail getFeedEventDetailByFeedEventId(String ticketNumber)
-			throws SQLException {
-		// TODO Auto-generated method stub
+			throws PigTraxException {
 		return null;
 	}
 

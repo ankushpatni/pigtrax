@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,8 +64,7 @@ public class FeedEventServiceImpl implements FeedEventService
 				
 				if(transportJourneyId !=0 )
 				{
-					feedEvent.setTransportJourneyId(transportJourneyId);
-					returnValue = feedEventDao.addFeedEvent(feedEvent);
+					feedEvent.setTransportJourneyId(transportJourneyId);					
 				}
 				else
 				{
@@ -72,10 +72,28 @@ public class FeedEventServiceImpl implements FeedEventService
 				}
 				
 			}
+			else
+			{
+				returnValue = feedEventDao.addFeedEvent(feedEvent);
+			}
 		} 
-		catch (SQLException e)
+		catch (SQLException sqlEx)
 		{
-			throw new PigTraxException(e.getMessage(), e.getSQLState());
+			if ("23505".equals(sqlEx.getSQLState()))
+			{
+				throw new PigTraxException("GroupId already exists",
+						sqlEx.getSQLState(), true);
+			} 
+			else
+			{
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());
+			}
+		}
+		catch (DuplicateKeyException sqlExDup)
+		{
+			throw new PigTraxException("GroupId already exists",
+						null, true);
 		}
 		return returnValue;
 	}
@@ -85,6 +103,19 @@ public class FeedEventServiceImpl implements FeedEventService
 		int returnValue = 0;
 		try
 		{
+			if (null != feedEvent.getTransportJourney() && (feedEvent.getTransportJourney().getId() == null || feedEvent.getTransportJourney().getId() ==0) )
+			{
+				TransportJourney transportJourney = feedEvent
+						.getTransportJourney();
+				transportJourney.setUserUpdated(feedEvent.getUserUpdated());
+				int transportJourneyId = transportJourneyDao.addTransportJourney(feedEvent
+						.getTransportJourney());
+				
+				if(transportJourneyId !=0 )
+				{
+					feedEvent.setTransportJourneyId(transportJourneyId);					
+				}
+			}
 			returnValue = feedEventDao.updateFeedEvent(feedEvent);
 		} 
 		catch (SQLException e)

@@ -9,6 +9,20 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 	$scope.companyId = feedEventDetailData.companyId;
 	console.log(feedEventDetailData);
 	
+	if(feedEventDetailData.id)
+	{
+		
+		var res1 = $http.get('rest/feedEvent/getFeedEventDetailInformation?id='+feedEventDetailData.id);
+		res1.success(function(data, status, headers, config) {
+			console.log(data);
+			$scope.feedEventDetail = data.payload;			
+		});
+		res1.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		
+	}
+	
 	$scope.init= function()
     {
 		

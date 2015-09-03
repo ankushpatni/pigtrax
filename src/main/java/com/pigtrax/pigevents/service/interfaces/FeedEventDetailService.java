@@ -9,9 +9,9 @@ import com.pigtrax.pigevents.beans.FeedEventDetail;
 public interface FeedEventDetailService {
 	
 	public FeedEventDetail getFeedEventDetailById(final int id)
-			throws SQLException ;
+			throws PigTraxException ;
 	
-	public FeedEventDetail getFeedEventDetailByFeedEventId(final String feedEventId) throws SQLException;
+	public FeedEventDetail getFeedEventDetailByFeedEventId(final String feedEventId) throws PigTraxException;
 	
 	/*FeedEvent getFeedEventByGeneratedFeedId(final int generatedFeedId) throws SQLException;
 	*/

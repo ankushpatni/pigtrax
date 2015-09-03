@@ -8,7 +8,7 @@ import com.pigtrax.pigevents.beans.FeedEventDetail;
 
 public interface FeedEventDetailDao {
 	
-	public List<FeedEventDetail> getFeedEventDetailById(final int id)
+	public FeedEventDetail getFeedEventDetailById(final int id)
 			throws SQLException ;
 	
 	public List<FeedEventDetail> getFeedEventDetailByFeedEventId(final int feedEventid)

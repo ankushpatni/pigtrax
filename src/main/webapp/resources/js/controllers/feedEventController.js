@@ -6,7 +6,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	$scope.transportDestination;
 	$scope.transportTruck;
 	$scope.transportTrailer;
-	$scope.feedEventDetailList={};
+	$scope.feedEventDetailList=[];
 	$scope.siloList={};
 	$scope.feedEventType={};	
 	
@@ -49,6 +49,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	{
 		$scope.clearAllMessages();
 		$scope.feedEvent = {};
+		$scope.changeText();
 	}
 	
 	$scope.clearAllMessages = function()
@@ -69,11 +70,14 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 					$scope.feedEvent.initialFeedEntryDateTime =  document.getElementById("initialFeedEntryDateTime").value;
 				}
 				$scope.clearAllMessages();
+				
 				restServices.addFeedEvent($scope.feedEvent, function(data){
+				console.log(data);
 					if(!data.error)
 						{
-							console.log(data);
+							
 							$scope.entryEventSuccessMessage = true;
+							$scope.getFeedEvent($scope.feedEvent.ticketNumber,true);
 						}
 					else
 						{
@@ -91,28 +95,38 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 			}
 	}
 	
-	$scope.getFeedEvent = function ()
+	$scope.getFeedEvent = function (ticketNumber,flag,flag1)
 	{
 		console.log('Group ID is '+ $scope.searchText);
 		var postParam = {
 				
-				"ticketNumber" : $scope.searchText,
+				"ticketNumber" : ticketNumber,
 			};
+			
+			console.log();
 		restServices.getFeedEventInformation(postParam, function(data){
 			console.log(data);
 			if(!data.error)
 				{
-					$scope.clearAllMessages();
+					
 					$scope.feedEvent = data.payload[0];
 					$scope.feedEventDetailList	= data.payload[1];	
+					$scope.clearAllMessages();
 					$scope.feedEvent.transportJourney = data.payload[2];
+					if(flag)
+					{
+						$scope.entryEventSuccessMessage = true;
+					}
+					if(flag1)
+					{
+						$scope.entryEventDetailSuccessMessage = true;
+					}
 					$window.scrollTo(0,550);
 							
 				}
 			else
 				{
-					$scope.feedEvent = {};
-					$scope.feedEventDetailList={};
+					$scope.resetForm();
 					$scope.clearAllMessages();
 					if(data.recordNotPresent)
 					{
@@ -151,7 +165,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		});
 	}
 	
-	$scope.addFeedEventDetail = function()
+	$scope.addFeedEventDetail = function(id)
 	{
 		var modalInstance = $modal.open ({
 			templateUrl: 'addFeedEventDetail',
@@ -167,6 +181,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 					feedEventDetailData.ticketNumber = $scope.feedEvent.ticketNumber;
 					feedEventDetailData.companyId = $scope.companyId;
 					feedEventDetailData.feedId = $scope.feedEvent.id;
+					feedEventDetailData.id = id;
 					return feedEventDetailData;
 				}
 			}
@@ -174,7 +189,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		
 		modalInstance.result.then( function(res) { 
 			$scope.entryEventDetailSuccessMessage = true;
-			$scope.getFeedEvent();
+			$scope.getFeedEvent($scope.feedEvent.ticketNumber,false,true);
 		});
 	}
 	
