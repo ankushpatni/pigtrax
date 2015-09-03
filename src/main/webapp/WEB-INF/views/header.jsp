@@ -61,7 +61,7 @@
                 </li>
               </ul>
             </li>
-            <li class="button dropdown"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-globe"></i><span class="bubble">2</span></a>
+            <li class="button dropdown"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-globe"></i></a>
               <ul class="dropdown-menu">
                 <li>
                   <div class="nano nscroller">

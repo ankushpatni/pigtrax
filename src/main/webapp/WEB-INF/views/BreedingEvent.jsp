@@ -151,10 +151,10 @@
                       required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
-						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null">Gestation window started on {{breedingEvent.gestationRecordDate}}</label>
+						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null && !malePigIdentified">Gestation window started on {{breedingEvent.gestationRecordDate}}</label>
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
-					
+					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  required 

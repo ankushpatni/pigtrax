@@ -19,6 +19,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.requiredPigIdMessage = false;
 		$scope.inValidServiceIdFromServer = false;
 		$scope.farrowEventValidation_ErrCode_1 = false;
+		$scope.malePigIdentified = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -66,6 +67,12 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 					{
 						$scope.inValidPigIdFromServer = false;
 						$scope.requiredPigIdMessage = false;
+						var pigInfo = data.payload;
+						if(pigInfo.sexTypeId != 2)
+						{
+							$scope.clearAllMessages();
+							$scope.malePigIdentified = true;
+						}
 					}
 						
 				});
