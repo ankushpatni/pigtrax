@@ -9,6 +9,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.entryEventDeleteMessage = false;
 		$scope.searchErrorMessage = false;
 		$scope.entryEventDuplicateErrorMessage = false;
+		$scope.entryDateRequired = false;
+		$scope.invalidEntryDate = false;
 	};
 	
 	$scope.clearAllMessages();
@@ -39,30 +41,51 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		
 		
 		$scope.addEntryEvent = function(){
+			
+			if(entryDate == null || entryDate == undefined || entryDate == "")
+			{
+				$scope.entryDateRequired = true;
+			}				
+			
+			
 			if($scope.entryEventForm.$valid)
 			{
+				$scope.clearAllMessages();
+				
 				var birthDate = document.getElementById("birthDate").value;
-				$scope.pigInfo["birthDate"] = birthDate;
-				$scope.pigInfo["companyId"] = $scope.companyId;
-				restServices.saveEntryEventInformation($scope.pigInfo, function(data){
-					if(!data.error)
-						{
-							$scope.clearAllMessages();
-							$scope.entryEventSuccessMessage = true;
-							$scope.pigInfo = {};
-							$scope.changeText();
-							
-						}
-					else
-						{
-							$scope.clearAllMessages();
-							if(data.duplicateRecord)
-								$scope.entryEventDuplicateErrorMessage = true;
+				var entryDate = document.getElementById("entryDate").value;
+				
+				alert("entryDate = "+entryDate);
+				
+				if(birthDate != null && birthDate >=  entryDate)
+				{
+				   $scope.invalidEntryDate = true;	
+				}
+				else
+					{
+						$scope.pigInfo["birthDate"] = birthDate;
+						$scope.pigInfo["entryDate"] = entryDate;
+						$scope.pigInfo["companyId"] = $scope.companyId;
+						restServices.saveEntryEventInformation($scope.pigInfo, function(data){
+							if(!data.error)
+								{
+									$scope.clearAllMessages();
+									$scope.entryEventSuccessMessage = true;
+									$scope.pigInfo = {};
+									$scope.changeText();
+									
+								}
 							else
-								$scope.entryEventErrorMessage = true;
-						}
-					$window.scrollTo(0, 0);
-				});
+								{
+									$scope.clearAllMessages();
+									if(data.duplicateRecord)
+										$scope.entryEventDuplicateErrorMessage = true;
+									else
+										$scope.entryEventErrorMessage = true;
+								}
+							$window.scrollTo(0, 0);
+						});
+					}
 			}
 		};
 		

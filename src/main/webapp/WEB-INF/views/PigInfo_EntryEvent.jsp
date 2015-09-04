@@ -123,10 +123,18 @@
 					     invalid-message="'<spring:message code='label.piginfo.entryeventform.gcompany.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
                           <input size="16" type="date" id="birthDate" name="birthDate" ng-model="pigInfo.birthDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div> 
+                    </div>
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                          <input size="16" type="date" id="entryDate" name="entryDate" ng-model="pigInfo.entryDate" readonly="" class="form-control"  format-date required-message="'<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' />'"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                        </div> 
+                        <label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' /></label>
+                        <label ng-show="invalidEntryDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invalidmessage' text='Entry date can not be earlier than birth date' /></label>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/></label>

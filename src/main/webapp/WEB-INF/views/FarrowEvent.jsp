@@ -210,7 +210,7 @@
                       <textarea name="remarks" ng-model="farrowEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.farroweventform.remarks.placeholder' text='Enter remarks'/>" required required-message="'<spring:message code='label.piginfo.farroweventform.remarks.requiredmessage' text='Remarks is required'/>'"></textarea>
                     </div>
                     
-                    <button class="btn btn-primary" ng-click="addFarrowEvent()" type="submit" ng-disabled="inValidPigIdFromServer"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-primary" ng-click="addFarrowEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deleteFarrowEvent()" ng-show="farrowEvent.id != null && farrowEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.farroweventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.farroweventform.delete'  text='Delete'/></button>
                   </form>
