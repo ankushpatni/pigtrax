@@ -21,6 +21,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.breedingEventValidation_ErrCode_2 = false;
 		$scope.breedingEventValidation_ErrCode_3 = false;
 		$scope.breedingEventValidation_ErrCode_BirthDate = false;
+		$scope.entryEventDuplicateErrorMessage = false;
 		$scope.confirmClick = false;
 		$scope.malePigIdentified = false;
 	};
