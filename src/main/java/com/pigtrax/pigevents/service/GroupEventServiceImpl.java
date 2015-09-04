@@ -3,7 +3,9 @@ package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.master.dto.Silo;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
@@ -224,6 +227,27 @@ public class GroupEventServiceImpl implements GroupEventService{
 			throw new PigTraxException("SqlException occured",
 						sqlEx.getSQLState());			
 		} 
+	}
+	
+	public Map<Integer, GroupEvent> getGroupEventByCompanyId(
+			int companyId)  {
+		Map<Integer, GroupEvent> groupIdMap = new LinkedHashMap<Integer, GroupEvent>();
+		try
+		{
+			List<GroupEvent> groupEventList = groupEventDao.getGroupEventByCompanyId(companyId);
+			if (null != groupEventList && groupEventList.size() > 0) 
+			{
+				for (GroupEvent groupEvent : groupEventList) {
+					groupIdMap.put(groupEvent.getId(), groupEvent);
+				}
+			}
+		} 
+		catch (SQLException sqlEx)
+		{
+			logger.info("No GroupEvent found for given company is : " + companyId + "/"
+					+ sqlEx.getCause());			
+		} 
+		return groupIdMap;
 	}
 
 	

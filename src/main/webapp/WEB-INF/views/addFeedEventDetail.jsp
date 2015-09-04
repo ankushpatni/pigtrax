@@ -12,6 +12,14 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.submit.error.message' text='An exception occurred. Please check the values entered'/>
                   </div>
+				   <div class="alert alert-danger alert-white rounded"  ng-show="groupStartDateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform.submit.groupDateError.message' text='Feed Event Date can not be less than Group Event Start Date'/>
+                  </div>
+				<div class="alert alert-danger alert-white rounded"  ng-show="groupEndDateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform.submit.groupDateError.message' text='Feed Event Date can not be more than Group Event End Date'/>
+                  </div>				  
 					<input type=hidden name="id" ng-model="feedEventDetail.id"/>
     				<div class="form-group">
 						<label><spring:message code="label.feedEventDetail.feedEventId" text="Feed Event" /></label>
@@ -51,6 +59,12 @@
                          ng-options="k as v for (k, v) in feedEventType">
                         </select>
                     </div>
+                    <div class="form-group">
+						<label><spring:message code="label.feedEventDetail.groupEventId" text="Group Event" /></label>
+						 <select class="form-control"  name="groupEventId" id="groupEventId" ng-model="feedEventDetail.groupEventId"  required required-message="'<spring:message code='label.feedEventDetail.groupEventId.required' text='Group Event is required' />'"  
+                         ng-options="k as v.groupId for (k, v) in groupEvent">
+                        </select>
+					</div>
                   
 			<button class="btn btn-primary btn-flat md-close"  ng-click="addFeedEventDetail()" ng-hide="feedEventDetail.id>0"><spring:message code="label.premise.add" text="Add" /></button>
 			<button class="btn btn-primary btn-flat md-close"  ng-click="addFeedEventDetail()" ng-show="feedEventDetail.id>0"><spring:message code="label.premise.edit" text="Edit" /></button>

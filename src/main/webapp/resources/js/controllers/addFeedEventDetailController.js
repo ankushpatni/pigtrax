@@ -7,6 +7,7 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 	$scope.feedEventId = feedEventDetailData.feedEventId;
 	$scope.ticketNumber = feedEventDetailData.ticketNumber;
 	$scope.companyId = feedEventDetailData.companyId;
+	$scope.groupEvent = feedEventDetailData.groupEvent;
 	console.log(feedEventDetailData);
 	
 	if(feedEventDetailData.id)
@@ -44,8 +45,27 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 				{
 					$scope.feedEventDetail.feedEventDate =  document.getElementById("feedEventDate").value;
 				}
-				$scope.feedEventDetail.feedEventId = feedEventDetailData.feedId;
 				console.log($scope.feedEventDetail);
+				if($scope.feedEventDetail.groupEventId)
+				{
+					var groupStartDate = $scope.groupEvent[$scope.feedEventDetail.groupEventId].groupStartDateTime;
+					var groupEndDate = $scope.groupEvent[$scope.feedEventDetail.groupEventId].groupCloseDateTime;
+					
+					console.log(groupStartDate);
+					console.log(groupEndDate);
+					  if($scope.feedEventDetail.feedEventDate<groupStartDate)
+					  {
+						$scope.groupStartDateErrorMessage = true;
+						return;
+					  }
+					  if(groupEndDate && $scope.feedEventDetail.feedEventDate>groupEndDate)
+					  {
+						$scope.groupEndDateErrorMessage = true;
+						return;
+					  }
+				}
+				$scope.feedEventDetail.feedEventId = feedEventDetailData.feedId;
+				
 				restServices.addFeedEventDetail($scope.feedEventDetail, function(data){
 				console.log(data);
 					if(!data.error)

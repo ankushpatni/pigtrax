@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.pigtrax.pigevents.beans.GroupEvent;
 
@@ -19,5 +20,7 @@ public interface GroupEventDao {
 	GroupEvent getGroupEventByGeneratedGroupId(final int groupId, final int companyId);
 	
 	String getListoFFollowerId(final String groupId) throws SQLException;
+	
+	public List<GroupEvent> getGroupEventByCompanyId( final int companyId) throws SQLException;
 
 }

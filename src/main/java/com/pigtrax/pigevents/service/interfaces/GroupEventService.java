@@ -25,5 +25,8 @@ GroupEvent getGroupEventByGroupId(final String groupId, final int companyId) thr
 	 GroupEvent getGroupEventByGeneratedGroupId(final int groupId,  final int companyId);
 	 
 	 public String getListoFFollowerId(final String groupId) throws PigTraxException ;
+	 
+	 Map<Integer,GroupEvent> getGroupEventByCompanyId( int companyId);
+		
 
 }

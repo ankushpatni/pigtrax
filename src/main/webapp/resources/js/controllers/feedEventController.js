@@ -8,7 +8,8 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	$scope.transportTrailer;
 	$scope.feedEventDetailList=[];
 	$scope.siloList={};
-	$scope.feedEventType={};	
+	$scope.feedEventType={};
+	$scope.groupEvent={};
 	
 	
 	$scope.setCompanyId = function(companyId,ticketNumber)
@@ -31,7 +32,8 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		res2.success(function(data, status, headers, config) {
 			console.log(data);
 			$scope.siloList = data.payload[1];	
-			$scope.feedEventType = data.payload[0];				
+			$scope.feedEventType = data.payload[0];
+			$scope.groupEvent = data.payload[2]
 		});
 		res2.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
@@ -153,7 +155,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 					transportJourneyMasterData.transportDestination = $scope.transportDestination;
 					transportJourneyMasterData.transportTruck = $scope.transportTruck;
 					transportJourneyMasterData.transportTrailer = $scope.transportTrailer;
-					transportJourneyMasterData.transportJourney = $scope.feedEvent.transportJourney;
+					transportJourneyMasterData.transportJourney = $scope.feedEvent.transportJourney;					
 					return transportJourneyMasterData;
 				}
 			}
@@ -182,6 +184,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 					feedEventDetailData.companyId = $scope.companyId;
 					feedEventDetailData.feedId = $scope.feedEvent.id;
 					feedEventDetailData.id = id;
+					feedEventDetailData.groupEvent = $scope.groupEvent;
 					return feedEventDetailData;
 				}
 			}
