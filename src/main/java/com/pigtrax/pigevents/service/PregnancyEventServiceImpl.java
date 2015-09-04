@@ -103,7 +103,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 		PigTraxEventMaster master = new PigTraxEventMaster();
 		master.setPigInfoId(pregnancyEvent.getPigInfoId());
 		master.setUserUpdated(pregnancyEvent.getUserUpdated());
-		master.setEventTime(pregnancyEvent.getExamDate());
+		master.setEventTime(pregnancyEvent.getResultDate());
 		master.setPregnancyEventId(pergnancyEventId);
 		eventMasterDao.insertEntryEventDetails(master);
 		

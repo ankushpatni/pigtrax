@@ -51,7 +51,7 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 						var dto = data.payload;
 						if(dto.pigletsAdded)
 						{
-							alert("came here");
+							
 							$scope.clearAllMessages();
 							$scope.pigletsAdded = true;
 							

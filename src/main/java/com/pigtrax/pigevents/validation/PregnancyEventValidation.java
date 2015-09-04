@@ -1,6 +1,6 @@
 package com.pigtrax.pigevents.validation;
 
-import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -10,7 +10,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
 
 @Component
@@ -21,6 +22,9 @@ public class PregnancyEventValidation {
 	
 	private static final Logger logger = Logger.getLogger(PregnancyEventValidation.class);
 	
+	
+	@Autowired
+	PregnancyEventDao pregnancyEventDao;
 		
 	@Autowired
 	private Environment env;
@@ -37,6 +41,7 @@ public class PregnancyEventValidation {
 	private int ERR_CODE_02 = 2;
 	private int ERR_CODE_03 = 3;
 	private int ERR_CODE_04 = 4;
+	private int ERR_CODE_05 = 5;
 	
 	/**
 	 * Load the property values
@@ -80,9 +85,15 @@ public class PregnancyEventValidation {
 	  DateTime serviceDate = new DateTime(pregnancyEventDto.getBreedingEventDto().getBreedingDate());
 	  
 	  int duration = Days.daysBetween(serviceDate, resultDate).getDays();
+	  
+	  boolean flag = checkPregnancyEventExists(pregnancyEventDto);
 	 
+	  if(pregnancyEventDto.getId() == null && flag) 
+	  {
+		  return ERR_CODE_05;
+	  }
 	  //In case of pregnancy event
-	  if(duration <= 0)
+	  else if(duration <= 0)
 	  {
 		  return ERR_CODE_04;
 	  }
@@ -103,6 +114,27 @@ public class PregnancyEventValidation {
 	 
   }
   
+  
+  /**
+   * Check if Pregnancy event record already created
+   * @param breedEventId
+   * @return
+   */
+  private boolean checkPregnancyEventExists (PregnancyEventDto pregnancyEventDto)
+  {
+	  List<PregnancyEvent> pregnancyEvents = pregnancyEventDao.getPregnancyEvents(pregnancyEventDto.getBreedingEventDto().getId());
+	  if(pregnancyEvents != null && pregnancyEvents.size() > 0)
+	  {
+		  for(PregnancyEvent event : pregnancyEvents)
+		  {
+			  if(event.getPregnancyEventTypeId() == pregnancyEventDto.getPregnancyEventTypeId())
+				  return true;
+		  }
+		  return false;
+	  }
+	  else
+		  return false;
+  }
   
   
 }

@@ -21,7 +21,10 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.breedingEventValidation_ErrCode_2 = false;
 		$scope.breedingEventValidation_ErrCode_3 = false;
 		$scope.breedingEventValidation_ErrCode_BirthDate = false;
+		$scope.entryEventDuplicateErrorMessage = false;
+		$scope.breedingEventValidation_ErrCode_EntryDate = false;
 		$scope.confirmClick = false;
+		$scope.breedingDateRequired = false;
 		$scope.malePigIdentified = false;
 	};
 	
@@ -127,6 +130,13 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	
 	
 	$scope.addBreedingEvent = function(){
+		
+		var breedingDate = document.getElementById("breedingDate").value;
+		if(breedingDate == null || breedingDate == undefined || breedingDate == "")
+		{
+			$scope.breedingDateRequired = true;
+		}	
+		
 		if($scope.breedingeventform.$valid)
 		{
 			if($scope.confirmClick)
@@ -135,7 +145,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				} 
 			else
 			{
-				var breedingDate = document.getElementById("breedingDate").value;
+				
 				$scope.breedingEvent["breedingDate"] = breedingDate;
 				$scope.breedingEvent["companyId"] = $rootScope.companyId;
 				restServices.validateBreedingEvent($scope.breedingEvent, function(data){
@@ -154,6 +164,11 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 					    	 {
 					    		 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_BirthDate = true;
+					    	 }
+					    	 else if(statusCode == "ERR_ENTRYDATE_NOT_MATCHING")
+					    	 {
+					    		 $scope.clearAllMessages();
+						    	 $scope.breedingEventValidation_ErrCode_EntryDate = true;
 					    	 }
 					    	 else if(statusCode == "WARN-01")
 					    	 {
