@@ -22,6 +22,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.pregnancyEventValidation_ErrCode_2 = false;
 		$scope.pregnancyEventValidation_ErrCode_3 = false;
 		$scope.pregnancyEventValidation_ErrCode_4 = false;
+		$scope.pregnancyEventValidation_ErrCode_5 = false;
 		$scope.malePigIdentified = false;
 	};
 	
@@ -187,6 +188,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					   $scope.pregnancyEventValidation_ErrCode_3 = true;
 				   else if(statusCode == 4)
 					   $scope.pregnancyEventValidation_ErrCode_4 = true;
+				   else if(statusCode == 5)
+					   $scope.pregnancyEventValidation_ErrCode_5 = true;
 				}
 			});
 			
