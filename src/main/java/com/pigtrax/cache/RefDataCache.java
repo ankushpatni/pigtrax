@@ -9,9 +9,9 @@ public interface RefDataCache {
 
 	Map<Integer, String> getSexTypeMap(String language);
 
-	Set<String> getCitiesForCountry(String city);
+	Map<String, String> getCitiesForCountry(String city);
 
-	Set<String> getAllCountries();
+	Map<String, String> getAllCountries();
 
 	Map<Integer, String> getPhaseTypeMap(String language);
 
