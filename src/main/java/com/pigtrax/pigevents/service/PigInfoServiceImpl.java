@@ -75,7 +75,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 		PigTraxEventMaster master = new PigTraxEventMaster();
 		master.setPigInfoId(id_PigInfo);
 		master.setUserUpdated(pigInfo.getUserUpdated());
-		master.setEventTime(pigInfo.getBirthDate());
+		master.setEventTime(pigInfo.getEntryDate());
 		eventMasterDao.insertEntryEventDetails(master);
 		return id_PigInfo;		
 	}

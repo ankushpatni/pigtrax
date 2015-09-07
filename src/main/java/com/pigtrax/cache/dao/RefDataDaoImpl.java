@@ -19,7 +19,6 @@ import org.springframework.stereotype.Repository;
 
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
 import com.pigtrax.cache.dto.RefDataTranslationDto;
-import com.pigtrax.pigevents.beans.FarrowEvent;
 
 @Repository
 public class RefDataDaoImpl implements RefDataDao {
@@ -93,26 +92,39 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
-	
-
+	@Override
+	public Map<String, String> getCountryData() {
+		String query = "select distinct country.name from pigtraxrefdata.\"Country\" country;";
+		return jdbcTemplate.query(query, new ResultSetExtractor<Map<String, String>>() {
+			@Override
+			public Map<String, String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<String, String> resultMap = new HashMap<String, String>();
+				while (rs.next()) {
+					String country = rs.getString(1);
+					resultMap.put(country,  country);
+				}
+				return resultMap;
+			}
+		});
+	}
 
 	@Override
-	public Map<String, Set<String>> getCountryCityData() {
+	public Map<String, Map<String, String>> getCityCountryData() {
 		String query = "select city.name, country.name from pigtraxrefdata.\"Country\" country, pigtraxrefdata.\"City\" city where city.\"id_Country\"=country.id order by city.\"id_Country\", city.name;";
-		return jdbcTemplate.query(query, new ResultSetExtractor<Map<String, Set<String>>>() {
+		return jdbcTemplate.query(query, new ResultSetExtractor<Map<String, Map<String, String>>>() {
 			@Override
-			public Map<String, Set<String>> extractData(ResultSet rs) throws SQLException, DataAccessException {
-				Map<String, Set<String>> resultMap = new HashMap<String, Set<String>>();
+			public Map<String, Map<String, String>> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<String, Map<String, String>> resultMap = new HashMap<String, Map<String, String>>();
 				while (rs.next()) {
 					String city = rs.getString(1);
 					String country = rs.getString(2);
 
-					Set<String> cityList = resultMap.get(country);
-					if (cityList == null) {
-						cityList = new HashSet<String>();
-						resultMap.put(country, cityList);
+					Map<String, String> cityMap = resultMap.get(country);
+					if (cityMap == null) {
+						cityMap = new HashMap<String, String>();
+						resultMap.put(country, cityMap);
 					}
-					cityList.add(city);
+					cityMap.put(city, city.substring(0, 2));
 				}
 				return resultMap;
 			}

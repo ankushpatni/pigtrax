@@ -59,6 +59,7 @@ public class BreedingEventValidation {
 	private String ERR_CODE_03 = "ERR-03";
 	private String ERR_CODE_04 = "ERR-04";
 	private String ERR_CODE_BIRTH_DATE = "ERR_BIRTHDATE_NOT_MATCHING";
+	private String ERR_CODE_ENTRY_DATE = "ERR_ENTRYDATE_NOT_MATCHING";
 	
 	/**
 	 * Load the property values
@@ -105,12 +106,15 @@ public class BreedingEventValidation {
 	  
 	  DateTime currentBreedingEventDate = new DateTime(breedingEventDto.getBreedingDate());
 	  DateTime pigBirthDate = null;
+	  DateTime pigEntryDate = null;
 	  
 	  List<PigTraxEventMaster> eventMasterList = null;
 		try {
 			eventMasterList = eventMasterDao.getEventMasterRecords(pigInfoKey); 
 			pigInfo = pigInfoDao.getPigInformationById(pigInfoKey);
-			pigBirthDate = new DateTime(pigInfo.getBirthDate());
+			if(pigInfo.getBirthDate() != null) 
+				pigBirthDate = new DateTime(pigInfo.getBirthDate());
+			pigEntryDate = new DateTime(pigInfo.getEntryDate());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new PigTraxException(e.getMessage(),"");
@@ -118,9 +122,13 @@ public class BreedingEventValidation {
 	 
 		
 		
-	  if(currentBreedingEventDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) != 1)
+	  if(pigBirthDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) != 1) 
 	  {
 		  return ERR_CODE_BIRTH_DATE;
+	  }
+	  if(pigEntryDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigEntryDate.toLocalDate()) != 1)
+	  {
+		  return ERR_CODE_ENTRY_DATE;
 	  }
 	   if(eventMasterList == null)
 	  {
