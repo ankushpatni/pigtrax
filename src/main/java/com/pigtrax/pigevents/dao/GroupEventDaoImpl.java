@@ -45,7 +45,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 			List<GroupEvent> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
-					ps.setString(1, groupId);
+					ps.setString(1, groupId.toUpperCase());
 					ps.setInt(2, companyId);
 				}}, new GroupEventMapper());
 

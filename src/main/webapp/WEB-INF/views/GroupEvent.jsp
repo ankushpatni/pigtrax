@@ -184,8 +184,6 @@
 	</form>	  		
 		<div class="md-overlay"></div>
 </div>	
-<jsp:include page="transportJourney.jsp"></jsp:include>
-
 
 		
 		

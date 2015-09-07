@@ -61,6 +61,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 						var truckData={};
 						truckData.generatedCompanyId =  $scope.generatedCompanyId;
 						truckData.truck = true;
+						truckData.transportTrailerType = $scope.transportTrailerType;
     					return truckData;
     				}
     			}
@@ -131,6 +132,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 			res.success(function(data, status, headers, config) {
 				$scope.rowCollectionTruck = data.payload[0];
 				$scope.rowCollectionTrailer = data.payload[1];
+				$scope.transportTrailerType = data.payload[2];
 				$scope.totalPagesTruck = Math.ceil($scope.rowCollectionTruck.length/10);
 				$scope.totalPagesTrailer = Math.ceil($scope.rowCollectionTrailer.length/10);
 			});

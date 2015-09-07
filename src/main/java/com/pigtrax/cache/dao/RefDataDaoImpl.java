@@ -5,10 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -93,40 +92,60 @@ public class RefDataDaoImpl implements RefDataDao {
 	}
 	
 	@Override
-	public Map<String, String> getCountryData() {
+	public List<RefDataTranslationDto> transportTrailerType() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TrailerType\" FROM pigtraxrefdata.\"TrailerTypeTranslation\" order by \"fieldLanguage\", \"id_TrailerType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	
+	@Override
+	public List<Map<String, String>> getCountryData() {
 		String query = "select distinct country.name from pigtraxrefdata.\"Country\" country;";
-		return jdbcTemplate.query(query, new ResultSetExtractor<Map<String, String>>() {
+		return jdbcTemplate.query(query, new ResultSetExtractor<List<Map<String, String>>>() {
 			@Override
-			public Map<String, String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-				Map<String, String> resultMap = new HashMap<String, String>();
+			public List<Map<String, String>> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<Map<String, String>> resultMapList = new LinkedList<Map<String, String>>();
+				Map<String, String> resultMap = new HashMap<String,String>();
 				while (rs.next()) {
 					String country = rs.getString(1);
-					resultMap.put(country,  country);
+					resultMap = new HashMap<String,String>();
+					resultMap.put("name",  country);
+					resultMap.put("value",  country);
+					resultMapList.add(resultMap);
 				}
-				return resultMap;
+				return resultMapList;
 			}
 		});
 	}
 
 	@Override
-	public Map<String, Map<String, String>> getCityCountryData() {
+	public List<Map<String, List<Map<String, String>>>> getCityCountryData() {
 		String query = "select city.name, country.name from pigtraxrefdata.\"Country\" country, pigtraxrefdata.\"City\" city where city.\"id_Country\"=country.id order by city.\"id_Country\", city.name;";
-		return jdbcTemplate.query(query, new ResultSetExtractor<Map<String, Map<String, String>>>() {
+		return jdbcTemplate.query(query, new ResultSetExtractor<List<Map<String, List<Map<String, String>>>>>() {
 			@Override
-			public Map<String, Map<String, String>> extractData(ResultSet rs) throws SQLException, DataAccessException {
-				Map<String, Map<String, String>> resultMap = new HashMap<String, Map<String, String>>();
+			public List<Map<String, List<Map<String, String>>>> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<String, List<Map<String, String>>> resultMap = new HashMap<String, List<Map<String, String>>>();
+				List<Map<String, String>> resultMapList = new LinkedList<Map<String, String>>();
+				Map<String, String> cityMap = new HashMap<String, String>();
+				List<Map<String, List<Map<String, String>>>> finalList = new LinkedList<Map<String, List<Map<String, String>>>>();
+				
 				while (rs.next()) {
 					String city = rs.getString(1);
 					String country = rs.getString(2);
 
-					Map<String, String> cityMap = resultMap.get(country);
-					if (cityMap == null) {
-						cityMap = new HashMap<String, String>();
-						resultMap.put(country, cityMap);
+					List<Map<String, String>> cityMapList = resultMap.get(country);
+					if (cityMapList == null) {
+						cityMapList = new LinkedList<Map<String, String>>();						
 					}
-					cityMap.put(city, city.substring(0, 2));
+					
+					cityMap = new HashMap<String, String>();
+					cityMapList.add(cityMap);
+					resultMap.put(country, cityMapList);
+					cityMap.put("name", city);
+					cityMap.put("value", city.substring(0, 2));
 				}
-				return resultMap;
+				finalList.add(resultMap);
+				return finalList;
 			}
 		});
 	}

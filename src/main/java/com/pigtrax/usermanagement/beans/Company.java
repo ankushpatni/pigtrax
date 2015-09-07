@@ -9,6 +9,7 @@ public class Company {
 	private String companyId;
 	private String name;
 	private String address;
+	private String country;
 	private String city;
 	private String registrationNumber;
 	private String email;
@@ -102,6 +103,13 @@ public class Company {
 	}
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
+	}
+	
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	@Override
 	public String toString() {

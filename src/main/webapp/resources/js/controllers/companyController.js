@@ -3,6 +3,9 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 	$scope.itemsByPage=10;
 	$scope.totalPages;
 	$scope.differentPages=[{"name":"Premises","value":"premises"}];
+	$scope.country;
+	$scope.cityJSON;
+	$scope.city;
 	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
@@ -12,7 +15,7 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
         this.hoverEdit = false;
     };
 
-	
+
     //deactivate/activate to the real data holder
     $scope.removeItem = function removeItem(row) {
     	var postParam = {
@@ -69,7 +72,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
     			windowClass : 'cp-model-window',
 				resolve:{
     				companyData : function(){
-    					return null;
+					var companyData={};
+						companyData.countryList = $scope.country;
+						companyData.cityJSON = $scope.cityJSON;
+    					return companyData;
     				}
     			}
     		});
@@ -90,6 +96,8 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
     			windowClass : 'cp-model-window',
     			resolve:{
     				companyData : function(){
+						companyRow.countryList = $scope.country;
+						companyRow.cityJSON = $scope.cityJSON;
     					return companyRow;
     				}
     			}
@@ -104,6 +112,15 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
     	}
 	
 	$scope.getCompanyList = function(){
+	restServices.getCityCountryList(function(data){
+	console.log(data);
+			 if(!data.error)
+			 {
+				$scope.country = data.payload[0];
+				var temp = data.payload[1];
+				$scope.cityJSON = temp[0];				
+			 }
+		});
 		restServices.getCompanyList(function(data){
 			 if(!data.error)
 			 {
@@ -112,6 +129,12 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 			 }
 		});
 	};
+	
+	$scope.getCityName = function(countryId)
+	{
+		$scope.city = $scope.cityJSON[countryId];
+		console.log($scope.city );		
+	}
 	
 	
 	$scope.goToPigEvent= function(eventName, companyId)

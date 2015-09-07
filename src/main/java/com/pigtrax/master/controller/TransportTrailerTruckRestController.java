@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dto.TransportTruck;
 import com.pigtrax.master.service.interfaces.TransportTrailerService;
 import com.pigtrax.master.service.interfaces.TransportTruckService;
@@ -35,6 +36,9 @@ public class TransportTrailerTruckRestController {
 	@Autowired
 	TransportTrailerService transportTrailerServiceImpl;
 	
+	@Autowired
+	RefDataCache refDataCache;
+	
 	/**
 	 * Service to retrive the list of Silo
 	 * @return ServiceResponseDto
@@ -49,6 +53,7 @@ public class TransportTrailerTruckRestController {
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		phaseType.add(transportTruckServiceImpl.getTransportTruckList(generatedCompanyId));
 		phaseType.add(transportTrailerServiceImpl.getTransportTrailerList(generatedCompanyId));
+		phaseType.add(refDataCache.transportTrailerType(language));
 		dto.setPayload(phaseType);
 		dto.setStatusMessage("Success");
 		return dto;

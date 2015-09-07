@@ -42,26 +42,29 @@ public class RefDataCacheImpl implements RefDataCache {
 	private Map<String, Map<Integer, String>> siloTypeMap;
 
 	private Map<String, Map<Integer, String>> pigletStatusEventTypeMap;
+	
 	private Map<String, Map<Integer, String>> phaseOfProductionTypeMap;
 
 	private Map<String, Map<Integer, String>> feedEventTypeMap;
+	
+	private Map<String, Map<Integer, String>> transportTrailerTypeMap;
 
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
 	 * 
 	 * <Spain, <[Madris, Barcelona, Alicante]>
 	 */
-	private Map<String, Map<String, String>> cityCountryMap;
+	private List<Map<String, List<Map<String, String>>>> cityCountryMap;
 
-	private Map<String, String> countryMap;
+	private List<Map<String, String>> countryMapList;
 
 	public void populateCaches() {
 		roleTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getRoleTypeData()));
 		sexTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSexData()));
 		phaseTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseTypeData()));
 		ventilationTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getVentilationTypeData()));
-		countryMap = Collections.unmodifiableMap(refDataDao.getCountryData());
-		cityCountryMap = Collections.unmodifiableMap(refDataDao.getCityCountryData());
+		countryMapList = refDataDao.getCountryData();
+		cityCountryMap = refDataDao.getCityCountryData();
 		breedingServiceTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getBreedingServiceTypeData()));
 		pregnancyEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyEventTypeData()));
 		pregnancyExamResultTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPregnancyExamResultTypeData()));
@@ -69,6 +72,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		pigletStatusEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPigletStatusEventType()));
 		phaseOfProductionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseOfProductionType()));
 		feedEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFeedEventType()));
+		transportTrailerTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.transportTrailerType()));
 	}
 
 	@Override
@@ -107,13 +111,13 @@ public class RefDataCacheImpl implements RefDataCache {
 	}
 
 	@Override
-	public Map<String, String> getCitiesForCountry(String city) {
-		return cityCountryMap.get(city);
+	public List<Map<String, List<Map<String, String>>>> getCitiesForCountry(String city) {
+		return cityCountryMap;
 	}
 
 	@Override
-	public Map<String, String> getAllCountries() {
-		return countryMap;
+	public List<Map<String, String>> getAllCountries() {
+		return countryMapList;
 	}
 
 	@Override
@@ -153,6 +157,11 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getPigletStatusEventType(String language) {
 		return pigletStatusEventTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> transportTrailerType(String language) {
+		return transportTrailerTypeMap.get(language);
 	}
 
 }

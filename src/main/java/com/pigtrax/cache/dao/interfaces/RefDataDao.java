@@ -32,8 +32,10 @@ public interface RefDataDao {
 
 	public List<RefDataTranslationDto> getFeedEventType();
 
-	Map<String, String> getCountryData();
+	List<Map<String, String>> getCountryData();
 
-	Map<String, Map<String, String>> getCityCountryData();
+	List<Map<String, List<Map<String, String>>>> getCityCountryData();
+
+	List<RefDataTranslationDto> transportTrailerType();
 
 }

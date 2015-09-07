@@ -95,6 +95,8 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 						} 
 				});
 			}
+		
+		$window.scrollTo(0,5);
 	}
 	
 	$scope.getFeedEvent = function (ticketNumber,flag,flag1)

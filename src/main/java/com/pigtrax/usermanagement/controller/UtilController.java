@@ -45,8 +45,11 @@ public class UtilController {
 	{
 		logger.info("Inside getCompanyList" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		Map<String, Set<String>> cityCountryMap = null;
-		dto.setPayload(cityCountryMap);
+		List cityCountryList = new ArrayList();
+		List<Map<String, String>> countryList = refDataCache.getAllCountries();
+		cityCountryList.add(countryList);
+		cityCountryList.add(refDataCache.getCitiesForCountry(null));
+		dto.setPayload(cityCountryList);
 		dto.setStatusMessage("Success");
 		return dto;
 	}

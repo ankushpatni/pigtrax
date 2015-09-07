@@ -18,7 +18,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		$scope.groupEvent.groupId = groupGeneratedId;
 		$scope.groupStartDateTime = groupStartDateTime;
 		$scope.groupEvent.companyId = companyId;
-		console.log($scope.groupEvent.companyId);
+		console.log(groupGeneratedId);
 		/*restServices.getPhaseOfProductionType($scope.companyId, function(data){
 			console.log(data);
 			if(!data.error)
@@ -46,7 +46,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		console.log(groupDetailId);
 		if(groupDetailId != 'undefined' )
 		{
-		console.log(groupDetailId);
+			console.log(groupDetailId);
 			$scope.getGroupEventDetail(groupDetailId);
 		}
 		

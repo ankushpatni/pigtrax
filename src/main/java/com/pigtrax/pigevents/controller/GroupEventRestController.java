@@ -97,7 +97,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 					companyId = activeUser.getCompanyId();
 			   }
 			
-			List groupEventAndDetail = groupEventService.getGroupEventAndDetailByGroupId(groupEvent.getGroupId(), companyId);
+			List groupEventAndDetail = groupEventService.getGroupEventAndDetailByGroupId(groupEvent.getGroupId().toUpperCase(), companyId);
 			if(groupEventAndDetail != null && groupEventAndDetail.size()>0 )
 			{
 				dto.setPayload(groupEventAndDetail);

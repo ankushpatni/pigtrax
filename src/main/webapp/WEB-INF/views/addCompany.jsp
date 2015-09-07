@@ -113,7 +113,7 @@
 						</div>
 					</div>
 					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="paymentDateFlag" ><spring:message code='label.company.paymentDateRequired' text='Payment Date is required' /></label>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="paymentDateFlag" ><spring:message code='label.company.paymentDate.required' text='Payment Date is required' /></label>
 					</div>
 				<div class="modal-footer">
 

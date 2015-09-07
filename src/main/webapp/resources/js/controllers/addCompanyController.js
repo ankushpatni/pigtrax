@@ -4,19 +4,23 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 	$scope.add ={};
 	$scope.alertVisible = false;
 	$scope.alertMessage;
-	$scope.country=[{"name":"US","value":"US"},{"name":"UK","value":"UK"},{"name":"Germany","value":"Germany"}];
-	$scope.cityJSON={"US":[{"name":"BOSTON","value":"BOS"}],"UK":[{"name":"LONDON","value":"LON"}],"Germany":[{"name":"Moscow","value":"mOS"}]};
+	//$scope.country=[{"name":"US","value":"US"},{"name":"UK","value":"UK"},{"name":"Germany","value":"Germany"}];
+	//$scope.cityJSON={"US":[{"name":"BOSTON","value":"BOS"}],"UK":[{"name":"LONDON","value":"LON"}],"Germany":[{"name":"Moscow","value":"mOS"}]};
+	$scope.country=companyData.countryList;
+	$scope.cityJSON=companyData.cityJSON;
 	$scope.city;
+	console.log(companyData);
 	
-	if(companyData != null)
+	
+	if(companyData != null && companyData.id !=null)
 	{
 		$scope.edit = true;
 		$scope.add.companyId = companyData.companyId,
     	$scope.add.name = companyData.name,
     	$scope.add.address = companyData.address,
-		//$scope.add.city = $scope.cityJSON[companyData.city],
-    	//$scope.add.city = companyData.country + "-"+companyData.city,
-		$scope.add.city = companyData.city,
+		$scope.add.country = companyData.country,
+    	$scope.city = companyData.cityJSON[companyData.country],
+		$scope.add.city = [companyData.city],
     	$scope.add.registrationNumber = companyData.registrationNumber,
     	$scope.add.email = companyData.email,
     	$scope.add.phone = companyData.phone,
@@ -36,6 +40,7 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 						"name" : $scope.add.name,
 						"address" : $scope.add.address,
 						"city" : $scope.add.city,
+						"country" : $scope.add.country,
 						"registrationNumber" : $scope.add.registrationNumber,
 						"email" : $scope.add.email,
 						"phone" : $scope.add.phone,
