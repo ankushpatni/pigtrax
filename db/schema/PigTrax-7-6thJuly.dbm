@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.0" last-position="4084,2002" last-zoom="0.9"
+<dbmodel pgmodeler-ver="0.8.0" last-position="2095,1943" last-zoom="0.7"
 	 default-owner="postgres">
 <role name="pitraxadmin"
       superuser="true"
@@ -23,7 +23,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Company">
 	<schema name="pigtrax"/>
 	<role name="postgres"/>
-	<position x="1981.25" y="3151.04"/>
+	<position x="251.25" y="2968.18"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -77,7 +77,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Premise">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2976.02" y="3309.95"/>
+	<position x="1246.02" y="3127.09"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -158,7 +158,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Barn">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="1941.02" y="3565.19"/>
+	<position x="211.02" y="3382.33"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -215,7 +215,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Silo">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="3755.62" y="3396.36"/>
+	<position x="2025.62" y="3213.5"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -263,7 +263,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Room">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="3196.15" y="3706.9"/>
+	<position x="1466.15" y="3524.04"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -301,7 +301,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Pen">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="3611.15" y="4141.09"/>
+	<position x="1881.15" y="3958.23"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -358,7 +358,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Employee">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2018.48" y="3909.45"/>
+	<position x="288.48" y="3726.59"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -423,7 +423,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="TransportDestination">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="3406.77" y="3007.71"/>
+	<position x="1676.77" y="2824.85"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -456,7 +456,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="TransportJourney">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="3730.96" y="2588.13"/>
+	<position x="2000.96" y="2405.27"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -522,7 +522,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="BreedingEvent">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="4489.04" y="4897.17"/>
+	<position x="2759.04" y="4714.31"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -588,7 +588,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="FarrowEvent">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2893.81" y="5196.68"/>
+	<position x="1163.81" y="5013.82"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -666,7 +666,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="PregnancyEvent">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="3146.8" y="4725.05"/>
+	<position x="1416.8" y="4542.19"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -713,7 +713,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="PigletStatus">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2135.82" y="4576.89"/>
+	<position x="405.82" y="4394.03"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -793,15 +793,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="RemovalEvent">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="5101.49" y="3031.37"/>
+	<position x="3384.35" y="3084.23"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
 	<column name="removalId" not-null="true">
 		<type name="varchar" length="30"/>
-	</column>
-	<column name="removalDateTime" not-null="true">
-		<type name="timestamp"/>
 	</column>
 	<column name="remarks">
 		<type name="varchar" length="255"/>
@@ -820,80 +817,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_GroupEvent" index="3"/>
-		<object name="id_PigInfo" index="4"/>
-		<object name="id_RemovalType" index="5"/>
-		<object name="id_TransportJourney" index="2"/>
+		<object name="id_RemovalType" index="2"/>
+		<object name="id_TransportJourney" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="GroupEvent_fk" index="3"/>
-		<object name="PigInfo_fk" index="4"/>
-		<object name="RemovalEvent_uq" index="5"/>
-		<object name="RemovalType_fk" index="6"/>
+		<object name="RemovalType_fk" index="3"/>
 		<object name="TransportJourney_fk" index="2"/>
-	</customidxs>
-</table>
-
-<table name="SaleEvent">
-	<schema name="pigtrax"/>
-	<role name="pitraxadmin"/>
-	<position x="5288.2" y="3947.18"/>
-	<column name="id" not-null="true">
-		<type name="serial"/>
-	</column>
-	<column name="numberOfPigsOrigin" not-null="true">
-		<type name="smallint"/>
-	</column>
-	<column name="numberOfPigsDestination" not-null="true">
-		<type name="smallint"/>
-	</column>
-	<column name="reasonForMissingPigs">
-		<type name="varchar" length="50"/>
-	</column>
-	<column name="revenueUsd" not-null="true">
-		<type name="numeric" length="20" precision="2"/>
-	</column>
-	<column name="weightInKgs" not-null="true">
-		<type name="numeric" length="20" precision="2"/>
-	</column>
-	<column name="invoiceId" not-null="true">
-		<type name="varchar" length="30"/>
-	</column>
-	<column name="ticketNumber" not-null="true">
-		<type name="varchar" length="30"/>
-	</column>
-	<column name="saleDateTime" not-null="true">
-		<type name="timestamp"/>
-	</column>
-	<column name="remarks">
-		<type name="varchar" length="255"/>
-	</column>
-	<column name="lastUpdated" not-null="true">
-		<type name="timestamp"/>
-	</column>
-	<column name="userUpdated" not-null="true">
-		<type name="varchar" length="20"/>
-	</column>
-	<constraint name="SALE_PK" type="pk-constr" table="pigtrax.&quot;SaleEvent&quot;">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-
-	<customidxs object-type="column">
-		<object name="id_Barn" index="13"/>
-		<object name="id_GroupEvent" index="15"/>
-		<object name="id_PigInfo" index="16"/>
-		<object name="id_SaleEventType" index="12"/>
-		<object name="id_TransportJourney" index="14"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="Barn_fk" index="2"/>
-		<object name="GroupEvent_fk" index="4"/>
-		<object name="PigInfo_fk" index="5"/>
-		<object name="SaleEventType_fk" index="1"/>
-		<object name="SaleEvent_uq" index="6"/>
-		<object name="TransportJourney_fk" index="3"/>
 	</customidxs>
 </table>
 
@@ -928,28 +858,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<relationship name="Sale_Refers_Barn" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;Barn&quot;"
-	 dst-table="pigtrax.&quot;SaleEvent&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="Sale_refer_TransportJoueney" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;TransportJourney&quot;"
-	 dst-table="pigtrax.&quot;SaleEvent&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
 <relationship name="Removal_refers_TransportJourney" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
@@ -958,6 +866,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-table="pigtrax.&quot;TransportJourney&quot;"
 	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
 	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
 	<label ref-type="name-label">
 		<position x="0" y="0"/>
 	</label>
@@ -972,7 +883,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="FeedEvent">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="4605.44" y="2592.23"/>
+	<position x="2875.44" y="2409.37"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1028,7 +939,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="GroupEvent">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="5187.15" y="4577.42"/>
+	<position x="3457.15" y="4394.56"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1107,7 +1018,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Genetics">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="5227.71" y="5116.89"/>
+	<position x="3497.71" y="4934.03"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1150,7 +1061,7 @@ nn - Not Null]]></comment>
 <table name="TransportTruck">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2256.39" y="2753.89"/>
+	<position x="526.39" y="2571.03"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1182,7 +1093,7 @@ nn - Not Null]]></comment>
 <table name="TransportTrailer">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2628.15" y="2881.9"/>
+	<position x="898.15" y="2699.04"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1256,28 +1167,6 @@ nn - Not Null]]></comment>
 	 dst-table="pigtrax.&quot;FeedEvent&quot;"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="Sale_Refers_PigEvent" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;GroupEvent&quot;"
-	 dst-table="pigtrax.&quot;SaleEvent&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="Removal_Refers_GroupId_In_PigEvent" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;GroupEvent&quot;"
-	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="73.6697" y="8.83936"/>
-	</label>
-</relationship>
-
 <usertype name="PregnancyEventType" configuration="enumeration">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
@@ -1287,7 +1176,7 @@ nn - Not Null]]></comment>
 <table name="EmployeeGroup">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2309.82" y="4244.22"/>
+	<position x="579.82" y="4061.36"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1346,7 +1235,7 @@ nn - Not Null]]></comment>
 <table name="PigTraxEventMaster">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="3757.68" y="5265.67"/>
+	<position x="2027.68" y="5082.81"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1366,25 +1255,23 @@ nn - Not Null]]></comment>
 	<customidxs object-type="column">
 		<object name="id_BreedingEvent" index="3"/>
 		<object name="id_FarrowEvent" index="5"/>
-		<object name="id_FeedEvent" index="11"/>
+		<object name="id_FeedEvent" index="10"/>
 		<object name="id_GroupEvent" index="2"/>
-		<object name="id_PigInfo" index="10"/>
+		<object name="id_PigInfo" index="9"/>
 		<object name="id_PigletStatus" index="6"/>
 		<object name="id_PregnancyEvent" index="4"/>
-		<object name="id_RemovalEvent" index="12"/>
-		<object name="id_SaleEvent" index="9"/>
+		<object name="id_RemovalEvent" index="11"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
 		<object name="BreedingEvent_fk" index="2"/>
 		<object name="FarrowEvent_fk" index="4"/>
-		<object name="FeedEvent_fk" index="8"/>
+		<object name="FeedEvent_fk" index="7"/>
 		<object name="GroupEvent_fk" index="1"/>
-		<object name="PigInfo_fk" index="9"/>
+		<object name="PigInfo_fk" index="8"/>
 		<object name="PigletStatus_fk" index="5"/>
 		<object name="PregnancyEvent_fk" index="3"/>
-		<object name="RemovalEvent_fk" index="7"/>
-		<object name="SaleEvent_fk" index="6"/>
+		<object name="RemovalEvent_fk" index="6"/>
 	</customidxs>
 </table>
 
@@ -1433,15 +1320,6 @@ nn - Not Null]]></comment>
 	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="PigTraxEventMaster_has_many_Sale" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;SaleEvent&quot;"
-	 dst-table="pigtrax.&quot;PigTraxEventMaster&quot;"
-	 src-required="false" dst-required="false"/>
-
 <relationship name="PigTraxEventMaster_has_many_Removal" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
@@ -1469,7 +1347,7 @@ nn - Not Null]]></comment>
 <table name="PigInfo">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="4443.15" y="3596.89"/>
+	<position x="2713.15" y="3414.03"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1606,19 +1484,6 @@ nn - Not Null]]></comment>
 	</label>
 </relationship>
 
-<relationship name="Removal_is_associated_with_piginfo" type="rel11"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;PigInfo&quot;"
-	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
 <relationship name="Barn_has_many_Pigs" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
@@ -1626,15 +1491,6 @@ nn - Not Null]]></comment>
 	 custom-color="#83af1f"
 	 src-table="pigtrax.&quot;Barn&quot;"
 	 dst-table="pigtrax.&quot;PigInfo&quot;"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="Sale_refers_PigInfo" type="rel11"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtrax.&quot;PigInfo&quot;"
-	 dst-table="pigtrax.&quot;SaleEvent&quot;"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="Farrow_refers_PigInfo" type="rel1n"
@@ -1653,7 +1509,7 @@ nn - Not Null]]></comment>
 <table name="EmployeeJobFunction">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2919.05" y="4015.97"/>
+	<position x="1189.05" y="3833.11"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1707,7 +1563,7 @@ nn - Not Null]]></comment>
 <table name="IndividualPigletStatus">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="2192.62" y="5073.35"/>
+	<position x="462.62" y="4890.49"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -1761,19 +1617,6 @@ nn - Not Null]]></comment>
 	 src-table="pigtrax.&quot;PigletStatus&quot;"
 	 dst-table="pigtrax.&quot;IndividualPigletStatus&quot;"
 	 src-required="false" dst-required="false"/>
-
-<relationship name="SaleEvent_refers_SaleEventType" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="pigtraxrefdata.&quot;SaleEventType&quot;"
-	 dst-table="pigtrax.&quot;SaleEvent&quot;"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
 
 <table name="VentilationType">
 	<schema name="pigtraxrefdata"/>
@@ -2202,7 +2045,10 @@ INSERT INTO pigtraxrefdata."SexType" ("fieldCode","fieldDescription","lastUpdate
 	 custom-color="#83af1f"
 	 src-table="pigtraxrefdata.&quot;RemovalType&quot;"
 	 dst-table="pigtrax.&quot;RemovalEvent&quot;"
-	 src-required="false" dst-required="false">
+	 src-required="true" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
 	<label ref-type="name-label">
 		<position x="0" y="0"/>
 	</label>
@@ -2858,7 +2704,7 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 <table name="EventLog">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="4422.44" y="5303.04"/>
+	<position x="2692.44" y="5120.18"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -3086,7 +2932,7 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 <table name="FeedEventDetails">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="5411.11" y="2434.44"/>
+	<position x="3681.11" y="2251.58"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -3163,7 +3009,7 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 <table name="GroupEventDetails">
 	<schema name="pigtrax"/>
 	<role name="pitraxadmin"/>
-	<position x="5788.89" y="4875.56"/>
+	<position x="4058.89" y="4692.7"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -3244,6 +3090,165 @@ INSERT INTO pigtraxrefdata."SexTypeTranslation" ("fieldValue","fieldLanguage","l
 	 custom-color="#83af1f"
 	 src-table="pigtraxrefdata.&quot;PhaseOfProductionType&quot;"
 	 dst-table="pigtrax.&quot;GroupEventDetails&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="RemovalEventExceptSalesDetails">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="4437.14" y="3585.71"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="numberOfPigs" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="removalDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="weightInKgs" not-null="true">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="REMOVALEVENTXSALESDETAILS_PK" type="pk-constr" table="pigtrax.&quot;RemovalEventExceptSalesDetails&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_Barn" index="7"/>
+		<object name="id_GroupEvent" index="4"/>
+		<object name="id_PigInfo" index="3"/>
+		<object name="id_RemovalEvent" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Barn_fk" index="4"/>
+		<object name="GroupEvent_fk" index="3"/>
+		<object name="PigInfo_fk" index="2"/>
+		<object name="RemovalEvent_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="RemovalEvent_has_many_RemovalEventDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;RemovalEvent&quot;"
+	 dst-table="pigtrax.&quot;RemovalEventExceptSalesDetails&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="PigInfo_has_many_RemovalEventDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;RemovalEventExceptSalesDetails&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="GroupEvent_has_many_RemovalEventDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;RemovalEventExceptSalesDetails&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="RemovalEventExceptSalesDetails_Refers_To_Barn" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;Barn&quot;"
+	 dst-table="pigtrax.&quot;RemovalEventExceptSalesDetails&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="SalesEventDetails">
+	<schema name="pigtrax"/>
+	<role name="pitraxadmin"/>
+	<position x="4397.15" y="2957.14"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="invoiceId" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="ticketNumber" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="numberOfPigs" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="revenueUsd">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="weightInKgs" not-null="true">
+		<type name="numeric" length="20" precision="2"/>
+	</column>
+	<column name="salesDateTime" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="soldTo" not-null="true">
+		<type name="varchar" length="75"/>
+	</column>
+	<column name="lastUpdated" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="userUpdated" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="SALESDETAILS_PK" type="pk-constr" table="pigtrax.&quot;SalesEventDetails&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_GroupEvent" index="8"/>
+		<object name="id_PigInfo" index="7"/>
+		<object name="id_RemovalEvent" index="10"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="GroupEvent_fk" index="3"/>
+		<object name="PigInfo_fk" index="2"/>
+		<object name="RemovalEvent_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="RemovalEvent_has_many_SalesDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;RemovalEvent&quot;"
+	 dst-table="pigtrax.&quot;SalesEventDetails&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="PigInfo_has_many_SalesDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;PigInfo&quot;"
+	 dst-table="pigtrax.&quot;SalesEventDetails&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="GroupEvent_has_many_SalesDetails" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="pigtrax.&quot;GroupEvent&quot;"
+	 dst-table="pigtrax.&quot;SalesEventDetails&quot;"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
