@@ -103,7 +103,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 		PigTraxEventMaster master = new PigTraxEventMaster();
 		master.setPigInfoId(pregnancyEvent.getPigInfoId());
 		master.setUserUpdated(pregnancyEvent.getUserUpdated());
-		master.setEventTime(pregnancyEvent.getExamDate());
+		master.setEventTime(pregnancyEvent.getResultDate());
 		master.setPregnancyEventId(pergnancyEventId);
 		eventMasterDao.insertEntryEventDetails(master);
 		
@@ -165,7 +165,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 			{
 				Integer fieldCode = refDataDao.getFieldCodeForId(dto.getPregnancyEventTypeId(), "PregnancyEventType");
 				
-				if(pregnancyEventType != null &&  fieldCode == 1)
+				Integer resultFieldCode = refDataDao.getFieldCodeForId(dto.getPregnancyExamResultTypeId(), "PregnancyExamResultType");
+				
+				if(pregnancyEventType != null &&  fieldCode == 1 && resultFieldCode == 1)
 					filteredList.add(dto);					
 			}
 		}

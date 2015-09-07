@@ -107,7 +107,7 @@
                    <input type=hidden name="fosterTo" ng-model="pigletStatusEvent.fosterTo"/>
 				  <input type=hidden name="pigInfoId" ng-model="pigletStatusEvent.pigInfoId"/>				  
 				  <input type=hidden name="fosterFarrowId" ng-model="pigletStatusEvent.fosterFarrowEventId"/>
-				  
+				  <input type=hidden name="eventReason" ng-model="pigletStatusEvent.eventReason" value=""/>
 				  
 					 <div class="form-group"> 
                       <label><spring:message code='label.piginfo.pigletstatuseventform.pigId'  text='Pig Id'/></label>
@@ -140,7 +140,7 @@
 		                  <thead>
 		                  <tr>
 		                   <th><spring:message code='label.piginfo.pigletstatuseventform.fosterFrom' text='Foster From' /></th>
-		                   <th><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /></th>
+		                   <th><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Piglets' /></th>
 		                   <th><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /></th>
 		                   </tr>
 		                  </thead>
@@ -231,12 +231,7 @@
                        placeholder="<spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid.placeholder'  
                        text='Enter Weaning group Id'/>"/>
                     </div>
-					<div class="form-group">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventReason'  text='Event Reason'/></label>
-                      <textarea name="eventReason" ng-model="pigletStatusEvent.eventReason" class="form-control" 
-                       placeholder="<spring:message code='label.piginfo.pigletstatuseventform.eventreason.placeholder' text='Enter event reason'/>"></textarea>
-                    </div>
-                    
+					
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.remarks'  text='Remarks'/><span style='color: red'>*</span></label>
                       <textarea name="remarks" ng-model="pigletStatusEvent.remarks" ng-required="true"  required-message="'<spring:message code='label.piginfo.pigletstatuseventform.remarks.requiredmessage' text='Remarks is required'/>'" 

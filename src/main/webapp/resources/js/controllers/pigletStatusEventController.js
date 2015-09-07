@@ -344,7 +344,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 					$scope.fosterInRecords = [];
 				}
 			else
-				{
+				{ 
 					$scope.clearAllMessages();
 					if(data.duplicateRecord)
 						$scope.entryEventDuplicateErrorMessage = true;

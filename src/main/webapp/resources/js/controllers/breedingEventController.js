@@ -21,6 +21,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.breedingEventValidation_ErrCode_2 = false;
 		$scope.breedingEventValidation_ErrCode_3 = false;
 		$scope.breedingEventValidation_ErrCode_BirthDate = false;
+		$scope.breedingEventValidation_ErrCode_EntryDate = false;
 		$scope.entryEventDuplicateErrorMessage = false;
 		$scope.confirmClick = false;
 		$scope.malePigIdentified = false;
@@ -155,6 +156,11 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 					    	 {
 					    		 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_BirthDate = true;
+					    	 }
+					    	 else if(statusCode == "ERR_ENTRYDATE_NOT_MATCHING")
+					    	 {
+					    		 $scope.clearAllMessages();
+						    	 $scope.breedingEventValidation_ErrCode_EntryDate = true;
 					    	 }
 					    	 else if(statusCode == "WARN-01")
 					    	 {

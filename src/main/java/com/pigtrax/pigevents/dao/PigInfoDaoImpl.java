@@ -140,7 +140,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 					ps.setNull(14, java.sql.Types.INTEGER);
 				ps.setObject(15, pigInfo.getBarnId(), java.sql.Types.INTEGER);
 				ps.setObject(16, pigInfo.getSexTypeId(), java.sql.Types.INTEGER);		
-				ps.setDate(17,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
+				ps.setDate(17,  new java.sql.Date(pigInfo.getEntryDate().getTime()));
 				ps.setInt(18, pigInfo.getId());
 			}
 		});

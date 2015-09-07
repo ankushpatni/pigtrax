@@ -42,6 +42,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		
 		$scope.addEntryEvent = function(){
 			
+			var entryDate = document.getElementById("entryDate").value;
+			
 			if(entryDate == null || entryDate == undefined || entryDate == "")
 			{
 				$scope.entryDateRequired = true;
@@ -52,12 +54,9 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			{
 				$scope.clearAllMessages();
 				
-				var birthDate = document.getElementById("birthDate").value;
-				var entryDate = document.getElementById("entryDate").value;
+				var birthDate = document.getElementById("birthDate").value;				
 				
-				alert("entryDate = "+entryDate);
-				
-				if(birthDate != null && birthDate >=  entryDate)
+				if(birthDate != null && birthDate >  entryDate)
 				{
 				   $scope.invalidEntryDate = true;	
 				}

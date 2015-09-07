@@ -105,6 +105,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_BirthDate' text='Birth date of the pig can not be later than breeding date' />
                   </div>
+                   <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_EntryDate">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_EntryDate' text='Entry date of the pig can not be later than breeding date' />
+                  </div>
                   <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_1' text='Breeding happens between 6 to 18 days' />
@@ -172,6 +176,7 @@
                           <input size="16" type="date" id="breedingDate" name="breedingDate" ng-model="breedingEvent.breedingDate" readonly="" class="form-control" ng-blur="validateBreedingDate()"  format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                     </div>
+                    <label ng-show="breedingDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.breedingDate.requiredmessage' text='Breeding Date is required' /></label>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.semenId'  text='Semen Id'/></label>
                        <input type="text" class="form-control" name="dame" ng-model="breedingEvent.semenId" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.semenId.placeholder' text='Enter Semen Id'/>" />

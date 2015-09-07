@@ -24,6 +24,9 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.pregnancyEventValidation_ErrCode_4 = false;
 		$scope.pregnancyEventValidation_ErrCode_5 = false;
 		$scope.malePigIdentified = false;
+		$scope.resultDateRequired = false;
+		$scope.invalidResultDate = false;
+		$scope.breedingEventIdRequired = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -148,10 +151,24 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	 */
 	$scope.addPregnancyEvent = function()
     {
-		if($scope.pregnancyeventform.$valid)
+		var examDate = document.getElementById("examDate").value;
+		var resultDate = document.getElementById("resultDate").value;
+		if($scope.pregnancyEvent.breedingEventId == undefined || $scope.pregnancyEvent.breedingEventId == null)
 		{
-			var examDate = document.getElementById("examDate").value;
-			var resultDate = document.getElementById("resultDate").value;
+			  $scope.breedingEventIdRequired = true;
+		}
+		else if(resultDate == null || resultDate == undefined || resultDate == "")
+		{
+			$scope.resultDateRequired = true;
+		}	
+		else if(examDate != null && examDate >=  resultDate)
+		{
+		   $scope.invalidResultDate = true;	
+		}	
+		else if($scope.pregnancyeventform.$valid)
+		{
+			
+			
 			$scope.pregnancyEvent["examDate"] = examDate;
 			$scope.pregnancyEvent["resultDate"] = resultDate;
 			$scope.pregnancyEvent["companyId"] = $rootScope.companyId;
@@ -190,6 +207,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					   $scope.pregnancyEventValidation_ErrCode_4 = true;
 				   else if(statusCode == 5)
 					   $scope.pregnancyEventValidation_ErrCode_5 = true;
+				   
+				   $window.scrollTo(0, 5);  
 				}
 			});
 			
@@ -324,11 +343,18 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	
 	$scope.changePregnancyEventType = function()
 	{		
-		/*if($scope.pregnancyEvent.pregnancyEventTypeId != 1)
+		if($scope.pregnancyEvent.pregnancyEventTypeId != 1)
 		{
+			$scope.pregnancyEvent["examDate"] = null;
+			$scope.pregnancyEvent["pregnancyExamResultTypeId"] = null;
 			$("#examDate").attr("disabled","");
 			$("#examResultType").attr("disabled",""); 
-		}*/ 
+		} 
+		else
+			{
+			$("#examDate").attr("disabled",false);
+			$("#examResultType").attr("disabled",false); 
+			}
 	}
 	
 	
