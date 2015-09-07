@@ -291,13 +291,13 @@ INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLangua
 ---------
 INSERT INTO pigtrax."Company"(
 
-            "companyId", name, address, city, "registrationNumber", email,
+            "companyId", name, address, city, country, "registrationNumber", email,
 
             phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
 
             "userUpdated")
 
-VALUES ('1A2B', 'PigTrax', '1 Sovereign Street', 'Leeds', '12345678', 'jimihendrix@gmail.com',
+VALUES ('1A2B', 'PigTrax', '1 Sovereign Street', 'Al','Brazil', '12345678', 'jimihendrix@gmail.com',
 
             '+1-111-111-1111', 'Jimmy Hendrix', 3450.50, CURRENT_DATE, true, CURRENT_DATE,
 
@@ -329,13 +329,13 @@ CURRENT_DATE,'pigtraxadmin',2);
 
 INSERT INTO pigtrax."Company"(
 
-            "companyId", name, address, city, "registrationNumber", email,
+            "companyId", name, address, city, country, "registrationNumber", email,
 
             phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
 
             "userUpdated")
 
-VALUES ('1Y2Z', 'PigFarm', '1 Shire Oak Street', 'Leeds', '34567899', 'jimmypage@gmail.com',
+VALUES ('1Y2Z', 'PigFarm', '1 Shire Oak Street', 'Al','Brazil', '34567899', 'jimmypage@gmail.com',
 
             '+1-111-111-1111', 'Jimmy Page', 13450.50, CURRENT_DATE, true, CURRENT_DATE,
 
@@ -367,13 +367,13 @@ CURRENT_DATE,'pigtraxadmin',4);
 
 INSERT INTO pigtrax."Company"(
 
-            "companyId", name, address, city, "registrationNumber", email,
+            "companyId", name, address, city, country, "registrationNumber", email,
 
             phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
 
             "userUpdated")
 
-VALUES ('1Y2Y', 'PigFarmPP', '1 Sovereign Street', 'Leeds', '12345678', 'jimihendrix@gmail.com',
+VALUES ('1Y2Y', 'PigFarmPP', '1 Sovereign Street', 'Al','Brazil', '12345678', 'jimihendrix@gmail.com',
 
             '+1-111-111-1111', 'Praveen Parasiya', 3450.50, CURRENT_DATE, true, CURRENT_DATE,
 
@@ -421,13 +421,13 @@ VALUES ('praveenfarmemployee2',3, 'Tom', null, true, false, CURRENT_DATE,'pigtra
 
 INSERT INTO pigtrax."Company"(
 
-            "companyId", name, address, city, "registrationNumber", email,
+            "companyId", name, address, city, country, "registrationNumber", email,
 
             phone, "contactName", payment, "paymentDate", "isActive", "lastUpdated",
 
             "userUpdated")
 
-VALUES ('1Z2Z', 'PigFarmPRC', '1 Sovereign Street', 'Leeds', '12345678', 'jimihendrix@gmail.com',
+VALUES ('1Z2Z', 'PigFarmPRC', '1 Sovereign Street', 'Al','Brazil', '12345678', 'jimihendrix@gmail.com',
 
             '+1-111-111-1111', 'Praveen Parasiya', 3450.50, CURRENT_DATE, true, CURRENT_DATE,
 

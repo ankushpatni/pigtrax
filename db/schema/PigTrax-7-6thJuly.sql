@@ -46,6 +46,7 @@ CREATE TABLE pigtrax."Company"(
 	name varchar(50) NOT NULL,
 	address varchar(255) NOT NULL,
 	city varchar(30) NOT NULL,
+	country varchar(30) NOT NULL,
 	"registrationNumber" varchar(20) NOT NULL,
 	email varchar(50) NOT NULL,
 	phone varchar(15) NOT NULL,
