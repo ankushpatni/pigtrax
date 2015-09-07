@@ -56,7 +56,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				
 				var birthDate = document.getElementById("birthDate").value;				
 				
-				if(birthDate != null && birthDate >=  entryDate)
+				if(birthDate != null && birthDate >  entryDate)
 				{
 				   $scope.invalidEntryDate = true;	
 				}

@@ -81,10 +81,16 @@ public class PregnancyEventValidation {
 	  init();
 	  
 	  int pregnancyEventType = pregnancyEventDto.getPregnancyEventTypeId();
+	  
+	  DateTime examDate = null;
+	  if(pregnancyEventDto.getExamDate() != null)
+		  examDate = new DateTime(pregnancyEventDto.getExamDate());
 	  DateTime resultDate = new DateTime(pregnancyEventDto.getResultDate());
 	  DateTime serviceDate = new DateTime(pregnancyEventDto.getBreedingEventDto().getBreedingDate());
 	  
 	  int duration = Days.daysBetween(serviceDate, resultDate).getDays();
+	  
+	  int examDuration = Days.daysBetween(serviceDate, examDate).getDays();
 	  
 	  boolean flag = checkPregnancyEventExists(pregnancyEventDto);
 	 

@@ -136,6 +136,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 				   }
 				   else if(statusCode == 1)
 					   $scope.farrowEventValidation_ErrCode_1 = true;
+				   $window.scrollTo(0, 5);  
 				}
 			});
 			

@@ -165,7 +165,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 			{
 				Integer fieldCode = refDataDao.getFieldCodeForId(dto.getPregnancyEventTypeId(), "PregnancyEventType");
 				
-				if(pregnancyEventType != null &&  fieldCode == 1)
+				Integer resultFieldCode = refDataDao.getFieldCodeForId(dto.getPregnancyExamResultTypeId(), "PregnancyExamResultType");
+				
+				if(pregnancyEventType != null &&  fieldCode == 1 && resultFieldCode == 1)
 					filteredList.add(dto);					
 			}
 		}

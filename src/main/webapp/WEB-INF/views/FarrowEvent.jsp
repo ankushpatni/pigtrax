@@ -149,15 +149,15 @@
                     <label><spring:message code='label.piginfo.farroweventform.pigletinfo'  text='Piglet Information'/></label>
                     <table class="table">
                      <tr>
-                       <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="text" ng-value = "0" name="farrowId" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td><input type="number" ng-value="0" name="farrowId" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="number" ng-value = "0" name="farrowId" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="text" ng-value="0" name="farrowId" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="number" ng-value="0" name="farrowId" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="number" ng-value="0" name="farrowId" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="text" ng-value="0"  name="farrowId" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  name="farrowId" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
                        <td>&nbsp;</td>
 					   <td>&nbsp;</td>
                      </tr>
@@ -176,7 +176,7 @@
                     <div class="form-group">
                     
                     <label>Weight(kgs)</label>
-                    <input type="text" name="farrowId" ng-model="farrowEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
+                    <input type="number" name="farrowId" ng-model="farrowEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
                     </div>
                     <div class="form-group">
                     	<label>Type of Birth</label>

@@ -207,6 +207,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					   $scope.pregnancyEventValidation_ErrCode_4 = true;
 				   else if(statusCode == 5)
 					   $scope.pregnancyEventValidation_ErrCode_5 = true;
+				   
+				   $window.scrollTo(0, 5);  
 				}
 			});
 			
@@ -348,6 +350,11 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 			$("#examDate").attr("disabled","");
 			$("#examResultType").attr("disabled",""); 
 		} 
+		else
+			{
+			$("#examDate").attr("disabled",false);
+			$("#examResultType").attr("disabled",false); 
+			}
 	}
 	
 	
