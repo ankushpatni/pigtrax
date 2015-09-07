@@ -20,7 +20,8 @@
 				<th st-sort="roomId" style="width:20%"><spring:message code="label.pen.penID" text="Pen ID"/></th>
 				<th st-sort="location" style="width:30%"><spring:message code="label.barn.location" text="Location" /></th>
 				<th style="width:20%"><spring:message code="label.premise.edit" text="Edit" /></th>
-				<th style="width:20px"></th>
+				<th style="width:20px"><spring:message code="label.company.activateDeactivate"
+												text="Activate/Deactivate"/></th>
 			</tr>
 		 	<tr>
 				<th colspan="4"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
@@ -35,11 +36,11 @@
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 				</td>
 				<td style="width:20px">
-				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.deactivate" text="De-Activate" /></a>
+				<button ng-hide="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.deactivate" text="De-Activate" /></a>
 					<i class="glyphicon glyphicon-remove-circle">
 					</i>
 				</button>
-				<button ng-hide="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-success" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.activate" text="Activate" /></a>
+				<button ng-show="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-success" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.activate" text="Activate" /></a>
 					<i class="glyphicon glyphicon glyphicon-ok">
 					</i>
 				</button>

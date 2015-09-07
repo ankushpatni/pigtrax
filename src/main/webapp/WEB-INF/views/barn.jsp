@@ -26,7 +26,8 @@
 				<th st-sort="ventilationType" style="width:10%"><spring:message code="label.barn.ventilationType" text="Ventilation Type" /></th>
 				<th style="width:8%"><spring:message code="label.premise.edit" text="Edit" /></th>
 				<th style="width:8%"><spring:message code="label.company.goto" text="Go To" /></th>
-				<th style="width:20px"></th>
+				<th style="width:20px"><spring:message code="label.company.activateDeactivate"
+												text="Activate/Deactivate"/></th>
 			</tr>
 		 	<tr>
 				<th colspan="10"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
@@ -61,11 +62,11 @@
 							</div>	 --%>
 				</td>
 				<td style="width:20px">
-				<button ng-if="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.deactivate" text="De-Activate" /></a>
+				<button ng-hide="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.deactivate" text="De-Activate" /></a>
 					<i class="glyphicon glyphicon-remove-circle">
 					</i>
 				</button>
-				<button ng-hide="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-success" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.activate" text="Activate" /></a>
+				<button ng-show="row.active" type="button" ng-click="removeItem(row)" class="btn btn-sm btn-success" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><a style="color:black" ng-show="hoverEdit"><spring:message code="label.company.activate" text="Activate" /></a>
 					<i class="glyphicon glyphicon glyphicon-ok">
 					</i>
 				</button>

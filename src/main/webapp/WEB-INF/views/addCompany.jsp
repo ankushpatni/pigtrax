@@ -104,7 +104,17 @@
 						ng-pattern="/^[0-9]{1,15}(\.[0-9]+)?$/i"
 						invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'" />
 				</div>
-
+				<div class="form-group">
+						<label ><spring:message code="label.company.paymentDate" text="Payment Date" /></label>
+						<div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+							<input type="text" datepicker-popup="yyyy-MM-dd" class="form-control" datepicker-popup="paymentDate" id="paymentDate" name="paymentDate" ng-model="add.paymentDate" is-open="opened"/>
+							<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</div>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="paymentDateFlag" ><spring:message code='label.company.paymentDateRequired' text='Payment Date is required' /></label>
+					</div>
 				<div class="modal-footer">
 
 					<button class="btn btn-primary btn-flat md-close" ng-click="addCompany()"

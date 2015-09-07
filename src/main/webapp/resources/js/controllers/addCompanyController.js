@@ -28,6 +28,7 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 	}
 	
 	$scope.addCompany = function() {
+	$scope.paymentDateFlag = false;
 		if($scope.companyAddForm.$valid)
 			{
 				var postParam = {
@@ -40,10 +41,19 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 						"phone" : $scope.add.phone,
 						"contactName" : $scope.add.contactName,
 						"payment" : $scope.add.payment,
-						"paymentDate" : $scope.add.paymentDate, 
+						"paymentDate" : document.getElementById("paymentDate").value, 
 						"active" : $scope.add.active,
 						"id" : $scope.add.id
 				};
+				
+				if($scope.add.payment)
+				{
+					if(document.getElementById("paymentDate").value === "")
+					{
+						$scope.paymentDateFlag = true;
+						return false;
+					}
+				}
 				
 				var res = $http.post('rest/company/insertCompanyRecord', postParam);
 				res.success(function(data, status, headers, config) {
@@ -73,5 +83,12 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 	$scope.changeCity = function(){	
 		$scope.city = $scope.cityJSON[$scope.add.country];
 	}
+	
+	$scope.open = function($event) 
+	{
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.opened = true;
+	};
 });
 

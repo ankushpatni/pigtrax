@@ -32,7 +32,7 @@
 										<th st-sort="registrationNumber" size="5%"><spring:message
 												code="label.company.registrationNumber"
 												text="Registration Number" /></th>
-										<th st-sort="email" size="8%"><spring:message
+										<th st-sort="email" size="5%"><spring:message
 												code="label.company.email" text="Email" /></th>
 										<th st-sort="phone" size="8%"><spring:message
 												code="label.company.phone" text="Phone" /></th>
@@ -46,7 +46,8 @@
 												text="Edit" /></th>
 										<th size="15%"><spring:message code="label.company.goto"
 												text="Go To" /></th>
-										<th size="5%"></th>
+										<th style="width:20px"><spring:message code="label.company.activateDeactivate"
+												text="Activate/Deactivate"/></th>
 									</tr>
 									<tr>
 										<th colspan="14"><input st-search="" class="form-control"
@@ -60,12 +61,12 @@
 										<td size="15%">{{row.address}}</td>
 										<td size="8%">{{row.city}}</td>
 										<td size="5%">{{row.registrationNumber}}</td>
-										<td size="8%">{{row.email}}</td>
+										<td size="5%">{{row.email}}</td>
 										<td size="8%">{{row.phone}}</td>
 										<td size="8%">{{row.contactName}}</td>
 										<td size="5%">{{row.payment}}</td>
 										<td size="10%">{{row.paymentDate}}</td>
-										<td size="5%">
+										<td size="10%">
 											<button type="button" class="btn btn-edit btn-xs"
 												ng-click="editCompanyData(row)">
 												<span class="glyphicon glyphicon-pencil"></span>
@@ -110,15 +111,15 @@
 												</div>
 												<% }  %>
 										</td>
-										<td size="5%">
-											<button ng-if="row.active" type="button"
+										<td style="width:20px">
+											<button ng-hide="row.active" type="button"
 												ng-click="removeItem(row)" class="btn btn-sm btn-danger"
 												ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
 												<a style="color: black" ng-show="hoverEdit"><spring:message
 														code="label.company.deactivate" text="De-Activate" /></a> <i
 													class="glyphicon glyphicon-remove-circle"> </i>
 											</button>
-											<button ng-hide="row.active" type="button"
+											<button ng-show="row.active" type="button"
 												ng-click="removeItem(row)" class="btn btn-sm btn-success"
 												ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
 												<a style="color: black" ng-show="hoverEdit"><spring:message

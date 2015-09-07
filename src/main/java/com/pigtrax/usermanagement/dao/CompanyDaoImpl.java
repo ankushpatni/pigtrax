@@ -111,7 +111,8 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 				ps.setString(8, company.getContactName());
 				ps.setBigDecimal(9, company.getPayment());
 				if (company.getPayment() != null && company.getPayment() != BigDecimal.ZERO) {
-					ps.setDate(10, new java.sql.Date(System.currentTimeMillis()));
+					if( company.getPaymentDate() !=null)
+					ps.setDate(10, new java.sql.Date(company.getPaymentDate().getTime()));
 				} else {
 					ps.setDate(10, null);
 				}
@@ -136,7 +137,8 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 				ps.setString(7, company.getContactName());
 				ps.setBigDecimal(8, company.getPayment());
 				if (company.getPayment() != null && company.getPayment() != BigDecimal.ZERO) {
-					ps.setDate(9, new java.sql.Date(System.currentTimeMillis()));
+					if( company.getPaymentDate() !=null)
+					ps.setDate(9, new java.sql.Date(company.getPaymentDate().getTime()));
 				} else {
 					ps.setDate(9, null);
 				}
