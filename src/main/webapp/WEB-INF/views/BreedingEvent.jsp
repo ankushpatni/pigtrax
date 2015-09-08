@@ -7,8 +7,8 @@
  <div class="cl-mcont" ng-controller="BreedingEventController" ng-init="setCompanyId(${CompanyId})">
  
   <div class="row">
- 		  <div class="col-sm-3 col-md-3"></div>
- 		  <div class="col-sm-6 col-md-6">
+ 		  <div class="col-sm-2 col-md-2"></div>
+ 		  <div class="col-sm-8 col-md-8">
  		  <div class="block-flat">
 		   <form name="breedingEventSearchForm" >
  		     <div class="head">
@@ -43,6 +43,7 @@
              <table>
 				<thead>
                      <tr>
+					 <th><spring:message code='label.piginfo.breedingeventform.pigInfoId'  text='Pig Id'/> </th>
                        <th><spring:message code='label.piginfo.breedingeventform.serviceId'  text='Service Id'/> </th>
                        <th><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/> </th>
                        <th><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/> </th>
@@ -51,6 +52,7 @@
                  </thead>
                  <tbody>
                    <tr ng-repeat="breedingEventDto in breedingEventList">
+				   <td>{{breedingEventDto.pigInfoId}}</td>
                     <td>{{breedingEventDto.serviceId}}</td>
                     <td>{{breedingEventDto.breedingServiceType}}</td>
                     <td>{{breedingEventDto.breedingDate | date : 'yyyy-MM-dd'}}</td>
@@ -66,7 +68,7 @@
 		  </form>
           </div>
  		  </div>
- 		  <div class="col-sm-3 col-md-3"></div>
+ 		  <div class="col-sm-2 col-md-2"></div>
  		</div>
  
  

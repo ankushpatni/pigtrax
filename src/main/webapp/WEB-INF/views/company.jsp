@@ -94,7 +94,7 @@
 												<li><a href="#" ng-click="gotToTransportFromDetailsCompany(row,'transportDestinationWithCompanyId')"><spring:message code="label.transportDestination.gotToTranportDestination" text="Destination" /></a></li>
 											  </ul>
 											</div>
-											<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) { %>
+											<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
 												 <br> <br>
 												<div class="btn-group">								 				
 												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>

@@ -20,6 +20,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.inValidServiceIdFromServer = false;
 		$scope.farrowEventValidation_ErrCode_1 = false;
 		$scope.malePigIdentified = false;
+		$scope.invalidFarrowValue = false;
+		$scope.invalidFarrowCount = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -87,61 +89,109 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	 * To add a farrow event
 	 */
 	$scope.addFarrowEvent = function()
-    {
-		if($scope.farroweventform.$valid)
+    {		
+		var liveBorns = $scope.farrowEvent.liveBorns;
+		if(liveBorns == null || liveBorns == undefined)
 		{
-			var farrowDate = document.getElementById("farrowDate").value;
-			$scope.farrowEvent["farrowDateTime"] = farrowDate;
-			$scope.farrowEvent["companyId"] = $rootScope.companyId;
-			
-			var birthType = document.getElementById("birthType").value;
-			if(birthType != null && birthType == "induced")
-			{
-				$scope.farrowEvent["inducedBirth"]=true;
-				$scope.farrowEvent["assistedBirth"]=false;
-			}
-			else if(birthType != null && birthType == "induced")
-			{
-				$scope.farrowEvent["inducedBirth"]=false;
-				$scope.farrowEvent["assistedBirth"]=true;
-			}
-			
-			restServices.validateFarrowEvent($scope.farrowEvent, function(data){
-				if(!data.error)
-				{
-				   $scope.clearAllMessages();
-				   var statusCode = data.payload;
-				   //alert("statusCode = "+statusCode);
-				   if(statusCode == 0)
-				   {
-						//alert(JSON.stringify($scope.farrowEvent));
-						restServices.saveFarrowEventInformation($scope.farrowEvent, function(data){
-							if(!data.error)
-								{ 
-									$scope.clearAllMessages();
-									$scope.entryEventSuccessMessage = true;
-									$scope.farrowEvent = {};
-									$scope.changeText();
-								}
-							else
-								{
-									$scope.clearAllMessages();
-									if(data.duplicateRecord)
-										$scope.entryEventDuplicateErrorMessage = true;
-									else
-										$scope.entryEventErrorMessage = true;
-								}
-								$window.scrollTo(0, 5);  
-						});
-				   }
-				   else if(statusCode == 1)
-					   $scope.farrowEventValidation_ErrCode_1 = true;
-				   $window.scrollTo(0, 5);  
-				}
-			});
-			
-			
+			liveBorns = 0;
+			$scope.farrowEvent.liveBorns = liveBorns
 		}
+		var maleBorns = $scope.farrowEvent.maleBorns;
+		if(maleBorns == null || maleBorns == undefined)
+		{
+			maleBorns = 0;
+			$scope.farrowEvent.maleBorns = maleBorns;
+		}
+		var femaleBorns = $scope.farrowEvent.femaleBorns;
+		if(femaleBorns == null || femaleBorns == undefined)
+		{
+			femaleBorns = 0;
+			$scope.farrowEvent.femaleBorns = femaleBorns;
+		}
+		var stillBorns = $scope.farrowEvent.stillBorns;
+		if(stillBorns == null || stillBorns == undefined)
+		{
+			stillBorns = 0;
+			$scope.farrowEvent.stillBorns = stillBorns;
+		}
+		var mummies = $scope.farrowEvent.mummies;
+		if(mummies == null || mummies == undefined)
+		{
+			mummies = 0;
+			$scope.farrowEvent.mummies = mummies;
+		}
+		 
+		if(parseInt(liveBorns)!= liveBorns || parseInt(maleBorns) != maleBorns 
+				|| parseInt(femaleBorns) != femaleBorns || parseInt(stillBorns) != stillBorns || parseInt(mummies) != mummies )
+		{
+			$scope.clearAllMessages();
+			$scope.invalidFarrowValue = true;
+		}	
+		else if(liveBorns != (eval(maleBorns)+eval(femaleBorns)))
+		{
+			$scope.clearAllMessages();
+			$scope.invalidFarrowCount = true; 
+		}
+		else
+		{
+			$scope.clearAllMessages();
+			if($scope.farroweventform.$valid)
+			{
+				var farrowDate = document.getElementById("farrowDate").value;
+				$scope.farrowEvent["farrowDateTime"] = farrowDate;
+				$scope.farrowEvent["companyId"] = $rootScope.companyId;
+				
+				var birthType = document.getElementById("birthType").value;
+				if(birthType != null && birthType == "induced")
+				{
+					$scope.farrowEvent["inducedBirth"]=true;
+					$scope.farrowEvent["assistedBirth"]=false;
+				}
+				else if(birthType != null && birthType == "induced")
+				{
+					$scope.farrowEvent["inducedBirth"]=false;
+					$scope.farrowEvent["assistedBirth"]=true;
+				}
+				
+				restServices.validateFarrowEvent($scope.farrowEvent, function(data){
+					if(!data.error)
+					{
+					   $scope.clearAllMessages();
+					   var statusCode = data.payload;
+					   //alert("statusCode = "+statusCode);
+					   if(statusCode == 0)
+					   {
+							//alert(JSON.stringify($scope.farrowEvent));
+							restServices.saveFarrowEventInformation($scope.farrowEvent, function(data){
+								if(!data.error)
+									{ 
+										$scope.clearAllMessages();
+										$scope.entryEventSuccessMessage = true;
+										$scope.farrowEvent = {};
+										$scope.changeText();
+									}
+								else
+									{
+										$scope.clearAllMessages();
+										if(data.duplicateRecord)
+											$scope.entryEventDuplicateErrorMessage = true;
+										else
+											$scope.entryEventErrorMessage = true;
+									}
+									$window.scrollTo(0, 5);  
+							});
+					   }
+					   else if(statusCode == 1)
+						   $scope.farrowEventValidation_ErrCode_1 = true;
+					   $window.scrollTo(0, 5);  
+					}
+				});
+				
+				
+			}
+		}
+		
+		
     };
     
     

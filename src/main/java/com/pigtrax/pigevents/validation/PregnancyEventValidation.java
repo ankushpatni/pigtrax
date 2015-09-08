@@ -103,7 +103,8 @@ public class PregnancyEventValidation {
 	  {
 		  return ERR_CODE_04;
 	  }
-	  else if(pregnancyEventType == 1 && (duration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || duration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION))
+	  else if(pregnancyEventType == 1 && ((duration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || duration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION)
+			     || (examDuration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || examDuration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION)))
 	  {
 		  return ERR_CODE_01;
 	  }
