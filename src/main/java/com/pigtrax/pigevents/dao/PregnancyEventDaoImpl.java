@@ -22,6 +22,7 @@ import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
 import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
+import com.pigtrax.pigevents.dto.BreedingEventDto;
 
 @Repository
 @Transactional
@@ -264,4 +265,5 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 
 		return pregnancyEventList;	
    }
+  
 }

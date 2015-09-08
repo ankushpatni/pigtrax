@@ -126,26 +126,27 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		}
 		
 		
+		
 		if(farrowDate == null || farrowDate == undefined || farrowDate == "")
 		{
-			$scope.clearAllMessages();
+						
 			$scope.farrowDateRequired = true;
 		}	
 		
 		if($scope.farrowEvent.pregnancyEventId == null || $scope.farrowEvent.pregnancyEventId == undefined)
 		{
-				$scope.clearAllMessages();
+				
 			  $scope.pregnancyEventRequired = true;
 		}
 		else if(parseInt(liveBorns)!= liveBorns || parseInt(maleBorns) != maleBorns 
 				|| parseInt(femaleBorns) != femaleBorns || parseInt(stillBorns) != stillBorns || parseInt(mummies) != mummies )
 		{
-			$scope.clearAllMessages();
+			
 			$scope.invalidFarrowValue = true;
 		}	
 		else if(liveBorns != (eval(maleBorns)+eval(femaleBorns)))
 		{
-			$scope.clearAllMessages();
+
 			$scope.invalidFarrowCount = true; 
 		}
 		else

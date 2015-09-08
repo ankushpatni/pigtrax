@@ -94,6 +94,41 @@ public class BreedingEventRestController {
 		return dto;
 	}
 	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getActiveBreedingServices", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getActiveBreedingServices(HttpServletRequest request, @RequestBody BreedingEventDto breedingEventDto)
+	{
+		logger.info("Inside getBreedingEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+				
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			breedingEventDto.setLanguage(language); 
+			
+			List<BreedingEventDto> breedingEventDtoList = breedingEventService.getActiveBreedingServices(breedingEventDto);
+			logger.info("size : "+(breedingEventDtoList != null ? breedingEventDtoList.size() : 0));
+			if(breedingEventDtoList != null && breedingEventDtoList.size() > 0)
+			{
+				dto.setPayload(breedingEventDtoList);
+				dto.setStatusMessage("Success");
+			}
+			else
+			{
+				dto.setStatusMessage("ERROR : Breeding Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+	
 	/**
 	 * Service to delete the pig information
 	 * @return ServiceResponseDto

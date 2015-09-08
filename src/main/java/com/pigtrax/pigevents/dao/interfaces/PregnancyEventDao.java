@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.pigevents.dto.BreedingEventDto;
 
 public interface PregnancyEventDao {
 	

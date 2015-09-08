@@ -319,7 +319,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					
 			};
 			
-			restServices.getBreedingEventInformation(searchBreedEvent, function(data){
+			restServices.getActiveBreedingServices(searchBreedEvent, function(data){
 				$scope.clearAllMessages();
 				 $("#searchBreedingService").modal("show");
 				if(!data.error){

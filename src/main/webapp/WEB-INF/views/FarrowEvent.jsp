@@ -141,8 +141,7 @@
 				  	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.farrowId'  text='Farrow Id'/><span style='color: red'>*</span></label>
                       <input ng-hide="farrowEvent.id != null && farrowEvent.id != 0"  type="text" name="farrowId" ng-model="farrowEvent.farrowId"  maxlength="30" 
-                      placeholder="<spring:message code='label.piginfo.farroweventform.farrowId.placeholder'  text='Enter Farrow Id'/>" required
-                      required-message="'<spring:message code='label.piginfo.farroweventform.farrowId.requiredmessage' text='Farrow Id is required' />'"
+                      placeholder="<spring:message code='label.piginfo.farroweventform.farrowId.placeholder'  text='Enter Farrow Id'/>"  required  required-message="'<spring:message code='label.piginfo.farroweventform.farrowId.requiredmessage' text='Farrow Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.farroweventform.farrowId.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  class="form-control">
 				      <p ng-show="farrowEvent.id != null && farrowEvent.id != 0">{{farrowEvent.farrowId}}</p>

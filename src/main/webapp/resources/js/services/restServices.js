@@ -17,6 +17,7 @@ pigTrax.factory("restServices", function($resource) {
     	"deleteBreedingEventInfo" : {method:"POST", url:"rest/breedingEvent/deleteBreedingEventInfo"},
     	"deleteEmployeeGroup" : {method:"POST", url:"rest/employeeGroup/deleteEmployeeGroup"},
     	"getBreedingEventInformation" : {method:"POST", url:"rest/breedingEvent/getBreedingEventInformation"},    	
+    	"getActiveBreedingServices" : {method:"POST", url:"rest/breedingEvent/getActiveBreedingServices"},
     	"saveEmployeeGroup" : {method:"POST", url:"rest/employeeGroup/saveEmployeeGroup"},
     	"getEmployeeGroups" : {method:"POST", url:"rest/employeeGroup/getEmployeeGroups"},
     	"getEmployeeList" : {method:"POST", url:"rest/employeeGroup/getEmployeeList"},
