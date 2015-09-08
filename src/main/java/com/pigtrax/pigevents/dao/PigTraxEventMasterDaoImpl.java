@@ -38,8 +38,8 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	 * @throws SQLException
 	 */
 	public int insertEntryEventDetails(final PigTraxEventMaster master) throws SQLException {
-		String Qry = "insert into pigtrax.\"PigTraxEventMaster\"( \"eventTime\", \"id_PigInfo\", \"lastUpdated\", \"userUpdated\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", \"id_FarrowEvent\", \"id_PigletStatus\", \"id_SaleEvent\", \"id_FeedEvent\", \"id_RemovalEvent\") "
-				+ "values(?,?,current_timestamp,?,?,?,?,?,?,?,?,?)";
+		String Qry = "insert into pigtrax.\"PigTraxEventMaster\"( \"eventTime\", \"id_PigInfo\", \"lastUpdated\", \"userUpdated\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", \"id_FarrowEvent\", \"id_PigletStatus\", \"id_FeedEvent\", \"id_RemovalEvent\") "
+				+ "values(?,?,current_timestamp,?,?,?,?,?,?,?,?)";
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 		
@@ -56,9 +56,8 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 				ps.setObject(6, (master.getPregnancyEventId() != null)?master.getPregnancyEventId():null);
 				ps.setObject(7, (master.getFarrowEventId() != null)?master.getFarrowEventId():null);
 				ps.setObject(8, (master.getPigletStatusId() != null)?master.getPigletStatusId():null);
-				ps.setObject(9, (master.getSaleEventId() != null)?master.getSaleEventId():null);
-				ps.setObject(10, (master.getFeedEventId() != null)?master.getFeedEventId():null);
-				ps.setObject(11, (master.getRemovalEventId() != null)?master.getRemovalEventId():null);
+				ps.setObject(9, (master.getFeedEventId() != null)?master.getFeedEventId():null);
+				ps.setObject(10, (master.getRemovalEventId() != null)?master.getRemovalEventId():null);
 			}
 		});
 		
@@ -112,7 +111,7 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	public List<PigTraxEventMaster> getEventMasterRecords(final Integer pigInfoKey) throws Exception
 	{
 		String qry = "select \"id\", \"eventTime\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", "
-				+ "\"id_FarrowEvent\", \"id_PigletStatus\", \"lastUpdated\", \"userUpdated\", \"id_SaleEvent\", \"id_PigInfo\", \"id_FeedEvent\", \"id_RemovalEvent\" "
+				+ "\"id_FarrowEvent\", \"id_PigletStatus\", \"lastUpdated\", \"userUpdated\", \"id_PigInfo\", \"id_FeedEvent\", \"id_RemovalEvent\" "
 				+ " from pigtrax.\"PigTraxEventMaster\" where \"id_PigInfo\" = ? order by \"id\" desc ";
 		
 		List<PigTraxEventMaster> eventMasterList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -139,8 +138,7 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 			eventMaster.setFarrowEventId(rs.getInt("id_FarrowEvent"));
 			eventMaster.setPigletStatusId(rs.getInt("id_PigletStatus"));
 			eventMaster.setLastUpdated(rs.getDate("lastUpdated"));
-			eventMaster.setUserUpdated(rs.getString("userUpdated"));
-			eventMaster.setSaleEventId(rs.getInt("id_SaleEvent"));
+			eventMaster.setUserUpdated(rs.getString("userUpdated"));			
 			eventMaster.setPigInfoId(rs.getInt("id_PigInfo"));
 			eventMaster.setFeedEventId(rs.getInt("id_FeedEvent"));
 			eventMaster.setRemovalEventId(rs.getInt("id_RemovalEvent"));
