@@ -189,4 +189,13 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 		return null;
 	}
 	
+	@Override 
+	public FarrowEventDto getFarrowEventByPregancyEvent(Integer pregnancyEventId) {
+		FarrowEvent event =  farrowEventDao.getFarrowEventByPregancyEvent(pregnancyEventId);
+		if(event != null) 
+			return builder.convertToDto(event);
+		else 
+			return null;
+	}
+	
 }

@@ -3,6 +3,7 @@ package com.pigtrax.pigevents.service.interfaces;
 import java.util.List;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
 
 public interface FarrowEventService {
@@ -17,5 +18,7 @@ public interface FarrowEventService {
    FarrowEventDto getFarrowEventDetails(Integer farrowEventId) throws PigTraxException;
    
    FarrowEventDto getFarrowEventDetails(FarrowEventDto farrowEventDto) throws PigTraxException;
+   
+   FarrowEventDto getFarrowEventByPregancyEvent(final Integer pregnancyEventId);
 }
 

@@ -25,6 +25,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.pigletstatusEventValidation_ErrCode_3 = false;
 		$scope.pigletstatuseventform.$setUntouched();
 		$scope.pigletStatusEventAlreadyAdded = false;
+		$scope.invalidPigletNumbers = false;
 	};
 	
 	$scope.resetForm = function()
@@ -263,72 +264,84 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	 */
 	$scope.addPigletStatusEvent = function()
     {
-		$scope.clearAllMessages();
-		//alert("fosterToPigId"+$scope.pigletStatusEvent["fosterToPigId"]);
-		if($scope.pigletstatuseventform.$valid)
-		{
-			$scope.pigletStatusEvent["weanEventDateTime"] = document.getElementById("weanEventDateTime").value;
-			$scope.pigletStatusEvent["fosterEventDateTime"] = document.getElementById("fosterEventDateTime").value;
-			$scope.pigletStatusEvent["deathEventDateTime"] = document.getElementById("deathEventDateTime").value;			
-			
-			if($scope.pigletStatusEvent["weanPigNum"] != undefined && $scope.pigletStatusEvent["weanPigNum"] != null &&
-					( $scope.pigletStatusEvent["weanEventDateTime"] === undefined || $scope.pigletStatusEvent["weanEventDateTime"] === null))
+		var weanPigNum = $scope.pigletStatusEvent[weanPigNum];		
+		var fosterPigNum = $scope.pigletStatusEvent[fosterPigNum];
+		var deathPigNum = $scope.pigletStatusEvent[deathPigNum];
+		
+		if(parseInt(weanPigNum) != weanPigNum || parseInt(fosterPigNum) != fosterPigNum || parseInt(deathPigNum) != deathPigNum)
 			{
-				$scope.eventDateTimerequired = true;
-				return;
+				$scope.clearAllMessages();
+				$scope.invalidPigletNumbers = true;
 			}
-			
-			if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null &&
-					( $scope.pigletStatusEvent["fosterEventDateTime"] === undefined || $scope.pigletStatusEvent["fosterEventDateTime"] === null))
+		else
 			{
-				$scope.eventDateTimerequired = true;
-				return;
+				$scope.clearAllMessages();
+				//alert("fosterToPigId"+$scope.pigletStatusEvent["fosterToPigId"]);
+				if($scope.pigletstatuseventform.$valid)
+				{
+					$scope.pigletStatusEvent["weanEventDateTime"] = document.getElementById("weanEventDateTime").value;
+					$scope.pigletStatusEvent["fosterEventDateTime"] = document.getElementById("fosterEventDateTime").value;
+					$scope.pigletStatusEvent["deathEventDateTime"] = document.getElementById("deathEventDateTime").value;			
+					
+					if($scope.pigletStatusEvent["weanPigNum"] != undefined && $scope.pigletStatusEvent["weanPigNum"] != null &&
+							( $scope.pigletStatusEvent["weanEventDateTime"] === undefined || $scope.pigletStatusEvent["weanEventDateTime"] === null))
+					{
+						$scope.eventDateTimerequired = true;
+						return;
+					}
+					
+					if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null &&
+							( $scope.pigletStatusEvent["fosterEventDateTime"] === undefined || $scope.pigletStatusEvent["fosterEventDateTime"] === null))
+					{
+						$scope.eventDateTimerequired = true;
+						return;
+					}
+					
+					if($scope.pigletStatusEvent["deathPigNum"] != undefined && $scope.pigletStatusEvent["deathPigNum"] != null &&
+							( $scope.pigletStatusEvent["deathEventDateTime"] === undefined || $scope.pigletStatusEvent["deathEventDateTime"] === null))
+					{
+						$scope.eventDateTimerequired = true;
+						return;
+					}
+					 
+					if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null 
+							&& ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === null)){				
+							$scope.fosterToPigIdrequired = true;
+							return;				
+					}
+					$scope.clearAllMessages();
+					$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
+					delete $scope.pigletStatusEvent.fosterDto;
+					//alert($scope.pigletStatusEvent.farrowEventId);
+					restServices.validatePigletStatusEvent($scope.pigletStatusEvent, function(data){
+				   		if(!data.error)
+					   {
+				   			var statusCode = data.payload;
+						     
+						     if(statusCode == 0)
+						     {
+						    		$scope.confirmAddPigletStatusEvent();
+									$scope.clearAllMessages();
+		
+									
+						    }
+						     else
+						    {
+						    	 //alert(statusCode);
+						    	 if(statusCode == 1)
+							    	 $scope.pigletstatusEventValidation_ErrCode_1 = true;
+							     else if(statusCode == 2)
+							    	 $scope.pigletstatusEventValidation_ErrCode_2 = true;
+							     else if(statusCode == 3)
+							    	 $scope.pigletstatusEventValidation_ErrCode_3 = true;
+						    	 $scope.confirmClick = true;
+						    	$window.scrollTo(0, 5);
+						   	 }
+					   }
+					});
+					
+				}
 			}
-			
-			if($scope.pigletStatusEvent["deathPigNum"] != undefined && $scope.pigletStatusEvent["deathPigNum"] != null &&
-					( $scope.pigletStatusEvent["deathEventDateTime"] === undefined || $scope.pigletStatusEvent["deathEventDateTime"] === null))
-			{
-				$scope.eventDateTimerequired = true;
-				return;
-			}
-			 
-			if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null 
-					&& ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === null)){				
-					$scope.fosterToPigIdrequired = true;
-					return;				
-			}
-			$scope.clearAllMessages();
-			$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
-			delete $scope.pigletStatusEvent.fosterDto;
-			//alert($scope.pigletStatusEvent.farrowEventId);
-			restServices.validatePigletStatusEvent($scope.pigletStatusEvent, function(data){
-		   		if(!data.error)
-			   {
-		   			var statusCode = data.payload;
-				     
-				     if(statusCode == 0)
-				     {
-				    		$scope.confirmAddPigletStatusEvent();
-							$scope.clearAllMessages();
-
-							
-				    }
-				     else
-				    {
-				    	 //alert(statusCode);
-				    	 if(statusCode == 1)
-					    	 $scope.pigletstatusEventValidation_ErrCode_1 = true;
-					     else if(statusCode == 2)
-					    	 $scope.pigletstatusEventValidation_ErrCode_2 = true;
-					     else if(statusCode == 3)
-					    	 $scope.pigletstatusEventValidation_ErrCode_3 = true;
-				    	 $scope.confirmClick = true;
-				    	$window.scrollTo(0, 5);
-				   	 }
-			   }
-			});
-			
-		}
     };
     
 	$scope.confirmAddPigletStatusEvent = function()

@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.pigtrax.pigevents.dto.FarrowEventDto;
+import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 
 @Component
 //@PropertySource("file:src/main/resources/PigTraxValidation.properties")
@@ -22,11 +23,15 @@ public class FarrowEventValidation {
 	@Autowired
 	private Environment env;
 	
+	@Autowired
+	FarrowEventService farrowEventService;
+	
 	private int FARROW_EVENT_START_DURATION;
 	private int FARROW_EVENT_END_DURATION;
 	
 	private int SUCCESS_CODE = 0;
 	private int ERR_CODE_01 = 1;
+	private int ERR_CODE_02 = 2;
 	
 	/**
 	 * Load the property values
@@ -57,7 +62,13 @@ public class FarrowEventValidation {
 	  DateTime breedingDate = new DateTime(farrowEventDto.getPregnancyEventDto().getBreedingEventDto().getBreedingDate());
 	  int duration = Days.daysBetween(breedingDate, farrowDateTime).getDays();
 	  
-	  if(duration >= FARROW_EVENT_START_DURATION && duration <= FARROW_EVENT_END_DURATION)	  
+	  FarrowEventDto eventDto = farrowEventService.getFarrowEventByPregancyEvent(farrowEventDto.getPregnancyEventId());
+	  
+	  if(eventDto != null && eventDto.getId() != null && eventDto.getId() > 0)
+	  {
+		  return ERR_CODE_02;
+	  }
+	  else if(duration >= FARROW_EVENT_START_DURATION && duration <= FARROW_EVENT_END_DURATION)	  
 		  return SUCCESS_CODE;
 	  else
 		  return ERR_CODE_01;

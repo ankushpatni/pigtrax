@@ -22,6 +22,9 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.malePigIdentified = false;
 		$scope.invalidFarrowValue = false;
 		$scope.invalidFarrowCount = false;
+		$scope.farrowDateRequired = false;
+		$scope.pregnancyEventRequired = false;
+		$scope.farrowEventValidation_ErrCode_2 = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -90,6 +93,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	 */
 	$scope.addFarrowEvent = function()
     {		
+		var farrowDate = document.getElementById("farrowDate").value;
 		var liveBorns = $scope.farrowEvent.liveBorns;
 		if(liveBorns == null || liveBorns == undefined)
 		{
@@ -120,8 +124,20 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			mummies = 0;
 			$scope.farrowEvent.mummies = mummies;
 		}
-		 
-		if(parseInt(liveBorns)!= liveBorns || parseInt(maleBorns) != maleBorns 
+		
+		
+		if(farrowDate == null || farrowDate == undefined || farrowDate == "")
+		{
+			$scope.clearAllMessages();
+			$scope.farrowDateRequired = true;
+		}	
+		
+		if($scope.farrowEvent.pregnancyEventId == null || $scope.farrowEvent.pregnancyEventId == undefined)
+		{
+				$scope.clearAllMessages();
+			  $scope.pregnancyEventRequired = true;
+		}
+		else if(parseInt(liveBorns)!= liveBorns || parseInt(maleBorns) != maleBorns 
 				|| parseInt(femaleBorns) != femaleBorns || parseInt(stillBorns) != stillBorns || parseInt(mummies) != mummies )
 		{
 			$scope.clearAllMessages();
@@ -137,7 +153,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.clearAllMessages();
 			if($scope.farroweventform.$valid)
 			{
-				var farrowDate = document.getElementById("farrowDate").value;
+				
 				$scope.farrowEvent["farrowDateTime"] = farrowDate;
 				$scope.farrowEvent["companyId"] = $rootScope.companyId;
 				
@@ -183,6 +199,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 					   }
 					   else if(statusCode == 1)
 						   $scope.farrowEventValidation_ErrCode_1 = true;
+					   else if(statusCode == 2)
+						   $scope.farrowEventValidation_ErrCode_2 = true;
 					   $window.scrollTo(0, 5);  
 					}
 				});

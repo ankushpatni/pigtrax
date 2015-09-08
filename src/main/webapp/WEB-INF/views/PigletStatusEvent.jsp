@@ -159,15 +159,15 @@
 					
                     <label><spring:message code='label.piginfo.pigletstatuseventform.pigletStatusEventText'  text='Piglet Status Event'/></label>
                     <div>&nbsp;</div>
- 					<!-- <div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="eventDateTimerequired" ><spring:message code='label.piginfo.pigletstatuseventform.fosterToPigId.requiredMessage' text='Event Date is required' /></label>
-					</div>    -->
+ 					
  					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="fosterToPigIdrequired" ><spring:message code='label.piginfo.pigletstatuseventform.fosterToPigId.requiredMessage' text='Pig Id for foster is required' /></label>
-					</div>	
-					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="eventDateTimerequired" ><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime.requiredMessage' text='Event Date is required' /></label>
-					</div>				                    
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidPigletNumbers" ><spring:message code='label.piginfo.pigletstatuseventform.invalidPigletNumbers' text='Piglet count should be in whole numeric values' /></label>
+					</div>	
+					
+						
+							                    
                     <table class="table">
                      <thead>
                        <tr>

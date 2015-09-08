@@ -138,6 +138,31 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	}
    
    
+   /**
+	 * Retrieves the FarrowEvent Event information for a given Id  
+	 */
+  public FarrowEvent getFarrowEventByPregancyEvent(final Integer pregnancyEventId) { 
+	   
+	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
+		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
+		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\""
+		   		+ " from pigtrax.\"FarrowEvent\" FE "
+		   		+ " WHERE FE.\"id_PregnancyEvent\" = ? ";
+		
+		List<FarrowEvent> farrowEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, pregnancyEventId);
+			}}, new FarrowEventMapper());
+
+		if(farrowEventList != null && farrowEventList.size() > 0){
+			return farrowEventList.get(0);
+		}
+		return null;
+	}
+   
+   
 	/**
 	 * Retrieves the Pregnancy Event information for a given Id  
 	 */
