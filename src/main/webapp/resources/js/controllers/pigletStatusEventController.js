@@ -26,6 +26,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.pigletstatuseventform.$setUntouched();
 		$scope.pigletStatusEventAlreadyAdded = false;
 		$scope.invalidPigletNumbers = false;
+		$scope.pigletNumbersRequired = false;
 	};
 	
 	$scope.resetForm = function()
@@ -264,51 +265,86 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	 */
 	$scope.addPigletStatusEvent = function()
     {
-		var weanPigNum = $scope.pigletStatusEvent[weanPigNum];		
-		var fosterPigNum = $scope.pigletStatusEvent[fosterPigNum];
-		var deathPigNum = $scope.pigletStatusEvent[deathPigNum];
+		$scope.clearAllMessages();
+		
+		$scope.pigletStatusEvent["weanEventDateTime"] = document.getElementById("weanEventDateTime").value;
+		$scope.pigletStatusEvent["fosterEventDateTime"] = document.getElementById("fosterEventDateTime").value;
+		$scope.pigletStatusEvent["deathEventDateTime"] = document.getElementById("deathEventDateTime").value;			
+					
+		
+		var weanPigNum = $scope.pigletStatusEvent["weanPigNum"];
+		if(weanPigNum == null || weanPigNum == undefined)
+		{
+			weanPigNum = 0;
+			$scope.pigletStatusEvent["weanPigNum"] = weanPigNum;
+		}
+		var fosterPigNum = $scope.pigletStatusEvent["fosterPigNum"];
+		if(fosterPigNum == null || fosterPigNum == undefined)
+		{
+			fosterPigNum = 0;
+			$scope.pigletStatusEvent["fosterPigNum"] = fosterPigNum;
+		}
+		var deathPigNum = $scope.pigletStatusEvent["deathPigNum"];
+		if(deathPigNum == null || deathPigNum == undefined)
+		{
+			deathPigNum = 0;
+			$scope.pigletStatusEvent["deathPigNum"] = deathPigNum;
+		}		
 		
 		if(parseInt(weanPigNum) != weanPigNum || parseInt(fosterPigNum) != fosterPigNum || parseInt(deathPigNum) != deathPigNum)
-			{
+		{
 				$scope.clearAllMessages();
 				$scope.invalidPigletNumbers = true;
-			}
+		}
+		else if(weanPigNum == 0 && fosterPigNum == 0 && deathPigNum == 0)
+		{		
+			   $scope.clearAllMessages();
+				$scope.pigletNumbersRequired = true;				
+				
+				return;
+		}
+		else if($scope.pigletStatusEvent["weanPigNum"] != undefined && $scope.pigletStatusEvent["weanPigNum"] != null && $scope.pigletStatusEvent["weanPigNum"] != 0
+				&& ( $scope.pigletStatusEvent["weanEventDateTime"] === undefined || $scope.pigletStatusEvent["weanEventDateTime"] === null || 
+				$scope.pigletStatusEvent["weanEventDateTime"] == ""))
+		{
+			
+			$scope.clearAllMessages();
+			$scope.eventDateTimerequired = true;			
+			return;
+		}
+		
+		else if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null && $scope.pigletStatusEvent["fosterPigNum"] != 0
+				&& ( $scope.pigletStatusEvent["fosterEventDateTime"] === undefined || $scope.pigletStatusEvent["fosterEventDateTime"] === null ||
+				$scope.pigletStatusEvent["fosterEventDateTime"] == ""))
+		{
+			$scope.clearAllMessages();
+			$scope.eventDateTimerequired = true;
+			return;
+		}
+		
+		else if($scope.pigletStatusEvent["deathPigNum"] != undefined && $scope.pigletStatusEvent["deathPigNum"] != null && $scope.pigletStatusEvent["deathPigNum"] != 0
+				&& ( $scope.pigletStatusEvent["deathEventDateTime"] === undefined || $scope.pigletStatusEvent["deathEventDateTime"] === null || 
+				$scope.pigletStatusEvent["deathEventDateTime"] === null))
+		{
+			$scope.clearAllMessages();
+			$scope.eventDateTimerequired = true;
+			return;
+		}
+		 
+		else if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null && $scope.pigletStatusEvent["fosterPigNum"] != 0
+				&& ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === null)){				
+				$scope.clearAllMessages();
+				$scope.fosterToPigIdrequired = true;
+				
+				return;				
+		}
 		else
 			{
 				$scope.clearAllMessages();
 				//alert("fosterToPigId"+$scope.pigletStatusEvent["fosterToPigId"]);
 				if($scope.pigletstatuseventform.$valid)
 				{
-					$scope.pigletStatusEvent["weanEventDateTime"] = document.getElementById("weanEventDateTime").value;
-					$scope.pigletStatusEvent["fosterEventDateTime"] = document.getElementById("fosterEventDateTime").value;
-					$scope.pigletStatusEvent["deathEventDateTime"] = document.getElementById("deathEventDateTime").value;			
 					
-					if($scope.pigletStatusEvent["weanPigNum"] != undefined && $scope.pigletStatusEvent["weanPigNum"] != null &&
-							( $scope.pigletStatusEvent["weanEventDateTime"] === undefined || $scope.pigletStatusEvent["weanEventDateTime"] === null))
-					{
-						$scope.eventDateTimerequired = true;
-						return;
-					}
-					
-					if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null &&
-							( $scope.pigletStatusEvent["fosterEventDateTime"] === undefined || $scope.pigletStatusEvent["fosterEventDateTime"] === null))
-					{
-						$scope.eventDateTimerequired = true;
-						return;
-					}
-					
-					if($scope.pigletStatusEvent["deathPigNum"] != undefined && $scope.pigletStatusEvent["deathPigNum"] != null &&
-							( $scope.pigletStatusEvent["deathEventDateTime"] === undefined || $scope.pigletStatusEvent["deathEventDateTime"] === null))
-					{
-						$scope.eventDateTimerequired = true;
-						return;
-					}
-					 
-					if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null 
-							&& ($scope.pigletStatusEvent["fosterToPigId"] === undefined || $scope.pigletStatusEvent["fosterToPigId"] === null)){				
-							$scope.fosterToPigIdrequired = true;
-							return;				
-					}
 					$scope.clearAllMessages();
 					$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
 					delete $scope.pigletStatusEvent.fosterDto;

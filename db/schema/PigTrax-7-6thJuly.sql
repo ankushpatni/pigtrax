@@ -627,7 +627,6 @@ CREATE TABLE pigtrax."PigTraxEventMaster"(
 	"id_PigletStatus" integer,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
-	"id_SaleEvent" integer,
 	"id_PigInfo" integer,
 	"id_FeedEvent" integer,
 	"id_RemovalEvent" integer,

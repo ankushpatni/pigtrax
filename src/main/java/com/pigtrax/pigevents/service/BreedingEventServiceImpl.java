@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -16,9 +17,11 @@ import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
+import com.pigtrax.pigevents.beans.PregnancyEvent;
 import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
+import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.BreedingEventBuilder;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
@@ -48,6 +51,9 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	
 	@Autowired
 	BreedingEventValidation validationObj;
+	
+	@Autowired
+	PregnancyEventDao pregnancyEventDao;
 	
 	public int saveBreedingEventInformation(BreedingEventDto dto)
 			throws Exception {
@@ -201,6 +207,25 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 		if(event != null)
 			return builder.convertToDto(event);
 		return null;
+	}
+	
+	@Override
+	public List<BreedingEventDto> getActiveBreedingServices(
+			BreedingEventDto breedingEventDto) throws PigTraxException {
+		List<BreedingEventDto> breedingEventDtoList = getBreedingEventInformationList(breedingEventDto);
+		//Need to remove the entries which has pregnancy event captured
+		List<BreedingEventDto> filteredList = new ArrayList<BreedingEventDto>();
+		
+		if(breedingEventDtoList != null)
+		{
+			for(BreedingEventDto breedingEvent_Dto : breedingEventDtoList)
+			{
+				List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(breedingEvent_Dto.getId());
+				if(events == null || events.size() == 0)
+					filteredList.add(breedingEvent_Dto);
+			}
+		}		
+		return filteredList;
 	}
 	
 }
