@@ -153,3 +153,11 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		}
 		
 });
+
+
+$(document).ready(function () {
+	$('input[class="icheck"]').on('ifClicked', function (event) {
+		angular.element("#EntryEventControllerId").scope().clearAllMessages();
+		angular.element("#EntryEventControllerId").scope().$apply();
+	});		
+});

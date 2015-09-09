@@ -298,3 +298,10 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	}
 	
 }); 
+
+$(document).ready(function () { 
+	$('input[class="icheck breedingevent"]').on('ifClicked', function (event) {
+		angular.element("#BreedingEventControllerId").scope().clearAllMessages();
+		angular.element("#BreedingEventControllerId").scope().$apply();
+	});		
+});

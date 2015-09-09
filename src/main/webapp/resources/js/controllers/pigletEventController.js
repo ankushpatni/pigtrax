@@ -182,3 +182,11 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
     };
 	
 });
+
+
+$(document).ready(function () { 
+	$('input[class="icheck pigletevent"]').on('ifClicked', function (event) {
+		angular.element("#PigletEventControllerId").scope().clearAllMessages();
+		angular.element("#PigletEventControllerId").scope().$apply();
+	});		
+});

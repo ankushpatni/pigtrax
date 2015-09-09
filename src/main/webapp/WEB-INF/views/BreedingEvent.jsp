@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.breedingeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="BreedingEventController" ng-init="setCompanyId(${CompanyId})">
+ <div class="cl-mcont" ng-controller="BreedingEventController" ng-init="setCompanyId(${CompanyId})" id="BreedingEventControllerId">
  
   <div class="row">
  		  <div class="col-sm-2 col-md-2"></div>
@@ -25,13 +25,13 @@
               </div>
               <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId" > <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
+                  <input type="radio" name="rad1" id="rad1" class="icheck breedingevent" value="pigId" > <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
+                  <input type="radio" name="rad1"  id="rad2" class="icheck breedingevent" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
                 </label>
 				<label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad3" class="icheck" value="serviceId"> <spring:message code='label.piginfo.breedingeventform.search.serviceId.option'  text='Service Id'/> 
+                  <input type="radio" name="rad1"  id="rad3" class="icheck breedingevent" value="serviceId"> <spring:message code='label.piginfo.breedingeventform.search.serviceId.option'  text='Service Id'/> 
                 </label>
               </div>
             </div>

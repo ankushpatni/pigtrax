@@ -10,7 +10,7 @@
                      
                     </div>
                      <ul class="cl-vnavigation">
-                            <li><a href="#"><i class="fa fa-home"></i><span><spring:message code="label.leftmenu.dashboard.link"  text="Dashboard"/></span></a>
+                            <li><a href="home"><i class="fa fa-home"></i><span><spring:message code="label.leftmenu.dashboard.link"  text="Dashboard"/></span></a>
                              
                             </li>
                             <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span><spring:message code="label.leftmenu.managemasterdata.link"  text="Manage Master Data"/></span></a>
