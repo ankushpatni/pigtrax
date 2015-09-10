@@ -37,5 +37,7 @@ public interface RefDataDao {
 	List<Map<String, List<Map<String, String>>>> getCityCountryData();
 
 	List<RefDataTranslationDto> transportTrailerType();
+	
+	List<RefDataTranslationDto> removalEventType();
 
 }

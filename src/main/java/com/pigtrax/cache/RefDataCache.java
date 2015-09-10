@@ -31,5 +31,7 @@ public interface RefDataCache {
 	Map<Integer, String> getFeedEventTypeMap(String language);
 
 	Map<Integer, String> transportTrailerType(String language);
+	
+	Map<Integer, String> getRemovalEventTypeMap(String language) ;
 
 }

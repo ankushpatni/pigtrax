@@ -10,10 +10,10 @@ public interface RemovalEventDao {
 	public RemovalEvent getRemovalEventById(final int id)
 			throws SQLException ;
 	
-	RemovalEvent getFeedEventByRemovalId(final String removalId) throws SQLException;
+	RemovalEvent getRemovalEventByRemovalId(final String removalId) throws SQLException;
 	
-	/*FeedEvent getFeedEventByGeneratedFeedId(final int generatedFeedId) throws SQLException;
-	*/
+	RemovalEvent getRemovalEventByGroupId(final String groupId) throws SQLException;
+	
 	int addRemovalEvent(final RemovalEvent removalEvent) throws SQLException;
 	
 	int updateRemovalEvent(final RemovalEvent removalEvent) throws SQLException;

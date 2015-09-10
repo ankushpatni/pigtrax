@@ -38,7 +38,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	@Override
 	public RemovalEvent getRemovalEventById(final int id) throws SQLException 
 	{
-		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\" "+
+		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
 		   		"from pigtrax.\"RemovalEvent\" where \"id\" = ? ";
 				
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -54,9 +54,9 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	}
 
 	@Override
-	public RemovalEvent getFeedEventByRemovalId(final String removalId)
+	public RemovalEvent getRemovalEventByRemovalId(final String removalId)
 			throws SQLException {
-		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\" "+
+		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
 		   		"from pigtrax.\"RemovalEvent\" where \"removalId\" = ? ";
 				
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -70,11 +70,28 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 			}
 			return null;
 	}
+	
+	public RemovalEvent getRemovalEventByGroupId(final String groupId) throws SQLException
+	{
+		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
+		   		"from pigtrax.\"RemovalEvent\" where \"groupId\" = ? ";
+				
+			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {					
+					ps.setString(1, groupId);
+				}}, new RemovalEventMapper());
+
+			if(removalEventList != null && removalEventList.size() > 0){
+				return removalEventList.get(0);
+			}
+			return null;
+	}
 
 	@Override
 	public int addRemovalEvent(final RemovalEvent removalEvent) throws SQLException 
 	{
-		final String Qry = "insert into pigtrax.\"RemovalEvent\"(\"removalId\", \"id_RemovalType\","
+		/*final String Qry = "insert into pigtrax.\"RemovalEvent\"(\"removalId\", \"id_RemovalType\","
 				+"\"remarks\", \"id_TransportJourney\",  \"lastUpdated\",\"userUpdated\") "
 				+ "values(?,?,?,?,current_timestamp,?)";
 
@@ -92,6 +109,30 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 				else
 					ps.setNull(4, java.sql.Types.INTEGER);
 				ps.setString(9, UserUtil.getLoggedInUser());				
+				return ps;
+			}
+		}, holder);
+		int keyVal = holder.getKey().intValue();
+		logger.info("Key generated = " + keyVal);
+		return keyVal;*/
+		final String Qry = "insert into pigtrax.\"RemovalEvent\"(\"removalId\", \"id_RemovalType\","
+				+"\"remarks\",  \"lastUpdated\",\"userUpdated\") "
+				+ "values(?,?,?,current_timestamp,?)";
+
+		KeyHolder holder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection con)
+					throws SQLException {
+				PreparedStatement ps = con.prepareStatement(Qry,new String[] { "id" });
+				ps.setString(1, removalEvent.getRemovalId());
+				ps.setInt(2, removalEvent.getRemovalTypeId());
+				ps.setString(3, removalEvent.getRemarks());
+				/*if(null != removalEvent.getTransportJourneyId())
+					ps.setInt(4, removalEvent.getTransportJourneyId());
+				else
+					ps.setNull(4, java.sql.Types.INTEGER);*/
+				ps.setString(4, UserUtil.getLoggedInUser());				
 				return ps;
 			}
 		}, holder);
@@ -124,7 +165,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 			removalEvent.setId(rs.getInt("id"));
 			removalEvent.setRemovalId(rs.getString("removalId"));
 			removalEvent.setRemovalTypeId(rs.getInt("id_RemovalType"));
-			removalEvent.setTransportJourneyId(rs.getInt("id_TransportJourney"));
+			//removalEvent.setTransportJourneyId(rs.getInt("id_TransportJourney"));
 			removalEvent.setRemarks(rs.getString("remarks"));
 			removalEvent.setLastUpdated(rs.getDate("lastUpdated"));
 			removalEvent.setUserUpdated(rs.getString("userUpdated"));

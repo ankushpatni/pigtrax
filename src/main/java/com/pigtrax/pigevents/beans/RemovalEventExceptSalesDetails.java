@@ -15,6 +15,10 @@ public class RemovalEventExceptSalesDetails {
 	private Integer barnId;
 	private Date lastUpdated;
 	private String userUpdated;
+	
+	private Integer transportJourneyId;
+	private TransportJourney transportJourney;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -74,6 +78,18 @@ public class RemovalEventExceptSalesDetails {
 	}
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
+	}
+	public Integer getTransportJourneyId() {
+		return transportJourneyId;
+	}
+	public void setTransportJourneyId(Integer transportJourneyId) {
+		this.transportJourneyId = transportJourneyId;
+	}
+	public TransportJourney getTransportJourney() {
+		return transportJourney;
+	}
+	public void setTransportJourney(TransportJourney transportJourney) {
+		this.transportJourney = transportJourney;
 	}
 
 }

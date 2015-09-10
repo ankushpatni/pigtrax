@@ -40,7 +40,7 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 					postParam = {
 							"roomId" : roomData.barnId +''+$scope.add.roomId,
 							"location" : $scope.add.location,
-							"active" : false,
+							"active" : true,
 							"barnId" : roomData.generatedBarnId							
 						};
 				}

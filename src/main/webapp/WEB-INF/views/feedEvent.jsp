@@ -43,7 +43,7 @@
                   </div>
                    <div class="alert alert-danger alert-white rounded"  ng-show="groupEventDuplicateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform..duplicate.error.message' text='A Feed event record already exists with the same Ticket Number'/>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform.duplicate.error.message' text='A Feed event record already exists with the same Ticket Number'/>
                   </div>		 
                 </div>
                 <div class="content">
