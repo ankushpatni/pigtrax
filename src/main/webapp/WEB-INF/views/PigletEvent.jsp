@@ -43,7 +43,7 @@
                        <th><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
-                 </thead>
+                 </thead> 
                  <tbody>
                    <tr ng-repeat="pigletEventDto in pigletEventList">
                     <td>{{pigletEventDto.tattooId}}</td>
