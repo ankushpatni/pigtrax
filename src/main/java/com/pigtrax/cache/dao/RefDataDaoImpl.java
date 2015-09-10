@@ -97,6 +97,11 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
+	@Override
+	public List<RefDataTranslationDto> removalEventType() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_RemovalType\" FROM pigtraxrefdata.\"RemovalEventTypeTranslation\" order by \"fieldLanguage\", \"id_RemovalType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
 	
 	@Override
 	public List<Map<String, String>> getCountryData() {

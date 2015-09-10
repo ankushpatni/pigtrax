@@ -163,5 +163,22 @@ public class UtilController {
 		return dto;
 	}
 	
+	@RequestMapping(value = "/getRemovalEventDetailMasterData", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getRemovalEventDetailMasterData(HttpServletRequest request,  @RequestParam Integer companyId)
+	{
+		logger.info("Inside getPhaseType" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<Map> outDataList = new ArrayList<Map>();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		outDataList.add(refDataCache.getRemovalEventTypeMap(language));
+		outDataList.add(siloService.getSiloListBasedOnCompanyId(companyId));
+		outDataList.add(groupeventService.getGroupEventByCompanyId(companyId));
+		dto.setPayload(outDataList);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
+	
 
 }

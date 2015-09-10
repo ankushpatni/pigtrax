@@ -41,7 +41,7 @@ pigTrax.controller('addPenCtrl', function($scope, $http, $window, $modalInstance
 					postParam = {
 							"penId" : penData.roomId +''+$scope.add.penId,
 							"location" : $scope.add.location,
-							"active" : false,
+							"active" : true,
 							"roomId" : penData.generatedRoomId							
 						};
 				}

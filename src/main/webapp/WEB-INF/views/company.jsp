@@ -107,6 +107,7 @@
 													<li><a href="#" ng-click="goToPigEvent('PigletEvent',row.id)">Individual Piglet</a></li>
 													<li><a href="#" ng-click="goToPigEvent('PigletStatusEvent',row.id)">Piglet Status</a></li>
 													<li><a href="#" ng-click="goToPigEvent('FeedEvent',row.id)">Feed Event</a></li>
+													<li><a href="#" ng-click="goToPigEvent('RemovalEvent',row.id)">Removal Event</a></li>
 												  </ul>
 												</div>
 												<% }  %>

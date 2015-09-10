@@ -48,6 +48,9 @@ public class RefDataCacheImpl implements RefDataCache {
 	private Map<String, Map<Integer, String>> feedEventTypeMap;
 	
 	private Map<String, Map<Integer, String>> transportTrailerTypeMap;
+	
+	private Map<String, Map<Integer, String>> removalEventTypeMap;
+	
 
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
@@ -73,6 +76,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		phaseOfProductionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPhaseOfProductionType()));
 		feedEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFeedEventType()));
 		transportTrailerTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.transportTrailerType()));
+		removalEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.removalEventType()));
 	}
 
 	@Override
@@ -134,6 +138,13 @@ public class RefDataCacheImpl implements RefDataCache {
 	public Map<Integer, String> getFeedEventTypeMap(String language) {
 		return feedEventTypeMap.get(language);
 	}
+	
+	@Override
+	public Map<Integer, String> getRemovalEventTypeMap(String language) {
+		return removalEventTypeMap.get(language);
+	}
+	
+	
 
 	private Map<String, Map<Integer, String>> convertToMap(List<RefDataTranslationDto> rolesList) {
 		Map<String, Map<Integer, String>> tmpMap = new HashMap<String, Map<Integer, String>>();

@@ -7,11 +7,11 @@ public class RemovalEvent {
 	private Integer id;
 	private String removalId;
 	private Integer removalTypeId;
-	private Integer transportJourneyId;
+	//private Integer transportJourneyId;
 	private String remarks;
 	private Date lastUpdated;
 	private String userUpdated;
-	private TransportJourney transportJourney;
+	//private TransportJourney transportJourney;
 	public Integer getId() {
 		return id;
 	}
@@ -30,12 +30,12 @@ public class RemovalEvent {
 	public void setRemovalTypeId(Integer removalTypeId) {
 		this.removalTypeId = removalTypeId;
 	}
-	public Integer getTransportJourneyId() {
+	/*public Integer getTransportJourneyId() {
 		return transportJourneyId;
 	}
 	public void setTransportJourneyId(Integer transportJourneyId) {
 		this.transportJourneyId = transportJourneyId;
-	}
+	}*/
 	public String getRemarks() {
 		return remarks;
 	}
@@ -54,19 +54,11 @@ public class RemovalEvent {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
-	public TransportJourney getTransportJourney() {
+	/*public TransportJourney getTransportJourney() {
 		return transportJourney;
 	}
 	public void setTransportJourney(TransportJourney transportJourney) {
 		this.transportJourney = transportJourney;
-	}
-	@Override
-	public String toString() {
-		return "RemovalEvent [id=" + id + ", removalId=" + removalId
-				+ ", removaltypeId=" + removalTypeId + ", transportJourneyId="
-				+ transportJourneyId + ", remarks=" + remarks
-				+ ", lastUpdated=" + lastUpdated + ", userUpdated="
-				+ userUpdated + ", transportJourney=" + transportJourney + "]";
-	} 
-	
+	}*/
+		
 }
