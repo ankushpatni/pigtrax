@@ -15,9 +15,11 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
 import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.master.service.interfaces.EmployeeGroupService;
+import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.pigevents.dao.interfaces.FarrowEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
@@ -57,6 +59,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	
 	@Autowired
 	RefDataDao refDataDao;
+	
+	@Autowired
+	FarrowEventDao farrowEventDao;
 	
 	
 	@Override
@@ -163,11 +168,13 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 			filteredList = new ArrayList<PregnancyEventDto>();
 			for(PregnancyEventDto dto : pregnancyEventList)
 			{
+				FarrowEvent farrowEvent = farrowEventDao.getFarrowEventByPregancyEvent(dto.getId());
+				
 				Integer fieldCode = refDataDao.getFieldCodeForId(dto.getPregnancyEventTypeId(), "PregnancyEventType");
 				
 				Integer resultFieldCode = refDataDao.getFieldCodeForId(dto.getPregnancyExamResultTypeId(), "PregnancyExamResultType");
 				
-				if(pregnancyEventType != null &&  fieldCode == 1 && resultFieldCode == 1)
+				if(pregnancyEventType != null &&  fieldCode == 1 && resultFieldCode == 1 && farrowEvent == null)
 					filteredList.add(dto);					
 			}
 		}
