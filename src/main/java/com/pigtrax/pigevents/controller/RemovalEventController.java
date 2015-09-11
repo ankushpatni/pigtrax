@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.service.interfaces.FeedEventDetailService;
 import com.pigtrax.pigevents.service.interfaces.FeedEventService;
 import com.pigtrax.usermanagement.beans.Company;
@@ -64,11 +66,15 @@ public class RemovalEventController
 			return "addRemovalEventExceptSalesDetails";
 		}
 	 
-	 @RequestMapping(value = "/addRemovalEventExceptSalesDetails")
-		public String addRemovalEventExceptSalesDetails(Model model)
+	 @RequestMapping(value = "/addRemovalEventExceptSalesDetails", method=RequestMethod.POST)
+		public String addRemovalEventExceptSalesDetails(HttpServletRequest request, Model model)
 		{
+			model.addAttribute("removalId",request.getParameter("removalId"));
+			model.addAttribute("removalGeneratedId",request.getParameter("removalGeneratedId"));
+			model.addAttribute("removalExceptSalesId",request.getParameter("removalExceptSalesId"));
+			model.addAttribute("companyId",request.getParameter("companyId"));			
 			model.addAttribute("contentUrl","addRemovalEventExceptSalesDetails.jsp"); 
-			return "addRemovalEventExceptSalesDetails";
+			return "template";
 		}
 
 }

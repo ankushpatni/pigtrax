@@ -123,7 +123,7 @@ public class SiloDaoImpl implements SiloDao {
 	
 	public List<Silo> getSiloListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
 	{
-		String query = "SELECT \"id\" as \"id\",\"siloId\" from pigtrax.\"CompPremBarnSiloVw\" where \"siloId\" != '' and companyserialid = ?";
+		String query = "SELECT \"siloserrialid\" as \"id\",\"siloId\" from pigtrax.\"CompPremBarnSiloVw\" where \"siloId\" != '' and companyserialid = ?";
 	//CompPremBarnRoomPenVw
 		List<Silo> siloList = jdbcTemplate.query(query,
 				new PreparedStatementSetter() {
