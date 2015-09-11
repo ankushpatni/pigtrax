@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.pregnancyeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="PregnancyEventController" ng-init="loadPage(${CompanyId})">
+ <div class="cl-mcont" ng-controller="PregnancyEventController" ng-init="loadPage(${CompanyId})" id="PregnancyEventControllerId">
  <div class="row">
  		  <div class="col-sm-3 col-md-3"></div> 
  		  <div class="col-sm-6 col-md-6">
@@ -23,10 +23,10 @@
               </div>
               <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId" > <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
+                  <input type="radio" name="rad1" id="rad1" class="icheck pregnancyevent" value="pigId" > <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
+                  <input type="radio" name="rad1"  id="rad2" class="icheck pregnancyevent" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
                 </label>				
               </div>
             </div>            

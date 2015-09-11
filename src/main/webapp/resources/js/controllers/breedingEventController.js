@@ -156,6 +156,11 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 					    		 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_BirthDate = true;
 					    	 }
+					    	 if(statusCode == "ERR_ENTRYDATE_NOT_MATCHING")
+					    	 {
+					    		 $scope.clearAllMessages();
+						    	 $scope.breedingEventValidation_ErrCode_EntryDate = true;
+					    	 }
 					    	 else if(statusCode == "WARN-01")
 					    	 {
 					    		 $scope.clearAllMessages();
@@ -298,3 +303,10 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	}
 	
 }); 
+
+$(document).ready(function () { 
+	$('input[class="icheck breedingevent"]').on('ifClicked', function (event) {
+		angular.element("#BreedingEventControllerId").scope().clearAllMessages();
+		angular.element("#BreedingEventControllerId").scope().$apply();
+	});		
+});

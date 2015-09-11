@@ -449,3 +449,11 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
    
 	
 });
+
+
+$(document).ready(function () { 
+	$('input[class="icheck pigletstatus"]').on('ifClicked', function (event) {
+		angular.element("#PigletStatusEventControllerId").scope().clearAllMessages();
+		angular.element("#PigletStatusEventControllerId").scope().$apply();
+	});		
+});

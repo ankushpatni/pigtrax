@@ -360,3 +360,11 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	
 	
 });
+
+
+$(document).ready(function () { 
+	$('input[class="icheck pregnancyevent"]').on('ifClicked', function (event) {
+		angular.element("#PregnancyEventControllerId").scope().clearAllMessages();
+		angular.element("#PregnancyEventControllerId").scope().$apply();
+	});		
+});

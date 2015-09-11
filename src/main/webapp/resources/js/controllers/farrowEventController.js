@@ -342,3 +342,11 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	}
 	
 });
+
+
+$(document).ready(function () { 
+	$('input[class="icheck farrowevent"]').on('ifClicked', function (event) {
+		angular.element("#FarrowEventControllerId").scope().clearAllMessages();
+		angular.element("#FarrowEventControllerId").scope().$apply();
+	});		
+});

@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.pigletstatuseventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="PigletStatusEventController" ng-init="loadPage(${CompanyId})">
+ <div class="cl-mcont" ng-controller="PigletStatusEventController" ng-init="loadPage(${CompanyId})" id="PigletStatusEventControllerId">
  <div class="row">
  		  <div class="col-sm-3 col-md-3"></div> 
  		  <div class="col-sm-6 col-md-6">
@@ -29,10 +29,10 @@
               </div>
               <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="rad1" id="rad1" class="icheck" value="pigId" > <spring:message code='label.piginfo.pigletstatuseventform.search.pigid.option'  text='Pig Id'/>
+                  <input type="radio" name="rad1" id="rad1" class="icheck pigletstatus" value="pigId" > <spring:message code='label.piginfo.pigletstatuseventform.search.pigid.option'  text='Pig Id'/>
                 </label>              
                 <label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad2" class="icheck" value="tattooId"> <spring:message code='label.piginfo.pigletstatuseventform.search.tattooid.option'  text='Tattoo Id'/> 
+                  <input type="radio" name="rad1"  id="rad2" class="icheck pigletstatus" value="tattooId"> <spring:message code='label.piginfo.pigletstatuseventform.search.tattooid.option'  text='Tattoo Id'/> 
                 </label>				
               </div>
             </div>            
