@@ -3,7 +3,6 @@ package com.pigtrax.usermanagement.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +19,7 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.service.interfaces.RoomService;
 import com.pigtrax.master.service.interfaces.SiloService;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
+import com.pigtrax.pigevents.service.interfaces.PigInfoService;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -39,6 +39,9 @@ public class UtilController {
 	
 	@Autowired
 	GroupEventService groupeventService;
+	
+	@Autowired
+	PigInfoService pigInfoService;
 	
 	@RequestMapping(value = "/getCityCountryList", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getCityCountryList(HttpServletRequest request	)
@@ -172,12 +175,34 @@ public class UtilController {
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		outDataList.add(refDataCache.getRemovalEventTypeMap(language));
-		outDataList.add(siloService.getSiloListBasedOnCompanyId(companyId));
+		//outDataList.add(siloService.getSiloListBasedOnCompanyId(companyId));
 		outDataList.add(groupeventService.getGroupEventByCompanyId(companyId));
 		dto.setPayload(outDataList);
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	@RequestMapping(value = "/getRemovalExceptSalesMasterData", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getRemovalExceptSalesMasterData(HttpServletRequest request,  @RequestParam Integer companyId)
+	{
+		logger.info("Inside getPhaseType" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<Map> outDataList = new ArrayList<Map>();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		outDataList.add(refDataCache.getRemovalEventTypeMap(language));
+		try {
+			outDataList.add(pigInfoService.getPigInformationByCompany(companyId));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		outDataList.add(groupeventService.getGroupEventByCompanyId(companyId));
+		dto.setPayload(outDataList);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
 	
 	
 

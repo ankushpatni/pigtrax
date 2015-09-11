@@ -391,7 +391,6 @@ CREATE TABLE pigtrax."RemovalEvent"(
 	id serial NOT NULL,
 	"removalId" varchar(30) NOT NULL,
 	"id_RemovalType" integer NOT NULL,
-	"id_TransportJourney" integer,
 	remarks varchar(255),
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
@@ -417,13 +416,6 @@ CREATE TABLE pigtraxrefdata."SaleEventType"(
 );
 -- ddl-end --
 ALTER TABLE pigtraxrefdata."SaleEventType" OWNER TO pitraxadmin;
--- ddl-end --
-
--- object: "TransportJourney_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."RemovalEvent" DROP CONSTRAINT IF EXISTS "TransportJourney_fk" CASCADE;
-ALTER TABLE pigtrax."RemovalEvent" ADD CONSTRAINT "TransportJourney_fk" FOREIGN KEY ("id_TransportJourney")
-REFERENCES pigtrax."TransportJourney" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: pigtrax."FeedEvent" | type: TABLE --
@@ -1833,6 +1825,7 @@ CREATE TABLE pigtrax."RemovalEventExceptSalesDetails"(
 	"id_Barn" integer,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"id_TransportJourney" integer,
 	CONSTRAINT "REMOVALEVENTXSALESDETAILS_PK" PRIMARY KEY (id)
 
 );
@@ -1891,6 +1884,7 @@ CREATE TABLE pigtrax."SalesEventDetails"(
 	"id_RemovalEvent" integer,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"id_TransportJourney" integer,
 	CONSTRAINT "SALESDETAILS_PK" PRIMARY KEY (id)
 
 );
@@ -1919,7 +1913,19 @@ REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: "TransportJourney_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" DROP CONSTRAINT IF EXISTS "TransportJourney_fk" CASCADE;
+ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" ADD CONSTRAINT "TransportJourney_fk" FOREIGN KEY ("id_TransportJourney")
+REFERENCES pigtrax."TransportJourney" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
+-- object: "TransportJourney_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."SalesEventDetails" DROP CONSTRAINT IF EXISTS "TransportJourney_fk" CASCADE;
+ALTER TABLE pigtrax."SalesEventDetails" ADD CONSTRAINT "TransportJourney_fk" FOREIGN KEY ("id_TransportJourney")
+REFERENCES pigtrax."TransportJourney" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"

@@ -31,7 +31,7 @@
           </ul>
           <%} %>
           <%if (request.getRemoteUser() == null) {  	 
-          %>          
+          %>           
           <div class="polyglot-language-switcher pull-right active">
 			    <ul style="display: none">
 			        <li><a href="?locale=en" title="English (US)"  data-lang-id="en" ><img src="resources/assets/img/flags/us.png" alt="United States"> English (US)</a></li>			        

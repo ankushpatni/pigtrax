@@ -2,21 +2,21 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
-	$scope.feedEvent = {};
+	$scope.removalEvent = {};
 	$scope.transportDestination;
 	$scope.transportTruck;
 	$scope.transportTrailer;
-	$scope.feedEventDetailList=[];
 	$scope.siloList={};
 	$scope.removalEventType={};
 	$scope.groupEvent={};
+	$scope.removalExceptSalesList={};
 	
 	
 	$scope.setCompanyId = function(companyId,ticketNumber)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
-		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
+		/*var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
 		res1.success(function(data, status, headers, config) {
 			console.log(data);
 			$scope.transportDestination = data.payload[0];	
@@ -26,7 +26,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 		});
 		res1.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
-		});	
+		});	*/
 		
 		var res2 = $http.get('rest/util/getRemovalEventDetailMasterData?companyId='+$rootScope.companyId);
 		res2.success(function(data, status, headers, config) {
@@ -43,7 +43,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 		if( ticketNumber)
 		{
 			$scope.searchText = ticketNumber;
-			$scope.getFeedEvent();
+			$scope.getRemovalEvent();
 			$scope.entryEventDetailSuccessMessage = true;
 		}
 	};
@@ -51,7 +51,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 	$scope.resetForm = function()
 	{
 		$scope.clearAllMessages();
-		$scope.feedEvent = {};
+		$scope.removalEvent = {};
 		$scope.changeText();
 	}
 	
@@ -111,9 +111,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 				{
 					
 					$scope.removalEvent = data.payload[0];
-					$scope.feedEventDetailList	= data.payload[1];	
 					$scope.clearAllMessages();
-					$scope.feedEvent.transportJourney = data.payload[2];
 					if(flag)
 					{
 						$scope.entryEventSuccessMessage = true;
@@ -141,7 +139,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 		});
 	}
 	
-	$scope.addTransportJourney = function()
+	/*$scope.addTransportJourney = function()
 	{
 		var modalInstance = $modal.open ({
 			templateUrl: 'transportJourney',
@@ -164,9 +162,9 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 			console.log(res);
 			$scope.feedEvent.transportJourney = res;
 		});
-	}
+	}*/
 	
-	$scope.addFeedEventDetail = function(id)
+	/*$scope.addFeedEventDetail = function(id)
 	{
 		var modalInstance = $modal.open ({
 			templateUrl: 'addFeedEventDetail',
@@ -193,6 +191,17 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 			$scope.entryEventDetailSuccessMessage = true;
 			$scope.getFeedEvent($scope.feedEvent.ticketNumber,false,true);
 		});
+	}*/
+	
+	$scope.addRemovalExceptSalesData = function(removalExceptId)
+	{
+		document.getElementById("removalId").value = $scope.removalEvent.removalId;
+		document.getElementById("removalGeneratedId").value = $scope.removalEvent.id;
+		document.getElementById("removalExceptSalesId").value = removalExceptId;
+		document.getElementById("companyId").value = $scope.companyId;
+		
+		document.forms['removalExceptSalesDisplayForm'].action = 'addRemovalEventExceptSalesDetails';
+		document.forms['removalExceptSalesDisplayForm'].submit();
 	}
 	
 });

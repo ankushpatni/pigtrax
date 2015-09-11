@@ -299,5 +299,26 @@ public class PigInfoDaoImpl implements PigInfoDao {
 		
 		return pigInfoList;
 	}
+	
+	/**
+	 * Get the pig information based on companyId
+	 */
+	@Override
+	public List<PigInfo> getPigInformationByCompanyId( final Integer companyId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", "
+				+ "\"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", \"sowCondition\", "
+				+ "\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\" "
+				+ "from pigtrax.\"PigInfo\" where \"id_Company\" = ?";
+		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			
+			public void setValues(PreparedStatement ps) throws SQLException {				
+				ps.setInt(1, companyId);
+			}}, new PigInfoMapper());
+
+		if(pigInfoList != null && pigInfoList.size() > 0){
+			return pigInfoList;
+		}
+		return null;
+	}
 }
 

@@ -9,7 +9,7 @@
 	 		  <div class="col-sm-3 col-md-3"></div> 
 	 		  <div class="col-sm-6 col-md-6">
 		 		  <div class="block-flat">
-					  <form name="feedEventSearchForm" >
+					  <%-- <form name="feedEventSearchForm" >
 			 		     <div class="head">
 			            	<h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h3>
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.removalEventform.search.data.errormessage' text='Removal event information not found for the search criteria'/></p>
@@ -17,7 +17,33 @@
 						invalid-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.feedEventForm.search.placeholder'  text='Search by Ticket Number ...'/>" class="form-control" style="width:90%;display:inline">
 							 <button type="button" class="btn btn-primary active" ng-click="getRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
 			          	</div>
-					  </form>	
+					  </form>	 --%>
+					   <form name="removalExceptSalesSearchForm" method="post">
+				 		     <div class="head">
+				            <h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h3>
+				            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.errormessage' text='Please enter Group Id/Pig Id/Removal Event Id  and select the corresponding option'/></p>
+				            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.data.errormessage' text='Removal Except Sales information not found for the search criteria'/></p>
+							
+				            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.removalExceptSales.search.placeholder'  text='Search by Group Id/Pig Id/Removal Event Id ...'/>" class="form-control">
+				
+							 <div class="options">
+							 <div class="btn-group pull-right">
+				                <button type="button" class="btn btn-primary active" ng-click="getRemovalExceptSales(searchText)"><i class="fa fa-search"></i></button>
+				              </div>
+				              <div class="form-group">
+				              <label class="radio-inline">
+				                  <input type="radio" name="rad1"  id="rad1" class="icheck" value="groupId"> <spring:message code='label.piginfo.removalExceptSales.search.groupId.option'  text='Group Id'/> 
+				                </label>
+				                <label class="radio-inline">
+				                  <input type="radio" name="rad1" id="rad2" class="icheck" value="pigId" > <spring:message code='label.piginfo.removalExceptSales.search.pigid.option'  text='Pig Id'/>
+				                </label>
+				                 <label class="radio-inline">
+				                  <input type="radio" name="rad1"  id="rad3" class="icheck" value="removalId"> <spring:message code='label.piginfo.removalExceptSales.search.removalId.option'  text='Removal Event Id'/> 
+				                </label>				
+				              </div>
+				            </div>            
+				          </div>
+		  			</form>	
 				 </div>
 	          </div>
 	 		  <div class="col-sm-3 col-md-3"></div>
@@ -65,7 +91,7 @@
                       <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>
                        <select ng-hide="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage" class="form-control"  required required-message="'<spring:message code='label.piginfo.removalEventform.removalTypeId.required' text='Removal Type is required' />'" name="removalTypeId" id="removalTypeId" ng-model="removalEvent.removalTypeId"   
                          ng-options="k as v for (k, v) in removalEventType"> </select>
-                         <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{removalEventType[removalEvent.removalTypeId]}}</label>                       
+                         <label ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage"> :  {{removalEventType[removalEvent.removalTypeId]}}</label>                       
                     </div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
@@ -99,43 +125,38 @@
             </div>
           </div>
 		  
-		<%-- <button type="button" ng-click="addFeedEventDetail()" class="btn btn-sm btn btn-primary" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
+	 <button type="button" ng-click="addRemovalExceptSalesData()" class="btn btn-sm btn btn-primary" ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus"></i> 
-			<spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" />
-		</button>
-		<!-- <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  > 
-			<span class="btn btn-primary" ng-click="addFeedEventDetailData()"><spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" /><span class="glyphicon glyphicon-plus" style="margin-left:5px"></span></span>	
-          </div>-->
+			<spring:message code="label.removalEvent.addRemovalExceptSalesData" text="Add Removal Except Sales" />
+	</button>
 		 
-	<form name="groupEventFormAdd" method="post">	
+	<form name="removalExceptSalesDisplayForm" method="post">	
 		<div class="content" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
 			<div class="table-responsive" style="overflow-x: hidden">
-			<table st-table="displayedCollection" st-safe-src="feedEventDetailList" class="table table-striped" style="background-color: LightGray">  
+			<table st-table="displayedCollection" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">
 					<tr>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventId" text="Feed Event" /></th>
-						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.groupEventId" text="Group Event" /></th>
-						<th style="width:25%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.removalDateTime" text="Removal Date" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight In Kgs" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
+						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.barnId" text="Barn" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.edit" text="Edit" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:10%">{{$index+1}}</td>
-					<td style="width:10%">{{row.feedEventDate}}</td>
-					<td style="width:10%">{{row.weightInKgs}}</td>
-					<td style="width:25%">{{row.remarks}}</td>
-					<td style="width:25%">{{row.feedEventId}}</td>
-					<td style="width:25%">{{siloList[row.siloId]}}</td>
-					<td style="width:10%">{{row.groupEventId}}</td>
-					<td style="width:25%">{{feedEventType[row.feedEventTypeId]}}</td>
+					<td style="width:10%">{{row.numberOfPigs}}</td>
+					<td style="width:10%">{{row.removalDateTime}}</td>
+					<td style="width:25%">{{row.weightInKgs}}</td>
+					<td style="width:25%">{{pigInfoList[row.pigInfoId]}}</td>
+					<td style="width:25%">{{groupEventList[row.groupEventId]}}</td>
+					<td style="width:10%">{{barnList[row.barnId]}}</td>
 					<td style="width: 8%">
-						<button type="button" class="btn btn-edit btn-xs" ng-click="addFeedEventDetail(row.id)">
+						<button type="button" class="btn btn-edit btn-xs" ng-click="addRemovalExceptSalesData(row.id)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 					</td>				
 				</tr>
@@ -148,13 +169,12 @@
 			</table>
 			</div>
 		</div>
-		<input type="hidden" name="searchedGroupid" id="searchedGroupid"/>
-		<input type="hidden" name="groupEventId" id="groupEventId"/>			
-		<input type="hidden" name="groupGeneratedIdSeq" id="groupGeneratedIdSeq"/>
+		<input type="hidden" name="removalId" id="removalId"/>
+		<input type="hidden" name="removalGeneratedId" id="removalGeneratedId"/>
+		<input type="hidden" name="removalExceptSalesId" id="removalExceptSalesId"/>			
 		<input type="hidden" name="companyId" id="companyId"/>
-		<input type="hidden" name="groupStartDateTimeAdd" id="groupStartDateTimeAdd"/>
 		
-	</form>	  		--%>
+	</form>
 		<div class="md-overlay"></div>
 	</div>	
 	 
