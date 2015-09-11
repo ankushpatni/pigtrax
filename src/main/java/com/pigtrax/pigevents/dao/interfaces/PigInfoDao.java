@@ -22,4 +22,6 @@ public interface PigInfoDao {
    PigInfo getPigInformationById(final Integer pigInfoId) throws SQLException;
    
    List<PigInfo> getAllFosterPigs(PigInfoDto pigInfo) throws SQLException;
+   
+   public List<PigInfo> getPigInformationByCompanyId( final Integer companyId) throws SQLException;
 }

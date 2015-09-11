@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.service.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pigtrax.pigevents.dto.PigInfoDto;
 
@@ -12,4 +13,6 @@ public interface PigInfoService {
     void deletePigInfo(Integer id) throws Exception;
     
     List<PigInfoDto> getAllFosterPigs(PigInfoDto pigInfo) throws Exception; 
+    
+    Map<Integer,String> getPigInformationByCompany(int companyId) throws Exception;
 }  

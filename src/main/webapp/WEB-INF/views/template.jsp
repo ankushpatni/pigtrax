@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <html ng-app="pigTrax" lang="${pageContext.response.locale}">
   <head> 
-    <meta charset="utf-8">
+    <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -70,6 +70,7 @@
 	<script src="resources/js/controllers/feedEventController.js"></script>
 	<script src="resources/js/controllers/addFeedEventDetailController.js"></script>
 	<script src="resources/js/controllers/removalEventController.js"></script>		
+	<script src="resources/js/controllers/removalExceptSalesController.js"></script>
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
 	<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>

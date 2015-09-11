@@ -1,5 +1,7 @@
 package com.pigtrax.pigevents.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.FeedEvent;
 import com.pigtrax.pigevents.beans.RemovalEvent;
 import com.pigtrax.pigevents.service.interfaces.FeedEventDetailService;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventService;
@@ -66,6 +69,37 @@ public class RemovalEventRestController
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		}		
 		return dto; 
+	}
+	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getRemovalEventInformation", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getRemovalEventInformation(HttpServletRequest request, @RequestBody RemovalEvent removalEvent)
+	{
+		logger.info("Inside getGroupEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		/*try {
+			
+			List feedEventAndDetail = feedEventService.getFeedEventAndDetailByTicketNumber(feedEvent.getTicketNumber());
+			if(feedEventAndDetail != null && feedEventAndDetail.size()>0 )
+			{
+				dto.setPayload(feedEventAndDetail);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} */
+		return dto;
 	}
 	
 

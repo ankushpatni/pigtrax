@@ -2,7 +2,9 @@ package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.master.dto.Silo;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
@@ -121,6 +124,25 @@ public class PigInfoServiceImpl implements PigInfoService {
 		}
 		
 		return pigInfoDtoList;
+	}
+	
+	/**
+	 * Get Pig Information based on pigId/tattoo
+	 */
+	public Map<Integer,String> getPigInformationByCompany(int companyId) throws Exception {
+		
+		List<PigInfo> pigInfoList =  pigInfoDao.getPigInformationByCompanyId(companyId);
+		Map<Integer,String> pigInfoMap = new LinkedHashMap<Integer,String>();
+					
+		if(null != pigInfoList && pigInfoList.size()>0)
+		{
+			for(PigInfo pigInfo : pigInfoList)
+			{
+				pigInfoMap.put(pigInfo.getId(),pigInfo.getPigId());
+			}
+		}		
+		
+		return pigInfoMap;
 	}
 	
 	
