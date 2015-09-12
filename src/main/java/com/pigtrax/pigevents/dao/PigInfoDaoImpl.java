@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,7 +60,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	    				ps.setString(6, pigInfo.getGline());
 	    				ps.setString(7, pigInfo.getGcompany());
 	    				if(pigInfo.getBirthDate() != null)
-	    					ps.setDate(8,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
+	    					ps.setDate(8,  new java.sql.Date(new DateTime(pigInfo.getBirthDate()).getMillis()));
 	    				else
 	    					ps.setNull(8, java.sql.Types.DATE);
 	    				

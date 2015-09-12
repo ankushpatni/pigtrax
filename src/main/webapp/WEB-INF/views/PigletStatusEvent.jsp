@@ -183,7 +183,7 @@
                      <tbody>
                        <tr>
                          <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.wean' text='Wean' /> </td>
-                         <td width="20%"><input type="number" min="0" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control"> </td>
+                         <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> </td>
                          <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.notApplicable' text='N/A' /> </td>
                           <td width="20%">
@@ -195,7 +195,7 @@
                        </tr>
                        <tr>
                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.foster' text='Foster' /> </td>
-                         <td width="20%"><input type="number" min="0" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
+                         <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control"> </td>
                          <td width="20%"><div data-min-view="2" class="input-group col-md-9 col-xs-11" >
                             <input type="text" ng-value="0" name="fosterToPigId" readonly ng-model="pigletStatusEvent.fosterToPigId"  maxlength="30"  size="30" class="input-sm  form-control">
@@ -213,7 +213,7 @@
                         </tr>
                         <tr>
                         <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.death' text='Death' /> </td>
-                         <td width="20%"><input type="number" min="0" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control"> </td>
+                         <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="deathPigWt" ng-model="pigletStatusEvent.deathPigWt"  maxlength="10"  step="0.01" size="10" class="form-control"> </td>
                          <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.notApplicable' text='N/A' />  </td>   
                          <td width="20%">
