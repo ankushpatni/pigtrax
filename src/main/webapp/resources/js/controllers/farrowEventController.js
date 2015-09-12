@@ -29,6 +29,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.farrowIdRequired = false;
 		$scope.invalidFarrowId = false;
 		$scope.entryEventDuplicateErrorMessage = false;
+		$scope.pigletInformationRequired = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -218,22 +219,30 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		{
 			$scope.invalidFarrowValue = true;
 			$scope.invalidFarrowCount = false; 
+			$scope.pigletInformationRequired = false;
 			
 		}	
 		else if(liveBorns != (eval(maleBorns)+eval(femaleBorns)))
 		{
 			$scope.invalidFarrowValue = false;
 			$scope.invalidFarrowCount = true; 
-			
+			$scope.pigletInformationRequired = false;
+		}
+		else if (liveBorns == 0 && maleBorns == 0 && femaleBorns == 0 && stillBorns == 0 && mummies == 0)
+		{
+			$scope.invalidFarrowValue = false;
+			$scope.invalidFarrowCount = false;
+			$scope.pigletInformationRequired = true;
 		}
 		else
         {
 			$scope.invalidFarrowValue = false;
 			$scope.invalidFarrowCount = false; 
+			$scope.pigletInformationRequired = false;
         }
 		
 			if($scope.farroweventform.$valid && !$scope.birthTypeRequired && !$scope.pregnancyEventRequired && !$scope.farrowDateRequired 
-					&& !$scope.invalidFarrowId && !$scope.farrowIdRequired && !invalidFarrowCount && !invalidFarrowValue)
+					&& !$scope.invalidFarrowId && !$scope.farrowIdRequired && !$scope.invalidFarrowCount && !$scope.invalidFarrowValue && !$scope.pigletInformationRequired)
 			{
 						
 				$scope.farrowEvent["companyId"] = $rootScope.companyId;

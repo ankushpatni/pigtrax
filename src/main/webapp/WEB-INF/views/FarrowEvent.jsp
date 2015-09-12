@@ -146,12 +146,13 @@
                     </div>
                     <label ng-show="farrowIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.requiredmessage' text='Farrow Id is required' /></label>
                     <label ng-show="invalidFarrowId" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.invalidmessage' text='Only Alpha Numeric values are allowed' /></label>
+                    
                     <div class="form-group">   
 					
                     <label><spring:message code='label.piginfo.farroweventform.pigletinfo'  text='Piglet Information'/></label>
                     <label ng-show="invalidFarrowValue" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.invalidFarrowValue' text='Piglet information should be in whole numeric values' /></label>
                     <label ng-show="invalidFarrowCount" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.invalidFarrowCount' text='Farrow count doesn\'t match. Please check' /></label>
-                    
+                    <label ng-show="pigletInformationRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigletInformationRequired' text='Please enter piglet details' /></label>
                     <table class="table">
                      <tr>
                        <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td>
