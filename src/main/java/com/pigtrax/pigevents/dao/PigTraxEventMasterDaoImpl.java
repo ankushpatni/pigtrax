@@ -167,4 +167,48 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 		});
 		return rowsDeleted;
 	}
+	
+	 /**
+	    * Delete a farrow events from master table based on the primary key id
+	    */
+	   @Override
+		public void deleteFarrowEvent(final Integer farrowEventId)
+				throws SQLException {
+		   final String qry = "delete from pigtrax.\"PigTraxEventMaster\" where \"id_FarrowEvent\" = ? and \"id_PigletStatus\" is null";
+			
+			this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, farrowEventId);
+				}
+			});
+		}
+	   
+	   @Override
+		public void deletePregnancyEvent(final Integer pregnancyEventId)
+				throws SQLException {
+		   final String qry = "delete from pigtrax.\"PigTraxEventMaster\" where \"id_PregnancyEvent\" = ?";
+			
+			this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, pregnancyEventId);
+				}
+			});
+			
+		}
+	   
+	   @Override
+	public void deleteBreedingEvent(final Integer breedingEventId)
+			throws SQLException {
+		   final String qry = "delete from pigtrax.\"PigTraxEventMaster\" where \"id_BreedingEvent\" = ?";
+			
+			this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, breedingEventId);
+				}
+			});
+	}
+	
 }

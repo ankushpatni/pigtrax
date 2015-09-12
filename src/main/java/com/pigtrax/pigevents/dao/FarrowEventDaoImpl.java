@@ -387,7 +387,7 @@ private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final
 			farrowEvent.setId(rs.getInt("id"));
 			farrowEvent.setFarrowId(rs.getString("farrowId"));
 			farrowEvent.setFarrowDateTime(rs.getDate("farrowDateTime"));
-			farrowEvent.setPenId(rs.getInt("id_Pen"));
+			farrowEvent.setPenId(rs.getObject("id_Pen") != null ? (Integer)rs.getObject("id_Pen") : null);
 			farrowEvent.setLiveBorns(rs.getInt("liveBorns"));
 			farrowEvent.setStillBorns(rs.getInt("stillBorns"));
 			farrowEvent.setMummies(rs.getInt("mummies"));

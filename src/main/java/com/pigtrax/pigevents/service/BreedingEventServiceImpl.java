@@ -151,6 +151,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	public void deleteBreedingEventInfo(Integer id) throws Exception {
 		if(id != null)
 		{
+			eventMasterDao.deleteBreedingEvent(id);
 			breedingEventDao.deleteBreedingEventInfo(id);
 		}
 	}

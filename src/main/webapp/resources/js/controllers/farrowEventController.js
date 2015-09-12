@@ -28,6 +28,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.birthTypeRequired = false;
 		$scope.farrowIdRequired = false;
 		$scope.invalidFarrowId = false;
+		$scope.entryEventDuplicateErrorMessage = false;
 	};
 	
 	$scope.loadPage = function(companyId)
@@ -147,7 +148,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 				{
 				$scope.farrowIdRequired = false;			
 				$scope.invalidFarrowId = true;
-				return;
+				
 				}
 			else
 				{
@@ -178,7 +179,6 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		{
 			 
 			  $scope.pregnancyEventRequired = true;
-			  
 		}
 		 else
 			 {
@@ -197,17 +197,20 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 				$scope.farrowEvent["assistedBirth"]=true;
 				
 			}
+			
 			if($scope.farrowEvent["inducedBirth"] == false 
 					&& $scope.farrowEvent["assistedBirth"] == false)
 			{
 				
 				$scope.birthTypeRequired = true;
 				
+				
 			}
 			else
 			{
 				
 				$scope.birthTypeRequired = false;
+				
 			}
 		 
 		if(parseInt(liveBorns)!= liveBorns || parseInt(maleBorns) != maleBorns 
@@ -215,11 +218,13 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		{
 			$scope.invalidFarrowValue = true;
 			$scope.invalidFarrowCount = false; 
+			
 		}	
 		else if(liveBorns != (eval(maleBorns)+eval(femaleBorns)))
 		{
 			$scope.invalidFarrowValue = false;
 			$scope.invalidFarrowCount = true; 
+			
 		}
 		else
         {
@@ -227,9 +232,10 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.invalidFarrowCount = false; 
         }
 		
-			if($scope.farroweventform.$valid)
+			if($scope.farroweventform.$valid && !$scope.birthTypeRequired && !$scope.pregnancyEventRequired && !$scope.farrowDateRequired 
+					&& !$scope.invalidFarrowId && !$scope.farrowIdRequired && !invalidFarrowCount && !invalidFarrowValue)
 			{
-				
+						
 				$scope.farrowEvent["companyId"] = $rootScope.companyId;
 				
 				restServices.validateFarrowEvent($scope.farrowEvent, function(data){
@@ -328,6 +334,10 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		//alert("came here : "+JSON.stringify(pregnancyEventObj));
 		$scope.farrowEvent = farrowEventObj;
 		$scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
+		if($scope.farrowEvent["inducedBirth"])
+			$('#birthType1').iCheck('check');
+		else if($scope.farrowEvent["assistedBirth"])
+			$('#birthType2').iCheck('check');
 	}
 	
 	/**
@@ -341,6 +351,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 				$scope.clearAllMessages();
 				$scope.entryEventDeleteMessage = true;
 				$scope.farrowEvent = {};
+				$('#birthType1').iCheck('uncheck');
+				$('#birthType2').iCheck('uncheck');
 				//$scope.getFarrowEventInformation();
 				$scope.updateSearchResults();
 				$window.scrollTo(0, 5);

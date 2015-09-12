@@ -189,6 +189,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	public void deletePregnancyEvent(Integer pregnancyEventId)
 			throws PigTraxException {
 		try{
+			eventMasterDao.deletePregnancyEvent(pregnancyEventId);
 			pregnancyEventDao.deletePregnancyEvent(pregnancyEventId);
 		}
 		catch(SQLException e)

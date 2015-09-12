@@ -95,7 +95,7 @@
                   </div>        
                   <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.farroweventform.duplicate.error.message' text='A farrow record already exists with the same farrow id'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.farroweventform.duplicate.error.message' text='A farrow record already exists with the same farrow id'/>
                   </div>    
                 </div>
                 <div class="content">
@@ -154,15 +154,17 @@
                     
                     <table class="table">
                      <tr>
-                       <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td><input type="number" ng-value="0" min="0"  max="50" step="1" name="farrowId" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="number" ng-value = "0"  min="0"   max="50" step="1" name="farrowId" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td>
+					   <input type="number" ng-value="0" min="0"  max="50" step="1" name="liveBorns" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control">
+                       </td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="number" ng-value = "0"  min="0"   max="50" step="1" name="stillBorns" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50"  step="1"  name="farrowId" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50" step="1" name="farrowId" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50"  step="1"  name="maleBorns" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50" step="1" name="femaleBorns" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="farrowId" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
                        <td>&nbsp;</td>
 					   <td>&nbsp;</td>
                      </tr>

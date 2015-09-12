@@ -133,7 +133,7 @@
                   <input type=hidden name="id" ng-model="breedingEvent.id"/>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.serviceId'  text='Service Id'/><span style='color: red'>*</span></label>
-                      <input ng-hide="breedingEvent.id != null && breedingEvent.id != 0" required="true" type="text" name="serviceId" ng-model="breedingEvent.serviceId"  maxlength="30" 
+                      <input ng-hide="breedingEvent.id != null && breedingEvent.id != 0" required="true" type="text" id="serviceId" name="serviceId" ng-model="breedingEvent.serviceId"  maxlength="30" 
                       placeholder="<spring:message code='label.piginfo.breedingeventform.serviceId.placeholder'  text='Enter Service Id'/>" 
                       required-message="'<spring:message code='label.piginfo.breedingeventform.serviceId.requiredmessage' text='Service Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
@@ -157,35 +157,35 @@
                       required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
-						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null && !malePigIdentified">Gestation window started on {{breedingEvent.gestationRecordDate}}</label>
+						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null && !malePigIdentified && breedingEvent.gestationRecordDate != null">Gestation window started on {{breedingEvent.gestationRecordDate}}</label>
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  required 
+                       <select class="form-control"  id="sexType" name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  required 
                       required-message="'<spring:message code='label.piginfo.breedingeventform.breedingServiceType.requiredmessage' text='Breeding Service Type is required' />'"
                        ng-options="k as v for (k, v) in breedingServiceTypes">
                         </select>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedinggroupId'  text='Breeding Group Id'/></label>
-                      <input type="text" ng-model="breedingEvent.breedingGroupId"  name="breedingGroupId"  class="form-control"  placeholder="<spring:message code='label.piginfo.breedingeventform.breedinggroupId.placeholder'  text='Enter Breeding group Id'/>"/>
+                      <input type="text" ng-model="breedingEvent.breedingGroupId" id="breedingGroupId" name="breedingGroupId"  class="form-control"  placeholder="<spring:message code='label.piginfo.breedingeventform.breedinggroupId.placeholder'  text='Enter Breeding group Id'/>"/>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="breedingDate" name="breedingDate" ng-model="breedingEvent.breedingDate" readonly="" class="form-control" ng-blur="validateBreedingDate()"  format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" >
+                          <input size="16" type="date" id="breedingDate" name="breedingDate" ng-model="breedingEvent.breedingDate" readonly="" class="form-control" ng-blur="validateBreedingDate()"  format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th" id="popupcal"></span></span>
                         </div>
                     </div>
                     <label ng-show="breedingDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.breedingDate.requiredmessage' text='Breeding Date is required' /></label>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.semenId'  text='Semen Id'/></label>
-                       <input type="text" class="form-control" name="dame" ng-model="breedingEvent.semenId" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.semenId.placeholder' text='Enter Semen Id'/>" />
+                       <input type="text" class="form-control" name="dame" id="semenId" ng-model="breedingEvent.semenId" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.semenId.placeholder' text='Enter Semen Id'/>" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.mateQuality'  text='Mate Quality'/></label>
-                      <select ng-model="breedingEvent.mateQuality" name="mateQuality" class="form-control">
+                      <select ng-model="breedingEvent.mateQuality" name="mateQuality" id="mateQuality" class="form-control">
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -194,11 +194,11 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.remarks'  text='Remarks'/><span style='color: red'>*</span></label>
-                      <textarea name="remarks" ng-model="breedingEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.breedingeventform.remarks.placeholder' text='Enter remarks'/>" required required-message="'<spring:message code='label.piginfo.breedingeventform.remarks.requiredmessage' text='Remarks is required'/>'"></textarea>
+                      <textarea name="remarks" ng-model="breedingEvent.remarks" id="remarks" class="form-control" placeholder="<spring:message code='label.piginfo.breedingeventform.remarks.placeholder' text='Enter remarks'/>" required required-message="'<spring:message code='label.piginfo.breedingeventform.remarks.requiredmessage' text='Remarks is required'/>'"></textarea>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span></label>
-                      <select class="form-control" name="sowCondition" ng-model="breedingEvent.sowCondition" required required-message="'<spring:message code='label.piginfo.breedingeventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
+                      <select class="form-control" id="sowCondition" name="sowCondition" ng-model="breedingEvent.sowCondition" required required-message="'<spring:message code='label.piginfo.breedingeventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
                            <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>
                           <option value="2">2 - <spring:message code='label.piginfo.entryeventform.sowcondition.normal.message'  text='Healthy'/></option>
                           <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
@@ -321,8 +321,6 @@
                       </div>
                     </div>
                   </div>
-
-
 		<div class="md-overlay"></div>
 </div>
 
