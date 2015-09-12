@@ -154,15 +154,15 @@
                     
                     <table class="table">
                      <tr>
-                       <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td><input type="number" ng-value="0" min="0" step="1" name="farrowId" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="number" ng-value = "0"  min="0" step="1" name="farrowId" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td><input type="number" ng-value="0" min="0"  max="50" step="1" name="farrowId" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="number" ng-value = "0"  min="0"   max="50" step="1" name="farrowId" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="number" ng-value="0"  min="0" step="1"  name="farrowId" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="number" ng-value="0"  min="0" step="1" name="farrowId" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50"  step="1"  name="farrowId" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50" step="1" name="farrowId" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  min="0" step="1"  name="farrowId" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="farrowId" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
                        <td>&nbsp;</td>
 					   <td>&nbsp;</td>
                      </tr>
