@@ -64,7 +64,7 @@ public class FarrowEventValidation {
 	  
 	  FarrowEventDto eventDto = farrowEventService.getFarrowEventByPregancyEvent(farrowEventDto.getPregnancyEventId());
 	  
-	  if(eventDto != null && eventDto.getId() != null && eventDto.getId() > 0)
+	  if(eventDto != null && eventDto.getId() != null && eventDto.getId() > 0 && farrowEventDto.getId() != eventDto.getId())
 	  {
 		  return ERR_CODE_02;
 	  }

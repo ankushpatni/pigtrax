@@ -195,7 +195,7 @@ public class BreedingEventValidation {
 					  if(flag)
 					  {
 						  logger.info("Breeding happens between 19 to 60 days and the pig is pregnant");
-						  return ERR_CODE_02;
+						  return ERR_CODE_02;						
 					  }
 					  else 
 					  {
@@ -210,9 +210,13 @@ public class BreedingEventValidation {
 							  logger.info("Breeding happens between 19 to 60 days and no pregnacy check done");
 							  return ERR_CODE_03;
 						  }
-				  }
-			   
+				  }			   
+			    }
+		      else   if(durationDays > BREEDING_EVENT_TIME_PERIOD4)
+			  {
+					  return SUCCESS_CODE; 
 			  }
+				  
 		  }
 	  }
 	  

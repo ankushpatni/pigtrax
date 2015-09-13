@@ -90,7 +90,9 @@ public class PregnancyEventValidation {
 	  
 	  int duration = Days.daysBetween(serviceDate, resultDate).getDays();
 	  
-	  int examDuration = Days.daysBetween(serviceDate, examDate).getDays();
+	  int examDuration = 0;
+	  
+	  if(examDate != null) examDuration = Days.daysBetween(serviceDate, examDate).getDays();
 	  
 	  boolean flag = checkPregnancyEventExists(pregnancyEventDto);
 	 

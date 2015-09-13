@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.MaskFormatter;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -123,6 +125,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	public void deleteFarrowEvent(Integer farrowEventId)
 			throws PigTraxException {
 		 try {
+			eventMasterDao.deleteFarrowEvent(farrowEventId);
 			farrowEventDao.deleteFarrowEvent(farrowEventId);
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());

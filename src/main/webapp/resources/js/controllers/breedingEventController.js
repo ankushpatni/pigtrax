@@ -39,7 +39,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
-		
+		//$scope.setupFormElements();
 	};
 		
 	$scope.getBreedingServiceType = function()
@@ -110,6 +110,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 						$scope.entryEventSuccessMessage = true;
 						$scope.breedingEvent = {};
 						$scope.changeText();
+						//$scope.setupFormElements();
 						if($scope.breedingEventList != null && $scope.breedingEventList.length > 0)
 							$scope.getBreedingEventInformation();
 					}
@@ -155,18 +156,20 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 					    	 {
 					    		 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_BirthDate = true;
+						    	 $scope.confirmClick = false;
 					    	 }
 					    	 if(statusCode == "ERR_ENTRYDATE_NOT_MATCHING")
 					    	 {
 					    		 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_EntryDate = true;
+						    	 $scope.confirmClick = false;
 					    	 }
 					    	 else if(statusCode == "WARN-01")
 					    	 {
 					    		 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_WarnCode_1 = true;
 						    	 $scope.breedingEvent["gestationRecord"] = false; 
-						    	 $scope.confirmClick = true;
+						    	 $scope.confirmClick = true;						    	 
 					    	 }
 						     else if(statusCode == "WARN-02")
 						     {
@@ -179,29 +182,34 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 						    	 {
 						    	 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_1 = true;
+						    	 $scope.confirmClick = false;	
 						    	 }
 						     else if(statusCode == "ERR-02")
 						    	 {
 						    	 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_2 = true;
+						    	 $scope.confirmClick = false;
 						    	 }
 						     else if(statusCode == "ERR-03")
 						    	 {
 						    	 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_3 = true;
+						    	 $scope.confirmClick = false;
 						    	 }
 						     else if(statusCode == "ERR-04")
 					    	 {
 					    	 $scope.clearAllMessages();
 					    	 $scope.breedingEventValidation_ErrCode_4 = true;
+					    	 $scope.confirmClick = false;
 					    	 }
 						     else if(statusCode == "ERR_GENERAL")
 					    	 {
 						    	 $scope.clearAllMessages();
 					    	 $scope.entryEventErrorMessage = true;
+					    	 $scope.confirmClick = false;
 					    	 }
 					    	 
-					    	 
+					    //	 $scope.setupFormElements(); 
 					    	$window.scrollTo(0, 5);
 					   	 }
 				   }
@@ -210,6 +218,39 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			 }
 		}
 	};
+	
+	
+	/*$scope.setupFormElements = function()
+	{
+		if($scope.confirmClick)
+			{
+		$("#serviceId").attr("disabled","");
+		$("#employeeGroupId").attr("disabled","");
+		$("#pigInfoId").attr("disabled","");
+		$("#pigInfoId").attr("disabled","");
+		$("#sexType").attr("disabled","");
+		$("#breedingGroupId").attr("disabled","");
+		$("#popupcal").attr("disabled","");
+		$("#semenId").attr("disabled","");
+		$("#mateQuality").attr("disabled","");
+		$("#remarks").attr("disabled","");
+		$("#sowCondition").attr("disabled","");
+			}
+		else
+			{
+			$("#serviceId").attr("disabled",false);
+			$("#employeeGroupId").attr("disabled",false);
+			$("#pigInfoId").attr("disabled",false);
+			$("#pigInfoId").attr("disabled",false);
+			$("#sexType").attr("disabled",false);
+			$("#breedingGroupId").attr("disabled",false);
+			$("#popupcal").attr("disabled",false);
+			$("#semenId").attr("disabled",false);
+			$("#mateQuality").attr("disabled",false);
+			$("#remarks").attr("disabled",false);
+			$("#sowCondition").attr("disabled",false);
+			}
+	}*/
 	
 	$scope.getEmployeeGroups = function()
 	{
@@ -239,6 +280,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.clearAllMessages();
 		$scope.breedingEvent = {};
 		$scope.changeText();
+		//$scope.setupFormElements();
 	}
 	
 	$scope.viewEmployeeGroup = function()
@@ -276,6 +318,10 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 								{
 								   var gestationRecord  = data.payload;
 								   $scope.breedingEvent["gestationRecordDate"] = gestationRecord.breedingDate;
+								}
+							else
+								{
+								$scope.breedingEvent["gestationRecordDate"] = null;
 								}
 						});
 					}
