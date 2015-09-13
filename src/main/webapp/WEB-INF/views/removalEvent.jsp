@@ -28,7 +28,7 @@
 				
 							 <div class="options">
 							 <div class="btn-group pull-right">
-				                <button type="button" class="btn btn-primary active" ng-click="getRemovalExceptSales(searchText)"><i class="fa fa-search"></i></button>
+				                <button type="button" class="btn btn-primary active" ng-click="getRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
 				              </div>
 				              <div class="form-group">
 				              <label class="radio-inline">
@@ -131,7 +131,7 @@
 	</button>
 		 
 	<form name="removalExceptSalesDisplayForm" method="post">	
-		<div class="content" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
+		<div class="content" ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage">
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">
@@ -153,7 +153,7 @@
 					<td style="width:10%">{{row.removalDateTime}}</td>
 					<td style="width:25%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{pigInfoList[row.pigInfoId]}}</td>
-					<td style="width:25%">{{groupEventList[row.groupEventId]}}</td>
+					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
 					<td style="width:10%">{{barnList[row.barnId]}}</td>
 					<td style="width: 8%">
 						<button type="button" class="btn btn-edit btn-xs" ng-click="addRemovalExceptSalesData(row.id)">
@@ -169,7 +169,7 @@
 			</table>
 			</div>
 		</div>
-		<input type="hidden" name="removalId" id="removalId"/>
+		<input type="hidden" name="removalIdEntered" id="removalIdEntered"/>
 		<input type="hidden" name="removalGeneratedId" id="removalGeneratedId"/>
 		<input type="hidden" name="removalExceptSalesId" id="removalExceptSalesId"/>			
 		<input type="hidden" name="companyId" id="companyId"/>

@@ -69,7 +69,7 @@ public class RemovalEventController
 	 @RequestMapping(value = "/addRemovalEventExceptSalesDetails", method=RequestMethod.POST)
 		public String addRemovalEventExceptSalesDetails(HttpServletRequest request, Model model)
 		{
-			model.addAttribute("removalId",request.getParameter("removalId"));
+			model.addAttribute("removalIdEntered",request.getParameter("removalIdEntered"));
 			model.addAttribute("removalGeneratedId",request.getParameter("removalGeneratedId"));
 			model.addAttribute("removalExceptSalesId",request.getParameter("removalExceptSalesId"));
 			model.addAttribute("companyId",request.getParameter("companyId"));			

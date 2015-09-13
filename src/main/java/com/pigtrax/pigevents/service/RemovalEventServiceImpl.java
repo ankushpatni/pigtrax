@@ -2,6 +2,7 @@ package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.RemovalEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
-import com.pigtrax.pigevents.beans.TransportJourney;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.SalesEventDetailsDao;
@@ -129,12 +129,12 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 	}
 
 	@Override
-	public List getRemovalEventAndDetailByTicketNumber(String groupId)
+	public List getRemovalEventAndDetailByRemovalId(String removalId)
 			throws PigTraxException {
 		try 
 		{
 			List eventAndDetailList = new ArrayList();
-			RemovalEvent removalEvent =  removalEventDao.getRemovalEventByGroupId(groupId);
+			RemovalEvent removalEvent =  removalEventDao.getRemovalEventByRemovalId(removalId);
 			if(null != removalEvent)
 			{
 				eventAndDetailList.add(removalEvent);
@@ -142,7 +142,7 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 				{
 					List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = removalEventExceptSalesDetailsDao.getRemovalEventExceptSalesDetailsListByRemovalId(removalEvent.getId());
 				
-					if(null != removalEventExceptSalesDetailsList)
+					if(null != removalEventExceptSalesDetailsList && removalEventExceptSalesDetailsList.size()>0)
 					{
 						eventAndDetailList.add(removalEventExceptSalesDetailsList);
 					}

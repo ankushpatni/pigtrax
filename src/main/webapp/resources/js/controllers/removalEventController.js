@@ -12,7 +12,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 	$scope.removalExceptSalesList={};
 	
 	
-	$scope.setCompanyId = function(companyId,ticketNumber)
+	$scope.setCompanyId = function(companyId,removalId)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
@@ -28,22 +28,23 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 			console.log( "failure message: " + {data: data});
 		});	*/
 		
-		var res2 = $http.get('rest/util/getRemovalEventDetailMasterData?companyId='+$rootScope.companyId);
+		var res2 = $http.get('rest/util/getRemovalExceptSalesMasterData?companyId='+$rootScope.companyId);
 		res2.success(function(data, status, headers, config) {
 			console.log(data);
 			
 			$scope.removalEventType = data.payload[0];
-			$scope.siloList = data.payload[1];	
-			$scope.groupEvent = data.payload[2]
+			$scope.pigInfoList = data.payload[1];
+			$scope.barnList = data.payload[2];
+			$scope.groupEventList = data.payload[3]
 		});
 		res2.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
 		
-		if( ticketNumber)
+		if( removalId)
 		{
-			$scope.searchText = ticketNumber;
-			$scope.getRemovalEvent();
+			//$scope.searchText = ticketNumber;
+			$scope.getRemovalEvent(removalId);
 			$scope.entryEventDetailSuccessMessage = true;
 		}
 	};
@@ -76,7 +77,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 						{
 							
 							$scope.entryEventSuccessMessage = true;
-							$scope.getRemovalEvent($scope.removalEventForm.ticketNumber,true);
+							$scope.getRemovalEvent($scope.removalEvent.removalId,true);
 						}
 					else
 						{
@@ -96,21 +97,29 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 		$window.scrollTo(0,5);
 	}
 	
-	$scope.getRemovalEvent = function (ticketNumber,flag,flag1)
+	$scope.getRemovalEvent = function (removalId,flag,flag1)
 	{
-		console.log('Group ID is '+ $scope.searchText);
+		
+		console.log(removalId);
+	
+	if(!removalId || removalId===undefined)
+	{
+		removalId = $scope.searchText;
+	}
+	
+	console.log(removalId);
 		var postParam = {
 				
-				"ticketNumber" : ticketNumber,
+				"removalId" : removalId,
 			};
 			
-			console.log();
 		restServices.getRemovalEventInformation(postParam, function(data){
 			console.log(data);
 			if(!data.error)
 				{
 					
 					$scope.removalEvent = data.payload[0];
+					$scope.removalExceptSalesList = data.payload[1];
 					$scope.clearAllMessages();
 					if(flag)
 					{
@@ -195,7 +204,8 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 	
 	$scope.addRemovalExceptSalesData = function(removalExceptId)
 	{
-		document.getElementById("removalId").value = $scope.removalEvent.removalId;
+	console.log($scope.removalEvent);
+		document.getElementById("removalIdEntered").value = $scope.removalEvent.removalId;
 		document.getElementById("removalGeneratedId").value = $scope.removalEvent.id;
 		document.getElementById("removalExceptSalesId").value = removalExceptId;
 		document.getElementById("companyId").value = $scope.companyId;

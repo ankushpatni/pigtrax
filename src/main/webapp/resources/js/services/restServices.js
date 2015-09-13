@@ -57,6 +57,8 @@ pigTrax.factory("restServices", function($resource) {
 		"getGestationRecord" : {method:"POST",url:"rest/breedingEvent/getGestationRecord"},
 		"getCityCountryList" : {method:"GET",url:"rest/util/getCityCountryList"},
 		"addRemovalEvent" : {method:"POST",url:"rest/removalEvent/addRemovalEvent"},
-		"getRemovalEventInformation" : {method:"POST",url:"rest/removalEvent/getRemovalEventInformation"}
+		"getRemovalEventInformation" : {method:"POST",url:"rest/removalEvent/getRemovalEventInformation"},
+		"addRemovalExceptSales" : {method:"POST",url:"rest/removalEvent/addRemovalExceptSales"},
+		"getRemovalExceptSales" : {method:"POST",url:"rest/removalEvent/getRemovalExceptSales"},
     });
 });

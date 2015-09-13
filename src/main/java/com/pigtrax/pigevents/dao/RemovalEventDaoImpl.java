@@ -74,7 +74,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	public RemovalEvent getRemovalEventByGroupId(final String groupId) throws SQLException
 	{
 		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"RemovalEvent\" where \"groupId\" = ? ";
+		   		"from pigtrax.\"RemovalEvent\" where \"removalId\" = ? ";
 				
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
@@ -91,30 +91,6 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	@Override
 	public int addRemovalEvent(final RemovalEvent removalEvent) throws SQLException 
 	{
-		/*final String Qry = "insert into pigtrax.\"RemovalEvent\"(\"removalId\", \"id_RemovalType\","
-				+"\"remarks\", \"id_TransportJourney\",  \"lastUpdated\",\"userUpdated\") "
-				+ "values(?,?,?,?,current_timestamp,?)";
-
-		KeyHolder holder = new GeneratedKeyHolder();
-
-		jdbcTemplate.update(new PreparedStatementCreator() {
-			public PreparedStatement createPreparedStatement(Connection con)
-					throws SQLException {
-				PreparedStatement ps = con.prepareStatement(Qry,new String[] { "id" });
-				ps.setString(1, removalEvent.getRemovalId());
-				ps.setInt(2, removalEvent.getRemovalTypeId());
-				ps.setString(3, removalEvent.getRemarks());
-				if(null != removalEvent.getTransportJourneyId())
-					ps.setInt(4, removalEvent.getTransportJourneyId());
-				else
-					ps.setNull(4, java.sql.Types.INTEGER);
-				ps.setString(9, UserUtil.getLoggedInUser());				
-				return ps;
-			}
-		}, holder);
-		int keyVal = holder.getKey().intValue();
-		logger.info("Key generated = " + keyVal);
-		return keyVal;*/
 		final String Qry = "insert into pigtrax.\"RemovalEvent\"(\"removalId\", \"id_RemovalType\","
 				+"\"remarks\",  \"lastUpdated\",\"userUpdated\") "
 				+ "values(?,?,?,current_timestamp,?)";

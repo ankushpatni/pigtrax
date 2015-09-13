@@ -177,7 +177,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			throws SQLException {
 		String query = "update pigtrax.\"RemovalEventExceptSalesDetails\" SET \"numberOfPigs\"=?, \"removalDateTime\"=?, \"id_PigInfo\"=?,"
 				+" \"id_GroupEvent\"=? ,\"weightInKgs\" =? , \"id_Barn\"=?, \"lastUpdated\"=current_timestamp,"+
-				" \"userUpdated\"=?,\"id_TransportJourney\"=?,  where \"id\" = ? ";
+				" \"userUpdated\"=?,\"id_TransportJourney\"=?  where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -171,6 +170,39 @@ public class BarnDaoImpl implements BarnDao {
 			}}, new BarnMapper());
 		
 		return barnList;
+	}
+	
+	/*
+	 * Get barn list based on companyId from View
+	 * 
+	 */
+	
+	public List<Barn> getBarnListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
+	{
+		String query = "SELECT \"barnserialid\" as \"id\",\"barnId\" from pigtrax.\"CompPremBarnSiloVw\" where \"barnId\" != '' and companyserialid = ?";
+	//CompPremBarnRoomPenVw
+		List<Barn> barnList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, generatedCompanyId);
+					}
+				}, new BarnMapperList());
+	
+		if (barnList != null && barnList.size() > 0) {
+			return  barnList;
+		}
+		return null;
+	}
+	
+	private static final class BarnMapperList implements RowMapper<Barn> {
+		public Barn mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Barn barn = new Barn();
+			barn.setId(rs.getInt("id"));
+			barn.setBarnId(rs.getString("barnId"));
+			return barn;
+		}
 	}
 
 

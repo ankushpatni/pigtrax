@@ -16,6 +16,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.RoomService;
 import com.pigtrax.master.service.interfaces.SiloService;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
@@ -42,6 +43,9 @@ public class UtilController {
 	
 	@Autowired
 	PigInfoService pigInfoService;
+	
+	@Autowired
+	BarnService barnService;
 	
 	@RequestMapping(value = "/getCityCountryList", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getCityCountryList(HttpServletRequest request	)
@@ -193,11 +197,13 @@ public class UtilController {
 		outDataList.add(refDataCache.getRemovalEventTypeMap(language));
 		try {
 			outDataList.add(pigInfoService.getPigInformationByCompany(companyId));
+			outDataList.add(barnService.getBarnListBasedOnCompanyId(companyId));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		outDataList.add(groupeventService.getGroupEventByCompanyId(companyId));
+		
 		dto.setPayload(outDataList);
 		dto.setStatusMessage("Success");
 		return dto;
