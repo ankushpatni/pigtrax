@@ -142,21 +142,13 @@
 					      invalid-message="'<spring:message code='label.piginfo.entryeventform.tattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.alternatetattoo'  text='Alternate Tattoo'/></label>
+                      <label><spring:message code='label.piginfo.entryeventform.alternateTattoo'  text='Alternate Tattoo'/></label>
                       <input type="text" class="form-control" name="alternateTattoo" ng-model="pigInfo.alternateTattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.alternateTattoo.placeholder' text='Enter tattoo'/>" 
 					    invalid-message="'<spring:message code='label.piginfo.entryeventform.alternateTattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.remarks'  text='Remarks'/><span style='color: red'>*</span></label>
                       <textarea name="remarks" ng-model="pigInfo.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.entryeventform.remarks.placeholder' text='Enter remarks'/>" required required-message="'<spring:message code='label.piginfo.entryeventform.remarks.requiredmessage' text='Remarks is required'/>'"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span></label>
-                      <select class="form-control" name="sowCondition" ng-model="pigInfo.sowCondition" required required-message="'<spring:message code='label.piginfo.entryeventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
-                          <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>
-                          <option value="2">2 - <spring:message code='label.piginfo.entryeventform.sowcondition.normal.message'  text='Healthy'/></option>
-                          <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
-                        </select>
                     </div>
                     <button class="btn btn-primary" ng-click="addEntryEvent()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>

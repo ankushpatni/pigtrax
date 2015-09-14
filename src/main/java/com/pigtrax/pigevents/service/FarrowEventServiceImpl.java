@@ -102,6 +102,8 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	{
 		int farrowEventId = farrowEventDao.addFarrowEventDetails(farrowEvent);
 		
+		pigInfoDao.increaseParity(farrowEvent.getPigInfoId());
+		
 		PigTraxEventMaster master = new PigTraxEventMaster();
 		master.setPigInfoId(farrowEvent.getPigInfoId());
 		master.setUserUpdated(farrowEvent.getUserUpdated());
@@ -125,8 +127,15 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	public void deleteFarrowEvent(Integer farrowEventId)
 			throws PigTraxException {
 		 try {
-			eventMasterDao.deleteFarrowEvent(farrowEventId);
-			farrowEventDao.deleteFarrowEvent(farrowEventId);
+			
+			 FarrowEvent event = farrowEventDao.getFarrowEvent(farrowEventId);
+			 if(event != null)
+			 {
+				 //decrease the parity value by 1
+				pigInfoDao.decreaseParity(event.getPigInfoId());
+			 	eventMasterDao.deleteFarrowEvent(farrowEventId);
+			 	farrowEventDao.deleteFarrowEvent(farrowEventId);
+			 }
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}

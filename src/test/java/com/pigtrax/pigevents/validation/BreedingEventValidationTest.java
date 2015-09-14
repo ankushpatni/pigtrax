@@ -57,7 +57,7 @@ public class BreedingEventValidationTest {
 		pigInfo.setTattoo("PIGTATTOO");
 		pigInfo.setAlternateTattoo("ALT TATTOO");
 		pigInfo.setRemarks("For testing");
-		pigInfo.setSowCondition(1);;
+		//pigInfo.setSowCondition(1);;
 		pigInfo.setUserUpdated("s_admin");
 		pigInfo.setCompanyId(2);;
 		pigInfo.setSexTypeId(1);

@@ -26,7 +26,6 @@ public class PigInfoBuilder {
 		   info.setTattoo(dto.getTattoo());
 		   info.setAlternateTattoo(dto.getAlternateTattoo());
 		   info.setRemarks(dto.getRemarks());
-		   info.setSowCondition(dto.getSowCondition());
 		   info.setUserUpdated(dto.getUserUpdated());
 		   info.setCompanyId(dto.getCompanyId());
 		   info.setPenId(dto.getPenId());
@@ -55,7 +54,6 @@ public class PigInfoBuilder {
 		   dto.setTattoo(info.getTattoo());
 		   dto.setAlternateTattoo(info.getAlternateTattoo());
 		   dto.setRemarks(info.getRemarks());
-		   dto.setSowCondition(info.getSowCondition());
 		   dto.setUserUpdated(info.getUserUpdated());
 		   dto.setCompanyId(info.getCompanyId());
 		   dto.setPenId(info.getPenId());

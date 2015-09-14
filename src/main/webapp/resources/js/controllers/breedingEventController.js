@@ -312,7 +312,6 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				if(pigInfo.sexTypeId == 2)
 					{
 						$scope.breedingEvent["pigBirthDate"] = pigInfo.birthDate;
-						$scope.breedingEvent["sowCondition"] = pigInfo.sowCondition;
 						restServices.getGestationRecord(pigInfo.id, function(data){
 							if(!data.error)
 								{

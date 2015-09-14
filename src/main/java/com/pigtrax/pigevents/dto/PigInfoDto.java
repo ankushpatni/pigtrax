@@ -15,7 +15,6 @@ public class PigInfoDto {
 	private String tattoo;
 	private String alternateTattoo;
 	private String remarks;
-	private Integer sowCondition;
 	private Integer companyId;
 	private Integer penId;
 	private Integer barnId;
@@ -26,6 +25,7 @@ public class PigInfoDto {
 	private Date  currentFarrowEventDate;
 	private Integer farrowEventId;
 	private boolean active;
+	private Integer parity;
 
 	public Integer getFarrowEventId() {
 		return farrowEventId;
@@ -140,14 +140,6 @@ public class PigInfoDto {
 		this.remarks = remarks;
 	}
 
-	public Integer getSowCondition() {
-		return sowCondition;
-	}
-
-	public void setSowCondition(Integer sowCondition) {
-		this.sowCondition = sowCondition;
-	}
-
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -216,6 +208,16 @@ public class PigInfoDto {
 		this.active = active;
 	}
 
+	
+	
+	public Integer getParity() {
+		return parity;
+	}
+
+	public void setParity(Integer parity) {
+		this.parity = parity;
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
@@ -232,7 +234,6 @@ public class PigInfoDto {
 		buffer.append(", "+"tattoo : "+this.tattoo);
 		buffer.append(", "+"alternateTattoo : "+this.alternateTattoo);
 		buffer.append(", "+"remarks : "+this.remarks);
-		buffer.append(", "+"sowCondition : "+this.sowCondition);
 		buffer.append(", "+"companyId : "+this.companyId);
 		buffer.append(", "+"penId : "+this.penId);
 		buffer.append(", "+"barnId : "+this.barnId);

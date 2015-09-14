@@ -26,4 +26,8 @@ public interface PigInfoDao {
    public List<PigInfo> getPigInformationByCompanyId( final Integer companyId) throws SQLException;
    
    public int updatePigInfoStatus(final Integer id, final Boolean pigStatus);
+   
+   int increaseParity(Integer pigInfoId); 
+   
+   int decreaseParity(Integer pigInfoId);
 }
