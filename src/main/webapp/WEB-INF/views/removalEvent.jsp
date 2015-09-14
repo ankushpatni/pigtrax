@@ -142,7 +142,7 @@
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight In Kgs" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
-						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.barnId" text="Barn" /></th>
+						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.search.option.premisesId" text="Premises" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.edit" text="Edit" /></th>
 					</tr>
 	 			</thead>
@@ -154,7 +154,7 @@
 					<td style="width:25%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{pigInfoList[row.pigInfoId]}}</td>
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
-					<td style="width:10%">{{barnList[row.barnId]}}</td>
+					<td style="width:10%">{{premiseList[row.premiseId]}}</td>
 					<td style="width: 8%">
 						<button type="button" class="btn btn-edit btn-xs" ng-click="addRemovalExceptSalesData(row.id)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

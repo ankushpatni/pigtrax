@@ -1,7 +1,6 @@
 package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.TransportJourney;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
+import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
@@ -22,8 +25,15 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 	@Autowired
 	TransportJourneyDao transportJourneyDao;
 	
+	@Autowired 
+	GroupEventDao groupEventDao;
+	
 	@Autowired
 	RemovalEventExceptSalesDetailsDao removalEventExceptSalesDetailsDao;
+	
+	@Autowired
+	PigInfoDao pigInfoDao;
+	
 	@Override
 	public RemovalEventExceptSalesDetails getRemovalEventExceptSalesDetailsById(int removalId) throws PigTraxException {
 		try 
@@ -69,7 +79,26 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					throw new PigTraxException("Not able to create transport journey",null);
 				}
 				
-			}			
+			}	
+			
+			if(null != removalEventExceptSalesDetails.getGroupEventId() && removalEventExceptSalesDetails.getGroupEventId() !=0)
+			{
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getCompanyId());
+				if(null != groupEventUpdate )
+				{
+					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - removalEventExceptSalesDetails.getNumberOfPigs());
+					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+				}
+			}
+			
+			if(null != removalEventExceptSalesDetails.getPigInfoId() && removalEventExceptSalesDetails.getPigInfoId() !=0)
+			{
+				PigInfo pigInfo = pigInfoDao.getPigInformationById(removalEventExceptSalesDetails.getPigInfoId());
+				if(null != pigInfo)
+				{
+					pigInfoDao.updatePigInfoStatus(removalEventExceptSalesDetails.getPigInfoId(), false);
+				}
+			}
 			returnValue = removalEventExceptSalesDetailsDao.addRemovalEventExceptSalesDetails(removalEventExceptSalesDetails);
 			
 		} 

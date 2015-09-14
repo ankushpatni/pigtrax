@@ -12,12 +12,13 @@ public class RemovalEventExceptSalesDetails {
 	private Integer groupEventId;
 	private BigDecimal weightInKgs;
 	private Integer removalEventId;
-	private Integer barnId;
+	private Integer premiseId;
 	private Date lastUpdated;
 	private String userUpdated;
 	
 	private Integer transportJourneyId;
 	private TransportJourney transportJourney;
+	private Integer companyId;
 	
 	public Integer getId() {
 		return id;
@@ -61,11 +62,11 @@ public class RemovalEventExceptSalesDetails {
 	public void setRemovalEventId(Integer removalEventId) {
 		this.removalEventId = removalEventId;
 	}
-	public Integer getBarnId() {
-		return barnId;
+	public Integer getPremiseId() {
+		return premiseId;
 	}
-	public void setBarnId(Integer barnId) {
-		this.barnId = barnId;
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	public Date getLastUpdated() {
 		return lastUpdated;
@@ -91,5 +92,13 @@ public class RemovalEventExceptSalesDetails {
 	public void setTransportJourney(TransportJourney transportJourney) {
 		this.transportJourney = transportJourney;
 	}
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+	
+	
 
 }

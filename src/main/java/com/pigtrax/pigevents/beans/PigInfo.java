@@ -23,6 +23,7 @@ public class PigInfo {
 	private String userUpdated;
 	private Date currentFarrowEventDate;
 	private Integer farrowId;
+	private boolean active;
 
 	public Integer getFarrowId() {
 		return farrowId;
@@ -187,6 +188,14 @@ public class PigInfo {
 		this.currentFarrowEventDate = currentFarrowEventDate;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
@@ -209,6 +218,7 @@ public class PigInfo {
 		buffer.append(", "+"barnId : "+this.barnId);
 		buffer.append(", "+"sexTypeId"+this.sexTypeId);
 		buffer.append(", "+"currentFarrowEventDate"+this.currentFarrowEventDate);
+		buffer.append(", "+"active"+this.active);
 		buffer.append(" ] ");
 		return buffer.toString();
 	}

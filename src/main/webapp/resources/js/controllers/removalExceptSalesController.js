@@ -5,7 +5,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	$scope.transportDestination;
 	$scope.transportTruck;
 	$scope.transportTrailer;
-	$scope.barnList={};
+	$scope.premiseList={};
 	$scope.removalEventType={};
 	$scope.groupEventList={};
 	$scope.pigInfoList={};
@@ -39,7 +39,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			
 			$scope.removalEventType = data.payload[0];
 			$scope.pigInfoList = data.payload[1];
-			$scope.barnList = data.payload[2];
+			$scope.premiseList = data.payload[2];
 			$scope.groupEventList = data.payload[3]
 		});
 		res2.error(function(data, status, headers, config) {
@@ -83,7 +83,21 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	{
 		$scope.eventErrorMessage = false;
 		$scope.eventDuplicateErrorMessage = false;
+		$scope.noOfPigsrequired  = false;
 	};
+	
+	/*$scope.decideGroupPremises = function()
+	{
+		var option = "";
+		if(document.getElementById("rad1").checked)
+		{
+			 option = document.getElementById("rad1").value;
+		}
+		 else if(document.getElementById("rad2").checked)
+		{
+			 option = document.getElementById("rad2").value;
+		}
+	}*/
 	
 	$scope.addTransportJourney = function()
 	{
@@ -121,10 +135,26 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		{
 			$scope.removalExceptSales.id = 0;
 		}
+		
+		if(document.getElementById("rad1").checked)
+		{
+			$scope.removalExceptSales.pigInfoId = 0;
+		}
+		 else if(document.getElementById("rad2").checked)
+		{
+			 $scope.removalExceptSales.groupEventId = 0;
+			 $scope.removalExceptSales.numberOfPigs = 1;
+		}
+		
+		if($scope.removalExceptSales.numberOfPigs ==0)
+		{
+			$scope.noOfPigsrequired = true;
+		}
 		if($scope.removalExceptFormSales.$valid)
 			{
 				$scope.clearAllMessages();
 				$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
+				console.log($scope.removalExceptSales);
 				restServices.addRemovalExceptSales($scope.removalExceptSales, function(data){
 				console.log(data);
 					if(!data.error)

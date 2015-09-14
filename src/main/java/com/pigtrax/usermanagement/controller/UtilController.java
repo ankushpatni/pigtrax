@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.service.interfaces.BarnService;
+import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.master.service.interfaces.RoomService;
 import com.pigtrax.master.service.interfaces.SiloService;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
@@ -46,6 +47,9 @@ public class UtilController {
 	
 	@Autowired
 	BarnService barnService;
+	
+	@Autowired
+	PremisesService premisesService;
 	
 	@RequestMapping(value = "/getCityCountryList", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getCityCountryList(HttpServletRequest request	)
@@ -197,7 +201,7 @@ public class UtilController {
 		outDataList.add(refDataCache.getRemovalEventTypeMap(language));
 		try {
 			outDataList.add(pigInfoService.getPigInformationByCompany(companyId));
-			outDataList.add(barnService.getBarnListBasedOnCompanyId(companyId));
+			outDataList.add(premisesService.getPremisesListBasedOnCompanyId(companyId));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

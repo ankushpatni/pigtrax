@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.master.dao.interfaces.PremisesDao;
+import com.pigtrax.master.dto.Barn;
 import com.pigtrax.master.dto.Premises;
 import com.pigtrax.util.UserUtil;
 
@@ -146,5 +147,38 @@ public class PremisesDaoImpl implements PremisesDao{
 			return premises;
 		}
 	}	
+	
+	/*
+	 * Get barn list based on companyId from View
+	 * 
+	 */
+	
+	public List<Premises> getPremisesListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
+	{
+		String query = "SELECT \"premiseserialid\" as \"id\",\"permiseId\" from pigtrax.\"CompPremBarnSiloVw\" where \"permiseId\" != '' and companyserialid = ?";
+	//CompPremBarnRoomPenVw
+		List<Premises> premisesList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, generatedCompanyId);
+					}
+				}, new PremisesMapperList());
+	
+		if (premisesList != null && premisesList.size() > 0) {
+			return  premisesList;
+		}
+		return null;
+	}
+	
+	private static final class PremisesMapperList implements RowMapper<Premises> {
+		public Premises mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Premises premises = new Premises();
+			premises.setId(rs.getInt("id"));
+			premises.setPermiseId(rs.getString("permiseId"));
+			return premises;
+		}
+	}
 
 }

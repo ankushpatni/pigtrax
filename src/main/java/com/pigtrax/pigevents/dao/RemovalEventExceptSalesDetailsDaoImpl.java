@@ -39,7 +39,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 	{
 
 		String qry = "SELECT \"id\", \"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-	    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Barn\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id\" = ?" ;
+	    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id\" = ?" ;
 					
 		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -58,7 +58,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsListByRemovalId(
 			final int removalId) throws SQLException {
 		String qry = "SELECT \"id\", \"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Barn\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_RemovalEvent\" = ?" ;
+			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_RemovalEvent\" = ?" ;
 							
 		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -78,7 +78,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			final RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
 			throws SQLException {
 		final String Qry = "insert into pigtrax.\"RemovalEventExceptSalesDetails\"(\"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Barn\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\") " + 
+			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\") " + 
 			       "values(?,?,?,?,?,?,?,current_timestamp,?,?)";	
 		
 		KeyHolder holder = new GeneratedKeyHolder();
@@ -106,7 +106,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					ps.setNull(2, java.sql.Types.DATE);
 				}
 				
-				if(removalEventExceptSalesDetails.getPigInfoId() != null )
+				if(removalEventExceptSalesDetails.getPigInfoId() != null && removalEventExceptSalesDetails.getPigInfoId() !=0 )
 				{
 					ps.setInt(3, removalEventExceptSalesDetails.getPigInfoId());
 				}
@@ -115,7 +115,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					ps.setNull(3, java.sql.Types.INTEGER);
 				}
 				
-				if(removalEventExceptSalesDetails.getGroupEventId() != null )
+				if(removalEventExceptSalesDetails.getGroupEventId() != null && removalEventExceptSalesDetails.getGroupEventId() !=0)
 				{
 					ps.setInt(4, removalEventExceptSalesDetails.getGroupEventId());
 				}
@@ -133,7 +133,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					ps.setNull(5, java.sql.Types.INTEGER);
 				}
 				
-				if(removalEventExceptSalesDetails.getRemovalEventId() != null )
+				if(removalEventExceptSalesDetails.getRemovalEventId() != null && removalEventExceptSalesDetails.getRemovalEventId() !=0)
 				{
 					ps.setInt(6, removalEventExceptSalesDetails.getRemovalEventId());
 				}
@@ -142,9 +142,9 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					ps.setNull(6, java.sql.Types.INTEGER);
 				}	
 				
-				if(removalEventExceptSalesDetails.getBarnId() != null && removalEventExceptSalesDetails.getBarnId() !=0)
+				if(removalEventExceptSalesDetails.getPremiseId() != null && removalEventExceptSalesDetails.getPremiseId() !=0)
 				{
-					ps.setInt(7, removalEventExceptSalesDetails.getBarnId());
+					ps.setInt(7, removalEventExceptSalesDetails.getPremiseId());
 				}
 				else
 				{
@@ -156,7 +156,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 
 				if(removalEventExceptSalesDetails.getTransportJourneyId() != null && removalEventExceptSalesDetails.getTransportJourneyId()!=0)
 				{
-					ps.setInt(9, removalEventExceptSalesDetails.getBarnId());
+					ps.setInt(9, removalEventExceptSalesDetails.getTransportJourneyId());
 				}
 				else
 				{
@@ -176,7 +176,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			final RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
 			throws SQLException {
 		String query = "update pigtrax.\"RemovalEventExceptSalesDetails\" SET \"numberOfPigs\"=?, \"removalDateTime\"=?, \"id_PigInfo\"=?,"
-				+" \"id_GroupEvent\"=? ,\"weightInKgs\" =? , \"id_Barn\"=?, \"lastUpdated\"=current_timestamp,"+
+				+" \"id_GroupEvent\"=? ,\"weightInKgs\" =? , \"id_Premise\"=?, \"lastUpdated\"=current_timestamp,"+
 				" \"userUpdated\"=?,\"id_TransportJourney\"=?  where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
@@ -227,9 +227,9 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 						ps.setNull(5, java.sql.Types.INTEGER);
 					}
 					
-					if(removalEventExceptSalesDetails.getBarnId() != null )
+					if(removalEventExceptSalesDetails.getPremiseId() != null )
 					{
-						ps.setInt(6, removalEventExceptSalesDetails.getBarnId());
+						ps.setInt(6, removalEventExceptSalesDetails.getPremiseId());
 					}
 					else
 					{
@@ -239,7 +239,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					ps.setString(7, UserUtil.getLoggedInUser());
 					if(removalEventExceptSalesDetails.getTransportJourneyId() != null && removalEventExceptSalesDetails.getTransportJourneyId()!=0)
 					{
-						ps.setInt(8, removalEventExceptSalesDetails.getBarnId());
+						ps.setInt(8, removalEventExceptSalesDetails.getTransportJourneyId());
 					}
 					else
 					{
@@ -248,6 +248,24 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					ps.setInt(9, removalEventExceptSalesDetails.getId());
 				}
 			});	
+	}
+	
+	/**
+	 * To delete the given RemovalEventExceptSalesDetails
+	 * @param id
+	 */
+	
+	@Override
+	public void deleteRemovalEventExceptSalesDetails(final Integer id) throws SQLException {
+		
+		final String qry = "delete from pigtrax.\"RemovalEventExceptSalesDetails\" where \"id\" = ?";
+		
+		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, id);
+			}
+		});
 	}
 	
 	private static final class RemovalEventExceptSalesDetailsMapper implements RowMapper<RemovalEventExceptSalesDetails> {
@@ -260,7 +278,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			removalEventExceptSalesDetails.setGroupEventId(rs.getInt("id_GroupEvent"));
 			removalEventExceptSalesDetails.setWeightInKgs(rs.getBigDecimal("weightInKgs"));
 			removalEventExceptSalesDetails.setRemovalEventId(rs.getInt("id_RemovalEvent"));
-			removalEventExceptSalesDetails.setBarnId(rs.getInt("id_Barn"));
+			removalEventExceptSalesDetails.setPremiseId(rs.getInt("id_Premise"));
 			removalEventExceptSalesDetails.setTransportJourneyId(rs.getInt("id_TransportJourney"));			
 			removalEventExceptSalesDetails.setUserUpdated(rs.getString("userUpdated"));
 			return removalEventExceptSalesDetails;

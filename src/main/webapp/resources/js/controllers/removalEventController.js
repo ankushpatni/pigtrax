@@ -6,7 +6,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 	$scope.transportDestination;
 	$scope.transportTruck;
 	$scope.transportTrailer;
-	$scope.siloList={};
+	$scope.premiseList={};
 	$scope.removalEventType={};
 	$scope.groupEvent={};
 	$scope.removalExceptSalesList={};
@@ -34,7 +34,7 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 			
 			$scope.removalEventType = data.payload[0];
 			$scope.pigInfoList = data.payload[1];
-			$scope.barnList = data.payload[2];
+			$scope.premiseList = data.payload[2];
 			$scope.groupEventList = data.payload[3]
 		});
 		res2.error(function(data, status, headers, config) {

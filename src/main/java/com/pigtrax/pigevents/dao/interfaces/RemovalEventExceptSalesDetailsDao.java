@@ -17,5 +17,5 @@ public interface RemovalEventExceptSalesDetailsDao {
 	
 	int updateRemovalEventExceptSalesDetails(final RemovalEventExceptSalesDetails salesEventDetails) throws SQLException;
 
-
+	public void deleteRemovalEventExceptSalesDetails(final Integer id) throws SQLException;
 }
