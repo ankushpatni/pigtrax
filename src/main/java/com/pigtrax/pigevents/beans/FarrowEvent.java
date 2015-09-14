@@ -23,6 +23,8 @@ public class FarrowEvent {
 	private Integer employeeGroupId;
 	private Integer pigInfoId;
 	private Integer pregnancyEventId;
+	private Integer teats;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -136,6 +138,12 @@ public class FarrowEvent {
 	}
 	public void setPregnancyEventId(Integer pregnancyEventId) {
 		this.pregnancyEventId = pregnancyEventId;
+	}
+	public Integer getTeats() {
+		return teats;
+	}
+	public void setTeats(Integer teats) {
+		this.teats = teats;
 	}
 	
 	

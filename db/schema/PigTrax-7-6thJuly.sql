@@ -307,6 +307,7 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"id_EmployeeGroup" integer,
 	"id_PigInfo" integer,
 	"id_PregnancyEvent" integer,
+	"teats" smallint,
 	CONSTRAINT "FAROW_PK" PRIMARY KEY (id),
 	CONSTRAINT "FAROW_U_FI" UNIQUE ("farrowId")
 
@@ -333,8 +334,8 @@ CREATE TABLE pigtrax."PregnancyEvent"(
 	"id_EmployeeGroup" integer,
 	"id_PregnancyEventType" integer,
 	"id_PregnancyExamResultType" integer,
-	"examDate" date,
-	"resultDate" date NOT NULL,
+	"examDate" timestamp,
+	"resultDate" timestamp  NOT NULL,
 	"sowCondition" smallint,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
