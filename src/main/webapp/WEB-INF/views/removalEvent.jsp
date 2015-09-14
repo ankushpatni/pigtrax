@@ -143,7 +143,7 @@
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
 						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.search.option.premisesId" text="Premises" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.edit" text="Edit" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.delete" text="Delete" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
@@ -156,8 +156,10 @@
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
 					<td style="width:10%">{{premiseList[row.premiseId]}}</td>
 					<td style="width: 8%">
-						<button type="button" class="btn btn-edit btn-xs" ng-click="addRemovalExceptSalesData(row.id)">
-							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
+						<button type="button" ng-show="row.pigInfoId==0" class="btn btn-edit btn-xs" ng-click="deleteRemovalExceptSalesData(row,'<spring:message code="label.piginfo.removalExceptSales.delete.groupEvent" text="GroupDelete" />')">
+							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.piginfo.removalExceptSales.delete" text="Delete" /></a></button>
+						<button type="button" ng-show="row.groupEventId==0" class="btn btn-edit btn-xs" ng-click="deleteRemovalExceptSalesData(row,'<spring:message code="label.piginfo.removalExceptSales.delete.pigInfo" text="PigInfo Delete" />')">
+							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.piginfo.removalExceptSales.delete" text="Delete" /></a></button>
 					</td>				
 				</tr>
 				</tbody>		

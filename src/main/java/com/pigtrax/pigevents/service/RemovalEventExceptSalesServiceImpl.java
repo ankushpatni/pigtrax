@@ -159,5 +159,52 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	@Transactional("ptxJTransactionManager")
+	public int deleteRemovalExceptSales(RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
+			throws PigTraxException 
+	{
+		int returnValue = 0;
+		try
+		{
+			if (null != removalEventExceptSalesDetails.getTransportJourneyId())
+			{
+				transportJourneyDao.deleteTransportJourney(removalEventExceptSalesDetails
+						.getTransportJourneyId());				
+			}	
+			
+			if(null != removalEventExceptSalesDetails.getGroupEventId() && removalEventExceptSalesDetails.getGroupEventId() !=0)
+			{
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getCompanyId());
+				if(null != groupEventUpdate )
+				{
+					if(!groupEventUpdate.isActive())
+					{
+						groupEventUpdate.setActive(true);
+					}
+					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() + removalEventExceptSalesDetails.getNumberOfPigs());
+					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+				}
+			}
+			
+			if(null != removalEventExceptSalesDetails.getPigInfoId() && removalEventExceptSalesDetails.getPigInfoId() !=0)
+			{
+				PigInfo pigInfo = pigInfoDao.getPigInformationById(removalEventExceptSalesDetails.getPigInfoId());
+				if(null != pigInfo)
+				{
+					pigInfoDao.updatePigInfoStatus(removalEventExceptSalesDetails.getPigInfoId(), true);
+				}
+			}
+			removalEventExceptSalesDetailsDao.deleteRemovalEventExceptSalesDetails(removalEventExceptSalesDetails.getId());
+			
+		} 
+		catch (SQLException sqlEx)
+		{
+			throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());
+		}
+		return returnValue;
+	}
 
 }

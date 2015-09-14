@@ -13,5 +13,7 @@ public interface TransportJourneyDao {
 	
 	public int updateTransportJourney(TransportJourney transportJourney)
 			throws SQLException;
+	
+	public void deleteTransportJourney(final Integer id) throws SQLException;
 
 }

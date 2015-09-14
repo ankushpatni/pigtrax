@@ -176,5 +176,41 @@ public class RemovalEventRestController
 		} 
 		return dto;
 	}
+	
+	
+	/**
+	 * Service to save the Delete Removal Except Sales information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/deleteRemovalExceptSales", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto deleteRemovalExceptSales(HttpServletRequest request, @RequestBody RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
+	{
+		logger.info("Inside addGroupEvent method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			removalEventExceptSalesDetails.setUserUpdated(activeUser.getUsername());
+			int rowsInserted = 0;
+			if(null != removalEventExceptSalesDetails && removalEventExceptSalesDetails.getId() != 0 )
+			{
+				rowsInserted = removalEventExceptSalesService.deleteRemovalExceptSales(removalEventExceptSalesDetails);
+				dto.setRecordAdded(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		catch (Exception e)
+		{			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
+	
 
 }

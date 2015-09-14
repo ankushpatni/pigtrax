@@ -17,4 +17,7 @@ public interface RemovalEventExceptSalesService {
 	
 	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsListByRemovalId(final RemovalEventExceptSalesDetails salesEventDetails)
 			throws SQLException ;
+	
+	public int deleteRemovalExceptSales(RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
+			throws PigTraxException;
 }

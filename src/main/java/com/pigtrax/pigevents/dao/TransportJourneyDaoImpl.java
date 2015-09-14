@@ -156,4 +156,22 @@ public class TransportJourneyDaoImpl implements TransportJourneyDao{
 			return transportJourney;
 		}
 	}
+	
+	/**
+	 * To delete the given information
+	 * @param id
+	 */
+	
+	@Override
+	public void deleteTransportJourney(final Integer id) throws SQLException {
+		
+		final String qry = "delete from pigtrax.\"TransportJourney\" where \"id\" = ?";
+		
+		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, id);
+			}
+		});
+	}
 }

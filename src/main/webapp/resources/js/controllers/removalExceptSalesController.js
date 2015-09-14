@@ -154,6 +154,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			{
 				$scope.clearAllMessages();
 				$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
+				$scope.removalExceptSales.companyId = $scope.companyId;
 				console.log($scope.removalExceptSales);
 				restServices.addRemovalExceptSales($scope.removalExceptSales, function(data){
 				console.log(data);

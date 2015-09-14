@@ -1,4 +1,4 @@
-var feedEventController = pigTrax.controller('RemovalEventController', function($scope,$rootScope,$modal,$http,$window,restServices) {
+var feedEventController = pigTrax.controller('RemovalEventController',function($scope,$rootScope,$modal,$http,$window,restServices,$confirm) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -212,6 +212,57 @@ var feedEventController = pigTrax.controller('RemovalEventController', function(
 		
 		document.forms['removalExceptSalesDisplayForm'].action = 'addRemovalEventExceptSalesDetails';
 		document.forms['removalExceptSalesDisplayForm'].submit();
+	}
+	
+	$scope.deleteRemovalExceptSalesData = function(removalRow,message)
+	{
+		if(removalRow.groupEventId==0)
+		{
+			 $confirm({text: message}).then(function() {
+				 $scope.deleteRemovalExceptSales(removalRow);
+	        });
+		}
+		if(removalRow.pigInfoId==0)
+		{
+			var groupevent = $scope.groupEventList[removalRow.groupEventId];
+			if(!groupevent.active)
+			{
+				 $confirm({text: message}).then(function() {
+					 $scope.deleteRemovalExceptSales(removalRow);
+		        });
+			}
+			else
+			{
+				$scope.deleteRemovalExceptSales(removalRow);
+			}
+		}
+	}
+	
+	$scope.deleteRemovalExceptSales = function(removalRow)
+	{
+	console.log(removalRow);
+	removalRow.companyId = $scope.companyId;
+		restServices.deleteRemovalExceptSales(removalRow, function(data){
+			console.log(data);
+				if(!data.error)
+					{
+						
+						$scope.entryEventSuccessMessage = true;
+						$scope.getRemovalEvent($scope.removalEvent.removalId,false,true);
+					}
+				else
+					{
+						$scope.clearAllMessages();
+						if(data.duplicateRecord)
+						{
+							$scope.removalEventDuplicateErrorMessage = true;
+						}
+						else
+						{
+							$scope.entryEventErrorMessage = true;
+						}
+					} 
+			});
 	}
 	
 });

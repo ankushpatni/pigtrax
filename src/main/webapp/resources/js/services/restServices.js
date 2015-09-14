@@ -60,5 +60,6 @@ pigTrax.factory("restServices", function($resource) {
 		"getRemovalEventInformation" : {method:"POST",url:"rest/removalEvent/getRemovalEventInformation"},
 		"addRemovalExceptSales" : {method:"POST",url:"rest/removalEvent/addRemovalExceptSales"},
 		"getRemovalExceptSales" : {method:"POST",url:"rest/removalEvent/getRemovalExceptSales"},
+		"deleteRemovalExceptSales": {method:"POST",url:"rest/removalEvent/deleteRemovalExceptSales"},
     });
 });
