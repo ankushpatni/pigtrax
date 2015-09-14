@@ -34,6 +34,7 @@ public class FarrowEventDto {
 	private Integer companyId;
 	private String language;
 	private boolean pigletsAdded;
+	private Integer teats;
 	
 	public Integer getId() {
 		return id;
@@ -202,6 +203,12 @@ public class FarrowEventDto {
 	}
 	public void setPigletsAdded(boolean pigletsAdded) {
 		this.pigletsAdded = pigletsAdded;
+	}
+	public Integer getTeats() {
+		return teats;
+	}
+	public void setTeats(Integer teats) {
+		this.teats = teats;
 	}
 	
 	 

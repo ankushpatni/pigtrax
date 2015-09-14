@@ -42,6 +42,7 @@ public class FarrowEventBuilder {
 			   info.setUserUpdated(dto.getUserUpdated());
 			   info.setWeightInKgs(dto.getWeightInKgs());
 			   info.setPregnancyEventId(dto.getPregnancyEventId());
+			   info.setTeats(dto.getTeats());
 		   }
 		   return info;
 	   }
@@ -77,6 +78,7 @@ public class FarrowEventBuilder {
 			   dto.setUserUpdated(info.getUserUpdated());
 			   dto.setWeightInKgs(info.getWeightInKgs());
 			   dto.setPregnancyEventId(info.getPregnancyEventId());
+			   dto.setTeats(info.getTeats());
 		   }
 		   return dto;
 	   }

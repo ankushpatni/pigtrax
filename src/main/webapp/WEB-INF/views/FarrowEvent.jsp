@@ -183,11 +183,11 @@
                     
                     <div class="form-group">
                     
-                    <label>Weight(kgs)</label>
-                    <input type="number" name="farrowId" ng-model="farrowEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
+                    <label><spring:message code='label.piginfo.farroweventform.weightInKgs'  text='Litter Weight(kgs)'/></label>
+                    <input type="number" name="weightInKgs" ng-model="farrowEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
                     </div>
                     <div class="form-group">
-                    	<label>Type of Birth</label>
+                    	<label><spring:message code='label.piginfo.farroweventform.typeOfBirth'  text='Type of Birth'/></label>
                 		<label class="radio-inline">
                   			<input type="radio" name="rad1" id="birthType1" class="icheck" value="induced" ng-model="inducedBirth"> <spring:message code='label.piginfo.farroweventform.inducedBirth'  text='Induced Birth'/>
                 		</label>
@@ -206,10 +206,20 @@
                     <label ng-show="farrowDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowDate.requiredmessage' text='Farrow Date is required' /></label>      
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span></label>
+                      <i>[1:  <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/> - 5:<spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/>]</i>
                       <select class="form-control" name="sowCondition" ng-model="farrowEvent.sowCondition" required required-message="'<spring:message code='label.piginfo.farroweventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
-                           <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>
-                          <option value="2">2 - <spring:message code='label.piginfo.entryeventform.sowcondition.normal.message'  text='Healthy'/></option>
-                          <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
+                            <option value="1">1</option>
+                          	<option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    
+                     <div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.teats'  text='Teats'/><span style='color: red'>*</span></label>                      
+                      <select class="form-control" name="teats" ng-model="farrowEvent.teats" required required-message="'<spring:message code='label.piginfo.farroweventform.teats.requiredmessage' text='Teats is required'/>'">
+                            <option ng-repeat="i in 30 | teatsrange" ng-value="i+1">{{i+1}}</option>                            
                         </select>
                     </div>
                     

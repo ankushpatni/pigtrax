@@ -181,11 +181,15 @@
                     </div>                   
                    
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.pregnancyeventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span>
+                      </label>
+                      <i>[1:  <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/> - 5:<spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/>]</i>
                       <select class="form-control" name="sowCondition" ng-model="pregnancyEvent.sowCondition" required required-message="'<spring:message code='label.piginfo.pregnancyeventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
-                           <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>
-                          <option value="2">2 - <spring:message code='label.piginfo.entryeventform.sowcondition.normal.message'  text='Healthy'/></option>
-                          <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
+                           <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
                         </select>
                     </div>
                     <button class="btn btn-primary" ng-click="addPregnancyEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.pregnancyeventform.submit'  text='Submit'/></button>

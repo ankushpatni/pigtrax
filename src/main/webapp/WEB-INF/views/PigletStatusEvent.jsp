@@ -241,11 +241,14 @@
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.sowcondition'  text='Sow Condition'/></label>
+                      <i>[1:  <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/> - 5:<spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/>]</i>
                       <select class="form-control" name="sowCondition" ng-model="pigletStatusEvent.sowCondition" 
                        required-message="'<spring:message code='label.piginfo.pigletstatuseventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
-                           <option value="1">1 - <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/></option>
-                          <option value="2">2 - <spring:message code='label.piginfo.entryeventform.sowcondition.normal.message'  text='Healthy'/></option>
-                          <option value="3">3 - <spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/></option>
+                           <option value="1">1</option>
+                          	<option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                     </div> 
                     
