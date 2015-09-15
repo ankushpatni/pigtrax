@@ -310,6 +310,29 @@ INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLan
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Sales_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 ----------
+
+
+---------
+INSERT INTO pigtraxrefdata."GfunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'GGP', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GfunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'GP',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GfunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Parent',CURRENT_TIMESTAMP,'pigtraxadmin');
+
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GGP','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GP','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('Parent','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GGP_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GP_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('Parent_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GGP_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GP_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('Parent_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+----------
+
+
 INSERT INTO pigtrax."Company"(
 
             "companyId", name, address, city, country, "registrationNumber", email,

@@ -213,7 +213,17 @@ public class UtilController {
 		return dto;
 	}
 	
-	
+	@RequestMapping(value = "/getGfunctionTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getGfunctionTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getGfunctionTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		dto.setPayload(refDataCache.getGfunctionTypeMap(language)); 
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 	
 
 }

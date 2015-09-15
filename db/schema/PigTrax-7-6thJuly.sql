@@ -710,6 +710,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"id_Barn" integer,
 	"id_SexType" integer,
 	"parity" integer,
+	"id_GfunctionType" smallint,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id),
 	CONSTRAINT "PIGINFO_U_PI" UNIQUE ("pigId","id_Company"),
 	CONSTRAINT "PIGINFO_U_TA" UNIQUE ("tattoo", "id_Company")
@@ -1919,6 +1920,53 @@ REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+
+-- object: pigtraxrefdata."GfunctionType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."GfunctionType" CASCADE;
+CREATE TABLE pigtraxrefdata."GfunctionType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "GFUNCTIONTYPE_PK" PRIMARY KEY (id),
+	CONSTRAINT "GFUNCTIONTYPE_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."GfunctionType" OWNER TO pitraxadmin;
+
+
+-- object: "GfunctionType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "GfunctionType_fk" CASCADE;
+ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "GfunctionType_fk" FOREIGN KEY ("id_GfunctionType")
+REFERENCES pigtraxrefdata."GfunctionType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."GfunctionTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."GfunctionTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."GfunctionTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_GfunctionType" integer,
+	CONSTRAINT "GFUNCTIONTYPETRANLATION_PK" PRIMARY KEY (id),
+	CONSTRAINT "GFUNCTIONTYPETRANSLATION_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."GfunctionTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "GfunctionType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."GfunctionTypeTranslation" DROP CONSTRAINT IF EXISTS "GfunctionType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."GfunctionTypeTranslation" ADD CONSTRAINT "GfunctionType_fk" FOREIGN KEY ("id_GfunctionType")
+REFERENCES pigtraxrefdata."GfunctionType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 
 --Views

@@ -39,5 +39,7 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> transportTrailerType();
 	
 	List<RefDataTranslationDto> removalEventType();
+	
+	List<RefDataTranslationDto> getGfunctionType();
 
 }

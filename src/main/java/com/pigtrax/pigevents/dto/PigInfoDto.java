@@ -26,6 +26,7 @@ public class PigInfoDto {
 	private Integer farrowEventId;
 	private boolean active;
 	private Integer parity;
+	private Integer gfunctionTypeId;
 
 	public Integer getFarrowEventId() {
 		return farrowEventId;
@@ -216,6 +217,16 @@ public class PigInfoDto {
 
 	public void setParity(Integer parity) {
 		this.parity = parity;
+	}
+	
+	
+
+	public Integer getGfunctionTypeId() {
+		return gfunctionTypeId;
+	}
+
+	public void setGfunctionTypeId(Integer gfunctionTypeId) {
+		this.gfunctionTypeId = gfunctionTypeId;
 	}
 
 	@Override

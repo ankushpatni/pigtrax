@@ -25,10 +25,21 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				    $scope.entryEventMap = data.payload;
 				    $scope.barns = $scope.entryEventMap["barnList"];
 				    $scope.sexTypes = $scope.entryEventMap["sexTypeMap"];
+				    $scope.getGfunctionTypes();
 			 }
 		});
 	};
 	
+	
+	$scope.getGfunctionTypes = function()
+	{
+		restServices.getGfunctionTypes(function(data)
+		{
+			if(!data.error){
+				$scope.gfunctionTypes = data.payload;
+			}
+		});
+	}
 	
 	 $scope.getPenList = function(){
 			restServices.getPenList($scope.pigInfo.barnId, function(data){

@@ -122,6 +122,13 @@
                       <input type="text" class="form-control" name="gcompany" ng-model="pigInfo.gcompany" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.gcompany.placeholder' text='Enter gcompany'/>" 
 					     invalid-message="'<spring:message code='label.piginfo.entryeventform.gcompany.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.gfunction'  text='Gfunction'/></label>
+                      <select class="form-control"  name="gfunctionType" ng-model="pigInfo.gfunctionTypeId" ng-options="k as v for (k, v) in gfunctionTypes">
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >

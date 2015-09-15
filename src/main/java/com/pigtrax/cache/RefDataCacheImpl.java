@@ -51,6 +51,8 @@ public class RefDataCacheImpl implements RefDataCache {
 	
 	private Map<String, Map<Integer, String>> removalEventTypeMap;
 	
+	private Map<String, Map<Integer, String>> gfunctionTypeMap;
+	
 
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
@@ -77,6 +79,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		feedEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFeedEventType()));
 		transportTrailerTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.transportTrailerType()));
 		removalEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.removalEventType()));
+		gfunctionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getGfunctionType())); 
 	}
 
 	@Override
@@ -173,6 +176,11 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> transportTrailerType(String language) {
 		return transportTrailerTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getGfunctionTypeMap(String language) {
+		return gfunctionTypeMap.get(language);
 	}
 
 }

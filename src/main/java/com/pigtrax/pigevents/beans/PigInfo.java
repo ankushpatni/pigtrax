@@ -24,6 +24,7 @@ public class PigInfo {
 	private Integer farrowId;
 	private boolean active;
 	private Integer parity;
+	private Integer gfunctionTypeId;
 
 	public Integer getFarrowId() {
 		return farrowId;
@@ -196,6 +197,16 @@ public class PigInfo {
 
 	public void setParity(Integer parity) {
 		this.parity = parity;
+	}
+
+	
+	
+	public Integer getGfunctionTypeId() {
+		return gfunctionTypeId;
+	}
+
+	public void setGfunctionTypeId(Integer gfunctionTypeId) {
+		this.gfunctionTypeId = gfunctionTypeId;
 	}
 
 	@Override
