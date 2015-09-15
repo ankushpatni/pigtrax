@@ -125,13 +125,13 @@
             </div>
           </div>
 		  
-	 <button type="button" ng-click="addRemovalExceptSalesData()" class="btn btn-sm btn btn-primary" ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage">
+	 <button type="button" ng-click="addRemovalExceptSalesData()" class="btn btn-sm btn btn-primary" ng-show="((removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage) && exceptSalesFlag">
 			<i class="glyphicon glyphicon-plus"></i> 
 			<spring:message code="label.removalEvent.addRemovalExceptSalesData" text="Add Removal Except Sales" />
 	</button>
 		 
 	<form name="removalExceptSalesDisplayForm" method="post">	
-		<div class="content" ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage">
+		<div class="content" ng-show="((removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage) && exceptSalesFlag">
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">

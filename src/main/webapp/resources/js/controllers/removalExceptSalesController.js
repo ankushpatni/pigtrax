@@ -84,6 +84,8 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		$scope.eventErrorMessage = false;
 		$scope.eventDuplicateErrorMessage = false;
 		$scope.noOfPigsrequired  = false;
+		$scope.noOfPigWrongCount = false;
+		$scope.errorRemovalDateTime = false;
 	};
 	
 	/*$scope.decideGroupPremises = function()
@@ -126,6 +128,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	
 	$scope.addRemovalExceptSales = function() 
 	{
+		$scope.clearAllMessages();
 		if(document.getElementById("removalDateTime").value === "")
 		{
 			$scope.removalDateTimerequired = true;
@@ -139,6 +142,24 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		if(document.getElementById("rad1").checked)
 		{
 			$scope.removalExceptSales.pigInfoId = 0;
+			if($scope.removalExceptSales.numberOfPigs ==0)
+			{
+				$scope.noOfPigsrequired = true;	
+				return false;
+			}
+			var groupevent = $scope.groupEventList[$scope.removalExceptSales.groupEventId];
+			if(groupevent.currentInventory < $scope.removalExceptSales.numberOfPigs)
+			{
+				$scope.noOfPigWrongCount  = true;
+				return false;
+			}
+			$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
+			
+			if($scope.removalExceptSales.removalDateTime < groupevent.groupStartDateTime)
+			{
+				$scope.errorRemovalDateTime = true;
+				return false;
+			}
 		}
 		 else if(document.getElementById("rad2").checked)
 		{
@@ -146,14 +167,10 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			 $scope.removalExceptSales.numberOfPigs = 1;
 		}
 		
-		if($scope.removalExceptSales.numberOfPigs ==0)
-		{
-			$scope.noOfPigsrequired = true;
-		}
+		
 		if($scope.removalExceptFormSales.$valid)
 			{
 				$scope.clearAllMessages();
-				$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
 				$scope.removalExceptSales.companyId = $scope.companyId;
 				console.log($scope.removalExceptSales);
 				restServices.addRemovalExceptSales($scope.removalExceptSales, function(data){

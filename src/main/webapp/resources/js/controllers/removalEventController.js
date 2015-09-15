@@ -10,6 +10,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.removalEventType={};
 	$scope.groupEvent={};
 	$scope.removalExceptSalesList={};
+	$scope.exceptSalesFlag= false;
 	
 	
 	$scope.setCompanyId = function(companyId,removalId)
@@ -117,7 +118,6 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			console.log(data);
 			if(!data.error)
 				{
-					
 					$scope.removalEvent = data.payload[0];
 					$scope.removalExceptSalesList = data.payload[1];
 					$scope.clearAllMessages();
@@ -130,7 +130,14 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 						$scope.entryEventDetailSuccessMessage = true;
 					}
 					$window.scrollTo(0,550);
-							
+					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2)
+					{
+						$scope.exceptSalesFlag = true;
+					}
+					else
+					{
+						$scope.exceptSalesFlag = false;
+					}
 				}
 			else
 				{
