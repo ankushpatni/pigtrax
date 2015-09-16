@@ -56,6 +56,7 @@ CREATE TABLE pigtrax."Company"(
 	"isActive" bool,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"litterId" int default 0,
 	CONSTRAINT "Company_U_CI" UNIQUE ("companyId"),
 	CONSTRAINT "Company_PK_CI" PRIMARY KEY (id)
 
@@ -308,6 +309,7 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"id_PigInfo" integer,
 	"id_PregnancyEvent" integer,
 	"teats" smallint,
+	"litterId" int,
 	CONSTRAINT "FAROW_PK" PRIMARY KEY (id),
 	CONSTRAINT "FAROW_U_FI" UNIQUE ("farrowId")
 

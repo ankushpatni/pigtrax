@@ -20,4 +20,6 @@ public interface FarrowEventDao {
    void deleteFarrowEvent(Integer farrowEventId) throws SQLException;
    
    FarrowEvent getFarrowEventByPregancyEvent(final Integer pregnancyEventId) ;
+   
+   void updateLitterId(Integer farrowEventId, Integer companyId);
 }

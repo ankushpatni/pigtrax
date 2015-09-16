@@ -8,8 +8,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -173,4 +175,17 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 			return company;
 		}
 	}
+	
+    @Override
+	public void increaseLitterId(final int companyId) {
+    	String query = "update pigtrax.\"Company\" set \"litterId\" =  \"litterId\"+1   WHERE \"id\"=?";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});		
+	}	
+	
 }

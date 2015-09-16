@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.MaskFormatter;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -29,6 +27,7 @@ import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletEventService;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
 import com.pigtrax.pigevents.validation.FarrowEventValidation;
+import com.pigtrax.usermanagement.dao.interfaces.CompanyDao;
 
 @Repository
 public class FarrowEventServiceImpl implements FarrowEventService {
@@ -61,6 +60,9 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	@Autowired
 	PigletEventService pigletEventService;
 	
+	@Autowired
+	CompanyDao companyDao;
+	
 	
 	@Override
 	public int saveFarrowEventInformation(FarrowEventDto farrowEventDto)
@@ -73,8 +75,8 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 			FarrowEvent farrowEvent = builder.convertToBean(farrowEventDto);
 			 
 			if(farrowEventDto.getId() == null)
-			{
-			   return addFarrowEventInformation(farrowEvent);
+			{			   
+			   return addFarrowEventInformation(farrowEvent, farrowEventDto.getCompanyId());
 			}
 			else
 			{
@@ -98,11 +100,15 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	
 	
 	@Transactional("ptxJTransactionManager")
-	private int addFarrowEventInformation(FarrowEvent farrowEvent) throws SQLException
-	{
+	private int addFarrowEventInformation(FarrowEvent farrowEvent, Integer companyId) throws SQLException
+	{		
 		int farrowEventId = farrowEventDao.addFarrowEventDetails(farrowEvent);
 		
 		pigInfoDao.increaseParity(farrowEvent.getPigInfoId());
+		
+		farrowEventDao.updateLitterId(farrowEventId, companyId);
+		
+		companyDao.increaseLitterId(companyId); 
 		
 		PigTraxEventMaster master = new PigTraxEventMaster();
 		master.setPigInfoId(farrowEvent.getPigInfoId());
