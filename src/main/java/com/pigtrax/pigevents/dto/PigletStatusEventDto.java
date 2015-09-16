@@ -46,6 +46,7 @@ public class PigletStatusEventDto {
     private Date deathEventDateTime;
     private Integer groupEventId;
     private String groupId;
+    private Integer mortalityReasonTypeId;
     
     
     
@@ -392,8 +393,14 @@ public class PigletStatusEventDto {
 
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
-	}  
-	
-	
+	}
+
+	public Integer getMortalityReasonTypeId() {
+		return mortalityReasonTypeId;
+	}
+
+	public void setMortalityReasonTypeId(Integer mortalityReasonTypeId) {
+		this.mortalityReasonTypeId = mortalityReasonTypeId;
+	} 
 	
 }

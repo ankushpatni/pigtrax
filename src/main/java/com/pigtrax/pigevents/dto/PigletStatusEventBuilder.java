@@ -45,6 +45,7 @@ public class PigletStatusEventBuilder {
 			   info.setWeanGroupId(dto.getWeanGroupId());
 			   info.setFosterFarrowEventId(dto.getFosterFarrowEventId());
 			   info.setGroupEventId(dto.getGroupEventId());
+			   info.setMortalityReasonTypeId(dto.getMortalityReasonTypeId());
 			    
 		   }
 		   return info;
@@ -92,6 +93,7 @@ public class PigletStatusEventBuilder {
 			   }
 			  
 			   dto.setGroupEventId(info.getGroupEventId());
+			   dto.setMortalityReasonTypeId(info.getMortalityReasonTypeId());
 		   }		   
 		   return dto; 
 	   }

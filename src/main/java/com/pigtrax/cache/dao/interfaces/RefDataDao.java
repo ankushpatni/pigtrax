@@ -41,5 +41,7 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> removalEventType();
 	
 	List<RefDataTranslationDto> getGfunctionType();
+	
+	List<RefDataTranslationDto> getMortalityReasonTypes();
 
 }

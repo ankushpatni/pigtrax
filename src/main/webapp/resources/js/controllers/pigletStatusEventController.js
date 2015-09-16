@@ -40,9 +40,20 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	
 	$scope.loadPage = function(companyId)
 	{
-		$scope.setCompanyId(companyId);		
+		$scope.setCompanyId(companyId);	
+		$scope.loadMortalityReasonTypes();
 	};
 	
+	
+	$scope.loadMortalityReasonTypes = function()	
+	{
+		restServices.getMortalityReasonTypes(function(data)
+		{
+			if(!data.error){
+				$scope.mortalityReasonTypes = data.payload;
+			}
+		});
+	}
 	
 	$scope.setCompanyId = function(companyId)
 	{

@@ -20,7 +20,8 @@ public class PigletStatusEvent {
 	private Integer farrowEventId;
 	private Integer fosterFarrowEventId;
 	private Integer groupEventId;
-
+	private Integer mortalityReasonTypeId;
+	
 	private String pigId;
 
 	public Integer getFosterFarrowEventId() {
@@ -165,6 +166,14 @@ public class PigletStatusEvent {
 
 	public void setGroupEventId(Integer groupEventId) {
 		this.groupEventId = groupEventId;
+	}
+
+	public Integer getMortalityReasonTypeId() {
+		return mortalityReasonTypeId;
+	}
+
+	public void setMortalityReasonTypeId(Integer mortalityReasonTypeId) {
+		this.mortalityReasonTypeId = mortalityReasonTypeId;
 	}
 	
 	

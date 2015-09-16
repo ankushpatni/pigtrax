@@ -36,5 +36,6 @@ public interface RefDataCache {
 	
 	Map<Integer, String> getGfunctionTypeMap(String language);
 	
+	Map<Integer, String> getMortalityReasonTypeMap(String language);
 
 }

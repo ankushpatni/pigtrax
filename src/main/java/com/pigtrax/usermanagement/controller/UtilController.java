@@ -225,5 +225,16 @@ public class UtilController {
 		return dto;
 	}
 	
+	@RequestMapping(value = "/getMortalityReasonTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getMortalityReasonTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getMortalityReasonTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		dto.setPayload(refDataCache.getMortalityReasonTypeMap(language)); 
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 
 }

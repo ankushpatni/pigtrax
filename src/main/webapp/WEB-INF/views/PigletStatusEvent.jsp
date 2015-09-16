@@ -224,8 +224,10 @@
                           class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                          </td>           
-                         <td width="20%"><select class="form-control"><option value="">Mortality Reason</option></select> </td>   
-                                    
+                         <td width="20%">
+                         <select class="form-control"  name="mortalityReason" ng-model="pigletStatusEvent.mortalityReasonTypeId" ng-options="k as v for (k, v) in mortalityReasonTypes">
+                         <option value=""><spring:message code='label.piginfo.pigletstatuseventform.mortalityreason' text='Mortality Reason' /></option>
+                        </select>   
                         </tr>
                      </tbody>
                     

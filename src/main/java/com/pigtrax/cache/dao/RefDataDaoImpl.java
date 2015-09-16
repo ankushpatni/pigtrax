@@ -109,6 +109,12 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
+	@Override
+	public List<RefDataTranslationDto> getMortalityReasonTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_MortalityReasonType\" FROM pigtraxrefdata.\"MortalityReasonTypeTranslation\" order by \"fieldLanguage\", \"id_MortalityReasonType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
 	
 	@Override
 	public List<Map<String, String>> getCountryData() {

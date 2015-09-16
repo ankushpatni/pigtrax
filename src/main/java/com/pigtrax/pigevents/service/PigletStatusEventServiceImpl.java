@@ -89,6 +89,8 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setFosterTo(null);
 				event.setFosterFarrowEventId(null);
 				event.setEventDateTime(pigletStatusEventDto.getWeanEventDateTime());
+				event.setGroupEventId(pigletStatusEventDto.getGroupEventId());
+				event.setMortalityReasonTypeId(null);
 				eventId = addPigletStatusEvent(event);
 			}
 			if(pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0)
@@ -101,6 +103,8 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setFosterTo(pigletStatusEventDto.getFosterTo());
 				event.setFosterFarrowEventId(null);
 				event.setEventDateTime(pigletStatusEventDto.getFosterEventDateTime());
+				event.setGroupEventId(null);
+				event.setMortalityReasonTypeId(null);
 				eventId = addPigletStatusEvent(event);
 				
 				PigletStatusEvent fosterInEvent = builder.generateFosterInEvent(pigletStatusEventDto);   
@@ -117,6 +121,8 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setFosterTo(null);
 				event.setFosterFarrowEventId(null);
 				event.setEventDateTime(pigletStatusEventDto.getDeathEventDateTime());
+				event.setMortalityReasonTypeId(pigletStatusEventDto.getMortalityReasonTypeId());
+				event.setGroupEventId(null);
 				logger.info("farrow event id "+event.getFarrowEventId());
 				eventId = addPigletStatusEvent(event);
 			}					
@@ -259,6 +265,8 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setDeathPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setDeathPigWt(pigletStatusEvent.getWeightInKgs());
 					   pigletStatusEventDto.setDeathEventDateTime(pigletStatusEvent.getEventDateTime());
+					   pigletStatusEventDto.setMortalityReasonTypeId(pigletStatusEvent.getMortalityReasonTypeId());
+					   
 				   } else{ //foster in case					   
 					   pigletStatusEventDto.setFosterinId(pigletStatusEvent.getId()); 
 					   

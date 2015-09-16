@@ -43,8 +43,9 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			throws SQLException, DuplicateKeyException {
 		final String Qry = "insert into pigtrax.\"PigletStatus\"(\"id_PigInfo\", \"id_PigletStatusEventType\", "
 				+ "\"eventDateTime\", \"numberOfPigs\", \"weightInKgs\", \"eventReason\", \"remarks\", \"sowCondition\", "
-				+ "\"weanGroupId\", \"lastUpdated\", \"userUpdated\", \"fosterFrom\", \"fosterTo\", \"id_FarrowEvent\", \"id_fosterFarrowEvent\", \"id_GroupEvent\") "
-				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?, ?,?)";
+				+ "\"weanGroupId\", \"lastUpdated\", \"userUpdated\", \"fosterFrom\", \"fosterTo\", "
+				+ "\"id_FarrowEvent\", \"id_fosterFarrowEvent\", \"id_GroupEvent\", \"id_MortalityReasonType\") "
+				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?, ?,?,?)";
 		 
 		KeyHolder holder = new GeneratedKeyHolder();
 		jdbcTemplate.update(
@@ -67,6 +68,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	    	            ps.setObject(13,  pigletStatusEvent.getFarrowEventId(), java.sql.Types.INTEGER);
 	    	            ps.setObject(14,  pigletStatusEvent.getFosterFarrowEventId(), java.sql.Types.INTEGER);
 	    	            ps.setObject(15,  pigletStatusEvent.getGroupEventId(), java.sql.Types.INTEGER);
+	    	            ps.setObject(16,  pigletStatusEvent.getMortalityReasonTypeId(), java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -88,7 +90,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
 		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
 		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\""
-		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", PSE.\"id_GroupEvent\" "
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", "
+		   		+ "PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\" "
 		   		+ " from pigtrax.\"PigletStatus\" PSE where PSE.\"id\" = ? ";
 		
 		List<PigletStatusEvent> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -111,7 +114,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
 		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
 		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\", "
-		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", PSE.\"id_GroupEvent\" "
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", "
+		   		+ "PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\" "
 		   		+ " from pigtrax.\"PigletStatus\" PSE "
 		   		+ "JOIN pigtrax.\"PigInfo\" PI on PSE.\"id_PigInfo\" = PI.\"id\" "
 		   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? and PSE.\"id_PigletStatusEventType\" <> ? order by PSE.\"id_FarrowEvent\" ";
@@ -138,7 +142,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
 		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
 		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\","
-		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", PSE.\"id_GroupEvent\" "
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", "
+		   		+ "PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\" "
 		   		+ " from pigtrax.\"PigletStatus\" PSE "
 		   		+ "JOIN pigtrax.\"FarrowEvent\" FE ON PSE.\"id_FarrowEvent\" = FE.\"id\" "
 		   		+ "JOIN pigtrax.\"PregnancyEvent\" PE on FE.\"id_PregnancyEvent\" = PE.\"id\" "
@@ -203,7 +208,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			pigletStatusEvent.setFarrowEventId(rs.getInt("id_FarrowEvent"));
 			pigletStatusEvent.setFosterFarrowEventId(rs.getInt("id_fosterFarrowEvent"));
 			pigletStatusEvent.setGroupEventId(rs.getInt("id_GroupEvent"));
-			
+			pigletStatusEvent.setMortalityReasonTypeId(rs.getInt("id_MortalityReasonType"));
 			return pigletStatusEvent;
 		}
 	}
@@ -219,7 +224,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = "SELECT PS.\"id\", PS.\"id_PigInfo\", PS.\"fosterFrom\", PS.\"fosterTo\", PS.\"id_PigletStatusEventType\", "+ 
 				"PS.\"eventDateTime\", PS.\"numberOfPigs\", PS.\"weightInKgs\", PS.\"eventReason\", "+ 
 				"PS.\"remarks\", PS.\"sowCondition\", PS.\"weanGroupId\", PS.\"lastUpdated\", PS.\"userUpdated\", "+ 
-				"PS.\"id_FarrowEvent\", PS.\"id_fosterFarrowEvent\", PS.\"id_GroupEvent\"  FROM pigtrax.\"PigletStatus\" PS "
+				"PS.\"id_FarrowEvent\", PS.\"id_fosterFarrowEvent\", PS.\"id_GroupEvent\", PS.\"id_MortalityReasonType\" "
+				+ " FROM pigtrax.\"PigletStatus\" PS "
 				+ "JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where PI.\"pigId\" = ? "
 				+ "and PS.\"id_PigletStatusEventType\" = ? and PI.\"id_Company\" = ? and PS.\"id_FarrowEvent\" = ?";
 		
@@ -243,7 +249,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
 		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
 		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\","
-		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", PSE.\"id_GroupEvent\" "
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\","
+		   		+ " PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\" "
 		   		+ " from pigtrax.\"PigletStatus\" PSE "
 		   		+ " WHERE PSE.\"id_FarrowEvent\" = ? and PSE.\"id_PigletStatusEventType\" <> ? ";
  		
@@ -287,7 +294,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
 		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
 		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\","
-		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", PSE.\"id_GroupEvent\" "
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\","
+		   		+ " PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\" "
 		   		+ " from pigtrax.\"PigletStatus\" PSE "
 		   		+ " WHERE PSE.\"id_fosterFarrowEvent\" = ? ";
  		
