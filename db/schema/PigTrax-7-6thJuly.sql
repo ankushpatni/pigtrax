@@ -373,6 +373,7 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"id_FarrowEvent" int NOT NULL,
 	"id_fosterFarrowEvent" int,
 	"id_GroupEvent" int,
+	"id_MortalityReasonType" int,
 	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "PIGLETSTATUS_U_FI" UNIQUE ("id_PigInfo", "id_PigletStatusEventType", "id_FarrowEvent")
 );
@@ -1974,6 +1975,54 @@ ALTER TABLE pigtraxrefdata."GfunctionTypeTranslation" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtraxrefdata."GfunctionTypeTranslation" DROP CONSTRAINT IF EXISTS "GfunctionType_fk" CASCADE;
 ALTER TABLE pigtraxrefdata."GfunctionTypeTranslation" ADD CONSTRAINT "GfunctionType_fk" FOREIGN KEY ("id_GfunctionType")
 REFERENCES pigtraxrefdata."GfunctionType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: pigtraxrefdata."MortalityReasonType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."MortalityReasonType" CASCADE;
+CREATE TABLE pigtraxrefdata."MortalityReasonType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "MORTALITYREASONTYPE_PK" PRIMARY KEY (id),
+	CONSTRAINT "MORTALITYREASONTYPE_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."MortalityReasonType" OWNER TO pitraxadmin;
+
+
+-- object: "MortalityReasonType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "MortalityReasonType_fk" CASCADE;
+ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "MortalityReasonType_fk" FOREIGN KEY ("id_MortalityReasonType")
+REFERENCES pigtraxrefdata."MortalityReasonType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."MortalityReasonTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."MortalityReasonTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."MortalityReasonTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_MortalityReasonType" integer,
+	CONSTRAINT "MORTALITYREASONTYPETRANLATION_PK" PRIMARY KEY (id),
+	CONSTRAINT "MORTALITYREASONTYPETRANSLATION_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."MortalityReasonTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "MortalityReasonType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."MortalityReasonTypeTranslation" DROP CONSTRAINT IF EXISTS "MortalityReasonType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."MortalityReasonTypeTranslation" ADD CONSTRAINT "MortalityReasonType_fk" FOREIGN KEY ("id_MortalityReasonType")
+REFERENCES pigtraxrefdata."MortalityReasonType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
