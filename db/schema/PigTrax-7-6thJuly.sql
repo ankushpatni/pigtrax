@@ -723,6 +723,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"id_SexType" integer,
 	"parity" integer,
 	"id_GfunctionType" smallint,
+	"isActive" boolean,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id),
 	CONSTRAINT "PIGINFO_U_PI" UNIQUE ("pigId","id_Company"),
 	CONSTRAINT "PIGINFO_U_TA" UNIQUE ("tattoo", "id_Company")
