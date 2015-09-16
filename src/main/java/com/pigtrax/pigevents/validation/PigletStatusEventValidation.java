@@ -88,7 +88,7 @@ public class PigletStatusEventValidation {
 	  
 	  int durationDays = 0;	  
 	  DateTime farrowEventDate = new DateTime(pigletStatusEventDto.getFarrowEventDto().getFarrowDateTime());
-	  DateTime weanEventDate = new DateTime(pigletStatusEventDto.getEventDateTime());
+	  DateTime weanEventDate = new DateTime(pigletStatusEventDto.getWeanEventDateTime());
 	  durationDays = Days.daysBetween(farrowEventDate,weanEventDate).getDays() ;	
 	  
 	  if(weanEventDate.isBefore(farrowEventDate) || durationDays > PIGLET_STATUS_FARROW_END_DURATION || durationDays< PIGLET_STATUS_FARROW_START_DURATION)

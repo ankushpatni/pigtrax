@@ -44,6 +44,7 @@ public class PigletStatusEventBuilder {
 			   info.setUserUpdated(dto.getUserUpdated());
 			   info.setWeanGroupId(dto.getWeanGroupId());
 			   info.setFosterFarrowEventId(dto.getFosterFarrowEventId());
+			   info.setGroupEventId(dto.getGroupEventId());
 			    
 		   }
 		   return info;
@@ -90,6 +91,7 @@ public class PigletStatusEventBuilder {
 				   dto.setFosterToPigId(pigInfo.getPigId());		
 			   }
 			  
+			   dto.setGroupEventId(info.getGroupEventId());
 		   }		   
 		   return dto; 
 	   }

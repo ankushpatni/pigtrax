@@ -27,6 +27,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.pigletStatusEventAlreadyAdded = false;
 		$scope.invalidPigletNumbers = false;
 		$scope.pigletNumbersRequired = false;
+		$scope.invalidGroupEventId = false;
 	};
 	
 	$scope.resetForm = function()
@@ -57,6 +58,30 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.getFosterInRecords();
 		$scope.editBtnclicked = true;
 	}	
+	
+	
+	$scope.checkGroupEventId = function()
+	{
+		if($scope.pigletStatusEvent.groupId != undefined && $scope.pigletStatusEvent.groupId != ""){
+			var searchGroupEvent = {
+				"groupId" : $scope.pigletStatusEvent.groupId,
+				"companyId" : $scope.companyId,
+			};
+		
+			restServices.getGroupEventInformation(postParam, function(data){
+				if(data.error)
+				{	
+					$scope.invalidGroupEventId = true;	
+				}
+				else
+				{
+					$scope.invalidGroupEventId = false;
+					var groupEvent = data.payload[0];
+					$scope.pigletStatusEvent["groupEventId"] = groupEvent.id;
+				}
+			});
+		}
+	}
 	
 	$scope.deletePigletStatusEvent = function() 
 	{
@@ -446,7 +471,23 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		}
     };
 	
-   
+    
+    $scope.$watch('pigletStatusEvent["weanPigNum"]', function(newVal, oldVal) {
+		
+        if(oldVal != null && oldVal != "" && (newVal == "" || newVal == null) && $scope.pigletStatusEvent["groupEventId"] != null)
+		{
+			if(confirm("Please confirm if you want to remove the group id association?"))
+			{
+				$scope.pigletStatusEvent["groupEventId"] = null;
+				$scope.pigletStatusEvent["groupId"] = null;
+			}
+			else
+			{
+				$scope.pigletStatusEvent["weanPigNum"] = oldVal;
+			}
+		}
+    });
+    
 	
 });
 

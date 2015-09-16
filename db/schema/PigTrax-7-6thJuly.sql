@@ -372,6 +372,7 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"userUpdated" varchar(20) NOT NULL,
 	"id_FarrowEvent" int NOT NULL,
 	"id_fosterFarrowEvent" int,
+	"id_GroupEvent" int,
 	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "PIGLETSTATUS_U_FI" UNIQUE ("id_PigInfo", "id_PigletStatusEventType", "id_FarrowEvent")
 );
@@ -479,6 +480,14 @@ ALTER TABLE pigtrax."GroupEvent" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_Co
 REFERENCES pigtrax."Company" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+-- object: "PigletStatus_GroupEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "PigletStatus_GroupEvent_fk" CASCADE;
+ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "PigletStatus_GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
+REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 -- object: "Barn_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."Room" DROP CONSTRAINT IF EXISTS "Barn_fk" CASCADE;

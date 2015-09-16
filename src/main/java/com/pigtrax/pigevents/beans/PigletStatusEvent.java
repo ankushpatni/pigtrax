@@ -19,6 +19,7 @@ public class PigletStatusEvent {
 	private String userUpdated;
 	private Integer farrowEventId;
 	private Integer fosterFarrowEventId;
+	private Integer groupEventId;
 
 	private String pigId;
 
@@ -156,6 +157,14 @@ public class PigletStatusEvent {
 
 	public void setPigId(String pigId) {
 		this.pigId = pigId;
+	}
+
+	public Integer getGroupEventId() {
+		return groupEventId;
+	}
+
+	public void setGroupEventId(Integer groupEventId) {
+		this.groupEventId = groupEventId;
 	}
 	
 	

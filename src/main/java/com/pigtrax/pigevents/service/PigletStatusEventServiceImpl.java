@@ -12,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
 import com.pigtrax.pigevents.dao.interfaces.FarrowEventDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
@@ -53,6 +55,10 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 	
 	@Autowired
 	PigletStatusEventValidation validationObj;	
+	
+	
+	@Autowired
+	GroupEventDao groupEventDao;
 	
 	 @Override
 	public int savePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto)
@@ -218,6 +224,14 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setWeanPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setWeanPigWt(pigletStatusEvent.getWeightInKgs());
 					   pigletStatusEventDto.setWeanEventDateTime(pigletStatusEvent.getEventDateTime());
+					   pigletStatusEventDto.setGroupEventId(pigletStatusEvent.getGroupEventId());
+					   
+					   if(pigletStatusEvent.getGroupEventId() != null && pigletStatusEvent.getGroupEventId() > 0)
+					   {
+						   GroupEvent groupEvent = groupEventDao.getGroupEventByGeneratedGroupId(pigletStatusEvent.getGroupEventId(), pigletEventStatusDto.getCompanyId());
+						   if(groupEvent != null)
+							   pigletStatusEventDto.setGroupId(groupEvent.getGroupId());
+					   }
 					   
 				   } else if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.FosterOut.getTypeCode())){
 					   pigletStatusEventDto.setFosterId(pigletStatusEvent.getId());

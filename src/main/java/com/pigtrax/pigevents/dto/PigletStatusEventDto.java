@@ -44,6 +44,8 @@ public class PigletStatusEventDto {
     private Date weanEventDateTime;
     private Date fosterEventDateTime;
     private Date deathEventDateTime;
+    private Integer groupEventId;
+    private String groupId;
     
     
     
@@ -374,6 +376,22 @@ public class PigletStatusEventDto {
 
 	public void setDeathEventDateTime(Date deathEventDateTime) {
 		this.deathEventDateTime = deathEventDateTime;
+	}
+
+	public Integer getGroupEventId() {
+		return groupEventId;
+	}
+
+	public void setGroupEventId(Integer groupEventId) {
+		this.groupEventId = groupEventId;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}  
 	
 	
