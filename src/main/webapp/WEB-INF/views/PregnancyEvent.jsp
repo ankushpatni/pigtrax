@@ -113,30 +113,23 @@
                   <form name="pregnancyeventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="pregnancyEvent.id"/>
 				  <input type=hidden name="breedingEventId" ng-model="pregnancyEvent.breedingEventId"/>
+				  
+				  
+				  
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.pigInfoId'  text='Pig Id'/><span style='color: red'>*</span></label>
-                     <input type="text" ng-model="pregnancyEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
-                      required required-message="'<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
-						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
-                    </div>
+                       <div data-min-view="2" class="input-group col-md-7 col-xs-9"> 
+                     <input type="text" ng-model="pregnancyEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>"/>
+						<span class="input-group-addon btn btn-primary" ng-click="searchBreedingService(pregnancyEvent.pigId, pregnancyEvent.companyId)"  ><a class="btn-primary"><spring:message code='label.piginfo.breedingeventform.breedingevent'  text='Breeding Event'/></a></span>
+						</div>
+						
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
+					<label ng-show="breedingEventIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' /></label>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
 					
-					<div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.breedingServiceId'  text='Breeding Service Id'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" class="input-group col-md-7 col-xs-9"  >
-                     	<input type="text" ng-model="pregnancyEvent.breedingServiceId" id="serviceId" name="serviceId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.breedingeventserviceid.placeholder'  text='Enter Breeding Service Id'/>" 
-                      	 required-message="'<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' />'"
-						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.invalidmessage' text='Only alpha numeric values are allowed' />'" ng-blur="checkForBreedingServiceId()" ng-focus="clearMessages()"/>
-						<span class="input-group-addon btn btn-primary" ng-click="searchBreedingService(pregnancyEvent.pigId, pregnancyEvent.companyId)"  data-target="#searchBreedingService"><span class="fa fa-search"></span></span>
-						</div>
-						<label ng-show="breedingEventIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' /></label>
-						
                     </div>
-					<label ng-show="inValidServiceIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.serviceId.server.invalidmessage' text='Invalid Service Id for the selected Pig Id' /></label>					
+                    
 					
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.employeegroup'  text='Employee Group'/></label>
@@ -214,14 +207,12 @@
                       <table>
                        <thead>
                            <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
-                           <th><spring:message code='label.piginfo.breedingeventform.serviceId'  text='Service Id'/> </th>
 	                       <th><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/> </th>
 	                       <th><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/> </th>
                        </thead>
                        <tbody>
 	                   <tr ng-repeat="breedingEventObj in breedingEventList" ng-if="breedingEventList != null && breedingEventList.length > 0">
-	                    <td><input type="radio" name="breedingEventDtoId" id="breedingEventDtoId" ng-model="pregnancyEvent.breedingEventDto" ng-value="breedingEventObj"></td>
-	                    <td>{{breedingEventObj.serviceId}}</td>
+	                    <td><input type="radio" name="breedingEventDtoId" id="breedingEventDtoId" ng-model="pregnancyEvent.breedingEventDto" ng-value="breedingEventObj"></td>	                    
 	                    <td>{{breedingEventObj.breedingServiceType}}</td>
 	                    <td>{{breedingEventObj.breedingDate | date : 'yyyy-MM-dd'}}</td>
 	                   </tr>
