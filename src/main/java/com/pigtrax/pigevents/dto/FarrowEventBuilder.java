@@ -25,7 +25,6 @@ public class FarrowEventBuilder {
 			   info.setAssistedBirth(dto.isAssistedBirth());
 			   info.setEmployeeGroupId(dto.getEmployeeGroupId());
 			   info.setFarrowDateTime(dto.getFarrowDateTime());
-			   info.setFarrowId(dto.getFarrowId());
 			   info.setFemaleBorns(dto.getFemaleBorns());
 			   info.setId(dto.getId());
 			   info.setInducedBirth(dto.isInducedBirth());
@@ -61,7 +60,6 @@ public class FarrowEventBuilder {
 			   dto.setAssistedBirth(info.isAssistedBirth());
 			   dto.setEmployeeGroupId(info.getEmployeeGroupId());
 			   dto.setFarrowDateTime(info.getFarrowDateTime());
-			   dto.setFarrowId(info.getFarrowId());
 			   dto.setFemaleBorns(info.getFemaleBorns());
 			   dto.setId(info.getId());
 			   dto.setInducedBirth(info.isInducedBirth());

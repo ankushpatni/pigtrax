@@ -15,7 +15,7 @@ public interface FarrowEventDao {
    
    List<FarrowEvent> getFarrowEvents(String pigId, String searchOption, Integer companyId) throws SQLException;
    
-   FarrowEvent getFarrowEvent(String farrowId, Integer companyId);
+   //FarrowEvent getFarrowEvent(String farrowId, Integer companyId);
     
    void deleteFarrowEvent(Integer farrowEventId) throws SQLException;
    

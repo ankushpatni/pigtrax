@@ -290,7 +290,6 @@ ALTER TABLE pigtrax."BreedingEvent" OWNER TO pitraxadmin;
 -- DROP TABLE IF EXISTS pigtrax."FarrowEvent" CASCADE;
 CREATE TABLE pigtrax."FarrowEvent"(
 	id serial NOT NULL,
-	"farrowId" varchar(30) NOT NULL,
 	"farrowDateTime" timestamp NOT NULL,
 	"id_Pen" integer,
 	"liveBorns" smallint,
@@ -310,8 +309,7 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"id_PregnancyEvent" integer,
 	"teats" smallint,
 	"litterId" int,
-	CONSTRAINT "FAROW_PK" PRIMARY KEY (id),
-	CONSTRAINT "FAROW_U_FI" UNIQUE ("farrowId")
+	CONSTRAINT "FAROW_PK" PRIMARY KEY (id)
 
 );
 -- ddl-end --

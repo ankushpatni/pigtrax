@@ -142,7 +142,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.farrowEvent.mummies = mummies;
 		}
 		
-		if($scope.farrowEvent["farrowId"] != null && $scope.farrowEvent["farrowId"] != undefined && $scope.farrowEvent["farrowId"] != "")
+		/*if($scope.farrowEvent["farrowId"] != null && $scope.farrowEvent["farrowId"] != undefined && $scope.farrowEvent["farrowId"] != "")
 		{	
 			
 			if(!pattern.test($scope.farrowEvent["farrowId"]))
@@ -163,7 +163,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.farrowIdRequired = true;
 			$scope.invalidFarrowId = false;
 			
-		}
+		}*/
 		
 		if($scope.farrowEvent["farrowDateTime"] == null || $scope.farrowEvent["farrowDateTime"] == undefined || $scope.farrowEvent["farrowDateTime"] == "")
 		{	
@@ -242,7 +242,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
         }
 		
 			if($scope.farroweventform.$valid && !$scope.birthTypeRequired && !$scope.pregnancyEventRequired && !$scope.farrowDateRequired 
-					&& !$scope.invalidFarrowId && !$scope.farrowIdRequired && !$scope.invalidFarrowCount && !$scope.invalidFarrowValue && !$scope.pigletInformationRequired)
+					 && !$scope.invalidFarrowCount && !$scope.invalidFarrowValue && !$scope.pigletInformationRequired)
 			{
 						
 				$scope.farrowEvent["companyId"] = $rootScope.companyId;
@@ -302,8 +302,6 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			 option = document.getElementById("rad1").value;
 		 else if(document.getElementById("rad2").checked)
 			 option = document.getElementById("rad2").value;
-		 else if(document.getElementById("rad3").checked)
-			 option = document.getElementById("rad3").value;
     	
 		if($scope.searchText == undefined || $scope.searchText == "" || option == "")
 		{

@@ -53,7 +53,7 @@ public class PigletEventServiceImpl implements PigletEventService {
 	public int savePigletEventInformation(PigletEventDto pigletEventDto)
 			throws PigTraxException {
 		try{
-			FarrowEvent farrowInfo = farrowInfoDao.getFarrowEvent(pigletEventDto.getFarrowId(), pigletEventDto.getCompanyId());  
+			FarrowEvent farrowInfo = farrowInfoDao.getFarrowEvent(pigletEventDto.getFarrowEventId());  
 			if(farrowInfo != null)
 				pigletEventDto.setFarrowEventId(farrowInfo.getId());
 			

@@ -38,10 +38,10 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	@Override
 	public int addFarrowEventDetails(final FarrowEvent farrowEvent)
 			throws SQLException {
-		final String Qry = "insert into pigtrax.\"FarrowEvent\"(\"farrowId\", \"farrowDateTime\", \"id_Pen\", \"liveBorns\", "
+		final String Qry = "insert into pigtrax.\"FarrowEvent\"(\"farrowDateTime\", \"id_Pen\", \"liveBorns\", "
 				+ "\"stillBorns\", \"mummies\", \"maleBorns\", \"femaleBorns\", \"weightInKgs\", \"inducedBirth\", "
 				+ "\"assistedBirth\", \"remarks\", \"sowCondition\", \"lastUpdated\", \"userUpdated\", \"id_EmployeeGroup\", "
-				+ "\"id_PigInfo\", \"id_PregnancyEvent\",\"teats\" ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
+				+ "\"id_PigInfo\", \"id_PregnancyEvent\",\"teats\" ) values(?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -50,60 +50,59 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	    	        public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 	    	            PreparedStatement ps =
 	    	                con.prepareStatement(Qry, new String[] {"id"});
-	    	            ps.setString(1, farrowEvent.getFarrowId());
 	    	            if(farrowEvent.getFarrowDateTime() != null){
-		    	            ps.setDate(2, new java.sql.Date(farrowEvent.getFarrowDateTime().getTime()));
+		    	            ps.setDate(1, new java.sql.Date(farrowEvent.getFarrowDateTime().getTime()));
 	    	            }
 	    	            else{
-	    	            	ps.setNull(2,  java.sql.Types.DATE);
+	    	            	ps.setNull(1,  java.sql.Types.DATE);
 	    	            }
 	    	            
 	    	            if(farrowEvent.getPenId() != null){
-	    	            	ps.setInt(3, farrowEvent.getPenId());
+	    	            	ps.setInt(2, farrowEvent.getPenId());
 	    	            }
 	    	            else{
-	    	            	ps.setNull(3, java.sql.Types.INTEGER);
+	    	            	ps.setNull(2, java.sql.Types.INTEGER);
 	    	            }
-	    				ps.setObject(4, farrowEvent.getLiveBorns(), java.sql.Types.INTEGER);
-	    				ps.setObject(5, farrowEvent.getStillBorns(), java.sql.Types.INTEGER);
-	    				ps.setObject(6, farrowEvent.getMummies(), java.sql.Types.INTEGER);
-	    				ps.setObject(7, farrowEvent.getMaleBorns(), java.sql.Types.INTEGER);
-	    				ps.setObject(8, farrowEvent.getFemaleBorns(), java.sql.Types.INTEGER);
-	    				ps.setObject(9, farrowEvent.getWeightInKgs(), java.sql.Types.DOUBLE);
-	    				ps.setBoolean(10, farrowEvent.isInducedBirth());
-	    				ps.setBoolean(11, farrowEvent.isAssistedBirth());
-	    				ps.setString(12, farrowEvent.getRemarks());
+	    				ps.setObject(3, farrowEvent.getLiveBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(4, farrowEvent.getStillBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(5, farrowEvent.getMummies(), java.sql.Types.INTEGER);
+	    				ps.setObject(6, farrowEvent.getMaleBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(7, farrowEvent.getFemaleBorns(), java.sql.Types.INTEGER);
+	    				ps.setObject(8, farrowEvent.getWeightInKgs(), java.sql.Types.DOUBLE);
+	    				ps.setBoolean(9, farrowEvent.isInducedBirth());
+	    				ps.setBoolean(10, farrowEvent.isAssistedBirth());
+	    				ps.setString(11, farrowEvent.getRemarks());
 	    				
 	    				if(farrowEvent.getSowCondition() != null){
-	    					ps.setInt(13, farrowEvent.getSowCondition());
+	    					ps.setInt(12, farrowEvent.getSowCondition());
 	    				}
 	    				else{
-	    					ps.setNull(13, java.sql.Types.INTEGER);
+	    					ps.setNull(12, java.sql.Types.INTEGER);
 	    				}
-	    				ps.setString(14, farrowEvent.getUserUpdated());
+	    				ps.setString(13, farrowEvent.getUserUpdated());
 	    				
 	    				if(farrowEvent.getEmployeeGroupId() != null && farrowEvent.getEmployeeGroupId() != 0){
-	    					ps.setInt(15, farrowEvent.getEmployeeGroupId());
+	    					ps.setInt(14, farrowEvent.getEmployeeGroupId());
+	    				}
+	    				else{
+	    					ps.setNull(14, java.sql.Types.INTEGER);
+	    				}
+	    				
+	    				if(farrowEvent.getPigInfoId() != null){
+	    					ps.setInt(15, farrowEvent.getPigInfoId());
 	    				}
 	    				else{
 	    					ps.setNull(15, java.sql.Types.INTEGER);
 	    				}
 	    				
-	    				if(farrowEvent.getPigInfoId() != null){
-	    					ps.setInt(16, farrowEvent.getPigInfoId());
+	    				if( farrowEvent.getPregnancyEventId() != null){
+	    					ps.setInt(16, farrowEvent.getPregnancyEventId());
 	    				}
 	    				else{
 	    					ps.setNull(16, java.sql.Types.INTEGER);
 	    				}
 	    				
-	    				if( farrowEvent.getPregnancyEventId() != null){
-	    					ps.setInt(17, farrowEvent.getPregnancyEventId());
-	    				}
-	    				else{
-	    					ps.setNull(17, java.sql.Types.INTEGER);
-	    				}
-	    				
-	    				ps.setInt(18,  farrowEvent.getTeats());
+	    				ps.setInt(17,  farrowEvent.getTeats());
 	    			
 	    	            return ps;
 	    	        }
@@ -120,7 +119,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	 */
    public FarrowEvent getFarrowEvent(final Integer farrowEventId) { 
 	   
-	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
 		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
@@ -145,7 +144,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	 */
   public FarrowEvent getFarrowEventByPregancyEvent(final Integer pregnancyEventId) { 
 	   
-	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
 		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
@@ -162,35 +161,8 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 			return farrowEventList.get(0);
 		}
 		return null;
-	}
-   
-   
-	/**
-	 * Retrieves the Pregnancy Event information for a given Id  
-	 */
-  public FarrowEvent getFarrowEvent(final String farrowId, final Integer companyId) { 
-	   
-	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
-		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
-		   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
-		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
-		   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PregnancyEvent\" PE on FE.\"id_PregnancyEvent\"=PE.\"id\""
-		   		+ " JOIN pigtrax.\"PigInfo\" PI  on PE.\"id_PigInfo\" = PI.\"id\" "
-		   		+ " WHERE FE.\"farrowId\" = ? and PI.\"id_Company\" = ?";
-		
-		List<FarrowEvent> farrowEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, farrowId);
-				ps.setInt(2, companyId);
-			}}, new FarrowEventMapper());
-
-		if(farrowEventList != null && farrowEventList.size() > 0){
-			return farrowEventList.get(0);
-		}
-		return null;
 	}   
-   
+ 
    /**
 	 * Retrieves the Pregnancy Event information for a given pig Id 
 	 */
@@ -202,8 +174,6 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 		   farrowEventList = getFarrowEventsByPigId(searchText, companyId);
 	   else if("TATTOO".equalsIgnoreCase(option))
 		   farrowEventList = getFarrowEventsByTattoo(searchText, companyId);
-	   else if("FARROWID".equalsIgnoreCase(option))
-		   farrowEventList = getFarrowEventsByFarrowId(searchText, companyId);
 	    
 		return farrowEventList;
 	} 
@@ -214,7 +184,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	 * Retrieves the Pregnancy Event information for a given pig Id 
 	 */
   private List<FarrowEvent> getFarrowEventsByPigId(final String pigId, final Integer companyId) throws SQLException{
-	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 	   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
 	   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 	   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
@@ -233,32 +203,10 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
   
   
   /**
-	 * Retrieves the Pregnancy Event information for a given farrowId
-	 */
-private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final Integer companyId) throws SQLException{
-	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
-	   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
-	   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
-	   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
-	   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
-	   		+ " WHERE FE.\"farrowId\" = ? and PI.\"id_Company\" = ? ";
-		
-		List<FarrowEvent> farrowEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, farrowId);
-				ps.setInt(2, companyId);
-			}}, new FarrowEventMapper());
-
-		return farrowEventList; 
-	}
-  
-  
-  /**
  	 * Retrieves the Pregnancy Event information for a given pig Id 
  	 */
    private List<FarrowEvent> getFarrowEventsByTattoo(final String tattoo, final Integer companyId) throws SQLException{
-	   String qry = "select FE.\"id\", FE.\"farrowId\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
 		   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
@@ -279,7 +227,7 @@ private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final
     @Override
 	public int updateFarrowEventDetails(final FarrowEvent farrowEvent)
 			throws SQLException, DuplicateKeyException {
-		String Qry = "update pigtrax.\"FarrowEvent\" set \"farrowId\" = ?, \"id_Pen\" = ?, \"farrowDateTime\"= ?, \"liveBorns\"= ?"
+		String Qry = "update pigtrax.\"FarrowEvent\" set  \"id_Pen\" = ?, \"farrowDateTime\"= ?, \"liveBorns\"= ?"
 				+ ", \"stillBorns\" = ?, \"mummies\" = ?, \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"maleBorns\" = ?, \"femaleBorns\" = ? "
 				+ " , \"weightInKgs\" = ? , \"inducedBirth\" = ?, \"assistedBirth\" = ?, \"remarks\" = ? "
 				+ ", \"sowCondition\" = ?, \"id_EmployeeGroup\" = ? , \"id_PigInfo\" = ?, \"id_PregnancyEvent\"=?, \"teats\" = ? where \"id\" = ? ";
@@ -288,97 +236,96 @@ private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
-				ps.setString(1, farrowEvent.getFarrowId());
-				
+						
 				if(farrowEvent.getPenId() != null){
-					ps.setInt(2, farrowEvent.getPenId());
+					ps.setInt(1, farrowEvent.getPenId());
 				}
 				else{
-					ps.setNull(2, java.sql.Types.INTEGER);
+					ps.setNull(1, java.sql.Types.INTEGER);
 				}
 				
 				if(farrowEvent.getFarrowDateTime() != null){
-	    	        ps.setDate(3, new java.sql.Date(farrowEvent.getFarrowDateTime().getTime()));
+	    	        ps.setDate(2, new java.sql.Date(farrowEvent.getFarrowDateTime().getTime()));
  	            }
  	            else{
- 	            	ps.setNull(3,  java.sql.Types.DATE);
+ 	            	ps.setNull(2,  java.sql.Types.DATE);
  	            }
 				
 				if(farrowEvent.getLiveBorns() != null){
-					ps.setInt(4, farrowEvent.getLiveBorns());
+					ps.setInt(3, farrowEvent.getLiveBorns());
+				}
+				else{
+					ps.setNull(3, java.sql.Types.INTEGER);
+				}
+				
+				if(farrowEvent.getStillBorns() != null){
+					ps.setInt(4, farrowEvent.getStillBorns());
 				}
 				else{
 					ps.setNull(4, java.sql.Types.INTEGER);
 				}
 				
-				if(farrowEvent.getStillBorns() != null){
-					ps.setInt(5, farrowEvent.getStillBorns());
+				if(farrowEvent.getMummies() != null){
+					ps.setInt(5,farrowEvent.getMummies());
 				}
 				else{
 					ps.setNull(5, java.sql.Types.INTEGER);
 				}
-				
-				if(farrowEvent.getMummies() != null){
-					ps.setInt(6,farrowEvent.getMummies());
-				}
-				else{
-					ps.setNull(6, java.sql.Types.INTEGER);
-				}
-				ps.setString(7, farrowEvent.getUserUpdated());
+				ps.setString(6, farrowEvent.getUserUpdated());
 				
 				if(farrowEvent.getMaleBorns() != null){
-					ps.setInt(8, farrowEvent.getMaleBorns());
+					ps.setInt(7, farrowEvent.getMaleBorns());
+				}
+				else{
+					ps.setNull(7, java.sql.Types.INTEGER);
+				}
+				
+				if(farrowEvent.getFemaleBorns() != null){
+					ps.setInt(8, farrowEvent.getFemaleBorns());
 				}
 				else{
 					ps.setNull(8, java.sql.Types.INTEGER);
 				}
 				
-				if(farrowEvent.getFemaleBorns() != null){
-					ps.setInt(9, farrowEvent.getFemaleBorns());
+				ps.setObject(9, farrowEvent.getWeightInKgs(), java.sql.Types.DOUBLE);
+				ps.setBoolean(10, farrowEvent.isInducedBirth());
+				ps.setBoolean(11, farrowEvent.isAssistedBirth());
+				ps.setString(12, farrowEvent.getRemarks());
+				if(farrowEvent.getSowCondition() != null){
+					ps.setInt(13, farrowEvent.getSowCondition());
 				}
 				else{
-					ps.setNull(9, java.sql.Types.INTEGER);
+					ps.setNull(13, java.sql.Types.INTEGER);
 				}
 				
-				ps.setObject(10, farrowEvent.getWeightInKgs(), java.sql.Types.DOUBLE);
-				ps.setBoolean(11, farrowEvent.isInducedBirth());
-				ps.setBoolean(12, farrowEvent.isAssistedBirth());
-				ps.setString(13, farrowEvent.getRemarks());
-				if(farrowEvent.getSowCondition() != null){
-					ps.setInt(14, farrowEvent.getSowCondition());
+				if(farrowEvent.getEmployeeGroupId() != null && farrowEvent.getEmployeeGroupId() != 0){
+					ps.setInt(14, farrowEvent.getEmployeeGroupId());
 				}
 				else{
 					ps.setNull(14, java.sql.Types.INTEGER);
 				}
 				
-				if(farrowEvent.getEmployeeGroupId() != null && farrowEvent.getEmployeeGroupId() != 0){
-					ps.setInt(15, farrowEvent.getEmployeeGroupId());
+				if(farrowEvent.getPigInfoId() != null){
+					ps.setInt(15, farrowEvent.getPigInfoId());
 				}
 				else{
 					ps.setNull(15, java.sql.Types.INTEGER);
 				}
 				
-				if(farrowEvent.getPigInfoId() != null){
-					ps.setInt(16, farrowEvent.getPigInfoId());
+				if(farrowEvent.getPregnancyEventId() != null){
+					ps.setInt(16, farrowEvent.getPregnancyEventId());
 				}
 				else{
 					ps.setNull(16, java.sql.Types.INTEGER);
 				}
 				
-				if(farrowEvent.getPregnancyEventId() != null){
-					ps.setInt(17, farrowEvent.getPregnancyEventId());
-				}
-				else{
-					ps.setNull(17, java.sql.Types.INTEGER);
-				}
-				
-				ps.setInt(18, farrowEvent.getTeats());
+				ps.setInt(17, farrowEvent.getTeats());
 				
 				if(farrowEvent.getId() != null){
-					ps.setInt(19, farrowEvent.getId());
+					ps.setInt(18, farrowEvent.getId());
 				}
 				else{
-					ps.setNull(19, java.sql.Types.INTEGER);
+					ps.setNull(18, java.sql.Types.INTEGER);
 				}
 			}
 		});
@@ -389,7 +336,6 @@ private List<FarrowEvent> getFarrowEventsByFarrowId(final String farrowId, final
 		public FarrowEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
 			FarrowEvent farrowEvent = new FarrowEvent();
 			farrowEvent.setId(rs.getInt("id"));
-			farrowEvent.setFarrowId(rs.getString("farrowId"));
 			farrowEvent.setFarrowDateTime(rs.getDate("farrowDateTime"));
 			farrowEvent.setPenId(rs.getObject("id_Pen") != null ? (Integer)rs.getObject("id_Pen") : null);
 			farrowEvent.setLiveBorns(rs.getInt("liveBorns"));

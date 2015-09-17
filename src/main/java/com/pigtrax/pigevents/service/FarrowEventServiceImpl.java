@@ -37,7 +37,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	FarrowEventDao farrowEventDao;
 	
 	@Autowired
-	FarrowEventBuilder builder;
+	FarrowEventBuilder builder; 
 	
 	@Autowired 
 	PigTraxEventMasterDao eventMasterDao;

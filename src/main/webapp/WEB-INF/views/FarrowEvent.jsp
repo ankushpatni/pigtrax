@@ -12,10 +12,10 @@
 		   <form name="farrowEventSearchForm" >
  		     <div class="head">
             <h3> <spring:message code='label.piginfo.farroweventform.search.heading'  text='Search'/></h3>
-            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.farroweventform.search.errormessage' text='Please enter Pig Id/ Tattoo / Farrow Id and select the corresponding option'/></p>
+            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.farroweventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.farroweventform.search.data.errormessage' text='Farrow event information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.farroweventform.search.placeholder'  text='Search by Pig Id / Tattoo / Farrow Id ...'/>" class="form-control">
+            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.farroweventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
 
 			 <div class="options">
 			 <div class="btn-group pull-right">
@@ -27,10 +27,7 @@
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="rad1"  id="rad2" class="icheck farrowevent" value="tattoo"> <spring:message code='label.piginfo.farroweventform.search.tattoo.option'  text='Tattoo'/> 
-                </label>	
-                <label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad3" class="icheck farrowevent" value="farrowId"> <spring:message code='label.piginfo.farroweventform.search.farrowid.option'  text='Farrow Id'/> 
-                </label>				
+                </label>		
               </div>
             </div>            
           </div>
@@ -40,16 +37,16 @@
             <h3> <spring:message code='label.piginfo.farroweventform.searchresults.heading'  text='Farrow Events'/></h3>
              <table>
 				<thead>
-                     <tr>                       
-                       <th><spring:message code='label.piginfo.farroweventform.farrowId'  text='Farrow Id'/> </th>
-                       <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>
+                     <tr>     
+                       <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>                  
+                       <th><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </th>                       
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
                  </thead>
                  <tbody>
                    <tr ng-repeat="farrowEventDto in farrowEventList">
-                    <td>{{farrowEventDto.farrowId}}</td>
                     <td>{{farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
+                    <td>{{farrowEventDto.liveBorns}}</td>                   
                     <td><button type="button" class="btn btn-edit btn-xs"
 												ng-click="getFarrowEventDetails(farrowEventDto)">
 												<span class="glyphicon glyphicon-pencil"></span>
@@ -92,11 +89,7 @@
                   <div class="alert alert-danger alert-white rounded" ng-show="farrowEventValidation_ErrCode_2">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.farroweventform.farrowEventValidation_ErrCode2.message' text='Farrow event details already captured for the selected pregnancy event'/>
-                  </div>        
-                  <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
-                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.farroweventform.duplicate.error.message' text='A farrow record already exists with the same farrow id'/>
-                  </div>    
+                  </div>
                 </div>
                 <div class="content">
                   <form name="farroweventform" novalidate angular-validator my-reset>
@@ -136,17 +129,6 @@
 						</div>
                       </div>
                     </div>
-                    
-                    
-				  	<div class="form-group">
-                      <label><spring:message code='label.piginfo.farroweventform.farrowId'  text='Farrow Id'/><span style='color: red'>*</span></label>
-                      <input ng-hide="farrowEvent.id != null && farrowEvent.id != 0"  type="text" id="farrowId" name="farrowId" ng-model="farrowEvent.farrowId"  maxlength="30" 
-                      placeholder="<spring:message code='label.piginfo.farroweventform.farrowId.placeholder'  text='Enter Farrow Id'/>"   class="form-control">
-				      <p ng-show="farrowEvent.id != null && farrowEvent.id != 0">{{farrowEvent.farrowId}}</p>
-                    </div>
-                    <label ng-show="farrowIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.requiredmessage' text='Farrow Id is required' /></label>
-                    <label ng-show="invalidFarrowId" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.invalidmessage' text='Only Alpha Numeric values are allowed' /></label>
-                    
                     <div class="form-group">   
 					
                     <label><spring:message code='label.piginfo.farroweventform.pigletinfo'  text='Piglet Information'/></label>

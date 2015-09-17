@@ -44,14 +44,14 @@
              <table>
 				<thead>
                      <tr>                       
-                       <th><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Farrow Id'/> </th>
+                       <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>
                        <th><spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid'  text='Wean Group Id'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
                  </thead>   
                  <tbody>
                    <tr ng-repeat="pigletStatusEventDto in pigletStatusEventList"> 
-					<td >{{pigletStatusEventDto.farrowEventDto.farrowId}}</td>                   
+					<td >{{pigletStatusEventDto.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</td>                   
                     <td >{{pigletStatusEventDto.weanGroupId}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs" ng-click="setPigletStatusDetails(pigletStatusEventDto)">
 						<span class="glyphicon glyphicon-pencil"></span>
@@ -279,15 +279,16 @@
                       <div class="modal-body form" >
                       <table>
                        <thead>
-                           <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>                           
-	                        <th><spring:message code='label.piginfo.pigletstatuseventform.farrowId'  text='Farrow Id'/> </th>
-                       		<th><spring:message code='label.piginfo.pigletstatuseventform.farrowDate'  text='Farrow Date'/> </th>
+                           <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
+                           <th><spring:message code='label.piginfo.pigletstatuseventform.farrowDate'  text='Farrow Date'/> </th>                           
+	                        <th><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </th>
+                       		
                        </thead>
                        <tbody>
 	                   <tr ng-repeat="farrowEventObj in farrowEventList" ng-if="farrowEventList != null && farrowEventList.length > 0">
-	                    <td><input type="radio" name="farrowEventDtoId" id="farrowEventDtoId" ng-model="pigletStatusEvent.farrowEventDto" ng-value="farrowEventObj"></td>
-	                    <td>{{farrowEventObj.farrowId}}</td>
+	                    <td><input type="radio" name="farrowEventDtoId" id="farrowEventDtoId" ng-model="pigletStatusEvent.farrowEventDto" ng-value="farrowEventObj"></td>	                   
 	                    <td>{{farrowEventObj.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
+	                     <td>{{farrowEventObj.liveBorns}}</td>
 	                   </tr>
 	                   <tr ng-if="farrowEventList == null || farrowEventList.length == 0">
 	                     <td colspan="3">

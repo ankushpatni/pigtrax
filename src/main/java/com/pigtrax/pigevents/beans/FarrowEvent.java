@@ -5,7 +5,6 @@ import java.util.Date;
 public class FarrowEvent {
 	
 	private Integer id;
-	private String farrowId;
 	private Date farrowDateTime;
 	private Integer penId;
 	private Integer liveBorns;
@@ -30,12 +29,6 @@ public class FarrowEvent {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public String getFarrowId() {
-		return farrowId;
-	}
-	public void setFarrowId(String farrowId) {
-		this.farrowId = farrowId;
 	}
 	public Date getFarrowDateTime() {
 		return farrowDateTime;

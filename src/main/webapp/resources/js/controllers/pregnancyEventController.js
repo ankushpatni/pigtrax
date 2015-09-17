@@ -83,7 +83,10 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					if(data.error)
 					{
 						$scope.clearAllMessages();
-						$scope.inValidPigIdFromServer = true;				
+						$scope.inValidPigIdFromServer = true;		
+						$('#searchBreedingService').modal('hide');
+						return false;
+						
 					}
 					else
 					{
@@ -91,15 +94,16 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 						$scope.requiredPigIdMessage = false;
 						var pigInfo = data.payload;
 						if(pigInfo.sexTypeId == 2)
-							{
-						if($scope.pregnancyEvent.breedingServiceId != undefined && $scope.pregnancyEvent.breedingServiceId != "")
-							$scope.checkForBreedingServiceId();
-							}
+						{
+							$scope.clearAllMessages();
+							return true;
+						}
 						else
-							{
+						{
 							$scope.clearAllMessages();
 							$scope.malePigIdentified = true;
-							}
+							return false
+						}
 					}
 						
 				});
@@ -107,42 +111,15 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	};
 	
 	
-	/**
-	 * check the validity of pigId
-	 */
-	$scope.checkForBreedingServiceId = function()
-	{
+	$scope.$watch('inValidPigIdFromServer', function(newVal, oldVal) {
 		
-		if($scope.pregnancyEvent.breedingServiceId != undefined && $scope.pregnancyEvent.breedingServiceId != "" 
-		&& ($scope.pregnancyEvent.pigId  == undefined || $scope.pregnancyEvent.pigId == ""))
-	    {
-			$scope.requiredPigIdMessage = true;
-	    }
-		else if($scope.pregnancyEvent.breedingServiceId != undefined && $scope.pregnancyEvent.breedingServiceId != "")
-			{
-				$scope.clearAllMessages();
-			    var searchBreedingService = {
-						pigId : $scope.pregnancyEvent.pigId,
-						companyId : $rootScope.companyId,
-						breedingServiceId : $scope.pregnancyEvent.breedingServiceId
-				};			    
-				restServices.checkForBreedingServiceId(searchBreedingService, function(data) {
-					if(data.error)
-					{
-						$scope.clearAllMessages();
-						$scope.inValidServiceIdFromServer = true;
-					}
-					else
-					{
-					 $scope.inValidServiceIdFromServer = false;
-					 $scope.pregnancyEvent.breedingEventDto = data.payload;
-					 $scope.pregnancyEvent.breedingServiceId = $scope.pregnancyEvent.breedingEventDto.serviceId;
-					 $scope.pregnancyEvent.breedingEventId = $scope.pregnancyEvent.breedingEventDto.id;
-					}
-						
-				});
-			}
-	};
+        if(newVal)
+		{
+        	$('#searchBreedingService').modal('hide');
+		}
+    });
+    
+	
 	
 		
 	
@@ -152,12 +129,12 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	$scope.addPregnancyEvent = function()
     {
 		var examDate = document.getElementById("examDate").value;
-		var resultDate = document.getElementById("resultDate").value;
-		if($scope.pregnancyEvent.breedingEventId == undefined || $scope.pregnancyEvent.breedingEventId == null)
+		var resultDate = document.getElementById("resultDate").value;		
+		if($scope.pregnancyEvent.breedingEventId == undefined || $scope.pregnancyEvent.breedingEventId == null && $scope.pregnancyEvent.breedingEventId == "")
 		{
 			  $scope.breedingEventIdRequired = true;
 		}
-		else if(resultDate == null || resultDate == undefined || resultDate == "")
+		if(resultDate == null || resultDate == undefined || resultDate == "")
 		{
 			$scope.resultDateRequired = true;
 		}	
@@ -165,7 +142,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		{
 		   $scope.invalidResultDate = true;	
 		}	
-		else if($scope.pregnancyeventform.$valid)
+		if($scope.pregnancyeventform.$valid && !$scope.breedingEventIdRequired && !$scope.resultDateRequired && !$scope.invalidResultDate)
 		{
 			
 			
@@ -303,32 +280,63 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	
 	
 	$scope.searchBreedingService = function(pigId, selectedCompanyId)
-	{
-		$scope.clearAllMessages();
+	{		
 		if(pigId == undefined  || pigId == "")
-		{			
+		{		
+			$scope.clearAllMessages();
 			$scope.requiredPigIdMessage = true;
 			$('#searchBreedingService').modal('hide');
-		}
-		else{
-		
-			var searchBreedEvent = {
-					searchText : pigId,
+		}		
+		else if(pigId != undefined && pigId != "")
+		{
+		    var pigInfo = {
+					searchText : $scope.pregnancyEvent.pigId,
 					searchOption : "pigId",
 					companyId : $rootScope.companyId
-					
 			};
-			
-			restServices.getActiveBreedingServices(searchBreedEvent, function(data){
-				$scope.clearAllMessages();
-				 $("#searchBreedingService").modal("show");
-				if(!data.error){
-					$scope.breedingEventList = data.payload;
+			restServices.getPigInformation(pigInfo, function(data) {
+				if(data.error)
+				{
+					$scope.clearAllMessages();
+					$scope.inValidPigIdFromServer = true;
+					
 				}
 				else
 				{
-					$scope.breedingEventList = [];  
+					$scope.inValidPigIdFromServer = false;
+					$scope.requiredPigIdMessage = false;
+					var pigInfo = data.payload;
+					if(pigInfo.sexTypeId == 2)
+					{
+						$scope.clearAllMessages();
+						$("#searchBreedingService").modal("show");
+						
+						var searchBreedEvent = {
+								searchText : pigId,
+								searchOption : "pigId",
+								companyId : $rootScope.companyId
+								
+						};
+						
+						restServices.getActiveBreedingServices(searchBreedEvent, function(data){
+							$scope.clearAllMessages();
+							 $("#searchBreedingService").modal("show");
+							if(!data.error){
+								$scope.breedingEventList = data.payload;
+							}
+							else
+							{
+								$scope.breedingEventList = [];  
+							}
+						});
+					}
+					else
+					{
+						$scope.clearAllMessages();
+						$scope.malePigIdentified = true;
+					}
 				}
+					
 			});
 		}
 	};
