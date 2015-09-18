@@ -11,7 +11,11 @@ public class RemovalEvent {
 	private String remarks;
 	private Date lastUpdated;
 	private String userUpdated;
-	//private TransportJourney transportJourney;
+	
+	private String groupId;
+	private String pigId;
+	private int companyId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -54,11 +58,23 @@ public class RemovalEvent {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
-	/*public TransportJourney getTransportJourney() {
-		return transportJourney;
+	public String getGroupId() {
+		return groupId;
 	}
-	public void setTransportJourney(TransportJourney transportJourney) {
-		this.transportJourney = transportJourney;
-	}*/
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+	public String getPigId() {
+		return pigId;
+	}
+	public void setPigId(String pigId) {
+		this.pigId = pigId;
+	}
+	public int getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
 		
 }

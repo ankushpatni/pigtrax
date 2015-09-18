@@ -3,7 +3,8 @@
 	<div class="md-content">
 		<div class="modal-header">
 			<h3  ng-hide="edit"><spring:message code="label.company.addCompanyData" text="Add Company Data" /></h3>
-			<h3  ng-show="edit"><spring:message code="label.company.editCompanyData" text="Edit Company Data" /></h3>
+			<h3  ng-show="edit && !showDetail"><spring:message code="label.company.editCompanyData" text="Edit Company Data" /></h3>
+			<h3  ng-show="showDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link" text="Edit Company Detail" /></h3>
 			 <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close"  ng-click="cancel()">×</button>
 			
 		</div>
@@ -12,7 +13,7 @@
 
 				<div class="form-group">
 					<label><spring:message code="label.company.companyID" text="Company ID" /><span style='color: red'>*</span></label> 
-					<label ng-show="edit">{{add.companyId}}</label> 
+					<label ng-show="edit || showDetail"> : {{add.companyId}}</label> 
 					<input ng-hide="edit" class="form-control" type="text"
 						placeholder="<spring:message code='label.company.companyID' text='Company ID' />"
 						name="companyId" ng-model="add.companyId" maxlength="4" size="5"
@@ -23,7 +24,9 @@
 				</div>
 				<div class="form-group">
 					<label><spring:message code="label.company.name"
-							text="Name" /><span style='color: red'>*</span></label> <input
+							text="Name" /><span style='color: red'>*</span></label>
+						<label ng-show="showDetail"> : {{add.name}}</label> 							
+						<input ng-hide="showDetail"
 						type="text"
 						class="form-control" 
 						placeholder="<spring:message code='label.company.name'  text='Name'/>"
@@ -33,14 +36,17 @@
 				<div class="form-group">
 					<label><spring:message code="label.company.address"
 							text="Address" /><span style='color: red'>*</span></label>
-					<textarea class="form-control" type="text"
+							<label ng-show="showDetail"> : {{add.address}}</label> 
+					<textarea ng-hide="showDetail" class="form-control" type="text"
 						placeholder="<spring:message code='label.company.address' text='Address' />"
 						name="address" ng-model="add.address" maxlength="255" required
 						required-message="'<spring:message code='label.company.companyAddressRequired' text='Address is required' />'" />
 				</div>
 				<div class="form-group">
 					<label><spring:message code="label.company.country"
-							text="Country" /><span style='color: red'>*</span></label> <select
+							text="Country" /><span style='color: red'>*</span></label>
+							<label ng-show="showDetail"> : {{add.country}}</label> 
+							 <select ng-hide="showDetail"
 						class="form-control"
 						placeholder="<spring:message code='label.company.country' text='Country' />"
 						name="country" ng-model="add.country" required
@@ -50,7 +56,9 @@
 				</div>
 				<div class="form-group">
 					<label><spring:message code="label.company.city"
-							text="City" /><span style='color: red'>*</span></label> <select
+							text="City" /><span style='color: red'>*</span></label>
+							<label ng-show="showDetail"> : {{add.city}}</label> 
+							 <select ng-hide="showDetail"
 						class="form-control"
 						placeholder="<spring:message code='label.company.city' text='City' />"
 						name="city" ng-model="add.city" maxlength="30" required
@@ -60,7 +68,9 @@
 				<div class="form-group">
 					<label ><spring:message
 							code="label.company.registrationNumber"
-							text="Registration Number" /><span style='color: red'>*</span></label> <input
+							text="Registration Number" /><span style='color: red'>*</span></label> 
+							<label ng-show="showDetail"> : {{add.registrationNumber}}</label> 
+							<input ng-hide="showDetail"
 						class="form-control"  type="text"
 						placeholder="<spring:message code='label.company.registrationNumber' text='Registration Number' />"
 						name="registrationNumber" ng-model="add.registrationNumber"
@@ -71,7 +81,9 @@
 				</div>
 				<div class="form-group">
 					<label><spring:message code="label.company.email"
-							text="Email" /><span style='color: red'>*</span></label> <input
+							text="Email" /><span style='color: red'>*</span></label> 
+							<label ng-show="showDetail"> : {{add.email}}</label> 
+							<input ng-hide="showDetail"
 						class="form-control" type="email"
 						placeholder="<spring:message code='label.company.email' text='Email' />"
 						name="uEmail" ng-model="add.email" maxlength="50" required
@@ -80,7 +92,9 @@
 				</div>
 				<div>
 					<label><spring:message code="label.company.phone"
-							text="Phone" /><span style='color: red'>*</span></label> <input
+							text="Phone" /><span style='color: red'>*</span></label> 
+							<label ng-show="showDetail"> : {{add.phone}}</label> 
+							<input ng-hide="showDetail"
 						class="form-control" type="text" placeholder="+1-111-111-1111"
 						name="phone" ng-model="add.phone" maxlength="15" required
 						required-message="'<spring:message code='label.company.phoneRequired' text='Phone is required' />'"
@@ -89,7 +103,9 @@
 				</div>
 				<div class="form-group">
 					<label><spring:message code="label.company.contactName"
-							text="Contact Name" /><span style='color: red'>*</span></label> <input
+							text="Contact Name" /><span style='color: red'>*</span></label>
+							<label ng-show="showDetail"> : {{add.contactName}}</label> 
+							 <input ng-hide="showDetail"
 						class="form-control" type="text"
 						placeholder="<spring:message code='label.company.contactName' text='Contact Name' />"
 						name="contactName" ng-model="add.contactName" maxlength="50"
@@ -98,7 +114,9 @@
 				</div>
 				<div class="form-group">
 					<label><spring:message code="label.company.payment"
-							text="Payment" /></label> <input class="form-control" type="text"
+							text="Payment" /></label>
+							<label ng-show="showDetail"> : {{add.payment}}</label>
+ 							<input ng-hide="showDetail" class="form-control" type="text"
 						placeholder="<spring:message code='label.company.payment' text='Payment' />"
 						name="payment" ng-model="add.payment" maxlength="15"
 						ng-pattern="/^[0-9]{1,15}(\.[0-9]+)?$/i"
@@ -106,7 +124,8 @@
 				</div>
 				<div class="form-group">
 						<label ><spring:message code="label.company.paymentDate" text="Payment Date" /></label>
-						<div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+						<label ng-show="showDetail"> : {{add.paymentDate}}</label> 
+						<div ng-hide="showDetail" data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
 							<input type="text" datepicker-popup="yyyy-MM-dd" class="form-control" datepicker-popup="paymentDate" id="paymentDate" name="paymentDate" ng-model="add.paymentDate" is-open="opened"/>
 							<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -117,11 +136,11 @@
 					</div>
 				<div class="modal-footer">
 
-					<button class="btn btn-primary btn-flat md-close" ng-click="addCompany()"
+					<button ng-hide="showDetail" class="btn btn-primary btn-flat md-close" ng-click="addCompany()"
 						ng-hide="edit">
 						<spring:message code="label.company.add" text="Add" />
 					</button>
-					<button class="btn btn-primary btn-flat md-close" ng-click="addCompany()" ng-show="edit">
+					<button ng-hide="showDetail" class="btn btn-primary btn-flat md-close" ng-click="addCompany()" ng-show="edit">
 						<spring:message code="label.company.edit" text="Edit" />
 					</button>
 					<button class="btn btn-default btn-flat md-close" ng-click="cancel()">
@@ -135,4 +154,3 @@
 		</form>
 		<div class="modal-footer" ng-show="alertVisible"></div>
 	</div>
-</div>

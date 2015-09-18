@@ -1,5 +1,4 @@
 package com.pigtrax.master.controller;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +94,7 @@ public class TransportTrailerTruckRestController {
 			dto.setStatusMessage("FALSE");
 			if( e instanceof DuplicateKeyException)
 			{
+				dto.setDuplicateRecord(true);
 				dto.setPayload("TransportTruck with ID : "+transportTruck.getTransportTruckId().toUpperCase() + " already present.");
 				logger.error("Inside insertTransportTruckRecord()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
 			}

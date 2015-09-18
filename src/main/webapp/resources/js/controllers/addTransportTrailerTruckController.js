@@ -24,8 +24,15 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 					}
 					else
 					{
-						$scope.alertMessage = data.payload;
-						$scope.alertVisible = true;
+						if(data.duplicateRecord)
+						{
+							$scope.duplicateErrorMessage = true;
+						}
+						else
+						{
+							$scope.alertMessage = data.payload;
+							$scope.alertVisible = true;
+						}
 					}
 				});
 				res.error(function(data, status, headers, config) {
@@ -71,4 +78,3 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 		$modalInstance.dismiss('add');
 	}
 });
-

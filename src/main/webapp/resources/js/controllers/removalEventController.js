@@ -272,4 +272,94 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			});
 	}
 	
+	$scope.searchRemovalEvent = function ()
+	{
+		
+		if(document.getElementById("rad1").checked)
+		{
+			groupId = $scope.searchText;
+			var postParam = {
+					"groupId" : $scope.searchText,
+					"companyId" : $rootScope.companyId,
+				};
+			$scope.getSearchRemovalEvent(postParam);
+		}			
+		else if(document.getElementById("rad2").checked)
+		{
+			pigId = $scope.searchText;
+			var postParam = {
+					"pigId" : $scope.searchText,
+					"companyId" : $rootScope.companyId,
+			};
+			$scope.getSearchRemovalEvent(postParam);
+		}			
+		else
+		{
+			removalId = $scope.searchText;
+			$scope.getRemovalEvent(removalId);
+		}
+	}
+	
+	$scope.getSearchRemovalEvent = function (postParam)
+	{
+	console.log(postParam);
+		restServices.getRemovalEventInformationList(postParam, function(data){
+			console.log(data);
+			if(!data.error)
+				{
+					/*$scope.removalEvent = data.payload[0];
+					$scope.removalExceptSalesList = data.payload[1];
+					$scope.clearAllMessages();
+					if(flag)
+					{
+						$scope.entryEventSuccessMessage = true;
+					}
+					if(flag1)
+					{
+						$scope.entryEventDetailSuccessMessage = true;
+					}
+					$window.scrollTo(0,550);
+					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2)
+					{
+						$scope.exceptSalesFlag = true;
+					}
+					else
+					{
+						$scope.exceptSalesFlag = false;
+					}*/
+					var modalInstance = $modal.open ({
+						templateUrl: 'openSelectBox',
+						controller: 'openSelectBoxCtrl',
+						backdrop:true,
+						windowClass : 'cp-model-window',
+						resolve:{
+							openSelectBoxData : function(){
+								var openSelectBox={};
+								openSelectBox.data = data.payload;				
+								return openSelectBox;
+							}
+						}
+					});
+		
+					modalInstance.result.then( function(res) { 
+						console.log(res);
+						$scope.removalExceptSales.transportJourney = res;
+					});
+		}
+			else
+				{
+					$scope.resetForm();
+					/*$scope.clearAllMessages();
+					if(data.recordNotPresent)
+					{
+						$scope.searchDataErrorMessage = true;
+					}
+					else
+					{
+						$scope.entryEventErrorMessage = true;
+					}*/
+				}
+		});
+	}
+	
 });

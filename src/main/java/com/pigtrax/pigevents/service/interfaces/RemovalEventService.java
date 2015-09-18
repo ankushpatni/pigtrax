@@ -21,5 +21,8 @@ public interface RemovalEventService {
 	int updateRemovalEvent(final RemovalEvent removalEvent) throws PigTraxException;
 	
 	public List getRemovalEventAndDetailByRemovalId( final String ticketNumber) throws PigTraxException;
+	
+	public List getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
+			throws PigTraxException;
 
 }

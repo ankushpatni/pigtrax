@@ -7,6 +7,10 @@
 		</div>
 		<form name="truckAddForm" novalidate angular-validator>
 			<div class="modal-body form">
+				<div class="alert alert-danger alert-white rounded"  ng-show="duplicateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.transportTruck.duplicate.error.message' text='Truck with same number plate already exist'/>
+                  </div>
 		        	<div class="form-group">
 						<label><spring:message code="label.transportTruck.transportTruckId" text="Truck Number Plate" /><span style='color: red'>*</span></label>
 						<input class="form-control" type="text" placeholder="<spring:message code='label.transportTruck.transportTruckId' text='Truck Number Plate' />" name="transportTruckId" ng-model="add.transportTruckId" maxlength="20" required required-message="'<spring:message code='label.transportTruck.transportTruckIdRequired' text='Truck Number plate is required' />'" ng-pattern="/^[a-z\0-9\s]+$/i" invalid-message="'<spring:message code='label.silo.siloIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
@@ -40,4 +44,3 @@
 		       </div>
 	    </form>
 	</div>
-</div>

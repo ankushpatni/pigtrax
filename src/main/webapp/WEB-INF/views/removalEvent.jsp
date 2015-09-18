@@ -28,17 +28,17 @@
 				
 							 <div class="options">
 							 <div class="btn-group pull-right">
-				                <button type="button" class="btn btn-primary active" ng-click="getRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
+				                <button type="button" class="btn btn-primary active" ng-click="searchRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
 				              </div>
 				              <div class="form-group">
 				              <label class="radio-inline">
-				                  <input type="radio" name="rad1"  id="rad1" class="icheck" value="groupId"> <spring:message code='label.piginfo.removalExceptSales.search.groupId.option'  text='Group Id'/> 
+				                  <input type="radio" name="rad1"  id="rad1" class="icheck removal" value="groupId"> <spring:message code='label.piginfo.removalExceptSales.search.groupId.option'  text='Group Id'/> 
 				                </label>
 				                <label class="radio-inline">
-				                  <input type="radio" name="rad1" id="rad2" class="icheck" value="pigId" > <spring:message code='label.piginfo.removalExceptSales.search.pigid.option'  text='Pig Id'/>
+				                  <input type="radio" name="rad1" id="rad2" class="icheck removal" value="pigId" > <spring:message code='label.piginfo.removalExceptSales.search.pigid.option'  text='Pig Id'/>
 				                </label>
 				                 <label class="radio-inline">
-				                  <input type="radio" name="rad1"  id="rad3" class="icheck" value="removalId"> <spring:message code='label.piginfo.removalExceptSales.search.removalId.option'  text='Removal Event Id'/> 
+				                  <input type="radio" name="rad1"  id="rad3" class="icheck removal" value="removalId"> <spring:message code='label.piginfo.removalExceptSales.search.removalId.option'  text='Removal Event Id'/> 
 				                </label>				
 				              </div>
 				            </div>            

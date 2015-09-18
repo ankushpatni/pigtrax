@@ -17,5 +17,11 @@ public interface RemovalEventDao {
 	int addRemovalEvent(final RemovalEvent removalEvent) throws SQLException;
 	
 	int updateRemovalEvent(final RemovalEvent removalEvent) throws SQLException;
+	
+	public List<RemovalEvent> getRemovalEventByPigId(final int pigId)
+			throws SQLException;
+	
+	public List<RemovalEvent> getRemovalEventByGroupId(final int groupId)
+			throws SQLException;
 
 }

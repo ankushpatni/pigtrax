@@ -212,5 +212,34 @@ public class RemovalEventRestController
 		return dto; 
 	}
 	
+	/**
+	 * Service to get the Removal Event information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getRemovalEventInformationList", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getRemovalEventInformationList(HttpServletRequest request, @RequestBody RemovalEvent removalEvent)
+	{
+		logger.info("Inside getGroupEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			
+			List removalEventList = removalEventService.getRemovalEventListGroupOrPigInfo(removalEvent);
+			if(removalEventList != null && removalEventList.size()>0 )
+			{
+				dto.setPayload(removalEventList);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
 
 }

@@ -12,8 +12,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.RemovalEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
+import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.SalesEventDetailsDao;
@@ -36,6 +40,12 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 	
 	@Autowired
 	TransportJourneyDao transportJourneyDao;
+	
+	@Autowired 
+	GroupEventDao groupEventDao;
+	
+	@Autowired
+	PigInfoDao pigInfoDao;
 	
 	@Override
 	public RemovalEvent getRemovalEventById(int id) throws SQLException {
@@ -157,6 +167,36 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 				}*/
 			}
 			return eventAndDetailList;
+		}
+		catch (SQLException e)
+		{
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
+	}
+	@Override
+	public List getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
+			throws PigTraxException {
+		try 
+		{
+			List<RemovalEvent> removalEventList =  new ArrayList<RemovalEvent>();
+			if(null != removalEvent && removalEvent.getGroupId()!=null)
+			{
+				GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId());
+				if(null != groupEvent)
+				{
+					removalEventList =  removalEventDao.getRemovalEventByGroupId(groupEvent.getId());
+				}
+			}
+			else if(null != removalEvent )
+			{
+				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(removalEvent.getGroupId(), removalEvent.getCompanyId());
+				if(null != pigInfo)
+				{
+					removalEventList =  removalEventDao.getRemovalEventByPigId(pigInfo.getId());
+				}
+			}
+			
+			return removalEventList;
 		}
 		catch (SQLException e)
 		{

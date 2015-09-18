@@ -64,6 +64,25 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		document.forms['companyForm'].submit();
 	}
 	
+	$scope.showCompanyDetail = function(row)
+	{
+		var modalInstance = $modal.open ({
+			templateUrl: 'addCompany',
+			controller: 'addCompanyCtrl',
+			backdrop:true,
+			windowClass : 'cp-model-window',
+			resolve:{
+				companyData : function(){
+					row.countryList = $scope.country;
+					row.cityJSON = $scope.cityJSON;
+					row.showDetail = true;
+					return row;
+				}
+			}
+		});    		
+		
+	}
+	
 	$scope.addCompanyData = function () {
     		var modalInstance = $modal.open ({
     			templateUrl: 'addCompany',
@@ -75,6 +94,7 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 					var companyData={};
 						companyData.countryList = $scope.country;
 						companyData.cityJSON = $scope.cityJSON;
+						companyData.showDetail = false;
     					return companyData;
     				}
     			}
@@ -98,6 +118,7 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
     				companyData : function(){
 						companyRow.countryList = $scope.country;
 						companyRow.cityJSON = $scope.cityJSON;
+						companyRow.showDetail = false;
     					return companyRow;
     				}
     			}
@@ -179,4 +200,4 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();
 	}
-});
+	});

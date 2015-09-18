@@ -160,7 +160,7 @@ public class RefDataDaoImpl implements RefDataDao {
 					cityMapList.add(cityMap);
 					resultMap.put(country, cityMapList);
 					cityMap.put("name", city);
-					cityMap.put("value", city.substring(0, 2));
+					cityMap.put("value", city);
 				}
 				finalList.add(resultMap);
 				return finalList;

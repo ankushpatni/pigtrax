@@ -80,7 +80,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	    				
 	    				ps.setObject(15, pigInfo.getBarnId(), java.sql.Types.INTEGER);
 	    				ps.setObject(16, pigInfo.getSexTypeId(), java.sql.Types.INTEGER);
-	    				ps.setBoolean(17, pigInfo.isActive());
+	    				ps.setBoolean(17, true);
 	    				ps.setObject(18, pigInfo.getGfunctionTypeId(), java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }

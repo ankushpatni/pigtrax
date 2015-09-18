@@ -25,25 +25,29 @@
 												code="label.company.companyID" text="Company ID" /></th>
 										<th st-sort="name" size="10%"><spring:message
 												code="label.company.name" text="Name" /></th>
-										<th st-sort="address" size="15%"><spring:message
-												code="label.company.address" text="Address" /></th>
+										<!--<th st-sort="address" size="15%"><spring:message
+												code="label.company.address" text="Address" /></th>-->
+										<th st-sort="country" size="15%"><spring:message
+												code="label.company.country" text="Country" />
 										<th st-sort="city" size="8%"><spring:message
 												code="label.company.city" text="City" /></th>
 										<th st-sort="registrationNumber" size="5%"><spring:message
 												code="label.company.registrationNumber"
 												text="Registration Number" /></th>
-										<th st-sort="email" size="5%"><spring:message
+										<!--<th st-sort="email" size="5%"><spring:message
 												code="label.company.email" text="Email" /></th>
 										<th st-sort="phone" size="8%"><spring:message
 												code="label.company.phone" text="Phone" /></th>
 										<th st-sort="contactName" size="8%"><spring:message
-												code="label.company.contactName" text="Contact Name" /></th>
+												code="label.company.contactName" text="Contact Name" /></th>-->
 										<th st-sort="payment" size="5%"><spring:message
 												code="label.company.payment" text="Payment" /></th>
 										<th st-sort="paymentDate" size="10%"><spring:message
 												code="label.company.paymentDate" text="Payment Date" /></th>
 										<th size="5%"><spring:message code="label.company.edit"
 												text="Edit" /></th>
+										<th size="5%"><spring:message code="label.company.detail"
+												text="Detail" /></th>
 										<th size="15%"><spring:message code="label.company.goto"
 												text="Go To" /></th>
 										<th style="width:20px"><spring:message code="label.company.activateDeactivate"
@@ -58,12 +62,13 @@
 									<tr ng-repeat="row in displayedCollection track by $index">
 										<td size="5%">{{row.companyId}}</td>
 										<td size="10%">{{row.name}}</td>
-										<td size="15%">{{row.address}}</td>
+										<!--<td size="15%">{{row.address}}</td>-->
+										<td size="15%">{{row.country}}</td>
 										<td size="8%">{{row.city}}</td>
 										<td size="5%">{{row.registrationNumber}}</td>
-										<td size="5%">{{row.email}}</td>
+										<!--<td size="5%">{{row.email}}</td>
 										<td size="8%">{{row.phone}}</td>
-										<td size="8%">{{row.contactName}}</td>
+										<td size="8%">{{row.contactName}}</td>-->
 										<td size="5%">{{row.payment}}</td>
 										<td size="10%">{{row.paymentDate}}</td>
 										<td size="10%">
@@ -71,6 +76,14 @@
 												ng-click="editCompanyData(row)">
 												<span class="glyphicon glyphicon-pencil"></span>
 												<spring:message code="label.company.edit" text="Edit" />
+												</a>
+											</button>
+										</td>
+										<td size="10%">
+											<button type="button" class="btn btn-edit btn-xs"
+												ng-click="showCompanyDetail(row)">
+												<span class="glyphicon glyphicon-pencil"></span>
+												<spring:message code="label.company.detail" text="Detail" />
 												</a>
 											</button>
 										</td>
@@ -151,4 +164,4 @@
 <script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="resources/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.js"></script>
     <script type="text/javascript" src="resources/assets/js/cleanzone.js"></script>
-    <script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>   
+	<script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>   

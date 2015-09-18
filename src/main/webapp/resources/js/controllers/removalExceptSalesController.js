@@ -134,6 +134,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			$scope.removalDateTimerequired = true;
 			return;
 		}
+		$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
 		if($scope.removalExceptSales.id === 'undefined' )
 		{
 			$scope.removalExceptSales.id = 0;
@@ -152,8 +153,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			{
 				$scope.noOfPigWrongCount  = true;
 				return false;
-			}
-			$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
+			}			
 			
 			if($scope.removalExceptSales.removalDateTime < groupevent.groupStartDateTime)
 			{

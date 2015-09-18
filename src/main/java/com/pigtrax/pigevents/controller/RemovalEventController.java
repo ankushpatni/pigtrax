@@ -76,5 +76,12 @@ public class RemovalEventController
 			model.addAttribute("contentUrl","addRemovalEventExceptSalesDetails.jsp"); 
 			return "template";
 		}
+	 
+	 @RequestMapping(value = "/openSelectBox")
+		public String openSelectBox(Model model)
+		{
+			model.addAttribute("contentUrl","openSelectBox.jsp"); 
+			return "openSelectBox";
+		}
 
 }
