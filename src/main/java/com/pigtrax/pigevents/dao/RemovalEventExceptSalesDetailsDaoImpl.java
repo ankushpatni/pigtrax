@@ -39,7 +39,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 	{
 
 		String qry = "SELECT \"id\", \"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-	    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id\" = ?" ;
+	    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\",\"id_DestPremise\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id\" = ?" ;
 					
 		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -58,7 +58,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsListByRemovalId(
 			final int removalId) throws SQLException {
 		String qry = "SELECT \"id\", \"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_RemovalEvent\" = ?" ;
+			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\",\"id_DestPremise\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_RemovalEvent\" = ?" ;
 							
 		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -78,8 +78,8 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			final RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
 			throws SQLException {
 		final String Qry = "insert into pigtrax.\"RemovalEventExceptSalesDetails\"(\"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\") " + 
-			       "values(?,?,?,?,?,?,?,current_timestamp,?,?)";	
+			    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\",\"id_DestPremise\") " + 
+			       "values(?,?,?,?,?,?,?,current_timestamp,?,?,?)";	
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -161,6 +161,14 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 				else
 				{
 					ps.setNull(9, java.sql.Types.INTEGER);
+				}
+				if(removalEventExceptSalesDetails.getDestPremiseId() != null )
+				{
+					ps.setInt(10, removalEventExceptSalesDetails.getDestPremiseId());
+				}
+				else
+				{
+					ps.setNull(10, java.sql.Types.INTEGER);
 				}	
 				return ps;
 			}
@@ -177,7 +185,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			throws SQLException {
 		String query = "update pigtrax.\"RemovalEventExceptSalesDetails\" SET \"numberOfPigs\"=?, \"removalDateTime\"=?, \"id_PigInfo\"=?,"
 				+" \"id_GroupEvent\"=? ,\"weightInKgs\" =? , \"id_Premise\"=?, \"lastUpdated\"=current_timestamp,"+
-				" \"userUpdated\"=?,\"id_TransportJourney\"=?  where \"id\" = ? ";
+				" \"userUpdated\"=?,\"id_TransportJourney\"=?,\"id_DestPremise\"=?  where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
@@ -245,7 +253,16 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					{
 						ps.setNull(8, java.sql.Types.INTEGER);
 					}
-					ps.setInt(9, removalEventExceptSalesDetails.getId());
+					
+					if(removalEventExceptSalesDetails.getDestPremiseId() != null )
+					{
+						ps.setInt(9, removalEventExceptSalesDetails.getDestPremiseId());
+					}
+					else
+					{
+						ps.setNull(9, java.sql.Types.INTEGER);
+					}	
+					ps.setInt(10, removalEventExceptSalesDetails.getId());
 				}
 			});	
 	}
@@ -279,6 +296,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			removalEventExceptSalesDetails.setWeightInKgs(rs.getBigDecimal("weightInKgs"));
 			removalEventExceptSalesDetails.setRemovalEventId(rs.getInt("id_RemovalEvent"));
 			removalEventExceptSalesDetails.setPremiseId(rs.getInt("id_Premise"));
+			removalEventExceptSalesDetails.setDestPremiseId(rs.getInt("id_DestPremise"));			
 			removalEventExceptSalesDetails.setTransportJourneyId(rs.getInt("id_TransportJourney"));			
 			removalEventExceptSalesDetails.setUserUpdated(rs.getString("userUpdated"));
 			return removalEventExceptSalesDetails;

@@ -130,7 +130,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 						$scope.entryEventDetailSuccessMessage = true;
 					}
 					$window.scrollTo(0,550);
-					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2)
+					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2 || $scope.removalEvent.removalTypeId ==3)
 					{
 						$scope.exceptSalesFlag = true;
 					}
@@ -216,6 +216,8 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		document.getElementById("removalGeneratedId").value = $scope.removalEvent.id;
 		document.getElementById("removalExceptSalesId").value = removalExceptId;
 		document.getElementById("companyId").value = $scope.companyId;
+		document.getElementById("removalTypeId1").value = $scope.removalEvent.removalTypeId;
+		console.log(document.getElementById("removalTypeId1").value);
 		
 		document.forms['removalExceptSalesDisplayForm'].action = 'addRemovalEventExceptSalesDetails';
 		document.forms['removalExceptSalesDisplayForm'].submit();

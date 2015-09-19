@@ -5,7 +5,7 @@
           <h3 ng-hide="edit"><spring:message code="label.removalExceptSales.add.detail" text="Add Removal Except Sales" /></h3>
      		<h3 ng-show="edit"><spring:message code="label.removalExceptSales.edit.detail" text="Edit Removal Except Sales" /></h3>
 </div>		 
- <div class="cl-mcont" ng-controller="RemovalExceptSalesController" ng-init="setCompanyId('${companyId}','${removalIdEntered}','${removalGeneratedId}','${removalExceptSalesId}')">
+ <div class="cl-mcont" ng-controller="RemovalExceptSalesController" ng-init="setCompanyId('${companyId}','${removalIdEntered}','${removalGeneratedId}','${removalExceptSalesId}','${removalTypeId}')">
         <div class="row" >
 		  <div class="col-sm-3 col-md-3"></div>
             <div class="col-sm-6 col-md-6">
@@ -94,6 +94,15 @@
                          ng-options="k as v for (k, v) in premiseList"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{premiseList[removalExceptSales.premiseId]}}</label>                       
                     </div>
+                    <div class="form-group" ng-show="removalTypeId==3">
+                      <label><spring:message code='label.piginfo.removalExceptSales.premiseId'  text='Premise'/></label>
+                       <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control" name="destPremiseId" id="destPremiseId" ng-model="removalExceptSales.destPremiseId"   
+                         ng-options="k as v for (k, v) in premiseList"> </select>
+                         <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{premiseList[removalExceptSales.destPremiseId]}}</label>                       
+                    </div>
+                    <div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="sourceAndDestinationPremisesSameError" ><spring:message code='label.piginfo.removalExceptSales.sourceAndDestinationPremisesSameError.errorMessage' text='Source and Destination Premises can not be same' /></label>
+					</div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >

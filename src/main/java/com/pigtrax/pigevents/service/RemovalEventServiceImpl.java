@@ -148,7 +148,7 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 			if(null != removalEvent)
 			{
 				eventAndDetailList.add(removalEvent);
-				if(removalEvent.getRemovalTypeId() == 1 || removalEvent.getRemovalTypeId() == 2)
+				if(removalEvent.getRemovalTypeId() == 1 || removalEvent.getRemovalTypeId() == 2 || removalEvent.getRemovalTypeId() == 3)
 				{
 					List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = removalEventExceptSalesDetailsDao.getRemovalEventExceptSalesDetailsListByRemovalId(removalEvent.getId());
 				

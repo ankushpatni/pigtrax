@@ -72,7 +72,9 @@ public class RemovalEventController
 			model.addAttribute("removalIdEntered",request.getParameter("removalIdEntered"));
 			model.addAttribute("removalGeneratedId",request.getParameter("removalGeneratedId"));
 			model.addAttribute("removalExceptSalesId",request.getParameter("removalExceptSalesId"));
-			model.addAttribute("companyId",request.getParameter("companyId"));			
+			model.addAttribute("companyId",request.getParameter("companyId"));
+			model.addAttribute("removalTypeId",request.getParameter("removalTypeId1"));
+			
 			model.addAttribute("contentUrl","addRemovalEventExceptSalesDetails.jsp"); 
 			return "template";
 		}

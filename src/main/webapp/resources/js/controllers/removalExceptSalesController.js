@@ -10,9 +10,10 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	$scope.groupEventList={};
 	$scope.pigInfoList={};
 	$scope.removalExceptSales={};
+	$scope.sourceAndDestinationPremisesSameError = false;
 	
 	
-	$scope.setCompanyId = function(companyId,removalIdEntered,removalGeneratedId,removalExceptSalesId)
+	$scope.setCompanyId = function(companyId,removalIdEntered,removalGeneratedId,removalExceptSalesId,removalTypeId)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
@@ -20,6 +21,9 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		$scope.removalGeneratedId = removalGeneratedId;
 		$scope.removalExceptSalesId = removalExceptSalesId;
 		$scope.removalExceptSales.removalEventId = removalGeneratedId;
+		$scope.removalTypeId = removalTypeId;
+		console.log('Ankush');
+		console.log($scope.removalTypeId);
 		
 		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
 		res1.success(function(data, status, headers, config) {
@@ -88,6 +92,16 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		$scope.errorRemovalDateTime = false;
 	};
 	
+	$scope.$watch("removalExceptSales.destPremiseId", function(newValue, oldValue) {
+		if (newValue != null && newValue != undefined && newValue !=0 && newValue === $scope.removalExceptSales.premiseId) {
+			$scope.sourceAndDestinationPremisesSameError = true;
+		}
+		else
+		{
+			$scope.sourceAndDestinationPremisesSameError = false;
+		}
+	});
+	
 	/*$scope.decideGroupPremises = function()
 	{
 		var option = "";
@@ -133,6 +147,10 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		{
 			$scope.removalDateTimerequired = true;
 			return;
+		}
+		if($scope.sourceAndDestinationPremisesSameError == true)
+		{
+			return false;
 		}
 		$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
 		if($scope.removalExceptSales.id === 'undefined' )

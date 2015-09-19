@@ -175,6 +175,7 @@
 		<input type="hidden" name="removalGeneratedId" id="removalGeneratedId"/>
 		<input type="hidden" name="removalExceptSalesId" id="removalExceptSalesId"/>			
 		<input type="hidden" name="companyId" id="companyId"/>
+		<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>		
 		
 	</form>
 		<div class="md-overlay"></div>

@@ -99,7 +99,10 @@ public class RemovalEventExceptSalesDetails {
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
-	
-	
-
+	public Integer getDestPremiseId() {
+		return destPremiseId;
+	}
+	public void setDestPremiseId(Integer destPremiseId) {
+		this.destPremiseId = destPremiseId;
+	}
 }
