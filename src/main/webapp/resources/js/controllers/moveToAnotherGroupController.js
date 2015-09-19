@@ -3,12 +3,28 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	$scope.phaseOfProductionType = moveToAnotherGroup.phaseOfProductionType;
 	$scope.dateFormat = 'yyyy-mm-dd';
 	$scope.moveGroupevent={};
+	$scope.previousGroupId = moveToAnotherGroup.previousGroupId;
+	
+	$scope.$watch("moveGroupevent.groupId", function(newValue, oldValue) {
+		if (newValue === $scope.previousGroupId) {
+			$scope.groupIdMatches = true;
+		}
+		else
+		{
+			$scope.groupIdMatches = false;
+		}
+	});
 	
 	
 	$scope.addMoveGroupEvent = function() {
 	
 		var groupStartDateTimeAnother = document.getElementById("groupStartDateTimeAnother").value;
 		console.log(groupStartDateTimeAnother);
+		
+		if($scope.groupIdMatches == true)
+		{
+			return false;
+		}
 		
 		if($scope.moveGroupeventAddForm.$valid)
 		{

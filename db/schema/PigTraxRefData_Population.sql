@@ -360,7 +360,7 @@ INSERT INTO pigtrax."Company"(
 
             "userUpdated")
 
-VALUES ('1A2B', 'PigTrax', '1 Sovereign Street', 'Al','Brazil', '12345678', 'jimihendrix@gmail.com',
+VALUES ('1A2B', 'PigTrax', '1 Sovereign Street', 'Alegre','Brazil', '12345678', 'jimihendrix@gmail.com',
 
             '+1-111-111-1111', 'Jimmy Hendrix', 3450.50, CURRENT_DATE, true, CURRENT_DATE,
 
@@ -398,7 +398,7 @@ INSERT INTO pigtrax."Company"(
 
             "userUpdated")
 
-VALUES ('1Y2Z', 'PigFarm', '1 Shire Oak Street', 'Al','Brazil', '34567899', 'jimmypage@gmail.com',
+VALUES ('1Y2Z', 'PigFarm', '1 Shire Oak Street', 'Alegre','Brazil', '34567899', 'jimmypage@gmail.com',
 
             '+1-111-111-1111', 'Jimmy Page', 13450.50, CURRENT_DATE, true, CURRENT_DATE,
 
@@ -436,7 +436,7 @@ INSERT INTO pigtrax."Company"(
 
             "userUpdated")
 
-VALUES ('1Y2Y', 'PigFarmPP', '1 Sovereign Street', 'Al','Brazil', '12345678', 'jimihendrix@gmail.com',
+VALUES ('1Y2Y', 'PigFarmPP', '1 Sovereign Street', 'Alegre','Brazil', '12345678', 'jimihendrix@gmail.com',
 
             '+1-111-111-1111', 'Praveen Parasiya', 3450.50, CURRENT_DATE, true, CURRENT_DATE,
 
@@ -490,7 +490,7 @@ INSERT INTO pigtrax."Company"(
 
             "userUpdated")
 
-VALUES ('1Z2Z', 'PigFarmPRC', '1 Sovereign Street', 'Al','Brazil', '12345678', 'jimihendrix@gmail.com',
+VALUES ('1Z2Z', 'PigFarmPRC', '1 Sovereign Street', 'Alegre','Brazil', '12345678', 'jimihendrix@gmail.com',
 
             '+1-111-111-1111', 'Praveen Parasiya', 3450.50, CURRENT_DATE, true, CURRENT_DATE,
 

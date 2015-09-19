@@ -20,7 +20,7 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
     	$scope.add.name = companyData.name,
     	$scope.add.address = companyData.address,
 		$scope.add.country = companyData.country,
-    	//$scope.city = companyData.cityJSON[companyData.country],
+    	$scope.city = companyData.cityJSON[companyData.country],
 		$scope.add.city = companyData.city,
     	$scope.add.registrationNumber = companyData.registrationNumber,
     	$scope.add.email = companyData.email,
@@ -31,13 +31,13 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
     	$scope.add.active = companyData.active,
     	$scope.add.id = companyData.id;
 		
-		/*for (i = 0; i < $scope.city.length; i++) { 
+		for (i = 0; i < $scope.city.length; i++) { 
 			if($scope.city[i].value === companyData.city)
 			{
 				$scope.cityValue = $scope.city[i].name;
 				break;
 			}
-		}*/
+		}
 	}
 	
 	$scope.addCompany = function() {
@@ -105,3 +105,4 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 		$scope.opened = true;
 	};
 });
+

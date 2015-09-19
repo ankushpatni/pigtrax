@@ -200,4 +200,4 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();
 	}
-	});
+});

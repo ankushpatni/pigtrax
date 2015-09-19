@@ -164,4 +164,4 @@
 <script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="resources/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.js"></script>
     <script type="text/javascript" src="resources/assets/js/cleanzone.js"></script>
-	<script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>   
+    <script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>   

@@ -40,6 +40,9 @@
 						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
 						<label ng-show="(moveGroupevent.id != null && moveGroupevent.id > 0)"> :  {{moveGroupevent.groupId}}</label>
                    </div>
+				   <div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupIdMatches" ><spring:message code='label.piginfo.groupEventForm.groupIdMatches' text='Moved to group can not be parent group' /></label>
+					</div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.groupStartDateTime'  text='Group Start Date'/><span style='color: red'>*</span></label>
                       <div ng-hide="(moveGroupevent.id != null && moveGroupevent.id > 0)" data-min-view="2" data-date-format="yyyy-MM-dd" class="input-group date datetime col-md-5 col-xs-7"  >

@@ -57,7 +57,7 @@
 				<div class="form-group">
 					<label><spring:message code="label.company.city"
 							text="City" /><span style='color: red'>*</span></label>
-							<label ng-show="showDetail"> : {{add.city}}</label> 
+							<label ng-show="showDetail"> : {{cityValue}}</label> 
 							 <select ng-hide="showDetail"
 						class="form-control"
 						placeholder="<spring:message code='label.company.city' text='City' />"
@@ -154,3 +154,4 @@
 		</form>
 		<div class="modal-footer" ng-show="alertVisible"></div>
 	</div>
+</div>

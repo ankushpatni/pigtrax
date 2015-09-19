@@ -15,6 +15,7 @@ public class RemovalEventExceptSalesDetails {
 	private Integer premiseId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer destPremiseId;
 	
 	private Integer transportJourneyId;
 	private TransportJourney transportJourney;

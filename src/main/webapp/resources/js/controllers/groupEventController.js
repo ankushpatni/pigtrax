@@ -67,6 +67,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.groupdaterequired = false;
 		$scope.groupEventDuplicateErrorMessage = false;
 		$scope.searchDataErrorMessage = false;
+		$scope.moveEntryEventSuccessMessage = false;
 	};
 	
 	$scope.resetForm = function()

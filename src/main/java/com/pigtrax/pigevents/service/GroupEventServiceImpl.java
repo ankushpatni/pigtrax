@@ -163,6 +163,10 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 				}
 				
+				GroupEvent groupCurrentEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(groupEvent.getId(), groupEvent.getCompanyId());
+				groupEvent.setCurrentInventory(groupEvent.getCurrentInventory()+groupCurrentEventUpdate.getCurrentInventory());
+				generatedId = groupEventDao.updateGroupEventCurrentInventory(groupEvent);
+				
 			}
 			else
 			{
