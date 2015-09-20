@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -36,8 +37,9 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	@Override
 	public int addBreedingEventInformation(final BreedingEvent breedingEvent)
 			throws SQLException, DuplicateKeyException {
-		final String Qry = "insert into pigtrax.\"BreedingEvent\"(\"serviceId\", \"id_EmployeeGroup\", \"id_PigInfo\", \"id_BreedingServiceType\", \"brgrId\", \"breedingDate\", \"semenId\", \"remarks\", \"mateQuality\", \"sowCondition\", \"lastUpdated\", \"userUpdated\", \"gestationRecord\") "
-				+ "values(?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?)";
+		final String Qry = "insert into pigtrax.\"BreedingEvent\"(\"id_PigInfo\", \"id_BreedingServiceType\", "
+				+ "\"serviceGroupId\", \"id_Pen\", \"sowCondition\",  \"weightInKgs\",\"lastUpdated\", \"userUpdated\") "
+				+ "values(?,?,?,?,?,?,current_timestamp,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -46,46 +48,32 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    	        public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 	    	            PreparedStatement ps =
 	    	                con.prepareStatement(Qry, new String[] {"id"});
-	    	            ps.setString(1, breedingEvent.getServiceId());
-	    	            if(breedingEvent.getEmployeeGroupId() != null && breedingEvent.getEmployeeGroupId() != 0){
-	    	            	ps.setInt(2, breedingEvent.getEmployeeGroupId());
-	    	            }
-	    	            else{
-	    	            	ps.setNull(2, java.sql.Types.INTEGER);
-	    	            }
 	    	            
-	    				ps.setInt(3, breedingEvent.getPigInfoKey());
+	    				ps.setInt(1, breedingEvent.getPigInfoId());
 	    				
 	    				if(breedingEvent.getBreedingServiceTypeId() != null){
-	    					ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
+	    					ps.setInt(2, breedingEvent.getBreedingServiceTypeId());
+	    				}
+	    				else{
+	    	            	ps.setNull(2, java.sql.Types.INTEGER);
+	    				}
+	    				ps.setString(3, breedingEvent.getBreedingGroupId());
+	    				if(breedingEvent.getPenId() != null){
+	    					ps.setInt(4, breedingEvent.getPenId());
 	    				}
 	    				else{
 	    	            	ps.setNull(4, java.sql.Types.INTEGER);
 	    				}
-	    				ps.setString(5, breedingEvent.getBreedingGroupId());
-	    				if(breedingEvent.getBreedingDate() != null){
-	    					ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
-	    				}
-	    				else{
-	    					ps.setNull(6, java.sql.Types.DATE);
-	    				}
-	    				ps.setString(7, breedingEvent.getSemenId());
-	    				ps.setString(8, breedingEvent.getRemarks());
-	    				if(breedingEvent.getMateQuality() != null){
-	    					ps.setInt(9, breedingEvent.getMateQuality());
-	    				}
-	    				else{
-	    					ps.setNull(9, java.sql.Types.INTEGER);
-	    				}
 	    				
 	    				if(breedingEvent.getSowCondition() != null ){
-	    					ps.setInt(10, breedingEvent.getSowCondition());
+	    					ps.setInt(5, breedingEvent.getSowCondition());
 	    				}
 	    				else{
-	    					ps.setNull(10, java.sql.Types.INTEGER);
+	    					ps.setNull(5, java.sql.Types.INTEGER);
 	    				}
-	    				ps.setString(11, breedingEvent.getUserUpdated());
-	    				ps.setObject(12, breedingEvent.isGestationRecord(), java.sql.Types.BOOLEAN);
+	    				ps.setDouble(6, breedingEvent.getWeightInKgs()); 
+	    				
+	    				ps.setString(7, breedingEvent.getUserUpdated());
 	    			
 	    	            return ps;
 	    	        }
@@ -103,100 +91,64 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	@Override 
 	public int updateBreedingEventInformation(final BreedingEvent breedingEvent)
 			throws SQLException, DuplicateKeyException {
-		String Qry = "update pigtrax.\"BreedingEvent\" set \"serviceId\"=?, \"id_EmployeeGroup\" = ?, \"id_PigInfo\" = ?, \"id_BreedingServiceType\"= ?, \"brgrId\"= ?, \"breedingDate\" = ?, \"semenId\" = ?, \"remarks\" = ?, \"mateQuality\" = ?, \"sowCondition\" = ?, \"lastUpdated\" = current_timestamp, \"userUpdated\" = ? where \"id\" = ? ";
+		String Qry = "update pigtrax.\"BreedingEvent\" set  \"id_PigInfo\" = ?, \"id_BreedingServiceType\"= ?, \"serviceGroupId\"= ?, \"id_Pen\" = ?,  \"sowCondition\" = ?, \"weightInKgs\" = ?, \"lastUpdated\" = current_timestamp, \"userUpdated\" = ? where \"id\" = ? ";
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
-				ps.setString(1, breedingEvent.getServiceId());
-				if(breedingEvent.getEmployeeGroupId() != null && breedingEvent.getEmployeeGroupId() != 0){
-					ps.setInt(2, breedingEvent.getEmployeeGroupId());
+				ps.setInt(1, breedingEvent.getPigInfoId());
+				
+				if(breedingEvent.getBreedingServiceTypeId() != null){
+					ps.setInt(2, breedingEvent.getBreedingServiceTypeId());
 				}
 				else{
 					ps.setNull(2, java.sql.Types.INTEGER);
 				}
 				
-				ps.setInt(3, breedingEvent.getPigInfoKey());
+				ps.setString(3, breedingEvent.getBreedingGroupId());
 				
-				if(breedingEvent.getBreedingServiceTypeId() != null){
-					ps.setInt(4, breedingEvent.getBreedingServiceTypeId());
+							
+				if(breedingEvent.getPenId() != null){
+					ps.setInt(4, breedingEvent.getPenId());
 				}
 				else{
 					ps.setNull(4, java.sql.Types.INTEGER);
 				}
 				
-				ps.setString(5, breedingEvent.getBreedingGroupId());
-				
-				if(breedingEvent.getBreedingDate() != null){
-					ps.setDate(6,  new java.sql.Date(breedingEvent.getBreedingDate().getTime()));
-				}
-				else{
-					ps.setNull(6, java.sql.Types.DATE);
-				}
-				
-				ps.setString(7, breedingEvent.getSemenId());
-				ps.setString(8, breedingEvent.getRemarks());
-				
-				if(breedingEvent.getMateQuality() != null){
-					ps.setInt(9, breedingEvent.getMateQuality());
-				}
-				else{
-					ps.setNull(9, java.sql.Types.INTEGER);
-				}
-				
 				if(breedingEvent.getSowCondition() != null){
-					ps.setInt(10, breedingEvent.getSowCondition());
+					ps.setInt(5, breedingEvent.getSowCondition());
 				}
 				else{
-					ps.setNull(10, java.sql.Types.INTEGER);
+					ps.setNull(5, java.sql.Types.INTEGER);
 				}
-				ps.setString(11, breedingEvent.getUserUpdated());				
-				ps.setInt(12, breedingEvent.getId());
+				
+				ps.setObject(6, breedingEvent.getWeightInKgs(), java.sql.Types.DOUBLE);
+				
+				ps.setString(7, breedingEvent.getUserUpdated());				
+				ps.setInt(8, breedingEvent.getId());
 			}
 		});
-	}
-	
-	
-	/**
-	 * Retrieve the breeding event information for a given serviceId and companyId
-	 */
-	@Override
-	public BreedingEvent getBreedingEventInformation(final String serviceId, final Integer companyId)
-			throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   where BE.\"serviceId\" = ? and PI.\"id_Company\" = ?";
-		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, serviceId);
-				ps.setInt(2, companyId);
-			}}, new BreedingEventMapper());
-
-		logger.info("breedingEventList size : "+breedingEventList.size());
-		if(breedingEventList != null && breedingEventList.size() > 0){
-			return breedingEventList.get(0);
-		}
-		return null;
-	}
+	}	
 	
 	
 	/**
 	 * Retrive the breeding event information for a given pig Id and company Id
 	 */
 	@Override
-	public List<BreedingEvent> getBreedingEventInformationByPigId(final String serviceId, final Integer companyId)
+	public List<BreedingEvent> getBreedingEventInformationByPigId(final String pigId, final Integer companyId)
 			throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
-				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
+		String qry = "Select PI.\"id_Company\", BE.\"id\",BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"serviceGroupId\", BE.\"id_Pen\", BE.\"serviceStartDate\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", "
 				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
 				+ " where PI.\"pigId\" = ? and PI.\"id_Company\" = ? order by BE.\"id\" desc";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, serviceId);
+				ps.setString(1, pigId);
 				ps.setInt(2, companyId);
 			}}, new BreedingEventMapper());
-
+		
 		return breedingEventList;
 	}
 	
@@ -207,36 +159,18 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	@Override 
 	public List<BreedingEvent> getBreedingEventInformationByTattoo(final String tattoo, final Integer companyId)
 			throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
-				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
+		
+		String qry = "Select PI.\"id_Company\", BE.\"id\",BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"serviceGroupId\", BE.\"id_Pen\", BE.\"serviceStartDate\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", "
 				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
-				+ " where PI.\"tattoo\" = ? and PI.\"id_Company\" = ?  order by BE.\"id\" desc";
+				+ " where PI.\"tattoo\" = ? and PI.\"id_Company\" = ? order by BE.\"id\" desc";		
+		
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tattoo);
 				ps.setInt(2, companyId);
 			}}, new BreedingEventMapper()); 
-
-		return breedingEventList;
-	}
-	
-	/**
-	 * Retrive the breeding event information for a given service Id and company Id
-	 */
-	@Override
-	public List<BreedingEvent> getBreedingEventInformationByServiceId(final String serviceId, final Integer companyId)
-			throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
-				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
-				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
-				+ "where BE.\"serviceId\" = ? and PI.\"id_Company\" = ?";
-		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, serviceId);
-				ps.setInt(2, companyId);
-			}}, new BreedingEventMapper());
 
 		return breedingEventList;
 	}
@@ -248,8 +182,8 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	@Override
 	public BreedingEvent getBreedingEventInformation(final Integer breedingEventId)
 			throws SQLException {
-		String qry = "Select BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"brgrId\","
-				+ " BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", BE.\"userUpdated\""
+		String qry = "Select BE.\"id\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"serviceGroupId\","
+				+ " BE.\"serviceStartDate\", BE.\"id_Pen\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", BE.\"userUpdated\""
 				+ " from pigtrax.\"BreedingEvent\" BE  where BE.\"id\" = ? ";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -269,16 +203,13 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		public BreedingEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
 			BreedingEvent breedingEvent = new BreedingEvent();
 			breedingEvent.setId(rs.getInt("id"));
-			breedingEvent.setServiceId(rs.getString("serviceId"));
-			breedingEvent.setPigInfoKey(rs.getInt("id_PigInfo"));
-			breedingEvent.setEmployeeGroupId(rs.getInt("id_EmployeeGroup"));
+			breedingEvent.setPigInfoId(rs.getInt("id_PigInfo"));
 			breedingEvent.setBreedingServiceTypeId(rs.getInt("id_BreedingServiceType"));
-			breedingEvent.setBreedingGroupId(rs.getString("brgrId"));
-			breedingEvent.setBreedingDate(rs.getDate("breedingDate"));
-			breedingEvent.setSemenId(rs.getString("semenId"));
-			breedingEvent.setRemarks(rs.getString("remarks"));
-			breedingEvent.setMateQuality(rs.getInt("mateQuality"));
+			breedingEvent.setBreedingGroupId(rs.getString("serviceGroupId"));
 			breedingEvent.setSowCondition(rs.getInt("sowCondition"));
+			breedingEvent.setWeightInKgs(rs.getDouble("weightInKgs"));
+			breedingEvent.setPenId(rs.getInt("id_Pen"));
+			breedingEvent.setServiceStartDate(rs.getDate("serviceStartDate"));
 			breedingEvent.setLastUpdated(rs.getDate("lastUpdated"));
 			breedingEvent.setUserUpdated(rs.getString("userUpdated"));
 			return breedingEvent;
@@ -299,13 +230,28 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		});
 	}
 	
+	@Override 
+	public int updateServiceStartDate(final Date matingDate, final Integer breedingEventId) {
+		String qry = "update pigtrax.\"BreedingEvent\" set \"serviceStartDate\" = ? where \"id\" = ?";
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				if(matingDate != null)
+					ps.setObject(1, new java.sql.Date(matingDate.getTime()));
+				else
+					ps.setObject(1, null);
+				ps.setInt(2, breedingEventId);
+			}
+		});
+	}
+	
+	
 	/**
 	 * Check if the breeding event exists with a given service Id for pig Id
 	 */
 	@Override
-	public BreedingEvent checkForBreedingServiceId(final String pigId,final String serviceId,
-			final int companyId) throws SQLException {
-		String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+	public BreedingEvent checkForBreedingServiceId(final String pigId,final String serviceId,final int companyId){
+		/*String qry = "Select PI.\"id_Company\", BE.\"id\", BE.\"serviceId\", BE.\"id_EmployeeGroup\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
 				+ "BE.\"brgrId\", BE.\"breedingDate\", BE.\"semenId\",BE.\"remarks\",BE.\"mateQuality\", BE.\"sowCondition\", BE.\"lastUpdated\", "
 				+ "BE.\"userUpdated\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"   "
 				+ "where BE.\"serviceId\" = ? and PI.\"id_Company\" = ? and PI.\"pigId\" = ?";
@@ -320,29 +266,8 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		logger.info("breedingEventList size : "+breedingEventList.size());
 		if(breedingEventList != null && breedingEventList.size() > 0){
 			return breedingEventList.get(0);
-		}
-		return null;
-	}
-	
-	/**
-	 * Find the last gestation record for a given pig info id
-	 * @param pigInfoId
-	 * @return
-	 */
-	public BreedingEvent getGestationRecord(final Integer pigInfoId)
-	{
-		String sql = "select * from pigTrax.\"BreedingEvent\" where \"id_PigInfo\" = ? and \"gestationRecord\" is true order by \"id\" desc";
-		List<BreedingEvent> breedingEventList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, pigInfoId);
-			}}, new BreedingEventMapper());
-
-		logger.info("breedingEventList size : "+breedingEventList.size());
-		if(breedingEventList != null && breedingEventList.size() > 0){
-			return breedingEventList.get(0);
-		}
-		return null;
+		}*/
+		return new BreedingEvent();
 	}
 	
 }

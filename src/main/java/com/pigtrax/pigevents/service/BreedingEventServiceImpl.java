@@ -13,19 +13,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.EmployeeGroupDao;
-import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.pigevents.beans.BreedingEvent;
+import com.pigtrax.pigevents.beans.MatingDetails;
 import com.pigtrax.pigevents.beans.PigInfo;
-import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
 import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
+import com.pigtrax.pigevents.dao.interfaces.MatingDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.BreedingEventBuilder;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
+import com.pigtrax.pigevents.dto.MatingDetailsBuilder;
+import com.pigtrax.pigevents.dto.MatingDetailsDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
-import com.pigtrax.pigevents.validation.BreedingEventValidation;
+import com.pigtrax.pigevents.validation.MatingDetailsValidation;
 
 @Repository
 public class BreedingEventServiceImpl implements BreedingEventService {
@@ -50,14 +52,22 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	RefDataCache refDataCache;
 	
 	@Autowired
-	BreedingEventValidation validationObj;
+	MatingDetailsValidation validationObj;
 	
 	@Autowired
 	PregnancyEventDao pregnancyEventDao;
 	
-	public int saveBreedingEventInformation(BreedingEventDto dto)
+	@Autowired
+	MatingDetailsDao matingDetailsDao;
+	
+	@Autowired
+	MatingDetailsBuilder matingDetailsBuilder;
+	
+	public BreedingEventDto saveBreedingEventInformation(BreedingEventDto dto) 
 			throws Exception {
 
+			Integer breedingEventId = null;
+		
 			try{
 				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(dto.getPigInfoId(), dto.getCompanyId());
 				if(pigInfo != null)
@@ -67,13 +77,22 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 				
 				if(dto.getId() == null)
 				{
-				logger.info("Breeding Event Dtoo : "+dto.toString());
-				   return addBreedingEventInformation(breedingEvent);
+					logger.info("Breeding Event Dtoo : "+dto.toString());
+					breedingEventId =  addBreedingEventInformation(breedingEvent);
+					
 				}
 				else
 				{
-					return breedingEventDao.updateBreedingEventInformation(breedingEvent);
+					breedingEventDao.updateBreedingEventInformation(breedingEvent);
+					breedingEventId =  breedingEvent.getId();
+					
 				}
+				
+				List<MatingDetails>  matingDetailsList = matingDetailsDao.getMatingDetails(breedingEventId); 
+				dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetailsList)); 
+				return dto;
+				
+				
 			}catch(SQLException sqlEx)
 			{
 				if("23505".equals(sqlEx.getSQLState()))
@@ -95,12 +114,11 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	{
 		int breedingEventId = breedingEventDao.addBreedingEventInformation(breedingEvent);
 				
-		PigTraxEventMaster master = new PigTraxEventMaster();
-		master.setPigInfoId(breedingEvent.getPigInfoKey());
+		/*PigTraxEventMaster master = new PigTraxEventMaster();
+		master.setPigInfoId(breedingEvent.getPigInfoId());
 		master.setUserUpdated(breedingEvent.getUserUpdated());
-		master.setEventTime(breedingEvent.getBreedingDate());
 		master.setBreedingEventId(breedingEventId);
-		eventMasterDao.insertEntryEventDetails(master);
+		eventMasterDao.insertEntryEventDetails(master);*/
 		
 		return breedingEventId;		
 	} 
@@ -120,21 +138,23 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			{
 				breedingEventList =  breedingEventDao.getBreedingEventInformationByTattoo(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId());
 			}
-			else  
-			{
-				breedingEventList =  breedingEventDao.getBreedingEventInformationByServiceId(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId());
-			}
+			
 			breedingEventDtoList = builder.convertToDtos(breedingEventList);
 			
 			for(BreedingEventDto breedingEvent_Dto : breedingEventDtoList)
 			{
-				EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(breedingEvent_Dto.getEmployeeGroupId());
-				breedingEvent_Dto.setEmployeeGroup(employeeGroup);
+				//EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(breedingEvent_Dto.getEmployeeGroupId());
+				//breedingEvent_Dto.setEmployeeGroup(employeeGroup);
 				
 				PigInfo pigInfo = pigInfoDao.getPigInformationById(breedingEvent_Dto.getPigInfoKey());
 				breedingEvent_Dto.setPigInfoId(pigInfo.getPigId());
 								
 				breedingEvent_Dto.setBreedingServiceType(refDataCache.getBreedingServiceTypeMap(breedingEventDto.getLanguage()).get(breedingEvent_Dto.getBreedingServiceTypeId()));
+				
+				
+				List<MatingDetails> matingDetails = matingDetailsDao.getMatingDetails(breedingEvent_Dto.getId());
+				
+				breedingEvent_Dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetails));
 				
 			}
 		}catch(SQLException sqlEx)
@@ -151,26 +171,24 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	public void deleteBreedingEventInfo(Integer id) throws Exception {
 		if(id != null)
 		{
-			eventMasterDao.deleteBreedingEvent(id);
-			breedingEventDao.deleteBreedingEventInfo(id);
+			List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(id);
+			if(events != null && events.size() > 0)
+			{
+				throw new PigTraxException("PREGCHECK-TRUE");
+			}
+			else {
+				eventMasterDao.deleteBreedingEvent(id);
+				breedingEventDao.deleteBreedingEventInfo(id);
+			}
 		}
 	}
 	
 	@Override
-	public String validateBreedingEvent(BreedingEventDto breedingEventDto)
+	public String validateBreedingEvent(MatingDetailsDto matingDetailsDto)
 	{
 		try {
-			logger.info("values : "+breedingEventDto.getPigInfoId()+"/"+breedingEventDto.getCompanyId());
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(breedingEventDto.getPigInfoId(), breedingEventDto.getCompanyId());
-			if(pigInfo != null)
-				breedingEventDto.setPigInfoKey(pigInfo.getId());
-			
-			return validationObj.validate(breedingEventDto);
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			return "ERR_GENERAL";
-		}
+			return validationObj.validate(matingDetailsDto);
+		}		
 		catch (PigTraxException e) {
 			e.printStackTrace();
 			return "ERR_GENERAL";
@@ -185,31 +203,25 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		} 
-		return builder.convertToDto(breedingEvent);
+		
+		BreedingEventDto dto = builder.convertToDto(breedingEvent);
+		List<MatingDetails> matingDetails = matingDetailsDao.getMatingDetails(breedingEventId);
+		
+		dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetails));
+		return dto;
 	}
 	
-	@Override
-	public BreedingEventDto checkForBreedingServiceId(String pigId, String serviceId,
-			int companyId) throws PigTraxException {
+	
+	@Override 
+	public BreedingEventDto checkForBreedingServiceId(String pigId, int companyId) throws PigTraxException {
 		try {
-			BreedingEvent breedingEvent =  breedingEventDao.checkForBreedingServiceId(pigId, serviceId, companyId);
-			if(breedingEvent != null)
-				return builder.convertToDto(breedingEvent);
-			return null;
-		} catch (SQLException e) {
-			throw new PigTraxException(e.getMessage(), e.getSQLState());
+			BreedingEvent breedingEvent =  breedingEventDao.checkForBreedingServiceId(pigId, "", companyId);
+			return builder.convertToDto(breedingEvent);
+		} catch (Exception e) {   
+			throw new PigTraxException(e.getMessage());
 		}
 	}
- 
-	
-	@Override
-	public BreedingEventDto getGestationRecord(Integer pigInfoId) {
-		BreedingEvent event = breedingEventDao.getGestationRecord(pigInfoId);
-		if(event != null)
-			return builder.convertToDto(event);
-		return null;
-	}
-	
+	 
 	@Override
 	public List<BreedingEventDto> getActiveBreedingServices(
 			BreedingEventDto breedingEventDto) throws PigTraxException {
