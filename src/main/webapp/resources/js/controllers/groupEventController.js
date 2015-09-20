@@ -14,6 +14,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.transportTrailer;
 	$scope.followedGroupIdString;
 	$scope.barnList={};
+	$scope.entryEventStatusChangeSuccessMessage = false;
 		
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
@@ -72,10 +73,13 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.moveEntryEventSuccessMessage = false;
 		$scope.groupStartEndDateError = false;
 		$scope.groupenddaterequired = false;
+		$scope.entryEventStatusChangeSuccessMessage = false;
+		$scope.searchText='';
 	};
 	
 	$scope.resetForm = function()
 	{
+		$scope.groupEventDetailList = [];
 		$scope.groupEvent = {};
 		$scope.clearAllMessages();
 		$scope.changeText();
@@ -168,7 +172,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.changeGroupEventStatus = function(flag)
 	{
-	
+		$scope.clearAllMessages();
 		if(!flag)
 		{
 			if(document.getElementById("groupCloseDateTime").value === "")
@@ -204,7 +208,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 				if(!data.error)
 					{
 						$scope.clearAllMessages();
-						$scope.entryEventSuccessMessage = true;
+						$scope.entryEventStatusChangeSuccessMessage = true;
 						$scope.groupEvent.active = flag;
 					}
 				else

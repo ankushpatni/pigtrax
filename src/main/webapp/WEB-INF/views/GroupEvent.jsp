@@ -29,7 +29,7 @@
               <div class="block-flat">
                 <div class="header">
                   <h3><spring:message code='label.piginfo.groupEventForm.groupEvent'  text='Group Event'/></h3>
-                   <div class="alert alert-success alert-white rounded"  ng-show="entryEventSuccessMessage">
+                   <div class="alert alert-success alert-white rounded"  ng-show="entryEventSuccessMessage || entryEventStatusChangeSuccessMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.groupEventform.submit.success.message' text='Group Event information saved successfully'/>
                   </div>
@@ -123,10 +123,12 @@
                    </div>
 
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage "><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
+					
                     <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus(false)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button>
+					
                     <button type="button" class="btn btn-success pull-right" ng-click="changeGroupEventStatus(true)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && !groupEvent.active" ><spring:message code='label.piginfo.groupEventform.Activate'  text='Activate'/></button>					
 				  </form>
                 </div>
@@ -136,12 +138,12 @@
             </div>
           </div>
 		  
-		<button type="button" ng-click="addGroupEventDetailData()" class="btn btn-sm btn btn-primary" ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">
+		<button type="button" ng-click="addGroupEventDetailData()" class="btn btn-sm btn btn-primary" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.groupEventDetail.addAddPigstoGroup" text="Add Pigs to Group" />
 		</button>
 	<form name="groupEventFormAdd" method="post">	
-		<div class="content" ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">
+		<div class="content" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage">
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection" st-safe-src="groupEventDetailList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">

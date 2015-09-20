@@ -201,6 +201,25 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 		});
 	}
 	
+	@Override
+	public int updateGroupEventStatusWithCloseDate(final GroupEvent groupEvent)
+			throws SQLException {
+		String query = "update pigtrax.\"GroupEvent\"SET \"isActive\"=?, \"groupCloseDateTime\"=?  WHERE \"id\"=?";
+
+		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setBoolean(1, groupEvent.isActive());
+				if(groupEvent.getGroupCloseDateTime() != null)
+					ps.setDate(2, new java.sql.Date(groupEvent.getGroupCloseDateTime().getTime()));
+				else
+					ps.setNull(2, java.sql.Types.DATE);
+				ps.setInt(3, groupEvent.getId());
+			}
+		});
+	}
+	
+	
 	public int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws SQLException{
 		
 		String query = "update pigtrax.\"GroupEvent\" SET \"currentInventory\"=?  where \"id\" = ? and \"id_Company\" = ?";

@@ -186,7 +186,14 @@ public class GroupEventServiceImpl implements GroupEventService{
 			throws PigTraxException {
 		
 		try {
-			return groupEventDao.updateGroupEventStatus(groupEvent);
+			if(!groupEvent.isActive())
+			{
+				return groupEventDao.updateGroupEventStatusWithCloseDate(groupEvent);
+			}
+			else 
+			{
+				return groupEventDao.updateGroupEventStatus(groupEvent);
+			}
 		} 
 		catch (SQLException sqlEx) {
 			

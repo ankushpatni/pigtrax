@@ -13,6 +13,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.groupEventform..duplicate.error.message' text='A Group event record already exists with the same Group Id'/>
                   </div>
+                  <div class="alert alert-danger alert-white rounded"  ng-show="closeGroupParentError">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.groupEventform.closeGroupParentError' text='Pigs can not be transformed to close group.'/>
+                  </div>
 				  <div class="alert alert-danger alert-white rounded" ng-show="entryEventErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.submit.error.message' text='An exception occurred. Please check the values entered'/>
@@ -56,6 +60,9 @@
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupdaterequiredMove" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.requiredMessage' text='Group Start Date is required' /></label>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupDateError" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.errorMessage' text='Group Start Date cant not be less than Parent Start required' /></label>
 					</div>
                      <div class="form-group">
                       <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/><span style='color: red'>*</span></label>

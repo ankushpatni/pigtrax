@@ -4,6 +4,8 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	$scope.dateFormat = 'yyyy-mm-dd';
 	$scope.moveGroupevent={};
 	$scope.previousGroupId = moveToAnotherGroup.previousGroupId;
+	$scope.groupDateError = false;
+	$scope.groupdaterequiredMove = false;
 	
 	$scope.$watch("moveGroupevent.groupId", function(newValue, oldValue) {
 		if (newValue === $scope.previousGroupId) {
@@ -34,11 +36,18 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 				console.log($scope.groupdaterequiredMove);
 				return;
 			}
+			else
+			{
+				$scope.groupdaterequiredMove = false;
+			}
 			if( groupStartDateTimeAnother < $scope.moveToAnotherGroup.groupStartDateTime)
 			{
-				$scope.groupdaterequiredMove = true;
+				$scope.groupDateError = true;
 				console.log($scope.groupdaterequiredMove);
 				return;
+			}
+			{
+				$scope.groupDateError = false;
 			}
 			if($scope.moveGroupevent.currentInventory > $scope.moveToAnotherGroup.pigCount)
 			{
@@ -102,6 +111,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 					$scope.moveGroupevent.currentInventory	= 0;	
 					$scope.moveGroupevent.weightInKgs = 0;						
 					$scope.moveGroupevent.remarks = '';
+					$scope.closeGroupParentError = !$scope.moveGroupevent.active;
 				}
 			else
 				{
