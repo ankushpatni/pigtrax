@@ -28,6 +28,11 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 			return false;
 		}
 		
+		if($scope.closeGroupParentError)
+		{
+			return false;
+		}
+		
 		if($scope.moveGroupeventAddForm.$valid)
 		{
 			if( groupStartDateTimeAnother === "")
