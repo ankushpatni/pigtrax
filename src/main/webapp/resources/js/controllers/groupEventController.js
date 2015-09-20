@@ -13,6 +13,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.transportTruck;
 	$scope.transportTrailer;
 	$scope.followedGroupIdString;
+	$scope.barnList={};
 		
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
@@ -24,6 +25,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			res2.success(function(data, status, headers, config) {
 				$scope.phaseOfProductionType = data.payload[0];	
 				$scope.roomList = data.payload[1];
+				$scope.barnList = data.payload[2]
 				//$scope.phaseOfProductionTypeForNewAdd = data.payload[0];
 				for( var x in $scope.phaseOfProductionType) {
 					if( x == 1 || x == 3 )
@@ -68,36 +70,15 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.groupEventDuplicateErrorMessage = false;
 		$scope.searchDataErrorMessage = false;
 		$scope.moveEntryEventSuccessMessage = false;
+		$scope.groupStartEndDateError = false;
+		$scope.groupenddaterequired = false;
 	};
 	
 	$scope.resetForm = function()
 	{
-		$scope.clearAllMessages();
 		$scope.groupEvent = {};
+		$scope.clearAllMessages();
 		$scope.changeText();
-		
-		/*var modalInstance = $modal.open ({
-			templateUrl: 'transportJourney',
-			controller: 'addTransportJourneyCtrl',
-			backdrop:true,
-			windowClass : 'cp-model-window',
-			resolve:{
-				transportJourneyData : function(){
-					var transportJourneyData={};
-					transportJourneyData.transportDestination = $scope.transportDestination;
-					transportJourneyData.transportTruck = $scope.transportTruck;
-					transportJourneyData.transportTrailer = $scope.transportTrailer;
-					return transportJourneyData;
-				}
-			}
-		});
-		
-		modalInstance.result.then( function(res) {    			
-			if(res.statusMessage==="SUCCESS")
-			{
-				$scope.getPenList($scope.roomId,$scope.generatedRoomId);				
-			}
-		});*/
 	}
 	
 	$scope.moveToAnotherGroup = function()
@@ -187,12 +168,35 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.changeGroupEventStatus = function(flag)
 	{
+	
+		if(!flag)
+		{
+			if(document.getElementById("groupCloseDateTime").value === "")
+			{
+				$scope.groupenddaterequired = true;
+				return;
+			}
+			else
+			{
+				$scope.groupenddaterequired = false; 
+				if($scope.groupEvent.groupStartDateTime > document.getElementById("groupCloseDateTime").value)
+				{
+					$scope.groupStartEndDateError = true;
+					return;
+				}
+				else
+				{
+					$scope.groupStartEndDateError = false;
+				}
+			}
+		}
 		console.log('change group event status');
 			var postParam = {
 					
 					"id" : $scope.groupEvent.id,
 					"companyId" : $rootScope.companyId,
 					"active" : flag,
+					"groupCloseDateTime" : document.getElementById("groupCloseDateTime").value,
 					
 				};
 			

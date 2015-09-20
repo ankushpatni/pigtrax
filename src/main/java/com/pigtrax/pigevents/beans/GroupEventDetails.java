@@ -5,7 +5,7 @@ import java.util.Date;
 public class GroupEventDetails {
 	
 	private Integer id;	
-	private String origin;
+	private Integer barnId;
 	private Date dateOfEntry;
 	private Integer numberOfPigs;
 	private Double weightInKgs;
@@ -41,11 +41,11 @@ public class GroupEventDetails {
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
-	public String getOrigin() {
-		return origin;
+	public Integer getBarnId() {
+		return barnId;
 	}
-	public void setOrigin(String origin) {
-		this.origin = origin;
+	public void setBarnId(Integer barnId) {
+		this.barnId = barnId;
 	}
 	public Integer getRoomId() {
 		return roomId;

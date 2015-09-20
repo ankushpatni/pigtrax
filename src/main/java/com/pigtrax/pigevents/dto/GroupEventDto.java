@@ -8,7 +8,7 @@ public class GroupEventDto {
 	
 	private Integer id;
 	private int groupId;
-	private String origin;
+	private Integer barnId;
 	private Date dateOfEntry;
 	private Integer roomId;
 	private Integer employeeGroupId;
@@ -35,11 +35,11 @@ public class GroupEventDto {
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
-	public String getOrigin() {
-		return origin;
+	public Integer getBarnId() {
+		return barnId;
 	}
-	public void setOrigin(String origin) {
-		this.origin = origin;
+	public void setBarnId(Integer barnId) {
+		this.barnId = barnId;
 	}
 	public Date getDateOfEntry() {
 		return dateOfEntry;

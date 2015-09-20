@@ -73,8 +73,7 @@ public class BarnServiceImpl implements BarnService{
 	}
 
 	@Override
-	public Map<Integer,String> getBarnListBasedOnCompanyId(int generatedCompanyId)
-			throws SQLException {
+	public Map<Integer,String> getBarnListBasedOnCompanyId(int generatedCompanyId) {
 		Map<Integer,String> barnIdMap = new LinkedHashMap<Integer,String>();
 		try
 		{

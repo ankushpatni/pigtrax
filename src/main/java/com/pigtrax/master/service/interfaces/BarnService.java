@@ -61,6 +61,6 @@ public interface BarnService {
 	 * @return
 	 * @throws SQLException
 	 */
-	public Map<Integer,String> getBarnListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException;
+	public Map<Integer,String> getBarnListBasedOnCompanyId( final int generatedCompanyId );
 	
 }

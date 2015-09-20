@@ -1,5 +1,6 @@
 package com.pigtrax.usermanagement.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -153,6 +154,8 @@ public class UtilController {
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		phaseOfProductionType.add(refDataCache.getPhaseOfProductionTypeMap(language));
 		phaseOfProductionType.add(roomService.getRoomListBasedOnCompanyId(companyId));
+		phaseOfProductionType.add(barnService.getBarnListBasedOnCompanyId(companyId));
+		
 		dto.setPayload(phaseOfProductionType);
 		dto.setStatusMessage("Success");
 		return dto;

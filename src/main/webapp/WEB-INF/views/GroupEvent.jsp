@@ -65,13 +65,19 @@
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupdaterequired" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.requiredMessage' text='Group Start Date is required' /></label>
-					</div>
-                    <div class="form-group" ng-show="(groupEvent.id != null && groupEvent.id > 0)">
+					</div>					
+                    <div class="form-group" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory == 0)">
                       <label><spring:message code='label.piginfo.groupEventForm.groupCloseDateTime'  text='Group Close Date'/></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
                           <input size="16" type="date" id="groupCloseDateTime" name="groupCloseDateTime" ng-model="groupEvent.groupCloseDateTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
-                    </div> 
+                    </div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupStartEndDateError" ><spring:message code='label.piginfo.groupEventForm.groupStartEndDateError.requiredMessage' text='Group Close Date can not be less than Group Start date ' /></label>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupenddaterequired" ><spring:message code='label.piginfo.groupEventForm.groupEndDate.requiredMessage' text='Group Close Date is required' /></label>
+					</div>					
 					 <div class="form-group">
                       <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/></label>
                        <select ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage" class="form-control"  required required-message="'<spring:message code='label.groupEventDetail.phaseOfProduction.required' text='Phase Of Production is required' />'" name="phaseOfProductionTypeId" id="phaseOfProductionTypeId" ng-model="groupEvent.phaseOfProductionTypeId"   
@@ -117,7 +123,7 @@
                    </div>
 
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage "><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus(false)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button>
@@ -140,28 +146,28 @@
 			<table st-table="displayedCollection" st-safe-src="groupEventDetailList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">
 					<tr>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.origin" text="Origin" /></th>
+						<th style="width:5%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
+						<th style="width:7%"><spring:message code="label.groupEventDetail.barn" text="Barn" /></th>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /></th>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.inventoryAdjustment" text="Inventory Adjustment" /></th>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.roomId" text="Room" /></th>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></th>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
+						<th style="width:7%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
+						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>
+						<th style="width:7%"><spring:message code="label.groupEventDetail.inventoryAdjustment" text="Inventory Adjustment" /></th>
+						<th style="width:7%"><spring:message code="label.groupEventDetail.roomId" text="Room" /></th>
+						<th style="width:35%"><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></th>
+						<th style="width:5%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
-					<td style="width:10%">{{$index+1}}</td>
-					<td style="width:10%">{{row.origin}}</td>
-					<td style="width:25%">{{row.dateOfEntry}}</td>
-					<td style="width:25%">{{row.numberOfPigs}}</td>
-					<td style="width:25%">{{row.weightInKgs}}</td>
-					<td style="width:10%">{{row.inventoryAdjustment}}</td>
-					<td style="width:10%">{{roomList[row.roomId]}}</td>
-					<td style="width:10%">{{row.remarks}}</td>
-					<td style="width: 8%">
+					<td style="width:5%">{{$index+1}}</td>
+					<td style="width:7%">{{barnList[row.barnId]}}</td>
+					<td style="width:10%">{{row.dateOfEntry}}</td>
+					<td style="width:7%">{{row.numberOfPigs}}</td>
+					<td style="width:7%">{{row.weightInKgs}}</td>
+					<td style="width:7%">{{row.inventoryAdjustment}}</td>
+					<td style="width:7%">{{roomList[row.roomId]}}</td>
+					<td style="width:35%">{{row.remarks}}</td>
+					<td style="width: 5%">
 						<button type="button" class="btn btn-edit btn-xs" ng-click="addGroupEventDetailData(row.id)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 					</td>				
@@ -184,8 +190,3 @@
 	</form>	  		
 		<div class="md-overlay"></div>
 </div>	
-
-		
-		
-		
-		

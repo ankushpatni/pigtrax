@@ -19,8 +19,11 @@
 						<label>{{groupAlphaId}}</label>
 					 </div>
 					 <div class="form-group">
-						<label ><spring:message code="label.groupEventDetail.origin" text="Origin" /></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.origin' text='Origin' />" name="area" ng-model="groupEvent.origin" maxlength="20" />
+						<label ><spring:message code="label.groupEventDetail.barn" text="Barn" /><span style='color: red'>*</span></label>
+						<!-- <input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.barn' text='Origin' />" name="area" ng-model="groupEvent.origin" maxlength="20" />-->
+						<select class="form-control"  name="barnId" id="barnId" ng-model="groupEvent.barnId"   required required-message="'<spring:message code='label.groupEventDetail.barn.required' text='Barn is required' />'"
+                         ng-options="k as v for (k, v) in barnList">
+                        </select>
 					</div>			
 					<div class="form-group">
 						<label ><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /><span style='color: red'>*</span></label>

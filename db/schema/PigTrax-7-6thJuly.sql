@@ -1729,7 +1729,7 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."GroupEventDetails" CASCADE;
 CREATE TABLE pigtrax."GroupEventDetails"(
 	id serial NOT NULL,
-	origin varchar(20),
+	"id_Barn" integer,
 	"dateOfEntry" timestamp NOT NULL,
 	"numberOfPigs" smallint NOT NULL,
 	"weightInKgs" numeric(10,2) NOT NULL,
@@ -1745,6 +1745,13 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 );
 -- ddl-end --
 ALTER TABLE pigtrax."GroupEventDetails" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "Barn_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "Barn_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "Barn_fk" FOREIGN KEY ("id_Barn")
+REFERENCES pigtrax."Barn" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: "Room_fk" | type: CONSTRAINT --

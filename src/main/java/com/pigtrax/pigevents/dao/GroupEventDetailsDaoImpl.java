@@ -36,7 +36,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	@Override
 	public List<GroupEventDetails> groupEventDetailsListByGroupId(final int groupId) {
 		
-		 String qry = "select \"id\", \"id_GroupEvent\", \"origin\", \"dateOfEntry\", \"id_Room\", "
+		 String qry = "select \"id\", \"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", "
 			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
 			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\" from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = ?";
 		 
@@ -55,7 +55,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 
 	@Override
 	public GroupEventDetails groupEventDetailsListById(final Integer id) {
-		 String qry = "select \"id\", \"id_GroupEvent\", \"origin\", \"dateOfEntry\", \"id_Room\", "
+		 String qry = "select \"id\", \"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", "
 			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
 			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\"  from pigtrax.\"GroupEventDetails\" where \"id\" = ?";
 				
@@ -74,13 +74,18 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	@Override
 	public int updateGroupEventDetails(final GroupEventDetails groupEventDetails)
 			throws SQLException {
-		final String Qry = "update pigtrax.\"GroupEventDetails\" set \"origin\" = ?, \"dateOfEntry\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?," +
+		final String Qry = "update pigtrax.\"GroupEventDetails\" set \"id_Barn\" = ?, \"dateOfEntry\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?," +
 			"\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"indeventoryAdjustment\" = ?, \"remarks\" = ?,  \"lastUpdated\" = current_timestamp, \"userUpdated\" = ? where \"id\" = ? ";
 
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, groupEventDetails.getOrigin());
+				
+				 if(groupEventDetails.getBarnId() != null && groupEventDetails.getBarnId() != 0)
+ 	            	ps.setInt(1, groupEventDetails.getBarnId());
+ 	            else
+ 	            	ps.setNull(1, java.sql.Types.INTEGER);
+				
 				ps.setDate(2, new java.sql.Date(groupEventDetails.getDateOfEntry()
 						.getTime()));
 				if(groupEventDetails.getRoomId() != null && groupEventDetails.getRoomId() != 0)
@@ -110,7 +115,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 
 	@Override
 	public int addGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException {
-		final String Qry = "insert into pigtrax.\"GroupEventDetails\"(\"id_GroupEvent\", \"origin\", \"dateOfEntry\", \"id_Room\", \"id_EmployeeGroup\", \"numberOfPigs\","
+		final String Qry = "insert into pigtrax.\"GroupEventDetails\"(\"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", \"id_EmployeeGroup\", \"numberOfPigs\","
 					+"\"weightInKgs\", \"indeventoryAdjustment\", \"remarks\", \"lastUpdated\", \"userUpdated\") "
 				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?)";
 		
@@ -122,7 +127,12 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	    	            PreparedStatement ps =
 	    	                con.prepareStatement(Qry, new String[] {"id"});
 	    	            ps.setInt(1, groupEventDetails.getGroupId());
-	    	            ps.setString(2, groupEventDetails.getOrigin());
+	    	            
+	    	            if(groupEventDetails.getBarnId() != null && groupEventDetails.getBarnId() != 0)
+	    	            	ps.setInt(2, groupEventDetails.getBarnId());
+	    	            else
+	    	            	ps.setNull(2, java.sql.Types.INTEGER);
+	    	            
 	    	            ps.setDate(3, new java.sql.Date(groupEventDetails.getDateOfEntry().getTime()));
 	    	            
 	    	            if(groupEventDetails.getRoomId() != null && groupEventDetails.getRoomId() != 0)
@@ -175,7 +185,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				GroupEventDetails groupEventDetails = new GroupEventDetails();
 				groupEventDetails.setId(rs.getInt("id"));
 				groupEventDetails.setGroupId(rs.getInt("id_GroupEvent"));
-				groupEventDetails.setOrigin(rs.getString("origin"));
+				groupEventDetails.setBarnId(rs.getInt("id_Barn"));
 				groupEventDetails.setDateOfEntry(rs.getDate("dateOfEntry"));
 				groupEventDetails.setRoomId(rs.getInt("id_Room"));
 				groupEventDetails.setEmployeeGroupId(rs.getInt("id_EmployeeGroup"));

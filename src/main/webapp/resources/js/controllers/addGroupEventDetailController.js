@@ -8,6 +8,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	$scope.groupEvent.employeeGroup = {};
 	$scope.phaseOfProductionType ={};
 	$scope.roomType = {};
+	$scope.barnList = {};
 	$scope.dateOfEntryFlag =  false;
 	
 	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId,groupStartDateTime)
@@ -38,6 +39,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 				console.log(data);
 				$scope.phaseOfProductionType = data.payload[0];	
 				$scope.roomType = data.payload[1];
+				$scope.barnList = data.payload[2];
 				
 			});
 			res2.error(function(data, status, headers, config) {

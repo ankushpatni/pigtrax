@@ -23,7 +23,7 @@ public class GroupEventBuilder {
 		   {
 			   groupEventDetails.setId(dto.getId());
 				groupEventDetails.setGroupId(dto.getGroupId());
-				groupEventDetails.setOrigin(dto.getOrigin());
+				groupEventDetails.setBarnId(dto.getBarnId());
 				groupEventDetails.setDateOfEntry(dto.getDateOfEntry());
 				groupEventDetails.setRoomId(dto.getRoomId());
 				groupEventDetails.setEmployeeGroupId(dto.getEmployeeGroupId());
@@ -49,7 +49,7 @@ public class GroupEventBuilder {
 		   {
 			    dto.setId(groupEventDetails.getId());
 				dto.setGroupId(groupEventDetails.getGroupId());
-				dto.setOrigin(groupEventDetails.getOrigin());
+				dto.setBarnId(groupEventDetails.getBarnId());
 				dto.setDateOfEntry(groupEventDetails.getDateOfEntry());
 				dto.setRoomId(groupEventDetails.getRoomId());
 				dto.setEmployeeGroupId(groupEventDetails.getEmployeeGroupId());
