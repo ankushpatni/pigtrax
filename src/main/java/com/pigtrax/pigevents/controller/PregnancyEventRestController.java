@@ -137,7 +137,7 @@ public class PregnancyEventRestController {
 		logger.info("Inside deletePregnancyEvent method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			BreedingEventDto breedingEventDto = breedingEventService.checkForBreedingServiceId(searchEventDto.getPigId(), searchEventDto.getBreedingServiceId(), searchEventDto.getCompanyId());
+			BreedingEventDto breedingEventDto = breedingEventService.checkForBreedingServiceId(searchEventDto.getPigId(), searchEventDto.getCompanyId());
 			if(breedingEventDto != null && breedingEventDto.getId() > 0)
 			{
 				dto.setPayload(breedingEventDto);

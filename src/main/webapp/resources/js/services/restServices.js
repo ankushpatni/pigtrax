@@ -16,7 +16,8 @@ pigTrax.factory("restServices", function($resource) {
     	"validateBreedingEvent" : {method:"POST", url:"rest/breedingEvent/validateBreedingEvent"},
     	"deleteBreedingEventInfo" : {method:"POST", url:"rest/breedingEvent/deleteBreedingEventInfo"},
     	"deleteEmployeeGroup" : {method:"POST", url:"rest/employeeGroup/deleteEmployeeGroup"},
-    	"getBreedingEventInformation" : {method:"POST", url:"rest/breedingEvent/getBreedingEventInformation"},    	
+    	"getBreedingEventInformation" : {method:"POST", url:"rest/breedingEvent/getBreedingEventInformation"}, 
+    	"getBreedingEventDetails" : {method:"POST", url:"rest/breedingEvent/getBreedingEventDetails"},
     	"getActiveBreedingServices" : {method:"POST", url:"rest/breedingEvent/getActiveBreedingServices"},
     	"saveEmployeeGroup" : {method:"POST", url:"rest/employeeGroup/saveEmployeeGroup"},
     	"getEmployeeGroups" : {method:"POST", url:"rest/employeeGroup/getEmployeeGroups"},
@@ -64,6 +65,8 @@ pigTrax.factory("restServices", function($resource) {
 		"getGfunctionTypes" : {method:"GET", url:"rest/util/getGfunctionTypes"}, 
 		"getMortalityReasonTypes" : {method:"GET", url:"rest/util/getMortalityReasonTypes"},
 		"getRemovalEventInformationList" : {method:"POST",url:"rest/removalEvent/getRemovalEventInformationList"},
-		
+		"saveMatingDetails" : {method:"POST",url:"rest/matingDetails/saveMatingDetails"},
+		"validateMatingDetails" : {method:"POST", url:"rest/breedingEvent/validateMatingDetails"},
+		"deleteMatingDetails" : {method:"POST", url:"rest/matingDetails/deleteMatingDetails"},
     });
 });

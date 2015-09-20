@@ -208,13 +208,13 @@
                        <thead>
                            <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
 	                       <th><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/> </th>
-	                       <th><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Breeding Date'/> </th>
+	                       <th><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Service Start Date'/> </th>
                        </thead>
                        <tbody>
 	                   <tr ng-repeat="breedingEventObj in breedingEventList" ng-if="breedingEventList != null && breedingEventList.length > 0">
 	                    <td><input type="radio" name="breedingEventDtoId" id="breedingEventDtoId" ng-model="pregnancyEvent.breedingEventDto" ng-value="breedingEventObj"></td>	                    
 	                    <td>{{breedingEventObj.breedingServiceType}}</td>
-	                    <td>{{breedingEventObj.breedingDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{breedingEventObj.serviceStartDate | date : 'yyyy-MM-dd'}}</td>
 	                   </tr>
 	                   <tr ng-if="breedingEventList == null || breedingEventList.length == 0">
 	                     <td colspan="4">
