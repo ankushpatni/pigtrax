@@ -348,9 +348,64 @@ INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","field
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason1_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason2_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason3_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-
 ----------
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'American 2 Deck', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'American Pot Belly',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Climate Controlled',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'EU Adj 3 Deck', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'EU Adj 4 Deck',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'Goose Neck Double Deck',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Goose Neck Single Deck', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'MX/BZ Open 2 Deck',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'MX/BZ Open 3 Deck',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'Other', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (11,'Single Deck',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (12,'Quarantine',CURRENT_TIMESTAMP,'pigtraxadmin');
 
+
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American 2 Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American Pot Belly','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Climate Controlled','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('EU Adj 3 Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('EU Adj 4 Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Goose Neck Double Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Goose Neck Single Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 2 Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 3 Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Other','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Single Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine
+','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+
+
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American 2 Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American Pot Belly','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Climate Controlled','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('EU Adj 3 Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('EU Adj 4 Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Goose Neck Double Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Goose Neck Single Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 2 Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 3 Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Other','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Single Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine
+','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American 2 Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American Pot Belly','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Climate Controlled','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('EU Adj 3 Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('EU Adj 4 Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Goose Neck Double Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Goose Neck Single Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 2 Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 3 Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Other','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Single Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine
+','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+----------------
 
 INSERT INTO pigtrax."Company"(
 
