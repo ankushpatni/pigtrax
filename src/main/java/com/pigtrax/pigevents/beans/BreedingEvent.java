@@ -4,21 +4,16 @@ import java.util.Date;
 
 public class BreedingEvent {
     private Integer id;
-    private String serviceId;
-    private Integer employeeGroupId;
-    private String pigInfoId;
     private  Integer breedingServiceTypeId;
     private String breedingGroupId;
-    private Date breedingDate;
-    private String semenId;
-    private String remarks;
-    private Integer mateQuality;
     private Integer sowCondition;
+    private Integer penId;
     private Date lastUpdated;
     private String userUpdated;
-    private Integer pigInfoKey;
+    private Integer pigInfoId;
     private String breedingServiceType;
-    private boolean gestationRecord;
+    private Double weightInKgs;
+    private Date serviceStartDate;
     
 	public Integer getId() {
 		return id;
@@ -26,24 +21,7 @@ public class BreedingEvent {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getServiceId() {
-		return serviceId;
-	}
-	public void setServiceId(String serviceId) {
-		this.serviceId = serviceId;
-	}
-	public Integer getEmployeeGroupId() {
-		return employeeGroupId;
-	}
-	public void setEmployeeGroupId(Integer employeeGroupId) {
-		this.employeeGroupId = employeeGroupId;
-	}
-	public String getPigInfoId() {
-		return pigInfoId;
-	}
-	public void setPigInfoId(String pigInfoId) {
-		this.pigInfoId = pigInfoId;
-	}
+	
 	public Integer getBreedingServiceTypeId() {
 		return breedingServiceTypeId;
 	}
@@ -56,30 +34,7 @@ public class BreedingEvent {
 	public void setBreedingGroupId(String breedingGroupId) {
 		this.breedingGroupId = breedingGroupId;
 	}
-	public Date getBreedingDate() {
-		return breedingDate;
-	}
-	public void setBreedingDate(Date breedingDate) {
-		this.breedingDate = breedingDate;
-	}
-	public String getSemenId() {
-		return semenId;
-	}
-	public void setSemenId(String semenId) {
-		this.semenId = semenId;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	public Integer getMateQuality() {
-		return mateQuality;
-	}
-	public void setMateQuality(Integer mateQuality) {
-		this.mateQuality = mateQuality;
-	}
+	
 	public Integer getSowCondition() {
 		return sowCondition;
 	}
@@ -98,24 +53,38 @@ public class BreedingEvent {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
-	public Integer getPigInfoKey() {
-		return pigInfoKey;
-	}
-	public void setPigInfoKey(Integer pigInfoKey) {
-		this.pigInfoKey = pigInfoKey;
-	}
+	
 	public String getBreedingServiceType() {
 		return breedingServiceType;
 	}
 	public void setBreedingServiceType(String breedingServiceType) {
 		this.breedingServiceType = breedingServiceType;
 	}
-	public boolean isGestationRecord() {
-		return gestationRecord;
+	public Integer getPenId() {
+		return penId;
 	}
-	public void setGestationRecord(boolean gestationRecord) {
-		this.gestationRecord = gestationRecord;
+	public void setPenId(Integer penId) {
+		this.penId = penId;
 	}
-    
+	public Integer getPigInfoId() {
+		return pigInfoId;
+	}
+	public void setPigInfoId(Integer pigInfoId) {
+		this.pigInfoId = pigInfoId;
+	}
+	public Double getWeightInKgs() {
+		return weightInKgs;
+	}
+	public void setWeightInKgs(Double weightInKgs) {
+		this.weightInKgs = weightInKgs;
+	}
+	public Date getServiceStartDate() {
+		return serviceStartDate;
+	}
+	public void setServiceStartDate(Date serviceStartDate) {
+		this.serviceStartDate = serviceStartDate;
+	}
+	
+	
     
 }

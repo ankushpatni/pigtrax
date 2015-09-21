@@ -52,7 +52,7 @@ public class BreedingEventController {
 		   {
 			   
 		   }
-		   model.addAttribute("contentUrl","BreedingEvent.jsp");
+		   model.addAttribute("contentUrl","BreedingEvent_New.jsp");
 		   return "template";
 	   }
 	   
@@ -80,7 +80,7 @@ public class BreedingEventController {
 			   {
 				   
 			   }
-			   model.addAttribute("contentUrl","BreedingEvent.jsp");
+			   model.addAttribute("contentUrl","BreedingEvent_New.jsp");
 		   }
 		   return "template";
 	   }

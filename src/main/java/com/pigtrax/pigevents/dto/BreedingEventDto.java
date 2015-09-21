@@ -1,53 +1,33 @@
 package com.pigtrax.pigevents.dto;
 
 import java.util.Date;
-
-import com.pigtrax.master.beans.EmployeeGroup;
-import com.pigtrax.master.dto.EmployeeGroupDto;
+import java.util.List;
 
 public class BreedingEventDto {
     private Integer id;
-    private String serviceId;
-    private Integer employeeGroupId;
     private String pigInfoId;
     private  Integer breedingServiceTypeId;
     private String breedingGroupId;
-    private Date breedingDate;
-    private String semenId;
-    private String remarks;
-    private Integer mateQuality;
     private Integer sowCondition;
+    private Integer penId;
+    private Date serviceStartDate;
     private Date lastUpdated;
     private String userUpdated;
     private Integer companyId;
     private Integer pigInfoKey;
-    private EmployeeGroupDto employeeGroup;
     private Date pigBirthDate;
 	private String searchText;
 	private String searchOption;
 	private String breedingServiceType;
 	private String language;
-	private boolean gestationRecord;
-	private Date gestationRecordDate;
-    
+	private Double weightInKgs;
+    private List<MatingDetailsDto> matingDetailsList;
 	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public String getServiceId() {
-		return serviceId;
-	}
-	public void setServiceId(String serviceId) {
-		this.serviceId = serviceId;
-	}
-	public Integer getEmployeeGroupId() {
-		return employeeGroupId;
-	}
-	public void setEmployeeGroupId(Integer employeeGroupId) {
-		this.employeeGroupId = employeeGroupId;
 	}
 	public String getPigInfoId() {
 		return pigInfoId;
@@ -67,30 +47,7 @@ public class BreedingEventDto {
 	public void setBreedingGroupId(String breedingGroupId) {
 		this.breedingGroupId = breedingGroupId;
 	}
-	public Date getBreedingDate() {
-		return breedingDate;
-	}
-	public void setBreedingDate(Date breedingDate) {
-		this.breedingDate = breedingDate;
-	}
-	public String getSemenId() {
-		return semenId;
-	}
-	public void setSemenId(String semenId) {
-		this.semenId = semenId;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	public Integer getMateQuality() {
-		return mateQuality;
-	}
-	public void setMateQuality(Integer mateQuality) {
-		this.mateQuality = mateQuality;
-	}
+	
 	public Integer getSowCondition() {
 		return sowCondition;
 	}
@@ -118,14 +75,7 @@ public class BreedingEventDto {
 		this.companyId = companyId;
 	}
 	
-	public EmployeeGroupDto getEmployeeGroup() {
-		return employeeGroup;
-	}
-	public void setEmployeeGroup(EmployeeGroupDto employeeGroup) {
-		this.employeeGroup = employeeGroup;
-	}
-	
-	
+		
 	public Integer getPigInfoKey() {
 		return pigInfoKey;
 	}
@@ -165,31 +115,38 @@ public class BreedingEventDto {
 		this.language = language;
 	}
 	
-	public boolean isGestationRecord() {
-		return gestationRecord;
+	public Integer getPenId() {
+		return penId;
 	}
-	public void setGestationRecord(boolean gestationRecord) {
-		this.gestationRecord = gestationRecord;
+	public void setPenId(Integer penId) {
+		this.penId = penId;
 	}
-	public Date getGestationRecordDate() {
-		return gestationRecordDate;
+	public Date getServiceStartDate() {
+		return serviceStartDate;
 	}
-	public void setGestationRecordDate(Date gestationRecordDate) {
-		this.gestationRecordDate = gestationRecordDate;
+	public void setServiceStartDate(Date serviceStartDate) {
+		this.serviceStartDate = serviceStartDate;
+	}
+	
+	public Double getWeightInKgs() {
+		return weightInKgs;
+	}
+	public void setWeightInKgs(Double weightInKgs) {
+		this.weightInKgs = weightInKgs;
+	}
+	public List<MatingDetailsDto> getMatingDetailsList() {
+		return matingDetailsList;
+	}
+	public void setMatingDetailsList(List<MatingDetailsDto> matingDetailsList) {
+		this.matingDetailsList = matingDetailsList;
 	}
 	@Override
     public String toString() {
     	String str = " BreedingEventDto "
     			+ " [ id : "+this.id
-    			+", serviceId : "+this.serviceId
-    			+", EmployeeGroupId : "+this.employeeGroupId
     			+", pigInfoId : "+this.pigInfoId
     			+", breedingServiceTypeId :" +this.breedingServiceTypeId
     			+", breedingGroupId  : "+this.breedingGroupId
-    			+", breedingDate : "+this.breedingDate
-    			+", semenId : "+this.semenId
-    			+", remarks : "+this.remarks
-    			+", mateQuality : "+this.mateQuality
     			+", sowCondition : "+this.sowCondition
     			+", lastUpdated : "+this.lastUpdated
     			+", userUpdated : "+this.userUpdated

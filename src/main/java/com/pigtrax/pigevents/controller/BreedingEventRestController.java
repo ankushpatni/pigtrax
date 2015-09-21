@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
+import com.pigtrax.pigevents.dto.MatingDetailsDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -26,7 +27,7 @@ import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 public class BreedingEventRestController {
 	
 	private static final Logger logger = Logger.getLogger(BreedingEventRestController.class);
-	
+	 
 	
 	@Autowired
 	BreedingEventService breedingEventService;
@@ -44,7 +45,8 @@ public class BreedingEventRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			breedingEventDto.setUserUpdated(activeUser.getUsername());
-			int rowsInserted = breedingEventService.saveBreedingEventInformation(breedingEventDto); 
+			breedingEventDto =   breedingEventService.saveBreedingEventInformation(breedingEventDto);  
+			dto.setPayload(breedingEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
 			if(e.isDuplicateStatus())
@@ -81,6 +83,41 @@ public class BreedingEventRestController {
 			if(breedingEventDtoList != null && breedingEventDtoList.size() > 0)
 			{
 				dto.setPayload(breedingEventDtoList);
+				dto.setStatusMessage("Success");
+			}
+			else
+			{
+				dto.setStatusMessage("ERROR : Breeding Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+	
+	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getBreedingEventDetails", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getBreedingEventDetails(HttpServletRequest request, @RequestBody Integer breedingEventId)
+	{
+		logger.info("Inside getBreedingEventDetails method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+				
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			
+			
+			BreedingEventDto breedingEventDto = breedingEventService.getBreedingEventInformation(breedingEventId);			
+			if(breedingEventDto != null && breedingEventDto.getId() > 0)
+			{
+				dto.setPayload(breedingEventDto);
 				dto.setStatusMessage("Success");
 			}
 			else
@@ -158,14 +195,14 @@ public class BreedingEventRestController {
 	 * Service to delete the pig information
 	 * @return ServiceResponseDto
 	 */
-	@RequestMapping(value = "/validateBreedingEvent", method=RequestMethod.POST, produces="application/json")
+	@RequestMapping(value = "/validateMatingDetails", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public ServiceResponseDto validateBreedingEvent(HttpServletRequest request, @RequestBody BreedingEventDto breedingEventDto)
+	public ServiceResponseDto validateMatingDetails(HttpServletRequest request, @RequestBody MatingDetailsDto matingDetailsDto)
 	{
 		logger.info("Inside validateBreedingEvent method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			String statusCode = breedingEventService.validateBreedingEvent(breedingEventDto); 
+			String statusCode = breedingEventService.validateBreedingEvent(matingDetailsDto);  
 			dto.setPayload(statusCode);
 			dto.setStatusMessage("Success");
 		}  catch (Exception e) {
@@ -173,34 +210,6 @@ public class BreedingEventRestController {
 		}
 		return dto;
 	}
-    
 	
-	/**
-	 * Service to get GestationRecord for the given pig id
-	 * @return ServiceResponseDto
-	 */
-	@RequestMapping(value = "/getGestationRecord", method=RequestMethod.POST, produces="application/json")
-	@ResponseBody
-	public ServiceResponseDto getGestationRecord(HttpServletRequest request, @RequestBody Integer pigInfoId)
-	{
-		logger.info("Inside validateBreedingEvent method" );
-		ServiceResponseDto dto = new ServiceResponseDto();
-		try {
-			BreedingEventDto breedingEventDto = breedingEventService.getGestationRecord(pigInfoId);  
-			if(breedingEventDto != null)
-			{
-				dto.setPayload(breedingEventDto);
-				dto.setStatusMessage("Success");
-			}
-			else
-			{
-				dto.setStatusMessage("ERROR");
-			}
-		}  catch (Exception e) {
-			dto.setStatusMessage("ERROR : "+e.getMessage());
-		}
-		return dto;
-	}
-    
     
 }

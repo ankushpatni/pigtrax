@@ -59,7 +59,7 @@ public class FarrowEventValidation {
 	  init();
 	  
 	  DateTime farrowDateTime = new DateTime(farrowEventDto.getFarrowDateTime());
-	  DateTime breedingDate = new DateTime(farrowEventDto.getPregnancyEventDto().getBreedingEventDto().getBreedingDate());
+	  DateTime breedingDate = new DateTime(farrowEventDto.getPregnancyEventDto().getBreedingEventDto().getServiceStartDate());
 	  int duration = Days.daysBetween(breedingDate, farrowDateTime).getDays();
 	  
 	  FarrowEventDto eventDto = farrowEventService.getFarrowEventByPregancyEvent(farrowEventDto.getPregnancyEventId());

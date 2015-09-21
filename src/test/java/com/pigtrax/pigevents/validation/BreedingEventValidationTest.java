@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
@@ -66,7 +67,7 @@ public class BreedingEventValidationTest {
 			int pigInfoKey = pigInfoService.savePigInformation(pigInfo);
 			
 			BreedingEventDto breedingEventDto = new BreedingEventDto();
-			breedingEventDto.setServiceId("SERV1");
+			/*breedingEventDto.setServiceId("SERV1");
 			breedingEventDto.setPigInfoKey(pigInfoKey);
 			breedingEventDto.setPigInfoId("PIG1");
 			breedingEventDto.setEmployeeGroupId(16);
@@ -78,9 +79,9 @@ public class BreedingEventValidationTest {
 			breedingEventDto.setMateQuality(1);
 			breedingEventDto.setSowCondition(1);
 			breedingEventDto.setUserUpdated("s_admin");
-			breedingEventDto.setCompanyId(2);;
+			breedingEventDto.setCompanyId(2);;*/
 			
-			int breedingEventKey = breedingEventService.saveBreedingEventInformation(breedingEventDto);
+			BreedingEventDto newEvent = breedingEventService.saveBreedingEventInformation(breedingEventDto);
 			
 			
 			
@@ -100,7 +101,7 @@ public class BreedingEventValidationTest {
 			
 			int pregnancyEventKey  = pregnancyEventService.savePregnancyEventInformation(pregnancyEvent);
 			
-			System.out.println("Genernated key  : "+pigInfoKey+"/"+breedingEventKey+"/"+pregnancyEventKey);
+			System.out.println("Genernated key  : "+pigInfoKey+"/"+newEvent.getId()+"/"+pregnancyEventKey);
 			
 			dto.setPigInfoKey(pigInfoKey);
 		} catch (Exception e) {
@@ -113,7 +114,7 @@ public class BreedingEventValidationTest {
 	public void testValidate()
 	{
 		
-		dto.setServiceId("TEST1");;
+		/*dto.setServiceId("TEST1");;
 		dto.setEmployeeGroupId(16);
 		dto.setBreedingServiceTypeId(1);
 		dto.setBreedingGroupId("group1");
@@ -123,7 +124,7 @@ public class BreedingEventValidationTest {
 		dto.setMateQuality(1);
 		dto.setSowCondition(1);
 		dto.setUserUpdated("s_admin");
-		
+		*/
 		try {
 			assertEquals("Acceptable Price",4,validationObj.validate(dto)); 
 		} catch (Exception e) {

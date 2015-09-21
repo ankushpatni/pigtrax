@@ -324,6 +324,63 @@
                       </div>
                     </div>
                   </div>
+                  
+                  
+                  
+             <button type="button" ng-click="addMatingDetailData()" class="btn btn-sm btn btn-primary" ng-show="(breedingEvent.id != null && breedingEvent.id > 0) || entryEventSuccessMessage">
+			<i class="glyphicon glyphicon-plus">
+			</i> <spring:message code="label.breedingeventform.addMatingDetails" text="Add Mating Details" />
+		</button>
+	<form name="matingdetailsform" method="post">	
+		<div class="content" ng-show="(breedingEvent.id != null && breedingEvent.id > 0) || entryEventSuccessMessage">
+			<div class="table-responsive" style="overflow-x: hidden">
+			<table st-table="displayedCollection" st-safe-src="breedingEvent.matingDetailsList" class="table table-striped" style="background-color: LightGray">  
+				<thead style="background-color: #3399CC">
+					<tr>
+						<th style="width:10%"><spring:message code="label.matingdetailsform.matingDate" text="Mating Date" /></th>
+						<th style="width:10%"><spring:message code="label.matingdetailsform.employeeGroupId" text="Group Id" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.inventoryAdjustment" text="Inventory Adjustment" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.roomId" text="Room" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
+					</tr>
+	 			</thead>
+				<tbody>
+				<tr ng-repeat="row in displayedCollection track by $index">
+					<td style="width:10%">{{$index+1}}</td>
+					<td style="width:10%">{{row.origin}}</td>
+					<td style="width:25%">{{row.dateOfEntry}}</td>
+					<td style="width:25%">{{row.numberOfPigs}}</td>
+					<td style="width:25%">{{row.weightInKgs}}</td>
+					<td style="width:10%">{{row.inventoryAdjustment}}</td>
+					<td style="width:10%">{{roomList[row.roomId]}}</td>
+					<td style="width:10%">{{row.remarks}}</td>
+					<td style="width: 8%">
+						<button type="button" class="btn btn-edit btn-xs" ng-click="addGroupEventDetailData(row.id)">
+							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
+					</td>				
+				</tr>
+				</tbody>		
+				<tr style="background-color: #3399CC">
+					<td colspan="14">
+						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
+					</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+		<input type="hidden" name="searchedGroupid" id="searchedGroupid"/>
+		<input type="hidden" name="groupEventId" id="groupEventId"/>			
+		<input type="hidden" name="groupGeneratedIdSeq" id="groupGeneratedIdSeq"/>
+		<input type="hidden" name="companyId" id="companyId"/>
+		<input type="hidden" name="groupStartDateTimeAdd" id="groupStartDateTimeAdd"/>
+		
+	</form>	  	
+                  
+                  
 		<div class="md-overlay"></div>
 </div>
 

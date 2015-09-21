@@ -4,12 +4,16 @@ public class PigTraxException extends Exception {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L ;
 
 	private String sqlState;
 	
 	private boolean duplicateStatus;
 
+	public PigTraxException(String message) {
+		super(message);
+	}
+	
 	public PigTraxException(String message, String sqlState) {
 		super(message);
 		this.sqlState = sqlState;

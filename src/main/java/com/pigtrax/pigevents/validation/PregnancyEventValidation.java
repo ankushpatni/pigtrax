@@ -86,7 +86,7 @@ public class PregnancyEventValidation {
 	  if(pregnancyEventDto.getExamDate() != null)
 		  examDate = new DateTime(pregnancyEventDto.getExamDate());
 	  DateTime resultDate = new DateTime(pregnancyEventDto.getResultDate());
-	  DateTime serviceDate = new DateTime(pregnancyEventDto.getBreedingEventDto().getBreedingDate());
+	  DateTime serviceDate = new DateTime(pregnancyEventDto.getBreedingEventDto().getServiceStartDate());
 	  
 	  int duration = Days.daysBetween(serviceDate, resultDate).getDays();
 	  

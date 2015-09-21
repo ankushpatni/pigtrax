@@ -16,20 +16,14 @@ public class BreedingEventBuilder {
 		   if(dto != null)
 		   {
 			   info.setId(dto.getId());
-			   info.setServiceId(dto.getServiceId());
-			   info.setEmployeeGroupId(dto.getEmployeeGroupId());
-			   info.setPigInfoId(dto.getPigInfoId());
-			   info.setPigInfoKey(dto.getPigInfoKey());
+			   info.setPigInfoId(dto.getPigInfoKey());
 			   info.setBreedingServiceTypeId(dto.getBreedingServiceTypeId());
 			   info.setBreedingGroupId(dto.getBreedingGroupId());
-			   info.setBreedingDate(dto.getBreedingDate());
-			   info.setSemenId(dto.getSemenId());
-			   info.setRemarks(dto.getRemarks());
 			   info.setSowCondition(dto.getSowCondition());
 			   info.setUserUpdated(dto.getUserUpdated());
-			   info.setMateQuality(dto.getMateQuality());
 			   info.setLastUpdated(dto.getLastUpdated());
-			   info.setGestationRecord(dto.isGestationRecord());
+			   info.setPenId(dto.getPenId());
+			   info.setWeightInKgs(dto.getWeightInKgs());
 		   }
 		   return info;
 	   }
@@ -41,20 +35,15 @@ public class BreedingEventBuilder {
 		   if(info != null)
 		   {
 			   dto.setId(info.getId());
-			   dto.setServiceId(info.getServiceId());
-			   dto.setEmployeeGroupId(info.getEmployeeGroupId());
-			   dto.setPigInfoId(info.getPigInfoId());
-			   dto.setPigInfoKey(info.getPigInfoKey());
+			   dto.setPigInfoKey(info.getPigInfoId());
 			   dto.setBreedingServiceTypeId(info.getBreedingServiceTypeId());
 			   dto.setBreedingGroupId(info.getBreedingGroupId());
-			   dto.setBreedingDate(info.getBreedingDate());
-			   dto.setSemenId(info.getSemenId());
-			   dto.setRemarks(info.getRemarks());
 			   dto.setSowCondition(info.getSowCondition());
 			   dto.setUserUpdated(info.getUserUpdated());
-			   dto.setMateQuality(info.getMateQuality());
 			   dto.setLastUpdated(info.getLastUpdated());
-			   dto.setGestationRecord(info.isGestationRecord());
+			   dto.setPenId(info.getPenId());
+			   dto.setWeightInKgs(info.getWeightInKgs());
+			   dto.setServiceStartDate(info.getServiceStartDate());
 		   }
 		   return dto;
 	   }
@@ -67,9 +56,12 @@ public class BreedingEventBuilder {
 	   public List<BreedingEventDto> convertToDtos(List<BreedingEvent> breedingEvents)
 	   {
 		   List<BreedingEventDto> breedingEventList = new ArrayList<BreedingEventDto>();
-		   for(BreedingEvent event : breedingEvents)
+		   if(breedingEvents != null && breedingEvents.size() > 0)
 		   {
-			   breedingEventList.add(convertToDto(event));
+			   for(BreedingEvent event : breedingEvents)
+			   {
+				   breedingEventList.add(convertToDto(event));
+			   }
 		   }
 		   return breedingEventList;
 	   }

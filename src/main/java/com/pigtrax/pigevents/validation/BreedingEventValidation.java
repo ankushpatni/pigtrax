@@ -104,7 +104,7 @@ public class BreedingEventValidation {
 	  
 	  PigInfo pigInfo = null;
 	  
-	  DateTime currentBreedingEventDate = new DateTime(breedingEventDto.getBreedingDate());
+	  DateTime currentBreedingEventDate = new DateTime(breedingEventDto.getServiceStartDate());
 	  DateTime pigBirthDate = null;
 	  DateTime pigEntryDate = null;
 	  
@@ -166,7 +166,7 @@ public class BreedingEventValidation {
 					throw new PigTraxException(e.getMessage(), "");
 				}
 			  if(breedingEvent != null)
-				  lastBreedingEventDate = new DateTime(breedingEvent.getBreedingDate());			  
+				  lastBreedingEventDate = new DateTime(breedingEvent.getServiceStartDate());			  
 			  logger.info("last breeding event date : "+lastBreedingEventDate);
 			  
 			 
@@ -267,9 +267,7 @@ public class BreedingEventValidation {
    */
   private int findLastBreedingEventId(Integer pigInfoId)
   {
-	  BreedingEvent event = breedingEventDao.getGestationRecord(pigInfoId);
-	  if(event != null)
-		  return event.getId();
+	 
 	  return -1;
   }
 }

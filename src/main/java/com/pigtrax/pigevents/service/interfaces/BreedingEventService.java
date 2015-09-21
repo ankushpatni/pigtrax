@@ -4,21 +4,22 @@ import java.util.List;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
+import com.pigtrax.pigevents.dto.MatingDetailsDto;
 
 public interface BreedingEventService {
-    int saveBreedingEventInformation(BreedingEventDto dto) throws Exception;
+    BreedingEventDto saveBreedingEventInformation(BreedingEventDto dto) throws Exception;
     
     BreedingEventDto getBreedingEventInformation(Integer breedingEventId) throws PigTraxException;
     
     void deleteBreedingEventInfo(Integer id) throws Exception;
     
-    String validateBreedingEvent(BreedingEventDto breedingEventDto);
+    String validateBreedingEvent(MatingDetailsDto matingDetailsDto);
     
     List<BreedingEventDto> getBreedingEventInformationList(BreedingEventDto breedingEventDto) throws PigTraxException;
     
     List<BreedingEventDto> getActiveBreedingServices(BreedingEventDto breedingEventDto) throws PigTraxException;
     
-    BreedingEventDto checkForBreedingServiceId(String pigId, String serviceId, int companyId) throws PigTraxException;
+    BreedingEventDto checkForBreedingServiceId(String pigId, int companyId) throws PigTraxException;
     
-    BreedingEventDto getGestationRecord(Integer pigInfoId);
+    
 }  
