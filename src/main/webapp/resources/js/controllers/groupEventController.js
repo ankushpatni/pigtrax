@@ -82,6 +82,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.groupEventDetailList = [];
 		$scope.groupEvent = {};
 		$scope.clearAllMessages();
+		document.getElementById("groupStartDateTime").value = "";
+		document.getElementById("groupCloseDateTime").value = "";
 		$scope.changeText();
 	}
 	
