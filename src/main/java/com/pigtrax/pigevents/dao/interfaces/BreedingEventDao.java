@@ -27,4 +27,6 @@ public interface BreedingEventDao {
    
    BreedingEvent checkForBreedingServiceId(String pigId, String serviceId, int companyId); 
    
+   BreedingEvent getLatestServiceEvent(Integer pigInfoId);
+   
 }

@@ -8,10 +8,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -388,5 +390,29 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 			}
 		});		
    }
+   
+   
+   @Override
+	public boolean checkFarrowEventByBreedingEvent(final Integer breedingEventId) { 
+		String sql = "select count(FE.\"id\") from pigtrax.\"FarrowEvent\" FE where \"id_PregnancyEvent\" "
+				+ "in (select PE.\"id\" from pigtrax.\"PregnancyEvent\" PE where \"id_BreedingEvent\" = ?) ";
+		@SuppressWarnings("unchecked")
+		Integer cnt  = (Integer)jdbcTemplate.query(sql,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {					
+					ps.setInt(1, breedingEventId);
+				}
+			},
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getInt(1);
+		            }
+		            return null;
+		          }
+		        });
+		
+		return cnt > 0? true : false;
+	}
    
 }

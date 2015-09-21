@@ -18,6 +18,7 @@ import com.pigtrax.pigevents.beans.MatingDetails;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
 import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
+import com.pigtrax.pigevents.dao.interfaces.FarrowEventDao;
 import com.pigtrax.pigevents.dao.interfaces.MatingDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
@@ -63,6 +64,9 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	@Autowired
 	MatingDetailsBuilder matingDetailsBuilder;
 	
+	@Autowired
+	FarrowEventDao farrowEventDao;
+	
 	public BreedingEventDto saveBreedingEventInformation(BreedingEventDto dto) 
 			throws Exception {
 
@@ -77,8 +81,16 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 				
 				if(dto.getId() == null)
 				{
-					logger.info("Breeding Event Dtoo : "+dto.toString());
-					breedingEventId =  addBreedingEventInformation(breedingEvent);
+					boolean check = checkIfPreviousCycleCompleted(dto.getPigInfoKey());
+					if(check)
+					{
+						logger.info("Breeding Event Dtoo : "+dto.toString());
+						breedingEventId =  addBreedingEventInformation(breedingEvent);
+					}
+					else
+					{
+						throw new PigTraxException("INCOMPLETE_SERVICE_CYCLE");
+					}
 					
 				}
 				else
@@ -107,6 +119,21 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 				  logger.info("DuplicateKeyException : "+sqlEx.getRootCause()+"/"+sqlEx.getCause());
 					throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "", true);
 			}
+	}
+	
+	private boolean checkIfPreviousCycleCompleted(Integer pigInfoId)
+	{
+		BreedingEvent latestBreedingEvent = breedingEventDao.getLatestServiceEvent(pigInfoId);
+		if(latestBreedingEvent == null)
+			return true;
+		else
+		{			
+			boolean check = farrowEventDao.checkFarrowEventByBreedingEvent(latestBreedingEvent.getId());	
+			if(check)
+				return true;
+			else
+				return false;
+		}
 	}
 	
 	@Transactional("ptxJTransactionManager")

@@ -67,6 +67,7 @@ public class MatingDetailsValidation {
 	private String ERR_CODE_ENTRY_DATE = "ERR_ENTRYDATE_NOT_MATCHING";
 	private String ERR_CODE_DUPLICATE_DATE = "ERR_CODE_DUPLICATE_DATE";
 	private String ERR_CODE_PREG_CHECK_ADDED = "ERR_CODE_PREG_CHECK_ADDED";
+	private String ERR_CODE_NEXT_EVENT = "ERR_CODE_NEXT_EVENT";
 	
 	/**
 	 * Load the property values
@@ -179,7 +180,9 @@ public class MatingDetailsValidation {
 	  {		 
 		 durationDays = Days.daysBetween(currentBreedingEventDate, currentMatingDate).getDays();
 			 if(durationDays > BREEDING_EVENT_TIME_PERIOD4)
-				 return SUCCESS_CODE;
+			 { 
+				 return ERR_CODE_NEXT_EVENT;
+			 }
 			 else if(durationDays > BREEDING_EVENT_TIME_PERIOD3 && durationDays <= BREEDING_EVENT_TIME_PERIOD4)
 				 {					 
 					  

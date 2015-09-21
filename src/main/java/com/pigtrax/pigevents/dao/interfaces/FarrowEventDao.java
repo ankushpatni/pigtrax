@@ -22,4 +22,6 @@ public interface FarrowEventDao {
    FarrowEvent getFarrowEventByPregancyEvent(final Integer pregnancyEventId) ;
    
    void updateLitterId(Integer farrowEventId, Integer companyId);
+   
+   boolean checkFarrowEventByBreedingEvent(Integer breedingEventId);
 }

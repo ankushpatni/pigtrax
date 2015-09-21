@@ -49,6 +49,12 @@ public class BreedingEventRestController {
 			dto.setPayload(breedingEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
+			
+			if("INCOMPLETE_SERVICE_CYCLE".equalsIgnoreCase(e.getMessage()))
+			{
+				dto.setStatusMessage("INCOMPLETE_SERVICE_CYCLE");
+			}
+			
 			if(e.isDuplicateStatus())
 			{
 				dto.setDuplicateRecord(true);

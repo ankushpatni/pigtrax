@@ -98,6 +98,14 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.matingdetails.delete.error' text='Pregnancy checks are already associated for this event, hence can not delete'/>
                   </div> 
+                   <div class="alert alert-danger alert-white rounded" ng-show="breedingEventIncompleteCycle"> 
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_IncompleteCycle' text='There is an incomplete breeding cycle. Please complete that before starting another cycle' />
+                  </div>
+                  <div class="alert alert-success alert-white rounded"  ng-show="matingDetailsSuccessMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.matingdetailsform.submit.success.message' text='Mating details saved successfully'/>
+                  </div>
                 </div>
                 <div class="content">
                   <form name="breedingeventform" novalidate angular-validator my-reset>
@@ -237,6 +245,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_PregCheckAdded' text='Pregnancy Events are already tracked for this event' />
                   </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_NextEvent"> 
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_NextEvent' text='Please enter the next cycle of service as another event' />
+                  </div>                  
                 <div class="content">
                   <form name="matingdetailsform" novalidate angular-validator my-reset>                  
                    
