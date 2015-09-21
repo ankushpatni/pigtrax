@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,7 +63,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	    				ps.setString(6, pigInfo.getGline());
 	    				ps.setString(7, pigInfo.getGcompany());
 	    				if(pigInfo.getBirthDate() != null)
-	    					ps.setDate(8,  new java.sql.Date(new DateTime(pigInfo.getBirthDate()).getMillis()));
+	    					ps.setDate(8,  new java.sql.Date(new DateTime(pigInfo.getBirthDate()).toLocalDate().toDateMidnight().getMillis()));
 	    				else
 	    					ps.setNull(8, java.sql.Types.DATE);
 	    				
