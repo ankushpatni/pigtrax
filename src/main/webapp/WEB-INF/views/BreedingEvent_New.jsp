@@ -14,10 +14,10 @@
  		     <div class="head">
  		     
  		     <h3> <spring:message code='label.piginfo.breedingeventform.search.heading'  text='Search'/></h3>
-            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.errormessage' text='Please enter Pig Id/ Tattoo/ Service Id and select the corresponding option'/></p>
+            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.data.errormessage' text='Breeding event information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.breedingeventform.search.placeholder'  text='Search by service id ...'/>" class="form-control">
+            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.breedingeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
  		    
             <div class="options">
 			 <div class="btn-group pull-right">
@@ -29,10 +29,7 @@
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="rad1"  id="rad2" class="icheck breedingevent" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
-                </label>
-				<label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad3" class="icheck breedingevent" value="serviceId"> <spring:message code='label.piginfo.breedingeventform.search.serviceId.option'  text='Service Id'/> 
-                </label>
+                </label>				
               </div>
             </div>
           </div>
@@ -135,7 +132,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.breedingeventform.breedinggroupId'  text='Breeding Group Id'/></label>
+                      <label><spring:message code='label.piginfo.breedingeventform.breedinggroupId'  text='Service Group Id'/></label>
                       <input type="text" ng-model="breedingEvent.breedingGroupId" id="breedingGroupId" name="breedingGroupId"  class="form-control"  placeholder="<spring:message code='label.piginfo.breedingeventform.breedinggroupId.placeholder'  text='Enter Breeding group Id'/>"/>
                     </div>
                    
@@ -171,7 +168,7 @@
                     
                     <button class="btn btn-primary" ng-click="addBreedingEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
-                    <button type="button" class="btn btn-danger pull-right" ng-click="deleteBreedingEventInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
+                    <button type="button" class="btn btn-danger pull-right" ng-click="deleteBreedingEventInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry and delete all the associated mating details?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
                   </form>
                 </div>
               </div>
@@ -235,6 +232,10 @@
                 <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_DuplicateMatingDate"> 
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_DuplicateMatingDate' text='Mating detail record already exists for the selected date' />
+                  </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_PregCheckAdded"> 
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_PregCheckAdded' text='Pregnancy Events are already tracked for this event' />
                   </div>
                 <div class="content">
                   <form name="matingdetailsform" novalidate angular-validator my-reset>                  
@@ -306,7 +307,7 @@
 						<th style="width:20%"><spring:message code="label.matingdetailsform.employeeGroupId" text="Group Id" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.semenId" text="Semen Id" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.matingQuality" text="Mating Quality" /></th>
-						<th style="width:20%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
+						<th style="width:20%"><spring:message code="label.piginfo.breedingeventform.delete" text="Delete" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
@@ -316,7 +317,7 @@
 					<td style="width:20%">{{row.semenId}}</td>
 					<td style="width:20%">{{row.matingQuality}}</td>
 					<td style="width:20%">
-						<button type="button" class="btn btn-danger btn-xs" ng-click="deleteMatingDetails(row)" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>">
+						<button type="button" class="btn btn-danger btn-xs" ng-click="deleteMatingDetails(row)" ng-confirm-click="<spring:message code='label.matingdetailsform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>">
 							<spring:message code="label.piginfo.breedingeventform.delete" text="Delete" /></a></button>	
 											
 					</td>				

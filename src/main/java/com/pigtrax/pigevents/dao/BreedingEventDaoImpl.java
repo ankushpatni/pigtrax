@@ -58,7 +58,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    	            	ps.setNull(2, java.sql.Types.INTEGER);
 	    				}
 	    				ps.setString(3, breedingEvent.getBreedingGroupId());
-	    				if(breedingEvent.getPenId() != null){
+	    				if(breedingEvent.getPenId() != null && breedingEvent.getPenId() != 0){
 	    					ps.setInt(4, breedingEvent.getPenId());
 	    				}
 	    				else{
@@ -109,7 +109,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 				ps.setString(3, breedingEvent.getBreedingGroupId());
 				
 							
-				if(breedingEvent.getPenId() != null){
+				if(breedingEvent.getPenId() != null && breedingEvent.getPenId() != 0){
 					ps.setInt(4, breedingEvent.getPenId());
 				}
 				else{

@@ -66,6 +66,7 @@ public class MatingDetailsValidation {
 	private String ERR_CODE_BIRTH_DATE = "ERR_BIRTHDATE_NOT_MATCHING";
 	private String ERR_CODE_ENTRY_DATE = "ERR_ENTRYDATE_NOT_MATCHING";
 	private String ERR_CODE_DUPLICATE_DATE = "ERR_CODE_DUPLICATE_DATE";
+	private String ERR_CODE_PREG_CHECK_ADDED = "ERR_CODE_PREG_CHECK_ADDED";
 	
 	/**
 	 * Load the property values
@@ -115,6 +116,9 @@ public class MatingDetailsValidation {
 	  
 	  if(breedingEventDto.getServiceStartDate() != null) currentBreedingEventDate = new DateTime(breedingEventDto.getServiceStartDate());
 	  DateTime currentMatingDate = new DateTime(matingDetailsDto.getMatingDate());
+	  List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(breedingEventId);
+	  
+	  
 	  
 	  DateTime pigBirthDate = null;
 	  DateTime pigEntryDate = null;
@@ -132,16 +136,28 @@ public class MatingDetailsValidation {
 		}
 	 
 		
-	  if(currentBreedingEventDate == null)
-			 return SUCCESS_CODE;
-	  if(pigBirthDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) != 1) 
+		 if(pigBirthDate != null && currentMatingDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) != 1) 
+		  {
+			  return ERR_CODE_BIRTH_DATE;
+		  }
+		  else if(pigEntryDate != null && currentMatingDate.toLocalDate().compareTo(pigEntryDate.toLocalDate()) != 1)
+		  {
+			  return ERR_CODE_ENTRY_DATE;
+		  }	  
+		
+		  else if(currentBreedingEventDate == null)
+		  {  
+				 return SUCCESS_CODE;
+		  }
+	  else if(currentMatingDate.toLocalDate().equals(currentBreedingEventDate.toLocalDate()))
 	  {
-		  return ERR_CODE_BIRTH_DATE;
+		  return ERR_CODE_DUPLICATE_DATE;
 	  }
-	  if(pigEntryDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigEntryDate.toLocalDate()) != 1)
+	  else if(currentMatingDate.toLocalDate().isBefore(currentBreedingEventDate.toLocalDate()) && events != null)
 	  {
-		  return ERR_CODE_ENTRY_DATE;
-	  }
+		  return ERR_CODE_PREG_CHECK_ADDED;
+	  }	 
+	 
 	  
 	  if(matingDetailsList != null && matingDetailsList.size() > 0)
 	  {
@@ -161,19 +177,13 @@ public class MatingDetailsValidation {
 	  }
 	  else
 	  {		 
-		 if(currentBreedingEventDate == null)
-			 return SUCCESS_CODE;		 
-		 else 
-		 {
-			 durationDays = Days.daysBetween(currentBreedingEventDate, currentMatingDate).getDays();
+		 durationDays = Days.daysBetween(currentBreedingEventDate, currentMatingDate).getDays();
 			 if(durationDays > BREEDING_EVENT_TIME_PERIOD4)
 				 return SUCCESS_CODE;
 			 else if(durationDays > BREEDING_EVENT_TIME_PERIOD3 && durationDays <= BREEDING_EVENT_TIME_PERIOD4)
-				 {
-					 List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(breedingEventId);
-					  if(events == null)
-						  return ERR_CODE_03;
-					  else
+				 {					 
+					  
+					  if(events != null && events.size() > 0)
 					  {
 						boolean pregnancyStatus =   checkPregnancyStatus(events);
 						if(pregnancyStatus)
@@ -181,13 +191,14 @@ public class MatingDetailsValidation {
 						else
 							return SUCCESS_CODE;
 					  }		
+					  else
+						 return ERR_CODE_03;
 				 }
 			 else if(durationDays > BREEDING_EVENT_TIME_PERIOD2 && durationDays < BREEDING_EVENT_TIME_PERIOD3)
 			 {
-				 List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(breedingEventId);
-				  if(events == null)
-					  return ERR_CODE_03;
-				  else
+				 events = pregnancyEventDao.getPregnancyEvents(breedingEventId);
+				 
+				  if(events != null && events.size() > 0)
 				  {
 					boolean pregnancyStatus =   checkPregnancyStatus(events);
 					if(pregnancyStatus)
@@ -195,6 +206,10 @@ public class MatingDetailsValidation {
 					else
 						return SUCCESS_CODE;
 				  }				 
+				  else
+				  {
+					  return ERR_CODE_03;
+				  }
 			 }			 
 			 else if(durationDays >= BREEDING_EVENT_TIME_PERIOD1 && durationDays <= BREEDING_EVENT_TIME_PERIOD2)
 			  {			
@@ -208,9 +223,6 @@ public class MatingDetailsValidation {
 			  }
 			 else
 				 return SUCCESS_CODE;
-				 
-		 } 
-		  
 	  }  
 	 
   }

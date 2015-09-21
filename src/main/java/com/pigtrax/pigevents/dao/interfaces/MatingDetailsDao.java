@@ -11,4 +11,6 @@ public interface MatingDetailsDao {
 	int addMatingDetails(MatingDetails matingDetails);
 	
 	int deleteMatingDetails(Integer matingDetailsId);
+	
+	int deleteMatingDetailsForBreedingEvent(Integer breedingEventId);
 }

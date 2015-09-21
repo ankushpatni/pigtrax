@@ -54,6 +54,15 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 			   //update serviceStartdate
 			if(breedingEvent.getServiceStartDate() == null)
 			   breedingEventDao.updateServiceStartDate(matingDetailsDto.getMatingDate(), matingDetailsDto.getBreedingEventId()); 	
+			else if(breedingEvent.getServiceStartDate() != null)
+			{
+				DateTime serviceStartDate = new DateTime(breedingEvent.getServiceStartDate());
+				DateTime matingDate = new DateTime(matingDetailsDto.getMatingDate());
+				
+				if(matingDate.isBefore(serviceStartDate))
+					breedingEventDao.updateServiceStartDate(matingDetailsDto.getMatingDate(), matingDetailsDto.getBreedingEventId()); 	
+				
+			}
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}

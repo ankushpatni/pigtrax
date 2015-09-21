@@ -21,6 +21,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.breedingEventValidation_ErrCode_2 = false;
 		$scope.breedingEventValidation_ErrCode_3 = false;
 		$scope.breedingEventValidation_ErrCode_BirthDate = false;
+		$scope.breedingEventValidation_ErrCode_EntryDate = false;
 		$scope.entryEventDuplicateErrorMessage = false;
 		$scope.confirmClick = false;
 		$scope.malePigIdentified = false;
@@ -136,10 +137,16 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				if(!data.error)
 					{
 						$scope.clearAllMessages();
-						$scope.entryEventSuccessMessage = true;						
-						//$scope.setupFormElements();
-						if($scope.breedingEventList != null && $scope.breedingEventList.length > 0)
-							$scope.getBreedingEventInformation();
+						$scope.breedingEvent = data.payload;
+						 restServices.getBreedingEventDetails($scope.breedingEvent["id"], function(data){
+							  if(!data.error)
+								  {
+								    $scope.clearAllMessages();
+								    $scope.breedingEvent = data.payload;
+								    $scope.entryEventSuccessMessage = true;	
+								  }
+						  });
+						
 					}
 				else
 					{
@@ -227,6 +234,12 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 					    	 {
 					    		 $scope.clearAllMessages();
 						    	 $scope.breedingEventValidation_ErrCode_DuplicateMatingDate = true;
+						    	 $scope.confirmClick = false;
+					    	 }
+					    	 else if(statusCode == "ERR_CODE_PREG_CHECK_ADDED")
+					    	 {
+					    		 $scope.clearAllMessages();
+						    	 $scope.breedingEventValidation_ErrCode_PregCheckAdded = true;
 						    	 $scope.confirmClick = false;
 					    	 }
 					    	 else if(statusCode == "WARN-01")

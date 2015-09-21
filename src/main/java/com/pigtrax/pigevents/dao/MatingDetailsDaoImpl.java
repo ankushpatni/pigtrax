@@ -107,4 +107,17 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 		});
 	}
 	
+	
+	@Override
+	public int deleteMatingDetailsForBreedingEvent(final Integer breedingEventId) {
+		final String qry = "delete from pigtrax.\"MatingDetails\" where \"id_BreedingEvent\" = ?";
+		
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, breedingEventId);
+			}
+		});
+	}
+	
 }

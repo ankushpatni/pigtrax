@@ -87,7 +87,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 					breedingEventId =  breedingEvent.getId();
 					
 				}
-				
+				dto.setId(breedingEventId);
 				List<MatingDetails>  matingDetailsList = matingDetailsDao.getMatingDetails(breedingEventId); 
 				dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetailsList)); 
 				return dto;
@@ -177,6 +177,8 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 				throw new PigTraxException("PREGCHECK-TRUE");
 			}
 			else {
+				
+				matingDetailsDao.deleteMatingDetailsForBreedingEvent(id);				
 				eventMasterDao.deleteBreedingEvent(id);
 				breedingEventDao.deleteBreedingEventInfo(id);
 			}
