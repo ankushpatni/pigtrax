@@ -1,4 +1,4 @@
-pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices) {
+pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices, DateUtils) {
 	$scope.companyId = "";
 	
 	$scope.clearAllMessages = function()
@@ -65,7 +65,14 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			{
 				$scope.clearAllMessages();
 				
-				var birthDate = document.getElementById("birthDate").value;				
+				var birthDate = document.getElementById("birthDate").value;							
+				var dateVal = new Date(birthDate);
+				
+				birthDate = DateUtils.convertLocaleDateToServer(dateVal);				
+				
+				var entrydateVal = new Date(entryDate);
+				entryDate = DateUtils.convertLocaleDateToServer(entrydateVal);
+				
 				
 				if(birthDate != null && birthDate >  entryDate)
 				{
