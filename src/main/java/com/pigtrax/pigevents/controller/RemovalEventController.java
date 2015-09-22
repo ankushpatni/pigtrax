@@ -50,6 +50,10 @@ public class RemovalEventController
 			   {
 				   model.addAttribute("removalEventTicketNumber", request.getParameter("removalEventTicketNumber"));
 			   }
+			   if(request.getParameter("fromExcept") != null)
+			   {
+				   model.addAttribute("fromExcept", request.getParameter("fromExcept"));
+			   }
 		   }catch(Exception ex)
 		   {
 			   

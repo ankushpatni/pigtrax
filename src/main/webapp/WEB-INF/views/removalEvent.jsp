@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.removalEventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="RemovalEventController" ng-init="setCompanyId('${CompanyId}','${removalEventTicketNumber}')">
+ <div class="cl-mcont" ng-controller="RemovalEventController" ng-init="setCompanyId('${CompanyId}','${removalEventTicketNumber}','${fromExcept}')">
    <div class="row">
 	 		  <div class="col-sm-3 col-md-3"></div> 
 	 		  <div class="col-sm-6 col-md-6">
@@ -152,7 +152,7 @@
 					<td style="width:10%">{{row.numberOfPigs}}</td>
 					<td style="width:10%">{{row.removalDateTime}}</td>
 					<td style="width:25%">{{row.weightInKgs}}</td>
-					<td style="width:25%">{{pigInfoList[row.pigInfoId]}}</td>
+					<td style="width:25%">{{pigInfoList[row.pigInfoId].pigId}}</td>
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
 					<td style="width:10%">{{premiseList[row.premiseId]}}</td>
 					<td style="width: 8%">

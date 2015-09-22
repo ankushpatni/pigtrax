@@ -13,7 +13,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.exceptSalesFlag= false;
 	
 	
-	$scope.setCompanyId = function(companyId,removalId)
+	$scope.setCompanyId = function(companyId,removalId,fromExcept)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
@@ -45,8 +45,16 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		if( removalId)
 		{
 			//$scope.searchText = ticketNumber;
-			$scope.getRemovalEvent(removalId);
-			$scope.entryEventDetailSuccessMessage = true;
+			console.log("fromExcept "+fromExcept);
+			
+			if(fromExcept === 'true')
+			{
+				$scope.getRemovalEvent(removalId,false,true);
+			}
+			else
+			{	
+				$scope.getRemovalEvent(removalId,true,false);
+			}
 		}
 	};
 	
@@ -127,7 +135,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					}
 					if(flag1)
 					{
-						$scope.entryEventDetailSuccessMessage = true;
+						$scope.entryExceptSalesDetailsSuccessMessage = true;
 					}
 					$window.scrollTo(0,550);
 					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2 || $scope.removalEvent.removalTypeId ==3)

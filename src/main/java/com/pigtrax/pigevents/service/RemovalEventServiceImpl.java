@@ -189,7 +189,7 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 			}
 			else if(null != removalEvent )
 			{
-				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(removalEvent.getGroupId(), removalEvent.getCompanyId());
+				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(removalEvent.getPigId(), removalEvent.getCompanyId());
 				if(null != pigInfo)
 				{
 					removalEventList =  removalEventDao.getRemovalEventByPigId(pigInfo.getId());

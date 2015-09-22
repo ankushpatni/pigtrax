@@ -45,14 +45,14 @@
 				        <div class="form-group" ng-show="selectGroup==='pigInfo'">
                       <label><spring:message code='label.piginfo.removalExceptSales.pigInfoId'  text='Pig Info'/></label>
                        <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control"  name="pigInfoId" id="pigInfoId" ng-model="removalExceptSales.pigInfoId"   
-                         ng-options="k as v for (k, v) in pigInfoList"> </select>
+                         ng-options="k as v.pigId for (k, v) in pigInfoList"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{pigInfoList[removalExceptSales.pigInfoId]}}</label>                       
                     </div>
                     
                     <div class="form-group" ng-show="selectGroup==='group'">
                       <label><spring:message code='label.piginfo.removalExceptSales.groupEventId'  text='Group Event'/></label>
                        <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control"  name="groupEventId" id="groupEventId" ng-model="removalExceptSales.groupEventId"   
-                         ng-options="k as v.groupId for (k, v) in groupEventList"> </select>
+                         ng-options="k as v.groupId for (k, v) in groupEventList" ng-show="v.active"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{groupEventList[removalExceptSales.groupEventId].groupId}}</label>                       
                     </div> 
 				   <div class="form-group">
@@ -123,6 +123,7 @@
 					
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>
 					<input type="hidden" name="selectedCompany" id="selectedCompany"/>
+					<input type="hidden" name="fromExcept" id="fromExcept"/>
                    </form>
                 </div>
               </div>

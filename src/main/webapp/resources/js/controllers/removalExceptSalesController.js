@@ -8,7 +8,9 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	$scope.premiseList={};
 	$scope.removalEventType={};
 	$scope.groupEventList={};
+	$scope.groupEventOriginalList={};
 	$scope.pigInfoList={};
+	$scope.pigInfoOriginalList={};
 	$scope.removalExceptSales={};
 	$scope.sourceAndDestinationPremisesSameError = false;
 	
@@ -42,18 +44,32 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			console.log(data);
 			
 			$scope.removalEventType = data.payload[0];
-			$scope.pigInfoList = data.payload[1];
+			$scope.pigInfoOriginalList = data.payload[1];
 			$scope.premiseList = data.payload[2];
-			$scope.groupEventList = data.payload[3]
+			$scope.groupEventOriginalList = data.payload[3];
+			for( var x in $scope.groupEventOriginalList)
+			{
+				if( $scope.groupEventOriginalList[x].active )
+					{		
+						$scope.groupEventList[x] = $scope.groupEventOriginalList[x];
+					}
+			}
+			for( var x in $scope.pigInfoOriginalList)
+			{
+				if( $scope.pigInfoOriginalList[x].active )
+					{		
+						$scope.pigInfoList[x] = $scope.pigInfoOriginalList[x];
+					}
+			}
 		});
 		res2.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
 		
-		if( removalExceptSalesId)
+		/*if( removalExceptSalesId && removalExceptSalesId!= undefined)
 		{
 			$scope.getRemovalExceptSales(removalExceptSalesId);
-		}
+		}*/
 	};
 	
 
@@ -79,7 +95,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	$scope.resetForm = function()
 	{
 		$scope.clearAllMessages();
-		$scope.feedEvent = {};
+		$scope.removalExceptSales = {};
 		$scope.changeText();
 	}
 	
@@ -222,6 +238,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	    {
 	    	document.getElementById("removalEventTicketNumber").value = $scope.removalId;	
 			document.getElementById("selectedCompany").value = $scope.companyId;		
+			document.getElementById("fromExcept").value = true;
 			document.forms['removalExceptFormSales'].action = 'removalEvent';
 			document.forms['removalExceptFormSales'].submit();
 	    }	

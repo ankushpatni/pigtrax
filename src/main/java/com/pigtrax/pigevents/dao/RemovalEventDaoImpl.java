@@ -62,7 +62,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {					
-					ps.setString(1, removalId);
+					ps.setString(1, removalId.toUpperCase());
 				}}, new RemovalEventMapper());
 
 			if(removalEventList != null && removalEventList.size() > 0){
@@ -75,7 +75,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	public List<RemovalEvent> getRemovalEventByGroupId(final int groupId)
 			throws SQLException {
 		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT id  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ?)";
+		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ?)";
 				
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
@@ -93,7 +93,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	public List<RemovalEvent> getRemovalEventByPigId(final int pigId)
 			throws SQLException {
 		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT id  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_PigInfo\" = ?)";
+		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_PigInfo\" = ?)";
 				
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
@@ -114,7 +114,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {					
-					ps.setString(1, groupId);
+					ps.setString(1, groupId.toUpperCase());
 				}}, new RemovalEventMapper());
 
 			if(removalEventList != null && removalEventList.size() > 0){
@@ -136,7 +136,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 			public PreparedStatement createPreparedStatement(Connection con)
 					throws SQLException {
 				PreparedStatement ps = con.prepareStatement(Qry,new String[] { "id" });
-				ps.setString(1, removalEvent.getRemovalId());
+				ps.setString(1, removalEvent.getRemovalId().toUpperCase());
 				ps.setInt(2, removalEvent.getRemovalTypeId());
 				ps.setString(3, removalEvent.getRemarks());
 				/*if(null != removalEvent.getTransportJourneyId())

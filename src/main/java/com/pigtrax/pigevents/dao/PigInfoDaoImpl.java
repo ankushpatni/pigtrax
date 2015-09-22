@@ -306,7 +306,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", "
 				+ "\"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", "
 				+ "\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\", \"isActive\",\"id_GfunctionType\" "
-				+ "from pigtrax.\"PigInfo\" where \"id_Company\" = ? and \"isActive\" = true";
+				+ "from pigtrax.\"PigInfo\" where \"id_Company\" = ?";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			
 			public void setValues(PreparedStatement ps) throws SQLException {				

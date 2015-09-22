@@ -129,16 +129,16 @@ public class PigInfoServiceImpl implements PigInfoService {
 	/**
 	 * Get Pig Information based on pigId/tattoo
 	 */
-	public Map<Integer,String> getPigInformationByCompany(int companyId) throws Exception {
+	public Map<Integer,Object> getPigInformationByCompany(int companyId) throws Exception {
 		
 		List<PigInfo> pigInfoList =  pigInfoDao.getPigInformationByCompanyId(companyId);
-		Map<Integer,String> pigInfoMap = new LinkedHashMap<Integer,String>();
+		Map<Integer,Object> pigInfoMap = new LinkedHashMap<Integer,Object>();
 					
 		if(null != pigInfoList && pigInfoList.size()>0)
 		{
 			for(PigInfo pigInfo : pigInfoList)
 			{
-				pigInfoMap.put(pigInfo.getId(),pigInfo.getPigId());
+				pigInfoMap.put(pigInfo.getId(),pigInfo);
 			}
 		}		
 		

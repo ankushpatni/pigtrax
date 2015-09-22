@@ -14,5 +14,5 @@ public interface PigInfoService {
     
     List<PigInfoDto> getAllFosterPigs(PigInfoDto pigInfo) throws Exception; 
     
-    Map<Integer,String> getPigInformationByCompany(int companyId) throws Exception;
+    Map<Integer,Object> getPigInformationByCompany(int companyId) throws Exception;
 }  
