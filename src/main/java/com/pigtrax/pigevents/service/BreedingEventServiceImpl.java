@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.EmployeeGroupDao;
+import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.MatingDetails;
 import com.pigtrax.pigevents.beans.PigInfo;
@@ -181,7 +182,19 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 				
 				List<MatingDetails> matingDetails = matingDetailsDao.getMatingDetails(breedingEvent_Dto.getId());
 				
-				breedingEvent_Dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetails));
+				List<MatingDetailsDto> matingDetailsDtoList = matingDetailsBuilder.convertToDtos(matingDetails);
+				
+				if(matingDetailsDtoList != null && matingDetailsDtoList.size() > 0)
+				{
+					for(MatingDetailsDto matingDetailsDto : matingDetailsDtoList)
+					{
+						EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(matingDetailsDto.getEmployeeGroupId());
+						matingDetailsDto.setEmployeeGroup(employeeGroup);
+					}
+					
+				}
+				
+				breedingEvent_Dto.setMatingDetailsList(matingDetailsDtoList);
 				
 			}
 		}catch(SQLException sqlEx)

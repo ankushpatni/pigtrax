@@ -79,7 +79,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				"companyId" : $scope.companyId,
 			};
 		
-			restServices.getGroupEventInformation(postParam, function(data){
+			restServices.getGroupEventInformation(searchGroupEvent, function(data){
 				if(data.error)
 				{	
 					$scope.invalidGroupEventId = true;	

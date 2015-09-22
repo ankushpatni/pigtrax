@@ -165,7 +165,7 @@
                     
                      <div class="form-group">                    
                     	<label><spring:message code='label.piginfo.breedingeventform.weightInKgs'  text='Weight(kgs)'/></label>
-                    	<input type="number" name="weightInKgs" ng-model="breedingEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
+                    	<input type="number" name="weightInKgs" min="0" step="0.01" ng-model="breedingEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
                     </div>
                     
                     <div class="form-group">                    
@@ -194,7 +194,7 @@
             <div class="col-sm-6 col-md-6">
               <div class="block-flat">
                 <div class="header">
-                  <h3><spring:message code='label.piginfo.matingdetailsform.breedingevent'  text='Mating Details'/></h3>
+                  <h3><spring:message code='label.piginfo.matingdetailsform.matingDetails.heading'  text='Mating Details'/></h3>
                   
                   <div class="alert alert-success alert-white rounded"  ng-show="entryEventSuccessMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
@@ -218,7 +218,7 @@
                   </div>
                    <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_EntryDate">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_EntryDate' text='Entry date of the pig can not be later than breeding date' />
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.breedingeventform.breedingEventValidation_ErrCode_EntryDate' text='Breeding date can not be earlier than entry date' />
                   </div>
                   <div class="alert alert-danger alert-white rounded" ng-show="breedingEventValidation_ErrCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
@@ -267,7 +267,7 @@
                       <input type="hidden" ng-model="matingDetails.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
 					  <div ng-show="matingDetails.employeeGroup != null && matingDetails.employeeGroup.id > 0">
 							<p>Group Id : <small>{{matingDetails.employeeGroup.groupId}}</small></p>
-							<p ng-repeat="employee in breedingEvent.employeeGroup.employeeList">{{employee.name}} ( Id : {{employee.id}})</p>
+							<p ng-repeat="employee in matingDetails.employeeGroup.employeeList">{{employee.name}} ( Id : {{employee.id}})</p>
 						</div>
                       </div>
                     </div>	 				
@@ -325,7 +325,7 @@
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:20%">{{row.matingDate}}</td>
-					<td style="width:20%">{{row.employeeGroupDto.groupId}}</td>					
+					<td style="width:20%">{{row.employeeGroup.groupId}}</td>					
 					<td style="width:20%">{{row.semenId}}</td>
 					<td style="width:20%">{{row.matingQuality}}</td>
 					<td style="width:20%">
@@ -451,7 +451,7 @@
 						<button type="button" class="btn btn-primary btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
 						</div>
                         <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
-                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(breedingEvent)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(matingDetails)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
                         <button type="button"  class="btn btn-primary btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
                       </div>
                     </div>
