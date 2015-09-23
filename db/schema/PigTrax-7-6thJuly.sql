@@ -2068,6 +2068,72 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 
+-- object: pigtrax."CompanyTarget" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."CompanyTarget" CASCADE;
+CREATE TABLE pigtrax."CompanyTarget"(
+	id serial NOT NULL,
+	"id_TargetType" int NOT NULL,
+	"targetValue" varchar(30) NOT NULL,
+	"completionDate" timestamp NOT NULL,
+	"remarks" varchar(255),
+	"id_Company" int not null,
+	"lastUpdated" timestamp not null,
+	"userUpdated" varchar(30) not null,
+	CONSTRAINT "COMPANY_TARGET_PK" PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE pigtrax."CompanyTarget" OWNER TO pitraxadmin;
+-- ddl-end --
+
+
+-- object: pigtraxrefdata."TargetType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."TargetType" CASCADE;
+CREATE TABLE pigtraxrefdata."TargetType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "TARGETTYPE_PK" PRIMARY KEY (id),
+	CONSTRAINT "TARGETTYPE_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."TargetType" OWNER TO pitraxadmin;
+
+
+-- object: "TargetType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."CompanyTarget" DROP CONSTRAINT IF EXISTS "TargetType_fk" CASCADE;
+ALTER TABLE pigtrax."CompanyTarget" ADD CONSTRAINT "TargetType_fk" FOREIGN KEY ("id_TargetType")
+REFERENCES pigtraxrefdata."TargetType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."TargetTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."TargetTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."TargetTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_TargetType" integer,
+	CONSTRAINT "TARGETTYPETRANLATION_PK" PRIMARY KEY (id),
+	CONSTRAINT "TARGETTYPETRANSLATION_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."TargetTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "TargetType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."TargetTypeTranslation" DROP CONSTRAINT IF EXISTS "TargetType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."TargetTypeTranslation" ADD CONSTRAINT "TargetType_fk" FOREIGN KEY ("id_TargetType")
+REFERENCES pigtraxrefdata."TargetType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"

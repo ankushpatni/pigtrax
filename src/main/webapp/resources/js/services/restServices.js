@@ -68,5 +68,9 @@ pigTrax.factory("restServices", function($resource) {
 		"saveMatingDetails" : {method:"POST",url:"rest/matingDetails/saveMatingDetails"},
 		"validateMatingDetails" : {method:"POST", url:"rest/breedingEvent/validateMatingDetails"},
 		"deleteMatingDetails" : {method:"POST", url:"rest/matingDetails/deleteMatingDetails"},
+		"getCompanyTargets" : {method:"POST", url:"rest/companyTarget/getCompanyTargets"},
+		"saveCompanyTarget" : {method:"POST", url:"rest/companyTarget/saveCompanyTarget"},
+		"getTargetTypes" : {method:"GET", url:"rest/util/getTargetTypes"},
+		"deleteTargetDetails" : {method:"POST", url:"rest/companyTarget/deleteTargetDetails"},
     });
 });

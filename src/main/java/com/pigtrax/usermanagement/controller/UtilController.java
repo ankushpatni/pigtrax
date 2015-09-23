@@ -239,4 +239,17 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	
+	@RequestMapping(value = "/getTargetTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getTargetTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getTargetTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		dto.setPayload(refDataCache.getTargetTypeMap(language)); 
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 }
