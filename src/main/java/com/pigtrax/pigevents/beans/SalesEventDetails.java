@@ -18,6 +18,9 @@ public class SalesEventDetails {
 	private Integer removalEventId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer transportJourneyId;
+	private TransportJourney transportJourney;
+	private Integer companyId;
 	
 	public Integer getId() {
 		return id;
@@ -97,5 +100,25 @@ public class SalesEventDetails {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	public Integer getTransportJourneyId() {
+		return transportJourneyId;
+	}
+	public void setTransportJourneyId(Integer transportJourneyId) {
+		this.transportJourneyId = transportJourneyId;
+	}
+	public TransportJourney getTransportJourney() {
+		return transportJourney;
+	}
+	public void setTransportJourney(TransportJourney transportJourney) {
+		this.transportJourney = transportJourney;
+	}
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+	
+	
 	
 }

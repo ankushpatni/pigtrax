@@ -16,5 +16,7 @@ public interface SalesEventDetailsDao {
 	int addSalesEventDetails(final SalesEventDetails salesEventDetails) throws SQLException;
 	
 	int updateSalesEventDetails(final SalesEventDetails salesEventDetails) throws SQLException;
+	
+	public void deleteSalesEventDetails(final Integer id) throws SQLException;
 
 }

@@ -89,5 +89,18 @@ public class RemovalEventController
 			model.addAttribute("contentUrl","openSelectBox.jsp"); 
 			return "openSelectBox";
 		}
+	 
+	 @RequestMapping(value = "/addSalesEventDetails", method=RequestMethod.POST)
+		public String addSalesEventDetails(HttpServletRequest request, Model model)
+		{
+			model.addAttribute("removalIdEntered",request.getParameter("removalIdEntered"));
+			model.addAttribute("removalGeneratedId",request.getParameter("removalGeneratedId"));
+			model.addAttribute("removalSalesEventId",request.getParameter("removalSalesEventId"));
+			model.addAttribute("companyId",request.getParameter("companyId"));
+			model.addAttribute("removalTypeId",request.getParameter("removalTypeId1"));
+			
+			model.addAttribute("contentUrl","addSalesEventDetails.jsp"); 
+			return "template";
+		}
 
 }
