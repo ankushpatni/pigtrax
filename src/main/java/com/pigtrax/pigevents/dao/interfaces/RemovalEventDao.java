@@ -24,4 +24,8 @@ public interface RemovalEventDao {
 	public List<RemovalEvent> getRemovalEventByGroupId(final int groupId)
 			throws SQLException;
 
+	public List<RemovalEvent> getRemovalEventByGroupIdForSale(Integer id);
+
+	public List<RemovalEvent> getRemovalEventByPigIdFoelsale(Integer id);
+
 }

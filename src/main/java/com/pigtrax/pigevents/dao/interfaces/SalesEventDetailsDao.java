@@ -10,8 +10,8 @@ public interface SalesEventDetailsDao {
 	public SalesEventDetails getSalesEventDetailsById(final int id)
 			throws SQLException ;
 	
-	public List<SalesEventDetails> getSalesEventDetailsListByRemovalId(final String removalId)
-			throws SQLException ;
+	public List<SalesEventDetails> getSalesEventDetailsListByRemovalId(
+			final int removalId) throws SQLException ;
 	
 	int addSalesEventDetails(final SalesEventDetails salesEventDetails) throws SQLException;
 	

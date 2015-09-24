@@ -72,5 +72,8 @@ pigTrax.factory("restServices", function($resource) {
 		"saveCompanyTarget" : {method:"POST", url:"rest/companyTarget/saveCompanyTarget"},
 		"getTargetTypes" : {method:"GET", url:"rest/util/getTargetTypes"},
 		"deleteTargetDetails" : {method:"POST", url:"rest/companyTarget/deleteTargetDetails"},
+		"addSalesEventDetails": {method:"POST",url:"rest/removalEvent/addSalesEventDetails"},
+		"getSalesEventDetails": {method:"POST",url:"rest/removalEvent/getSalesEventDetails"},
+		"deleteSalesEventDetails": {method:"POST",url:"rest/removalEvent/deleteSalesEventDetails"},
     });
 });

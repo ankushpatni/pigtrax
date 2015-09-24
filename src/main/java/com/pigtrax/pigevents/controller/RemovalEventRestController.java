@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -225,7 +226,7 @@ public class RemovalEventRestController
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			
-			List removalEventList = removalEventService.getRemovalEventListGroupOrPigInfo(removalEvent);
+			Set removalEventList = removalEventService.getRemovalEventListGroupOrPigInfo(removalEvent);
 			if(removalEventList != null && removalEventList.size()>0 )
 			{
 				dto.setPayload(removalEventList);

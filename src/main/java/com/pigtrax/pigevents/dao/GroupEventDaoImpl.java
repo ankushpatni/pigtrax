@@ -235,6 +235,23 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 		
 	}
 	
+public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEvent) throws SQLException{
+		
+		String query = "update pigtrax.\"GroupEvent\" SET \"currentInventory\"=?,\"isActive\"=?  where \"id\" = ? and \"id_Company\" = ?";
+
+		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, groupEvent.getCurrentInventory());	
+				ps.setBoolean(2, groupEvent.isActive());	
+				ps.setInt(3,groupEvent.getId());
+				ps.setInt(4, groupEvent.getCompanyId());
+			}
+		});
+		
+	}
+	
+	
 	@Override
 	public String getListoFFollowerId(final String groupId)
 			throws SQLException {

@@ -25,5 +25,7 @@ public interface GroupEventDao {
 	
 	public int updateGroupEventStatusWithCloseDate(final GroupEvent groupEvent)
 			throws SQLException;
+	
+	public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEvent) throws SQLException;
 
 }

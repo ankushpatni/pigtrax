@@ -184,4 +184,39 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 		}		
 	}
 
+	@Override
+	public List<RemovalEvent> getRemovalEventByGroupIdForSale(final Integer id) {
+		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
+		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?)";
+				
+			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {					
+					ps.setInt(1, id);
+				}}, new RemovalEventMapper());
+
+			if(removalEventList != null && removalEventList.size() > 0){
+				return removalEventList;
+			}
+			return null;
+	}
+
+	@Override
+	public List<RemovalEvent> getRemovalEventByPigIdFoelsale(final Integer id) {
+
+		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
+		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"SalesEventDetails\" where \"id_PigInfo\" = ?)";
+				
+			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {					
+					ps.setInt(1, id);
+				}}, new RemovalEventMapper());
+
+			if(removalEventList != null && removalEventList.size() > 0){
+				return removalEventList;
+			}
+			return null;
+	}	
+
 }

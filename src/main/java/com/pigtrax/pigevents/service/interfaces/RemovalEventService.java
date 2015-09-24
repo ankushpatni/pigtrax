@@ -2,6 +2,7 @@ package com.pigtrax.pigevents.service.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.RemovalEvent;
@@ -22,7 +23,7 @@ public interface RemovalEventService {
 	
 	public List getRemovalEventAndDetailByRemovalId( final String ticketNumber) throws PigTraxException;
 	
-	public List getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
+	public Set getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
 			throws PigTraxException;
 
 }

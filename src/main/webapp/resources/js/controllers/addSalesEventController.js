@@ -15,13 +15,12 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	$scope.sourceAndDestinationPremisesSameError = false;
 	
 	
-	$scope.setCompanyId = function(companyId,removalIdEntered,removalGeneratedId,removalSalesEventId,removalTypeId)
+	$scope.setCompanyId = function(companyId,removalIdEntered,removalGeneratedId,removalTypeId)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
 		$scope.removalId = removalIdEntered;
 		$scope.removalGeneratedId = removalGeneratedId;
-		$scope.removalExceptSalesId = removalExceptSalesId;
 		$scope.removalExceptSales.removalEventId = removalGeneratedId;
 		$scope.removalTypeId = removalTypeId;
 		console.log($scope.removalTypeId);
@@ -150,10 +149,10 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		});
 	}
 	
-	$scope.addRemovalExceptSales = function() 
+	$scope.addSalesEventDetails = function() 
 	{
 		$scope.clearAllMessages();
-		if(document.getElementById("removalDateTime").value === "")
+		if(document.getElementById("salesDateTime").value === "")
 		{
 			$scope.removalDateTimerequired = true;
 			return;
@@ -162,7 +161,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		{
 			return false;
 		}
-		$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
+		$scope.removalExceptSales.salesDateTime = document.getElementById("salesDateTime").value;
 		if($scope.removalExceptSales.id === 'undefined' )
 		{
 			$scope.removalExceptSales.id = 0;
@@ -182,8 +181,8 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 				$scope.noOfPigWrongCount  = true;
 				return false;
 			}			
-			
-			if($scope.removalExceptSales.removalDateTime < groupevent.groupStartDateTime)
+			console.log(groupevent.groupStartDateTime);
+			if($scope.removalExceptSales.salesDateTime < groupevent.groupStartDateTime)
 			{
 				$scope.errorRemovalDateTime = true;
 				return false;
@@ -196,19 +195,16 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		}
 		
 		
-		if($scope.removalExceptFormSales.$valid)
+		if($scope.salesEventForm.$valid)
 			{
 				$scope.clearAllMessages();
 				$scope.removalExceptSales.companyId = $scope.companyId;
 				console.log($scope.removalExceptSales);
-				restServices.addRemovalExceptSales($scope.removalExceptSales, function(data){
+				restServices.addSalesEventDetails($scope.removalExceptSales, function(data){
 				console.log(data);
 					if(!data.error)
 						{
-							
-							/*$scope.entryEventSuccessMessage = true;
-							$scope.getRemovalEvent($scope.removalEventForm.ticketNumber,true);*/
-						$scope.gotoRemovalEvent();
+							$scope.gotoRemovalEvent();
 						}
 					else
 						{
@@ -233,8 +229,8 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	    	document.getElementById("removalEventTicketNumber").value = $scope.removalId;	
 			document.getElementById("selectedCompany").value = $scope.companyId;		
 			document.getElementById("fromExcept").value = true;
-			document.forms['removalExceptFormSales'].action = 'removalEvent';
-			document.forms['removalExceptFormSales'].submit();
+			document.forms['salesEventForm'].action = 'removalEvent';
+			document.forms['salesEventForm'].submit();
 	    }	
 	
-});
+});	

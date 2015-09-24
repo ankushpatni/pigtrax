@@ -184,7 +184,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 						groupEventUpdate.setActive(true);
 					}
 					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() + removalEventExceptSalesDetails.getNumberOfPigs());
-					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+					groupEventDao.updateGroupEventCurrentInventorywithStatus(groupEventUpdate);
 				}
 			}
 			

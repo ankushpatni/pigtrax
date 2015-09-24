@@ -5,7 +5,7 @@
           <h3 ng-hide="edit"><spring:message code="label.removalExceptSales.add.detail" text="Add Removal Except Sales" /></h3>
      		<h3 ng-show="edit"><spring:message code="label.removalExceptSales.edit.detail" text="Edit Removal Except Sales" /></h3>
 </div>		 
- <div class="cl-mcont" ng-controller="SalesEventController" ng-init="setCompanyId('${companyId}','${removalIdEntered}','${removalGeneratedId}','${removalSalesEventId}','${removalTypeId}')">
+ <div class="cl-mcont" ng-controller="SalesEventController" ng-init="setCompanyId('${companyId}','${removalIdEntered}','${removalGeneratedId}','${removalTypeId}')">
         <div class="row" >
 		  <div class="col-sm-3 col-md-3"></div>
             <div class="col-sm-6 col-md-6">
@@ -141,8 +141,7 @@
                       </div>
                     </div>
                     					
-                  	<button class="btn btn-primary" ng-click="addRemovalExceptSales()" type="submit" ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addRemovalExceptSales()" type="submit" ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+                  	<button class="btn btn-primary" ng-click="addSalesEventDetails()" type="submit"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
 					
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>

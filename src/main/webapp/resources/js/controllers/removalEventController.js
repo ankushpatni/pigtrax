@@ -264,7 +264,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 				$scope.deleteRemovalExceptSales(removalRow);
 			}
 		}
-	}
+	}deleteSalesEventDetails
 	
 	$scope.deleteRemovalExceptSales = function(removalRow)
 	{
@@ -381,6 +381,57 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					}*/
 				}
 		});
+	}
+	
+	$scope.deleteSalesEventDetailsData = function(removalRow,message)
+	{
+		if(removalRow.groupEventId==0)
+		{
+			 $confirm({text: message}).then(function() {
+				 $scope.deleteSalesEventDetails(removalRow);
+	        });
+		}
+		if(removalRow.pigInfoId==0)
+		{
+			var groupevent = $scope.groupEventList[removalRow.groupEventId];
+			if(!groupevent.active)
+			{
+				 $confirm({text: message}).then(function() {
+					 $scope.deleteSalesEventDetails(removalRow);
+		        });
+			}
+			else
+			{
+				$scope.deleteSalesEventDetails(removalRow);
+			}
+		}
+	}
+	
+	$scope.deleteSalesEventDetails = function(removalRow)
+	{
+	console.log(removalRow);
+	removalRow.companyId = $scope.companyId;
+		restServices.deleteSalesEventDetails(removalRow, function(data){
+			console.log(data);
+				if(!data.error)
+					{
+						
+						$scope.entryEventSuccessMessage = true;
+						$scope.getRemovalEvent($scope.removalEvent.removalId,false,true);
+					}
+				else
+					{
+						$scope.clearAllMessages();
+						if(data.duplicateRecord)
+						{
+							$scope.removalEventDuplicateErrorMessage = true;
+						}
+						else
+						{
+							$scope.entryEventErrorMessage = true;
+						}
+					} 
+			});
 	}
 	
 });

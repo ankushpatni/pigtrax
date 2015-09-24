@@ -2,8 +2,9 @@ package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.RemovalEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
+import com.pigtrax.pigevents.beans.SalesEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventDao;
@@ -161,10 +163,19 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 						eventAndDetailList.add(null);
 					}
 				}
-				/*if(null != removalEvent)
+				else if(removalEvent.getRemovalTypeId() == 4)
 				{
-					eventAndDetailList.add(transportJourneyDao.getTransportJourneyById(removalEvent.getTransportJourneyId()));
-				}*/
+					List<SalesEventDetails> salesEventDetailsList = salesEventDetailsDao.getSalesEventDetailsListByRemovalId(removalEvent.getId());
+					
+					if(null != salesEventDetailsList && salesEventDetailsList.size()>0)
+					{
+						eventAndDetailList.add(salesEventDetailsList);
+					}
+					else
+					{
+						eventAndDetailList.add(null);
+					}
+				}
 			}
 			return eventAndDetailList;
 		}
@@ -174,29 +185,53 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 		}
 	}
 	@Override
-	public List getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
+	public Set getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
 			throws PigTraxException {
 		try 
 		{
-			List<RemovalEvent> removalEventList =  new ArrayList<RemovalEvent>();
-			if(null != removalEvent && removalEvent.getGroupId()!=null)
+			Set<RemovalEvent> removalEventSet =  new HashSet<RemovalEvent>();
+			List<RemovalEvent> removalEventList = new ArrayList<RemovalEvent>();
+			if(null != removalEvent && (removalEvent.getRemovalTypeId() ==1 || removalEvent.getRemovalTypeId() ==2 || removalEvent.getRemovalTypeId() ==3) )
 			{
-				GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId());
-				if(null != groupEvent)
+				if(null != removalEvent && removalEvent.getGroupId()!=null)
 				{
-					removalEventList =  removalEventDao.getRemovalEventByGroupId(groupEvent.getId());
+					GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId());
+					if(null != groupEvent)
+					{
+						removalEventList =  removalEventDao.getRemovalEventByGroupId(groupEvent.getId());
+					}
+				}
+				else if(null != removalEvent )
+				{
+					PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(removalEvent.getPigId(), removalEvent.getCompanyId());
+					if(null != pigInfo)
+					{
+						removalEventList =  removalEventDao.getRemovalEventByPigId(pigInfo.getId());
+					}
 				}
 			}
-			else if(null != removalEvent )
+			else
 			{
-				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(removalEvent.getPigId(), removalEvent.getCompanyId());
-				if(null != pigInfo)
+				if(null != removalEvent && removalEvent.getGroupId()!=null)
 				{
-					removalEventList =  removalEventDao.getRemovalEventByPigId(pigInfo.getId());
+					GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId());
+					if(null != groupEvent)
+					{
+						removalEventList =  removalEventDao.getRemovalEventByGroupIdForSale(groupEvent.getId());
+					}
+				}
+				else if(null != removalEvent )
+				{
+					PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(removalEvent.getPigId(), removalEvent.getCompanyId());
+					if(null != pigInfo)
+					{
+						removalEventList =  removalEventDao.getRemovalEventByPigIdFoelsale(pigInfo.getId());
+					}
 				}
 			}
 			
-			return removalEventList;
+			removalEventSet.addAll(removalEventList);
+			return removalEventSet;
 		}
 		catch (SQLException e)
 		{

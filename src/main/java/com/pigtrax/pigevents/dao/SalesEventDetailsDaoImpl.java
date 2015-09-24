@@ -59,7 +59,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 
 	@Override
 	public List<SalesEventDetails> getSalesEventDetailsListByRemovalId(
-			final String removalId) throws SQLException
+			final int removalId) throws SQLException
 	{
 		String qry = "SELECT \"id\", \"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
 			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
@@ -68,7 +68,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 		List<SalesEventDetails> salesEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {					
-				ps.setString(1, removalId.toUpperCase());
+				ps.setInt(1, removalId);
 			}}, new SalesEventDetailsMapper());
 
 		if(salesEventDetailsList != null && salesEventDetailsList.size() > 0)
@@ -84,7 +84,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 		final String Qry = "insert into pigtrax.\"SalesEventDetails\"(\"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
 			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
 			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\") " + 
-			       "values(?,?,?,?,?,?,?,?,?,?,current_timestamp,?)";		
+			       "values(?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?)";		
 
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -133,7 +133,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 					ps.setNull(6, java.sql.Types.DATE);
 				}
 				
-				if(salesEventDetails.getPigInfoId() != null )
+				if(salesEventDetails.getPigInfoId() != null && salesEventDetails.getPigInfoId() !=0)
 				{
 					ps.setInt(7, salesEventDetails.getPigInfoId());
 				}
@@ -142,7 +142,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 					ps.setNull(7, java.sql.Types.INTEGER);
 				}
 				
-				if(salesEventDetails.getGroupEventId() != null )
+				if(salesEventDetails.getGroupEventId() != null && salesEventDetails.getGroupEventId() !=0 )
 				{
 					ps.setInt(8, salesEventDetails.getGroupEventId());
 				}
@@ -153,7 +153,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 				
 				ps.setString(9, salesEventDetails.getSoldTo());
 				
-				if(salesEventDetails.getRemovalEventId() != null )
+				if(salesEventDetails.getRemovalEventId() != null && salesEventDetails.getRemovalEventId()!=0)
 				{
 					ps.setInt(10, salesEventDetails.getRemovalEventId());
 				}

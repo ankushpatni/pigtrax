@@ -181,7 +181,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 						groupEventUpdate.setActive(true);
 					}
 					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() + salesEventDetails.getNumberOfPigs());
-					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+					groupEventDao.updateGroupEventCurrentInventorywithStatus(groupEventUpdate);
 				}
 			}
 			
