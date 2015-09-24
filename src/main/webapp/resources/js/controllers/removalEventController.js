@@ -11,6 +11,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.groupEvent={};
 	$scope.removalExceptSalesList={};
 	$scope.exceptSalesFlag= false;
+	$scope.salesEventFlag = false;
 	
 	
 	$scope.setCompanyId = function(companyId,removalId,fromExcept)
@@ -141,10 +142,12 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2 || $scope.removalEvent.removalTypeId ==3)
 					{
 						$scope.exceptSalesFlag = true;
+						$scope.salesEventFlag = false;
 					}
 					else
 					{
 						$scope.exceptSalesFlag = false;
+						$scope.salesEventFlag = true;
 					}
 				}
 			else
@@ -225,9 +228,17 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		document.getElementById("removalExceptSalesId").value = removalExceptId;
 		document.getElementById("companyId").value = $scope.companyId;
 		document.getElementById("removalTypeId1").value = $scope.removalEvent.removalTypeId;
-		console.log(document.getElementById("removalTypeId1").value);
+		document.getElementById("removalSalesEventId").value = removalExceptId;
 		
-		document.forms['removalExceptSalesDisplayForm'].action = 'addRemovalEventExceptSalesDetails';
+		if($scope.salesEventFlag)
+		{
+			document.forms['removalExceptSalesDisplayForm'].action = 'addSalesEventDetails';
+		}
+		else
+		{
+			document.forms['removalExceptSalesDisplayForm'].action = 'addRemovalEventExceptSalesDetails';
+		}
+		
 		document.forms['removalExceptSalesDisplayForm'].submit();
 	}
 	

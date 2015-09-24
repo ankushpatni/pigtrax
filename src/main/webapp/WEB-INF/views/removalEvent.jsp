@@ -175,9 +175,17 @@
 		<input type="hidden" name="removalGeneratedId" id="removalGeneratedId"/>
 		<input type="hidden" name="removalExceptSalesId" id="removalExceptSalesId"/>			
 		<input type="hidden" name="companyId" id="companyId"/>
-		<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>		
+		<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>
+		<input type="hidden" name="removalSalesEventId" id="removalSalesEventId"/>
 		
+		<div ng-show="((removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage) && salesEventFlag">
+		 <button type="button" ng-click="addRemovalExceptSalesData()" class="btn btn-sm btn btn-primary" >
+			<i class="glyphicon glyphicon-plus"></i> 
+			<spring:message code="label.removalEvent.addSalesData" text="Add Sales Data" />
+		</button>
+	</div>
 	</form>
+	
 		<div class="md-overlay"></div>
 	</div>	
 	 
