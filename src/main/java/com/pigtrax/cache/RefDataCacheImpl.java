@@ -54,6 +54,8 @@ public class RefDataCacheImpl implements RefDataCache {
 	private Map<String, Map<Integer, String>> gfunctionTypeMap;
 	
 	private Map<String, Map<Integer, String>> mortalityReasonTypeMap;
+	
+	private Map<String, Map<Integer, String>> targetTypeMap;
 		
 
 	/*
@@ -83,6 +85,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		removalEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.removalEventType()));
 		gfunctionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getGfunctionType())); 
 		mortalityReasonTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getMortalityReasonTypes()));
+		targetTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getTargetTypes()));
 	}
 
 	@Override
@@ -150,8 +153,6 @@ public class RefDataCacheImpl implements RefDataCache {
 		return removalEventTypeMap.get(language);
 	}
 	
-	
-
 	private Map<String, Map<Integer, String>> convertToMap(List<RefDataTranslationDto> rolesList) {
 		Map<String, Map<Integer, String>> tmpMap = new HashMap<String, Map<Integer, String>>();
 		for (RefDataTranslationDto refDto : rolesList) {
@@ -191,4 +192,8 @@ public class RefDataCacheImpl implements RefDataCache {
 		return mortalityReasonTypeMap.get(language);
 	}
 
+	@Override
+	public Map<Integer, String> getTargetTypeMap(String language) {
+		return targetTypeMap.get(language);
+	}
 }

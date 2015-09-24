@@ -124,6 +124,13 @@
 												  </ul>
 												</div>
 												<% }  %>
+												 <br> <br>
+												<div class="btn-group">	
+												<button type="button" class="btn btn btn-info btn-sm"
+												style="margin-bottom: 5px" 	
+												ng-click="goToPigEvent('Target',row.id)"><spring:message code="label.company.targets" text="Targets" />
+											</button>
+											</div>
 										</td>
 										<td style="width:20px">
 											<button ng-hide="row.active" type="button"

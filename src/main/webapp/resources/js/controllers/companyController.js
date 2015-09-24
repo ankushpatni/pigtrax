@@ -196,6 +196,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		{
 			document.getElementById("companyForm").action="removalEvent";		 
 		}
+		else if(eventName == "Target")
+		{
+			document.getElementById("companyForm").action="companyTarget";		 
+		}
 		
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();

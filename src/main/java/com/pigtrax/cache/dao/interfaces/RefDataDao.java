@@ -43,5 +43,7 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getGfunctionType();
 	
 	List<RefDataTranslationDto> getMortalityReasonTypes();
+	
+	List<RefDataTranslationDto> getTargetTypes();
 
 }

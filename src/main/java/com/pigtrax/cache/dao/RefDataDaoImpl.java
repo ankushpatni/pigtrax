@@ -117,6 +117,12 @@ public class RefDataDaoImpl implements RefDataDao {
 	
 	
 	@Override
+	public List<RefDataTranslationDto> getTargetTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TargetType\" FROM pigtraxrefdata.\"TargetTypeTranslation\" order by \"fieldLanguage\", \"id_TargetType\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
 	public List<Map<String, String>> getCountryData() {
 		String query = "select distinct country.name from pigtraxrefdata.\"Country\" country;";
 		return jdbcTemplate.query(query, new ResultSetExtractor<List<Map<String, String>>>() {
