@@ -101,9 +101,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.farrowEvent["inducedBirth"] = false;
 		$scope.farrowEvent["assistedBirth"] = false;
 		var farrowDate = document.getElementById("farrowDate").value;
-		farrowDate = DateUtils.convertLocaleDateToServer(farrowDate);		
 		$scope.farrowEvent["farrowDateTime"] = farrowDate;
-		
 		var pattern = /^[a-z0-9]+$/i;
 		var birthType = "";
 		if(document.getElementById("birthType1").checked)
@@ -248,6 +246,12 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			{
 						
 				$scope.farrowEvent["companyId"] = $rootScope.companyId;
+				
+				var farrowDateVal = new Date(farrowDate);
+				farrowDate = DateUtils.convertLocaleDateToServer(farrowDateVal);
+				
+				$scope.farrowEvent["farrowDateTime"] = farrowDate;
+				
 				
 				restServices.validateFarrowEvent($scope.farrowEvent, function(data){
 					if(!data.error)

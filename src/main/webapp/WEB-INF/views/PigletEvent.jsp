@@ -23,7 +23,7 @@
               </div>
               <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="rad1" id="farrowId" class="icheck pigletevent" value="farrowId" > <spring:message code='label.piginfo.pigleteventform.farrowId'  text='Farrow Id'/>
+                  <input type="radio" name="rad1" id="pigId" class="icheck pigletevent" value="pigId" > <spring:message code='label.piginfo.pigleteventform.pigId'  text='Pig Id'/>
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="rad1"  id="pigletTattooId" class="icheck pigletevent" value="pigletTattooId"> <spring:message code='label.piginfo.pigleteventform.tattooId'  text='Tattoo'/> 
@@ -89,11 +89,15 @@
                   <input type=hidden name="id" ng-model="pigletEvent.pigletId"/>  
 				  <input type=hidden name="farrowEventId" ng-model="pigletEvent.farrowEventId"/>
 					 <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.farrowId'  text='Farrow Id'/><span style='color: red'>*</span></label>
-                     <input type="text" ng-model="pigletEvent.farrowId" id="farrowId" name="farrowId" required  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.farrowId.placeholder'  text='Enter Farrow Id'/>" 
-                      required-message="'<spring:message code='label.piginfo.pigleteventform.farrowId.requiredmessage' text='Farrow Id is required' />'"
+                      <label><spring:message code='label.piginfo.pigleteventform.pigId'  text='Pig Id'/><span style='color: red'>*</span></label>
+                      <label ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0">{{pigletEvent.pigId}}</label>
+                      <div data-min-view="2" class="input-group col-md-7 col-xs-9"   ng-show="pigletEvent.pigletId == null">
+                     <input type="text" ng-model="pigletEvent.pigId" id="pigId" name="pigId" required  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.pigId.placeholder'  text='Enter Pig Id'/>" 
+                      required-message="'<spring:message code='label.piginfo.pigleteventform.pigId.requiredmessage' text='Pig Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.pigleteventform.farrowId.invalidmessage' text='Only Alpha numeric values are allowed' />'" ng-blur="checkForFarrowId()" ng-focus="clearMessages()"/>
+						invalid-message="'<spring:message code='label.piginfo.pigleteventform.pigId.invalidmessage' text='Only Alpha numeric values are allowed' />'" ng-focus="clearMessages()"/>
+						<span class="input-group-addon btn btn-primary" ng-click="searchFarrowEvent(pigletEvent.pigId.pigId, pigletEvent.companyId)"  data-target="#searchFarrowEvents" ><a class="btn-primary">Farrow Event</a></span>
+					</div>
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.server.invalidmessage' text='Invalid Farrow Id for the company' /></label>
 					<label ng-show="pigletsAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.server.pigletsaddedmessage' text='All piglets information added for the selected farrow event.' /></label>
@@ -131,6 +135,47 @@
             </div>
           </div>
 		<div class="md-overlay"></div>
+		
+		
+		<!-- - Breeding Service Id search Modal -->
+		  <div id="searchFarrowEvents" class="modal colored-header custom-width">
+                    <div class="md-content">
+                      <div class="modal-header">
+                        <h3><spring:message code='label.piginfo.pigletstatuseventform.farrowsearchresults.heading'  text='Farrow Events'/> </h3>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
+                      </div>
+                      <div class="modal-body form" >
+                      <table>
+                       <thead>
+                           <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
+                           <th><spring:message code='label.piginfo.pigletstatuseventform.farrowDate'  text='Farrow Date'/> </th>                           
+	                        <th><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </th>
+                       		
+                       </thead>
+                       <tbody>
+	                   <tr ng-repeat="farrowEventObj in farrowEventList" ng-if="farrowEventList != null && farrowEventList.length > 0">
+	                    <td><input type="radio" name="farrowEventDtoId" id="farrowEventDtoId" ng-model="pigletEvent.farrowEventDto" ng-value="farrowEventObj"></td>	                   
+	                    <td>{{farrowEventObj.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
+	                     <td>{{farrowEventObj.liveBorns}}</td>
+	                   </tr>
+	                   <tr ng-if="farrowEventList == null || farrowEventList.length == 0">
+	                     <td colspan="3">
+	                       <spring:message code='label.piginfo.pigletstatuseventform.list.farrowevents.noresults'  text='No Farrow events found'/>
+	                     </td>
+	                   </tr>
+	                   
+	                 </tbody>
+                      </table>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="farrowEventList == null || farrowEventList.length == 0" ng-click="selectFarrowEvent()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      </div>
+                      
+                     </div>
+            </div>
+            
+		
 </div>
 
   

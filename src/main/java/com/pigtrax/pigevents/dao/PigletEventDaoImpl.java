@@ -72,8 +72,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
   public List<PigletEvent> getPigletEvents(String searchText, String option, final Integer companyId) throws SQLException{	     
 	   List<PigletEvent> pigletEventList = null;	   
 	   if(option ==null) option = "pigId";
-	   else if("FARROWID".equalsIgnoreCase(option))
-		   pigletEventList = getPigletEventsByFarrowId(searchText, companyId);
+	   else if("PIGID".equalsIgnoreCase(option))
+		   pigletEventList = getPigletEventsByPigId(searchText, companyId);
 	   else if("PIGLETTATTOOID".equalsIgnoreCase(option))
 		   pigletEventList = getPigletEventsByPigletTattooId(searchText, companyId);
 		return pigletEventList;
@@ -84,18 +84,18 @@ public class PigletEventDaoImpl implements PigletEventDao {
    /**
 	 * Retrieves the Piglet Event information for a given Pig Id
 	 */
-  private List<PigletEvent> getPigletEventsByFarrowId(final String farrowId, final Integer companyId) throws SQLException{
+  private List<PigletEvent> getPigletEventsByPigId(final String pigId, final Integer companyId) throws SQLException{
 	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
 	   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\" from pigtrax.\"IndividualPigletStatus\" IPS "
 	   		+ "JOIN pigtrax.\"FarrowEvent\" FE ON IPS.\"id_FarrowEvent\" = FE.\"id\" "
 	   		+ "JOIN pigtrax.\"PregnancyEvent\" PE on FE.\"id_PregnancyEvent\" = PE.\"id\" "
 	   		+ "JOIN pigtrax.\"PigInfo\" PI on PE.\"id_PigInfo\" = PI.\"id\" "
-	   		+ " WHERE FE.\"farrowId\" = ? and PI.\"id_Company\" = ? ";
+	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
 		
 		List<PigletEvent> pigletEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1, farrowId);
+				ps.setString(1, pigId);
 				ps.setInt(2, companyId);
 			}}, new PigletEventMapper());
 

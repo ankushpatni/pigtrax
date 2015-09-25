@@ -179,7 +179,8 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	$scope.confirmAddMatingDetails = function()
 	{
 		var matingDate = document.getElementById("matingDate").value;
-		matingDate = DateUtils.convertLocaleDateToServer(matingDate);
+		var matingDateVal = new Date(matingDate);
+		matingDate = DateUtils.convertLocaleDateToServer(matingDateVal);
 		
 		$scope.matingDetails["breedingEventId"] = $scope.breedingEvent["id"];
 		$scope.matingDetails["matingDate"] =matingDate;
@@ -230,7 +231,8 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			else
 			{	
 				var matingDate = document.getElementById("matingDate").value;
-				matingDate = DateUtils.convertLocaleDateToServer(matingDate);
+				var matingDateVal = new Date(matingDate);
+				matingDate = DateUtils.convertLocaleDateToServer(matingDateVal);
 				
 				$scope.matingDetails["breedingEventId"] = $scope.breedingEvent["id"];
 				$scope.matingDetails["matingDate"] = matingDate;

@@ -13,15 +13,17 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.service.interfaces.EmployeeGroupService;
 import com.pigtrax.pigevents.beans.FarrowEvent;
+import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigletEvent;
 import com.pigtrax.pigevents.dao.interfaces.FarrowEventDao;
+import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PigletEventDao;
+import com.pigtrax.pigevents.dto.FarrowEventDto;
 import com.pigtrax.pigevents.dto.PigletEventBuilder;
 import com.pigtrax.pigevents.dto.PigletEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletEventService;
-import com.pigtrax.pigevents.validation.PregnancyEventValidation;
 
 @Service
 public class PigletEventServiceImpl implements PigletEventService {
@@ -47,6 +49,9 @@ public class PigletEventServiceImpl implements PigletEventService {
 	 
 	@Autowired
 	FarrowEventService farrowEventService;
+	
+	@Autowired
+	PigInfoDao pigInfoDao;
 	
 	
 	@Override
@@ -95,7 +100,13 @@ public class PigletEventServiceImpl implements PigletEventService {
 			
 			for(PigletEventDto dto : pigletEventDtoList)
 			{	
-				dto.setFarrowEventDto(farrowEventService.getFarrowEventDetails(dto.getFarrowEventId()));
+				FarrowEventDto farrowEventDto = farrowEventService.getFarrowEventDetails(dto.getFarrowEventId());
+				
+				dto.setFarrowEventDto(farrowEventDto);
+				
+				PigInfo pigInfo = pigInfoDao.getPigInformationById(farrowEventDto.getPigInfoId());
+				
+				dto.setPigId(pigInfo.getPigId());
 				
 			}
 			return pigletEventDtoList;
