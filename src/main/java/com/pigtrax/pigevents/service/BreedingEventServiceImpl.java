@@ -246,6 +246,10 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			
 			dto = builder.convertToDto(breedingEvent);
 			
+			PigInfo pigInfo = pigInfoDao.getPigInformationById(dto.getPigInfoKey());
+			
+			dto.setPigInfoId(pigInfo.getPigId());
+			
 			List<MatingDetails> matingDetails = matingDetailsDao.getMatingDetails(breedingEventId);
 			
 			List<MatingDetailsDto> matingDetailsDtoList = matingDetailsBuilder.convertToDtos(matingDetails);

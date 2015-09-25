@@ -264,7 +264,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 				$scope.deleteRemovalExceptSales(removalRow);
 			}
 		}
-	}deleteSalesEventDetails
+	}
 	
 	$scope.deleteRemovalExceptSales = function(removalRow)
 	{
