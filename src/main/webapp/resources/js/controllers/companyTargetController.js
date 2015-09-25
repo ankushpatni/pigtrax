@@ -1,16 +1,23 @@
 pigTrax.service("CompanyTargetsService", function() {
     this.checkIfExists = function(companyTargets, newCompanyTarget) {
        var len = 0;
+       var newTargetYear = 0;
+       var newTargetDate = new Date(newCompanyTarget["completionDate"]);
+       	newTargetYear = newTargetDate.getFullYear();
+       var targetYear = 0;
        if(companyTargets != null)
     	    len = companyTargets.length;
        if(len > 0)
     	   {
     	     for(i = 0; i<len; i++)
     	    	 {
+    	    	   
     	    	   item = companyTargets[i];
-    	    	   if(newCompanyTarget["id"] == null && item["targetId"] == newCompanyTarget["targetId"])
+    	    	   var targetDate = new Date(item["completionDate"]);
+    	    	   targetYear = targetDate.getFullYear();
+    	    	   if(newCompanyTarget["id"] == null && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
     	    	   		return true;
-    	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"])
+    	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
     	    		   return true;
     	    	 }
     	   }
@@ -174,7 +181,13 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	
 	$scope.editCompanyTarget = function(selectedObject)
 	{
-		$scope.companyTarget = selectedObject;
+		$scope.companyTarget["id"] = selectedObject["id"];
+		$scope.companyTarget["targetId"] = selectedObject["targetId"];
+		$scope.companyTarget["targetName"] = selectedObject["targetName"];
+		$scope.companyTarget["targetValue"] = selectedObject["targetValue"];
+		$scope.companyTarget["completionDate"] = selectedObject["completionDate"];
+		$scope.companyTarget["remarks"] = selectedObject["remarks"];
+		
 	}
 	
 	
