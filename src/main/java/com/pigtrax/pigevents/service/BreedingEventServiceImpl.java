@@ -185,7 +185,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 				List<MatingDetailsDto> matingDetailsDtoList = matingDetailsBuilder.convertToDtos(matingDetails);
 				
 				if(matingDetailsDtoList != null && matingDetailsDtoList.size() > 0)
-				{
+				{ 
 					for(MatingDetailsDto matingDetailsDto : matingDetailsDtoList)
 					{
 						EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(matingDetailsDto.getEmployeeGroupId());
@@ -240,16 +240,33 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 	@Override
 	public BreedingEventDto getBreedingEventInformation(Integer breedingEventId) throws PigTraxException {
 		BreedingEvent breedingEvent;
+		BreedingEventDto dto  = null;
 		try {
 			breedingEvent = breedingEventDao.getBreedingEventInformation(breedingEventId);
+			
+			dto = builder.convertToDto(breedingEvent);
+			
+			List<MatingDetails> matingDetails = matingDetailsDao.getMatingDetails(breedingEventId);
+			
+			List<MatingDetailsDto> matingDetailsDtoList = matingDetailsBuilder.convertToDtos(matingDetails);
+			
+			if(matingDetailsDtoList != null && matingDetailsDtoList.size() > 0)
+			{
+				for(MatingDetailsDto matingDetailsDto : matingDetailsDtoList)
+				{
+					EmployeeGroupDto employeeGroup = employeeGroupDao.getEmployeeGroup(matingDetailsDto.getEmployeeGroupId());
+					matingDetailsDto.setEmployeeGroup(employeeGroup);
+				}
+				
+			}
+			
+			dto.setMatingDetailsList(matingDetailsDtoList);
+			
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		} 
 		
-		BreedingEventDto dto = builder.convertToDto(breedingEvent);
-		List<MatingDetails> matingDetails = matingDetailsDao.getMatingDetails(breedingEventId);
 		
-		dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetails));
 		return dto;
 	}
 	

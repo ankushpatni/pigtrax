@@ -1,4 +1,4 @@
-var breedingEventController = pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,$window,restServices) {
+var breedingEventController = pigTrax.controller('BreedingEventController', function($scope,$rootScope, $http,$window,restServices, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -32,6 +32,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.breedingEventValidation_ErrCode_NextEvent = false;
 		$scope.breedingEventIncompleteCycle = false;
 		$scope.matingDetailsSuccessMessage = false;
+		$scope.breedingEventValidation_ErrCode_PregCheckAdded = false;
 	};
 	
 	
@@ -95,8 +96,6 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			 option = document.getElementById("rad1").value;
 		 else if(document.getElementById("rad2").checked)
 			 option = document.getElementById("rad2").value;
-		 else if(document.getElementById("rad3").checked)
-			 option = document.getElementById("rad3").value;
 		
 		if($scope.searchText == undefined || $scope.searchText == ""|| option == "")
 		{
@@ -159,7 +158,6 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 						else
 						{
 							var statusMessage = data.statusMessage;
-							alert("Status : "+statusMessage.indexOf("INCOMPLETE_SERVICE_CYCLE"));
 							if(statusMessage.indexOf("INCOMPLETE_SERVICE_CYCLE") != -1)
 								{
 								$scope.clearAllMessages();
@@ -181,6 +179,8 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	$scope.confirmAddMatingDetails = function()
 	{
 		var matingDate = document.getElementById("matingDate").value;
+		matingDate = DateUtils.convertLocaleDateToServer(matingDate);
+		
 		$scope.matingDetails["breedingEventId"] = $scope.breedingEvent["id"];
 		$scope.matingDetails["matingDate"] =matingDate;
 		
@@ -230,6 +230,8 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			else
 			{	
 				var matingDate = document.getElementById("matingDate").value;
+				matingDate = DateUtils.convertLocaleDateToServer(matingDate);
+				
 				$scope.matingDetails["breedingEventId"] = $scope.breedingEvent["id"];
 				$scope.matingDetails["matingDate"] = matingDate;
 				
@@ -572,5 +574,5 @@ $(document).ready(function () {
 	$('input[class="icheck breedingevent"]').on('ifClicked', function (event) {
 		angular.element("#BreedingEventControllerId").scope().clearAllMessages();
 		angular.element("#BreedingEventControllerId").scope().$apply();
-	});		
+	});
 });

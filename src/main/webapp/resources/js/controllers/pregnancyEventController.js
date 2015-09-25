@@ -1,4 +1,4 @@
-var pregnancyEventController = pigTrax.controller('PregnancyEventController', function($scope,$rootScope, $http,$window,restServices) {
+var pregnancyEventController = pigTrax.controller('PregnancyEventController', function($scope,$rootScope, $http,$window,restServices, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -129,7 +129,11 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	$scope.addPregnancyEvent = function()
     {
 		var examDate = document.getElementById("examDate").value;
+		examDate = DateUtils.convertLocaleDateToServer(examDate);
+		
 		var resultDate = document.getElementById("resultDate").value;
+		resultDate = DateUtils.convertLocaleDateToServer(resultDate);
+		
 		if($scope.pregnancyEvent.breedingEventId == undefined || $scope.pregnancyEvent.breedingEventId == null && $scope.pregnancyEvent.breedingEventId == "")
 		{
 			  $scope.breedingEventIdRequired = true;

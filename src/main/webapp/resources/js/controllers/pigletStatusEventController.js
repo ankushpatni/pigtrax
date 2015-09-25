@@ -1,4 +1,4 @@
-var PigletStatusEventController = pigTrax.controller('PigletStatusEventController', function($scope,$rootScope, $http,$window,restServices) {
+var PigletStatusEventController = pigTrax.controller('PigletStatusEventController', function($scope,$rootScope, $http,$window,restServices, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -303,9 +303,17 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
     {
 		$scope.clearAllMessages();
 		
-		$scope.pigletStatusEvent["weanEventDateTime"] = document.getElementById("weanEventDateTime").value;
-		$scope.pigletStatusEvent["fosterEventDateTime"] = document.getElementById("fosterEventDateTime").value;
-		$scope.pigletStatusEvent["deathEventDateTime"] = document.getElementById("deathEventDateTime").value;			
+		var weanEventDateTime = document.getElementById("weanEventDateTime").value;
+		weanEventDateTime = DateUtils.convertLocaleDateToServer(weanEventDateTime);
+		$scope.pigletStatusEvent["weanEventDateTime"] = weanEventDateTime;
+		
+		var fosterEventDateTime = document.getElementById("fosterEventDateTime").value;
+		fosterEventDateTime = DateUtils.convertLocaleDateToServer(fosterEventDateTime);
+		$scope.pigletStatusEvent["fosterEventDateTime"] = fosterEventDateTime;
+		
+		var deathEventDateTime = document.getElementById("deathEventDateTime").value;
+		deathEventDateTime = DateUtils.convertLocaleDateToServer(deathEventDateTime);   
+		$scope.pigletStatusEvent["deathEventDateTime"] = deathEventDateTime;
 					
 		
 		var weanPigNum = $scope.pigletStatusEvent["weanPigNum"];
