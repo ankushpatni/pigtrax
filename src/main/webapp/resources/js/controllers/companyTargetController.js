@@ -144,6 +144,8 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 			    $scope.clearAllMessages();
 			    $scope.duplicateCompanyTarget = true;
 			  }
+			  
+			  $window.scrollTo(0, 0);
 		}
 	};
 	
@@ -155,7 +157,9 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		{
 			  if($scope.companyTargets[i]["id"] == companyTargetObj["id"])
 			  {
-				  $scope.companyTargets[i] = companyTargetObj;
+				  $scope.companyTargets[i]["targetValue"] = companyTargetObj["targetValue"];
+				  $scope.companyTargets[i]["completionDate"] = companyTargetObj["completionDate"];
+				  $scope.companyTargets[i]["remarks"] = companyTargetObj["remarks"];
 				  exists = true;
 				  break;
 			  }
@@ -175,6 +179,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 				  $scope.companyTargets = data.payload;
 				  $scope.companyTargetDeleted = true;
 			}
+			$window.scrollTo(0, 0);
 		});
 	}
 	
@@ -187,6 +192,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$scope.companyTarget["targetValue"] = selectedObject["targetValue"];
 		$scope.companyTarget["completionDate"] = selectedObject["completionDate"];
 		$scope.companyTarget["remarks"] = selectedObject["remarks"];
+		$window.scrollTo(0, 0);
 		
 	}
 	
