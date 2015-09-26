@@ -29,43 +29,72 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 	};
 	
 	/**
-	 * check the validity of pigId
-	 */
-	$scope.checkForFarrowId = function()
-	{
-		if($scope.pigletEvent.farrowId != undefined && $scope.pigletEvent.farrowId != "")
+     * Search for the farrow events
+     */
+    $scope.searchFarrowEvent = function()
+	{	$scope.clearAllMessages();
+		if($scope.pigletEvent.pigId != undefined && $scope.pigletEvent.pigId != "")
 			{
-			    var farrowEventDetails = {
-						searchText : $scope.pigletEvent.farrowId,
-						searchOption : "farrowId",
+			    var pigInfo = {
+						searchText : $scope.pigletEvent.pigId,
+						searchOption : "pigId",
 						companyId : $rootScope.companyId
 				};
-				restServices.getFarrowEventDetails(farrowEventDetails, function(data) {
+				restServices.getPigInformation(pigInfo, function(data) {
 					if(data.error)
 					{
 						$scope.clearAllMessages();
-						$scope.inValidPigIdFromServer = true;				
+						$scope.inValidPigIdFromServer = true;		
+						$scope.pigletStatusEvent = {};
 					}
-					else 
-					{ 
-						var dto = data.payload;
-						if(dto.pigletsAdded)
-						{
-							
+					else
+					{
+						$('#searchFarrowEvents').modal('show');
+						
+						$scope.clearAllMessages();
+						var searchFarrowEvent = {
+								searchText : $scope.pigletEvent.pigId,
+								searchOption : "PigId", 
+								companyId : $rootScope.companyId
+								
+						};				
+						restServices.getFarrowEventInformation(searchFarrowEvent, function(data){
 							$scope.clearAllMessages();
-							$scope.pigletsAdded = true;
-							
-						}  
-						else
-						{
-							
-							$scope.clearAllMessages();
-						}
+							if(!data.error){
+								$scope.farrowEvent = {};
+								$scope.farrowEventList = data.payload;						
+								
+							}
+							else
+							{
+								$scope.clearAllMessages();
+								$scope.farrowEventList = [];
+								
+							}
+						});
+						
 					}
 						
 				});
 			}
-	};
+		else
+			{
+			$scope.clearAllMessages();
+			$scope.requiredPigIdMessage = true;
+			
+			}
+		
+	}; 
+	
+	
+	
+	$scope.selectFarrowEvent = function()
+	{
+		$scope.clearAllMessages(); 
+		$scope.pigletEvent.farrowEventId = $scope.pigletEvent.farrowEventDto.id;
+		$('#searchFarrowEvents').modal('hide');		
+	}
+	
 	
     /**
      * Search for the Piglet events
@@ -73,8 +102,8 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
     $scope.getPigletEventInformation = function()
 	{		
     	var option = "";
-		if(document.getElementById("farrowId").checked)
-			 option = document.getElementById("farrowId").value;
+		if(document.getElementById("pigId").checked)
+			 option = document.getElementById("pigId").value;
 		 else if(document.getElementById("pigletTattooId").checked)
 			 option = document.getElementById("pigletTattooId").value;
     	
@@ -113,8 +142,13 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 	$scope.getPigletEventDetails = function(pigletEventObj)
 	{
 		//alert("came here : "+JSON.stringify(pregnancyEventObj));
-		$scope.pigletEvent = pigletEventObj; 
-		$scope.pigletEvent.farrowId = pigletEventObj.farrowEventDto.farrowId;
+		$scope.pigletEvent["pigletId"] = pigletEventObj["pigletId"]; 
+		$scope.pigletEvent["farrowEventDto"] = pigletEventObj["farrowEventDto"];
+		$scope.pigletEvent["farrowEventId"] = pigletEventObj.farrowEventDto.id;
+		$scope.pigletEvent["tattooId"] = pigletEventObj["tattooId"];
+		$scope.pigletEvent["pigId"] = pigletEventObj["pigId"];
+		$scope.pigletEvent["weightAtBirth"] = pigletEventObj["weightAtBirth"];
+		$scope.pigletEvent["weightAtWeaning"] = pigletEventObj["weightAtWeaning"];
 	}
 	
 	/**

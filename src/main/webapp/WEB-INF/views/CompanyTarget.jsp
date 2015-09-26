@@ -19,7 +19,7 @@
                   </div>
                   <div class="alert alert-danger alert-white rounded" ng-show="duplicateCompanyTarget">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.companytargetform.submit.duplicate' text='Details already added for the selected target'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.companytargetform.submit.duplicate' text='Details already added for the selected target for the selected year'/>
                   </div>
                    <div class="alert alert-success alert-white rounded"  ng-show="companyTargetDeleted">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>

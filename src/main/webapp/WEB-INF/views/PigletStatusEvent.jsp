@@ -219,7 +219,7 @@
                          <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="deathPigWt" ng-model="pigletStatusEvent.deathPigWt"  maxlength="10"  step="0.01" size="10" class="form-control"> </td>
 						 <td width="20%">
-                         <div data-date-format="yyyy-mm-dd" class="input-group date datetime col-sm-4 pull-right "  >
+                         <div  data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
                           <input size="16" type="date" id="deathEventDateTime" name="eventDateTime" ng-model="pigletStatusEvent.deathEventDateTime" readonly
                           class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>

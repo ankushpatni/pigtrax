@@ -129,10 +129,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	$scope.addPregnancyEvent = function()
     {
 		var examDate = document.getElementById("examDate").value;
-		examDate = DateUtils.convertLocaleDateToServer(examDate);
 		
 		var resultDate = document.getElementById("resultDate").value;
-		resultDate = DateUtils.convertLocaleDateToServer(resultDate);
 		
 		if($scope.pregnancyEvent.breedingEventId == undefined || $scope.pregnancyEvent.breedingEventId == null && $scope.pregnancyEvent.breedingEventId == "")
 		{
@@ -149,6 +147,12 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		if($scope.pregnancyeventform.$valid && !$scope.breedingEventIdRequired && !$scope.resultDateRequired && !$scope.invalidResultDate)
 		{
 			
+			
+			var examDateVal = new Date(examDate);
+			examDate = DateUtils.convertLocaleDateToServer(examDateVal);
+			
+			var resultDateVal = new Date(resultDate);
+			resultDate = DateUtils.convertLocaleDateToServer(resultDateVal);
 			
 			$scope.pregnancyEvent["examDate"] = examDate;
 			$scope.pregnancyEvent["resultDate"] = resultDate;
