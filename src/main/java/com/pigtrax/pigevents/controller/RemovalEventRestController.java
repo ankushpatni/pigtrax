@@ -1,7 +1,7 @@
 package com.pigtrax.pigevents.controller;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -226,7 +226,20 @@ public class RemovalEventRestController
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			
-			Set removalEventList = removalEventService.getRemovalEventListGroupOrPigInfo(removalEvent);
+			List removalEventList = new LinkedList();
+			if(null!= removalEvent && removalEvent.getGroupId()!=null)
+			{
+				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId()));
+				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId()));
+				
+			}
+			
+			else if(null!= removalEvent && removalEvent.getPigId()!=null)
+			{
+				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByPigInfoId(removalEvent.getPigId(), removalEvent.getCompanyId()));
+				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByPigId(removalEvent.getPigId(), removalEvent.getCompanyId()));
+			}
+			
 			if(removalEventList != null && removalEventList.size()>0 )
 			{
 				dto.setPayload(removalEventList);
@@ -235,7 +248,7 @@ public class RemovalEventRestController
 			else
 			{
 				dto.setRecordNotPresent(true);
-				dto.setStatusMessage("ERROR : Group Event information not available ");
+				dto.setStatusMessage("ERROR : Removal Event information not available ");
 			}
 		} catch (PigTraxException e) {
 			e.printStackTrace();

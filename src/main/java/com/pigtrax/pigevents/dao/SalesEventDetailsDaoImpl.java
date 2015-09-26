@@ -56,6 +56,46 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 			}
 			return null;
 	}
+	
+	@Override
+	public List<SalesEventDetails> getSalesEventDetailsListByGroupId(final int groupId) throws SQLException
+	{
+		String qry = "SELECT \"id\", \"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
+			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
+			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\" FROM pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?";
+					
+					List<SalesEventDetails> salesEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+						@Override
+						public void setValues(PreparedStatement ps) throws SQLException {					
+							ps.setInt(1, groupId);
+						}}, new SalesEventDetailsMapper());
+
+					if(salesEventDetailsList != null && salesEventDetailsList.size() > 0)
+					{
+						return salesEventDetailsList;
+					}
+					return null;
+	}
+	
+	@Override
+	public List<SalesEventDetails> getSalesEventDetailsListByPigId(final int pigInfoIdId) throws SQLException
+	{
+		String qry = "SELECT \"id\", \"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
+			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
+			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\" FROM pigtrax.\"SalesEventDetails\" where \"id_PigInfo\" = ?";
+					
+					List<SalesEventDetails> salesEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+						@Override
+						public void setValues(PreparedStatement ps) throws SQLException {					
+							ps.setInt(1, pigInfoIdId);
+						}}, new SalesEventDetailsMapper());
+
+					if(salesEventDetailsList != null && salesEventDetailsList.size() > 0)
+					{
+						return salesEventDetailsList;
+					}
+					return null;
+	}
 
 	@Override
 	public List<SalesEventDetails> getSalesEventDetailsListByRemovalId(
@@ -153,14 +193,15 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 				
 				ps.setString(9, salesEventDetails.getSoldTo());
 				
-				if(salesEventDetails.getRemovalEventId() != null && salesEventDetails.getRemovalEventId()!=0)
+				if(salesEventDetails.getRemovalEventId() != null && salesEventDetails.getRemovalEventId() !=0)
 				{
-					ps.setInt(10, salesEventDetails.getRemovalEventId());
+					ps.setInt(10, salesEventDetails.getTransportJourneyId());
 				}
 				else
 				{
 					ps.setNull(10, java.sql.Types.INTEGER);
 				}
+				
 				
 				ps.setString(11, UserUtil.getLoggedInUser());
 				

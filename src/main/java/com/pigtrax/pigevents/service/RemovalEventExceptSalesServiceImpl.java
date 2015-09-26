@@ -206,5 +206,58 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 		}
 		return returnValue;
 	}
+	
+	@Override
+	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByGroupId( final String groupId, final int companyId) throws PigTraxException
+	{
+		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetails = null;
+		
+		try 
+		{
+			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(
+					groupId, companyId);
+
+			if (null != groupEvent) 
+			{
+				removalEventExceptSalesDetails = removalEventExceptSalesDetailsDao
+						.getRemovalEventExceptSalesDetailsByGroupId(groupEvent
+								.getId());
+			}
+		} 
+		catch (SQLException sqlEx)
+		{
+			throw new PigTraxException("SqlException occured",
+					sqlEx.getSQLState());
+		}
+		
+		return removalEventExceptSalesDetails;
+	}
+	
+	@Override
+	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId( final String pigInfoIdId, final int companyId) throws PigTraxException
+	{
+		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetails = null;
+		
+		try
+		{
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigInfoIdId,
+					companyId);
+
+			if (null != pigInfo)
+			{
+				removalEventExceptSalesDetails = removalEventExceptSalesDetailsDao
+						.getRemovalEventExceptSalesDetailsByPigInfoId(pigInfo
+								.getId());
+			}
+		} 
+		catch (SQLException sqlEx)
+		{
+			throw new PigTraxException("SqlException occured",
+					sqlEx.getSQLState());
+		}
+		
+		
+		return removalEventExceptSalesDetails;
+	}
 
 }

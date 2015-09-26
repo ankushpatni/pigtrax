@@ -19,12 +19,8 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
-		$scope.removalId = removalIdEntered;
-		$scope.removalGeneratedId = removalGeneratedId;
-		$scope.removalExceptSalesId = removalExceptSalesId;
-		$scope.removalExceptSales.removalEventId = removalGeneratedId;
 		$scope.removalTypeId = removalTypeId;
-		console.log('Ankush');
+		$scope.removalExceptSales.removalEventId = removalTypeId;
 		console.log($scope.removalTypeId);
 		
 		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
@@ -43,7 +39,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		res2.success(function(data, status, headers, config) {
 			console.log(data);
 			
-			$scope.removalEventType = data.payload[0];
+			$scope.removalEventTypeOriginal = data.payload[0];
 			$scope.pigInfoOriginalList = data.payload[1];
 			$scope.premiseList = data.payload[2];
 			$scope.groupEventOriginalList = data.payload[3];
@@ -59,6 +55,13 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 				if( $scope.pigInfoOriginalList[x].active )
 					{		
 						$scope.pigInfoList[x] = $scope.pigInfoOriginalList[x];
+					}
+			}
+			for( var x in $scope.removalEventTypeOriginal)
+			{
+				if( x!=4)
+					{		
+						$scope.removalEventType[x] = $scope.removalEventTypeOriginal[x];
 					}
 			}
 		});
@@ -96,6 +99,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	{
 		$scope.clearAllMessages();
 		$scope.removalExceptSales = {};
+		document.getElementById("removalDateTime").value = "";
 		$scope.changeText();
 	}
 	
@@ -236,8 +240,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	
 	 $scope.gotoRemovalEvent = function()
 	    {
-	    	document.getElementById("removalEventTicketNumber").value = $scope.removalId;	
-			document.getElementById("selectedCompany").value = $scope.companyId;		
+	    	document.getElementById("selectedCompany").value = $scope.companyId;		
 			document.getElementById("fromExcept").value = true;
 			document.forms['removalExceptFormSales'].action = 'removalEvent';
 			document.forms['removalExceptFormSales'].submit();

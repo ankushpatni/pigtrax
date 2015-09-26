@@ -12,23 +12,13 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.removalExceptSalesList={};
 	$scope.exceptSalesFlag= false;
 	$scope.salesEventFlag = false;
+	$scope.salesEventList={};
 	
 	
 	$scope.setCompanyId = function(companyId,removalId,fromExcept)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
-		/*var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
-		res1.success(function(data, status, headers, config) {
-			console.log(data);
-			$scope.transportDestination = data.payload[0];	
-			$scope.transportTruck = data.payload[1];
-			$scope.transportTrailer = data.payload[2];
-			
-		});
-		res1.error(function(data, status, headers, config) {
-			console.log( "failure message: " + {data: data});
-		});	*/
 		
 		var res2 = $http.get('rest/util/getRemovalExceptSalesMasterData?companyId='+$rootScope.companyId);
 		res2.success(function(data, status, headers, config) {
@@ -75,6 +65,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		$scope.removalEventDuplicateErrorMessage = false;
 	};
 	
+		
 	$scope.addRemovalEvent = function() 
 	{
 		if($scope.removalEventForm.$valid)
@@ -117,7 +108,6 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		removalId = $scope.searchText;
 	}
 	
-	console.log(removalId);
 		var postParam = {
 				
 				"removalId" : removalId,
@@ -166,80 +156,30 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		});
 	}
 	
-	/*$scope.addTransportJourney = function()
-	{
-		var modalInstance = $modal.open ({
-			templateUrl: 'transportJourney',
-			controller: 'addTransportJourneyCtrl',
-			backdrop:true,
-			windowClass : 'cp-model-window',
-			resolve:{
-				transportJourneyMasterData : function(){
-					var transportJourneyMasterData={};
-					transportJourneyMasterData.transportDestination = $scope.transportDestination;
-					transportJourneyMasterData.transportTruck = $scope.transportTruck;
-					transportJourneyMasterData.transportTrailer = $scope.transportTrailer;
-					transportJourneyMasterData.transportJourney = $scope.feedEvent.transportJourney;					
-					return transportJourneyMasterData;
-				}
-			}
-		});
 		
-		modalInstance.result.then( function(res) { 
-			console.log(res);
-			$scope.feedEvent.transportJourney = res;
-		});
-	}*/
-	
-	/*$scope.addFeedEventDetail = function(id)
+	$scope.addDifferentRemovalEvent = function(removalExceptId)
 	{
-		var modalInstance = $modal.open ({
-			templateUrl: 'addFeedEventDetail',
-			controller: 'addFeedEventDetailCtrl',
-			backdrop:true,
-			windowClass : 'cp-model-window',
-			resolve:{
-				feedEventDetailData : function(){
-					var feedEventDetailData={};
-					feedEventDetailData.siloList = $scope.siloList;	
-					feedEventDetailData.feedEventType = $scope.feedEventType ;
-					feedEventDetailData.feedEventId = $scope.feedEvent.feedContentId;
-					feedEventDetailData.ticketNumber = $scope.feedEvent.ticketNumber;
-					feedEventDetailData.companyId = $scope.companyId;
-					feedEventDetailData.feedId = $scope.feedEvent.id;
-					feedEventDetailData.id = id;
-					feedEventDetailData.groupEvent = $scope.groupEvent;
-					return feedEventDetailData;
-				}
-			}
-		});
+		console.log($scope.removalEvent);
 		
-		modalInstance.result.then( function(res) { 
-			$scope.entryEventDetailSuccessMessage = true;
-			$scope.getFeedEvent($scope.feedEvent.ticketNumber,false,true);
-		});
-	}*/
-	
-	$scope.addRemovalExceptSalesData = function(removalExceptId)
-	{
-	console.log($scope.removalEvent);
-		document.getElementById("removalIdEntered").value = $scope.removalEvent.removalId;
-		document.getElementById("removalGeneratedId").value = $scope.removalEvent.id;
-		document.getElementById("removalExceptSalesId").value = removalExceptId;
 		document.getElementById("companyId").value = $scope.companyId;
-		document.getElementById("removalTypeId1").value = $scope.removalEvent.removalTypeId;
-		document.getElementById("removalSalesEventId").value = removalExceptId;
 		
-		if($scope.salesEventFlag)
+		if(document.getElementById("radAdd1").checked)
 		{
-			document.forms['removalExceptSalesDisplayForm'].action = 'addSalesEventDetails';
-		}
+			document.forms['removalEventForm'].action = 'addRemovalEventExceptSalesDetails';
+			document.getElementById("removalTypeId1").value = 1;
+		}			
+		else if(document.getElementById("radAdd2").checked)
+		{
+			document.forms['removalEventForm'].action = 'addRemovalEventExceptSalesDetails';
+			document.getElementById("removalTypeId1").value = 3;
+		}			
 		else
 		{
-			document.forms['removalExceptSalesDisplayForm'].action = 'addRemovalEventExceptSalesDetails';
+			document.forms['removalEventForm'].action = 'addSalesEventDetails';
+			document.getElementById("removalTypeId1").value = 4;
 		}
-		
-		document.forms['removalExceptSalesDisplayForm'].submit();
+		console.log(document.getElementById("companyId").value);
+		document.forms['removalEventForm'].submit();
 	}
 	
 	$scope.deleteRemovalExceptSalesData = function(removalRow,message)
@@ -276,7 +216,8 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					{
 						
 						$scope.entryEventSuccessMessage = true;
-						$scope.getRemovalEvent($scope.removalEvent.removalId,false,true);
+						$scope.searchRemovalEvent();
+						//$scope.getRemovalEvent($scope.removalEvent.removalId,false,true);
 					}
 				else
 					{
@@ -314,11 +255,11 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			};
 			$scope.getSearchRemovalEvent(postParam);
 		}			
-		else
+		/*else
 		{
 			removalId = $scope.searchText;
 			$scope.getRemovalEvent(removalId);
-		}
+		}*/
 	}
 	
 	$scope.getSearchRemovalEvent = function (postParam)
@@ -328,27 +269,30 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			console.log(data);
 			if(!data.error)
 				{
-					/*$scope.removalEvent = data.payload[0];
-					$scope.removalExceptSalesList = data.payload[1];
-					$scope.clearAllMessages();
-					if(flag)
-					{
-						$scope.entryEventSuccessMessage = true;
-					}
-					if(flag1)
-					{
-						$scope.entryEventDetailSuccessMessage = true;
-					}
-					$window.scrollTo(0,550);
-					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2)
-					{
-						$scope.exceptSalesFlag = true;
-					}
-					else
-					{
-						$scope.exceptSalesFlag = false;
-					}*/
-					var modalInstance = $modal.open ({
+				if(data.payload[0] != null && data.payload[0].length>0)
+				{
+					$scope.exceptSalesFlag= true;
+				}
+				else
+				{
+					$scope.exceptSalesFlag= false;
+				}
+				
+				if(data.payload[1] != null && data.payload[0].length>0)
+				{
+					$scope.salesEventFlag = true;
+				}
+				else
+				{
+					$scope.salesEventFlag = false;
+				}
+				
+				$scope.removalExceptSalesList=data.payload[0];
+				$scope.salesEventList=data.payload[1];
+				
+				
+			
+					/*var modalInstance = $modal.open ({
 						templateUrl: 'openSelectBox',
 						controller: 'openSelectBoxCtrl',
 						backdrop:true,
@@ -365,20 +309,11 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					modalInstance.result.then( function(res) { 
 						console.log(res);
 						$scope.removalExceptSales.transportJourney = res;
-					});
+					});*/
 		}
 			else
 				{
 					$scope.resetForm();
-					/*$scope.clearAllMessages();
-					if(data.recordNotPresent)
-					{
-						$scope.searchDataErrorMessage = true;
-					}
-					else
-					{
-						$scope.entryEventErrorMessage = true;
-					}*/
 				}
 		});
 	}
@@ -417,7 +352,8 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					{
 						
 						$scope.entryEventSuccessMessage = true;
-						$scope.getRemovalEvent($scope.removalEvent.removalId,false,true);
+						$scope.searchRemovalEvent();
+						//$scope.getRemovalEvent($scope.removalEvent.removalId,false,true);
 					}
 				else
 					{

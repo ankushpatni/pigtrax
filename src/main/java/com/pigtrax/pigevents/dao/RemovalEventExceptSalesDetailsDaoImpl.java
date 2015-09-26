@@ -53,6 +53,47 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 		}
 		return null;
 	}
+	
+	@Override
+	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByGroupId( final int id) throws SQLException
+	{
+
+		String qry = "SELECT \"id\", \"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
+	    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\",\"id_DestPremise\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ?" ;
+					
+		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {					
+				ps.setInt(1, id);
+			}}, new RemovalEventExceptSalesDetailsMapper());
+
+		if(removalEventExceptSalesDetailsList != null && removalEventExceptSalesDetailsList.size() > 0)
+		{
+			return removalEventExceptSalesDetailsList;
+		}
+		return null;
+	}
+	
+	@Override
+	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId( final int id) throws SQLException
+	{
+
+		String qry = "SELECT \"id\", \"numberOfPigs\", \"removalDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
+	    "\"weightInKgs\", \"id_RemovalEvent\", \"id_Premise\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\",\"id_DestPremise\" FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_PigInfo\" = ?" ;
+					
+		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {					
+				ps.setInt(1, id);
+			}}, new RemovalEventExceptSalesDetailsMapper());
+
+		if(removalEventExceptSalesDetailsList != null && removalEventExceptSalesDetailsList.size() > 0)
+		{
+			return removalEventExceptSalesDetailsList;
+		}
+		return null;
+	}
+
 
 	@Override
 	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsListByRemovalId(

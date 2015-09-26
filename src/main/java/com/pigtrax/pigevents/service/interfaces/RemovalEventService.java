@@ -23,7 +23,7 @@ public interface RemovalEventService {
 	
 	public List getRemovalEventAndDetailByRemovalId( final String ticketNumber) throws PigTraxException;
 	
-	public Set getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
+	public List<RemovalEvent> getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
 			throws PigTraxException;
 
 }

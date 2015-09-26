@@ -37,9 +37,9 @@
 				                <label class="radio-inline">
 				                  <input type="radio" name="rad1" id="rad2" class="icheck removal" value="pigId" > <spring:message code='label.piginfo.removalExceptSales.search.pigid.option'  text='Pig Id'/>
 				                </label>
-				                 <label class="radio-inline">
+				                 <%-- <label class="radio-inline">
 				                  <input type="radio" name="rad1"  id="rad3" class="icheck removal" value="removalId"> <spring:message code='label.piginfo.removalExceptSales.search.removalId.option'  text='Removal Event Id'/> 
-				                </label>				
+				                </label> --%>				
 				              </div>
 				            </div>            
 				          </div>
@@ -47,9 +47,42 @@
 				 </div>
 	          </div>
 	 		  <div class="col-sm-3 col-md-3"></div>
-	  </div>			
+	  </div>	
+		<div class="row">
+	 		  <div class="col-sm-3 col-md-3"></div> 
+	 		  <div class="col-sm-6 col-md-6">
+		 		  <div class="block-flat">
+					
+					   <form name="removalEventForm" method="post">
+				 		     <div class="head">
+				            <h3><spring:message code='label.piginfo.removalEventform.removalEventType'  text='Add Removal Event Type'/></h3>
+				           							
+				            <div class="options">
+							 <div class="btn-group pull-right">
+				                <button type="button" class="btn btn-primary active" ng-click="addDifferentRemovalEvent()"><i class="glyphicon glyphicon-plus"></i></button>
+				              </div>
+				              <div class="form-group">
+				              <label class="radio-inline">
+				                  <input type="radio" name="rad1"  id="radAdd1" class="icheck removal" value="removalExcept"> <spring:message code='label.piginfo.removalExceptSales.removalExcept.option'  text='Removal Except'/> 
+				              </label>
+				              <label class="radio-inline">
+				                  <input type="radio" name="rad1" id="radAdd2" class="icheck removal" value="transfer" > <spring:message code='label.piginfo.removalExceptSales.transfer.option'  text='Pig Id'/>
+				              </label>
+				              <label class="radio-inline">
+				                  <input type="radio" name="rad1"  id="radAdd3" class="icheck removal" value="sales"> <spring:message code='label.piginfo.removalExceptSales.sales.option'  text='Removal Event Id'/> 
+				              </label>				
+				              </div>
+				            </div>            
+				          </div>
+							<input type="hidden" name="companyId" id="companyId"/>
+							<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>
+						</form>	
+				 </div>
+	          </div>
+	 		  <div class="col-sm-3 col-md-3"></div>
+	  </div>	
  		
-          <div class="row" >
+         <!-- <div class="row" >
 		  <div class="col-sm-3 col-md-3"></div>
             <div class="col-sm-6 col-md-6">
               <div class="block-flat">
@@ -123,17 +156,13 @@
             </div>
             <div class="col-sm-3 col-md-3">        
             </div>
-          </div>
+          </div>-->
 		  
-	 <button type="button" ng-click="addRemovalExceptSalesData()" class="btn btn-sm btn btn-primary" ng-show="((removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage) && exceptSalesFlag">
-			<i class="glyphicon glyphicon-plus"></i> 
-			<spring:message code="label.removalEvent.addRemovalExceptSalesData" text="Add Removal Except Sales" />
-	</button>
-		 
 	<form name="removalExceptSalesDisplayForm" method="post">	
-		<div class="content" ng-show="((removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage) && exceptSalesFlag">
+		<div class="content" ng-show="exceptSalesFlag">
+		<h3><spring:message code='label.piginfo.removalExceptSales.removalExcept.header'  text='Removal Except Sales'/></h3>
 			<div class="table-responsive" style="overflow-x: hidden">
-			<table st-table="displayedCollection" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
+			<table st-table="displayedCollection2" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">
 					<tr>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
@@ -147,7 +176,7 @@
 					</tr>
 	 			</thead>
 				<tbody>
-				<tr ng-repeat="row in displayedCollection track by $index">
+				<tr ng-repeat="row in displayedCollection2 track by $index">
 					<td style="width:10%">{{$index+1}}</td>
 					<td style="width:10%">{{row.numberOfPigs}}</td>
 					<td style="width:10%">{{row.removalDateTime}}</td>
@@ -171,6 +200,7 @@
 			</table>
 			</div>
 		</div>
+		
 		<input type="hidden" name="removalIdEntered" id="removalIdEntered"/>
 		<input type="hidden" name="removalGeneratedId" id="removalGeneratedId"/>
 		<input type="hidden" name="removalExceptSalesId" id="removalExceptSalesId"/>			
@@ -178,14 +208,11 @@
 		<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>
 		<input type="hidden" name="removalSalesEventId" id="removalSalesEventId"/>
 		
-		<div ng-show="((removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage) && salesEventFlag">
-		 <button type="button" ng-click="addRemovalExceptSalesData()" class="btn btn-sm btn btn-primary" >
-			<i class="glyphicon glyphicon-plus"></i> 
-			<spring:message code="label.removalEvent.addSalesData" text="Add Sales Data" />
-		</button>
+		<div ng-show="salesEventFlag">
+		<h3><spring:message code='label.piginfo.removalExceptSales.salesEvent.header'  text='Removal Sales Event'/></h3>
 		<div class="content">
 			<div class="table-responsive" style="overflow-x: hidden">
-			<table st-table="displayedCollection" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
+			<table st-table="displayedCollection1" st-safe-src="salesEventList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">
 					<tr>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
@@ -202,7 +229,7 @@
 					</tr>
 	 			</thead>
 				<tbody>
-				<tr ng-repeat="row in displayedCollection track by $index">
+				<tr ng-repeat="row in displayedCollection1 track by $index">
 					<td style="width:10%">{{$index+1}}</td>
 					<td style="width:10%">{{row.ticketNumber}}</td>
 					<td style="width:10%">{{row.invoiceId}}</td>

@@ -75,12 +75,14 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	public List<RemovalEvent> getRemovalEventByGroupId(final int groupId)
 			throws SQLException {
 		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ?)";
+		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ? UNION "+
+				" SELECT \"id_RemovalEvent\"  FROM pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?)";
 				
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {					
 					ps.setInt(1, groupId);
+					ps.setInt(2, groupId);
 				}}, new RemovalEventMapper());
 
 			if(removalEventList != null && removalEventList.size() > 0){
@@ -93,12 +95,14 @@ private static final Logger logger = Logger.getLogger(FeedEventDaoImpl.class);
 	public List<RemovalEvent> getRemovalEventByPigId(final int pigId)
 			throws SQLException {
 		String qry = "select \"id\", \"removalId\", \"id_RemovalType\", \"remarks\", \"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_PigInfo\" = ?)";
+		   		"from pigtrax.\"RemovalEvent\" where \"id\" in (SELECT \"id_RemovalEvent\"  FROM pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_PigInfo\" = ? UNION "+
+				" SELECT \"id_RemovalEvent\"  FROM pigtrax.\"SalesEventDetails\" where \"id_PigInfo\" = ?)";
 				
 			List<RemovalEvent> removalEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {					
 					ps.setInt(1, pigId);
+					ps.setInt(2, pigId);
 				}}, new RemovalEventMapper());
 
 			if(removalEventList != null && removalEventList.size() > 0){

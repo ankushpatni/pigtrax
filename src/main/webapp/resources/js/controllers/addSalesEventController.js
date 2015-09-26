@@ -15,15 +15,15 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	$scope.sourceAndDestinationPremisesSameError = false;
 	
 	
-	$scope.setCompanyId = function(companyId,removalIdEntered,removalGeneratedId,removalTypeId)
+	$scope.setCompanyId = function(companyId,removalTypeId)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
-		$scope.removalId = removalIdEntered;
-		$scope.removalGeneratedId = removalGeneratedId;
-		$scope.removalExceptSales.removalEventId = removalGeneratedId;
+		console.log(companyId);
+		//$scope.removalExceptSales.removalEventId = removalGeneratedId;
 		$scope.removalTypeId = removalTypeId;
-		console.log($scope.removalTypeId);
+		$scope.removalTypeId.removalEventId = removalTypeId;
+		console.log(removalTypeId);
 		
 		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
 		res1.success(function(data, status, headers, config) {
@@ -226,8 +226,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	
 	 $scope.gotoRemovalEvent = function()
 	    {
-	    	document.getElementById("removalEventTicketNumber").value = $scope.removalId;	
-			document.getElementById("selectedCompany").value = $scope.companyId;		
+	    	document.getElementById("selectedCompany").value = $scope.companyId;		
 			document.getElementById("fromExcept").value = true;
 			document.forms['salesEventForm'].action = 'removalEvent';
 			document.forms['salesEventForm'].submit();

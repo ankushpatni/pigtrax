@@ -185,17 +185,16 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 		}
 	}
 	@Override
-	public Set getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
+	public List<RemovalEvent> getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
 			throws PigTraxException {
 		try 
 		{
-			Set<RemovalEvent> removalEventSet =  new HashSet<RemovalEvent>();
 			List<RemovalEvent> removalEventList = new ArrayList<RemovalEvent>();
-			if(null != removalEvent && (removalEvent.getRemovalTypeId() ==1 || removalEvent.getRemovalTypeId() ==2 || removalEvent.getRemovalTypeId() ==3) )
-			{
+			
 				if(null != removalEvent && removalEvent.getGroupId()!=null)
 				{
 					GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId());
+					
 					if(null != groupEvent)
 					{
 						removalEventList =  removalEventDao.getRemovalEventByGroupId(groupEvent.getId());
@@ -209,29 +208,8 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 						removalEventList =  removalEventDao.getRemovalEventByPigId(pigInfo.getId());
 					}
 				}
-			}
-			else
-			{
-				if(null != removalEvent && removalEvent.getGroupId()!=null)
-				{
-					GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId());
-					if(null != groupEvent)
-					{
-						removalEventList =  removalEventDao.getRemovalEventByGroupIdForSale(groupEvent.getId());
-					}
-				}
-				else if(null != removalEvent )
-				{
-					PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(removalEvent.getPigId(), removalEvent.getCompanyId());
-					if(null != pigInfo)
-					{
-						removalEventList =  removalEventDao.getRemovalEventByPigIdFoelsale(pigInfo.getId());
-					}
-				}
-			}
 			
-			removalEventSet.addAll(removalEventList);
-			return removalEventSet;
+			return removalEventList;
 		}
 		catch (SQLException e)
 		{

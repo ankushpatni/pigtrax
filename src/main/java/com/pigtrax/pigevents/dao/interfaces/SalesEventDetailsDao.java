@@ -19,4 +19,10 @@ public interface SalesEventDetailsDao {
 	
 	public void deleteSalesEventDetails(final Integer id) throws SQLException;
 
+	List<SalesEventDetails> getSalesEventDetailsListByGroupId(int groupId)
+			throws SQLException;
+
+	List<SalesEventDetails> getSalesEventDetailsListByPigId(int pigInfoIdId)
+			throws SQLException;
+
 }

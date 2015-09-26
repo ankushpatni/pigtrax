@@ -22,4 +22,10 @@ public interface SalesEventDetailsService {
 	int deleteSalesEventDetails(SalesEventDetails salesEventDetails)
 			throws PigTraxException;
 
+	List<SalesEventDetails> getSalesEventDetailsListByGroupId(String groupId,
+			int companyId) throws PigTraxException;
+
+	List<SalesEventDetails> getSalesEventDetailsListByPigId(String pigInfoIdId,
+			int companyId) throws PigTraxException;
+
 }

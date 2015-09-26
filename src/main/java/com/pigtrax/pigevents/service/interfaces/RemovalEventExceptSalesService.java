@@ -20,4 +20,10 @@ public interface RemovalEventExceptSalesService {
 	
 	public int deleteRemovalExceptSales(RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
 			throws PigTraxException;
+
+	List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId(
+			String pigInfoIdId, int companyId) throws PigTraxException;
+
+	List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByGroupId(
+			String groupId, int companyId) throws PigTraxException;
 }

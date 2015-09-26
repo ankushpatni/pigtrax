@@ -54,6 +54,15 @@
                        <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control"  name="groupEventId" id="groupEventId" ng-model="removalExceptSales.groupEventId"   
                          ng-options="k as v.groupId for (k, v) in groupEventList" ng-show="v.active"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{groupEventList[removalExceptSales.groupEventId].groupId}}</label>                       
+                    </div>
+                    <div ng-show="selectGroup==='group'">
+						<label style="margin-top: -15px;" class="control-label" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigsInGroup' text='No. Of pigs in Group.' />{{groupEventList[removalExceptSales.groupEventId].currentInventory}}</label>
+					</div>
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>
+                       <select class="form-control"  required required-message="'<spring:message code='label.piginfo.removalEventform.removalTypeId.required' text='Removal Type is required' />'" name="removalEventId" id="removalEventId" ng-model="removalExceptSales.removalEventId"   
+                         ng-options="k as v for (k, v) in removalEventType" ng-hide="k==4"> </select>
+                         <label ng-show="(removalTypeId == 4)"> :  {{removalEventType[removalEventform.removalTypeId]}}</label>                       
                     </div> 
 				   <div class="form-group">
                       <label><spring:message code='label.piginfo.removalExceptSales.numberOfPigs'  text='Number Of Pigs'/></label>
@@ -89,13 +98,14 @@
                    </div>
                  
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.premiseId'  text='Premise'/></label>
+                      <label ng-hide="removalExceptSales.removalEventId==3"><spring:message code='label.piginfo.removalExceptSales.premiseId'  text='Premise'/></label>
+                      <label ng-show="removalExceptSales.removalEventId==3"><spring:message code='label.piginfo.removalExceptSales.premiseIdTo'  text='To Premise'/></label>
                        <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control" name="premiseId" id="premiseId" ng-model="removalExceptSales.premiseId"   
                          ng-options="k as v for (k, v) in premiseList"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{premiseList[removalExceptSales.premiseId]}}</label>                       
                     </div>
-                    <div class="form-group" ng-show="removalTypeId==3">
-                      <label><spring:message code='label.piginfo.removalExceptSales.premiseId'  text='Premise'/></label>
+                    <div class="form-group" ng-show="removalExceptSales.removalEventId==3">
+                      <label><spring:message code='label.piginfo.removalExceptSales.premiseIdFrom'  text='From Premise'/></label>
                        <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control" name="destPremiseId" id="destPremiseId" ng-model="removalExceptSales.destPremiseId"   
                          ng-options="k as v for (k, v) in premiseList"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{premiseList[removalExceptSales.destPremiseId]}}</label>                       
