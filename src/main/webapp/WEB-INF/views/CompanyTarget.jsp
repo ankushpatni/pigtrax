@@ -49,7 +49,7 @@
                     
                     <div class="form-group"> 
                       <label><spring:message code='label.companytargetform.completiondate'  text='Completion Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" >
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="completionTargetDiv">
                           <input size="16" type="date" id="completionDate" name="completionDate" ng-model="companyTarget.completionDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                         <label ng-show="completionDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.completionDateRequiredMessage' text='Completion date is required' /></label> 
@@ -116,7 +116,7 @@
 					<td colspan="14">
 						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 					</td>
-				</tr>
+				</tr> 
 			</table>
 			</div>
 		</div>
@@ -124,7 +124,13 @@
      </div>             
       </div>        
       </div>          
-          
+	  <script>
+         $(document).ready(function(){
+	      var currDate = new Date();
+		  var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
+      	  $("#completionTargetDiv").attr('data-date-startdate',dateVal);
+      });  
+	  </script>
 </div>
 
 

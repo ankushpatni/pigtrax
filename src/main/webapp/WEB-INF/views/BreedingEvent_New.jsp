@@ -255,7 +255,7 @@
                    
                    	<div class="form-group">
                       <label><spring:message code='label.piginfo.matingdetailsform.matingdate'  text='Mating Date'/></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="matingDateDiv">
                           <input size="16" type="date" id="matingDate" name="matingDate" ng-model="matingDetails.matingDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div> 
                     </div>
@@ -460,7 +460,13 @@
                   
 		<div class="md-overlay"></div>
 </div>
-
+<script>
+$(document).ready(function(){
+ var currDate = new Date();
+ var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
+	  $("#matingDateDiv").attr('data-date-enddate',dateVal);
+});  
+</script>
   
 		  
 

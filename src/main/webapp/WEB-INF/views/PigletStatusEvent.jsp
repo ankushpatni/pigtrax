@@ -89,15 +89,15 @@
                   </div>     
                   <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_1' text='Wean should happen within 0-60 days of farrow event, please change the date and submit again to proceed' />
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_1' text='Wean should happen within 0-60 days of farrow event, please change the date and submit again to proceed' />
                   </div>  
                   <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_2">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_2' text='Foster should happen within 0-50 days of farrow event, please change the date and submit again to proceed' />
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_2' text='Foster should happen within 0-50 days of farrow event, please change the date and submit again to proceed' />
                   </div>                         
                   <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_3">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-warning"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_3' text='The total count of Piglets is not the same as alive Piglets at the time of Farrow. Please account for the entire litter' />
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_3' text='The total count of Piglets is not the same as alive Piglets at the time of Farrow. Please account for the entire litter' />
                   </div>                               
                 </div>
                 <div class="content">
@@ -186,7 +186,7 @@
                          <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control" ng-blur="checkOnEraseOfWean()"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> </td>
 						 <td width="20%">
-                         <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                         <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="weanEventDateDiv">
                           <input size="16" type="date" id="weanEventDateTime" name="weanEventDateTime" ng-model="pigletStatusEvent.weanEventDateTime" readonly
                           class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
@@ -200,7 +200,7 @@
                          <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control"> </td>
 						 <td width="20%">
-                         <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                         <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"   id="fosterEventDateDiv" >
                           <input size="16" type="date" id="fosterEventDateTime" name="fosterEventDateTime" ng-model="pigletStatusEvent.fosterEventDateTime" readonly
                           class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
@@ -219,7 +219,7 @@
                          <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="deathPigWt" ng-model="pigletStatusEvent.deathPigWt"  maxlength="10"  step="0.01" size="10" class="form-control"> </td>
 						 <td width="20%">
-                         <div  data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                         <div  data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"    id="deathEventDateDiv">
                           <input size="16" type="date" id="deathEventDateTime" name="eventDateTime" ng-model="pigletStatusEvent.deathEventDateTime" readonly
                           class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
@@ -346,3 +346,12 @@
 
 		<div class="md-overlay"></div>
 </div>
+<script>
+$(document).ready(function(){
+ var currDate = new Date();
+ var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
+	  $("#weanEventDateDiv").attr('data-date-enddate',dateVal);
+	  $("#fosterEventDateDiv").attr('data-date-enddate',dateVal);
+	  $("#deathEventDateDiv").attr('data-date-enddate',dateVal);
+});  
+</script>
