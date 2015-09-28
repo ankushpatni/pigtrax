@@ -297,7 +297,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			for(BreedingEventDto breedingEvent_Dto : breedingEventDtoList)
 			{
 				List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(breedingEvent_Dto.getId());
-				if(events == null || events.size() == 0)
+				if(breedingEvent_Dto.getServiceStartDate() != null && (events == null || events.size() == 0))
 					filteredList.add(breedingEvent_Dto);
 			}
 		}		

@@ -88,10 +88,12 @@ public class PigletStatusEventValidation {
 	  
 	  int durationDays = 0;	  
 	  DateTime farrowEventDate = new DateTime(pigletStatusEventDto.getFarrowEventDto().getFarrowDateTime());
-	  DateTime weanEventDate = new DateTime(pigletStatusEventDto.getWeanEventDateTime());
+	  DateTime weanEventDate = null;
+	  if(pigletStatusEventDto.getWeanEventDateTime() != null)
+		  weanEventDate = new DateTime(pigletStatusEventDto.getWeanEventDateTime());
 	  durationDays = Days.daysBetween(farrowEventDate,weanEventDate).getDays() ;	
 	  
-	  if(weanEventDate.isBefore(farrowEventDate) || durationDays > PIGLET_STATUS_FARROW_END_DURATION || durationDays< PIGLET_STATUS_FARROW_START_DURATION)
+	  if(weanEventDate != null && weanEventDate.isBefore(farrowEventDate) || durationDays > PIGLET_STATUS_FARROW_END_DURATION || durationDays< PIGLET_STATUS_FARROW_START_DURATION)
 	  {
 		  logger.info("Weaning should happen within 0-60 days of farrow event");
 		  return ERR_CODE_01;
