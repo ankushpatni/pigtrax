@@ -269,8 +269,11 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			console.log(data);
 			if(!data.error)
 				{
+				var flag;
+				
 				if(data.payload[0] != null && data.payload[0].length>0)
 				{
+					$scope.removalExceptSalesList=data.payload[0];
 					$scope.exceptSalesFlag= true;
 				}
 				else
@@ -280,6 +283,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 				
 				if(data.payload[1] != null && data.payload[0].length>0)
 				{
+					$scope.salesEventList=data.payload[1];
 					$scope.salesEventFlag = true;
 				}
 				else
@@ -287,29 +291,15 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					$scope.salesEventFlag = false;
 				}
 				
-				$scope.removalExceptSalesList=data.payload[0];
-				$scope.salesEventList=data.payload[1];
+				if(!flag)
+				{
+					$scope.searchDataErrorMessage = true;
+				}
+				else
+				{
+					$scope.searchDataErrorMessage = false;
+				}
 				
-				
-			
-					/*var modalInstance = $modal.open ({
-						templateUrl: 'openSelectBox',
-						controller: 'openSelectBoxCtrl',
-						backdrop:true,
-						windowClass : 'cp-model-window',
-						resolve:{
-							openSelectBoxData : function(){
-								var openSelectBox={};
-								openSelectBox.data = data.payload;				
-								return openSelectBox;
-							}
-						}
-					});
-		
-					modalInstance.result.then( function(res) { 
-						console.log(res);
-						$scope.removalExceptSales.transportJourney = res;
-					});*/
 		}
 			else
 				{

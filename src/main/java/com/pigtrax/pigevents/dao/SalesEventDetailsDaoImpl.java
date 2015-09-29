@@ -42,7 +42,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 	{
 		String qry = "SELECT \"id\", \"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
 	       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-	       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\" FROM pigtrax.\"SalesEventDetails\" where \"id\" = ?";
+	       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\",\"remarks\" FROM pigtrax.\"SalesEventDetails\" where \"id\" = ?";
 			
 			List<SalesEventDetails> salesEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
@@ -62,7 +62,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 	{
 		String qry = "SELECT \"id\", \"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
 			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\" FROM pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?";
+			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\",\"remarks\" FROM pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?";
 					
 					List<SalesEventDetails> salesEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 						@Override
@@ -82,7 +82,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 	{
 		String qry = "SELECT \"id\", \"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
 			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\" FROM pigtrax.\"SalesEventDetails\" where \"id_PigInfo\" = ?";
+			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\", \"id_TransportJourney\",\"remarks\" FROM pigtrax.\"SalesEventDetails\" where \"id_PigInfo\" = ?";
 					
 					List<SalesEventDetails> salesEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 						@Override
@@ -103,7 +103,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 	{
 		String qry = "SELECT \"id\", \"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
 			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\" FROM pigtrax.\"SalesEventDetails\" where \"id_RemovalEvent\" = ?";
+			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\",\"remarks\" FROM pigtrax.\"SalesEventDetails\" where \"id_RemovalEvent\" = ?";
 					
 		List<SalesEventDetails> salesEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -123,8 +123,8 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 	{
 		final String Qry = "insert into pigtrax.\"SalesEventDetails\"(\"invoiceId\", \"ticketNumber\", \"numberOfPigs\", \"revenueUsd\","+ 
 			       "\"weightInKgs\", \"salesDateTime\", \"id_PigInfo\", \"id_GroupEvent\","+ 
-			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\") " + 
-			       "values(?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?)";		
+			       "\"soldTo\", \"id_RemovalEvent\", \"lastUpdated\", \"userUpdated\",\"id_TransportJourney\",\"remarks\") " + 
+			       "values(?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?)";		
 
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -214,6 +214,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 					ps.setNull(12, java.sql.Types.INTEGER);
 				}
 				
+				ps.setString(13, salesEventDetails.getRemarks());
 				return ps;
 			}
 		}, holder);
@@ -325,7 +326,8 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 			salesEventDetails.setLastUpdated(rs.getDate("lastUpdated"));
 			salesEventDetails.setUserUpdated(rs.getString("userUpdated"));
 			salesEventDetails.setTransportJourneyId(rs.getInt("id_TransportJourney"));
-			
+			salesEventDetails.setRemarks(rs.getString("remarks"));
+						
 			return salesEventDetails;
 		}		
 	}

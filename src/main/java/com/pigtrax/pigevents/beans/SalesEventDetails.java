@@ -21,6 +21,7 @@ public class SalesEventDetails {
 	private Integer transportJourneyId;
 	private TransportJourney transportJourney;
 	private Integer companyId;
+	private String remarks;
 	
 	public Integer getId() {
 		return id;
@@ -117,6 +118,12 @@ public class SalesEventDetails {
 	}
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 	
 	

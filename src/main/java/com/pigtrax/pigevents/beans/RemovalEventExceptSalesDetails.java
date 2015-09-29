@@ -16,6 +16,7 @@ public class RemovalEventExceptSalesDetails {
 	private Date lastUpdated;
 	private String userUpdated;
 	private Integer destPremiseId;
+	private String remarks;
 	
 	private Integer transportJourneyId;
 	private TransportJourney transportJourney;
@@ -105,4 +106,12 @@ public class RemovalEventExceptSalesDetails {
 	public void setDestPremiseId(Integer destPremiseId) {
 		this.destPremiseId = destPremiseId;
 	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	
+	
 }

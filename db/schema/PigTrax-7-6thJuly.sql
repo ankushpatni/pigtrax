@@ -1830,6 +1830,7 @@ CREATE TABLE pigtrax."RemovalEventExceptSalesDetails"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_TransportJourney" integer,
+	remarks varchar(255),
 	CONSTRAINT "REMOVALEVENTXSALESDETAILS_PK" PRIMARY KEY (id)
 
 );
@@ -1840,7 +1841,7 @@ ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" OWNER TO pitraxadmin;
 -- object: "RemovalEvent_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" DROP CONSTRAINT IF EXISTS "RemovalEvent_fk" CASCADE;
 ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" ADD CONSTRAINT "RemovalEvent_fk" FOREIGN KEY ("id_RemovalEvent")
-REFERENCES pigtrax."RemovalEvent" (id) MATCH FULL
+REFERENCES pigtraxrefdata."RemovalType" (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -1890,6 +1891,7 @@ CREATE TABLE pigtrax."SalesEventDetails"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_TransportJourney" integer,
+	remarks varchar(255),
 	CONSTRAINT "SALESDETAILS_PK" PRIMARY KEY (id)
 
 );
@@ -1900,7 +1902,7 @@ ALTER TABLE pigtrax."SalesEventDetails" OWNER TO pitraxadmin;
 -- object: "RemovalEvent_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."SalesEventDetails" DROP CONSTRAINT IF EXISTS "RemovalEvent_fk" CASCADE;
 ALTER TABLE pigtrax."SalesEventDetails" ADD CONSTRAINT "RemovalEvent_fk" FOREIGN KEY ("id_RemovalEvent")
-REFERENCES pigtrax."RemovalEvent" (id) MATCH FULL
+REFERENCES pigtraxrefdata."RemovalType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

@@ -156,6 +156,12 @@
 						</div>
                       </div>
                     </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
+                      <input type="text" ng-model="removalExceptSales.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
+                       ng-focus="clearMessages()"/>
+                   </div>
                     					
                   	<button class="btn btn-primary" ng-click="addSalesEventDetails()" type="submit"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
