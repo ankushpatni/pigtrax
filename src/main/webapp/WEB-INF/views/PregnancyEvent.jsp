@@ -160,13 +160,13 @@
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.examDate'  text='Exam Date'/></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="examDateDiv">
                           <input size="16" type="date" id="examDate" name="examDate" ng-model="pregnancyEvent.examDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="resultDateDiv">
                           <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
                          <label ng-show="resultDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.requiredmessage' text='Result Date is required' /></label>
@@ -344,7 +344,14 @@
 
 		<div class="md-overlay"></div>
 </div>
-
+<script>
+$(document).ready(function(){
+ var currDate = new Date();
+ var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
+	  $("#examDateDiv").attr('data-date-enddate',dateVal);
+	  $("#resultDateDiv").attr('data-date-enddate',dateVal);
+});  
+</script>
   
 		  
 

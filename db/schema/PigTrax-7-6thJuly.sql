@@ -2116,7 +2116,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtraxrefdata."TargetTypeTranslation" CASCADE;
 CREATE TABLE pigtraxrefdata."TargetTypeTranslation"(
 	id serial NOT NULL,
-	"fieldValue" varchar(30) NOT NULL,
+	"fieldValue" varchar(100) NOT NULL,
 	"fieldLanguage" char(2) NOT NULL,
 	"lastUpdated" timestamp with time zone NOT NULL,
 	"userUpdated" varchar(20),
