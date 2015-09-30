@@ -11,6 +11,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.entryEventDuplicateErrorMessage = false;
 		$scope.entryDateRequired = false;
 		$scope.invalidEntryDate = false;
+		$scope.pigInfoEventsExistsMessage = false;
 	};
 	
 	$scope.clearAllMessages();
@@ -150,16 +151,26 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		
 		
 		$scope.deletePigInfo = function()
-		{
-			
+		{	
+			restServices.deletePigInfo($scope.pigInfo.id, function(data){
+				if(!data.error)
+					{
+					   var status = data.statusMessage;
+					   if(status == "Success")
+						   {
+						   	$scope.clearAllMessages();
+							$scope.entryEventDeleteMessage = true;
+							$scope.pigInfo = {};
+						   }
+					   		else if(status == "Events")
+						   {
+					   			$scope.clearAllMessages();
+					   			$scope.pigInfoEventsExistsMessage = true;
+						   }
+					}	
 				
-					restServices.deletePigInfo($scope.pigInfo.id, function(data){
-						$scope.clearAllMessages();
-						$scope.entryEventDeleteMessage = true;
-						$scope.pigInfo = {};
-						$window.scrollTo(0, 0);
-					});
-					
+				$window.scrollTo(0, 0);
+			});					
 				
 		};
 		

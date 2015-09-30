@@ -2136,6 +2136,29 @@ REFERENCES pigtraxrefdata."TargetType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: pigtrax."ChangedPigId" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."ChangedPigId" CASCADE;
+CREATE TABLE pigtrax."ChangedPigId"(
+	id serial NOT NULL,	
+	"oldSowId" varchar(30) NOT NULL,
+	"changedSowId" varchar(30) NOT NULL,
+	"changeDateTime" timestamp not null,
+	"id_Company" int not null,
+	"lastUpdated" timestamp not null,
+	"userUpdated" varchar(30) not null,
+	CONSTRAINT "CHANGEDPIGID_PK" PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE pigtrax."ChangedPigId" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "Company_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."ChangedPigId" DROP CONSTRAINT IF EXISTS "Company_fk" CASCADE;
+ALTER TABLE pigtrax."ChangedPigId" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_Company")
+REFERENCES pigtrax."Company" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"

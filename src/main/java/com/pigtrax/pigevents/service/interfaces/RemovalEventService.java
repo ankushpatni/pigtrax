@@ -25,5 +25,7 @@ public interface RemovalEventService {
 	
 	public List<RemovalEvent> getRemovalEventListGroupOrPigInfo(RemovalEvent removalEvent)
 			throws PigTraxException;
+	
+	List<RemovalEvent> getRemovalEventByPigId(Integer pigInfoId) throws PigTraxException;
 
 }

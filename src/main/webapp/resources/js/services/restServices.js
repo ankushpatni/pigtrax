@@ -75,5 +75,7 @@ pigTrax.factory("restServices", function($resource) {
 		"addSalesEventDetails": {method:"POST",url:"rest/removalEvent/addSalesEventDetails"},
 		"getSalesEventDetails": {method:"POST",url:"rest/removalEvent/getSalesEventDetails"},
 		"deleteSalesEventDetails": {method:"POST",url:"rest/removalEvent/deleteSalesEventDetails"},
+		"getPigInformationForChangeId" : {method:"POST", url:"rest/entryEvent/getPigInformationForChangeId"},
+		"changePigId" : {method:"POST", url:"rest/changePigId"},
     });
 });

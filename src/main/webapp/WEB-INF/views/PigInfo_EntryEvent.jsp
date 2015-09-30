@@ -56,6 +56,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.entryeventform.duplicate.error.message' text='A piginfo record already exists with the same Pig Id/ Tattoo'/>
                   </div>
+                  <div class="alert alert-danger alert-white rounded"  ng-show="pigInfoEventsExistsMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.entryeventform.delete.events.message' text='Service events are already tracked for this Pig. Hence can not delete'/>
+                  </div>
                   <div class="alert alert-success alert-white rounded"  ng-show="entryEventDeleteMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.entryeventform.delete.message'  text='Pig information deleted'/>

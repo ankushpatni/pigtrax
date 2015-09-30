@@ -13,9 +13,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
-import com.pigtrax.master.dto.Silo;
+import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
+import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.PigInfoBuilder;
@@ -34,6 +35,9 @@ public class PigInfoServiceImpl implements PigInfoService {
 	
 	@Autowired
 	PigInfoBuilder builder;
+	
+	@Autowired
+	BreedingEventDao breedingEventDao;
 	
 	
 	public int savePigInformation(PigInfoDto dto) throws Exception {
@@ -105,11 +109,26 @@ public class PigInfoServiceImpl implements PigInfoService {
 	 * To delete the given information
 	 */
 
-	public void deletePigInfo(Integer id) throws Exception {
+	public int deletePigInfo(Integer id) throws Exception {
 		if(id != null)
 		{
-			pigInfoDao.deletePigInfo(id);
+			PigInfo pigInfo = pigInfoDao.getPigInformationById(id);
+			if(pigInfo != null)
+			{
+				List<BreedingEvent> breedingEvents = breedingEventDao.getBreedingEventInformationByPigId(pigInfo.getPigId(), pigInfo.getCompanyId());
+				if(breedingEvents != null && 0 < breedingEvents.size())
+				{
+					return -1;
+				}
+				else
+				{
+					pigInfoDao.deletePigInfo(id);
+					return 1;
+				}
+			}
+			
 		}
+		return 0;
 		
 	}
 	
@@ -144,6 +163,16 @@ public class PigInfoServiceImpl implements PigInfoService {
 		
 		return pigInfoMap;
 	}
-	
+ 
+	@Override
+	public int changePigId(Integer pigInfoId, String newPigId) throws PigTraxException {
+		try{
+			return pigInfoDao.changePigId(pigInfoId, newPigId);
+		}
+		 catch(DuplicateKeyException Ex)
+		{
+			  throw new PigTraxException("Duplicate Key Exception occured. Please check Pig Id/ Tattoo", "", true);
+		}
+	}
 	
 }

@@ -27,6 +27,9 @@ public class PigInfoDto {
 	private boolean active;
 	private Integer parity;
 	private Integer gfunctionTypeId;
+	private boolean enableChangeId;
+	private String newPigId;
+	private Date changePigIdDate;
 
 	public Integer getFarrowEventId() {
 		return farrowEventId;
@@ -227,6 +230,34 @@ public class PigInfoDto {
 
 	public void setGfunctionTypeId(Integer gfunctionTypeId) {
 		this.gfunctionTypeId = gfunctionTypeId;
+	}
+	
+	
+
+	public boolean isEnableChangeId() {
+		return enableChangeId;
+	}
+
+	public void setEnableChangeId(boolean enableChangeId) {
+		this.enableChangeId = enableChangeId;
+	}
+	
+
+	public String getNewPigId() {
+		return newPigId;
+	}
+
+	public void setNewPigId(String newPigId) {
+		this.newPigId = newPigId;
+	}
+	
+
+	public Date getChangePigIdDate() {
+		return changePigIdDate;
+	}
+
+	public void setChangePigIdDate(Date changePigIdDate) {
+		this.changePigIdDate = changePigIdDate;
 	}
 
 	@Override

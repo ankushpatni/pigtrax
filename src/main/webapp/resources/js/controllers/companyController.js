@@ -200,6 +200,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		{
 			document.getElementById("companyForm").action="companyTarget";		 
 		}
+		else if(eventName == "ChangePigId")
+		{
+			document.getElementById("companyForm").action="changeId";		 
+		}
 		
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();

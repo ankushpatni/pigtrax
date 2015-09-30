@@ -216,5 +216,17 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
 	}
+	
+	
+	
+	public List<RemovalEvent> getRemovalEventByPigId(Integer pigInfoId) throws PigTraxException
+	{
+		try {
+			return removalEventDao.getRemovalEventByPigId(pigInfoId);
+		} catch (SQLException e) {
+			throw new PigTraxException(e.getMessage());
+		}
+	}
+	
 
 }

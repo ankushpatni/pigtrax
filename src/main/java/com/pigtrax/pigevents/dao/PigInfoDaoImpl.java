@@ -360,6 +360,19 @@ public class PigInfoDaoImpl implements PigInfoDao {
 				ps.setInt(1, pigInfoId);
 			}
 		});
+	} 
+	
+	@Override
+	public int changePigId(final Integer pigInfoId, final String newPigId) {
+		String query = "update pigtrax.\"PigInfo\" SET \"pigId\"= ?  WHERE \"id\" = ?";
+
+		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, newPigId);
+				ps.setInt(2, pigInfoId);
+			}
+		});
 	}
 
 }

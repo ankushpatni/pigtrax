@@ -24,9 +24,11 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dto.Pen;
 import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
+import com.pigtrax.pigevents.beans.RemovalEvent;
 import com.pigtrax.pigevents.dto.BarnDto;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
+import com.pigtrax.pigevents.service.interfaces.RemovalEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
@@ -47,6 +49,9 @@ public class EntryEventRestController {
 	
 	@Autowired
 	PigInfoService pigInfoService;
+	
+	@Autowired
+	RemovalEventService removalEventService;
 	
 	/**
 	 * Service to retrive the list of employees
@@ -179,9 +184,17 @@ public class EntryEventRestController {
 		logger.info("Inside deletePigInfo method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			pigInfoService.deletePigInfo(id);
-			dto.setPayload(id);
-			dto.setStatusMessage("Success");
+			int rowsDeleted = pigInfoService.deletePigInfo(id);
+			if(rowsDeleted == -1)
+			{
+				dto.setPayload(id);
+				dto.setStatusMessage("Events");
+			}
+			else
+			{
+			 dto.setPayload(id);
+			 dto.setStatusMessage("Success");
+			}
 		} catch (PigTraxException e) {
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());
@@ -217,4 +230,53 @@ public class EntryEventRestController {
 		}
 		return dto;
 	}
+	
+	
+	/**
+	 * Service to search the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPigInformationForChangeId", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPigInformationForChangeId(HttpServletRequest request, @RequestBody PigInfoDto pigInformation)
+	{
+		logger.info("Inside getPigInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			String flag = "DisableChange";
+			pigInformation = pigInfoService.getPigInformation(pigInformation);
+			if(pigInformation != null){
+				List<RemovalEvent> removalEvents = removalEventService.getRemovalEventByPigId(pigInformation.getId());
+				if(removalEvents != null && 0 < removalEvents.size())
+				{
+					for(RemovalEvent event : removalEvents)
+					{
+						if(event.getRemovalTypeId() == 1 || event.getRemovalTypeId() == 2 || event.getRemovalTypeId() == 4)
+						{
+							flag = "EnableChange";
+							break;
+						}
+					}
+				}
+				else
+					flag = "DisableChange";
+			}
+			if("EnableChange".equals(flag))
+				pigInformation.setEnableChangeId(true);
+			else
+				pigInformation.setEnableChangeId(false);
+			
+			dto.setPayload(pigInformation);
+			if(pigInformation != null && pigInformation.getId() != null)
+				dto.setStatusMessage("Success");
+			else
+				dto.setStatusMessage("ERROR : Pig Information not found");
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+	
 }

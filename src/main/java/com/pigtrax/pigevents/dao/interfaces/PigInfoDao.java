@@ -30,4 +30,6 @@ public interface PigInfoDao {
    int increaseParity(Integer pigInfoId); 
    
    int decreaseParity(Integer pigInfoId);
+   
+   int changePigId(Integer pigInfoId, String newPigId);
 }
