@@ -170,6 +170,10 @@ public class GroupEventServiceImpl implements GroupEventService{
 			}
 			else
 			{
+				if( null != groupEvent.getInventoryAdjustment() && groupEvent.getInventoryAdjustment() >0)
+				{
+					groupEvent.setCurrentInventory(groupEvent.getCurrentInventory()-groupEvent.getInventoryAdjustment());
+				}
 				generatedId = groupEventDao.updateGroupEvent(groupEvent);
 			}
 			return generatedId;

@@ -42,10 +42,10 @@
 						<label><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /><span style='color: red'>*</span></label>
 						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.weightInKgs'  text='Weight In Kgs'/>" name="weightInKgs" ng-model="groupEvent.weightInKgs" required required-message="'<spring:message code='label.groupEventDetail.weightInKgs.required' text='Weight In Kgs is required' />'" ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>	
 					</div>
-					<div class="form-group">
+					<!--  <div class="form-group">
 						<label><spring:message code="label.groupEventDetail.inventoryAdjustment" text="Inventory Adjustment" /></label>
 						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.inventoryAdjustment' text='Inventory Adjustment' />" name="inventoryAdjustment" ng-model="groupEvent.inventoryAdjustment" maxlength="8" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
-					</div>					
+					</div>	-->				
 					
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/></label>

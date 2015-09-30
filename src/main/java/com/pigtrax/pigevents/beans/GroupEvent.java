@@ -18,6 +18,7 @@ public class GroupEvent {
 	private Integer phaseOfProductionTypeId;
 	private boolean fromMove; // added to get flag from UI for move
 	private Double weightInKgs; 
+	private Integer inventoryAdjustment;
 	
 	public Integer getCompanyId() {
 		return companyId;
@@ -102,6 +103,12 @@ public class GroupEvent {
 	}
 	public void setWeightInKgs(Double weightInKgs) {
 		this.weightInKgs = weightInKgs;
+	}
+	public Integer getInventoryAdjustment() {
+		return inventoryAdjustment;
+	}
+	public void setInventoryAdjustment(Integer inventoryAdjustment) {
+		this.inventoryAdjustment = inventoryAdjustment;
 	}	
 	
 }

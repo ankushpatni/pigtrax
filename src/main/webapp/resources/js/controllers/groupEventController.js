@@ -15,6 +15,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.followedGroupIdString;
 	$scope.barnList={};
 	$scope.entryEventStatusChangeSuccessMessage = false;
+	$scope.editGroupEventInventory = false;
 		
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
@@ -79,6 +80,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.resetForm = function()
 	{
+		$scope.editGroupEventInventory = false;
 		$scope.groupEventDetailList = [];
 		$scope.groupEvent = {};
 		$scope.clearAllMessages();
@@ -139,6 +141,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"fromMove" : false,
 					"previousGroupId" : $scope.groupEvent.previousGroupId,
 					"currentInventory" : $scope.groupEvent.currentInventory,
+					"inventoryAdjustment" : $scope.groupEvent.inventoryAdjustment,
 					
 				};
 				if($scope.groupEvent.id != undefined && $scope.groupEvent.id >0)
@@ -153,6 +156,9 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 						$scope.clearAllMessages();
 						$scope.entryEventSuccessMessage = true;
 						$scope.groupEvent.active = true;
+						//$scope.groupEvent = postParam;
+						$scope.editGroupEventInventory = false;
+						$scope.getGroupEventInformation($scope.groupEvent.groupId,true);
 					}
 				else
 					{
@@ -245,6 +251,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			if(!data.error)
 				{
 					$scope.clearAllMessages();
+					$scope.editGroupEventInventory = false;
 					$scope.groupEvent = data.payload[0];
 					$scope.groupEventDetailList	= data.payload[1];	
 					$scope.followedGroupIdString = data.payload[2];						
@@ -281,6 +288,11 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		
 		document.forms['groupEventFormAdd'].action = 'addGroupEventDetail';
 		document.forms['groupEventFormAdd'].submit();
+	}
+	
+	$scope.editGroupEventInventoryAmount = function()
+	{
+		$scope.editGroupEventInventory = true;
 	}
 
 });
