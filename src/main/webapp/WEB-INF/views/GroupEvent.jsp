@@ -127,6 +127,9 @@
                      <input type="text" ng-model="groupEvent.inventoryAdjustment" id="inventoryAdjustment" name="inventoryAdjustment"  class="form-control" maxlength="10" placeholder="<spring:message code='label.piginfo.groupEventForm.inventoryAdjustment.placeholder'  text='Enter Inventory Adjustment'/>" 
                        ng-focus="clearMessages()"/>
                    </div>
+                   <div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="inventoryAdjustmentError" ><spring:message code='label.piginfo.groupEventform.inventoryAdjustmentError' text='Inventory Adjustment can not be greater than no of pigs in group.' /></label>
+					</div>
 					
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage "><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>

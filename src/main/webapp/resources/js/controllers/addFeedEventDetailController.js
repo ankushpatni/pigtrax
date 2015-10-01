@@ -7,8 +7,18 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 	$scope.feedEventId = feedEventDetailData.feedEventId;
 	$scope.ticketNumber = feedEventDetailData.ticketNumber;
 	$scope.companyId = feedEventDetailData.companyId;
-	$scope.groupEvent = feedEventDetailData.groupEvent;
+	$scope.groupEvent = [];
 	console.log(feedEventDetailData);
+	
+	$scope.groupEventOriginalList = feedEventDetailData.groupEvent;
+	for( var x in $scope.groupEventOriginalList)
+	{
+		if( $scope.groupEventOriginalList[x].active )
+			{		
+				$scope.groupEvent[x] = $scope.groupEventOriginalList[x];
+			}
+	}
+	
 	
 	if(feedEventDetailData.id)
 	{
@@ -21,6 +31,7 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 		res1.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+		
 		
 	}
 	

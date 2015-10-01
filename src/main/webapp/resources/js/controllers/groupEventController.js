@@ -76,11 +76,14 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.groupenddaterequired = false;
 		$scope.entryEventStatusChangeSuccessMessage = false;
 		$scope.searchText='';
+		$scope.editGroupEventInventory = false;
+		$scope.inventoryAdjustmentError = false;
 	};
 	
 	$scope.resetForm = function()
 	{
 		$scope.editGroupEventInventory = false;
+		$scope.inventoryAdjustmentError = false;
 		$scope.groupEventDetailList = [];
 		$scope.groupEvent = {};
 		$scope.clearAllMessages();
@@ -126,6 +129,12 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			$scope.groupdaterequired = true;
 			console.log($scope.groupdaterequired);
 			return;
+		}
+		
+		if($scope.groupEvent.inventoryAdjustment != 0  && $scope.groupEvent.inventoryAdjustment > $scope.groupEvent.currentInventory)
+		{
+			$scope.inventoryAdjustmentError = true;
+			return false;
 		}
 		if($scope.groupEventForm.$valid)
 		{
