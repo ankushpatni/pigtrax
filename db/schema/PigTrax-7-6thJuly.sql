@@ -695,7 +695,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"id_Pen" integer,
 	"id_Barn" integer,
 	"id_SexType" integer,
-	"parity" integer,
+	"parity" integer default 0,
 	"id_GfunctionType" smallint,
 	"isActive" boolean,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id),
@@ -2159,6 +2159,32 @@ ALTER TABLE pigtrax."ChangedPigId" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_
 REFERENCES pigtrax."Company" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+-- object: pigtrax."ProductionLog" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."ProductionLog" CASCADE;
+CREATE TABLE pigtrax."ProductionLog"(
+	id serial NOT NULL,	
+	"observation" varchar(30) NOT NULL,	
+	"id_Company" int not null,
+	"lastUpdated" timestamp not null,
+	"userUpdated" varchar(30) not null,
+	CONSTRAINT "PRODUCTIONLOG_PK" PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE pigtrax."ProductionLog" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "Company_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."ProductionLog" DROP CONSTRAINT IF EXISTS "Company_fk" CASCADE;
+ALTER TABLE pigtrax."ProductionLog" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_Company")
+REFERENCES pigtrax."Company" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"

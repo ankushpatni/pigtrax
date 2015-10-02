@@ -37,6 +37,8 @@
                                          	<li><a href="pigGroupEvent"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></li>
                                          	<li><a href="loadPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>
                                          	<li><a href="pigletStatusEvent"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></li>                                         	
+                                         	<li><a href="toChangeId"><spring:message code="label.leftmenu.managepigevents.changeId.link"  text="Change Id"/></a></li>
+                                         	<li><a href="getProductionLogs"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>
                                          </ul>
                                       </li>
                              <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytic Reports"/></span></a>
