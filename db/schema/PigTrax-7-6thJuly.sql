@@ -417,7 +417,7 @@ ALTER TABLE pigtraxrefdata."SaleEventType" OWNER TO pitraxadmin;
 CREATE TABLE pigtrax."FeedEvent"(
 	id serial NOT NULL,
 	"ticketNumber" varchar(30) NOT NULL,
-	"feedContentId" varchar(30) NOT NULL,
+	"feedContentId" varchar(30),
 	"initialFeedEntryDateTime" timestamp NOT NULL,
 	"batchId" varchar(30) NOT NULL,
 	"initialFeedQuantityKgs" numeric(20,2) NOT NULL,

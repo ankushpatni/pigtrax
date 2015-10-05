@@ -52,7 +52,7 @@
 				  <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.feedContentId'  text='Feed Content Id'/><span style='color: red'>*</span></label>
                       <label ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">{{feedEvent.feedContentId}}</label>
-                      <input type="text" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage" ng-model="feedEvent.feedContentId" id="feedContentId" name="feedContentId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.feedEventForm.feedContentId.placeholder'  text='Enter Feed Content Id'/>" required
+                      <input type="text" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage" ng-model="feedEvent.feedContentId" id="feedContentId" name="feedContentId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.feedEventForm.feedContentId.placeholder'  text='Enter Feed Content Id'/>" 
                       required-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.requiredMessage' text='Feed Content Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
