@@ -119,9 +119,9 @@
 													<li><a href="#" ng-click="goToPigEvent('GroupEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></li>
 													<li><a href="#" ng-click="goToPigEvent('PigletEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>
 													<li><a href="#" ng-click="goToPigEvent('PigletStatusEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></li>
-													<li><a href="#" ng-click="goToPigEvent('FeedEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></li>
-													<li><a href="#" ng-click="goToPigEvent('RemovalEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Piglet Status Event"/></a></li>
-													<li><a href="#" ng-click="goToPigEvent('ChangePigId',row.id)"><spring:message code="label.leftmenu.managepigevents.removalevent.link"  text="Change Id"/></a></li>
+													<li><a href="#" ng-click="goToPigEvent('FeedEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></a></li>
+													<li><a href="#" ng-click="goToPigEvent('RemovalEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.removalevent.link"  text="Removal Event"/></a></li>
+													<li><a href="#" ng-click="goToPigEvent('ChangePigId',row.id)"><spring:message code="label.leftmenu.managepigevents.changeid.link"  text="Change Id"/></a></li>
 													<li><a href="#" ng-click="goToPigEvent('ProductionLog',row.id)"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>
 												  </ul>
 												  
