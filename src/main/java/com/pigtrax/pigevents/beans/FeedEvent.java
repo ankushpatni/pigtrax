@@ -9,7 +9,7 @@ public class FeedEvent {
 	private String ticketNumber;
 	private String feedContentId;
 	private Date initialFeedEntryDateTime;
-	private String batchId;
+	private Integer rationId;
 	private Integer initialFeedQuantityKgs;
 	private BigDecimal feedCost;
 	private String feedMedication;
@@ -42,12 +42,7 @@ public class FeedEvent {
 	public void setInitialFeedEntryDateTime(Date initialFeedEntryDateTime) {
 		this.initialFeedEntryDateTime = initialFeedEntryDateTime;
 	}
-	public String getBatchId() {
-		return batchId;
-	}
-	public void setBatchId(String batchId) {
-		this.batchId = batchId;
-	}
+	
 	public Integer getInitialFeedQuantityKgs() {
 		return initialFeedQuantityKgs;
 	}
@@ -90,5 +85,13 @@ public class FeedEvent {
 	public void setTransportJourney(TransportJourney transportJourney) {
 		this.transportJourney = transportJourney;
 	}
+	public Integer getRationId() {
+		return rationId;
+	}
+	public void setRationId(Integer rationId) {
+		this.rationId = rationId;
+	}
+	
+	
 	
 }

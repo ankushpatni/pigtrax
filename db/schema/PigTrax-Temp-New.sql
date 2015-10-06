@@ -1920,6 +1920,28 @@ REFERENCES pigtrax."TransportJourney" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+
+-- DROP TABLE pigtrax."MasterRation";
+
+CREATE TABLE pigtrax."MasterRation"
+(
+  id serial NOT NULL,
+  "rationValue" character varying(20) NOT NULL,
+  "id_FeedEventType" integer,
+  "lastUpdated" timestamp without time zone NOT NULL,
+  "userUpdated" character varying(20) NOT NULL,
+  CONSTRAINT "MasterRation_PK" PRIMARY KEY (id)
+);
+
+ALTER TABLE pigtrax."MasterRation"
+  OWNER TO pitraxadmin;
+
+  -- object: "FeedEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."MasterRation" DROP CONSTRAINT IF EXISTS "FeedEventType_fk" CASCADE;
+ALTER TABLE pigtrax."MasterRation" ADD CONSTRAINT "FeedEventType_fk" FOREIGN KEY ("id_FeedEventType")
+REFERENCES pigtraxrefdata."FeedEventType" (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
 as(

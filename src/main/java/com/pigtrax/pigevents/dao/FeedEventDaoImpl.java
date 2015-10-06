@@ -111,7 +111,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 				ps.setString(2, feedEvent.getFeedContentId());
 				ps.setDate(3, new java.sql.Date(feedEvent
 						.getInitialFeedEntryDateTime().getTime()));
-				ps.setString(4, feedEvent.getBatchId());
+				ps.setInt(4, feedEvent.getRationId());
 				ps.setInt(5, feedEvent.getInitialFeedQuantityKgs());
 				ps.setBigDecimal(6, feedEvent.getFeedCost());
 				ps.setString(7, feedEvent.getFeedMedication());
@@ -148,7 +148,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 					{
 						ps.setNull(2, java.sql.Types.DATE);
 					}
-					ps.setString(3, feedEvent.getBatchId());
+					ps.setInt(3, feedEvent.getRationId());
 					
 					if(feedEvent.getInitialFeedQuantityKgs() != null )
 						ps.setInt(4, feedEvent.getInitialFeedQuantityKgs());
@@ -180,7 +180,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 			feedEvent.setTicketNumber(rs.getString("ticketNumber"));
 			feedEvent.setFeedContentId(rs.getString("feedContentId"));
 			feedEvent.setInitialFeedEntryDateTime(rs.getDate("initialFeedEntryDateTime"));
-			feedEvent.setBatchId(rs.getString("batchId"));
+			feedEvent.setRationId(rs.getInt("batchId"));
 			feedEvent.setInitialFeedQuantityKgs(rs.getInt("initialFeedQuantityKgs"));
 			feedEvent.setFeedCost(rs.getBigDecimal("feedCost"));
 			feedEvent.setFeedMedication(rs.getString("feedMedication"));			

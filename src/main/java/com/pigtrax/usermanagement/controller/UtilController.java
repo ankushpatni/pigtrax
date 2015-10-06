@@ -192,6 +192,7 @@ public class UtilController {
 		phaseOfProductionType.add(refDataCache.getFeedEventTypeMap(language));
 		phaseOfProductionType.add(siloService.getSiloListBasedOnCompanyId(companyId));
 		phaseOfProductionType.add(groupeventService.getGroupEventByCompanyId(companyId));
+		phaseOfProductionType.add(refDataCache.getRationTypeMap());
 		dto.setPayload(phaseOfProductionType);
 		dto.setStatusMessage("Success");
 		return dto;

@@ -881,3 +881,8 @@ CURRENT_DATE,'pigtraxadmin',4);
 INSERT into pigtrax."EmployeeJobFunction" ("functionName", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values ('ANY',CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',7);
 
 INSERT into pigtrax."EmployeeJobFunction" ("functionName", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values ('ANY',CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',8);
+
+INSERT INTO pigtrax."MasterRation"(
+            "rationValue", "id_FeedEventType", "lastUpdated", "userUpdated")
+    VALUES ( 'Carrot', '1', current_timestamp, 'pigTraxAdmin');
+

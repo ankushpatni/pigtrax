@@ -224,4 +224,21 @@ public class RefDataDaoImpl implements RefDataDao {
 		
 	}
 	
+	public Map<Integer,String> getRationType()
+	{
+		String query = "select \"id\", \"rationValue\" from pigtrax.\"MasterRation\" order by \"rationValue\" ";
+		return jdbcTemplate.query(query, new ResultSetExtractor<Map<Integer, String>>() {
+			@Override
+			public Map<Integer, String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<Integer, String> rationTypeMap = new HashMap<Integer, String>();
+				
+				while (rs.next()) {
+					rationTypeMap.put(rs.getInt(1), rs.getString(2));
+				}
+					
+				return rationTypeMap;
+			}
+		});
+	}
+	
 }
