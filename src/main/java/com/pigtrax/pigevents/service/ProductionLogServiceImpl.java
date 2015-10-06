@@ -19,6 +19,9 @@ public class ProductionLogServiceImpl implements ProductionLogService {
 	@Autowired
 	ProductionLogDao productionLogDao;
 	
+	/**
+	 * stores the production log details
+	 */
     @Override
     public int storeProductionLog(ProductionLogDto productionLogDto)
     		throws PigTraxException {
@@ -28,9 +31,12 @@ public class ProductionLogServiceImpl implements ProductionLogService {
     		productionLog.setObservation(productionLogDto.getObservation());
     		productionLog.setCompanyId(productionLogDto.getCompanyId());
     		productionLog.setUserUpdated(productionLogDto.getUserUpdated());
-    		
+    		productionLog.setId(productionLogDto.getId());
     		try {
-				return productionLogDao.storeProductionLog(productionLog);
+    			if(productionLog.getId() == null)
+    				return productionLogDao.addProductionLog(productionLog);
+    			else
+    				return productionLogDao.updateProductionLog(productionLog);
 			} catch (SQLException e) {
 				throw new PigTraxException(e.getMessage());
 			}
@@ -39,7 +45,9 @@ public class ProductionLogServiceImpl implements ProductionLogService {
     		return -1;
     }
     
-    
+    /**
+     * selects the list of production logs for a company
+     */
     @Override
     public List<ProductionLogDto> getProductLogList(
     		ProductionLogDto productionLogDto) throws PigTraxException {
@@ -47,7 +55,7 @@ public class ProductionLogServiceImpl implements ProductionLogService {
     	List<ProductionLogDto> productionLogDtoList = new ArrayList<ProductionLogDto>();
     	try{
 	    	productionLogs = productionLogDao.getProductLogList(productionLogDto.getCompanyId(), 
-	    			productionLogDto.getStartDate(), productionLogDto.getEndDate());  
+	    			productionLogDto.getStartDate(), productionLogDto.getEndDate(), productionLogDto.getUserUpdated());   
 	    	
 	    	if(productionLogs != null)
 	    	{
@@ -68,5 +76,19 @@ public class ProductionLogServiceImpl implements ProductionLogService {
     		throw new PigTraxException(ex.getMessage());
     	}
     	return productionLogDtoList;
+    }
+    
+    /**
+     * Deletes the production Log for a given id
+     */
+    @Override
+    public int deleteProductionLog(Integer id) throws PigTraxException {
+    	try{
+    		return productionLogDao.deleteProductionLog(id);
+    	}
+    	catch(SQLException sqlEx)
+    	{
+    		throw new PigTraxException(sqlEx.getMessage());
+    	}
     }
 }

@@ -163,9 +163,9 @@ public class PigInfoServiceImpl implements PigInfoService {
 		
 		return pigInfoMap;
 	}
- 
+  
 	@Override
-	public int changePigId(Integer pigInfoId, String newPigId) throws PigTraxException {
+	public int changePigId(Integer pigInfoId, String newPigId) throws PigTraxException {  
 		try{
 			return pigInfoDao.changePigId(pigInfoId, newPigId);
 		}

@@ -17,9 +17,10 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 			});
 		};
 	
-	$scope.setCompanyId = function(companyId)
+	$scope.setCompanyId = function(companyId, loggedInUserName)
 	{
 		$rootScope.companyId = companyId;
+		$rootScope.loggedInUser = loggedInUserName;
 		$scope.getProductionLogList();
 	};
 	
@@ -29,11 +30,33 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		$scope.observationRequired = false;
 		$scope.productionLogSaved = false;
 		$scope.productionLogError = false;
+		$scope.productionLogDeleted = false;
 	}
 	
 	
 	
-	
+	$scope.searchProductionLog = function()
+	{
+		var dateRangeVal = document.getElementById("reservation").value;		
+		if(dateRangeVal != null && dateRangeVal != "")
+		{
+			var dates = dateRangeVal.split("-");
+			
+			var productionLog = {
+						"companyId" : $rootScope.companyId,
+						"startDate" : DateUtils.convertLocaleDateToServer(new Date(dates[0])),
+						"endDate" : DateUtils.convertLocaleDateToServer(new Date(dates[1]))
+			};
+			
+			 restServices.getProductionLogList(productionLog, function(data){
+				 if(!data.error)
+				 {
+					$scope.rowCollection = data.payload;
+					$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
+				 }
+			});
+		}
+	}
 	
 	
 	$scope.saveProductionLog = function()
@@ -66,6 +89,44 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		}
 	};
 	
+	$scope.selectProductionLogForEdit = function(selectedLog)
+	{
+		$scope.productionLog["observation"] = selectedLog["observation"];
+		$scope.productionLog["id"] = selectedLog["id"];
+	}
+	
+	
+	$scope.deleteProductionLog = function(id)
+	{
+		restServices.deleteProductionLog(id, function(data){
+			if(!data.error)
+			{
+			 
+				var productionLog = {
+						"companyId" : $rootScope.companyId,
+						"startDate" : null,
+						"endDate" : null
+				};
+				 restServices.getProductionLogList(productionLog, function(data){
+						 if(!data.error)
+						 {
+							$scope.rowCollection = data.payload;
+							$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
+							$scope.clearAllMessages();
+							$scope.productionLogDeleted = true;
+							$scope.productionLog = {};
+						 }
+					});	
+				
+			 
+			}
+			else
+			{
+				$scope.clearAllMessages();
+				$scope.productionLogError = true;
+			}
+		});
+	}
 	
 	
 	$scope.resetForm = function()

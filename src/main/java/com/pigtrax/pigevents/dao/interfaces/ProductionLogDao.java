@@ -7,7 +7,11 @@ import java.util.List;
 import com.pigtrax.pigevents.beans.ProductionLog;
 
 public interface ProductionLogDao {
-   int storeProductionLog(ProductionLog productionLog) throws SQLException;
+   int addProductionLog(ProductionLog productionLog) throws SQLException;
    
-   List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate) throws SQLException;
+   int updateProductionLog(ProductionLog productionLog) throws SQLException;
+   
+   List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate, String username) throws SQLException;
+   
+   int deleteProductionLog(Integer id) throws SQLException;
 }

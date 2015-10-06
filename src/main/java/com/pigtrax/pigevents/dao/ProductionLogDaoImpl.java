@@ -37,7 +37,7 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 
 	
 	@Override
-	public int storeProductionLog(final ProductionLog productionLog)
+	public int addProductionLog(final ProductionLog productionLog)
 			throws SQLException {
 		final String Qry = "insert into pigtrax.\"ProductionLog\"(\"observation\", \"id_Company\", \"lastUpdated\", \"userUpdated\") "
 				+ "values(?,?,current_timestamp,?)";
@@ -69,25 +69,46 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 	}
 	
 	
-	public List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate) throws SQLException
+	
+	@Override
+	public int updateProductionLog(final ProductionLog productionLog)
+			throws SQLException {
+		String query = "update pigtrax.\"ProductionLog\" SET \"observation\"= ?  WHERE \"id\" = ?";
+
+		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, productionLog.getObservation());
+				ps.setInt(2, productionLog.getId());
+			}
+		});
+	}
+	
+	
+	public List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate, final String username) throws SQLException
 	{
 		String sql = "select \"id\", \"observation\", \"id_Company\", \"lastUpdated\", \"userUpdated\" " 
 				+ "from pigtrax.\"ProductionLog\" where \"id_Company\" = ?";
 		
-		if(startDate != null)
-			sql+= " and lastUpdated::date >= ? ";
+		if(startDate != null && endDate != null)
+			sql+= " and \"lastUpdated\"::date >= ?  and \"lastUpdated\"::date <= ? ";
+		else
+			sql+= " and \"userUpdated\" = ? ";
 		
-		if(endDate != null)
-			sql+= " and lastUpdated::date <= ? ";
 		
 		List<ProductionLog> productionLogList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {				
 				ps.setInt(1, companyId);
-				if(startDate != null)
-					ps.setDate(2, new java.sql.Date(startDate.getTime()));
-				if(startDate != null)
+				if(startDate != null && endDate != null)
+				{
+					ps.setDate(2, new java.sql.Date(startDate.getTime()));				
 					ps.setDate(3, new java.sql.Date(endDate.getTime()));
+				}
+				else
+				{
+					ps.setString(2, username);
+				}
 			}}, new ProductionLogMapper());
 		
 		return productionLogList;
@@ -103,5 +124,18 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 			productionLog.setUserUpdated(rs.getString("userUpdated"));
 			return productionLog;
 		}
+	}
+	
+	
+	@Override
+	public int deleteProductionLog(final Integer id) throws SQLException {
+		String query = "delete from pigtrax.\"ProductionLog\" WHERE \"id\" = ?";
+
+		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, id);
+			}
+		});
 	}
 }
