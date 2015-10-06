@@ -55,7 +55,7 @@ public class ProductionLogServiceImpl implements ProductionLogService {
     	List<ProductionLogDto> productionLogDtoList = new ArrayList<ProductionLogDto>();
     	try{
 	    	productionLogs = productionLogDao.getProductLogList(productionLogDto.getCompanyId(), 
-	    			productionLogDto.getStartDate(), productionLogDto.getEndDate());  
+	    			productionLogDto.getStartDate(), productionLogDto.getEndDate(), productionLogDto.getUserUpdated());   
 	    	
 	    	if(productionLogs != null)
 	    	{

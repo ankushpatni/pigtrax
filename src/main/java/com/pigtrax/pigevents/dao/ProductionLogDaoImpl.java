@@ -85,25 +85,30 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 	}
 	
 	
-	public List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate) throws SQLException
+	public List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate, final String username) throws SQLException
 	{
 		String sql = "select \"id\", \"observation\", \"id_Company\", \"lastUpdated\", \"userUpdated\" " 
 				+ "from pigtrax.\"ProductionLog\" where \"id_Company\" = ?";
 		
-		if(startDate != null)
-			sql+= " and \"lastUpdated\"::date >= ? ";
+		if(startDate != null && endDate != null)
+			sql+= " and \"lastUpdated\"::date >= ?  and \"lastUpdated\"::date <= ? ";
+		else
+			sql+= " and \"userUpdated\" = ? ";
 		
-		if(endDate != null)
-			sql+= " and \"lastUpdated\"::date <= ? ";
 		
 		List<ProductionLog> productionLogList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {				
 				ps.setInt(1, companyId);
-				if(startDate != null)
-					ps.setDate(2, new java.sql.Date(startDate.getTime()));
-				if(startDate != null)
+				if(startDate != null && endDate != null)
+				{
+					ps.setDate(2, new java.sql.Date(startDate.getTime()));				
 					ps.setDate(3, new java.sql.Date(endDate.getTime()));
+				}
+				else
+				{
+					ps.setString(2, username);
+				}
 			}}, new ProductionLogMapper());
 		
 		return productionLogList;

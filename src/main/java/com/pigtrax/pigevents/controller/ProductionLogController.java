@@ -109,6 +109,7 @@ public class ProductionLogController {
 			   {
 				   
 			   }
+			   model.addAttribute("loggedInUser", activeUser.getUsername());
 			   model.addAttribute("contentUrl","ProductionLogList.jsp");
 		   }
 		   return "template";

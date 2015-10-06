@@ -2165,7 +2165,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."ProductionLog" CASCADE;
 CREATE TABLE pigtrax."ProductionLog"(
 	id serial NOT NULL,	
-	"observation" varchar(30) NOT NULL,	
+	"observation" varchar(500) NOT NULL,	
 	"id_Company" int not null,
 	"lastUpdated" timestamp not null,
 	"userUpdated" varchar(30) not null,
