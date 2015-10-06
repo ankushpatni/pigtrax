@@ -25,9 +25,11 @@ import com.pigtrax.master.dto.Pen;
 import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.pigevents.beans.RemovalEvent;
+import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.dto.BarnDto;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
+import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -51,7 +53,7 @@ public class EntryEventRestController {
 	PigInfoService pigInfoService;
 	
 	@Autowired
-	RemovalEventService removalEventService;
+	RemovalEventExceptSalesService removalEventService;
 	
 	/**
 	 * Service to retrive the list of employees
@@ -241,17 +243,17 @@ public class EntryEventRestController {
 	public ServiceResponseDto getPigInformationForChangeId(HttpServletRequest request, @RequestBody PigInfoDto pigInformation)
 	{
 		logger.info("Inside getPigInformation method" );
-		ServiceResponseDto dto = new ServiceResponseDto();
+		ServiceResponseDto dto = new ServiceResponseDto(); 
 		try {
 			String flag = "DisableChange";
 			pigInformation = pigInfoService.getPigInformation(pigInformation);
 			if(pigInformation != null){
-				List<RemovalEvent> removalEvents = removalEventService.getRemovalEventByPigId(pigInformation.getId());
+				List<RemovalEventExceptSalesDetails> removalEvents = removalEventService.getRemovalEventExceptSalesDetailsByPigInfoId(pigInformation.getPigId(), pigInformation.getCompanyId());
 				if(removalEvents != null && 0 < removalEvents.size())
 				{
-					for(RemovalEvent event : removalEvents)
+					for(RemovalEventExceptSalesDetails event : removalEvents)
 					{
-						if(event.getRemovalTypeId() == 1 || event.getRemovalTypeId() == 2 || event.getRemovalTypeId() == 4)
+						if(event.getRemovalEventId() == 1 || event.getRemovalEventId() == 2 || event.getRemovalEventId() == 4)
 						{
 							flag = "EnableChange";
 							break;
