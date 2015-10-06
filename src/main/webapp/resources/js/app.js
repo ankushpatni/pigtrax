@@ -273,5 +273,29 @@ pigTrax.directive('ngConfirmClick', [ function() {
 		      }
 		      return res;
 		    };
-		  });		
+		  }).filter('newline', function($sce) {
+			    return function(text) {
+					if(text != null)
+					{		
+						var finalStr = "";
+						var words = text.split(" "); 
+						var i = 0; 
+						if(words.length > 1)
+						{
+						while(i<words.length)
+						{
+						  for(j = i;j < words.length && j<i+10; j++)
+							  {
+							  finalStr += " "+words[j];
+							  }
+						  finalStr += "<br/>";
+						  i+=10;
+						}
+						}
+						else
+							finalStr = text;
+					}
+			        return $sce.trustAsHtml(finalStr);
+			    }
+		  });
 

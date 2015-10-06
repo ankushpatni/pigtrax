@@ -69,6 +69,8 @@
 												code="label.productionlogform.observation" text="Observation" /></th>
 										<th st-sort="date"><spring:message
 												code="label.productionlogform.loggedon" text="Logged On" /></th>
+										<th st-sort="date"><spring:message
+												code="label.productionlogform.loggedon" text="Logged By" /></th>
 										
 										<th style="width:20px"><spring:message code="label.productionlogform.acion"
 												text="Action"/></th>
@@ -77,8 +79,9 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="row in displayedCollection track by $index">
-										<td>{{row.observation}}</td>
+										<td><span ng-bind-html="row.observation | newline"></td>
 										<td>{{row.lastUpdated}}</td>
+										<td>{{row.userUpdated}}</td>
 										<td>
 											<button type="button" class="btn btn-edit btn-xs" data-toggle="modal" data-target="#addProductionLogModal"  ng-click="selectProductionLogForEdit(row)" ng-show="loggedInUser == row.userUpdated">
 												<span class="glyphicon glyphicon-pencil"></span>
@@ -122,7 +125,7 @@
                       <label><spring:message code='label.productionlogform.observation'  text='Observation'/><span style='color: red'>*</span></label>                      
                       <textarea name="remarks" ng-model="productionLog.observation" class="form-control" rows="10" cols="10"
                         placeholder="<spring:message code='label.productionlogform.observation.placeholder' text='Enter observation'/>" required 
-                        required-message="'<spring:message code='label.productionlogform.observation.requiredmessage' text='Observation is required'/>'"></textarea>
+                        required-message="'<spring:message code='label.productionlogform.observation.requiredmessage' text='Observation is required'/>'" maxlength = "500"></textarea>
                         
                     </div>
                     
