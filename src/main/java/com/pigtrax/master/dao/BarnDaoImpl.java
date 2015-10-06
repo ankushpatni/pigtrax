@@ -104,7 +104,15 @@ public class BarnDaoImpl implements BarnDao {
 				ps.setBoolean(8, barn.isActive());
 				ps.setDate(9, new java.sql.Date(System.currentTimeMillis()));
 				ps.setString(10, UserUtil.getLoggedInUser());
-				ps.setInt(11, barn.getVentilationTypeId());
+				if(barn.getVentilationTypeId() != 0)
+				{
+					ps.setInt(11, barn.getVentilationTypeId());
+				}
+				else
+				{
+					ps.setNull(11, java.sql.Types.INTEGER);
+				}
+					
 			}
 		});	
 	}
@@ -123,7 +131,15 @@ public class BarnDaoImpl implements BarnDao {
 				ps.setInt(5, barn.getWaterAccessCount());
 				ps.setDate(6, new java.sql.Date(System.currentTimeMillis()));
 				ps.setString(7, UserUtil.getLoggedInUser());
-				ps.setInt(8, barn.getVentilationTypeId());
+				
+				if(barn.getVentilationTypeId() != 0)
+				{
+					ps.setInt(8, barn.getVentilationTypeId());
+				}
+				else
+				{
+					ps.setInt(8, java.sql.Types.INTEGER);
+				}
 				ps.setString(9, barn.getBarnId().toUpperCase());
 			}
 		});

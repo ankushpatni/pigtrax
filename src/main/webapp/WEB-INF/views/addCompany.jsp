@@ -140,8 +140,8 @@
 						ng-hide="edit">
 						<spring:message code="label.company.add" text="Add" />
 					</button>
-					<button ng-hide="showDetail" class="btn btn-primary btn-flat md-close" ng-click="addCompany()" ng-show="edit">
-						<spring:message code="label.company.edit" text="Edit" />
+					<button class="btn btn-primary btn-flat md-close" ng-click="addCompany()" ng-show="edit">
+						<spring:message code="label.company.save" text="Save" />
 					</button>
 					<button class="btn btn-default btn-flat md-close" ng-click="cancel()">
 						<spring:message code="label.company.cancel" text="Cancel" />

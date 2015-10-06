@@ -21,7 +21,7 @@
 				<th st-sort="name" style="width:10%"><spring:message code="label.premise.name" text="Name" /></th>
 				<th st-sort="address" style="width:25%"><spring:message code="label.premise.address" text="Address" /></th>
 				<th st-sort="city" style="width:10%"><spring:message code="label.premise.city" text="City" /></th>
-				<th st-sort="state" style="width:10%"><spring:message code="label.premise.state" text="State" /></th>
+				<th st-sort="state" style="width:10%"><spring:message code="label.company.country" text="Country" /></th>
 				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.zipcode" text="Zip Code" /></th>
 				<th style="width:8%"><spring:message code="label.premise.edit" text="Edit" /></th>
 				<th style="width:8%"><spring:message code="label.company.goto" text="Go To" /></th>

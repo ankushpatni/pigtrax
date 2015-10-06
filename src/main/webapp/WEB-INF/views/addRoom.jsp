@@ -23,7 +23,7 @@
 			<div class="modal-footer">
 
             <button class="btn btn-primary btn-flat md-close"  ng-click="addRoom()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-primary btn-flat md-close"  ng-click="addRoom()" ng-show="edit"><spring:message code="label.premise.edit" text="Edit" /></button>
+			<button class="btn btn-primary btn-flat md-close"  ng-click="addRoom()" ng-show="edit"><spring:message code="label.premise.save" text="Save" /></button>
             <button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
         </div>
        </div>

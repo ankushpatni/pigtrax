@@ -123,7 +123,7 @@ CREATE TABLE pigtrax."Silo"(
 	id serial NOT NULL,
 	"siloId" varchar(14) NOT NULL,
 	"id_Barn" integer,
-	location varchar(30) NOT NULL,
+	location varchar(30),
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_SiloType" integer,

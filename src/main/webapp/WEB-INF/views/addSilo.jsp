@@ -17,17 +17,17 @@
 				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.silo.siloID' text='Silo ID' />" name="siloId" ng-model="add.siloId" maxlength="4" required required-message="'<spring:message code='label.silo.siloIDRequired' text='Silo Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.silo.siloIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.barn.location" text="Location" /><span style='color: red'>*</span></label>
-				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.location' text='Location' />" name="location" ng-model="add.location" maxlength="30" required required-message="'<spring:message code='label.barn.barnLocationRequired' text='Location is required' />'" />
+				<label><spring:message code="label.barn.location" text="Location" /></label>
+				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.location' text='Location' />" name="location" ng-model="add.location" maxlength="30" required-message="'<spring:message code='label.barn.barnLocationRequired' text='Location is required' />'" />
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.silo.siloTypeId" text="Silo Type" /><span style='color: red'>*</span></label>
-				<select class="form-control" type="text" placeholder="<spring:message code='label.silo.siloTypeId'  text='Silo Type'/>" name="siloType" ng-model="add.siloTypeId" required required-message="'<spring:message code='label.silo.siloTypeRequired' text='Silo Type is required' />'" ng-options="k as v for (k, v) in siloType"/>	
+				<label><spring:message code="label.silo.siloTypeId" text="Silo Type" /></label>
+				<select class="form-control" type="text" placeholder="<spring:message code='label.silo.siloTypeId'  text='Silo Type'/>" name="siloType" ng-model="add.siloTypeId" required-message="'<spring:message code='label.silo.siloTypeRequired' text='Silo Type is required' />'" ng-options="k as v for (k, v) in siloType"/>	
 			</div>
 			<div class="modal-footer">
 
             <button class="btn btn-primary btn-flat md-close"  ng-click="addSilo()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-primary btn-flat md-close"  ng-click="addSilo()" ng-show="edit"><spring:message code="label.premise.edit" text="Edit" /></button>
+			<button class="btn btn-primary btn-flat md-close"  ng-click="addSilo()" ng-show="edit"><spring:message code="label.premise.save" text="Save" /></button>
             <button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
         </div>
        </div>
