@@ -135,6 +135,7 @@ public class ProductionLogController {
 				   model.addAttribute("CompanyId", activeUser.getCompanyId());
 				   model.addAttribute("CompanyName", company.getName());
 			   }
+			   model.addAttribute("loggedInUser", activeUser.getUsername());
 			   
 		   }catch(Exception ex)
 		   {

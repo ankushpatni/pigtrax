@@ -80,4 +80,26 @@ public class ProductionLogRestController {
 		return dto;
 	}
 	
+	
+	/**
+	 * Service to save the company target
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value="/deleteProductionLog", method=RequestMethod.POST, produces="application/json", consumes="application/json") 
+	@ResponseBody
+	public ServiceResponseDto deleteProductionLog(HttpServletRequest request, @RequestBody Integer productionLogId)
+	{
+		logger.info("Inside deleteProductionLog method" );
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try{
+			int rowsDeleted  = productionLogService.deleteProductionLog(productionLogId);
+			dto.setStatusMessage("success");
+			
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR");
+		}
+		return dto;
+	}
+	
 }

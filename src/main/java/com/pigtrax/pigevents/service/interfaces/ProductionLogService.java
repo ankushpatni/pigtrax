@@ -12,4 +12,6 @@ public interface ProductionLogService {
    int storeProductionLog(ProductionLogDto productionLogDto) throws PigTraxException;
    
    List<ProductionLogDto> getProductLogList(ProductionLogDto productionLogDto) throws PigTraxException;
+   
+   int deleteProductionLog(Integer id) throws PigTraxException;
 }
