@@ -129,7 +129,8 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gfunction'  text='Gfunction'/></label>
-                      <select class="form-control"  name="gfunctionType" ng-model="pigInfo.gfunctionTypeId" ng-options="k as v for (k, v) in gfunctionTypes">
+                      <select class="form-control"  name="gfunctionType" ng-model="pigInfo.gfunctionTypeId" >
+                      	<option ng-repeat="key in functionKeys" ng-value="key" ng-selected="pigInfo.gfunctionTypeId==key">{{gfunctionTypes[key]}}</option>        
                         </select>
                     </div>
                     

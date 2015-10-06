@@ -30,10 +30,10 @@
                 <div class="content">
                   <form name="companytargetform">
                   <input type=hidden name="companyId" ng-model="companyTarget.companyId" value="${CompanyId}"/>
-                    
                      <div class="form-group">
                       <label><spring:message code='label.companytargetform.targetname'  text='Target'/><span style='color: red'>*</span></label>                      
-                      <select class="form-control" id="targetId"  ng-options="k as v for (k, v) in targetTypes"  name="targetName" ng-model="companyTarget.targetId" ng-if="companyTarget.id == null" >                          
+                      <select class="form-control" id="targetId"  name="targetName" ng-model="companyTarget.targetId" ng-if="companyTarget.id == null" >
+                      <option ng-repeat="key in keys" ng-value="key">{{targetTypes[key]}}</option>                          
                         </select>
                         <label ng-if="companyTarget.id != null && companyTarget.id > 0">{{companyTarget.targetName}}</label>
                         <label ng-show="targetIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.targetIdRequiredMessage' text='Target Id is required' /></label>

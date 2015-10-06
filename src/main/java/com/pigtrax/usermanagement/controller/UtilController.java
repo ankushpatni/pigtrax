@@ -1,9 +1,9 @@
 package com.pigtrax.usermanagement.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -113,7 +113,17 @@ public class UtilController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		dto.setPayload(refDataCache.getPregnancyEventTypeMap(language));
+		
+		Map<Integer, String> refDataMap = refDataCache.getPregnancyEventTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		
+		dto.setPayload(responseList);
 		dto.setStatusMessage("Success");
 		return dto;
 	}
@@ -125,7 +135,17 @@ public class UtilController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		dto.setPayload(refDataCache.getPregnancyExamResultTypeMap(language));
+		
+		Map<Integer, String> refDataMap = refDataCache.getPregnancyExamResultTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		
+		dto.setPayload(responseList);
 		dto.setStatusMessage("Success");
 		return dto;
 	}
@@ -223,7 +243,15 @@ public class UtilController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		dto.setPayload(refDataCache.getGfunctionTypeMap(language)); 
+		Map<Integer, String> refDataMap = refDataCache.getGfunctionTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
 		dto.setStatusMessage("Success");
 		return dto;
 	}
@@ -235,7 +263,17 @@ public class UtilController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		dto.setPayload(refDataCache.getMortalityReasonTypeMap(language)); 
+		
+		Map<Integer, String> refDataMap = refDataCache.getMortalityReasonTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		
+		dto.setPayload(responseList); 
 		dto.setStatusMessage("Success");
 		return dto;
 	}
@@ -248,7 +286,14 @@ public class UtilController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		dto.setPayload(refDataCache.getTargetTypeMap(language)); 
+		Map<Integer, String> mapval = refDataCache.getTargetTypeMap(language);
+		
+		Set<Integer> keySet = mapval.keySet();
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(mapval);
+		
+		dto.setPayload(responseList); 
 		dto.setStatusMessage("Success");
 		return dto;
 	}

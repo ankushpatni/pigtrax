@@ -37,7 +37,9 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		restServices.getGfunctionTypes(function(data)
 		{
 			if(!data.error){
-				$scope.gfunctionTypes = data.payload;
+				var responseList = data.payload;
+				$scope.functionKeys = responseList[0];
+				$scope.gfunctionTypes =responseList[1];
 			}
 		});
 	}

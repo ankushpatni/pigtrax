@@ -225,8 +225,9 @@
                         </div>
                          </td>           
                          <td width="20%">
-                         <select class="form-control"  name="mortalityReason" ng-model="pigletStatusEvent.mortalityReasonTypeId" ng-options="k as v for (k, v) in mortalityReasonTypes">
+                         <select class="form-control"  name="mortalityReason" ng-model="pigletStatusEvent.mortalityReasonTypeId">                         
                          <option value=""><spring:message code='label.piginfo.pigletstatuseventform.mortalityreason' text='Mortality Reason' /></option>
+                          <option ng-repeat="key in mortalityReasonTypeKeys" ng-value="key" ng-selected="pigletStatusEvent.mortalityReasonTypeId==key">{{mortalityReasonTypes[key]}}</option>
                         </select>   
                         </tr>
                      </tbody>
@@ -329,7 +330,7 @@
 	                   </tr>
 	                   <tr ng-if="fosterPigList == null || fosterPigList.length == 0">
 	                     <td colspan="3">
-	                       <spring:message code='label.piginfo.pigletstatuseventform.list.farrowevents.noresults'  text='No Fosters found'/>
+	                       <spring:message code='label.piginfo.pigletstatuseventform.list.farrowevents.noresults'  text='No farrow events found'/>
 	                     </td>
 	                   </tr>
 	                   

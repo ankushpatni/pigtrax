@@ -50,7 +50,9 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		restServices.getPregnancyEventTypes(function(data)
 		{
 			if(!data.error){
-				$scope.pregnancyEventTypes = data.payload;
+				var responseList = data.payload;
+				$scope.pregnancyEventTypeKeys = responseList[0];
+				$scope.pregnancyEventTypes = responseList[1];
 			}
 		});
 	}
@@ -62,7 +64,10 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		restServices.getPregnancyExamResultTypes(function(data)
 		{
 			if(!data.error){
-				$scope.pregnancyExamResultTypes = data.payload;
+				
+				var responseList = data.payload;
+				$scope.pregnancyExamResultTypeKeys = responseList[0];
+				$scope.pregnancyExamResultTypes = responseList[1];
 			}
 		});
 	}
