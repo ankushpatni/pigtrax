@@ -44,8 +44,8 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 			
 			var productionLog = {
 						"companyId" : $rootScope.companyId,
-						"startDate" : new Date(dates[0]),
-						"endDate" : new Date(dates[1])
+						"startDate" : DateUtils.convertLocaleDateToServer(new Date(dates[0])),
+						"endDate" : DateUtils.convertLocaleDateToServer(new Date(dates[1]))
 			};
 			
 			 restServices.getProductionLogList(productionLog, function(data){
