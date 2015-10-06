@@ -81,7 +81,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 			};
 	
 			console.log(postParam);
-			var res = $http.post('rest/transportTrailerTruck/insertTransportTrailerRecord', postParam);
+			var res = $http.post('rest/transportTrailerTruck/insertTransportTrailorRecord', postParam);
 			res.success(function(data, status, headers, config) {
 				if(data.statusMessage==="SUCCESS")
 				{
@@ -112,6 +112,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 					var trailorData={};
 					trailorData.generatedCompanyId =  $scope.generatedCompanyId;
 					trailorData.truck = false;
+					trailorData.transportTrailerType = $scope.transportTrailerType;
 					return trailorData;
 				}
 			}
@@ -130,6 +131,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 		
 		var res = $http.get('rest/transportTrailerTruck/getTransportTrailerTruck?generatedCompanyId='+generatedCompanyId);
 			res.success(function(data, status, headers, config) {
+			console.log(data);
 				$scope.rowCollectionTruck = data.payload[0];
 				$scope.rowCollectionTrailer = data.payload[1];
 				$scope.transportTrailerType = data.payload[2];

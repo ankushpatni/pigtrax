@@ -114,6 +114,21 @@ public class TransportTrailerDaoImpl implements TransportTrailerDao{
 			}
 		});
 	}
+	
+	@Override
+	public int deleteTransportTrailer(final TransportTrailer transportTrailer) throws SQLException {
+		String query = "DELETE FROM pigtrax.\"TransportTrailer\""
+				+ " WHERE \"id\"=?";
+		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, transportTrailer.getId());
+			}
+		});
+	}
+	
+	
+	
 			
 
 

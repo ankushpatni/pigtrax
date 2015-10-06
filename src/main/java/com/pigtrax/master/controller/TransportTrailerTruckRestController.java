@@ -17,6 +17,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.master.dto.TransportTrailer;
 import com.pigtrax.master.dto.TransportTruck;
 import com.pigtrax.master.service.interfaces.TransportTrailerService;
 import com.pigtrax.master.service.interfaces.TransportTruckService;
@@ -96,6 +97,53 @@ public class TransportTrailerTruckRestController {
 			{
 				dto.setDuplicateRecord(true);
 				dto.setPayload("TransportTruck with ID : "+transportTruck.getTransportTruckId().toUpperCase() + " already present.");
+				logger.error("Inside insertTransportTruckRecord()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
+			}
+			logger.error("Inside updateCompanyStatus()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	/**
+	 * Service to insert  the premises record
+	 * @return Company
+	 */
+	@RequestMapping(value = "/insertTransportTrailorRecord", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto insertTransportTrailorRecord( @RequestBody TransportTrailer transportTrailer)
+	{
+		logger.debug("Inside insertTransportTruckRecord()" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		int updatedRecord = 0;
+		try 
+		{
+		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
+			if( 0 == transportTrailer.getId() )
+			{
+				updatedRecord = transportTrailerServiceImpl.insertTransportTrailer(transportTrailer);
+			}
+			else
+			{
+				updatedRecord = transportTrailerServiceImpl.deleteTransportTrailer(transportTrailer);
+			}
+			dto.setStatusMessage("SUCCESS");
+			dto.setPayload(updatedRecord);
+		} 
+		catch (SQLException e) {
+			updatedRecord = 0;
+			dto.setStatusMessage("FALSE");
+			logger.error("Inside insertTransportTruckRecord/updateTransportTruckRecord" +((SQLException) e).getLocalizedMessage() + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		catch (Exception e) {
+			updatedRecord = 0;
+			dto.setStatusMessage("FALSE");
+			if( e instanceof DuplicateKeyException)
+			{
+				dto.setDuplicateRecord(true);
+				dto.setPayload("TransportTruck with ID : "+transportTrailer.getTransportTrailerId().toUpperCase() + " already present.");
 				logger.error("Inside insertTransportTruckRecord()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
 			}
 			logger.error("Inside updateCompanyStatus()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());

@@ -44,7 +44,8 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 	}
 	
 	$scope.addTransportTrailer = function() {
-		if($scope.truckAddForm.$valid)
+	console.log($scope.trailerAddForm.$valid);
+		if($scope.trailerAddForm.$valid)
 			{
 			var postParam = {
 							"transportTrailerId" : $scope.add.transportTrailerId,
@@ -53,7 +54,7 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 						};
 				
 				console.log(postParam);
-				var res = $http.post('rest/transportTrailerTruck/insertTransportTruckRecord', postParam);
+				var res = $http.post('rest/transportTrailerTruck/insertTransportTrailorRecord', postParam);
 				res.success(function(data, status, headers, config) {
 					if(data.statusMessage==="SUCCESS")
 					{
