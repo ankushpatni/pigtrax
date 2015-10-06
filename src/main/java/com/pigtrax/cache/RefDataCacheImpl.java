@@ -56,6 +56,8 @@ public class RefDataCacheImpl implements RefDataCache {
 	private Map<String, Map<Integer, String>> mortalityReasonTypeMap;
 	
 	private Map<String, Map<Integer, String>> targetTypeMap;
+	
+	private Map<Integer, String> rationTypeMap;
 		
 
 	/*
@@ -86,6 +88,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		gfunctionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getGfunctionType())); 
 		mortalityReasonTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getMortalityReasonTypes()));
 		targetTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getTargetTypes()));
+		rationTypeMap = Collections.unmodifiableMap(refDataDao.getRationType());
 	}
 
 	@Override
@@ -195,5 +198,10 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getTargetTypeMap(String language) {
 		return targetTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getRationTypeMap() {
+		return rationTypeMap;
 	}
 }

@@ -46,4 +46,6 @@ public interface RefDataDao {
 	
 	List<RefDataTranslationDto> getTargetTypes();
 
+	Map<Integer,String> getRationType();
+
 }

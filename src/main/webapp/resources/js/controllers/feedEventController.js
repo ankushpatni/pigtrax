@@ -10,6 +10,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	$scope.siloList={};
 	$scope.feedEventType={};
 	$scope.groupEvent={};
+	$scope.rationType={};
 	
 	
 	$scope.setCompanyId = function(companyId,ticketNumber)
@@ -33,7 +34,8 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 			console.log(data);
 			$scope.siloList = data.payload[1];	
 			$scope.feedEventType = data.payload[0];
-			$scope.groupEvent = data.payload[2]
+			$scope.groupEvent = data.payload[2];
+			$scope.rationType = data.payload[3];
 		});
 		res2.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});

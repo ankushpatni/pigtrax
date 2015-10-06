@@ -50,7 +50,7 @@
                   <form name="feedEventForm" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="feedEvent.id"/>
 				  <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.feedContentId'  text='Feed Content Id'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.feedEventForm.feedContentId'  text='Feed Content Id'/></label>
                       <label ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">{{feedEvent.feedContentId}}</label>
                       <input type="text" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage" ng-model="feedEvent.feedContentId" id="feedContentId" name="feedContentId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.feedEventForm.feedContentId.placeholder'  text='Enter Feed Content Id'/>" 
                       required-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.requiredMessage' text='Feed Content Id is required' />'"
@@ -73,9 +73,12 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="initialFeedEntryDateTimerequired" ><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime.requiredMessage' text='Initial Feed Entry Date Time is required' /></label>
 					</div>	
 	 				<div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.batchId'  text='Batch Id'/><span style='color: red'>*</span></label>
-                      <input type="text" ng-model="feedEvent.batchId" id="batchId" name="batchId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.batchId.placeholder'  text='Enter Batch Id'/>" 
-                       required required-message="'<spring:message code='label.piginfo.feedEventForm.batchId.requiredMessage' text='Batch Id is required' />'" ng-focus="clearMessages()"/>
+                      <label><spring:message code='label.piginfo.feedEventForm.rationId'  text='Ration Id'/><span style='color: red'>*</span></label>
+                     <!-- <input type="text" ng-model="feedEvent.rationId" id="rationId" name="rationId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.batchId.placeholder'  text='Enter Batch Id'/>" 
+                       required required-message="'<spring:message code='label.piginfo.feedEventForm.batchId.requiredMessage' text='Batch Id is required' />'" ng-focus="clearMessages()"/>-->
+					   <select class="form-control" ng-model="feedEvent.rationId" id="rationId" name="rationId"  class="form-control" laceholder="<spring:message code='label.piginfo.feedEventForm.batchId.placeholder'  text='Enter Batch Id'/>" 
+                       required required-message="'<spring:message code='label.piginfo.feedEventForm.batchId.requiredMessage' text='Batch Id is required' />'"  
+                         ng-options="k as v for (k, v) in rationType"> </select>
                    </div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Initial Feed Quantity (In Kgs)'/><span style='color: red'>*</span></label>

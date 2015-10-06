@@ -40,4 +40,6 @@ public interface RefDataCache {
 	
 	Map<Integer, String> getTargetTypeMap(String language);
 
+	Map<Integer, String> getRationTypeMap();
+
 }
