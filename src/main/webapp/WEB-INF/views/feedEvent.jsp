@@ -76,8 +76,8 @@
                       <label><spring:message code='label.piginfo.feedEventForm.rationId'  text='Ration Id'/><span style='color: red'>*</span></label>
                      <!-- <input type="text" ng-model="feedEvent.rationId" id="rationId" name="rationId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.batchId.placeholder'  text='Enter Batch Id'/>" 
                        required required-message="'<spring:message code='label.piginfo.feedEventForm.batchId.requiredMessage' text='Batch Id is required' />'" ng-focus="clearMessages()"/>-->
-					   <select class="form-control" ng-model="feedEvent.rationId" id="rationId" name="rationId"  class="form-control" laceholder="<spring:message code='label.piginfo.feedEventForm.batchId.placeholder'  text='Enter Batch Id'/>" 
-                       required required-message="'<spring:message code='label.piginfo.feedEventForm.batchId.requiredMessage' text='Batch Id is required' />'"  
+					   <select class="form-control" ng-model="feedEvent.rationId" id="rationId" name="rationId"  class="form-control" laceholder="<spring:message code='label.piginfo.feedEventForm.rationId.placeholder'  text='Enter Ration Id'/>" 
+                       required required-message="'<spring:message code='label.piginfo.feedEventForm.rationId.requiredMessage' text='Ration Id is required' />'"  
                          ng-options="k as v for (k, v) in rationType"> </select>
                    </div>
                    <div class="form-group">

@@ -24,8 +24,8 @@
 				<textarea class="form-control" type="text" placeholder="<spring:message code='label.premise.address' text='Address' />" name="address" ng-model="add.address" maxlength="255" required required-message="'<spring:message code='label.premise.premiseAddressRequired' text='Premise address is required' />'" />
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.premise.state" text="State" /><span style='color: red'>*</span></label>
-				<Select class="form-control" placeholder="<spring:message code='label.premise.state' text='State' />" name="state" ng-model="add.state" required required-message="'<spring:message code='label.premise.stateRequired' text='State is required' />'" 
+				<label><spring:message code="label.company.country" text="Country" /><span style='color: red'>*</span></label>
+				<Select class="form-control" placeholder="<spring:message code='label.company.country' text='Country' />" name="state" ng-model="add.state" required required-message="'<spring:message code='label.company.countryRequired' text='Country is required' />'" 
 				       ng-change="changeCity()"  ng-options="state.value as state.name for state in country"/>
 			</div>			
 			<div class="form-group">
@@ -40,7 +40,7 @@
         <div class="modal-footer">
 
             <button class="btn btn-primary btn-flat md-close" ng-click="addPremise()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-primary btn-flat md-close" ng-click="addPremise()" ng-show="edit"><spring:message code="label.premise.edit" text="Edit" /></button>
+			<button class="btn btn-primary btn-flat md-close" ng-click="addPremise()" ng-show="edit"><spring:message code="label.premise.save" text="Save" /></button>
             <button class="btn btn-default btn-flat md-close" ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
             <p style="color:red">{{alertMessage}}</p>
         </div>

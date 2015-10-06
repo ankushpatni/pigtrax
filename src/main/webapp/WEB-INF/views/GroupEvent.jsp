@@ -81,7 +81,7 @@
 					 <div class="form-group">
                       <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/></label>
                        <select ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage" class="form-control"  required required-message="'<spring:message code='label.groupEventDetail.phaseOfProduction.required' text='Phase Of Production is required' />'" name="phaseOfProductionTypeId" id="phaseOfProductionTypeId" ng-model="groupEvent.phaseOfProductionTypeId"   
-                         ng-options="k as v for (k, v) in phaseOfProductionTypeForNewAdd"> </select>
+                         ng-options="k as v for (k, v) in phaseOfProductionType"> </select>
                          <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       
                     </div>
 					<div class="form-group">
