@@ -13,6 +13,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	$scope.pigInfoOriginalList={};
 	$scope.removalExceptSales={};
 	$scope.sourceAndDestinationPremisesSameError = false;
+	$scope.mortalityReasonType={};
 	
 	
 	$scope.setCompanyId = function(companyId,removalIdEntered,removalGeneratedId,removalExceptSalesId,removalTypeId)
@@ -43,6 +44,8 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			$scope.pigInfoOriginalList = data.payload[1];
 			$scope.premiseList = data.payload[2];
 			$scope.groupEventOriginalList = data.payload[3];
+			$scope.mortalityReasonType = data.payload[4];
+			
 			for( var x in $scope.groupEventOriginalList)
 			{
 				if( $scope.groupEventOriginalList[x].active )

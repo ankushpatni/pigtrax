@@ -211,7 +211,7 @@ public class UtilController {
 			e.printStackTrace();
 		}
 		outDataList.add(groupeventService.getGroupEventByCompanyId(companyId));
-		
+		outDataList.add(refDataCache.getMortalityReasonTypeMap(language));
 		dto.setPayload(outDataList);
 		dto.setStatusMessage("Success");
 		return dto;

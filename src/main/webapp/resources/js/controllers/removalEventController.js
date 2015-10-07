@@ -291,7 +291,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					$scope.salesEventFlag = false;
 				}
 				
-				if(!flag)
+				if(!($scope.salesEventFlag || $scope.exceptSalesFlag))
 				{
 					$scope.searchDataErrorMessage = true;
 				}

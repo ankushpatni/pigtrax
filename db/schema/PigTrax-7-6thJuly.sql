@@ -1830,6 +1830,7 @@ CREATE TABLE pigtrax."RemovalEventExceptSalesDetails"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_TransportJourney" integer,
+	"id_MortalityReason" integer,
 	remarks varchar(255),
 	CONSTRAINT "REMOVALEVENTXSALESDETAILS_PK" PRIMARY KEY (id)
 
@@ -1873,6 +1874,12 @@ REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: "Premise_fk_source" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" DROP CONSTRAINT IF EXISTS "Premise_fk_source" CASCADE;
+ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" ADD CONSTRAINT "MortalityReason_source" FOREIGN KEY ("id_MortalityReason")
+REFERENCES pigtraxrefdata."MortalityReasonType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 -- object: pigtrax."SalesEventDetails" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."SalesEventDetails" CASCADE;
