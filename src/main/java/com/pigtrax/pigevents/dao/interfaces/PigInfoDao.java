@@ -32,4 +32,8 @@ public interface PigInfoDao {
    int decreaseParity(Integer pigInfoId);
    
    int changePigId(Integer pigInfoId, String newPigId);
+   
+   PigInfo getInactivePigInformationByPigId(String pigId, Integer companyId) throws SQLException;
+   
+   PigInfo getInactivePigInformationByTattoo(String tattoo, Integer companyId) throws SQLException;
 }

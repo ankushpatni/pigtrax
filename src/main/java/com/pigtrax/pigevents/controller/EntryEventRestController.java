@@ -245,23 +245,31 @@ public class EntryEventRestController {
 		logger.info("Inside getPigInformation method" );
 		ServiceResponseDto dto = new ServiceResponseDto(); 
 		try {
-			String flag = "DisableChange";
+			String flag = "EnableChange";
 			pigInformation = pigInfoService.getPigInformation(pigInformation);
-			if(pigInformation != null){
-				List<RemovalEventExceptSalesDetails> removalEvents = removalEventService.getRemovalEventExceptSalesDetailsByPigInfoId(pigInformation.getPigId(), pigInformation.getCompanyId());
-				if(removalEvents != null && 0 < removalEvents.size())
+			if(pigInformation != null){				
+					flag = "DisableChange";
+			}
+			else
+			{
+				pigInformation = pigInfoService.getInactivePigInformation(pigInformation); 
+				if(pigInformation != null)
 				{
-					for(RemovalEventExceptSalesDetails event : removalEvents)
+					List<RemovalEventExceptSalesDetails> removalEvents = removalEventService.getRemovalEventExceptSalesDetailsByPigInfoId(pigInformation.getPigId(), pigInformation.getCompanyId());
+					if(removalEvents != null && 0 < removalEvents.size())
 					{
-						if(event.getRemovalEventId() == 1 || event.getRemovalEventId() == 2 || event.getRemovalEventId() == 4)
+						for(RemovalEventExceptSalesDetails event : removalEvents)
 						{
-							flag = "EnableChange";
-							break;
+							if(event.getRemovalEventId() == 1 || event.getRemovalEventId() == 2 || event.getRemovalEventId() == 4)
+							{
+								flag = "EnableChange";
+								break;
+							}
 						}
 					}
+					else
+						flag = "DisableChange";
 				}
-				else
-					flag = "DisableChange";
 			}
 			if("EnableChange".equals(flag))
 				pigInformation.setEnableChangeId(true);

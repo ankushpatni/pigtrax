@@ -699,8 +699,8 @@ CREATE TABLE pigtrax."PigInfo"(
 	"id_GfunctionType" smallint,
 	"isActive" boolean,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id),
-	CONSTRAINT "PIGINFO_U_PI" UNIQUE ("pigId","id_Company"),
-	CONSTRAINT "PIGINFO_U_TA" UNIQUE ("tattoo", "id_Company")
+	CONSTRAINT "PIGINFO_U_PI" UNIQUE ("pigId","id_Company","isActive"),
+	CONSTRAINT "PIGINFO_U_TA" UNIQUE ("tattoo", "id_Company","isActive")
 
 );
 -- ddl-end --
@@ -2139,7 +2139,8 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- object: pigtrax."ChangedPigId" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."ChangedPigId" CASCADE;
 CREATE TABLE pigtrax."ChangedPigId"(
-	id serial NOT NULL,	
+	id serial NOT NULL,
+	"id_PigInfo" int not null,
 	"oldSowId" varchar(30) NOT NULL,
 	"changedSowId" varchar(30) NOT NULL,
 	"changeDateTime" timestamp not null,
@@ -2160,6 +2161,13 @@ REFERENCES pigtrax."Company" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+
+-- object: "PigInfo_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."ChangedPigId" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
+ALTER TABLE pigtrax."ChangedPigId" ADD CONSTRAINT "PigInfo_fk" FOREIGN KEY ("id_PigInfo")
+REFERENCES pigtrax."PigInfo" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 -- object: pigtrax."ProductionLog" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."ProductionLog" CASCADE;

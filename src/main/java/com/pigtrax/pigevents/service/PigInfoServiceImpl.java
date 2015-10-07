@@ -175,4 +175,20 @@ public class PigInfoServiceImpl implements PigInfoService {
 		}
 	}
 	
+	@Override
+	public PigInfoDto getInactivePigInformation(PigInfoDto dto)
+			throws Exception {
+
+		PigInfo info = null;
+		if(dto != null && dto.getSearchOption().equals("pigId"))
+		{
+				info =  pigInfoDao.getInactivePigInformationByPigId(dto.getSearchText(), dto.getCompanyId());
+		}
+		else 
+		{
+			info =  pigInfoDao.getInactivePigInformationByTattoo(dto.getSearchText(), dto.getCompanyId()); 
+		}
+		return builder.convertToDto(info);
+	}
+	
 }
