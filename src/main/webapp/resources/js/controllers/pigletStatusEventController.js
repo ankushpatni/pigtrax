@@ -50,7 +50,10 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		restServices.getMortalityReasonTypes(function(data)
 		{
 			if(!data.error){
-				$scope.mortalityReasonTypes = data.payload;
+				
+				var responseList = data.payload;
+				$scope.mortalityReasonTypeKeys = responseList[0];
+				$scope.mortalityReasonTypes = responseList[1];
 			}
 		});
 	}

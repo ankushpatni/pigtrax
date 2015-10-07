@@ -2,6 +2,7 @@ package com.pigtrax.cache;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -161,21 +162,21 @@ public class RefDataCacheImpl implements RefDataCache {
 		for (RefDataTranslationDto refDto : rolesList) {
 			Map<Integer, String> innerMap = tmpMap.get(refDto.getFieldLanguage());
 			if (innerMap == null) {
-				innerMap = new HashMap<Integer, String>();
+				innerMap = new LinkedHashMap<Integer, String>();
 				tmpMap.put(refDto.getFieldLanguage(), innerMap);
 			}
 			innerMap.put(refDto.getFieldCode(), refDto.getFieldValue());
 		}
 		System.out.println("tmp Map from Ref Data Cache Impl : " + tmpMap.toString());
 
-		return tmpMap;
+		return tmpMap; 
 	}
 
 	public void setRefDataDao(RefDataDao refDataDao) {
 		this.refDataDao = refDataDao;
 	}
 
-	@Override
+	@Override 
 	public Map<Integer, String> getPigletStatusEventType(String language) {
 		return pigletStatusEventTypeMap.get(language);
 	}

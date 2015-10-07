@@ -33,9 +33,9 @@
                                          	<li><a href="pigEntryEvent"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></li>
                                          	<li><a href="pigBreedingEvent"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></li>
                                          	<li><a href="pigPregnancyEvent"><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></a></li>
-                                         	<li><a href="pigFarrowEvent"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></a></li>
-                                         	<li><a href="pigGroupEvent"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></li>
+                                         	<li><a href="pigFarrowEvent"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></a></li>                                         	
                                          	<li><a href="loadPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>
+                                         	<li><a href="pigGroupEvent"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></li>
                                          	<li><a href="pigletStatusEvent"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></li>                                         	
                                          	<li><a href="toChangeId"><spring:message code="label.leftmenu.managepigevents.changeId.link"  text="Change Id"/></a></li>
                                          	<li><a href="getProductionLogs"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>

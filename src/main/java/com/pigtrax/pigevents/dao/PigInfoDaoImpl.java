@@ -151,7 +151,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	public PigInfo getPigInformationByPigId(final String pigId, final Integer companyId) throws SQLException {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\","
 				+ "\"tattoo\",\"alternateTattoo\", \"remarks\",\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\",\"id_GfunctionType\" "
-				+ " from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ?";
+				+ " from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ? and \"isActive\" is true";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, pigId.trim());
@@ -172,7 +172,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", "
 				+ "\"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", "
 				+ "\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\",\"id_GfunctionType\" "
-				+ "from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ?";
+				+ "from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ? and \"isActive\" is true";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -373,6 +373,46 @@ public class PigInfoDaoImpl implements PigInfoDao {
 				ps.setInt(2, pigInfoId);
 			}
 		});
+	}
+	
+	
+	@Override
+	public PigInfo getInactivePigInformationByPigId(final String pigId,
+			final Integer companyId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\","
+				+ "\"tattoo\",\"alternateTattoo\", \"remarks\",\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\",\"id_GfunctionType\" "
+				+ " from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ? and \"isActive\" is false";
+		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, pigId.trim());
+				ps.setInt(2, companyId);
+			}}, new PigInfoMapper());
+
+		if(pigInfoList != null && pigInfoList.size() > 0){
+			return pigInfoList.get(0);
+		}
+		return null;
+	}
+	
+	
+	@Override
+	public PigInfo getInactivePigInformationByTattoo(final String tattoo,
+			final Integer companyId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", "
+				+ "\"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", "
+				+ "\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\",\"id_GfunctionType\" "
+				+ "from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ? and \"isActive\" is false";
+		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, tattoo.trim());
+				ps.setInt(2, companyId);
+			}}, new PigInfoMapper());
+
+		if(pigInfoList != null && pigInfoList.size() > 0){
+			return pigInfoList.get(0);
+		}
+		return null;
 	}
 
 }

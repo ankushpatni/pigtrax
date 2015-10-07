@@ -35,7 +35,7 @@
           <div class="polyglot-language-switcher pull-right active">
 			    <ul style="display: none">
 			        <li><a href="?locale=en" title="English (US)"  data-lang-id="en" ><img src="resources/assets/img/flags/us.png" alt="United States"> English (US)</a></li>			        
-			        <li><a href="?locale=pr" title="Portuguese" data-lang-id="pr"><img src="resources/assets/img/flags/pt.png" alt="Portuguese"> Portuguese</a></li>
+			        <li><a href="?locale=pr" title="Portuguese" data-lang-id="pr"><img src="resources/assets/img/flags/br.png" alt="Portuguese"> Portuguese</a></li>
 			        <li><a href="?locale=es" title="Spanish" data-lang-id="es"><img src="resources/assets/img/flags/es.png" alt="Spain"> Español</a></li>
 			    </ul>
 			</div>

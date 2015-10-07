@@ -7,13 +7,16 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 		$scope.changedPigIdSuccess = false;
 		$scope.changedPigIdError = false;
 		$scope.duplicatePigIdErrorMessage = false;
+		$scope.newPigIdActiveError = false;
+		$scope.searchErrorMessage = false;
+		
 	};
 	
 	$scope.clearAllMessages();
 	$scope.searchOption = "";
 	$scope.pigInfo = {};
 	$scope.setCompanyId = function(companyId){
-		$rootScope.companyId = companyId;
+	$rootScope.companyId = companyId;
 	};
 	
 		$scope.getPigInformationForChangeId = function()
@@ -38,7 +41,7 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 							searchOption : option,
 							companyId : $rootScope.companyId
 					};
-					restServices.getPigInformationForChangeId(searchPigInfo, function(data)
+					restServices.getPigInformation(searchPigInfo, function(data)
 					{
 						if(!data.error){
 							$scope.clearAllMessages();
@@ -53,6 +56,33 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 						}
 					});
 				}
+		};
+		
+		
+		
+		$scope.checkNewPigIdStatus = function()
+		{				
+			var searchPigInfo = {
+					searchText : $scope.pigInfo.newPigId,
+					searchOption : "pigId",
+					companyId : $rootScope.companyId
+			};
+			restServices.getPigInformationForChangeId(searchPigInfo, function(data)
+			{
+				if(!data.error){
+					$scope.clearAllMessages();
+					var changePigIdInfo = data.payload;
+					if(!changePigIdInfo.enableChangeId)
+						$scope.newPigIdActiveError = true;
+					else
+						$scope.newPigIdActiveError = false;
+				}
+				else
+					{
+						$scope.clearAllMessages();
+					}
+			});
+				
 		};
 		
 		
@@ -76,6 +106,9 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 						$scope.clearAllMessages();
 						$scope.changedPigIdSuccess = true;
 						$scope.pigInfo = {};
+						$scope.searchText = "";		
+						$('#rad1').iCheck('uncheck');
+						$('#rad2').iCheck('uncheck');		
 					}
 					else
 						{

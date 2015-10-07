@@ -5,6 +5,7 @@ import java.util.Date;
 public class ChangedPigId {
 	
 	private Integer id;
+	private Integer pigInfoId;
 	private String oldSowId;
 	private String changedSowId;
 	private Date changeDateTime;
@@ -17,6 +18,13 @@ public class ChangedPigId {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Integer getPigInfoId() {
+		return pigInfoId;
+	}
+	public void setPigInfoId(Integer pigInfoId) {
+		this.pigInfoId = pigInfoId;
 	}
 	public String getOldSowId() {
 		return oldSowId;

@@ -56,13 +56,13 @@ public class RefDataDaoImpl implements RefDataDao {
 	
 	@Override
 	public List<RefDataTranslationDto> getPregnancyEventTypeData() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PregnancyEventType\" FROM pigtraxrefdata.\"PregnancyEventTypeTranslation\" order by \"fieldLanguage\", \"id_PregnancyEventType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PregnancyEventType\" FROM pigtraxrefdata.\"PregnancyEventTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
 	@Override
 	public List<RefDataTranslationDto> getPregnancyExamResultTypeData() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PregnancyExamResultType\" FROM pigtraxrefdata.\"PregnancyExamResultTypeTranslation\" order by \"fieldLanguage\", \"id_PregnancyExamResultType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PregnancyExamResultType\" FROM pigtraxrefdata.\"PregnancyExamResultTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
@@ -105,20 +105,20 @@ public class RefDataDaoImpl implements RefDataDao {
 	
 	@Override
 	public List<RefDataTranslationDto> getGfunctionType() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_GfunctionType\" FROM pigtraxrefdata.\"GfunctionTypeTranslation\" order by \"fieldLanguage\", \"id_GfunctionType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_GfunctionType\" FROM pigtraxrefdata.\"GfunctionTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
 	@Override
 	public List<RefDataTranslationDto> getMortalityReasonTypes() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_MortalityReasonType\" FROM pigtraxrefdata.\"MortalityReasonTypeTranslation\" order by \"fieldLanguage\", \"id_MortalityReasonType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_MortalityReasonType\" FROM pigtraxrefdata.\"MortalityReasonTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
 	
 	@Override
 	public List<RefDataTranslationDto> getTargetTypes() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TargetType\" FROM pigtraxrefdata.\"TargetTypeTranslation\" order by \"fieldLanguage\", \"id_TargetType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TargetType\" FROM pigtraxrefdata.\"TargetTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	

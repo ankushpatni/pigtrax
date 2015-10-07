@@ -24,6 +24,7 @@ public class ChangedPigIdServiceImpl implements ChangePigIdService {
 			if(pigInfoDto != null)
 			{
 				ChangedPigId changedPigIdObj = new ChangedPigId();
+				changedPigIdObj.setPigInfoId(pigInfoDto.getId());
 				changedPigIdObj.setOldSowId(pigInfoDto.getPigId());
 				changedPigIdObj.setChangedSowId(pigInfoDto.getNewPigId());
 				changedPigIdObj.setChangeDateTime(pigInfoDto.getChangePigIdDate());

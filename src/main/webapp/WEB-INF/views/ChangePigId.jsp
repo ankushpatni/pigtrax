@@ -15,7 +15,7 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.changepigidform.submit.success.message' text='Pig Id changed successfully'/>
                   </div>
- 		     <h3> <spring:message code='label.piginfo.entryeventform.search.heading'  text='Search'/></h3>
+ 		     <h3> <spring:message code='label.changeidform.search.heading'  text='Search for a Pig to change Id'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.entryeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
 			
@@ -46,7 +46,7 @@
               <div class="block-flat" >
                 <div class="header">
                 <h3><spring:message code='label.changeidform.heading'  text='Change ID'/></h3>
-                <label ng-show="!pigInfo.enableChangeId"  style='color:red' class='control-label has-error validationMessage'><spring:message code='label.changeidform.disablechangeid'  text='This pig is active in the system hence its id can not be changed'/> </label>
+                <label ng-show="!pigInfo.active"  style='color:red' class='control-label has-error validationMessage'><spring:message code='label.changeidform.disablechangeid'  text='This pig is not active in the system hence its id can not be changed'/> </label>
                 
                 
                   <div class="alert alert-danger alert-white rounded"  ng-show="changedPigIdError">
@@ -68,8 +68,11 @@
                       placeholder="<spring:message code='label.changepigidform.newpigid.placeholder'  text='Enter new Pig Id'/>" 
                       required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.entryeventform.pigid.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  class="form-control">
+						invalid-message="'<spring:message code='label.piginfo.entryeventform.pigid.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  
+						class="form-control" ng-blur="checkNewPigIdStatus()">
+						
                     </div>
+                    <label ng-show="newPigIdActiveError"  style='color:red' class='control-label has-error validationMessage'><spring:message code='label.changeidform.newPigIdActiveError'  text='Entered Pig Id is active in the system. Please choose another Pig Id'/> </label>
                     <div class="form-group">
                       <label><spring:message code='label.changepigidform.changedate'  text='Change Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="changeDateDiv" >
@@ -77,10 +80,10 @@
                         </div> 
                         <label ng-show="changeDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.changepigidform.changeDate.requiredmessage' text='Change Date is required' /></label>
                     </div>
-                    <button class="btn btn-primary" ng-disabled="!pigInfo.enableChangeId" ng-click="changePigId()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-primary" ng-disabled="!pigInfo.active || newPigIdActiveError" ng-click="changePigId()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                   
                   </form>
-                </div>
+                </div> 
               </div>
             </div>
             <div class="col-sm-3 col-md-3">        

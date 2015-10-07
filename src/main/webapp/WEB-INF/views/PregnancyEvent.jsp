@@ -147,15 +147,16 @@
                       <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventType'  text='Pregnancy Event Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="sexType" ng-model="pregnancyEvent.pregnancyEventTypeId"  required 
                       required-message="'<spring:message code='label.piginfo.pregnancyeventform.pregnancyeventtype.requiredmessage' text='Pregnancy Event Type is required' />'"
-                       ng-options="k as v for (k, v) in pregnancyEventTypes" ng-change="changePregnancyEventType()">
+                        ng-change="changePregnancyEventType()">
+                        <option ng-repeat="key in pregnancyEventTypeKeys" ng-value="key" ng-selected="pregnancyEvent.pregnancyEventTypeId==key">{{pregnancyEventTypes[key]}}</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyExamResultType'  text='Pregnancy Exam Result Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="examResultType" id="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId" required 
-                      required-message="'<spring:message code='label.piginfo.pregnancyeventform.pregnancyexamresulttype.requiredmessage' text='Pregnancy Exam Result Type is required' />'"
-                       ng-options="k as v for (k, v) in pregnancyExamResultTypes">
+                      required-message="'<spring:message code='label.piginfo.pregnancyeventform.pregnancyexamresulttype.requiredmessage' text='Pregnancy Exam Result Type is required' />'">
+                       <option ng-repeat="key in pregnancyExamResultTypeKeys" ng-value="key" ng-selected="pregnancyEvent.pregnancyExamResultTypeId==key">{{pregnancyExamResultTypes[key]}}</option>
                         </select>
                     </div>
                     <div class="form-group">

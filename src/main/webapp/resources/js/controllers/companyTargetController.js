@@ -44,10 +44,13 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		restServices.getTargetTypes(function(data){
 			if(!data.error)
 				{
-				  $scope.targetTypes = data.payload;
+				  var responseList = data.payload;
+				  $scope.keys = responseList[0];
+				  $scope.targetTypes = responseList[1];
 				}
 		});
 	}
+	
 	
 	$scope.getCompanyTargets = function()
 	{
