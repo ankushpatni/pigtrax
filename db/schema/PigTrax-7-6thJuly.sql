@@ -2042,7 +2042,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 CREATE TABLE pigtrax."MatingDetails"(
 	id serial NOT NULL,
 	"matingDate" timestamp NOT NULL,
-	"semenId" varchar(30) NOT NULL,
+	"semenId" varchar(30) ,
 	"matingQuality" smallint NOT NULL,
 	"id_BreedingEvent" integer NOT NULL,
 	"id_EmployeeGroup" integer,

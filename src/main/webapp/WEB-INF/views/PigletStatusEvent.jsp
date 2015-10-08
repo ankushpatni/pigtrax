@@ -131,8 +131,6 @@
 		                <h4>Farrow Details</h4><div></div>
 		                <div>Farrow Event Date : {{pigletStatusEvent.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</div>
 		                <div>Live Borns : {{pigletStatusEvent.farrowEventDto.liveBorns}}</div>
-		                <div>Male Borns : {{pigletStatusEvent.farrowEventDto.maleBorns}}</div>
-		                <div>Female Borns : {{pigletStatusEvent.farrowEventDto.femaleBorns}}</div>
 		            </div>					 
 					 <div class=" block-flat bars-widget" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
 		                <div class="spk4 pull-right spk-widget"></div>
