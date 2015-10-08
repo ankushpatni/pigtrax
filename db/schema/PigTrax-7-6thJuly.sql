@@ -698,14 +698,19 @@ CREATE TABLE pigtrax."PigInfo"(
 	"parity" integer default 0,
 	"id_GfunctionType" smallint,
 	"isActive" boolean,
-	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id),
-	CONSTRAINT "PIGINFO_U_PI" UNIQUE ("pigId","id_Company","isActive"),
-	CONSTRAINT "PIGINFO_U_TA" UNIQUE ("tattoo", "id_Company","isActive")
-
+	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id)
 );
 -- ddl-end --
 ALTER TABLE pigtrax."PigInfo" OWNER TO pitraxadmin;
 -- ddl-end --
+
+-- Index: pigtrax."PIGINFO_U_PI"
+-- DROP INDEX pigtrax."PIGINFO_U_PI";
+CREATE UNIQUE INDEX "PIGINFO_U_PI"  ON pigtrax."PigInfo"  USING btree  ("pigId" COLLATE pg_catalog."default", "id_Company", "isActive")   WHERE "isActive" IS TRUE;
+
+-- Index: pigtrax."PIGINFO_U_TA"
+-- DROP INDEX pigtrax."PIGINFO_U_TA";
+CREATE UNIQUE INDEX "PIGINFO_U_TA"  ON pigtrax."PigInfo"  USING btree  ("pigId" COLLATE pg_catalog."default", "id_Company", "isActive")  WHERE "isActive" IS TRUE;
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."Genetics" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
@@ -1874,12 +1879,6 @@ REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Premise_fk_source" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" DROP CONSTRAINT IF EXISTS "Premise_fk_source" CASCADE;
-ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" ADD CONSTRAINT "MortalityReason_source" FOREIGN KEY ("id_MortalityReason")
-REFERENCES pigtraxrefdata."MortalityReasonType" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: pigtrax."SalesEventDetails" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."SalesEventDetails" CASCADE;
@@ -1995,6 +1994,14 @@ ALTER TABLE pigtraxrefdata."MortalityReasonType" OWNER TO pitraxadmin;
 -- object: "MortalityReasonType_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "MortalityReasonType_fk" CASCADE;
 ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "MortalityReasonType_fk" FOREIGN KEY ("id_MortalityReasonType")
+REFERENCES pigtraxrefdata."MortalityReasonType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: "MortalityReason_source" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" DROP CONSTRAINT IF EXISTS "MortalityReason_source" CASCADE;
+ALTER TABLE pigtrax."RemovalEventExceptSalesDetails" ADD CONSTRAINT "MortalityReason_source" FOREIGN KEY ("id_MortalityReason")
 REFERENCES pigtraxrefdata."MortalityReasonType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
