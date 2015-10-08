@@ -48,7 +48,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			
 			for( var x in $scope.groupEventOriginalList)
 			{
-				if( $scope.groupEventOriginalList[x].active )
+				if( $scope.groupEventOriginalList[x].active && $scope.groupEventOriginalList[x].currentInventory > 0)
 					{		
 						$scope.groupEventList[x] = $scope.groupEventOriginalList[x];
 					}

@@ -63,7 +63,7 @@
 				              </div>
 				              <div class="form-group">
 				              <label class="radio-inline">
-				                  <input type="radio" name="rad1"  id="radAdd1" class="icheck removal" value="removalExcept"> <spring:message code='label.piginfo.removalExceptSales.removalExcept.option'  text='Removal Except'/> 
+				                  <input type="radio" name="rad1"  id="radAdd1" class="icheck removal" value="removalExcept"> <spring:message code='label.piginfo.removalExceptSales.removalExceptSales.option'  text='Removal Except Sales'/>
 				              </label>
 				              <label class="radio-inline">
 				                  <input type="radio" name="rad1" id="radAdd2" class="icheck removal" value="transfer" > <spring:message code='label.piginfo.removalExceptSales.transfer.option'  text='Pig Id'/>
@@ -72,7 +72,15 @@
 				                  <input type="radio" name="rad1"  id="radAdd3" class="icheck removal" value="sales"> <spring:message code='label.piginfo.removalExceptSales.sales.option'  text='Removal Event Id'/> 
 				              </label>				
 				              </div>
-				            </div>            
+				            </div>  
+								<div class="alert alert-success alert-white rounded"  ng-show="entrySalesDetailSuccessMessage">
+									<button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+									<div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.removalEventform.salesdetails.submit.success.message' text='Sales Event Details information saved successfully'/>
+								</div>
+								<div class="alert alert-success alert-white rounded"  ng-show="entryExceptSalesDetailsSuccessMessage">
+									<button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+									<div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.removalEventform.ExceptSalesDetailsSalesEvent.submit.success.message' text='Removal Except/Sales Event Details information saved successfully'/>
+							  </div>							
 				          </div>
 							<input type="hidden" name="companyId" id="companyId"/>
 							<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>
