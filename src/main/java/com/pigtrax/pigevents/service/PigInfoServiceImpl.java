@@ -191,4 +191,9 @@ public class PigInfoServiceImpl implements PigInfoService {
 		return builder.convertToDto(info);
 	}
 	
+	@Override
+	public List<String> getAvailablePigIds(Integer companyId) {
+		return pigInfoDao.getAvailablePigIds(companyId); 
+	}
+	
 }

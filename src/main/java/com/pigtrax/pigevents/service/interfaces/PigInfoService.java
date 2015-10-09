@@ -20,4 +20,6 @@ public interface PigInfoService {
     int changePigId(Integer pigInfoId, String newPigId) throws PigTraxException; 
     
     PigInfoDto getInactivePigInformation(PigInfoDto dto) throws Exception;
+    
+    List<String> getAvailablePigIds(Integer companyId);
 }  

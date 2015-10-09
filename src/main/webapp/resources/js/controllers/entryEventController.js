@@ -1,6 +1,7 @@
 pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices, DateUtils) {
 	$scope.companyId = "";
-	
+	$scope.object = {};
+		
 	$scope.clearAllMessages = function()
 	{ 
 		$scope.searchDataErrorMessage = false;
@@ -12,6 +13,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.entryDateRequired = false;
 		$scope.invalidEntryDate = false;
 		$scope.pigInfoEventsExistsMessage = false;
+		$scope.invalidDateDuration = false;
 	};
 	
 	$scope.clearAllMessages();
@@ -76,11 +78,23 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				var entrydateVal = new Date(entryDate);
 				entryDate = DateUtils.convertLocaleDateToServer(entrydateVal);
 				
+				var duration  = 100;
+				
+				if(entryDate != null && birthDate != null)
+					{
+					duration = Math.round((entryDate-birthDate)/(1000*60*60*24));					
+					}
+				
 				
 				if(birthDate != null && birthDate >  entryDate)
 				{
 				   $scope.invalidEntryDate = true;	
 				}
+				else if(duration < 100 || duration > 200)
+				{
+					$scope.invalidDateDuration = true;
+				}
+					
 				else
 					{
 						$scope.pigInfo["birthDate"] = birthDate;
@@ -181,6 +195,22 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			$scope.clearAllMessages();
 			$scope.pigInfo = {};
 			$scope.changeText();
+		}
+		
+		
+		$scope.getAvailablePigIds = function()
+		{
+			restServices.getAvailablePigIds({'companyId': $scope.companyId},function(data) {
+				if(!data.error)
+				{
+					$scope.availablePigIdList = data.payload;
+				}				
+			});
+		}
+		
+		$scope.selectAvailablePigId = function(selectedVal)
+		{
+			$scope.pigInfo.pigId = $scope.object.selectedAvailablePigID;
 		}
 		
 });

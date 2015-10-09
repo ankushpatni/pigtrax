@@ -222,12 +222,12 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.pigletInformationRequired = false;
 			
 		}	
-		else if(liveBorns != (eval(maleBorns)+eval(femaleBorns)))
+		/*else if(liveBorns != (eval(maleBorns)+eval(femaleBorns)))
 		{
 			$scope.invalidFarrowValue = false;
 			$scope.invalidFarrowCount = true; 
 			$scope.pigletInformationRequired = false;
-		}
+		}*/
 		else if (liveBorns == 0 && maleBorns == 0 && femaleBorns == 0 && stillBorns == 0 && mummies == 0)
 		{
 			$scope.invalidFarrowValue = false;

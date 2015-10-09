@@ -77,6 +77,7 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.entryeventform.pigid.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  class="form-control">
 				      <p ng-show="pigInfo.id != null && pigInfo.id != 0">{{pigInfo.pigId}}</p>
+				      &nbsp;<a href="#" ng-click="getAvailablePigIds()"  data-toggle="modal" data-target="#selectAvailablePigId">Available Pig Ids</a>
                     </div>
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.barn'  text='Barn'/></label>
@@ -147,6 +148,7 @@
                         </div> 
                         <label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' /></label>
                         <label ng-show="invalidEntryDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invalidmessage' text='Entry date can not be earlier than birth date' /></label>
+                        <label ng-show="invalidDateDuration" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invaliddurationmessage' text='The age of the pig can not be less than 100 days and more than 200 days' /></label>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/></label>
@@ -171,6 +173,39 @@
             </div>
             <div class="col-sm-3 col-md-3">        
             </div>
+            
+            <!-- - Breeding Service Id search Modal -->
+		  <div id="selectAvailablePigId" class="modal colored-header custom-width">
+                    <div class="md-content">
+                      <div class="modal-header">
+                        <h3><spring:message code='label.piginfo.entryEventForm.availablePigIds.heading'  text='Available PigIds'/> </h3>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
+                      </div>
+                      <div class="modal-body form" >
+                      <table class="no-border">                      
+                       <tbody class="no-border-x no-border-y">
+	                   <tr ng-repeat="availablePigID in availablePigIdList" ng-if="availablePigIdList != null && availablePigIdList.length > 0">	                                        
+	                    <td ><input type="radio" name="availablePigID" id="availablePigID" ng-model="object.selectedAvailablePigID" ng-value="availablePigID">&nbsp;{{availablePigID}}</td>	                   
+	                   </tr>
+	                   <tr ng-if="availablePigIdList == null || availablePigIdList.length == 0">
+	                     <td >
+	                       <spring:message code='label.pregnancyeventform.list.availablePigIds.noresults'  text='No pig Ids available'/>
+	                     </td>
+	                   </tr>
+	                   
+	                 </tbody>
+                      </table>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-hide="availablePigIdList == null || availablePigIdList.length == 0" ng-click="selectAvailablePigId(object.selectedAvailablePigID)"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      </div>
+                      
+                     </div>
+            </div>
+            
+            
+            
           </div>
 </div>
 <script>

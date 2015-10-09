@@ -80,5 +80,6 @@ pigTrax.factory("restServices", function($resource) {
 		"productionLog" : {method:"POST", url:"rest/productionLog"},
 		"getProductionLogList" : {method:"POST", url:"rest/productionLog/getProductionLogList"},
 		"deleteProductionLog" : {method:"POST", url:"rest/productionLog/deleteProductionLog"},
+		"getAvailablePigIds":	{method:"GET",		url:"rest/entryEvent/getAvailablePigIds/:companyId", params:{companyId: "@companyId"} },
     });
 });

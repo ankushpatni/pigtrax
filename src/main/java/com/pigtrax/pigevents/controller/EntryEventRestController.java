@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,13 +26,11 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dto.Pen;
 import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
-import com.pigtrax.pigevents.beans.RemovalEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.dto.BarnDto;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
-import com.pigtrax.pigevents.service.interfaces.RemovalEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
@@ -288,5 +288,17 @@ public class EntryEventRestController {
 		}
 		return dto;
 	}
+	
+	@RequestMapping(value = "/getAvailablePigIds/{companyId}", method = RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public ServiceResponseDto getAvailablePigIds(HttpServletRequest request, HttpServletResponse response, 
+    		@PathVariable("companyId") Integer companyId) {
+    	
+		logger.info("Inside getAvailablePigIds method" );
+    	ServiceResponseDto rc = new ServiceResponseDto();
+    	List<String> availablePigIds = pigInfoService.getAvailablePigIds(companyId); 
+    	rc.setPayload(availablePigIds);
+    	return rc;
+    }	
 	
 }

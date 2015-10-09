@@ -19,7 +19,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dto.PigInfoDto;
@@ -414,6 +413,33 @@ public class PigInfoDaoImpl implements PigInfoDao {
 		}
 		return null;
 	}
+	
+	
+	@Override
+	public List<String> getAvailablePigIds(final Integer companyId) {
+		
+		String query = "Select distinct \"pigId\" from pigtrax.\"PigInfo\" where \"id_Company\" = ? and \"isActive\" is false and\"pigId\" "
+				+ "not in(select distinct \"pigId\" from pigtrax.\"PigInfo\" where \"id_Company\" = ? and \"isActive\" is true)";
+		List<String> pigIds = jdbcTemplate.query(query, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setInt(1, companyId);
+ 				ps.setInt(2, companyId);
+ 			}}, new PigIdMapper()); 
+		
+		return pigIds;
+	}
+	
+	private static final class PigIdMapper implements RowMapper<String>	{
+
+		@Override
+		public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			return rs.getString(1);
+		}
+		
+	}
+	
 
 }
 
