@@ -489,6 +489,25 @@ INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpd
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (72,'Pigs weaned/crate/year',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (73,'Weaning Capacity%',CURRENT_TIMESTAMP,'pigtraxadmin');
 
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (74,'End female inventory',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (75,'End boar inventory',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (76,'Average female inventory',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (77,'% Average female inventory',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (78,'Average end parity',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (79,'Replacement rate',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (80,'Females culled',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (81,'Culling rate',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (82,'Female deaths',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (83,'Female destroyed',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (84,'% Female deaths and destroyed',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (85,'Average gilt pool inventory',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (86,'Gilts entered',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (87,'Average non-productive sow days',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (88,'Sow/Boar ratio',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (89,'Litters / mated female/year',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (90,'Pigs/weans/mated female/year',CURRENT_TIMESTAMP,'pigtraxadmin');
+
+
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('1st services','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -563,6 +582,25 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Adj 21day litter weight','en',CURRENT_TIMESTAMP,'pigtraxadmin',71);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs weaned/crate/year','en',CURRENT_TIMESTAMP,'pigtraxadmin',72);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Weaning Capacity%','en',CURRENT_TIMESTAMP,'pigtraxadmin',73);
+
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End female inventory','en',CURRENT_TIMESTAMP,'pigtraxadmin',74);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End boar inventory','en',CURRENT_TIMESTAMP,'pigtraxadmin',75);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average female inventory','en',CURRENT_TIMESTAMP,'pigtraxadmin',76);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('% Average female inventory','en',CURRENT_TIMESTAMP,'pigtraxadmin',77);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average end parity','en',CURRENT_TIMESTAMP,'pigtraxadmin',78);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Replacement rate','en',CURRENT_TIMESTAMP,'pigtraxadmin',79);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Females culled','en',CURRENT_TIMESTAMP,'pigtraxadmin',80);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Culling rate','en',CURRENT_TIMESTAMP,'pigtraxadmin',81);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Female deaths','en',CURRENT_TIMESTAMP,'pigtraxadmin',82);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Female destroyed','en',CURRENT_TIMESTAMP,'pigtraxadmin',83);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('% Female deaths and destroyed','en',CURRENT_TIMESTAMP,'pigtraxadmin',84);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average gilt pool inventory','en',CURRENT_TIMESTAMP,'pigtraxadmin',85);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Gilts entered','en',CURRENT_TIMESTAMP,'pigtraxadmin',86);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average non-productive sow days','en',CURRENT_TIMESTAMP,'pigtraxadmin',87);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Sow/Boar ratio','en',CURRENT_TIMESTAMP,'pigtraxadmin',88);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Litters / mated female/year','en',CURRENT_TIMESTAMP,'pigtraxadmin',89);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs/weans/mated female/year','en',CURRENT_TIMESTAMP,'pigtraxadmin',90);
+
 
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -639,6 +677,25 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs weaned/crate/year_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',72);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Weaning Capacity%_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',73);
 
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End female inventory_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',74);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End boar inventory_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',75);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average female inventory_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',76);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('% Average female inventory_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',77);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average end parity_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',78);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Replacement rate_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',79);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Females culled_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',80);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Culling rate_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',81);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Female deaths_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',82);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Female destroyed_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',83);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('% Female deaths and destroyed_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',84);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average gilt pool inventory_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',85);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Gilts entered_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',86);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average non-productive sow days_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',87);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Sow/Boar ratio_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',88);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Litters / mated female/year_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',89);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs/weans/mated female/year_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',90);
+
+
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('1st services_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -713,6 +770,24 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Adj 21day litter weight_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',71);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs weaned/crate/year_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',72);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Weaning Capacity%_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',73);
+
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End female inventory_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',74);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End boar inventory_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',75);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average female inventory_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',76);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('% Average female inventory_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',77);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average end parity_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',78);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Replacement rate_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',79);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Females culled_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',80);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Culling rate_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',81);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Female deaths_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',82);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Female destroyed_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',83);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('% Female deaths and destroyed_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',84);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average gilt pool inventory_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',85);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Gilts entered_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',86);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average non-productive sow days_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',87);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Sow/Boar ratio_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',88);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Litters / mated female/year_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',89);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs/weans/mated female/year_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',90);
 
 ----------
 
