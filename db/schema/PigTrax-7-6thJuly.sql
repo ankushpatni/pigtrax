@@ -199,6 +199,7 @@ CREATE TABLE pigtrax."Employee"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_RoleType" integer,
+	"email" varchar(100) NOT NULL,
 	CONSTRAINT "EMPLOYEE_PK" PRIMARY KEY (id),
 	CONSTRAINT "EMPLOYEE_U_EI" UNIQUE ("employeeId")
 
