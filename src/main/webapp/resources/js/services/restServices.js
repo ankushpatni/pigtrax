@@ -81,5 +81,8 @@ pigTrax.factory("restServices", function($resource) {
 		"getProductionLogList" : {method:"POST", url:"rest/productionLog/getProductionLogList"},
 		"deleteProductionLog" : {method:"POST", url:"rest/productionLog/deleteProductionLog"},
 		"getAvailablePigIds":	{method:"GET",		url:"rest/entryEvent/getAvailablePigIds/:companyId", params:{companyId: "@companyId"} },
+		"getEmployeeListIndi"      :  {method:"GET", url:"rest/employee/getEmployeeListIndi"},
+		"getRoleTypes"      :  {method:"GET", url:"rest/util/getRoleTypes"},
+		"getEmployeeDetails"      :  {method:"POST", url:"rest/employee/getEmployeeDetails"},
     });
 });

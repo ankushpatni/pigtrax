@@ -24,6 +24,7 @@
                 <li><a href="#">My Account</a></li>
                 <li><a href="#">Profile</a></li>
                 <li><a href="#">Messages</a></li>
+                <li><a href="resetPassword">Reset Password</a></li>
                 <li class="divider"></li>
                 <li><a href="j_spring_security_logout">Sign Out</a></li>
               </ul>

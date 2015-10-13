@@ -33,6 +33,7 @@
 								<button type="submit" class="btn btn-primary"><spring:message code="label.login"  text="Login"/></button>
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
+									<a href="forgetPassword"><p style="float: right;">Forgot your password?</p></a>
 							</div>
 						</div>
 					</form>

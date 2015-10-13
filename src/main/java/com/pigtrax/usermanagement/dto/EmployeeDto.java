@@ -7,17 +7,33 @@ public class EmployeeDto {
      private String ptPassword;
      private Integer companyId;
      private Integer userRole;
-     private boolean isActive;
-     private boolean isPortalUser;
+     private boolean active;
+     private boolean portalUser;
      private Integer userRoleId;
-     private boolean selected;
+	  private boolean selected;
      private Integer employeeJobId;
-     
+     private String companyName;
+	 
+     private String email;
+     private int portalId;
+     private String activeFlag;
+	public String getActiveFlag() {
+		return activeFlag;
+	}
+	public void setActiveFlag(String activeFlag) {
+		this.activeFlag = activeFlag;
+	}
+	public int getPortalId() {
+		return portalId;
+	}
+	public void setPortalId(int portalId) {
+		this.portalId = portalId;
+	}
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
-	public String getName() {
-		return name;
+	public String getName() {		
+		return name != null?name : "";
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -32,11 +48,17 @@ public class EmployeeDto {
 	public Integer getUserRole() {
 		return userRole;
 	}
+	public String getEmail() {
+		return email != null?email : "";
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public void setUserRole(Integer userRole) {
 		this.userRole = userRole;
 	}
 	public String getEmployeeId() {
-		return employeeId;
+		return employeeId != null?employeeId : "";
 	}
      
 	
@@ -53,16 +75,16 @@ public class EmployeeDto {
 		this.ptPassword = ptPassword;
 	}
 	public boolean isActive() {
-		return isActive;
+		return active;
 	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	public boolean isPortalUser() {
-		return isPortalUser;
+		return portalUser;
 	}
-	public void setPortalUser(boolean isPortalUser) {
-		this.isPortalUser = isPortalUser;
+	public void setPortalUser(boolean portalUser) {
+		this.portalUser = portalUser;
 	}
 	public Integer getUserRoleId() {
 		return userRoleId;
@@ -79,8 +101,12 @@ public class EmployeeDto {
 		this.selected = selected;
 	}
 	
-	
-	
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 	public Integer getEmployeeJobId() {
 		return employeeJobId;
 	}
@@ -89,7 +115,7 @@ public class EmployeeDto {
 	}
 	@Override
 	public String toString() {		
-		return "Employee [ empId : "+this.employeeId+", name : "+this.name+"]";
+		return "Employee [id:"+this.id+" ,  empId : "+this.employeeId+", name : "+this.name+", email : "+this.email+", companyId : "+this.companyId+"  ,active:"+this.active+" , activeFlag : "+this.activeFlag+"]";
 	}
 	
 	@Override

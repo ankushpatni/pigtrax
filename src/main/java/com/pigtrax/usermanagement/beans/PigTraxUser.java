@@ -6,7 +6,7 @@ import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-public class PigTraxUser extends User {
+public class PigTraxUser  extends User{
 
 	private Integer userRole;
 	private Integer companyId;

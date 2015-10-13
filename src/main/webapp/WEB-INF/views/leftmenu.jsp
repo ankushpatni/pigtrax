@@ -24,7 +24,7 @@
 									   <li><a href="transportDestination"><spring:message code="label.transportDestination.gotToTranportDestination"  text="Destination"/></a></li>
 									   <li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managemasterdata.targets.link"  text="Targets"/></a></li>
 									  <%}%>									  
-                                         	<li><a href="#"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
+                                         	<li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
                                          	
                                          </ul>
                                 </li>      

@@ -26,11 +26,26 @@
 	<context:component-scan base-package="com.pigtrax.pigevents.dto" />
 	<context:component-scan base-package="com.pigtrax.pigevents.service" />
 	<context:component-scan base-package="com.pigtrax.pigevents.validation" />
+	<context:component-scan base-package="com.pigtrax.notification" />
 	
 	
  
 	<mvc:annotation-driven />
 	
+	 <bean id="myQueue" class="java.util.concurrent.LinkedBlockingQueue" >
+   		<constructor-arg type="int"><value>10</value></constructor-arg>
+   </bean>
+	
+	<bean id="notificationManager" class="com.pigtrax.notification.NotificationManager">
+	<property name="blockingQueue" ref="myQueue" />
+   </bean>
+   
+  
+	
+	<bean id="consumer" class="com.pigtrax.notification.Consumer">
+	  <property name="sharedQueue" ref="myQueue" />
+	</bean>
+   
 	<bean id="messageSource"
 	    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 	    <property name="basename" value="classpath:messages" />
@@ -75,5 +90,7 @@
 	  scope="singleton">
 	  <property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	
 	
 </beans>

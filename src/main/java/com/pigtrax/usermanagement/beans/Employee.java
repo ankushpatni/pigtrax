@@ -8,12 +8,51 @@ public class Employee {
 	private int companyId;
 	private String name;
 	private String ptPassword;
-	private boolean isActive;
+	private String isActiveR;
+	private String isPortR;
+	private boolean active;
 	private Date lastUpdated;
 	private String userUpdated;
 	private int userRoleId;
-	private boolean isPortalUser;
+	private boolean portalUser;
+	private String email;
+	private int portalId;
+	private String companyIdValue;
+	private String companyName;
+
 	
+	public int getPortalId() {
+		return portalId;
+	}
+
+	public void setPortalId(int portalId) {
+		this.portalId = portalId;
+	}
+
+	public String getIsActiveR() {
+		return isActiveR;
+	}
+
+	public void setIsActiveR(String isActiveR) {
+		this.isActiveR = isActiveR;
+	}
+
+	public String getIsPortR() {
+		return isPortR;
+	}
+
+	public void setIsPortR(String isPortR) {
+		this.isPortR = isPortR;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	private boolean enabled;
 
 	public int getId() {
@@ -27,7 +66,7 @@ public class Employee {
 	public String getEmployeeId() {
 		return employeeId;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -57,12 +96,12 @@ public class Employee {
 	}
 
 	public boolean isActive() {
-		return isActive;
+		return active;
 	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-		this.enabled = this.isActive;
+	public void setActive(boolean active) {
+		this.active = active;
+		this.enabled = this.active;
 	}
 
 	public Date getLastUpdated() {
@@ -88,27 +127,48 @@ public class Employee {
 	public void setUserRoleId(int userRoleId) {
 		this.userRoleId = userRoleId;
 	}
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}
-	
+
 	public boolean isPortalUser() {
-		return isPortalUser;
+		return portalUser;
 	}
 
-	public void setPortalUser(boolean isPortalUser) {
-		this.isPortalUser = isPortalUser;
+	public void setPortalUser(boolean portalUser) {
+		this.portalUser = portalUser;
+	}
+	
+	
+
+	public String getCompanyIdValue() {
+		return companyIdValue;
 	}
 
+	public void setCompanyIdValue(String companyIdValue) {
+		this.companyIdValue = companyIdValue;
+	}
 	
 	
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", employeeId=" + employeeId + ", companyId=" + companyId + ", name=" + name + ", ptPassword=" + ptPassword + ", isActive=" + isActive + ", lastUpdated="
-				+ lastUpdated + ", userUpdated=" + userUpdated + ", userRoleId=" + userRoleId + ", isPortalUser=" + isPortalUser + ", enabled=" + enabled + "]";
+		return "Employee [id=" + id + ", employeeId=" + employeeId
+				+ ", companyId=" + companyId + ", name=" + name + ",email="
+				+ email + ", ptPassword=" + ptPassword + ", active="
+				+ active + ", lastUpdated=" + lastUpdated + ", userUpdated="
+				+ userUpdated + ", userRoleId=" + userRoleId
+				+ ", portalUser=" + portalUser + ", enabled=" + enabled
+				+ ",portalId="+portalId+"]";
 	}
-
-	
 
 }

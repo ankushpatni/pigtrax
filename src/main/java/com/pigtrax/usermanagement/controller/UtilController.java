@@ -298,4 +298,24 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	
+	@RequestMapping(value = "/getRoleTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getRoleTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getRoleTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> mapval = refDataCache.getRoleTypeMap(language);
+		
+		Set<Integer> keySet = mapval.keySet();
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(mapval);
+		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 }
