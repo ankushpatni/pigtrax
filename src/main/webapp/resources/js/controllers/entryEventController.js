@@ -211,6 +211,22 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.selectAvailablePigId = function(selectedVal)
 		{
 			$scope.pigInfo.pigId = $scope.object.selectedAvailablePigID;
+			if($scope.copyPigDetails)
+			{
+				$scope.pigInfo = {};
+				var searchPigInfo = {
+						searchText : $scope.object.selectedAvailablePigID,
+						searchOption : "pigId",
+						companyId : $scope.companyId
+				};
+				restServices.getInactivePigInformation(searchPigInfo, function(data){
+					if(!data.error){
+						var pigDetails = data.payload;
+						$scope.pigInfo = pigDetails;
+						$scope.pigInfo["id"] = null;
+					}
+				});
+		    }
 		}
 		
 });

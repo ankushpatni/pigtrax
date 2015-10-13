@@ -197,6 +197,7 @@
                       </table>
                       </div>
                       <div class="modal-footer">
+                      <input type="checkbox" ng-model="copyPigDetails"> <spring:message code='label.piginfo.entryEventForm.copypigdetails'  text='Check if you want to copy the pig details'/>
                       <button type="button" class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-hide="availablePigIdList == null || availablePigIdList.length == 0" ng-click="selectAvailablePigId(object.selectedAvailablePigID)"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
                       <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
