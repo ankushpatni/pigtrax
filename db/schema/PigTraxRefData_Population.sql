@@ -811,25 +811,25 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('pigtraxsuperadmin',1,'PT 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',1);
+true, CURRENT_DATE,'pigtraxadmin',1,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('pigtraxdatacfgmgr',1,'PT Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',2);
+CURRENT_DATE,'pigtraxadmin',2,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Company"(
 
@@ -849,25 +849,25 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('pigfarmsuperadmin',2,'PF 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',3);
+true, CURRENT_DATE,'pigtraxadmin',3,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('pigfarmdatacfgmgr',2,'PF Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',4);
+CURRENT_DATE,'pigtraxadmin',4,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Company"(
 
@@ -887,41 +887,41 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('praveensuperadmin',3,'PT 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',3);
+true, CURRENT_DATE,'pigtraxadmin',3,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('praveendatacfgmgr',3,'PT Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',4);
+CURRENT_DATE,'pigtraxadmin',4,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
-VALUES ('praveenfarmemployee1',3, 'Alan', null, true, false, CURRENT_DATE,'pigtraxadmin',null);
+VALUES ('praveenfarmemployee1',3, 'Alan', null, true, false, CURRENT_DATE,'pigtraxadmin',null,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
-VALUES ('praveenfarmemployee2',3, 'Tom', null, true, false, CURRENT_DATE,'pigtraxadmin',null);
+VALUES ('praveenfarmemployee2',3, 'Tom', null, true, false, CURRENT_DATE,'pigtraxadmin',null,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Company"(
 
@@ -941,25 +941,25 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('roysuperadmin',4,'PT 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',3);
+true, CURRENT_DATE,'pigtraxadmin',3,"vidyar2002@yahoo.com");
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType")
+            "lastUpdated", "userUpdated", "id_RoleType","email")
 
 VALUES ('roydatacfgmgr',4,'PT Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',4);
+CURRENT_DATE,'pigtraxadmin',4,"vidyar2002@yahoo.com");
 
 INSERT into pigtrax."EmployeeJobFunction" ("functionName", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values ('ANY',CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',7);
 
