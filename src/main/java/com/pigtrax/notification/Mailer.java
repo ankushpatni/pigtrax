@@ -11,12 +11,14 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Mailer {
    	 
 
+	private static Logger logger = Logger.getLogger(Mailer.class);
     // Sender's email ID needs to be mentioned
     String from = "vidyar2002@gmail.com";
     String host = "localhost";	
@@ -107,7 +109,7 @@ public class Mailer {
 	 
 	         // Send message
 	         Transport.send(message);
-	         System.out.println("Sent message successfully....");
+	         logger.info("Sent message successfully...."); 
 	      }catch (MessagingException mex) {
 	         mex.printStackTrace();
 	      }
