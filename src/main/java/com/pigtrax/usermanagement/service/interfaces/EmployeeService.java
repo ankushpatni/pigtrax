@@ -2,6 +2,7 @@ package com.pigtrax.usermanagement.service.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 import com.pigtrax.usermanagement.beans.Employee;
 import com.pigtrax.usermanagement.dto.EmployeeDto;
@@ -22,8 +23,10 @@ public List<EmployeeDto> getEmployeeList();
 
 	public int deActivateEmployeeStatus(int employeeId);
 	
-	public String forgetPassword(String emailId);
+	public String forgetPassword(String emailId, Locale locale);
 
-	public String  changePassword(String newPassword, String reEnterPassword,String parameter); 
+	public String  changePassword(String employeeId, String newPassword); 
+	
+	public Employee getEmployeeByEmployeeId(String employeeId);
 
 }

@@ -45,7 +45,9 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 	private JdbcTemplate jdbcTemplate;
 	
 	private List<String> bCC = new ArrayList<String>();
-	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	CompanyDao companyDao;
@@ -338,39 +340,53 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 			logger.info("Your Forget Password Url Is ------------>"+"localhost:8087/PigTrax/changePassword?otp="+hashedPassword);
 			logger.info("in deActivate Id-->" + employeeId);
 			}
-			status= "label.employee.emailSent";
+			status= "success";
 		}else{
-			status="label.employee.emailWroungMess";
+			status="error";
 		}
 		return status;
 	}
-	public String changePassword(final String newPassword, String reEnterPassword,String otp) {
-		String result=null;
-		if(newPassword.equals(reEnterPassword)){
-			String Qry = "SELECT \"employeeId\" from pigtrax.\"Employee\"";
-			List<Map<String, Object>> emp = jdbcTemplate.queryForList(Qry);
-			for(Map<String,Object> empRow : emp){
-			final String employeeId = empRow.get("employeeId").toString();
-			 if(passwordEncoder.matches(employeeId, otp)){
-				 String query = "UPDATE pigtrax.\"Employee\" SET \"ptPassword\"=?  WHERE \"employeeId\"=?";
+	
+	public String changePassword(final String employeeId, final String newPassword) {
+		String query = "UPDATE pigtrax.\"Employee\" SET \"ptPassword\"=?  WHERE \"employeeId\"=?";
 
-					logger.info("in in update Password-->");
-					jdbcTemplate.update(query, new PreparedStatementSetter() {
-						@Override
-						public void setValues(PreparedStatement ps) throws SQLException {
-							ps.setString(1, passwordEncoder.encode(newPassword));
-							ps.setString(2, employeeId);
-						}
-					});
-					result="label.employee.resetSuccessMess";
-				}
-			 else{
-					//result="Url you entered don't correct.";
-				}
+		logger.info("in in update Password-->");
+		jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, passwordEncoder.encode(newPassword));
+				ps.setString(2, employeeId);
 			}
-	}else{
-		result="label.employee.reEnterNotMatch";
+		});
+		return "success";	
 	}
-		return result;
-}
+	
+	
+	@Override
+	public Employee getEmployeeByEmployeeId(String employeeId) {
+		List<Employee> empList = null;
+		String Qry = "SELECT \"id\", \"employeeId\", \"id_Company\", \"name\", \"ptPassword\", \"isActive\",  \"isPortalUser\", \"lastUpdated\","
+				+ " \"userUpdated\", \"id_RoleType\", \"email\" FROM pigtrax.\"Employee\" where \"employeeId\"='"+employeeId+"'";
+		List<Map<String,Object>> empRows = jdbcTemplate.queryForList(Qry);
+		for(Map<String,Object> empRow : empRows){
+			empList  =	new ArrayList<Employee>();
+	            Employee emp = new Employee();
+	            emp.setId(Integer.parseInt(empRow.get("id").toString()));
+	            emp.setEmployeeId(empRow.get("employeeId").toString());
+	            emp.setName(String.valueOf(empRow.get("name")));
+	            emp.setEmail(String.valueOf(empRow.get("email")));
+	            emp.setPortalUser(Boolean.parseBoolean(empRow.get("isPortalUser").toString()));
+	            emp.setPtPassword(empRow.get("ptPassword").toString());
+	            emp.setActive(Boolean.parseBoolean(empRow.get("isActive").toString()));
+	            emp.setCompanyId(Integer.parseInt(empRow.get("id_Company").toString()));
+	            emp.setUserRoleId(Integer.parseInt(empRow.get("id_RoleType").toString()));
+	          //  emp.setPortalId(Integer.parseInt(empRow.get("portalId").toString()));
+	            
+	            empList.add(emp);   
+	            
+	    }
+		if(empList != null && 0 < empList.size())
+			return empList.get(0);
+	    return null;
+	}
 }

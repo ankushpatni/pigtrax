@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,7 +68,7 @@ public class PasswordManagementController {
 		logger.info("in forget password controller--->"+request.getParameter("employeeId"));
 		try {
 			
-			 status = employeeService.forgetPassword(request.getParameter("employeeId"));
+			// status = employeeService.forgetPassword(request.getParameter("employeeId"));
 			 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,31 +82,17 @@ public class PasswordManagementController {
 	public String ChangePasswordFromUrl(Model model){
 		String status = null;
 		try{
+		logger.info("in change password controller--->"+request.getParameter("eid"));
 		logger.info("in change password controller--->"+request.getParameter("otp"));
+		String employeeid = request.getParameter("eid");
+		
 		request.setAttribute("otp", request.getParameter("otp"));
+		request.setAttribute("eid", request.getParameter("eid"));
 		model.addAttribute("contentUrl", "changePassword.jsp");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return "template";
-	}
-	@RequestMapping(value="/changePasswordAction")
-	public String ChangePasswordFromUrl(@ModelAttribute("resetPassword") ResetPassword resetPassword,Model model){
-		String status = null;
-		logger.info("in change password controller--->"+resetPassword.getNewPassword()+"   "+resetPassword.getReEnterPassword());
-		if(resetPassword.getNewPassword().equals(resetPassword.getReEnterPassword()) && !request.getParameter("otp").equalsIgnoreCase(null)){
-			try{
-			 status = 	employeeService.changePassword(resetPassword.getNewPassword() , resetPassword.getReEnterPassword() , request.getParameter("otp"));
-				model.addAttribute("contentUrl", "UserLogin.jsp");
-				request.setAttribute("message",status );
-			} catch (Exception e) {
-				e.printStackTrace();
-				request.setAttribute("message",status );
-				model.addAttribute("contentUrl", "changePassword.jsp");
-			}
-			}
-		return "template";
-	}
-	
+	}	
 
 }

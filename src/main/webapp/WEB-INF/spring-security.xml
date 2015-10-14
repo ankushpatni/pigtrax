@@ -13,6 +13,13 @@
         <intercept-url pattern="/login" access="permitAll" method="GET"/>
         <intercept-url pattern="/PigTrax/login/**" access="permitAll" method="POST"/>
         <intercept-url pattern="/login" access="permitAll" method="POST"/>
+        <intercept-url pattern="/forgetPassword" access="permitAll" method="POST"/>
+        <intercept-url pattern="/forgetPassword" access="permitAll" method="GET"/>
+        <intercept-url pattern="/rest/employee/forgotPassword" access="permitAll" method="POST"/>
+        <intercept-url pattern="/rest/employee/validateOneTimePassword" access="permitAll" method="POST"/>
+        <intercept-url pattern="/rest/employee/validateOneTimePassword/**" access="permitAll" method="POST"/>
+        <intercept-url pattern="/rest/employee/changePassword" access="permitAll" method="POST"/>
+        <intercept-url pattern="/changePassword" access="permitAll" method="GET"/> 
         <intercept-url pattern="/resources/**" access="permitAll"/>
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 		<form-login 

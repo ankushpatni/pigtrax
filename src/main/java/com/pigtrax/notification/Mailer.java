@@ -24,7 +24,31 @@ public class Mailer {
     
     private String toAddress = "vidyar2002@yahoo.com";
     private List<String> bccList;
+    private String subject;
+    private String message;
 	
+    
+    
+	public String getSubject() {
+		return subject;
+	}
+
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
 	public String getToAddress() {
 		return toAddress;
 	}
@@ -59,7 +83,7 @@ public class Mailer {
 	}
 	
 	
-	void sendEmail()
+	public void sendEmail()
 	{
 		loadProperties();
 		
@@ -80,13 +104,7 @@ public class Mailer {
 	        		 message.addRecipient(Message.RecipientType.BCC, new InternetAddress(addr));
 	        	 }
 	         }
-
-	         // Set Subject: header field
-	         message.setSubject("This is the Subject Line!");
-
-	         // Send the actual HTML message, as big as you like
-	         message.setContent("<h1>This is actual message</h1>", "text/html" );
-
+	 
 	         // Send message
 	         Transport.send(message);
 	         System.out.println("Sent message successfully....");

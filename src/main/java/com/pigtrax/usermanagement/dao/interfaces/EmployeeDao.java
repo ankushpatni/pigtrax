@@ -30,5 +30,7 @@ public interface EmployeeDao {
 	
 	public String forgetPassword(String emailId); 
 	
-	public String  changePassword(String newPassword, String reEnterPassword,String parameter);
+	public String  changePassword(String employeeId, String newPassword);
+	
+	public Employee  getEmployeeByEmployeeId(String employeeId);
 }

@@ -13,7 +13,7 @@ public class EmployeeDto {
 	  private boolean selected;
      private Integer employeeJobId;
      private String companyName;
-	 
+	 private String otPassword;
      private String email;
      private int portalId;
      private String activeFlag;
@@ -112,6 +112,13 @@ public class EmployeeDto {
 	}
 	public void setEmployeeJobId(Integer employeeJobId) {
 		this.employeeJobId = employeeJobId;
+	}
+	
+	public String getOtPassword() {
+		return otPassword;
+	}
+	public void setOtPassword(String otPassword) {
+		this.otPassword = otPassword;
 	}
 	@Override
 	public String toString() {		

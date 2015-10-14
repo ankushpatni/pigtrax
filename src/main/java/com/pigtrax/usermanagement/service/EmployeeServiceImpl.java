@@ -1,11 +1,18 @@
 package com.pigtrax.usermanagement.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.pigtrax.notification.Mailer;
 import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.beans.Employee;
 import com.pigtrax.usermanagement.dao.interfaces.CompanyDao;
@@ -15,11 +22,21 @@ import com.pigtrax.usermanagement.service.interfaces.EmployeeService;
 @Repository
 public class EmployeeServiceImpl implements EmployeeService {
 
+	private static final Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 	@Autowired
 	EmployeeDao employeeDao;
 	
 	@Autowired
 	CompanyDao companyDao;
+	
+	@Autowired
+	Mailer mailer;
+	
+	@Autowired
+	MessageSource messageSource;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public String resetPassword(String oldPassword, String newPassword) {
@@ -71,14 +88,55 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.deActivateEmployeeStatus(employeeId);
 	}
 	@Override
-	public String forgetPassword(String employeeId) {
-		return employeeDao.forgetPassword(employeeId);
+	public String forgetPassword(String employeeId,Locale locale) {
+		
+		Employee employee = employeeDao.getEmployeeByEmployeeId(employeeId);
+		
+		if(employee != null)
+		{
+			String password = String.valueOf(employeeId);
+			StringBuffer newPassword =new StringBuffer();
+			char[] chars = employeeId.toCharArray();
+			List<Character> charlist = new ArrayList<Character>(chars.length);
+			for(char c : chars)
+				charlist.add(c);
+			
+			Collections.shuffle(charlist);
+			for(Character c : charlist)
+				newPassword.append(c);
+			
+			final String hashedPassword = passwordEncoder.encode(newPassword);
+			
+			employeeDao.changePassword(employee.getEmployeeId(), newPassword.toString());
+			
+			mailer.setToAddress(employee.getEmail());
+			Object[] params = new Object[4];
+			params[0] = employee.getName();
+			params[1] = hashedPassword;
+			params[2] = employee.getEmployeeId();
+			params[3] = newPassword.toString();
+			
+			mailer.setSubject(messageSource.getMessage("label.employee.forgotpassword.email.subject", null, "", locale));
+			String mailMessage = messageSource.getMessage("label.employee.forgotpassword.email.content", params, "", locale);
+			logger.info("mailcontent : "+mailMessage);
+			mailer.setMessage(mailMessage);
+			mailer.sendEmail();
+			return "success";
+		}
+		else
+			return "error";		
+		
 	}
 	@Override
-	public String changePassword(String newPassword, String reEnterPassword,
-			String parameter) {
+	public String changePassword(String employeeId, String newPassword) {
 		// TODO Auto-generated method stub
-		return employeeDao.changePassword(newPassword, reEnterPassword, parameter);
+		return employeeDao.changePassword(employeeId, newPassword); 
+	}
+	
+	
+	@Override
+	public Employee getEmployeeByEmployeeId(String employeeId) {
+		return employeeDao.getEmployeeByEmployeeId(employeeId);
 	}
 	
 }

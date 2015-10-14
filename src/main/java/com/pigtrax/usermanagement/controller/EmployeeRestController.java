@@ -2,19 +2,26 @@ package com.pigtrax.usermanagement.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.beans.Employee;
-import com.pigtrax.usermanagement.dao.interfaces.EmployeeDao;
 import com.pigtrax.usermanagement.dto.EmployeeDto;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 import com.pigtrax.usermanagement.service.interfaces.EmployeeService;
@@ -27,6 +34,11 @@ public class EmployeeRestController {
 	
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
+	
 	
 	/**
 	 * Service to retrive the list of employees
@@ -174,5 +186,47 @@ public class EmployeeRestController {
 			e.printStackTrace();
 		}
 	return dto;
-}
+  }
+	
+	@RequestMapping(value="/forgotPassword", method=RequestMethod.POST, produces="application/json")	
+	public ServiceResponseDto forgotPassword(HttpServletRequest request,@RequestBody String employeeId){
+	 ServiceResponseDto dto = new ServiceResponseDto();
+	 LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+	 Locale locale = localeResolver.resolveLocale(request);
+	 String status = employeeService.forgetPassword(employeeId, locale);
+	 dto.setStatusMessage("success");
+	 return dto;
+	}
+	
+	
+	@RequestMapping(value = "/validateOneTimePassword", method = RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public ServiceResponseDto validateOneTimePassword(HttpServletRequest request, HttpServletResponse response, 
+    		@RequestBody EmployeeDto empDto) {
+    	
+		logger.info("Inside validateOneTimePassword method" );
+    	ServiceResponseDto rc = new ServiceResponseDto();    	
+    	
+    	
+    	Employee employee = employeeService.getEmployeeByEmployeeId(empDto.getEmployeeId());
+    	
+    	String encodedPassword = employee.getPtPassword(); 
+    	
+    	if(BCrypt.checkpw(empDto.getOtPassword(), encodedPassword))
+    		rc.setStatusMessage("success");
+    	else
+    		rc.setStatusMessage("ERROR");
+    	return rc;
+    }
+	
+	
+	@RequestMapping(value="/changePassword",  method = RequestMethod.POST,produces = "application/json", consumes="application/json")
+	public ServiceResponseDto changePassword(@RequestBody Employee employee){
+		String status = null;
+		ServiceResponseDto dto = new ServiceResponseDto();
+		status = 	employeeService.changePassword(employee.getEmployeeId(), employee.getPtPassword()); 
+		dto.setStatusMessage("success");
+		return dto;		
+	}
+	
 }

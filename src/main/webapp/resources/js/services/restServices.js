@@ -85,5 +85,8 @@ pigTrax.factory("restServices", function($resource) {
 		"getEmployeeListIndi"      :  {method:"GET", url:"rest/employee/getEmployeeListIndi"},
 		"getRoleTypes"      :  {method:"GET", url:"rest/util/getRoleTypes"},
 		"getEmployeeDetails"      :  {method:"POST", url:"rest/employee/getEmployeeDetails"},
+		"forgotPassword"      :  {method:"POST", url:"rest/employee/forgotPassword"},
+		"validateOneTimePassword" : {method:"POST", url:"rest/employee/validateOneTimePassword"},
+		"changePassword"      :  {method:"POST", url:"rest/employee/changePassword"},
     });
 });
