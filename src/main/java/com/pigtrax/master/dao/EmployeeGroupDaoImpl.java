@@ -134,13 +134,13 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 		String qry = "Select E.\"id\", E.\"employeeId\", E.\"name\", EJF.\"id\" as \"employeeJobId\" "
 				+ "from pigtrax.\"Employee\" E "
 				+ " join pigtrax.\"EmployeeJobFunction\" EJF On E.\"id\" = EJF.\"id_Employee\" "
-				+ "where E.\"id_Company\" = ? and EJF.\"functionName\" = ? and E.\"isActive\" is true order by E.\"name\"";
+				+ "where E.\"id_Company\" = ? and lower(EJF.\"functionName\") = ? and E.\"isActive\" is true order by E.\"name\"";
 
 		employeeList = jdbcTemplate.query(qry, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, companyId);
-				ps.setString(2, jobFunction.toUpperCase());
+				ps.setString(2, jobFunction.trim().toLowerCase());
 			}
 		}, new EmployeeMapper());
 
