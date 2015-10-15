@@ -37,6 +37,10 @@
 				<th size="5%"><label><spring:message code="label.employee.edit" text="Edit" /><label></th>
 				<th size="1%" style="width:10px;"><label><spring:message code="label.employee.action" text="Action" /></label></th>
 			</tr>
+			<tr>
+										<th colspan="6"><input st-search="" class="form-control"
+											placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text" /></th>
+									</tr>
 			</thead>
 			<tbody>
 			<tr ng-repeat="employee in employeeList track by $index"
