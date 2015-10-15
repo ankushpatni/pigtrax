@@ -13,7 +13,7 @@ public interface EmployeeService {
 	
 public List<EmployeeDto> getEmployeeList();
 	
-	public int insertEmployeeRecord(Employee employee) throws SQLException;
+	public int insertEmployeeRecord(Employee employee, Locale locale) throws SQLException;
 
 	public Employee getEmployeeById(int empId);
 	

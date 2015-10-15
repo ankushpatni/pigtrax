@@ -1,6 +1,5 @@
 package com.pigtrax.notification;
 
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
@@ -34,12 +33,14 @@ public class Consumer implements Runnable{
         while(true){
             try {
             	
-                BlockingQueueEmail h= sharedQueue.take();
+                BlockingQueueEmail emailObj= sharedQueue.take();
                 
                 logger.info("mailer = "+mailer);
                 
-                mailer.setToAddress(h.getEmailId());
-                mailer.setBccList(h.getbCC());
+                mailer.setToAddress(emailObj.getEmailId());
+                mailer.setBccList(emailObj.getbCC());
+                mailer.setSubject(emailObj.getSubjectLine());
+                mailer.setMessage(emailObj.getMessage());
                 mailer.sendEmail();
                 
             } catch (InterruptedException ex) {

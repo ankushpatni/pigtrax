@@ -91,24 +91,24 @@ public class Mailer {
 		
 		try{
 	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
+	         MimeMessage emailMessage = new MimeMessage(session);
 
 	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
+	         emailMessage.setFrom(new InternetAddress(from));
 
 	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
+	         emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
 	         
 	         if(bccList != null && 0<bccList.size())
 	         {
 	        	 for(String addr : bccList)
 	        	 {
-	        		 message.addRecipient(Message.RecipientType.BCC, new InternetAddress(addr));
+	        		 emailMessage.addRecipient(Message.RecipientType.BCC, new InternetAddress(addr));
 	        	 }
-	         }
-	 
+	         }	 
+	         emailMessage.setContent(this.message,"text/html");	         
 	         // Send message
-	         Transport.send(message);
+	         Transport.send(emailMessage);
 	         logger.info("Sent message successfully...."); 
 	      }catch (MessagingException mex) {
 	         mex.printStackTrace();

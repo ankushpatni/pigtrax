@@ -15,7 +15,7 @@
 						<%if(activeUser.getUserRole()==1 || activeUser.getUserRole() == 2){%>
 				
 				<div class="form-group">
-					<label><%=activeUser.getUserRole()%><spring:message code="label.employee.companyId" text="Company" /><span style='color: red'>*</span></label> 
+					<label><spring:message code="label.employee.companyId" text="Company" /><span style='color: red'>*</span></label> 
 					<!--<label ng-show="edit">{{add.employeeId}}</label> -->
 						<select class="form-control" id="companyId" name="companyId" onchange="setCompanyId();" >
 						<option value=""></option>

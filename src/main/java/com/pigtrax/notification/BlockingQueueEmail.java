@@ -1,7 +1,10 @@
 package com.pigtrax.notification;
 
 import java.util.List;
+import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,8 +17,24 @@ public class BlockingQueueEmail {
 	private String name;
 	private String message;
 	private String companyId;
+	private String subjectLine;
+	private Locale locale;
+	private String hashPassword;
+	private String employeeId;
 	
 	
+	public Locale getLocale() {
+		return locale;
+	}
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+	public String getSubjectLine() {
+		return subjectLine;
+	}
+	public void setSubjectLine(String subjectLine) {
+		this.subjectLine = subjectLine;
+	}
 	public String getCompanyId() {
 		return companyId;
 	}
@@ -53,9 +72,42 @@ public class BlockingQueueEmail {
 		this.bCC = bCC;
 	}
 	
-	public void populateEmployeeCreationMessage()
-	{
-		this.message = "Employee ["+this.name+"] added in the company "+this.companyId;
+	
+	
+	public String getEmployeeId() {
+		return employeeId;
 	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+	public String getHashPassword() {
+		return hashPassword;
+	}
+	public void setHashPassword(String hashPassword) {
+		this.hashPassword = hashPassword;
+	}
+	public void populateEmployeeCreationMessage(MessageSource messageSource)
+	{
+		Object[] params = new Object[1];
+		params[0] = this.name;
+		
+		this.subjectLine = messageSource.getMessage("label.employee.employeecreation.email.subject", null, "", locale);
+		this.message= messageSource.getMessage("label.employee.employeecreation.email.content", params, "", locale);
+		
+	}
+	
+	public void populateForgotPasswordMessage(MessageSource messageSource)
+	{
+		Object[] params = new Object[4];
+		params[0] = this.name;
+		params[1] = this.hashPassword;
+		params[2] = this.employeeId;
+		params[3] = this.password;
+		
+		this.subjectLine = messageSource.getMessage("label.employee.forgotpassword.email.subject", null, "", locale);
+		this.message= messageSource.getMessage("label.employee.forgotpassword.email.content", params, "", locale);
+		
+	}
+	
 	
 }

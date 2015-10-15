@@ -3,8 +3,8 @@
 <!-- ======== @Region: #content ======== -->
 <div class="cl-mcont">
 	<div class="row dash-cols">
-		<div class="col-sm-3 col-md-3"></div>
-	            <div class="col-sm-6 col-md-6">
+		<div class="col-sm-2 col-md-2"></div>
+	            <div class="col-sm-8 col-md-8">
 			<div class="block-flat">
 				<div class="header">
 					<h3><spring:message code="label.employee.resetPassword"  text="Reset Password"/></h3>
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-3 col-md-3"></div>
+		<div class="col-sm-2 col-md-2"></div>
 	</div>
 	
 </div>

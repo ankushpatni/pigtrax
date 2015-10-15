@@ -12,7 +12,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.pigtrax.notification.BlockingQueueEmail;
 import com.pigtrax.notification.Mailer;
+import com.pigtrax.notification.NotificationManager;
 import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.beans.Employee;
 import com.pigtrax.usermanagement.dao.interfaces.CompanyDao;
@@ -38,6 +40,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	NotificationManager notificationManager;
+	
+	
 	@Override
 	public String resetPassword(String oldPassword, String newPassword) {
 		
@@ -49,9 +55,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.getEmployeeList();
 	}
 	@Override
-	public int insertEmployeeRecord(Employee employee) throws SQLException {
+	public int insertEmployeeRecord(Employee employee, Locale locale) throws SQLException {
 		
-		return employeeDao.insertEmployeeRecord(employee);
+		return employeeDao.insertEmployeeRecord(employee, locale);
 	}
 	
 	@Override
@@ -109,18 +115,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 			
 			employeeDao.changePassword(employee.getEmployeeId(), newPassword.toString());
 			
-			mailer.setToAddress(employee.getEmail());
-			Object[] params = new Object[4];
-			params[0] = employee.getName();
-			params[1] = hashedPassword;
-			params[2] = employee.getEmployeeId();
-			params[3] = newPassword.toString();
+			BlockingQueueEmail emailObj = new BlockingQueueEmail();
+			emailObj.setName(employee.getName());
+			emailObj.setLocale(locale);
+			emailObj.setPassword(newPassword.toString());
+			emailObj.setHashPassword(hashedPassword);
+			emailObj.setEmployeeId(employee.getEmployeeId());
+			emailObj.setEmailId(employee.getEmail());	
+			emailObj.populateForgotPasswordMessage(messageSource);
+			notificationManager.mailThread(emailObj);
 			
-			mailer.setSubject(messageSource.getMessage("label.employee.forgotpassword.email.subject", null, "", locale));
-			String mailMessage = messageSource.getMessage("label.employee.forgotpassword.email.content", params, "", locale);
-			logger.info("mailcontent : "+mailMessage);
-			mailer.setMessage(mailMessage);
-			mailer.sendEmail();
 			return "success";
 		}
 		else

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.usermanagement.beans.Employee;
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.EmployeeDto;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 import com.pigtrax.usermanagement.service.interfaces.EmployeeService;
@@ -94,18 +96,21 @@ public class EmployeeRestController {
 		return dto;
 	}
 	@RequestMapping(value = "/insertEmployeeRecordSubmit", method=RequestMethod.POST, produces="application/json")
-	public ServiceResponseDto insertEmployeeRecordSubmit( @RequestBody Employee employee)
+	public ServiceResponseDto insertEmployeeRecordSubmit(HttpServletRequest request,  @RequestBody Employee employee)
 	{
 		logger.debug("Inside insertEmployeeRecord()  ");
 		ServiceResponseDto dto = new ServiceResponseDto();
 		logger.info("String ---->"+employee.toString());
 		int updatedRecord = 0;
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		Locale locale = localeResolver.resolveLocale(request);
 		try 
 		{
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
-			
-				updatedRecord = employeeService.insertEmployeeRecord(employee);
-			
+			employee.setUserUpdated(activeUser.getUsername());
+			updatedRecord = employeeService.insertEmployeeRecord(employee, locale);
+			 
 			dto.setStatusMessage("SUCCESS");
 			dto.setPayload(updatedRecord);
 		} 
@@ -124,8 +129,6 @@ public class EmployeeRestController {
 				dto.setPayload("Employee with ID : "+employee.getEmployeeId().toUpperCase() + " already present.");
 				dto.setDuplicateRecord(true);
 			}
-			
-			logger.error("Inside updateCompanyStatus()" +((DuplicateKeyException) e).getLocalizedMessage() + e.getMessage());
 			e.printStackTrace();
 		}
 			

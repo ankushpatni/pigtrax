@@ -2,8 +2,8 @@ package com.pigtrax.usermanagement.dao.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
-import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.beans.Employee;
 import com.pigtrax.usermanagement.dto.EmployeeDto;
 
@@ -14,7 +14,7 @@ public interface EmployeeDao {
 	 */
 	public List<EmployeeDto> getEmployeeList();
 	
-	public int insertEmployeeRecord(Employee employee) throws SQLException;
+	public int insertEmployeeRecord(Employee employee, Locale locale) throws SQLException;
 	
 	public EmployeeDto findByUserName(String username)  throws SQLException;
 	
