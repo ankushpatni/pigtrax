@@ -1,22 +1,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.entryeventform.piginformation'  text='Pig Information'/> - ${CompanyName} AG</h2>
-</div>
+          <h2><spring:message code='label.piginfo.entryeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
+        </div>
+		 
  <div class="cl-mcont" ng-controller="EntryEventController" ng-init="populateBarns(${CompanyId})"  id="EntryEventControllerId">
  <div class="row">
  		  <div class="col-sm-3 col-md-3"></div>
  		  <div class="col-sm-6 col-md-6">
- 		  
- 		  <div class="block-flat">
-		   <form method="POST" action="uploadFile" name="batchupload" enctype="multipart/form-data">
- 		     <div class="head">
- 		     <h3> Batch Upload</h3>
-            <input type="file" name="file" value="upload" class="form-control"> <button type="submit" value="upload">Upload</button>
-          </div>
-		  </form>
-          </div>
- 		  
  		  <div class="block-flat">
 		   <form name="entryEventSearchForm" >
  		     <div class="head">
