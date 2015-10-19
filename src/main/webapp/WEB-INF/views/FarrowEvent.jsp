@@ -86,7 +86,7 @@
                   </div>     
                   <div class="alert alert-danger alert-white rounded" ng-show="farrowEventValidation_ErrCode_1">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.farroweventform.farrowEventValidation_ErrCode1.message' text='Farrow event doesn\'t fall between the acceptated duration of the service date'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.farroweventform.farrowEventValidation_ErrCode1.message' text='Farrow event doesn\'t fall between the accepted duration of the service date'/>
                   </div>   
                   <div class="alert alert-danger alert-white rounded" ng-show="farrowEventValidation_ErrCode_2">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
