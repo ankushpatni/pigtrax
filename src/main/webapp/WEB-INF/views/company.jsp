@@ -16,7 +16,7 @@
 							text="Add New company" />
 					</button>
 					<div class="content">
-						<div class="table-responsive" style="overflow-x: hidden">
+						<div class="table-responsive">
 						 	<table st-table="displayedCollection" st-safe-src="rowCollection"
 								class="table table-striped" style="background-color: LightGray">
 								<thead style="background-color: #3399CC">
