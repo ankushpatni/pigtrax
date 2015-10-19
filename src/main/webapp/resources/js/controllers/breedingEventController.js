@@ -33,6 +33,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		$scope.breedingEventIncompleteCycle = false;
 		$scope.matingDetailsSuccessMessage = false;
 		$scope.breedingEventValidation_ErrCode_PregCheckAdded = false;
+		$scope.matingDateRequired = false;
 	};
 	
 	
@@ -228,8 +229,16 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	
 	$scope.saveMatingDetails = function()
 	{	
+		$scope.matingDateRequired = false;
 		
-		if($scope.matingdetailsform.$valid)
+		var matingDate = document.getElementById("matingDate").value;
+		
+		if(matingDate == null || matingDate == undefined || matingDate == "")
+		{
+			$scope.matingDateRequired = true;
+		}	
+		
+		if($scope.matingdetailsform.$valid && !$scope.matingDateRequired)
 		{
 			if($scope.confirmClick)
 			{
