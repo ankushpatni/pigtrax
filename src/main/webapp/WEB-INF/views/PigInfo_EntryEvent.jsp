@@ -132,9 +132,10 @@
 					      invalid-message="'<spring:message code='label.piginfo.entryeventform.gline.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.gcompany'  text='GCompany'/></label>
-                      <input type="text" class="form-control" name="gcompany" ng-model="pigInfo.gcompany" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.gcompany.placeholder' text='Enter gcompany'/>" 
-					     invalid-message="'<spring:message code='label.piginfo.entryeventform.gcompany.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+                      <label><spring:message code='label.piginfo.entryeventform.gcompany'  text='GCompany'/></label>                      
+					    <select class="form-control"  name="gcompanyType" ng-model="pigInfo.gcompany" >
+                      	<option ng-repeat="key in gcompanyKeys" ng-value="key" ng-selected="pigInfo.gcompany==key">{{gcompanyTypes[key]}}</option>        
+                        </select>
                     </div>
                     
                     <div class="form-group">

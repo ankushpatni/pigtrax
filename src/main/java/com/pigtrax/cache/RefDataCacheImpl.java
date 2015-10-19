@@ -60,6 +60,7 @@ public class RefDataCacheImpl implements RefDataCache {
 	
 	private Map<Integer, String> rationTypeMap;
 		
+	private Map<String, Map<Integer, String>> gcompanyTypeMap;
 
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
@@ -90,6 +91,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		mortalityReasonTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getMortalityReasonTypes()));
 		targetTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getTargetTypes()));
 		rationTypeMap = Collections.unmodifiableMap(refDataDao.getRationType());
+		gcompanyTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getGcompanyType()));
 	}
 
 	@Override
@@ -204,5 +206,10 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getRationTypeMap() {
 		return rationTypeMap;
+	}
+	
+	@Override
+	public Map<Integer, String> getGcompanyTypeMap(String language) {
+		return gcompanyTypeMap.get(language);
 	}
 }

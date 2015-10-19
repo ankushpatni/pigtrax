@@ -88,5 +88,6 @@ pigTrax.factory("restServices", function($resource) {
 		"forgotPassword"      :  {method:"POST", url:"rest/employee/forgotPassword"},
 		"validateOneTimePassword" : {method:"POST", url:"rest/employee/validateOneTimePassword"},
 		"changePassword"      :  {method:"POST", url:"rest/employee/changePassword"},
+		"getGcompanyTypes" : {method:"GET", url:"rest/util/getGcompanyTypes"},
     });
 });

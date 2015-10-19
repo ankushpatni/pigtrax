@@ -10,7 +10,7 @@ public class PigInfo {
 	private Date entryDate;
 	private String origin;
 	private String gline;
-	private String gcompany;
+	private Integer gcompany;
 	private Date birthDate;
 	private String tattoo;
 	private String alternateTattoo;
@@ -91,11 +91,11 @@ public class PigInfo {
 		this.gline = gline;
 	}
 
-	public String getGcompany() {
+	public Integer getGcompany() {
 		return gcompany;
 	}
 
-	public void setGcompany(String gcompany) {
+	public void setGcompany(Integer gcompany) {
 		this.gcompany = gcompany;
 	}
 

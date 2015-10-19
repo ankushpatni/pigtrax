@@ -685,7 +685,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"entryDate" timestamp,
 	origin varchar(30),
 	gline varchar(30),
-	gcompany varchar(30),
+	gcompany smallint,
 	"birthDate" timestamp,
 	tattoo varchar(30),
 	"alternateTattoo" varchar(30),
@@ -2226,6 +2226,56 @@ ALTER TABLE pigtrax."MasterRation"
 ALTER TABLE pigtrax."MasterRation" ADD CONSTRAINT "FeedEventType_fk" FOREIGN KEY ("id_FeedEventType")
 REFERENCES pigtraxrefdata."FeedEventType" (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+
+
+-- object: pigtraxrefdata."GcompanyType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."GcompanyType" CASCADE;
+CREATE TABLE pigtraxrefdata."GcompanyType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "GCOMPANYTYPE_PK" PRIMARY KEY (id),
+	CONSTRAINT "GCOMPANYTYPE_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."GcompanyType" OWNER TO pitraxadmin;
+
+
+-- object: "GcompanyType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "GcompanyType_fk" CASCADE;
+ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "GcompanyType_fk" FOREIGN KEY ("gcompany")
+REFERENCES pigtraxrefdata."GcompanyType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."GcompanyTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."GcompanyTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."GcompanyTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_GcompanyType" integer,
+	CONSTRAINT "GCOMPANYTYPETRANLATION_PK" PRIMARY KEY (id),
+	CONSTRAINT "GCOMPANYTYPETRANSLATION_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."GcompanyTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "GcompanyType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."GcompanyTypeTranslation" DROP CONSTRAINT IF EXISTS "GcompanyType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."GcompanyTypeTranslation" ADD CONSTRAINT "GcompanyType_fk" FOREIGN KEY ("id_GcompanyType")
+REFERENCES pigtraxrefdata."GcompanyType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 
 

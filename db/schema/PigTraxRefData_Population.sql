@@ -789,6 +789,48 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Litters / mated female/year_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',89);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs/weans/mated female/year_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',90);
 
+
+---------
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Choice', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Danbred',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'DB Brasil',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'DNA',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Genetiporc',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'DB Brasil',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'PIC',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'SPG',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'Topigs',CURRENT_TIMESTAMP,'pigtraxadmin');
+
+
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Choice','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Danbred','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('DB Brasil','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('DNA','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Genetiporc','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('PIC','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('SPG','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Topigs','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+
+
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Choice_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Danbred_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('DB Brasil_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('DNA_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Genetiporc_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('PIC_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('SPG_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Topigs_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Choice_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Danbred_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('DB Brasil_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('DNA_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Genetiporc_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('PIC_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('SPG_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GcompanyType") VALUES ('Topigs_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+
+
 ----------
 
 

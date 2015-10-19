@@ -42,4 +42,5 @@ public interface RefDataCache {
 
 	Map<Integer, String> getRationTypeMap();
 
+	Map<Integer, String> getGcompanyTypeMap(String language);
 }
