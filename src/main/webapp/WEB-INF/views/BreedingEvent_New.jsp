@@ -13,7 +13,7 @@
 		   <form name="breedingEventSearchForm">
  		     <div class="head">
  		     
- 		     <h3> <spring:message code='label.piginfo.breedingeventform.search.heading'  text='Search'/></h3>
+ 		     <h3> <spring:message code='label.piginfo.breedingeventform.search.heading'  text='Search Breeding Events'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.data.errormessage' text='Breeding event information not found for the search criteria'/></p>
 			
@@ -37,6 +37,7 @@
 		  <form name="breedingEventSearchResultForm"  ng-if="breedingEventList != null && breedingEventList.length != 0" >
  		     <div class="head">
             <h3> <spring:message code='label.piginfo.breedingeventform.searchresults.heading'  text='Breeding Events'/></h3>
+            <div class="table-responsive">
              <table>
 				<thead>
                      <tr>
@@ -59,6 +60,7 @@
                    </tr>
                  </tbody>
              </table>
+             </div>
           </div>
 		  </form>
           </div>
@@ -128,16 +130,13 @@
                      <input type="text" ng-show="breedingEvent.id == null" ng-model="breedingEvent.pigInfoId" id="pigInfoId" name="pigInfoId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
                       required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
-						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null && !malePigIdentified && breedingEvent.gestationRecordDate != null">Gestation window started on {{breedingEvent.gestationRecordDate}}</label>
+						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>	
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  id="sexType" name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  required 
-                      required-message="'<spring:message code='label.piginfo.breedingeventform.breedingServiceType.requiredmessage' text='Breeding Service Type is required' />'"
-                       ng-options="k as v for (k, v) in breedingServiceTypes">
+                      <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/></label>
+                       <select class="form-control"  id="sexType" name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  ng-options="k as v for (k, v) in breedingServiceTypes">
                         </select>
                     </div>
                     <div class="form-group">
@@ -153,9 +152,9 @@
                     </div>
                    
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.breedingeventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.breedingeventform.sowcondition'  text='Sow Condition'/></label>
                       <i>[1:  <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/> - 5:<spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/>]</i>
-                      <select class="form-control" id="sowCondition" name="sowCondition" ng-model="breedingEvent.sowCondition" required required-message="'<spring:message code='label.piginfo.breedingeventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
+                      <select class="form-control" id="sowCondition" name="sowCondition" ng-model="breedingEvent.sowCondition" >
                            <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -312,7 +311,7 @@
 		</button>
 	<form name="matingdetailsform" method="post">	
 		<div class="content" ng-show="(breedingEvent.id != null && breedingEvent.id > 0) || entryEventSuccessMessage">
-			<div class="table-responsive" style="overflow-x: hidden">
+			<div class="table-responsive">
 			<table st-table="displayedCollection" st-safe-src="breedingEvent.matingDetailsList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #3399CC">
 					<tr>
@@ -359,6 +358,7 @@
                       </div>
                       <div class="modal-body form" ng-hide="viewAddForm">
 					     <p class="color-primary"><spring:message code='label.employeegroup.selection.message'  text='Please select a group and proceed'/></p>
+					     <div class="table-responsive">
                         <table>
 						<thead>
                            <tr>
@@ -396,7 +396,7 @@
                            </tr>
 						   </tbody>
                         </table>
-                       
+                       </div>
                       </div>
                       <div class="modal-body form" ng-show="viewAddForm">
                          <h4 ng-if="!(employeeGrp.id > 0)"> <spring:message code='label.employeegroup.add.heading'  text='Add Employee Group'/></h4>
@@ -421,6 +421,7 @@
 	                        </div>
 	                        <div class="row">
 	                        <p class="color-danger" ng-show="employeeGrpEmployeeInvalid"><spring:message code='label.employeegroup.message.employeeselection.invalid'  text='Please select atleast one employee'/></p>
+	                        <div class="table-responsive">
 			                   <table>
 								<thead>
 		                           <tr>
@@ -444,6 +445,7 @@
 		                           </tr>
 								   </tbody>
 		                        </table>
+		                        </div>
 	                        </div>
                         
                       </div>

@@ -71,8 +71,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$scope.companyTargetDeleted = false;
 		$scope.targetIdRequired = false;
 		$scope.targetValueRequired = false;
-		$scope.completionDateRequired = false;
-		$scope.remarksRequired = false;
+		$scope.completionDateRequired = false;		
 	}
 	
 	
@@ -109,16 +108,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		else
 		{
 			$scope.completionDateRequired = false;			
-		}
-		if($scope.companyTarget["remarks"] == null)
-		{
-			$scope.remarksRequired = true;
-			valid = false;
-		}
-		else
-		{
-			$scope.remarksRequired = false;			
-		}
+		}		
 		
 		
 		if(valid)

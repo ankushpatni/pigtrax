@@ -11,7 +11,7 @@
  		  <div class="block-flat">
 		   <form name="breedingEventSearchForm" >
  		     <div class="head">
-            <h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h3>
+            <h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search Pregnancy Events'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.data.errormessage' text='Pregnancy event information not found for the search criteria'/></p>
 			
@@ -35,6 +35,7 @@
 		  <form name="pregnancyEventSearchResultForm"  ng-if="pregnancyEventList != null && pregnancyEventList.length != 0" >
  		     <div class="head">
             <h3> <spring:message code='label.piginfo.pregnancyeventform.searchresults.heading'  text='Pregnancy Events'/></h3>
+            <div class="table-responsive">
              <table>
 				<thead>
                      <tr>
@@ -57,6 +58,7 @@
                    </tr>
                  </tbody>
              </table>
+             </div>
           </div>
 		  </form>
           </div>
@@ -121,8 +123,7 @@
                        <div data-min-view="2" class="input-group col-md-7 col-xs-9"> 
                      <input type="text" ng-model="pregnancyEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>"/>
 						<span class="input-group-addon btn btn-primary" ng-click="searchBreedingService(pregnancyEvent.pigId, pregnancyEvent.companyId)"  ><a class="btn-primary"><spring:message code='label.piginfo.breedingeventform.breedingevent'  text='Breeding Event'/></a></span>
-						</div>
-						
+						</div>						 
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
 					<label ng-show="breedingEventIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' /></label>
@@ -205,6 +206,7 @@
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
                       <div class="modal-body form" >
+                      <div class="table-responsive">
                       <table>
                        <thead>
                            <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
@@ -226,6 +228,7 @@
 	                 </tbody>
                       </table>
                       </div>
+                      </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="breedingEventList == null || breedingEventList.length == 0" ng-click="selectBreedingEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
                       <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
@@ -243,6 +246,7 @@
                       </div>
                       <div class="modal-body form" ng-hide="viewAddForm">
 					     <p class="color-primary"><spring:message code='label.employeegroup.selection.message'  text='Please select a group and proceed'/></p>
+					     <div class="table-responsive">
                         <table>
 						<thead>
                            <tr>
@@ -280,7 +284,7 @@
                            </tr>
 						   </tbody>
                         </table>
-                       
+                       </div>
                       </div>
                       <div class="modal-body form" ng-show="viewAddForm">
                          <h4 ng-if="!(employeeGrp.id > 0)"> <spring:message code='label.employeegroup.add.heading'  text='Add Employee Group'/></h4>
@@ -305,6 +309,7 @@
 	                        </div>
 	                        <div class="row">
 	                        <p class="color-danger" ng-show="employeeGrpEmployeeInvalid"><spring:message code='label.employeegroup.message.employeeselection.invalid'  text='Please select atleast one employee'/></p>
+	                        <div class="table-responsive">
 			                   <table>
 								<thead>
 		                           <tr>
@@ -328,6 +333,7 @@
 		                           </tr>
 								   </tbody>
 		                        </table>
+		                        </div>
 	                        </div>
                        
                       </div>

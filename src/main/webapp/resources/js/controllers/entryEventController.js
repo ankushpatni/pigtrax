@@ -14,6 +14,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.invalidEntryDate = false;
 		$scope.pigInfoEventsExistsMessage = false;
 		$scope.invalidDateDuration = false;
+		$scope.birthDateRequired = false;
 	};
 	
 	$scope.clearAllMessages();
@@ -58,15 +59,24 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		
 		$scope.addEntryEvent = function(){
 			
+			$scope.clearAllMessages();
+			
 			var entryDate = document.getElementById("entryDate").value;
+			var birthDate = document.getElementById("birthDate").value;
 			
 			if(entryDate == null || entryDate == undefined || entryDate == "")
 			{
 				$scope.entryDateRequired = true;
 			}				
 			
+			if(birthDate == null || birthDate == undefined || birthDate == "")
+			{
+				$scope.birthDateRequired = true;
+			}				
 			
-			if($scope.entryEventForm.$valid)
+			
+			
+			if($scope.entryEventForm.$valid && !$scope.entryDateRequired && !$scope.birthDateRequired)
 			{
 				$scope.clearAllMessages();
 				

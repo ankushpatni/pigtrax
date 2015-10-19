@@ -22,8 +22,8 @@
 							text="Add New Employee" />
 					</button>
 					<%}else{}%>
-					<div class="content">
-						<div class="table-responsive" style="overflow-x: hidden">
+					
+				<div class="table-responsive">
 		 <table st-table="employeeList" st-safe-src="rowCollection"
 								class="table table-striped" style="background-color: LightGray">
 			<thead style="background-color: #3399CC">
@@ -88,7 +88,7 @@
 				</tfoot>
 		</table>
 	</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

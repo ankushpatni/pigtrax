@@ -71,7 +71,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    				else{
 	    					ps.setNull(5, java.sql.Types.INTEGER);
 	    				}
-	    				ps.setDouble(6, breedingEvent.getWeightInKgs()); 
+	    				ps.setObject(6, breedingEvent.getWeightInKgs(), java.sql.Types.DOUBLE); 
 	    				
 	    				ps.setString(7, breedingEvent.getUserUpdated());
 	    			

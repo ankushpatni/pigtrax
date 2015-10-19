@@ -57,7 +57,7 @@
 					
 					                    
                     <div class="form-group">
-                      <label><spring:message code='label.companytargetform.remarks'  text='Remarks'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.companytargetform.remarks'  text='Remarks'/></label>
                       <textarea name="remarks" ng-model="companyTarget.remarks" class="form-control" placeholder="<spring:message code='label.companytargetform.remarks.placeholder' text='Enter remarks'/>"></textarea>
                       <label ng-show="remarksRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.remarksRequiredMessage' text='Remarks is required' /></label>
                     </div>

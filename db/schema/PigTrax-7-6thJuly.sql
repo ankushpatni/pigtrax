@@ -711,7 +711,7 @@ CREATE UNIQUE INDEX "PIGINFO_U_PI"  ON pigtrax."PigInfo"  USING btree  ("pigId" 
 
 -- Index: pigtrax."PIGINFO_U_TA"
 -- DROP INDEX pigtrax."PIGINFO_U_TA";
-CREATE UNIQUE INDEX "PIGINFO_U_TA"  ON pigtrax."PigInfo"  USING btree  ("pigId" COLLATE pg_catalog."default", "id_Company", "isActive")  WHERE "isActive" IS TRUE;
+CREATE UNIQUE INDEX "PIGINFO_U_TA"  ON pigtrax."PigInfo"  USING btree  ("tattoo" COLLATE pg_catalog."default", "id_Company", "isActive")  WHERE "isActive" IS TRUE;
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."Genetics" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
@@ -2051,7 +2051,7 @@ CREATE TABLE pigtrax."MatingDetails"(
 	id serial NOT NULL,
 	"matingDate" timestamp NOT NULL,
 	"semenId" varchar(30) ,
-	"matingQuality" smallint NOT NULL,
+	"matingQuality" smallint,
 	"id_BreedingEvent" integer NOT NULL,
 	"id_EmployeeGroup" integer,
 	"lastUpdated" timestamp NOT NULL,

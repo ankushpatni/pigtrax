@@ -197,17 +197,17 @@ INSERT INTO pigtraxrefdata."PregnancyEventType" ("fieldCode","fieldDescription",
 
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Pregnancy Exam','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Abortion','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Non in Pig','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Not in Pig','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Unknown','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Pregnancy Exam_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Abortion_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Non in Pig_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Not in Pig_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Unknown_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Pregnancy Exam_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Abortion_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Non in Pig_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Not in Pig_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."PregnancyEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PregnancyEventType") VALUES ('Unknown_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 ------SiloType
 INSERT INTO pigtraxrefdata."SiloType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Single', CURRENT_TIMESTAMP,'pigtraxadmin');

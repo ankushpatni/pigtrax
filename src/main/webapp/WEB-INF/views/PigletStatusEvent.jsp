@@ -11,7 +11,7 @@
  		  <div class="block-flat">
 		   <form name="farrowEventSearchForm" >
  		     <div class="head">
-            <h3> <spring:message code='label.piginfo.pigletstatuseventform.search.heading'  text='Search'/> Piglet Status</h3>
+            <h3> <spring:message code='label.piginfo.pigletstatuseventform.search.heading'  text='Search Piglet Status'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage">
             			<spring:message code='label.piginfo.pigletstatuseventform.search.errormessage' 
             			text='Please enter Pig Id / Tattoo Id and select the corresponding option'/></p>
@@ -41,6 +41,7 @@
 		  <form name="pigletStatusEventSearchResultForm"  ng-if="pigletStatusEventList != null && pigletStatusEventList.length != 0" >
  		     <div class="head">
             <h3> <spring:message code='label.piginfo.pigletstatuseventform.searchresults.heading'  text='Piglet Status Events'/></h3>
+            <div class="table-responsive">
              <table>
 				<thead>
                      <tr>                       
@@ -61,6 +62,7 @@
                    </tr>
                  </tbody>
              </table>
+             </div>
           </div>
 		  </form>
           </div>
@@ -135,10 +137,11 @@
 					 <div class=" block-flat bars-widget" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
 		                <div class="spk4 pull-right spk-widget"></div>
 		                <h4><spring:message code='label.piginfo.pigletstatuseventform.fosterindetails' text='Transferred Details' /></h4><div></div>
+		                 <div class="table-responsive">
 		                <table>
 		                  <thead>
 		                  <tr>
-		                   <th><spring:message code='label.piginfo.pigletstatuseventform.fosterFrom' text='Foster From' /></th>
+		                   <th><spring:message code='label.piginfo.pigletstatuseventform.fosterFrom' text='Transfer From' /></th>
 		                   <th><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Piglets' /></th>
 		                   <th><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /></th>
 		                   </tr>
@@ -151,6 +154,7 @@
 		                   </tr>		                  
 		                  </tbody>
 		                </table>
+		                </div>
 		            </div>
 					 
 					 
@@ -168,7 +172,7 @@
 					</div>	
 					
 						
-							                    
+					<div class="table-responsive">		                    
                     <table class="table">
                      <thead>
                        <tr>
@@ -231,6 +235,7 @@
                      </tbody>
                     
                     </table>                    
+                    </div>
                     </div>		                   
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid'  text='Weaning Group Id'/></label>
@@ -240,9 +245,8 @@
                     </div>
 					
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.remarks'  text='Remarks'/><span style='color: red'>*</span></label>
-                      <textarea name="remarks" ng-model="pigletStatusEvent.remarks" ng-required="true"  required-message="'<spring:message code='label.piginfo.pigletstatuseventform.remarks.requiredmessage' text='Remarks is required'/>'" 
-                      class="form-control" placeholder="<spring:message code='label.piginfo.pigletstatuseventform.remarks.placeholder' text='Enter remarks'/>"></textarea>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.remarks'  text='Remarks'/></label>
+                      <textarea name="remarks" ng-model="pigletStatusEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.pigletstatuseventform.remarks.placeholder' text='Enter remarks'/>"></textarea>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.sowcondition'  text='Sow Condition'/></label>
@@ -276,6 +280,7 @@
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
                       <div class="modal-body form" >
+                      <div class="table-responsive">
                       <table>
                        <thead>
                            <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
@@ -298,6 +303,7 @@
 	                 </tbody>
                       </table>
                       </div>
+                      </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="farrowEventList == null || farrowEventList.length == 0" ng-click="selectFarrowEvent()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
                       <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
@@ -314,6 +320,7 @@
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
                       <div class="modal-body form" >
+                      <div class="table-responsive">
                       <table>
                        <thead>
                            <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>                     
@@ -334,6 +341,7 @@
 	                   
 	                 </tbody>
                       </table>
+                      </div>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="fosterPigList == null || fosterPigList.length == 0" ng-click="selectFoster()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>

@@ -11,7 +11,7 @@
  		  <div class="block-flat">
 		   <form name="pigletEventSearchForm" >
  		     <div class="head">
-            <h3> <spring:message code='label.piginfo.pigletEventform.search.heading'  text='Search'/></h3>
+            <h3> <spring:message code='label.piginfo.pigletEventform.search.heading'  text='Search Individual Piglet Details'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.pigletEventform.search.errormessage' text='Please enter Farrow Id/ Piglet Tattoo Id and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.pigletEventform.search.data.errormessage' text='Piglet event information not found for the search criteria'/></p>
 			
@@ -35,6 +35,7 @@
 		  <form name="pigletEventSearchResultForm"  ng-if="pigletEventList != null && pigletEventList.length != 0" >
  		     <div class="head">
             <h3> <spring:message code='label.piginfo.pigletEventSearchResultForm.searchresults.heading'  text='Piglet Events'/></h3>
+            <div class="table-responsive">
              <table>
 				<thead>
                      <tr>                       
@@ -57,6 +58,7 @@
                    </tr>
                  </tbody>
              </table>
+             </div>
           </div>
 		  </form>
           </div>
@@ -145,6 +147,7 @@
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
                       <div class="modal-body form" >
+                      <div class="table-responsive">
                       <table>
                        <thead>
                            <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
@@ -166,6 +169,7 @@
 	                   
 	                 </tbody>
                       </table>
+                      </div>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="farrowEventList == null || farrowEventList.length == 0" ng-click="selectFarrowEvent()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>

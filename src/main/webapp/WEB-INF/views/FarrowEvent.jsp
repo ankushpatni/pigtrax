@@ -11,7 +11,7 @@
  		  <div class="block-flat">
 		   <form name="farrowEventSearchForm" >
  		     <div class="head">
-            <h3> <spring:message code='label.piginfo.farroweventform.search.heading'  text='Search'/></h3>
+            <h3> <spring:message code='label.piginfo.farroweventform.search.heading'  text='Search Farrow Events'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.farroweventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.farroweventform.search.data.errormessage' text='Farrow event information not found for the search criteria'/></p>
 			
@@ -35,6 +35,7 @@
 		  <form name="farrowEventSearchResultForm"  ng-if="farrowEventList != null && farrowEventList.length != 0" >
  		     <div class="head">
             <h3> <spring:message code='label.piginfo.farroweventform.searchresults.heading'  text='Farrow Events'/></h3>
+            <div class="table-responsive">
              <table>
 				<thead>
                      <tr>     
@@ -55,6 +56,7 @@
                    </tr>
                  </tbody>
              </table>
+             </div>
           </div>
 		  </form>
           </div>
@@ -135,6 +137,7 @@
                     <label ng-show="invalidFarrowValue" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.invalidFarrowValue' text='Piglet information should be in whole numeric values' /></label>
                     <label ng-show="invalidFarrowCount" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.invalidFarrowCount' text='Farrow count doesn\'t match. Please check' /></label>
                     <label ng-show="pigletInformationRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigletInformationRequired' text='Please enter piglet details' /></label>
+                    <div class="table-responsive">
                     <table class="table">
                      <tr>
                        <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td>
@@ -152,6 +155,7 @@
 					   <td>&nbsp;</td>
                      </tr>
                     </table>                    
+                    </div>
                     </div>
                     
                     
@@ -206,8 +210,8 @@
                     </div>
                     
                      <div class="form-group">
-                      <label><spring:message code='label.piginfo.farroweventform.remarks'  text='Remarks'/><span style='color: red'>*</span></label>
-                      <textarea name="remarks" ng-model="farrowEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.farroweventform.remarks.placeholder' text='Enter remarks'/>" required required-message="'<spring:message code='label.piginfo.farroweventform.remarks.requiredmessage' text='Remarks is required'/>'"></textarea>
+                      <label><spring:message code='label.piginfo.farroweventform.remarks'  text='Remarks'/></label>
+                      <textarea name="remarks" ng-model="farrowEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.farroweventform.remarks.placeholder' text='Enter remarks'/>" ></textarea>
                     </div>
                     
                     <button class="btn btn-primary" ng-click="addFarrowEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
@@ -229,6 +233,7 @@
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
                       <div class="modal-body form" >
+                      <div class="table-responsive">
                       <table>
                        <thead>
                            <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>                           
@@ -250,6 +255,7 @@
 	                 </tbody>
                       </table>
                       </div>
+                      </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="pregnancyEventList == null || pregnancyEventList.length == 0" ng-click="selectPergnancyEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
                       <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
@@ -267,6 +273,7 @@
                       </div>
                       <div class="modal-body form" ng-hide="viewAddForm">
 					     <p class="color-primary"><spring:message code='label.employeegroup.selection.message'  text='Please select a group and proceed'/></p>
+					     <div class="table-responsive">
                         <table>
 						<thead>
                            <tr>
@@ -304,7 +311,7 @@
                            </tr>
 						   </tbody>
                         </table>
-                       
+                       </div>
                       </div>
                       <div class="modal-body form" ng-show="viewAddForm">
                          <h4 ng-if="!(employeeGrp.id > 0)"> <spring:message code='label.employeegroup.add.heading'  text='Add Employee Group'/></h4>
@@ -329,6 +336,7 @@
 	                        </div>
 	                        <div class="row">
 	                        <p class="color-danger" ng-show="employeeGrpEmployeeInvalid"><spring:message code='label.employeegroup.message.employeeselection.invalid'  text='Please select atleast one employee'/></p>
+	                        <div class="table-responsive">
 			                   <table>
 								<thead>
 		                           <tr>
@@ -352,6 +360,7 @@
 		                           </tr>
 								   </tbody>
 		                        </table>
+		                        </div>
 	                        </div>
                        
                       </div>
