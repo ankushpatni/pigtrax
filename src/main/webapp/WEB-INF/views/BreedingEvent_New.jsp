@@ -125,10 +125,10 @@
                       </div>
                     </div>	 -->				
 					<div class="form-group">
-                      <label><spring:message code='label.piginfo.breedingeventform.pigInfoId'  text='Pig Id'/></label>
+                      <label><spring:message code='label.piginfo.breedingeventform.pigInfoId'  text='Pig Id'/><span style='color: red'>*</span></label>
                       <label  ng-show="breedingEvent.id != null && breedingEvent.id > 0" >{{breedingEvent.pigInfoId}}</label>
                      <input type="text" ng-show="breedingEvent.id == null" ng-model="breedingEvent.pigInfoId" id="pigInfoId" name="pigInfoId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.breedingeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
-                      required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
+                      required required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>	
                     </div>

@@ -76,35 +76,39 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			try{
 				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(dto.getPigInfoId(), dto.getCompanyId());
 				if(pigInfo != null)
-					dto.setPigInfoKey(pigInfo.getId());
-				
-				BreedingEvent breedingEvent = builder.convertToBean(dto);
-				
-				if(dto.getId() == null)
 				{
-					boolean check = checkIfPreviousCycleCompleted(dto.getPigInfoKey());
-					if(check)
+					if(pigInfo != null)
+						dto.setPigInfoKey(pigInfo.getId());
+					
+					BreedingEvent breedingEvent = builder.convertToBean(dto);
+					
+					if(dto.getId() == null)
 					{
-						logger.info("Breeding Event Dtoo : "+dto.toString());
-						breedingEventId =  addBreedingEventInformation(breedingEvent);
+						boolean check = checkIfPreviousCycleCompleted(dto.getPigInfoKey());
+						if(check)
+						{
+							logger.info("Breeding Event Dtoo : "+dto.toString());
+							breedingEventId =  addBreedingEventInformation(breedingEvent);
+						}
+						else
+						{
+							throw new PigTraxException("INCOMPLETE_SERVICE_CYCLE");
+						}
+						
 					}
 					else
 					{
-						throw new PigTraxException("INCOMPLETE_SERVICE_CYCLE");
+						breedingEventDao.updateBreedingEventInformation(breedingEvent);
+						breedingEventId =  breedingEvent.getId();
+						
 					}
-					
+					dto.setId(breedingEventId);
+					List<MatingDetails>  matingDetailsList = matingDetailsDao.getMatingDetails(breedingEventId); 
+					dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetailsList)); 
+					return dto;
 				}
 				else
-				{
-					breedingEventDao.updateBreedingEventInformation(breedingEvent);
-					breedingEventId =  breedingEvent.getId();
-					
-				}
-				dto.setId(breedingEventId);
-				List<MatingDetails>  matingDetailsList = matingDetailsDao.getMatingDetails(breedingEventId); 
-				dto.setMatingDetailsList(matingDetailsBuilder.convertToDtos(matingDetailsList)); 
-				return dto;
-				
+					return null;
 				
 			}catch(SQLException sqlEx)
 			{

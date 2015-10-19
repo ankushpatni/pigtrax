@@ -133,45 +133,52 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		if($scope.breedingeventform.$valid)
 		{
 			
-			$scope.breedingEvent["companyId"] = $rootScope.companyId;
-			//alert(JSON.stringify($scope.breedingEvent)); 
-			restServices.saveBreedingEventInformation($scope.breedingEvent, function(data){
-				if(!data.error)
-					{
-						$scope.clearAllMessages();
-						$scope.breedingEvent = data.payload;
-						 restServices.getBreedingEventDetails($scope.breedingEvent["id"], function(data){
-							  if(!data.error)
-								  {
-								    $scope.clearAllMessages();
-								    $scope.breedingEvent = data.payload;
-								    $scope.entryEventSuccessMessage = true;	
-								  }
-						  });
-						
-					}
-				else
-					{
-						$scope.clearAllMessages();
-						if(data.duplicateRecord)
-							$scope.entryEventDuplicateErrorMessage = true;
+			$scope.checkForPigId();
+			
+			if(!$scope.inValidPigIdFromServer)
+				{
+					$scope.breedingEvent["companyId"] = $rootScope.companyId;
+					//alert(JSON.stringify($scope.breedingEvent)); 
+					restServices.saveBreedingEventInformation($scope.breedingEvent, function(data){
+						if(!data.error)
+							{
+								$scope.clearAllMessages();
+								$scope.breedingEvent = data.payload;
+								 restServices.getBreedingEventDetails($scope.breedingEvent["id"], function(data){
+									  if(!data.error)
+										  {
+										    $scope.clearAllMessages();
+										    $scope.breedingEvent = data.payload;
+										    $scope.entryEventSuccessMessage = true;	
+										  }
+								  });
+								
+							}
 						else
-						{
-							var statusMessage = data.statusMessage;
-							if(statusMessage.indexOf("INCOMPLETE_SERVICE_CYCLE") != -1)
-								{
+							{
 								$scope.clearAllMessages();
-								$scope.breedingEventIncompleteCycle = true;
-								}
-							else
+								if(data.duplicateRecord)
+									$scope.entryEventDuplicateErrorMessage = true;
+								else
 								{
-								$scope.clearAllMessages();
-								$scope.entryEventErrorMessage = true;
+									var statusMessage = data.statusMessage;
+									if(statusMessage.indexOf("INCOMPLETE_SERVICE_CYCLE") != -1)
+										{
+										$scope.clearAllMessages();
+										$scope.breedingEventIncompleteCycle = true;
+										}
+									else
+										{
+										$scope.clearAllMessages();
+										$scope.entryEventErrorMessage = true;
+										}
 								}
-						}
-					}
-					$window.scrollTo(0, 5);
-			});
+							}
+							$window.scrollTo(0, 5);
+					});
+				}
+			else
+				$scope.inValidPigIdFromServer = true;
 		}
 	}
 	

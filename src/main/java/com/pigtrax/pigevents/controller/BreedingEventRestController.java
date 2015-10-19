@@ -45,9 +45,12 @@ public class BreedingEventRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			breedingEventDto.setUserUpdated(activeUser.getUsername());
-			breedingEventDto =   breedingEventService.saveBreedingEventInformation(breedingEventDto);  
-			dto.setPayload(breedingEventDto);
-			dto.setStatusMessage("Success");
+			breedingEventDto =   breedingEventService.saveBreedingEventInformation(breedingEventDto); 
+			if(breedingEventDto != null)
+			{
+				dto.setPayload(breedingEventDto);
+				dto.setStatusMessage("Success");
+			}
 		} catch (PigTraxException e) {
 			
 			if("INCOMPLETE_SERVICE_CYCLE".equalsIgnoreCase(e.getMessage()))
