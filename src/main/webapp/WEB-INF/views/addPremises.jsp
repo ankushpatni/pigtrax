@@ -20,22 +20,22 @@
 				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.name'  text='Name'/>" name="premiseName" ng-model="add.name" maxlength="50" required  required-message="'<spring:message code='label.premise.premiseNameRequired' text='Premise Name is required' />'"/>	
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.premise.address" text="Address" /><span style='color: red'>*</span></label>
-				<textarea class="form-control" type="text" placeholder="<spring:message code='label.premise.address' text='Address' />" name="address" ng-model="add.address" maxlength="255" required required-message="'<spring:message code='label.premise.premiseAddressRequired' text='Premise address is required' />'" />
+				<label><spring:message code="label.premise.address" text="Address" /></label>
+				<textarea class="form-control" type="text" placeholder="<spring:message code='label.premise.address' text='Address' />" name="address" ng-model="add.address" maxlength="255" required-message="'<spring:message code='label.premise.premiseAddressRequired' text='Premise address is required' />'" />
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.company.country" text="Country" /><span style='color: red'>*</span></label>
-				<Select class="form-control" placeholder="<spring:message code='label.company.country' text='Country' />" name="state" ng-model="add.state" required required-message="'<spring:message code='label.company.countryRequired' text='Country is required' />'" 
+				<label><spring:message code="label.company.country" text="Country" /></label>
+				<Select class="form-control" placeholder="<spring:message code='label.company.country' text='Country' />" name="state" ng-model="add.state" required-message="'<spring:message code='label.company.countryRequired' text='Country is required' />'" 
 				       ng-change="changeCity()"  ng-options="state.value as state.name for state in country"/>
 			</div>			
 			<div class="form-group">
-				<label><spring:message code="label.premise.city" text="City" /><span style='color: red'>*</span></label>
-				<select class="form-control" placeholder="<spring:message code='label.premise.city' text='City' />" name="city" ng-model="add.city" maxlength="30" required required-message="'<spring:message code='label.premise.cityRequired' text='City is required' />'" 
+				<label><spring:message code="label.premise.city" text="City" /></label>
+				<select class="form-control" placeholder="<spring:message code='label.premise.city' text='City' />" name="city" ng-model="add.city" maxlength="30"  required-message="'<spring:message code='label.premise.cityRequired' text='City is required' />'" 
 					ng-options="city1.value as city1.name for city1 in city"/>
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.premise.zipcode" text="Zipcode" /><span style='color: red'>*</span></label>
-				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.zipcode' text='Zipcode' />" name="zipcode" ng-model="add.zipcode" maxlength="9" required required-message="'<spring:message code='label.premise.zipcodeRequired' text='Zipcode address is required' />'" />
+				<label><spring:message code="label.premise.zipcode" text="Zipcode" /></label>
+				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.zipcode' text='Zipcode' />" name="zipcode" ng-model="add.zipcode" maxlength="9" required-message="'<spring:message code='label.premise.zipcodeRequired' text='Zipcode address is required' />'" />
 			</div>  
         <div class="modal-footer">
 

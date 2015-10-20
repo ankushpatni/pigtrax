@@ -17,8 +17,8 @@
 				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.pen.penID' text='Pen ID' />" name="penId" ng-model="add.penId" maxlength="4"  required required-message="'<spring:message code='label.pen.penIDRequired' text='Pen Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.room.roomIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.barn.location" text="Location" /><span style='color: red'>*</span></label>
-				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.location' text='Location' />" name="location" ng-model="add.location" maxlength="30" required required-message="'<spring:message code='label.barn.barnLocationRequired' text='Location is required' />'" />
+				<label><spring:message code="label.barn.location" text="Location" /></label>
+				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.location' text='Location' />" name="location" ng-model="add.location" maxlength="30" required-message="'<spring:message code='label.barn.barnLocationRequired' text='Location is required' />'" />
 			</div>
 			<div class="modal-footer">
 

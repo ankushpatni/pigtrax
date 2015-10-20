@@ -80,27 +80,27 @@
 						invalid-message="'<spring:message code='label.piginfo.removalEventform.removalId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
                    </div>-->
 					<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.ticketNumber.placeHolder' text='Enter Ticket  Number' />" 
                      	name="ticketNumber" ng-model="removalExceptSales.ticketNumber" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.ticketNumber.requiredMessage' text='Ticket Number Required' />'" 
                      	 />
                    </div>
 					<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.invoiceId'  text='Invoice Number'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.removalExceptSales.invoiceId'  text='Invoice Number'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.invoiceId.placeHolder' text='Enter Invoice Number' />" 
-                     	name="invoiceId" ng-model="removalExceptSales.invoiceId" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.invoiceId.requiredMessage' text='Invoice Number Required' />'" 
+                     	name="invoiceId" ng-model="removalExceptSales.invoiceId" maxlength="20" required-message="'<spring:message code='label.piginfo.removalExceptSales.invoiceId.requiredMessage' text='Invoice Number Required' />'" 
                      	 />
                    </div>
 					<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.revenueUsd'  text='Revenue($)'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.removalExceptSales.revenueUsd'  text='Revenue($)'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.revenueUsd.placeHolder' text='Enter Revenue($)' />" 
-                     	name="revenueUsd" ng-model="removalExceptSales.revenueUsd" maxlength="23" required required-message="'<spring:message code='label.piginfo.removalExceptSales.revenueUsd.requiredMessage' text='Revenue required' />'" 
+                     	name="revenueUsd" ng-model="removalExceptSales.revenueUsd" maxlength="23" required-message="'<spring:message code='label.piginfo.removalExceptSales.revenueUsd.requiredMessage' text='Revenue required' />'" 
                      	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.soldTo.placeHolder' text='Enter Sold To' />" 
-                     	name="soldTo" ng-model="removalExceptSales.soldTo" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.soldTo.requiredMessage' text='Sold To Required' />'" 
+                     	name="soldTo" ng-model="removalExceptSales.soldTo" maxlength="20" required-message="'<spring:message code='label.piginfo.removalExceptSales.soldTo.requiredMessage' text='Sold To Required' />'" 
                      	 />
                    </div>
                    <div>
