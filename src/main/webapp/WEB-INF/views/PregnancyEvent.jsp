@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.pregnancyeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="PregnancyEventController" ng-init="loadPage(${CompanyId})" id="PregnancyEventControllerId">
+ <div class="cl-mcont" ng-controller="PregnancyEventController" ng-init="loadPage(${CompanyId},'${PregnancyEventId}')" id="PregnancyEventControllerId">
  <div class="row">
  		  <div class="col-sm-3 col-md-3"></div> 
  		  <div class="col-sm-6 col-md-6">
@@ -123,7 +123,8 @@
                        <div data-min-view="2" class="input-group col-md-7 col-xs-9"> 
                      <input type="text" ng-model="pregnancyEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>"/>
 						<span class="input-group-addon btn btn-primary" ng-click="searchBreedingService(pregnancyEvent.pigId, pregnancyEvent.companyId)"  ><a class="btn-primary"><spring:message code='label.piginfo.breedingeventform.breedingevent'  text='Breeding Event'/></a></span>
-						</div>						 
+						</div>
+						<a href="#" ng-click="goToBreedingEvent()" ng-show="pregnancyEvent.breedingEventId != null && pregnancyEvent.breedingEventId > 0"><spring:message code='label.piginfo.pregnancyeventform.gotobreedingeventtext'  text='Go to Breeding Event'/></a>						 
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
 					<label ng-show="breedingEventIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' /></label>
@@ -351,6 +352,12 @@
 
 		<div class="md-overlay"></div>
 </div>
+
+<form method="post" action="breedingEvent" id="prevBreedingEventForm">
+  <input type="hidden" name="selectedCompany" id="selectedCompany">
+  <input type="hidden" name="selectedBreedingEventId" id="selectedBreedingEventId">
+</form>
+
 <script>
 $(document).ready(function(){
  var currDate = new Date();

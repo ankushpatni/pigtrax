@@ -23,6 +23,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.FarrowEventBuilder;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
 import com.pigtrax.pigevents.dto.PigletEventDto;
+import com.pigtrax.pigevents.dto.PregnancyEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletEventService;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
@@ -183,7 +184,25 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	public FarrowEventDto getFarrowEventDetails(Integer farrowEventId)
 			throws PigTraxException {
 		FarrowEvent farrowEvent = farrowEventDao.getFarrowEvent(farrowEventId);
-		return builder.convertToDto(farrowEvent);
+		FarrowEventDto dto = null;
+		if(farrowEvent != null)
+		{
+			dto = builder.convertToDto(farrowEvent);
+			PigInfo info;
+			try {
+				
+				PregnancyEventDto pregEventDto = pregnancyEventService.getPregnancyEventInformation(dto.getPregnancyEventId(), "en");
+				if(pregEventDto != null)
+					dto.setPregnancyEventDto(pregEventDto);
+				
+				info = pigInfoDao.getPigInformationById(dto.getPigInfoId());
+			} catch (SQLException e) {
+				throw new PigTraxException(e.getMessage());
+			}
+			if(info != null)
+				dto.setPigId(info.getPigId());
+		}
+		return dto;
 	}
 	
 	@Override

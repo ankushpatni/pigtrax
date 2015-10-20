@@ -176,5 +176,23 @@ public class FarrowEventRestController {
 		return dto;
 	}
 	
+	@RequestMapping(value = "/getFarrowEventDetailsById", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	@ResponseBody
+	public ServiceResponseDto getFarrowEventDetails(HttpServletRequest request, @RequestBody Integer farrowEventId)
+	{
+		ServiceResponseDto dto = new ServiceResponseDto();
+		FarrowEventDto eventDto;
+		try {
+			eventDto = farrowEventService.getFarrowEventDetails(farrowEventId);
+			if(eventDto != null && eventDto.getId() > 0)
+				dto.setPayload(eventDto);
+			else
+				dto.setStatusMessage("ERROR: Not found");
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR: Not found");
+		}
+		return dto;
+	}
+	
     
 }

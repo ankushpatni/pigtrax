@@ -49,5 +49,7 @@ public interface RefDataDao {
 	Map<Integer,String> getRationType();
 	
 	List<RefDataTranslationDto> getGcompanyType();
+	
+	List<RefDataTranslationDto> getGlineTypes();
 
 }

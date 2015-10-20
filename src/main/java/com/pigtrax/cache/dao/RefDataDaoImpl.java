@@ -128,6 +128,13 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
+	
+	@Override
+	public List<RefDataTranslationDto> getGlineTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_GlineType\" FROM pigtraxrefdata.\"GlineTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
 	@Override
 	public List<Map<String, String>> getCountryData() {
 		String query = "select distinct country.name from pigtraxrefdata.\"Country\" country;";

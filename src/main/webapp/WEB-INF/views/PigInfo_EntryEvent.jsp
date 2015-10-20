@@ -87,6 +87,7 @@
 						invalid-message="'<spring:message code='label.piginfo.entryeventform.pigid.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  class="form-control">
 				      <p ng-show="pigInfo.id != null && pigInfo.id != 0">{{pigInfo.pigId}}</p>
 				      &nbsp;<a href="#" ng-click="getAvailablePigIds()"  data-toggle="modal" data-target="#selectAvailablePigId" ng-hide="pigInfo.id != null && pigInfo.id != 0">Available Pig Ids</a>
+				      &nbsp;<a href="#" data-toggle="modal" data-target="#whatIsAvailablePigIdModal"><i class="fa fa-question-circle"></i></a>
                     </div>
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.barn'  text='Barn'/></label>
@@ -128,8 +129,9 @@
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gline'  text='Gline'/></label>
-                      <input type="text" class="form-control" name="gline" ng-model="pigInfo.gline" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.gline.placeholder' text='Enter gline'/>" 
-					      invalid-message="'<spring:message code='label.piginfo.entryeventform.gline.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+					   <select class="form-control"  name="glineType" ng-model="pigInfo.gline" >
+                      	<option ng-repeat="key in glineKeys" ng-value="key" ng-selected="pigInfo.gline==key">{{glineTypes[key]}}</option>        
+                        </select>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gcompany'  text='GCompany'/></label>                      
@@ -212,6 +214,25 @@
                       <div class="modal-footer">
                       <input type="checkbox" ng-model="copyPigDetails"> <spring:message code='label.piginfo.entryEventForm.copypigdetails'  text='Check if you want to copy the pig details'/>
                       <button type="button" class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-hide="availablePigIdList == null || availablePigIdList.length == 0" ng-click="selectAvailablePigId(object.selectedAvailablePigID)"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      </div>
+                      
+                     </div>
+            </div>
+			
+			
+			<!-- What is available Pig Id -->			 
+		  <div id="whatIsAvailablePigIdModal" class="modal colored-header custom-width">
+                    <div class="md-content">
+                      <div class="modal-header">
+                        <h3><spring:message code='label.piginfo.entryEventForm.availablePigIds.heading'  text='Available PigIds'/> </h3>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
+                      </div>
+                      <div class="modal-body form" >
+                      <div class="table-responsive">
+						<spring:message code='label.piginfo.entryeventform.availablePigIdnote' text=''/>
+                      </div>
+                      <div class="modal-footer">                                           
                       <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       

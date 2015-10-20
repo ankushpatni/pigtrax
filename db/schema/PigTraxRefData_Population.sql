@@ -323,20 +323,20 @@ INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLan
 ---------
 INSERT INTO pigtraxrefdata."GfunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'GGP', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."GfunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'GP',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."GfunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Parent',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GfunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'P',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GGP','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GP','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('Parent','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('P','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 
 INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GGP_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GP_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('Parent_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('P_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GGP_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('GP_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('Parent_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GfunctionType") VALUES ('P_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 ----------
 
@@ -834,6 +834,179 @@ INSERT INTO pigtraxrefdata."GcompanyTypeTranslation" ("fieldValue","fieldLanguag
 ----------
 
 
+
+
+---------
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'10', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'19',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'20',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'22',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'23',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'24',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'25',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'28',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'30',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'32',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (11,'40',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (12,'48',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (13,'62',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (14,'90',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (15,'110',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (16,'120',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (17,'200',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (18,'240',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (19,'241',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (20,'327',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (21,'337',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (22,'400',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (23,'408',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (24,'410',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (25,'426',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (26,'600',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (27,'1010',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (28,'1020',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (29,'1050',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (30,'1062',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (31,'1070',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (32,'1080',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (33,'Duroc',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (34,'EBX',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (35,'EXM',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (36,'LAN',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (37,'LW',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (38,'Talent',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (39,'Tempo',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."GlineType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (40,'York',CURRENT_TIMESTAMP,'pigtraxadmin');
+
+
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('10','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('19','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('20','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('22','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('23','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('24','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('25','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('28','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('30','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('32','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('40','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('48','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('62','en',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('90','en',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('110','en',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('120','en',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('200','en',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('240','en',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('241','en',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('327','en',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('337','en',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('400','en',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('408','en',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('410','en',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('426','en',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('600','en',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1010','en',CURRENT_TIMESTAMP,'pigtraxadmin',27);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1020','en',CURRENT_TIMESTAMP,'pigtraxadmin',28);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1050','en',CURRENT_TIMESTAMP,'pigtraxadmin',29);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1062','en',CURRENT_TIMESTAMP,'pigtraxadmin',30);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1070','en',CURRENT_TIMESTAMP,'pigtraxadmin',31);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1080','en',CURRENT_TIMESTAMP,'pigtraxadmin',32);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Duroc','en',CURRENT_TIMESTAMP,'pigtraxadmin',33);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('EBX','en',CURRENT_TIMESTAMP,'pigtraxadmin',34);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('EXM','en',CURRENT_TIMESTAMP,'pigtraxadmin',35);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('LAN','en',CURRENT_TIMESTAMP,'pigtraxadmin',36);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('LW','en',CURRENT_TIMESTAMP,'pigtraxadmin',37);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Talent','en',CURRENT_TIMESTAMP,'pigtraxadmin',38);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Tempo','en',CURRENT_TIMESTAMP,'pigtraxadmin',39);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('York','en',CURRENT_TIMESTAMP,'pigtraxadmin',40);
+
+
+
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('10','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('19','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('20','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('22','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('23','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('24','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('25','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('28','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('30','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('32','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('40','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('48','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('62','es',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('90','es',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('110','es',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('120','es',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('200','es',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('240','es',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('241','es',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('327','es',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('337','es',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('400','es',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('408','es',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('410','es',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('426','es',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('600','es',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1010','es',CURRENT_TIMESTAMP,'pigtraxadmin',27);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1020','es',CURRENT_TIMESTAMP,'pigtraxadmin',28);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1050','es',CURRENT_TIMESTAMP,'pigtraxadmin',29);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1062','es',CURRENT_TIMESTAMP,'pigtraxadmin',30);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1070','es',CURRENT_TIMESTAMP,'pigtraxadmin',31);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1080','es',CURRENT_TIMESTAMP,'pigtraxadmin',32);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Duroc_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',33);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('EBX_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',34);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('EXM_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',35);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('LAN_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',36);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('LW_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',37);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Talent_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',38);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Tempo_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',39);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('York_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',40);
+
+
+
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('10','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('19','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('20','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('22','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('23','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('24','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('25','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('28','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('30','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('32','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('40','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('48','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('62','pr',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('90','pr',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('110','pr',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('120','pr',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('200','pr',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('240','pr',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('241','pr',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('327','pr',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('337','pr',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('400','pr',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('408','pr',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('410','pr',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('426','pr',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('600','pr',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1010','pr',CURRENT_TIMESTAMP,'pigtraxadmin',27);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1020','pr',CURRENT_TIMESTAMP,'pigtraxadmin',28);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1050','pr',CURRENT_TIMESTAMP,'pigtraxadmin',29);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1062','pr',CURRENT_TIMESTAMP,'pigtraxadmin',30);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1070','pr',CURRENT_TIMESTAMP,'pigtraxadmin',31);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('1080','pr',CURRENT_TIMESTAMP,'pigtraxadmin',32);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Duroc_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',33);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('EBX_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',34);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('EXM_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',35);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('LAN_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',36);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('LW_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',37);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Talent_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',38);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('Tempo_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',39);
+INSERT INTO pigtraxrefdata."GlineTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_GlineType") VALUES ('York_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',40);
+
+---------
 
 INSERT INTO pigtrax."Company"(
 

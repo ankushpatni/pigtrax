@@ -45,12 +45,21 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		}
 	});
 	
-	$scope.setCompanyId = function(companyId)
+	$scope.setCompanyId = function(companyId, selectedBreedingEventId)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
 		$scope.getPenList();
-		
+		if(selectedBreedingEventId != null && selectedBreedingEventId != undefined && selectedBreedingEventId != "")
+		{
+			restServices.getBreedingEventDetails(selectedBreedingEventId, function(data){
+				  if(!data.error)
+				  {
+				    $scope.clearAllMessages();
+				    $scope.breedingEvent = data.payload;
+				  }
+			  });
+		}
 		//$scope.setupFormElements();
 	};
 		

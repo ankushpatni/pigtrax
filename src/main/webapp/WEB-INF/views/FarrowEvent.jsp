@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.farroweventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="FarrowEventController" ng-init="loadPage(${CompanyId})" id="FarrowEventControllerId">
+ <div class="cl-mcont" ng-controller="FarrowEventController" ng-init="loadPage(${CompanyId}, '${FarrowEventId}')" id="FarrowEventControllerId">
  <div class="row">
  		  <div class="col-sm-3 col-md-3"></div> 
  		  <div class="col-sm-6 col-md-6">
@@ -92,6 +92,10 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.farroweventform.farrowEventValidation_ErrCode2.message' text='Farrow event details already captured for the selected pregnancy event'/>
                   </div>
+                  <div class="alert alert-danger alert-white rounded" ng-show="pregnancyEventNotFound">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.farroweventform.pregnancyEventNotFound.message' text='No positive pregnancy events associated with the selected service'/>
+                  </div>
                 </div>
                 <div class="content">
                   <form name="farroweventform" novalidate angular-validator my-reset>
@@ -101,21 +105,25 @@
 				  
 					 <div class="form-group"> 
                       <label><spring:message code='label.piginfo.farroweventform.pigInfoId'  text='Pig Id'/><span style='color: red'>*</span></label>
+                      <div data-min-view="2" class="input-group col-md-7 col-xs-9"  >
                      <input type="text" ng-model="farrowEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.farroweventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" 
                       required required-message="'<spring:message code='label.piginfo.farroweventform.pigInfoId.requiredmessage' text='Pig Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.farroweventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
+						<span class="input-group-addon btn btn-primary" ng-click="searchBreedingService(farrowEvent.pigId, farrowEvent.companyId)"  ><a class="btn-primary"><spring:message code='label.piginfo.breedingeventform.breedingevent'  text='Breeding Event'/></a></span>						
+						</div>
                     </div>
+                    <a href="#" ng-click="goToPregnancyEvent()" ng-show="farrowEvent.pregnancyEventId != null && farrowEvent.pregnancyEventId > 0"><spring:message code='label.piginfo.farroweventform.gotopregnancyeventtext'  text='Go to Pregnancy Event'/></a>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
 					
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.pregnancyEventId'  text='Pregnancy Event'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" class="input-group col-md-7 col-xs-9"  >
+                      
                      	<input type="text" ng-model="farrowEvent.pregnancyEventType" id="pregnancyEventType" name="pregnancyEventType"  class="form-control" maxlength="30" readonly=""/>
-						<span class="input-group-addon btn btn-primary" ng-click="searchPregnancyService(farrowEvent.pigId, farrowEvent.companyId)"  data-target="#searchPregnancyService"><span class="fa fa-search"></span></span>
-						</div>
+						<!-- <span class="input-group-addon btn btn-primary" ng-click="searchPregnancyService(farrowEvent.pigId, farrowEvent.companyId)"  data-target="#searchPregnancyService"><span class="fa fa-search"></span></span> -->
+						
                     </div>
                     <label ng-show="pregnancyEventRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pregnancyeventRequired' text='Select a pregnancy event' /></label>
 					<label ng-show="inValidServiceIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.serviceId.server.invalidmessage' text='Invalid Pregnancy event for the selected Pig Id' /></label>					
@@ -224,6 +232,51 @@
             <div class="col-sm-3 col-md-3">        
             </div>
           </div>
+		  
+		  <!-- - Search Breeding Service -->
+		  
+		  <!-- - Breeding Service Id search Modal -->
+		  <div id="searchBreedingService" class="modal colored-header custom-width">
+                    <div class="md-content">
+                      <div class="modal-header">
+                        <h3><spring:message code='label.piginfo.breedingeventform.searchresults.heading'  text='Breeding Events'/> </h3>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
+                      </div>
+                      <div class="modal-body form" >
+                      <div class="table-responsive">
+                      <table>
+                       <thead>
+                           <th><spring:message code='label.employeegroup.list.header.select'  text='Select'/> </th>
+	                       <th><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/> </th>
+	                       <th><spring:message code='label.piginfo.breedingeventform.breedingDate'  text='Service Start Date'/> </th>
+                       </thead>
+                       <tbody>
+	                   <tr ng-repeat="breedingEventObj in breedingEventList" ng-if="breedingEventList != null && breedingEventList.length > 0">
+	                    <td><input type="radio" name="breedingEventDtoId" id="breedingEventDtoId" ng-model="farrowEvent.breedingEventDto" ng-value="breedingEventObj"></td>	                    
+	                    <td>{{breedingEventObj.breedingServiceType}}</td>
+	                    <td>{{breedingEventObj.serviceStartDate | date : 'yyyy-MM-dd'}}</td>
+	                   </tr>
+	                   <tr ng-if="breedingEventList == null || breedingEventList.length == 0">
+	                     <td colspan="4">
+	                       <spring:message code='label.pregnancyeventform.list.breedingevents.noresults'  text='No breeding events found'/>
+	                     </td>
+	                   </tr>
+	                   
+	                 </tbody>
+                      </table>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="breedingEventList == null || breedingEventList.length == 0" ng-click="selectBreedingEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      </div>
+                      
+                     </div>
+            </div>
+		  
+		  
+		  <!--  end Breeding service -->
+		  
 		  
 		  <!-- - Breeding Service Id search Modal -->
 		  <div id="searchPregnancyService" class="modal colored-header custom-width">
@@ -378,6 +431,11 @@
 
 		<div class="md-overlay"></div>
 </div>
+
+<form method="post" action="pregnancyEvent" id="prevPregnancyEventForm">
+  <input type="hidden" name="selectedCompany" id="selectedCompany">
+  <input type="hidden" name="selectedPregnancyEventId" id="selectedPregnancyEventId">
+</form>
 
 <script>
 $(document).ready(function(){

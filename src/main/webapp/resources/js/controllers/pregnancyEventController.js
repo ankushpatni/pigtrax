@@ -29,13 +29,25 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.breedingEventIdRequired = false;
 	};
 	
-	$scope.loadPage = function(companyId)
+	$scope.loadPage = function(companyId, selectedPregnancyEventId)
 	{
 		$scope.setCompanyId(companyId);
 		
 		$scope.getPregnancyEventTypes();
 		
 		$scope.getPregnancyExamResultTypes();
+		
+		if(selectedPregnancyEventId != null && selectedPregnancyEventId != undefined && selectedPregnancyEventId != "")
+		{
+			restServices.getPregnancyEventDetailsById(selectedPregnancyEventId, function(data){
+				  if(!data.error)
+				  {
+				    $scope.clearAllMessages();
+				    $scope.pregnancyEvent = data.payload;
+				    
+				  }
+			  });
+		}
 	};
 	
 	$scope.setCompanyId = function(companyId)
@@ -378,6 +390,13 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 			}
 	}
 	
+	
+	$scope.goToBreedingEvent = function()
+	{
+		document.getElementById("selectedCompany").value = $rootScope.companyId;
+		document.getElementById("selectedBreedingEventId").value = $scope.pregnancyEvent.breedingEventId;
+		document.getElementById("prevBreedingEventForm").submit();
+	}
 	
 	
 });

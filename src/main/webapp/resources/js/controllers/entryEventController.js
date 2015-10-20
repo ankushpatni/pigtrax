@@ -31,6 +31,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				    $scope.sexTypes = $scope.entryEventMap["sexTypeMap"];
 				    $scope.getGfunctionTypes();
 				    $scope.getGcompanyTypes();
+				    $scope.getGlineTypes();
 			 }
 		});
 	};
@@ -56,6 +57,18 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				var responseList = data.payload;
 				$scope.gcompanyKeys = responseList[0];
 				$scope.gcompanyTypes =responseList[1];
+			}
+		});
+	}
+	
+	$scope.getGlineTypes = function()
+	{
+		restServices.getGlineTypes(function(data)
+		{
+			if(!data.error){
+				var responseList = data.payload;
+				$scope.glineKeys = responseList[0];
+				$scope.glineTypes =responseList[1];
 			}
 		});
 	}

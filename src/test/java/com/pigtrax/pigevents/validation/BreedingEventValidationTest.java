@@ -52,7 +52,7 @@ public class BreedingEventValidationTest {
 		pigInfo.setSireId("sireId");
 		pigInfo.setDamId("damId");
 		pigInfo.setOrigin("origin");;
-		pigInfo.setGline("gline");
+		//pigInfo.setGline("gline");
 		//pigInfo.setGcompany("gcompany");
 		pigInfo.setBirthDate((today.minusDays(10)).toDate());
 		pigInfo.setTattoo("PIGTATTOO");

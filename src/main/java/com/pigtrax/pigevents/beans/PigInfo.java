@@ -9,7 +9,7 @@ public class PigInfo {
 	private String sireId;
 	private Date entryDate;
 	private String origin;
-	private String gline;
+	private Integer gline;
 	private Integer gcompany;
 	private Date birthDate;
 	private String tattoo;
@@ -83,11 +83,11 @@ public class PigInfo {
 		this.origin = origin;
 	}
 
-	public String getGline() {
+	public Integer getGline() {
 		return gline;
 	}
 
-	public void setGline(String gline) {
+	public void setGline(Integer gline) {
 		this.gline = gline;
 	}
 

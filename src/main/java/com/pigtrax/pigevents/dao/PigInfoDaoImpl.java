@@ -59,7 +59,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	    				ps.setString(3, pigInfo.getDamId());
 	    				ps.setDate(4,  new java.sql.Date(pigInfo.getEntryDate().getTime()));
 	    				ps.setString(5, pigInfo.getOrigin());
-	    				ps.setString(6, pigInfo.getGline());
+	    				ps.setObject(6, pigInfo.getGline(), java.sql.Types.INTEGER);
 	    				ps.setObject(7, pigInfo.getGcompany(), java.sql.Types.INTEGER);
 	    				if(pigInfo.getBirthDate() != null)
 	    					ps.setDate(8,  new java.sql.Date(new DateTime(pigInfo.getBirthDate()).toLocalDate().toDateMidnight().getMillis()));
@@ -117,7 +117,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 				ps.setString(2, pigInfo.getSireId());
 				ps.setString(3, pigInfo.getDamId());
 				ps.setString(4, pigInfo.getOrigin());
-				ps.setString(5, pigInfo.getGline());
+				ps.setObject(5, pigInfo.getGline(), java.sql.Types.INTEGER);
 				ps.setObject(6, pigInfo.getGcompany(), java.sql.Types.INTEGER);
 				if(pigInfo.getBirthDate() != null)
 					ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
@@ -193,7 +193,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			pigInfo.setSireId(rs.getString("sireId"));
 			pigInfo.setDamId(rs.getString("damId"));
 			pigInfo.setOrigin(rs.getString("origin"));
-			pigInfo.setGline(rs.getString("gline"));
+			pigInfo.setGline(rs.getObject("gline") != null ? rs.getInt("gline") : null);
 			pigInfo.setGcompany((rs.getObject("gcompany") != null) ? rs.getInt("gcompany") : 0);
 			pigInfo.setBirthDate(rs.getDate("birthDate"));
 			pigInfo.setTattoo(rs.getString("tattoo"));
@@ -218,7 +218,7 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			pigInfo.setSireId(rs.getString("sireId"));
 			pigInfo.setDamId(rs.getString("damId"));
 			pigInfo.setOrigin(rs.getString("origin"));
-			pigInfo.setGline(rs.getString("gline"));
+			pigInfo.setGline(rs.getObject("gline") != null ? rs.getInt("gline") : null);
 			pigInfo.setGcompany((rs.getObject("gcompany") != null) ? rs.getInt("gcompany") : 0);
 			pigInfo.setBirthDate(rs.getDate("birthDate"));
 			pigInfo.setEntryDate(rs.getDate("entryDate"));
