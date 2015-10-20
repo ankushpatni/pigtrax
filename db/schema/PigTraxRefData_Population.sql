@@ -340,22 +340,153 @@ INSERT INTO pigtraxrefdata."GfunctionTypeTranslation" ("fieldValue","fieldLangua
 
 ----------
 
-INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Reason1', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Reason2',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Reason3',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'BLIND ANUS', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'BROKEN Leg',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'DEFORMED',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Diarrhea', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'DIFFICULITY FARROWING',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'DOWNER',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Euthanized', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'Fell Through Crate',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'GASTRIC ULCER',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'GREASY PIG', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (11,'Hemorrhage',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (12,'HERNIA',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (13,'INJURY', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (14,'JOINT INFECTION',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (15,'LAID ON',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (16,'LAMENESS', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (17,'LOW VIABILITY',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (18,'MMA Toximia',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (19,'OTHER', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (20,'PNEUMONIA',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (21,'PROLAPSE Rectal',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (22,'PROLAPSE Uterine', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (23,'PROLAPSE Vaginal',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (24,'RUPTURE',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (25,'SAVAGED', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (26,'SHAKER',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (27,'SMALL PIG',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (28,'SPLAY LEG', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (29,'STARVATION',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (30,'STRESS SYNDROME', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (31,'SUDDEN DEATH',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (32,'TAIL BITING',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (33,'UNKNOWN',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MortalityReasonType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (34,'UNTHRIFTY',CURRENT_TIMESTAMP,'pigtraxadmin');
 
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason1','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason2','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason3','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason1_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason2_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason3_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('BLIND ANUS','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('BROKEN Leg','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DEFORMED','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Diarrhea','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DIFFICULITY FARROWING','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DOWNER','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Euthanized','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Fell Through Crate','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('GASTRIC ULCER','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('GREASY PIG','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Hemorrhage','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('HERNIA','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('INJURY','en',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('JOINT INFECTION','en',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LAID ON','en',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LAMENESS','en',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LOW VIABILITY','en',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('MMA Toximia','en',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('OTHER','en',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PNEUMONIA','en',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Rectal','en',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Uterine','en',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Vaginal','en',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('RUPTURE','en',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SAVAGED','en',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SHAKER','en',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SMALL PIG','en',CURRENT_TIMESTAMP,'pigtraxadmin',27);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SPLAY LEG','en',CURRENT_TIMESTAMP,'pigtraxadmin',28);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('STARVATION','en',CURRENT_TIMESTAMP,'pigtraxadmin',29);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('STRESS SYNDROME','en',CURRENT_TIMESTAMP,'pigtraxadmin',30);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SUDDEN DEATH','en',CURRENT_TIMESTAMP,'pigtraxadmin',31);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('TAIL BITING','en',CURRENT_TIMESTAMP,'pigtraxadmin',32);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('UNKNOWN','en',CURRENT_TIMESTAMP,'pigtraxadmin',33);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('UNTHRIFTY','en',CURRENT_TIMESTAMP,'pigtraxadmin',34);
 
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason1_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason2_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Reason3_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('BLIND ANUS_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('BROKEN Leg_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DEFORMED_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Diarrhea_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DIFFICULITY FARROWING_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DOWNER_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Euthanized_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Fell Through Crate_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('GASTRIC ULCER_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('GREASY PIG_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Hemorrhage_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('HERNIA_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('INJURY_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('JOINT INFECTION_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LAID ON_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LAMENESS_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LOW VIABILITY_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('MMA Toximia_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('OTHER_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PNEUMONIA_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Rectal_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Uterine_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Vaginal_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('RUPTURE_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SAVAGED_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SHAKER_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SMALL PIG_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',27);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SPLAY LEG_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',28);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('STARVATION_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',29);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('STRESS SYNDROME_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',30);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SUDDEN DEATH_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',31);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('TAIL BITING_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',32);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('UNKNOWN_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',33);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('UNTHRIFTY_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',34);
+
+
+
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('BLIND ANUS_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('BROKEN Leg_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DEFORMED_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Diarrhea_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DIFFICULITY FARROWING_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DOWNER_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Euthanized_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Fell Through Crate_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('GASTRIC ULCER_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('GREASY PIG_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Hemorrhage_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('HERNIA_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('INJURY_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('JOINT INFECTION_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LAID ON_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LAMENESS_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('LOW VIABILITY_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('MMA Toximia_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('OTHER_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PNEUMONIA_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Rectal_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Uterine_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('PROLAPSE Vaginal_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('RUPTURE_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SAVAGED_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SHAKER_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SMALL PIG_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',27);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SPLAY LEG_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',28);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('STARVATION_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',29);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('STRESS SYNDROME_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',30);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('SUDDEN DEATH_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',31);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('TAIL BITING_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',32);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('UNKNOWN_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',33);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('UNTHRIFTY_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',34);
+
+
 ----------
 INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'American 2 Deck', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TrailerType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'American Pot Belly',CURRENT_TIMESTAMP,'pigtraxadmin');
