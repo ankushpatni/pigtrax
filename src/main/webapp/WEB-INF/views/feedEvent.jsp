@@ -81,21 +81,21 @@
                          ng-options="k as v for (k, v) in rationType"> </select>
                    </div>
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Initial Feed Quantity (In Kgs)'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Initial Feed Quantity (In Kgs)'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.placeHolder' text='Enter Initial Feed Quantity (In Kgs)' />" 
-                     	name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.requiredMessage' text='Initial Feed Quantity required' />'" 
+                     	name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" maxlength="20" required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.requiredMessage' text='Initial Feed Quantity required' />'" 
                      	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.feedCost.placeHolder' text='Enter Feed Cost' />" 
-                     	name="feedCost" ng-model="feedEvent.feedCost" maxlength="20" required required-message="'<spring:message code='label.piginfo.feedCost.feedCost.requiredMessage' text='Feed Cost required' />'" 
+                     	name="feedCost" ng-model="feedEvent.feedCost" maxlength="20" required-message="'<spring:message code='label.piginfo.feedCost.feedCost.requiredMessage' text='Feed Cost required' />'" 
                      	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.feedMedication'  text='Feed Medication'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.feedEventForm.feedMedication'  text='Feed Medication'/></label>
                       <input type="text" ng-model="feedEvent.feedMedication" id="feedMedication" name="feedMedication"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.feedMedication.placeholder'  text='Enter Feed Medication'/>" 
-                       required required-message="'<spring:message code='label.piginfo.feedEventForm.feedMedication.requiredMessage' text='Feed Medication is required' />'" ng-focus="clearMessages()"/>
+                       required-message="'<spring:message code='label.piginfo.feedEventForm.feedMedication.requiredMessage' text='Feed Medication is required' />'" ng-focus="clearMessages()"/>
                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
