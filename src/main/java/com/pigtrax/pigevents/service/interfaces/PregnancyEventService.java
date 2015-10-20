@@ -15,5 +15,7 @@ public interface PregnancyEventService {
    void deletePregnancyEvent(Integer pregnancyEventId) throws PigTraxException;
    
    int validatePregnancyEvent(PregnancyEventDto pregnancyEventDto);
+   
+   PregnancyEventDto getPregnancyEvent(Integer breedingEventId, String language) throws PigTraxException;
 }
 

@@ -125,6 +125,7 @@
 						</div>	
 						
                     </div>
+                    <a href="#" ng-click="goToFarrowEvent()" ng-show="pigletStatusEvent.farrowEventDto != null && pigletStatusEvent.farrowEventDto.id > 0"><spring:message code='label.piginfo.pigletstatuseventform.gotofarroweventtext'  text='Go to Farrow Event'/></a>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
 					<label ng-show="pigletStatusEventAlreadyAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.pigletStatusEventCreated' text='Piglet Status already captured for the selected Pig Id and farrow event. Use search feature to modify it.' /></label>
@@ -353,6 +354,10 @@
 
 		<div class="md-overlay"></div>
 </div>
+<form method="post" action="farrowEvent" id="prevFarrowEventForm">
+  <input type="hidden" name="selectedCompany" id="selectedCompany">
+  <input type="hidden" name="selectedFarrowEventId" id="selectedFarrowEventId">
+</form>
 <script>
 $(document).ready(function(){
  var currDate = new Date();

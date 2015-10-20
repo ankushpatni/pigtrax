@@ -513,6 +513,13 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		}
     });
     
+    $scope.goToFarrowEvent = function()
+	{
+		document.getElementById("selectedCompany").value = $rootScope.companyId;
+		document.getElementById("selectedFarrowEventId").value = $scope.pigletStatusEvent.farrowEventDto.id;
+		document.getElementById("prevFarrowEventForm").submit();
+	}
+    
 	
 });
 

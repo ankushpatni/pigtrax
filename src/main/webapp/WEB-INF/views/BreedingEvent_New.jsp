@@ -4,7 +4,7 @@
           <h2><spring:message code='label.piginfo.breedingeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="BreedingEventController" ng-init="setCompanyId(${CompanyId})" id="BreedingEventControllerId">
+ <div class="cl-mcont" ng-controller="BreedingEventController" ng-init="setCompanyId(${CompanyId},'${BreedingEventId}')" id="BreedingEventControllerId">
  
   <div class="row" ng-show="!AddMatingDetailsForm">
  		  <div class="col-sm-2 col-md-2"></div>

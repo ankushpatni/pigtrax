@@ -15,6 +15,7 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.EmployeeGroupDao;
 import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.pigevents.beans.BreedingEvent;
+import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.MatingDetails;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
@@ -303,6 +304,39 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 				List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(breedingEvent_Dto.getId());
 				if(breedingEvent_Dto.getServiceStartDate() != null && (events == null || events.size() == 0))
 					filteredList.add(breedingEvent_Dto);
+			}
+		}		
+		return filteredList;
+	}
+	
+	
+	@Override
+	public List<BreedingEventDto> getPregnantBreedingServices( 
+			BreedingEventDto breedingEventDto) throws PigTraxException {
+		List<BreedingEventDto> breedingEventDtoList = getBreedingEventInformationList(breedingEventDto);
+		//Need to remove the entries which has pregnancy event captured
+		List<BreedingEventDto> filteredList = new ArrayList<BreedingEventDto>();
+		FarrowEvent farrowEvent = null;
+		
+		
+		if(breedingEventDtoList != null)
+		{
+			for(BreedingEventDto breedingEvent_Dto : breedingEventDtoList)
+			{
+				List<PregnancyEvent> events = pregnancyEventDao.getPregnancyEvents(breedingEvent_Dto.getId());
+				if(breedingEvent_Dto.getServiceStartDate() != null && events != null && events.size() > 0)
+				{
+					for(PregnancyEvent event : events)
+					{
+						if(event.getPregnancyEventTypeId() == 1 && event.getPregnancyExamResultTypeId() == 1)
+						{
+							farrowEvent = farrowEventDao.getFarrowEventByPregancyEvent(event.getId());
+							break;
+						}
+					}
+					if(farrowEvent == null)
+						filteredList.add(breedingEvent_Dto); 
+				}
 			}
 		}		
 		return filteredList;

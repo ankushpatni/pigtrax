@@ -30,12 +30,24 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.invalidFarrowId = false;
 		$scope.entryEventDuplicateErrorMessage = false;
 		$scope.pigletInformationRequired = false;
+		$scope.pregnancyEventNotFound = false;
 	};
 	
-	$scope.loadPage = function(companyId)
-	{
+	$scope.loadPage = function(companyId, selectedFarrowEventId)
+	{ 
 		$scope.setCompanyId(companyId);		
 		$scope.getPenList();		
+		if(selectedFarrowEventId != null && selectedFarrowEventId != undefined && selectedFarrowEventId != "")
+		{
+			restServices.getFarrowEventDetailsById(selectedFarrowEventId, function(data){
+				  if(!data.error)
+				  {
+				    $scope.clearAllMessages();
+				    $scope.farrowEvent = data.payload;
+				    $scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
+				  }
+			 });
+		}
 	};
 	
 	
@@ -421,12 +433,106 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		}
 	}; 
 	
+	
+	
+	$scope.searchBreedingService = function(pigId, selectedCompanyId)
+	{		
+		if(pigId == undefined  || pigId == "")
+		{		
+			$scope.clearAllMessages();
+			$scope.requiredPigIdMessage = true;
+			$('#searchBreedingService').modal('hide');
+		}		
+		else if(pigId != undefined && pigId != "")
+		{
+		    var pigInfo = {
+					searchText : $scope.farrowEvent.pigId,
+					searchOption : "pigId",
+					companyId : $rootScope.companyId
+			};
+			restServices.getPigInformation(pigInfo, function(data) {
+				if(data.error)
+				{
+					$scope.clearAllMessages();
+					$scope.inValidPigIdFromServer = true;
+					
+				}
+				else
+				{
+					$scope.inValidPigIdFromServer = false;
+					$scope.requiredPigIdMessage = false;
+					var pigInfo = data.payload;
+					if(pigInfo.sexTypeId == 2)
+					{
+						$scope.clearAllMessages();
+						$("#searchBreedingService").modal("show");
+						
+						var searchBreedEvent = {
+								searchText : pigId,
+								searchOption : "pigId",
+								companyId : $rootScope.companyId
+								
+						};
+						
+						restServices.getPregnantBreedingServices(searchBreedEvent, function(data){
+							$scope.clearAllMessages();
+							 $("#searchBreedingService").modal("show");
+							if(!data.error){
+								$scope.breedingEventList = data.payload;
+							}
+							else
+							{
+								$scope.breedingEventList = [];  
+							}
+						});
+					}
+					else
+					{
+						$scope.clearAllMessages();
+						$scope.malePigIdentified = true;
+					}
+				}
+					
+			});
+		}
+	};
+	
+	
 	$scope.selectPergnancyEventService = function()
 	{
 		$scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
 		$scope.farrowEvent.pregnancyEventId = $scope.farrowEvent.pregnancyEventDto.id;
 		$('#searchPregnancyService').modal('hide');
 	}
+	
+	$scope.selectBreedingEventService = function()
+	{
+		restServices.getPregnancyEventDetailsByBreedingId($scope.farrowEvent.breedingEventDto.id, function(data){
+		  if(!data.error)
+			  {
+			  $scope.pregnancyEventNotFound = false;
+			    var pregnancyDetails = data.payload;
+			    $scope.farrowEvent.pregnancyEventDto = pregnancyDetails; 
+				$scope.farrowEvent.pregnancyEventType = pregnancyDetails.pregnancyEventType+" ["+pregnancyDetails.resultDate+"]";
+				$scope.farrowEvent.pregnancyEventId = pregnancyDetails.id;
+				$('#searchBreedingService').modal('hide');
+			  }
+		  else
+			  {
+			  $('#searchBreedingService').modal('hide');			  
+			  $scope.pregnancyEventNotFound = true;
+			  }
+		});
+	}
+	
+	
+	$scope.goToPregnancyEvent = function()
+	{
+		document.getElementById("selectedCompany").value = $rootScope.companyId;
+		document.getElementById("selectedPregnancyEventId").value = $scope.farrowEvent.pregnancyEventId;
+		document.getElementById("prevPregnancyEventForm").submit();
+	}
+	
 	
 });
 

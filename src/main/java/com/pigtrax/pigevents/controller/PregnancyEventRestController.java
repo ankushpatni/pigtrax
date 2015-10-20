@@ -99,6 +99,39 @@ public class PregnancyEventRestController {
 		return dto;
 	}
 	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPregnancyEventDetailsById", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPregnancyEventDetailsById(HttpServletRequest request, @RequestBody Integer pregnancyEventId)
+	{
+		logger.info("Inside getPregnancyEventDetailsById method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			
+			PregnancyEventDto pregnancyEventDto = pregnancyEventService.getPregnancyEventInformation(pregnancyEventId, language);
+			if(pregnancyEventDto != null )
+			{
+				dto.setPayload(pregnancyEventDto);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setStatusMessage("ERROR : Pregnancy Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
+	
+	
 	/**
 	 * Service to delete the pig information
 	 * @return ServiceResponseDto
@@ -168,5 +201,29 @@ public class PregnancyEventRestController {
 		return dto;
 	}
 
+	
+	@RequestMapping(value = "/getPregnancyEventDetailsByBreedingId", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPregnancyEventDetailsByBreedingId(HttpServletRequest request, @RequestBody Integer breedingEventId)
+	{
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		PregnancyEventDto details;
+		try {
+			details = pregnancyEventService.getPregnancyEvent(breedingEventId, language);
+			if(details != null)
+			{
+				dto.setPayload(details);
+				dto.setStatusMessage("success");
+			}
+			else
+				dto.setStatusMessage("ERROR");
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR");
+		}
+		
+		return dto;
+	}
     
 }

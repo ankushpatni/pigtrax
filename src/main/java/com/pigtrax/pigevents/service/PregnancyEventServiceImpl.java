@@ -210,10 +210,57 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 			Integer pregnancyEventId, String language) throws PigTraxException {
 		PregnancyEvent pregnancyEvent = pregnancyEventDao.getPregnancyEvent(pregnancyEventId);
 		PregnancyEventDto eventDto =  builder.convertToDto(pregnancyEvent);
+		PigInfo info = null;
+		if(eventDto != null)
+		{
+		try {
+			info = pigInfoDao.getPigInformationById(eventDto.getPigInfoId());
+			eventDto.setPigId(info.getPigId());
+		} catch (SQLException e) {
+			info = null;
+		}
+		
 		eventDto.setBreedingEventDto(breedingEventService.getBreedingEventInformation(eventDto.getBreedingEventId()));
 		eventDto.setPregnancyEventType(refDataCache.getPregnancyEventTypeMap(language).get(eventDto.getPregnancyEventTypeId()));
-		
+		}
 		return eventDto;
+	}
+	
+	@Override
+	public PregnancyEventDto getPregnancyEvent(Integer breedingEventId, String language)
+			throws PigTraxException {
+		List<PregnancyEvent> pregnancyEvents = null;
+		List<PregnancyEventDto> pregnancyEventDtoList = new ArrayList<PregnancyEventDto>(); 
+		try {
+			pregnancyEvents = pregnancyEventDao.getPregnancyEvents(breedingEventId);
+			pregnancyEventDtoList =  builder.convertToDtos(pregnancyEvents);
+			
+			for(PregnancyEventDto dto : pregnancyEventDtoList)
+			{
+				
+				dto.setBreedingEventDto(breedingEventService.getBreedingEventInformation(dto.getBreedingEventId()));
+				
+				//Get the employee group details
+				EmployeeGroupDto empGrpDto = employeeGroupService.getEmployeeGroup(dto.getEmployeeGroupId());
+				dto.setEmployeeGroup(empGrpDto);
+				
+				//Get the pig id for a given pigIdInfo
+				PigInfo pigInfo = pigInfoDao.getPigInformationById(dto.getPigInfoId());
+				dto.setPigId(pigInfo.getPigId());		
+				
+				dto.setPregnancyEventType(refDataCache.getPregnancyEventTypeMap(language).get(dto.getPregnancyEventTypeId()));
+				
+			}
+			
+			pregnancyEventDtoList = filterByPregnancyEventType("PregnancyEvent", pregnancyEventDtoList);
+			
+			if(pregnancyEventDtoList != null && 0< pregnancyEventDtoList.size())
+				return pregnancyEventDtoList.get(0);
+			
+			return null;
+		} catch (SQLException e) {
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
 	}
 	
 }

@@ -25,7 +25,7 @@ public class PigInfoBuilder {
 		   info.setBirthDate(dto.getBirthDate());
 		   info.setTattoo(dto.getTattoo());
 		   info.setAlternateTattoo(dto.getAlternateTattoo());
-		   info.setRemarks(dto.getRemarks());
+		   info.setRemarks(dto.getRemarks()); 
 		   info.setUserUpdated(dto.getUserUpdated());
 		   info.setCompanyId(dto.getCompanyId());
 		   info.setPenId(dto.getPenId());

@@ -29,6 +29,7 @@ public class FarrowEventDto {
 	private String pigId;
 	private EmployeeGroupDto employeeGroup;
 	private PregnancyEventDto pregnancyEventDto;
+	private BreedingEventDto breedingEventDto;
 	private String searchText;
 	private String searchOption;
 	private Integer companyId;
@@ -209,6 +210,12 @@ public class FarrowEventDto {
 	}
 	public void setTeats(Integer teats) {
 		this.teats = teats;
+	}
+	public BreedingEventDto getBreedingEventDto() {
+		return breedingEventDto;
+	}
+	public void setBreedingEventDto(BreedingEventDto breedingEventDto) {
+		this.breedingEventDto = breedingEventDto;
 	}
 	
 	 

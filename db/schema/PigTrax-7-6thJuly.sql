@@ -684,7 +684,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"damId" varchar(30),
 	"entryDate" timestamp,
 	origin varchar(30),
-	gline varchar(30),
+	gline smallint,
 	gcompany smallint,
 	"birthDate" timestamp,
 	tattoo varchar(30),
@@ -2276,6 +2276,57 @@ ALTER TABLE pigtraxrefdata."GcompanyTypeTranslation" ADD CONSTRAINT "GcompanyTyp
 REFERENCES pigtraxrefdata."GcompanyType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+
+-- object: pigtraxrefdata."GlineType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."GlineType" CASCADE;
+CREATE TABLE pigtraxrefdata."GlineType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "GLINETYPE_PK" PRIMARY KEY (id),
+	CONSTRAINT "GLINETYPE_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."GlineType" OWNER TO pitraxadmin;
+
+
+-- object: "GlineType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "GlineType_fk" CASCADE;
+ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "GlineType_fk" FOREIGN KEY ("gline")
+REFERENCES pigtraxrefdata."GlineType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."GlineTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."GlineTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."GlineTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_GlineType" integer,
+	CONSTRAINT "GLINETYPETRANLATION_PK" PRIMARY KEY (id),
+	CONSTRAINT "GLINETYPETRANSLATION_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."GlineTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "GlineType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."GlineTypeTranslation" DROP CONSTRAINT IF EXISTS "GlineType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."GlineTypeTranslation" ADD CONSTRAINT "GlineType_fk" FOREIGN KEY ("id_GlineType")
+REFERENCES pigtraxrefdata."GlineType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 
 
 
