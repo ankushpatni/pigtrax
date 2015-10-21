@@ -175,7 +175,16 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.farrowIdRequired = true;
 			$scope.invalidFarrowId = false;
 			
-		}*/
+		}*/		
+		
+		if($scope.farrowEvent["pigId"] == null || $scope.farrowEvent["pigId"] == undefined || $scope.farrowEvent["pigId"] == "")
+		{
+			$scope.requiredPigIdMessage = true;
+		}
+		else
+		{
+			$scope.requiredPigIdMessage = false;
+		}
 		
 		if($scope.farrowEvent["farrowDateTime"] == null || $scope.farrowEvent["farrowDateTime"] == undefined || $scope.farrowEvent["farrowDateTime"] == "")
 		{	
@@ -438,8 +447,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	$scope.searchBreedingService = function(pigId, selectedCompanyId)
 	{		
 		if(pigId == undefined  || pigId == "")
-		{		
-			$scope.clearAllMessages();
+		{	
+			$scope.inValidPigIdFromServer = false;
 			$scope.requiredPigIdMessage = true;
 			$('#searchBreedingService').modal('hide');
 		}		
@@ -453,7 +462,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			restServices.getPigInformation(pigInfo, function(data) {
 				if(data.error)
 				{
-					$scope.clearAllMessages();
+					$scope.requiredPigIdMessage = false;
 					$scope.inValidPigIdFromServer = true;
 					
 				}

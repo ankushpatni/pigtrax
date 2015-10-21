@@ -155,9 +155,8 @@
                     </div>
                     
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyExamResultType'  text='Pregnancy Exam Result Type'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="examResultType" id="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId" required 
-                      required-message="'<spring:message code='label.piginfo.pregnancyeventform.pregnancyexamresulttype.requiredmessage' text='Pregnancy Exam Result Type is required' />'">
+                      <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyExamResultType'  text='Pregnancy Exam Result Type'/></label>
+                       <select class="form-control"  name="examResultType" id="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId" >
                        <option ng-repeat="key in pregnancyExamResultTypeKeys" ng-value="key" ng-selected="pregnancyEvent.pregnancyExamResultTypeId==key">{{pregnancyExamResultTypes[key]}}</option>
                         </select>
                     </div>
