@@ -11,7 +11,7 @@
 		 		  <div class="block-flat">
 					  <form name="feedEventSearchForm" >
 			 		     <div class="head">
-			            	<h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h3>
+			            	<h3> <spring:message code='label.piginfo.feedEventForm.search.heading'  text='Search Feed Events'/></h3>
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.feedEventForm.search.data.errormessage' text='Feed event information not found for the search criteria'/></p>
 					   		 <input type="text" name="search" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.feedEventForm.search.placeholder'  text='Search by Ticket Number ...'/>" class="form-control" style="width:90%;display:inline">

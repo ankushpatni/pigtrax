@@ -20,7 +20,7 @@
 					  </form>	 --%>
 					   <form name="removalExceptSalesSearchForm" method="post">
 				 		     <div class="head">
-				            <h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h3>
+				            <h3> <spring:message code='label.piginfo.removalExceptSales.search.heading'  text='Search Removal Events'/></h3>
 				            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.errormessage' text='Please enter Group Id/Pig Id/Removal Event Id  and select the corresponding option'/></p>
 				            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.data.errormessage' text='Removal/Sales information not found for the search criteria'/></p>
 							
