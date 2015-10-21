@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pigtrax.master.dao.interfaces.BarnDao;
 import com.pigtrax.master.dao.interfaces.PremisesDao;
 import com.pigtrax.master.dto.Barn;
 import com.pigtrax.master.dto.Premises;
@@ -18,6 +19,10 @@ public class PremisesServiceImpl implements PremisesService{
 
 	@Autowired
 	private PremisesDao premisesDao;
+	
+	@Autowired
+	BarnDao barnDao;
+	
 
 	@Override
 	public List<Premises> getPremisesList(int generatedCompanyId) {
@@ -69,6 +74,32 @@ public class PremisesServiceImpl implements PremisesService{
 			e.printStackTrace();
 		}
 		return premisesIdMap;
+	}
+	
+	
+	@Override 
+	public int deletePremise(int premiseId) {
+		
+		List<Barn> barnList = barnDao.getBarnList(premiseId);
+		boolean deleteable = true;
+		int rowsDeleted = 0;
+		
+		if(barnList != null)
+		{
+			for(Barn barn : barnList)
+			{
+				if(barn.isActive())
+				{
+					deleteable = false;
+					break;
+				}
+			}
+		}
+		
+		if(deleteable)
+			rowsDeleted = premisesDao.deletePremiseData(premiseId);
+		
+		return rowsDeleted;
 	}
 
 }

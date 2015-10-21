@@ -108,4 +108,20 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 			 }
 		},companyId);*/
 	};
+	
+	
+	$scope.deletePremise = function(premiseObj)
+	{
+		restServices.deletePremise(premiseObj.id, function(data) {
+			if(!data.error)
+			{
+				$scope.premiseDeleteErrorMessage = false;
+				$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);				
+			}
+			else
+				{
+				  $scope.premiseDeleteErrorMessage = true;
+				}
+		});
+	}
 });

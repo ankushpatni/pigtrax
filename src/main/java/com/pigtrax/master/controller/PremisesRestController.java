@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pigtrax.master.dto.Premises;
 import com.pigtrax.master.service.interfaces.PremisesService;
-import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -110,6 +109,36 @@ public class PremisesRestController {
 			e.printStackTrace();
 		}
 		
+		return dto;
+	}
+	
+	
+	/**String premisesID, Boolean premisesStatus
+	 * Service to update employees
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/deletePremise", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto deletePremiseData( @RequestBody Integer premiseId)
+	{
+		logger.info("Inside deletePremiseData()" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		int deletedRecords;
+		try 
+		{
+			deletedRecords = premisesService.deletePremise(premiseId);
+			if(deletedRecords > 0)
+			{
+				dto.setPayload(deletedRecords);
+				dto.setStatusMessage("SUCCESS");
+			}
+			else
+			dto.setStatusMessage("ERROR");
+		} 
+		catch (Exception e) {
+			deletedRecords = 0;
+			dto.setStatusMessage("ERROR");
+		}
+		dto.setPayload(deletedRecords);		
 		return dto;
 	}
 

@@ -52,4 +52,12 @@ public interface PremisesService {
 	 */
 	public Map<Integer,String> getPremisesListBasedOnCompanyId(int generatedCompanyId)
 			throws SQLException;
+	
+	/**
+	 * Remove premise data
+	 * @param premiseId
+	 * @return
+	 */
+	int deletePremise(int premiseId);	
+	
 }

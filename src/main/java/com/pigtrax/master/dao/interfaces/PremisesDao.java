@@ -52,5 +52,11 @@ public interface PremisesDao {
 	
 	public List<Premises> getPremisesListBasedOnCompanyId(int generatedCompanyId)
 			throws SQLException;
+	
+	
+	/**
+	 * To delete premise data based on generated premise id
+	 */
+	int deletePremiseData(int generatedPremisesId);
 
 }

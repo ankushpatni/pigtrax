@@ -94,5 +94,6 @@ pigTrax.factory("restServices", function($resource) {
 		"changePassword"      :  {method:"POST", url:"rest/employee/changePassword"},
 		"getGcompanyTypes" : {method:"GET", url:"rest/util/getGcompanyTypes"},
 		"getGlineTypes" : {method:"GET", url:"rest/util/getGlineTypes"},
+		"deletePremise" : {method:"POST", url:"rest/premises/deletePremise"},
     });
 });

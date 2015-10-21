@@ -180,5 +180,20 @@ public class PremisesDaoImpl implements PremisesDao{
 			return premises;
 		}
 	}
+	
+	@Override
+	public int deletePremiseData(final int generatedPremisesId) {
+		
+		final String qry = "delete from pigtrax.\"Premise\" where \"id\" = ?";
+			
+		int rowsDeleted = this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, generatedPremisesId);
+				}
+			});
+		
+		return rowsDeleted;
+	}
 
 }
