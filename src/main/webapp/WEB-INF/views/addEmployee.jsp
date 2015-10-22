@@ -15,7 +15,7 @@
 						<%if(activeUser.getUserRole()==1 || activeUser.getUserRole() == 2){%>
 				
 				<div class="form-group">
-					<label><spring:message code="label.employee.companyId" text="Company" /><span style='color: red'>*</span></label> 
+					<label><spring:message code="label.employee.company" text="Company" /><span style='color: red'>*</span></label> 
 					<!--<label ng-show="edit">{{add.employeeId}}</label> -->
 						<select class="form-control" id="companyId" name="companyId" onchange="setCompanyId();" >
 						<option value=""></option>
@@ -24,7 +24,7 @@
 				</div>
 				<%}else{ %>
 					<div class="form-group">
-					<label><%=activeUser.getUserRole()%><spring:message code="label.employee.companyId" text="Company" /><span style='color: red'>*</span></label> 
+					<label><%=activeUser.getUserRole()%><spring:message code="label.employee.company" text="Company" /><span style='color: red'>*</span></label> 
 					<input type="text" readonly="readonly"class="form-control"  maxlength="20" value="<%=activeUser.getCompanyId()%>" />
 					<input type="hidden" id="companyIdfarm" value="<%=activeUser.getCompanyId()%>">
 				</div>
@@ -80,7 +80,7 @@
 					  <span class="input-group-addon">
 						<input type="checkbox" ng-model="add.portalUser" id="isPortR" name="isPortR"></input>
 					  </span>
-					  <input type="text" class="form-control" value="<spring:message code="label.employee.portalUser" text="Portal User"/>"readonly="readonly">
+					  <input type="text" class="form-control" value="<spring:message code="label.employee.portaluser" text="Portal User"/>"readonly="readonly">
 					</div>
 				  </div> 
 

@@ -38,7 +38,7 @@
                                          	<li><a href="pigletStatusEvent"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></li>
                                          	<li><a href="pigFeedEvent"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></a></li>
 											<li><a href="pigRemovalEvent"><spring:message code="label.leftmenu.managepigevents.removalevent.link"  text="Removal Event"/></a></li>
-											<li><a href="toChangeId"><spring:message code="label.leftmenu.managepigevents.changeId.link"  text="Change Id"/></a></li>
+											<li><a href="toChangeId"><spring:message code="label.leftmenu.managepigevents.changeid.link"  text="Change Id"/></a></li>
                                          	<li><a href="loadPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>
                                          	<li><a href="getProductionLogs"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>
                                          </ul>

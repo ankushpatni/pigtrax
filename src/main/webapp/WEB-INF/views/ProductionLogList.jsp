@@ -32,7 +32,7 @@
 					</button> -->
 					 <div class="content">
 					<div class="form-group">
-                      <label class="col-sm-10 control-label">Select Date Range</label>
+                      <label class="col-sm-10 control-label"><spring:message code='label.productionlogform.selectdaterange' text='Select Date Range'/></label>
                       <div class="col-sm-10">
                         <div class="options">
                           <div class="control-group">						  
@@ -70,7 +70,7 @@
 										<th st-sort="date"><spring:message
 												code="label.productionlogform.loggedon" text="Logged On" /></th>
 										<th st-sort="date"><spring:message
-												code="label.productionlogform.loggedon" text="Logged By" /></th>
+												code="label.productionlogform.loggedby" text="Logged By" /></th>
 										
 										<th style="width:20px"><spring:message code="label.productionlogform.acion"
 												text="Action"/></th>

@@ -121,7 +121,7 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.pigletstatuseventform.pigId.invalidmessage' text='Only Numeric values are allowed' />'" />
 						
-						<span class="input-group-addon btn btn-primary" ng-click="searchFarrowEvent(pigletStatusEvent.pigId, pigletStatusEvent.companyId)"  data-target="#searchFarrowEvents" ><a class="btn-primary">Farrow Event</a></span>
+						<span class="input-group-addon btn btn-primary" ng-click="searchFarrowEvent(pigletStatusEvent.pigId, pigletStatusEvent.companyId)"  data-target="#searchFarrowEvents" ><a class="btn-primary"><spring:message code='label.piginfo.pigletstatuseventform.farrowevent'  text='Farrow Event'/></a></span>
 						</div>	
 						
                     </div>

@@ -101,16 +101,16 @@
 											</button>
 											<br> <br>	
 											<div class="btn-group">								 				
-											  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Transport <span class="caret"></span></button>
+											  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle"><spring:message code="label.leftmenu.transport.link"  text="Transport"/> <span class="caret"></span></button>
 											  <ul role="menu" class="dropdown-menu">
-												<li><a href="#" ng-click="gotToTransportFromDetailsCompany(row,'transportTrailerAndTruckWithCompanyId')"><spring:message code="label.transportTrailer.truckAndtraile" text="Truck And Trailer" /></a></li>
+												<li><a href="#" ng-click="gotToTransportFromDetailsCompany(row,'transportTrailerAndTruckWithCompanyId')"><spring:message code="label.transportTrailer.truckAndtrailer" text="Truck And Trailer" /></a></li>
 												<li><a href="#" ng-click="gotToTransportFromDetailsCompany(row,'transportDestinationWithCompanyId')"><spring:message code="label.transportDestination.gotToTranportDestination" text="Destination" /></a></li>
 											  </ul>
 											</div>
 											<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
 												 <br> <br>
 												<div class="btn-group">								 				
-												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle">Pig Events <span class="caret"></span></button>
+												  <button type="button" data-toggle="dropdown" class="btn-sm btn-info dropdown-toggle"><spring:message code="label.leftmenu.pigevents.link"  text="Pig Events"/> <span class="caret"></span></button>
 												  <ul role="menu" class="dropdown-menu">
 													<li><a href="#" ng-click="goToPigEvent('EntryEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></li>
 													<li><a href="#" ng-click="goToPigEvent('BreedingEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></li>
@@ -121,8 +121,7 @@
 													<li><a href="#" ng-click="goToPigEvent('FeedEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></a></li>
 													<li><a href="#" ng-click="goToPigEvent('RemovalEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.removalevent.link"  text="Removal Event"/></a></li>
 													<li><a href="#" ng-click="goToPigEvent('ChangePigId',row.id)"><spring:message code="label.leftmenu.managepigevents.changeid.link"  text="Change Id"/></a></li>
-													<li><a href="#" ng-click="goToPigEvent('PigletEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>
-													<li><a href="#" ng-click="goToPigEvent('ProductionLog',row.id)"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>
+													<li><a href="#" ng-click="goToPigEvent('PigletEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>													
 												  </ul>
 												  
 												</div>
@@ -131,14 +130,14 @@
 												<div class="btn-group">	
 												<button type="button" class="btn btn btn-info btn-sm"
 												style="margin-bottom: 5px" 	
-												ng-click="goToPigEvent('Target',row.id)"><spring:message code="label.company.targets" text="Targets" />
+												ng-click="goToPigEvent('Target',row.id)"><spring:message code="label.leftmenu.managepigevents.targets.link" text="Targets" />
 											</button>
 											</div>
 											<br> <br>
 												<div class="btn-group">	
 												<button type="button" class="btn btn btn-info btn-sm"
 												style="margin-bottom: 5px" 	
-												ng-click="goToPigEvent('ProductionLog',row.id)"><spring:message code="label.company.productionlog" text="Production Log" />
+												ng-click="goToPigEvent('ProductionLog',row.id)"><spring:message code="label.leftmenu.managepigevents.productionlog.link" text="Production Log" />
 											</button>
 											</div>
 										</td>

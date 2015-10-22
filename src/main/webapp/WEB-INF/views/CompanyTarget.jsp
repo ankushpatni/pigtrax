@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.companytargetform.heading'  text='Targets'/> - ${CompanyName}</h2>
+          <h2><spring:message code='label.companytargetform.heading'  text='Targets'/> - ${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="CompanyTargetController" ng-init="setCompanyId(${CompanyId})" id="EntryEventControllerId">
