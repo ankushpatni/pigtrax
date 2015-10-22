@@ -33,6 +33,7 @@ public class GroupEventBuilder {
 				groupEventDetails.setRemarks(dto.getRemarks());
 				groupEventDetails.setLastUpdated(dto.getLastUpdated());
 				groupEventDetails.setUserUpdated(dto.getUserUpdated());
+				groupEventDetails.setTransportDestination(dto.getTransportDestination());
 		   }
 		   return groupEventDetails;
 	   }
@@ -59,6 +60,7 @@ public class GroupEventBuilder {
 				dto.setRemarks(groupEventDetails.getRemarks());
 				dto.setLastUpdated(groupEventDetails.getLastUpdated());
 				dto.setUserUpdated(groupEventDetails.getUserUpdated());
+				dto.setTransportDestination(groupEventDetails.getTransportDestination());
 		   }
 		   return dto;
 	   }

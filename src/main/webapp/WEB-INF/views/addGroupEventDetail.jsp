@@ -24,7 +24,13 @@
 						<select class="form-control"  name="barnId" id="barnId" ng-model="groupEvent.barnId"   required required-message="'<spring:message code='label.groupEventDetail.barn.required' text='Barn is required' />'"
                          ng-options="k as v for (k, v) in barnList">
                         </select>
-					</div>			
+					</div>
+					<div class="form-group">
+                      <label><spring:message code='label.groupEventDetail.source'  text='Source'/></label>
+                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.transportDestination"   
+                         ng-options="k as v for (k, v) in transportDestination">
+                        </select>
+                    </div>			
 					<div class="form-group">
 						<label ><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /><span style='color: red'>*</span></label>
 						<div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >

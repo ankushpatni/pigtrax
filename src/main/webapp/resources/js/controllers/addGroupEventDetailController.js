@@ -10,6 +10,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	$scope.roomType = {};
 	$scope.barnList = {};
 	$scope.dateOfEntryFlag =  false;
+	$scope.transportDestination;
 	
 	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId,groupStartDateTime)
 	{
@@ -20,19 +21,15 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		$scope.groupStartDateTime = groupStartDateTime;
 		$scope.groupEvent.companyId = companyId;
 		console.log(groupGeneratedId);
-		/*restServices.getPhaseOfProductionType($scope.companyId, function(data){
+		
+		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
+		res1.success(function(data, status, headers, config) {
 			console.log(data);
-			if(!data.error)
-				{
-					$scope.phaseOfProductionType = data.payload[0];	
-					$scope.roomType = data.payload[1];
-									
-				}
-			else
-				{
-					console.log( "failure message: " + {data: data});
-				} 
-		});*/
+			$scope.transportDestination = data.payload[0];				
+		});
+		res1.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
 		
 		var res2 = $http.get('rest/util/getPhaseOfProductionType?companyId='+$scope.companyId);
 			res2.success(function(data, status, headers, config) {

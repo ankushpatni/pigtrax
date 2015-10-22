@@ -20,6 +20,7 @@ public class GroupEventDto {
 	private String userUpdated;
 	private EmployeeGroupDto employeeGroup;
 	private Integer companyId;
+	private Integer transportDestination;
 	
 	//groupevent fields	
 	
@@ -109,4 +110,11 @@ public class GroupEventDto {
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
+	public Integer getTransportDestination() {
+		return transportDestination;
+	}
+	public void setTransportDestination(Integer transportDestination) {
+		this.transportDestination = transportDestination;
+	}
+	
 }
