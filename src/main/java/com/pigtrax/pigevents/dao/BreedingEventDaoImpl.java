@@ -99,7 +99,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 				
 				ps.setInt(1, breedingEvent.getPigInfoId());
 				
-				if(breedingEvent.getBreedingServiceTypeId() != null){
+				if(breedingEvent.getBreedingServiceTypeId() != null && breedingEvent.getBreedingServiceTypeId() != 0){
 					ps.setInt(2, breedingEvent.getBreedingServiceTypeId());
 				}
 				else{

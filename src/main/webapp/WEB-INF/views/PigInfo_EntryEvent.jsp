@@ -11,8 +11,8 @@
  		  <div class="block-flat">
 		   <form method="POST" action="uploadFile" name="batchupload" enctype="multipart/form-data">
  		     <div class="head">
- 		     <h3> Batch Upload</h3>
-            <input type="file" name="file" value="upload" class="form-control"> <button type="submit" value="upload">Upload</button>
+ 		     <h3> <spring:message code='label.piginfo.entryeventform.batchupload.heading'  text='Batch Upload'/></h3>
+            <input type="file" name="file" value="upload" class="form-control"> <button type="submit" value="upload"><spring:message code='label.piginfo.entryeventform.upload.button'  text='Upload'/></button>
           </div>
 		  </form>
           </div>
@@ -152,7 +152,7 @@
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="birthDateDiv" >
                           <input size="16" type="date" id="birthDate" name="birthDate" ng-model="pigInfo.birthDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div> 
-                        <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthDate.requiredmessage' text='Birth Date is required' /></label>
+                        <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
@@ -203,7 +203,7 @@
 	                   </tr>
 	                   <tr ng-if="availablePigIdList == null || availablePigIdList.length == 0">
 	                     <td >
-	                       <spring:message code='label.pregnancyeventform.list.availablePigIds.noresults'  text='No pig Ids available'/>
+	                       <spring:message code='label.piginfo.entryEventForm..availablePigIds.noresults'  text='No pig Ids available'/>
 	                     </td>
 	                   </tr>
 	                   

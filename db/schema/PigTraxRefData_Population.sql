@@ -6984,8 +6984,7 @@ INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 3 Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Other','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Single Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
-INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine
-','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
 ----------------
 
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Total Services', CURRENT_TIMESTAMP,'pigtraxadmin');

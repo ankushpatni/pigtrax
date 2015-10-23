@@ -33,7 +33,7 @@
 				<td style="width:20%">{{row.city}}</td>
 				<td style="width: 20%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="deleteTransportDestinationData(row)">
-					<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.transportDestination.deleteTransportDestination" text="Delete" /></a></button>					
+					<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.transportDestination.delete" text="Delete" /></a></button>					
 				</td>
 			</tr>
 			</tbody>		

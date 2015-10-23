@@ -132,8 +132,9 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>	
                     </div>
-					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
+					
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
+					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/></label>
                        <select class="form-control"  id="sexType" name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  ng-options="k as v for (k, v) in breedingServiceTypes">
@@ -410,7 +411,7 @@
 						 <input type="hidden" ng-model="employeeGrp.id"/>
                           <div class="form-group">
 	                          <label><spring:message code='label.employeegroup.add.groupId'  text='Group Id'/></label>
-	                          <input type="text" placeholder="Enter Group Id" class="form-control" ng-model="employeeGrp.groupId" ng-readonly="employeeGrp.id > 0">
+	                          <input type="text" placeholder="label.employeegroup.add.groupId.placeholder" class="form-control" ng-model="employeeGrp.groupId" ng-readonly="employeeGrp.id > 0">
 	                          <p class="color-danger" ng-show="employeeGrpGroupIdInvalid"><spring:message code='label.employeegroup.message.groupid.invalid'  text='Group Id is required'/></p>
 	                        </div>
 	                        <div class="form-group">
