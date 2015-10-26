@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +28,11 @@ public class BatchUploadController {
 	private Environment env;
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public ModelAndView uploadFileHandler(@RequestParam("file") MultipartFile file) {
+	public ModelAndView uploadFileHandler(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
 		if (!file.isEmpty()) {
 			try {
+				String eventType = request.getParameter("eventType");
+				System.out.println("eventType = "+eventType);
 				byte[] bytes = file.getBytes();
 				String fileName = String.valueOf(new Random().nextInt(99999)) + "_" + file.getOriginalFilename();
 				System.out.println(fileName);
@@ -36,8 +40,8 @@ public class BatchUploadController {
 				File serverFile = new File(path);
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
-				stream.close();
-				httpBatchPost.execute("PIGINFO", UserUtil.getLoggedInUser(), path);
+				stream.close();				
+				httpBatchPost.execute(eventType, UserUtil.getLoggedInUser(), path);				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
