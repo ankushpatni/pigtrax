@@ -14,7 +14,8 @@
  		     <div class="head">
  		     <h3> <spring:message code='label.piginfo.entryeventform.batchupload.heading'  text='Batch Upload'/></h3>
             <input type="file" name="file" value="upload" class="form-control"> <button type="submit" value="upload"><spring:message code='label.piginfo.entryeventform.upload.button'  text='Upload'/></button>
-            <input type="hidden" name="eventType" value="PREGNANCYEVENT">
+            <input type="hidden" name="eventType" value="PREGNANCYINFO">
+            <input type="hidden" name="header" value="true">
           </div>
 		  </form>
           </div>

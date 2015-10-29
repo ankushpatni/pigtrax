@@ -20,8 +20,8 @@ public class HttpBatchPost {
 	@Autowired
 	private Environment env;
 
-	public void execute(final String eventType, final String userName, final String filePath) {
-		doPost(eventType, "false", ",", "csv", userName, filePath);
+	public void execute(final String eventType, String header, final String userName, final String filePath) {
+		doPost(eventType, header, ",", "csv", userName, filePath);
 	}
 
 	private void doPost(final String eventType, final String header, final String seperator, final String fileType, final String userName, final String filePath) {

@@ -32,6 +32,9 @@ public class BatchUploadController {
 		if (!file.isEmpty()) {
 			try {
 				String eventType = request.getParameter("eventType");
+				String header = request.getParameter("header");
+				if(header == null)
+					header = "false";
 				System.out.println("eventType = "+eventType);
 				byte[] bytes = file.getBytes();
 				String fileName = String.valueOf(new Random().nextInt(99999)) + "_" + file.getOriginalFilename();
@@ -41,7 +44,7 @@ public class BatchUploadController {
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();				
-				httpBatchPost.execute(eventType, UserUtil.getLoggedInUser(), path);				
+				httpBatchPost.execute(eventType, header, UserUtil.getLoggedInUser(), path);				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
