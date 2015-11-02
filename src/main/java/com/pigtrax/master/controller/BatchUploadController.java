@@ -3,6 +3,8 @@ package com.pigtrax.master.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +35,9 @@ public class BatchUploadController {
 			try {
 				String eventType = request.getParameter("eventType");
 				String header = request.getParameter("header");
-				if(header == null)
+				if (header == null)
 					header = "false";
-				System.out.println("eventType = "+eventType);
+				System.out.println("eventType = " + eventType);
 				byte[] bytes = file.getBytes();
 				String fileName = String.valueOf(new Random().nextInt(99999)) + "_" + file.getOriginalFilename();
 				System.out.println(fileName);
@@ -43,12 +45,20 @@ public class BatchUploadController {
 				File serverFile = new File(path);
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
-				stream.close();				
-				httpBatchPost.execute(eventType, header, UserUtil.getLoggedInUser(), path);				
+				stream.close();
+				httpBatchPost.execute(eventType, header, UserUtil.getLoggedInUser(), path);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return new ModelAndView("redirect:" + "pigEntryEvent");
+		return new ModelAndView("redirect:" + "massupload?token=success");
+	}
+
+	@RequestMapping(value = "/massupload", method = RequestMethod.GET)
+	public ModelAndView massUpload(HttpServletRequest request) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("contentUrl", "massUpload.jsp");
+		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		return new ModelAndView("template", model);
 	}
 }

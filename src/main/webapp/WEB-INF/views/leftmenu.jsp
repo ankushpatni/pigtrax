@@ -50,7 +50,7 @@
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i><span><spring:message code="label.leftmenu.settings.link"  text="Settings"/></span></a>
                               
                             </li>           
-                                      
+                            <li><a href="massupload"><i class="glyphicon glyphicon-cog"></i><span>Mass Upload</span></a></li>    
                               </ul>
                   </div>
                 </div>
