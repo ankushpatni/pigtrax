@@ -20,15 +20,18 @@
 						<input type="file" name="file" value="upload" class="form-control">
 						<br /> Event Type: <select class="form-control" name="eventType">
 							<option value="PIGINFO">PIGINFO</option>
+							<option value="BREEDINGEVENT">BREEDING EVENT</option>
+							<option value="MATINGDETAILS">MATINGDETAILS</option>
 							<option value="PREGNANCYINFO">PREGNANCY INFO</option>
-							<option value="PIGLETSTATUSINFO">PIGLET STATUS INFO</option>
 							<option value="FARROWEVENT">FARROW</option>
+							<option value="PIGLETSTATUSINFO">PIGLET STATUS INFO</option>							
 							<option value="GROUPEVENT">GROUP</option>
-							<option value="FEEDEVENT">FEED</option>
 							<option value="GROUPEVENTDETAILEVENT">GROUP DETAIL</option>
+							<option value="FEEDEVENT">FEED</option>
+							<option value="FEEDEVENT">INDIVIDUAL PIGLET STATUS</option>							
 						</select> <br />CSV HEADER: <select class="form-control" name="header">
 							<option value="false">WITHOUT HEADER</option>
-							<option value=true>WITH HEADE</option>
+							<option value=true>WITH HEADER</option>
 						</select> <br />
 						<button type="submit" value="upload">
 							<spring:message code='label.piginfo.entryeventform.upload.button'

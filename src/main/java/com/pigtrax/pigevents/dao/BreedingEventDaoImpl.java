@@ -275,7 +275,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	public BreedingEvent getLatestServiceEvent(final Integer pigInfoId) {
 		String qry = "Select BE.\"id\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"serviceGroupId\","
 				+ " BE.\"serviceStartDate\", BE.\"id_Pen\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", BE.\"userUpdated\""
-				+ " from pigtrax.\"BreedingEvent\" BE  where BE.\"id_PigInfo\" = ? ";
+				+ " from pigtrax.\"BreedingEvent\" BE  where BE.\"id_PigInfo\" = ? order by BE.\"id\" desc";
 		
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
