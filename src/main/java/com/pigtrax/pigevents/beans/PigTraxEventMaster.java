@@ -15,7 +15,8 @@ public class PigTraxEventMaster {
      private Integer saleEventId;
      private Integer pigInfoId;
      private Integer feedEventId;
-     private Integer removalEventId;
+     private Integer removalEventExceptSalesDetails;
+     private Integer salesEventDetails;
 	public Integer getId() {
 		return id;
 	}
@@ -88,11 +89,18 @@ public class PigTraxEventMaster {
 	public void setFeedEventId(Integer feedEventId) {
 		this.feedEventId = feedEventId;
 	}
-	public Integer getRemovalEventId() {
-		return removalEventId;
+	public Integer getRemovalEventExceptSalesDetails() {
+		return removalEventExceptSalesDetails;
 	}
-	public void setRemovalEventId(Integer removalEventId) {
-		this.removalEventId = removalEventId;
+	public void setRemovalEventExceptSalesDetails(
+			Integer removalEventExceptSalesDetails) {
+		this.removalEventExceptSalesDetails = removalEventExceptSalesDetails;
+	}
+	public Integer getSalesEventDetails() {
+		return salesEventDetails;
+	}
+	public void setSalesEventDetails(Integer salesEventDetails) {
+		this.salesEventDetails = salesEventDetails;
 	}
      
 }
