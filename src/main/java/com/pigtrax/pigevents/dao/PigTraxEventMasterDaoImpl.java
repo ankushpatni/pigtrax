@@ -38,8 +38,9 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	 * @throws SQLException
 	 */
 	public int insertEntryEventDetails(final PigTraxEventMaster master) throws SQLException {
-		String Qry = "insert into pigtrax.\"PigTraxEventMaster\"( \"eventTime\", \"id_PigInfo\", \"lastUpdated\", \"userUpdated\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", \"id_FarrowEvent\", \"id_PigletStatus\", \"id_FeedEvent\", \"id_RemovalEvent\") "
-				+ "values(?,?,current_timestamp,?,?,?,?,?,?,?,?)";
+		String Qry = "insert into pigtrax.\"PigTraxEventMaster\"( \"eventTime\", \"id_PigInfo\", \"lastUpdated\", \"userUpdated\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", \"id_FarrowEvent\", \"id_PigletStatus\", \"id_FeedEvent\", \"id_RemovalEventExceptSalesDetails\",\"id_SalesEventDetails\") "
+				+ "values(?,?,current_timestamp,?,?,?,?,?,?,?,?,?)";
+		
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 		
@@ -57,7 +58,9 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 				ps.setObject(7, (master.getFarrowEventId() != null)?master.getFarrowEventId():null);
 				ps.setObject(8, (master.getPigletStatusId() != null)?master.getPigletStatusId():null);
 				ps.setObject(9, (master.getFeedEventId() != null)?master.getFeedEventId():null);
-				ps.setObject(10, (master.getRemovalEventId() != null)?master.getRemovalEventId():null);
+				ps.setObject(10, (master.getRemovalEventExceptSalesDetails() != null)?master.getRemovalEventExceptSalesDetails():null);
+				ps.setObject(11, (master.getSalesEventDetails() != null)?master.getSalesEventDetails():null);
+				
 			}
 		});
 		
@@ -141,7 +144,8 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 			eventMaster.setUserUpdated(rs.getString("userUpdated"));			
 			eventMaster.setPigInfoId(rs.getInt("id_PigInfo"));
 			eventMaster.setFeedEventId(rs.getInt("id_FeedEvent"));
-			eventMaster.setRemovalEventId(rs.getInt("id_RemovalEvent"));
+			eventMaster.setRemovalEventExceptSalesDetails(rs.getInt("id_RemovalEventExceptSalesDetails"));
+			eventMaster.setSalesEventDetails(rs.getInt("id_SalesEventDetails"));
 			return eventMaster;
 		}
 	}
