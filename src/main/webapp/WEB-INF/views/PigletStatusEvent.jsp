@@ -108,7 +108,7 @@
                   </div>  
                   <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_2">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_2' text='Foster should happen within 0-50 days of farrow event, please change the date and submit again to proceed' />
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pigletstatuseventform.pigletstatusEventValidation_ErrCode_2' text='Transfer should happen within 0-50 days of farrow event, please change the date and submit again to proceed' />
                   </div>                         
                   <div class="alert alert-warning alert-white rounded" ng-show="pigletstatusEventValidation_ErrCode_3">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
@@ -178,10 +178,10 @@
                     <div>&nbsp;</div>
  					
  					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="fosterToPigIdrequired" ><spring:message code='label.piginfo.pigletstatuseventform.fosterToPigId.requiredMessage' text='Pig Id for foster is required' /></label>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="fosterToPigIdrequired" ><spring:message code='label.piginfo.pigletstatuseventform.fosterToPigId.requiredMessage' text='Pig Id for transfer is required' /></label>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="eventDateTimerequired" ><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime.requiredMessage' text='Event Date is required' /></label>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidPigletNumbers" ><spring:message code='label.piginfo.pigletstatuseventform.invalidPigletNumbers' text='Piglet count should be in whole numeric values' /></label>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="pigletNumbersRequired" ><spring:message code='label.piginfo.pigletstatuseventform.pigletNumbersRequired' text='Please enter wean/foster/death information' /></label>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="pigletNumbersRequired" ><spring:message code='label.piginfo.pigletstatuseventform.pigletNumbersRequired' text='Please enter wean/transfer/pre wean mortality information' /></label>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidGroupEventId" ><spring:message code='label.piginfo.pigletstatuseventform.invalidGroupEventId' text='Invalid Group Event Id' /></label>
 					</div>	
 					
@@ -212,7 +212,7 @@
                           
                        </tr>
                        <tr>
-                        <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.foster' text='Foster' /> </td>
+                        <td width="20%"><spring:message code='label.piginfo.pigletstatuseventform.foster' text='Transfer' /> </td>
                          <td width="20%"><input type="number" min="0" step="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> </td>
                          <td width="20%"><input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control"> </td>
 						 <td width="20%">
@@ -330,7 +330,7 @@
 		  <div id="searchFosters" class="modal colored-header custom-width">
                     <div class="md-content">
                       <div class="modal-header">
-                        <h3><spring:message code='label.piginfo.pigletstatuseventform.fostersearchresults.heading'  text='Foster Pigs'/> </h3>
+                        <h3><spring:message code='label.piginfo.pigletstatuseventform.fostersearchresults.heading'  text='Transfer Pigs'/> </h3>
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
                       <div class="modal-body form" >
