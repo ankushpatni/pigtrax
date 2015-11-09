@@ -26,6 +26,12 @@
                         </select>
 					</div>
 					<div class="form-group">
+                      <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/></label>
+                       <select class="form-control"  name="roomId" id="roomId" ng-model="groupEvent.roomId"   
+                         ng-options="k as v for (k, v) in roomType">
+                        </select>
+                    </div>
+					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.source'  text='Source'/></label>
                        <select class="form-control"  name="source" id="source" ng-model="groupEvent.transportDestination"   
                          ng-options="k as v for (k, v) in transportDestination">
@@ -53,13 +59,6 @@
 						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.inventoryAdjustment' text='Inventory Adjustment' />" name="inventoryAdjustment" ng-model="groupEvent.inventoryAdjustment" maxlength="8" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 					</div>	-->				
 					
-					<div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/></label>
-                       <select class="form-control"  name="roomId" id="roomId" ng-model="groupEvent.roomId"   
-                         ng-options="k as v for (k, v) in roomType">
-                        </select>
-                    </div>
-					
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
@@ -79,7 +78,7 @@
                    
                   
 			<button class="btn btn-primary btn-flat md-close"  ng-click="addGroupEventDetail()" ng-hide="groupEvent.id>0"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-primary btn-flat md-close"  ng-click="addGroupEventDetail()" ng-show="groupEvent.id>0"><spring:message code="label.premise.edit" text="Edit" /></button>
+			<button class="btn btn-primary btn-flat md-close"  ng-click="addGroupEventDetail()" ng-show="groupEvent.id>0"><spring:message code="label.groupEventDetail.update" text="Update" /></button>
             <button class="btn btn-default btn-flat md-close"  ng-click="gotoGroupEvent()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
 			<input type="hidden" name="searchedGroupid" id="searchedGroupid"/>
 			<input type="hidden" name="selectedCompany" id="selectedCompany"/>
