@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
-import com.pigtrax.pigevents.beans.PregnancyEvent;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 
 @Repository
@@ -114,7 +114,7 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	public List<PigTraxEventMaster> getEventMasterRecords(final Integer pigInfoKey) throws Exception
 	{
 		String qry = "select \"id\", \"eventTime\", \"id_GroupEvent\", \"id_BreedingEvent\", \"id_PregnancyEvent\", "
-				+ "\"id_FarrowEvent\", \"id_PigletStatus\", \"lastUpdated\", \"userUpdated\", \"id_PigInfo\", \"id_FeedEvent\", \"id_RemovalEvent\" "
+				+ "\"id_FarrowEvent\", \"id_PigletStatus\", \"lastUpdated\", \"userUpdated\", \"id_PigInfo\", \"id_FeedEvent\",\"id_RemovalEventExceptSalesDetails\",\"id_SalesEventDetails\"  "
 				+ " from pigtrax.\"PigTraxEventMaster\" where \"id_PigInfo\" = ? order by \"id\" desc ";
 		
 		List<PigTraxEventMaster> eventMasterList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -213,6 +213,28 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 					ps.setInt(1, breedingEventId);
 				}
 			});
+	}
+	   
+	@Override
+	public List<Integer> selectFerrowEvents(final Date startDate,
+			final Date endDate) throws SQLException {
+		String qry = "select \"id_FarrowEvent\" from pigtrax.\"PigTraxEventMaster\" where \"lastUpdated\" >= ? and \"lastUpdated\" <= ? and \"id_FarrowEvent\" != 0 order by \"id\" desc ";
+
+		List<Integer> eventMasterList = jdbcTemplate.query(qry,
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setDate(1, startDate);
+						ps.setDate(2, endDate);
+					}
+				}, new RowMapper<Integer>() {
+					public Integer mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return rs.getInt("id_FarrowEvent");
+					}
+				});
+
+		return eventMasterList;
 	}
 	
 }
