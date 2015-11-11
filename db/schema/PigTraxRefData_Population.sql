@@ -6740,23 +6740,23 @@ INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLangua
 
 ---------
 INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Death', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Euthanized',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Transferred',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Adjust Inventory',CURRENT_TIMESTAMP,'pigtraxadmin');
+--INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Transferred',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Sales',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Death','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Euthanized','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Transferred','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Adjust Inventory','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+--INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Transferred','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Sales','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Death_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Euthanized_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Transferred_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Adjust Inventory_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+--INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Transferred_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Sales_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Death_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Euthanized_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Transferred_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Adjust Inventory_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+--INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Transferred_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Sales_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 ----------
