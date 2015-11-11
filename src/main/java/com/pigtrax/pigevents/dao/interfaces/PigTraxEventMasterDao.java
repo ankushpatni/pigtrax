@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -70,5 +71,13 @@ public interface PigTraxEventMasterDao {
 	 * @throws SQLException
 	 */
 	 void deleteBreedingEvent(final Integer breedingEventId) throws SQLException;
+
+	 /**
+		 * Select ferrow event entries date
+		 * @param farrowEventId
+		 * @throws SQLException
+		 */
+	List<Integer> selectFerrowEvents(Date startDate, Date endDate)
+			throws SQLException;
 	
 }
