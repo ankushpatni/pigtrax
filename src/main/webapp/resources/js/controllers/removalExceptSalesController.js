@@ -40,7 +40,12 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		res2.success(function(data, status, headers, config) {
 			console.log(data);
 			
-			$scope.removalEventTypeOriginal = data.payload[0];
+			
+			var removalEventTypeMap = data.payload[0];
+			$scope.removalEventTypeKeys = removalEventTypeMap['RemovalEventKey'];
+			$scope.removalEventTypeOriginal = removalEventTypeMap['RemovalEventValue'];
+			
+			//$scope.removalEventTypeOriginal = data.payload[0];
 			$scope.pigInfoOriginalList = data.payload[1];
 			$scope.premiseList = data.payload[2];
 			$scope.groupEventOriginalList = data.payload[3];
@@ -61,9 +66,9 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 					}
 			}
 			for( var x in $scope.removalEventTypeOriginal)
-			{
+			{				
 				if( x!=3)
-					{		
+					{
 						$scope.removalEventType[x] = $scope.removalEventTypeOriginal[x];
 					}
 			}

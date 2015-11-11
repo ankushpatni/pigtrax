@@ -1,6 +1,7 @@
 package com.pigtrax.usermanagement.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -222,7 +223,17 @@ public class UtilController {
 		List<Map> outDataList = new ArrayList<Map>();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		outDataList.add(refDataCache.getRemovalEventTypeMap(language));
+		
+		Map<Integer, String> refDataMap = refDataCache.getRemovalEventTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		Map refDataKeyValueMap = new HashMap<String, Object>();
+		refDataKeyValueMap.put("RemovalEventKey", keySet);
+		refDataKeyValueMap.put("RemovalEventValue", refDataMap);
+		outDataList.add(refDataKeyValueMap);
+		
+		//outDataList.add(refDataCache.getRemovalEventTypeMap(language));
 		try {
 			outDataList.add(pigInfoService.getPigInformationByCompany(companyId));
 			outDataList.add(premisesService.getPremisesListBasedOnCompanyId(companyId));

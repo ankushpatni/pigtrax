@@ -195,7 +195,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 				
 				if(salesEventDetails.getRemovalEventId() != null && salesEventDetails.getRemovalEventId() !=0)
 				{
-					ps.setInt(10, salesEventDetails.getTransportJourneyId());
+					ps.setInt(10, salesEventDetails.getRemovalEventId());
 				}
 				else
 				{

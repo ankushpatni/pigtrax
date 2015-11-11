@@ -291,7 +291,7 @@ public class EntryEventRestController {
 							{
 								flag = "EnableChange";
 								break;
-							}
+							} 
 						}
 					}
 					else

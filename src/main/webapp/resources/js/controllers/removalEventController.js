@@ -24,7 +24,10 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		res2.success(function(data, status, headers, config) {
 			console.log(data);
 			
-			$scope.removalEventType = data.payload[0];
+			var removalEventTypeMap = data.payload[0];
+			$scope.removalEventTypeKeys = removalEventTypeMap['RemovalEventKey'];			
+			$scope.removalEventType = removalEventTypeMap['RemovalEventValue'];
+			//$scope.removalEventType = data.payload[0];
 			$scope.pigInfoList = data.payload[1];
 			$scope.premiseList = data.payload[2];
 			$scope.groupEventList = data.payload[3]
@@ -129,12 +132,12 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 						$scope.entryExceptSalesDetailsSuccessMessage = true;
 					}
 					$window.scrollTo(0,550);
-					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2)
+					if($scope.removalEvent.removalTypeId != 3)
 					{
 						$scope.exceptSalesFlag = true;
 						$scope.salesEventFlag = false;
 					}
-					else
+					else if($scope.removalEvent.removalTypeId == 3) 
 					{
 						$scope.exceptSalesFlag = false;
 						$scope.salesEventFlag = true;
@@ -171,7 +174,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		else if(document.getElementById("radAdd2").checked)
 		{
 			document.forms['removalEventForm'].action = 'addRemovalEventExceptSalesDetails';
-			document.getElementById("removalTypeId1").value = 2;
+			document.getElementById("removalTypeId1").value = 9;
 		}			
 		else
 		{
@@ -281,7 +284,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 					$scope.exceptSalesFlag= false;
 				}
 				
-				if(data.payload[1] != null && data.payload[0].length>0)
+				if(data.payload[1] != null && data.payload[1].length>0)
 				{
 					$scope.salesEventList=data.payload[1];
 					$scope.salesEventFlag = true;

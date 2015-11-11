@@ -67,10 +67,12 @@
 						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
                    </div>
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>
-                       <select ng-show="(removalTypeId != 3)" class="form-control"  required-message="'<spring:message code='label.piginfo.removalEventform.removalTypeId.required' text='Removal Type is required' />'" name="removalEventId" id="removalEventId" ng-model="removalExceptSales.removalEventId"   
-                         ng-options="k as v for (k, v) in removalEventType"> </select>
-                         <label ng-show="(removalTypeId == 3)"> :  {{removalEventType[removalTypeId]}}</label>                       
+                      <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>                      
+ 						<select  ng-show="removalTypeId != 3" class="form-control"    name="removalEventId" id="removalEventId" ng-model="removalExceptSales.removalEventId" >
+                      	<option ng-repeat="key in removalEventTypeKeys" ng-value="key" ng-selected="removalExceptSales.removalEventId==key" ng-hide="key==3 || key ==9">{{removalEventType[key]}}</option>        
+                        </select>                      
+                         <label ng-show="removalTypeId == 3"> :  {{removalEventType[removalTypeId]}}</label> 
+                        
                     </div>
                    <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.removalEventform.removalId'  text='Removal Id'/><span style='color: red'>*</span></label>

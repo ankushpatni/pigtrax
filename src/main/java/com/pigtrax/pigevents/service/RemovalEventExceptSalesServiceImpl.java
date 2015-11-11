@@ -240,7 +240,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 		
 		try
 		{
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigInfoIdId,
+			PigInfo pigInfo = pigInfoDao.getInactivePigInformationByPigId(pigInfoIdId,
 					companyId);
 
 			if (null != pigInfo)
