@@ -61,9 +61,9 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>
                        <select class="form-control"  required required-message="'<spring:message code='label.piginfo.removalEventform.removalTypeId.required' text='Removal Type is required' />'" name="removalEventId" id="removalEventId" ng-model="removalExceptSales.removalEventId"   
-                         ng-options="k as v for (k, v) in removalEventType" ng-hide="k==4"> </select>
-                         <label ng-show="(removalTypeId == 4)"> :  {{removalEventType[removalEventform.removalTypeId]}}</label>                       
-                    </div>
+                         ng-options="k as v for (k, v) in removalEventType" ng-hide="k==3"> </select>
+                         <label ng-show="(removalTypeId == 3)"> :  {{removalEventType[removalEventform.removalTypeId]}}</label>                       
+                    </div> 
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.removalExceptSales.removalDateTime'  text='Removal Date'/><span style='color: red'>*</span></label>

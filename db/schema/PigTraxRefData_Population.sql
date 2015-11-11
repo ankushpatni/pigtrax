@@ -6742,7 +6742,7 @@ INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLangua
 INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Death', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Adjust Inventory',CURRENT_TIMESTAMP,'pigtraxadmin');
 --INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Transferred',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Sales',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Sales',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Death','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."RemovalEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RemovalType") VALUES ('Adjust Inventory','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);

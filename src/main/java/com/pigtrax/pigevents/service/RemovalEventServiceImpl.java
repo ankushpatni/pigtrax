@@ -150,7 +150,7 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 			if(null != removalEvent)
 			{
 				eventAndDetailList.add(removalEvent);
-				if(removalEvent.getRemovalTypeId() == 1 || removalEvent.getRemovalTypeId() == 2 || removalEvent.getRemovalTypeId() == 3)
+				if(removalEvent.getRemovalTypeId() == 1 || removalEvent.getRemovalTypeId() == 2)
 				{
 					List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetailsList = removalEventExceptSalesDetailsDao.getRemovalEventExceptSalesDetailsListByRemovalId(removalEvent.getId());
 				
@@ -163,7 +163,7 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 						eventAndDetailList.add(null);
 					}
 				}
-				else if(removalEvent.getRemovalTypeId() == 4)
+				else if(removalEvent.getRemovalTypeId() == 3)
 				{
 					List<SalesEventDetails> salesEventDetailsList = salesEventDetailsDao.getSalesEventDetailsListByRemovalId(removalEvent.getId());
 					

@@ -129,7 +129,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 						$scope.entryExceptSalesDetailsSuccessMessage = true;
 					}
 					$window.scrollTo(0,550);
-					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2 || $scope.removalEvent.removalTypeId ==3)
+					if($scope.removalEvent.removalTypeId ==1  || $scope.removalEvent.removalTypeId ==2)
 					{
 						$scope.exceptSalesFlag = true;
 						$scope.salesEventFlag = false;
@@ -171,12 +171,12 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 		else if(document.getElementById("radAdd2").checked)
 		{
 			document.forms['removalEventForm'].action = 'addRemovalEventExceptSalesDetails';
-			document.getElementById("removalTypeId1").value = 3;
+			document.getElementById("removalTypeId1").value = 2;
 		}			
 		else
 		{
 			document.forms['removalEventForm'].action = 'addSalesEventDetails';
-			document.getElementById("removalTypeId1").value = 4;
+			document.getElementById("removalTypeId1").value = 3;
 		}
 		console.log(document.getElementById("companyId").value);
 		document.forms['removalEventForm'].submit();

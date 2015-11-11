@@ -62,7 +62,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			}
 			for( var x in $scope.removalEventTypeOriginal)
 			{
-				if( x!=4)
+				if( x!=3)
 					{		
 						$scope.removalEventType[x] = $scope.removalEventTypeOriginal[x];
 					}
