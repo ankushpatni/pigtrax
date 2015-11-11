@@ -49,7 +49,13 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			$scope.pigInfoOriginalList = data.payload[1];
 			$scope.premiseList = data.payload[2];
 			$scope.groupEventOriginalList = data.payload[3];
-			$scope.mortalityReasonType = data.payload[4];
+			
+			
+			var mortalityReasonKeyValueMap = data.payload[4];
+			$scope.mortalityReasonKeys = mortalityReasonKeyValueMap['MortalityReasonKey'];
+			$scope.mortalityReasonType = mortalityReasonKeyValueMap['MortalityReasonValue'];
+			
+			//$scope.mortalityReasonType = data.payload[4];
 			
 			for( var x in $scope.groupEventOriginalList)
 			{

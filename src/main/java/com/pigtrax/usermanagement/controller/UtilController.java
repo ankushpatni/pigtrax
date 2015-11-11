@@ -242,7 +242,18 @@ public class UtilController {
 			e.printStackTrace();
 		}
 		outDataList.add(groupeventService.getGroupEventByCompanyId(companyId));
-		outDataList.add(refDataCache.getMortalityReasonTypeMap(language));
+		
+		
+		Map<Integer, String> mortalityRefDataMap = refDataCache.getMortalityReasonTypeMap(language);
+		Set<Integer> mortalityKeySet = null;
+		if(refDataMap != null)
+			mortalityKeySet  = mortalityRefDataMap.keySet();
+		Map mortalityRefDataKeyValueMap = new HashMap<String, Object>();
+		mortalityRefDataKeyValueMap.put("MortalityReasonKey", mortalityKeySet);
+		mortalityRefDataKeyValueMap.put("MortalityReasonValue", mortalityRefDataMap);
+		outDataList.add(mortalityRefDataKeyValueMap);
+		
+		//outDataList.add(refDataCache.getMortalityReasonTypeMap(language));
 		dto.setPayload(outDataList);
 		dto.setStatusMessage("Success");
 		return dto;

@@ -1839,6 +1839,7 @@ CREATE TABLE pigtrax."RemovalEventExceptSalesDetails"(
 	"id_TransportJourney" integer,
 	"id_MortalityReason" integer,
 	remarks varchar(255),
+	"revenueUsd" numeric(20,2),
 	CONSTRAINT "REMOVALEVENTXSALESDETAILS_PK" PRIMARY KEY (id)
 
 );

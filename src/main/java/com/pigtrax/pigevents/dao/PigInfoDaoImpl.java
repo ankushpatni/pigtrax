@@ -117,8 +117,14 @@ public class PigInfoDaoImpl implements PigInfoDao {
 				ps.setString(2, pigInfo.getSireId());
 				ps.setString(3, pigInfo.getDamId());
 				ps.setString(4, pigInfo.getOrigin());
-				ps.setObject(5, pigInfo.getGline(), java.sql.Types.INTEGER);
-				ps.setObject(6, pigInfo.getGcompany(), java.sql.Types.INTEGER);
+				if(pigInfo.getGline() != null  && pigInfo.getGline() != 0)
+					ps.setObject(5, pigInfo.getGline(), java.sql.Types.INTEGER);
+				else
+					ps.setNull(5, java.sql.Types.INTEGER);
+				if(pigInfo.getGcompany() != null  && pigInfo.getGcompany() != 0)
+					ps.setObject(6, pigInfo.getGcompany(), java.sql.Types.INTEGER);
+				else
+					ps.setNull(6, java.sql.Types.INTEGER);
 				if(pigInfo.getBirthDate() != null)
 					ps.setDate(7,  new java.sql.Date(pigInfo.getBirthDate().getTime()));
 				else
@@ -132,11 +138,17 @@ public class PigInfoDaoImpl implements PigInfoDao {
 					ps.setObject(13, pigInfo.getPenId());
 				else
 					ps.setNull(13, java.sql.Types.INTEGER);
-				ps.setObject(14, pigInfo.getBarnId(), java.sql.Types.INTEGER);
+				if(pigInfo.getBarnId() != null  && pigInfo.getBarnId() != 0)
+					ps.setObject(14, pigInfo.getBarnId(), java.sql.Types.INTEGER);
+				else
+					ps.setNull(14, java.sql.Types.INTEGER);
 				ps.setObject(15, pigInfo.getSexTypeId(), java.sql.Types.INTEGER);		
 				ps.setDate(16,  new java.sql.Date(pigInfo.getEntryDate().getTime()));
 				ps.setBoolean(17,pigInfo.isActive());
-				ps.setObject(18, pigInfo.getGfunctionTypeId(), java.sql.Types.INTEGER);	
+				if(pigInfo.getGfunctionTypeId() != null  && pigInfo.getGfunctionTypeId() != 0)
+					ps.setObject(18, pigInfo.getGfunctionTypeId(), java.sql.Types.INTEGER);
+				else
+					ps.setNull(18, java.sql.Types.INTEGER);
 				ps.setInt(19, pigInfo.getId());
 			}
 		});
