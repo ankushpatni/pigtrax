@@ -74,6 +74,15 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 						"startDate" : DateUtils.convertLocaleDateToServer(new Date(dates[0])),
 						"endDate" : DateUtils.convertLocaleDateToServer(new Date(dates[1]))
 			};
+		}
+		else
+			{
+			var productionLog = {
+					"companyId" : $rootScope.companyId,
+					"startDate" : null,
+					"endDate" : null
+				};
+			}
 			
 			 restServices.getProductionLogList(productionLog, function(data){
 				 if(!data.error)
@@ -82,7 +91,7 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 					$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
 				 }
 			});
-		}
+		
 	}
 	
 	
