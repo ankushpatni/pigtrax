@@ -10,6 +10,14 @@ public class ProductionLogDto {
 	private String userUpdated;
 	private Date startDate;
 	private Date endDate;
+	private Integer roomId;
+	private Integer logEventTypeId;
+	private String eventId;
+	private Date observationDate;
+	private String logEventType;
+	private String language;
+	private String room;
+	private String groupId;
 
 	public Integer getId() {
 		return id;
@@ -65,6 +73,72 @@ public class ProductionLogDto {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+
+	
+
+	public Integer getLogEventTypeId() {
+		return logEventTypeId;
+	}
+
+	public void setLogEventTypeId(Integer logEventTypeId) {
+		this.logEventTypeId = logEventTypeId;
+	}
+
+	public String getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
+	}
+
+	public Date getObservationDate() {
+		return observationDate;
+	}
+
+	public void setObservationDate(Date observationDate) {
+		this.observationDate = observationDate;
+	}
+
+	public String getLogEventType() {
+		return logEventType;
+	}
+
+	public void setLogEventType(String logEventType) {
+		this.logEventType = logEventType;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 	
 

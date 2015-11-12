@@ -287,11 +287,11 @@ public class EntryEventRestController {
 					{
 						for(RemovalEventExceptSalesDetails event : removalEvents)
 						{
-							if(event.getRemovalEventId() == 1 || event.getRemovalEventId() == 2 || event.getRemovalEventId() == 4)
+							if(event.getRemovalEventId() == 1 || event.getRemovalEventId() == 2 || event.getRemovalEventId() == 3)
 							{
 								flag = "EnableChange";
 								break;
-							}
+							} 
 						}
 					}
 					else

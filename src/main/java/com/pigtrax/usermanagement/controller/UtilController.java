@@ -1,6 +1,7 @@
 package com.pigtrax.usermanagement.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -222,7 +223,17 @@ public class UtilController {
 		List<Map> outDataList = new ArrayList<Map>();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		outDataList.add(refDataCache.getRemovalEventTypeMap(language));
+		
+		Map<Integer, String> refDataMap = refDataCache.getRemovalEventTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		Map refDataKeyValueMap = new HashMap<String, Object>();
+		refDataKeyValueMap.put("RemovalEventKey", keySet);
+		refDataKeyValueMap.put("RemovalEventValue", refDataMap);
+		outDataList.add(refDataKeyValueMap);
+		
+		//outDataList.add(refDataCache.getRemovalEventTypeMap(language));
 		try {
 			outDataList.add(pigInfoService.getPigInformationByCompany(companyId));
 			outDataList.add(premisesService.getPremisesListBasedOnCompanyId(companyId));
@@ -231,7 +242,18 @@ public class UtilController {
 			e.printStackTrace();
 		}
 		outDataList.add(groupeventService.getGroupEventByCompanyId(companyId));
-		outDataList.add(refDataCache.getMortalityReasonTypeMap(language));
+		
+		
+		Map<Integer, String> mortalityRefDataMap = refDataCache.getMortalityReasonTypeMap(language);
+		Set<Integer> mortalityKeySet = null;
+		if(refDataMap != null)
+			mortalityKeySet  = mortalityRefDataMap.keySet();
+		Map mortalityRefDataKeyValueMap = new HashMap<String, Object>();
+		mortalityRefDataKeyValueMap.put("MortalityReasonKey", mortalityKeySet);
+		mortalityRefDataKeyValueMap.put("MortalityReasonValue", mortalityRefDataMap);
+		outDataList.add(mortalityRefDataKeyValueMap);
+		
+		//outDataList.add(refDataCache.getMortalityReasonTypeMap(language));
 		dto.setPayload(outDataList);
 		dto.setStatusMessage("Success");
 		return dto;
@@ -348,6 +370,26 @@ public class UtilController {
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		Map<Integer, String> refDataMap = refDataCache.getGlineTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	@RequestMapping(value = "/getLogEventTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getLogEventTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getLogEventTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getLogEventTypeMap(language);
 		Set<Integer> keySet = null;
 		if(refDataMap != null)
 			keySet  = refDataMap.keySet();

@@ -1839,6 +1839,7 @@ CREATE TABLE pigtrax."RemovalEventExceptSalesDetails"(
 	"id_TransportJourney" integer,
 	"id_MortalityReason" integer,
 	remarks varchar(255),
+	"revenueUsd" numeric(20,2),
 	CONSTRAINT "REMOVALEVENTXSALESDETAILS_PK" PRIMARY KEY (id)
 
 );
@@ -2193,6 +2194,11 @@ CREATE TABLE pigtrax."ProductionLog"(
 	"id_Company" int not null,
 	"lastUpdated" timestamp not null,
 	"userUpdated" varchar(30) not null,
+	"id_LogEventType" int null,
+	"id_Room" int null,
+	"eventId" varchar(30),
+	"observationDate" timestamp,
+	"groupId" varchar(30),
 	CONSTRAINT "PRODUCTIONLOG_PK" PRIMARY KEY (id)
 
 );
@@ -2204,6 +2210,14 @@ ALTER TABLE pigtrax."ProductionLog" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtrax."ProductionLog" DROP CONSTRAINT IF EXISTS "Company_fk" CASCADE;
 ALTER TABLE pigtrax."ProductionLog" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_Company")
 REFERENCES pigtrax."Company" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: "Room_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."ProductionLog" DROP CONSTRAINT IF EXISTS "Room_fk" CASCADE;
+ALTER TABLE pigtrax."ProductionLog" ADD CONSTRAINT "Room_fk" FOREIGN KEY ("id_Room")
+REFERENCES pigtrax."Room" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -2326,6 +2340,55 @@ ALTER TABLE pigtraxrefdata."GlineTypeTranslation" ADD CONSTRAINT "GlineType_fk" 
 REFERENCES pigtraxrefdata."GlineType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+-- object: pigtraxrefdata."LogEventType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."LogEventType" CASCADE;
+CREATE TABLE pigtraxrefdata."LogEventType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "LOG_EVNT_TYPE_PK" PRIMARY KEY (id),
+	CONSTRAINT "LOG_EVNT_TYPE_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."LogEventType" OWNER TO pitraxadmin;
+
+
+-- object: "GlineType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "LogEventType_fk" CASCADE;
+ALTER TABLE pigtrax."ProductionLog" ADD CONSTRAINT "LogEventType_fk" FOREIGN KEY ("id_LogEventType")
+REFERENCES pigtraxrefdata."LogEventType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."LogEventTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."LogEventTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."LogEventTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_LogEventType" integer,
+	CONSTRAINT "LOGEVENTTYPETRANLATION_PK" PRIMARY KEY (id),
+	CONSTRAINT "LOGEVENTTYPETRANSLATION_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."LogEventTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "LogEventType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."LogEventTypeTranslation" DROP CONSTRAINT IF EXISTS "LogEventType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."LogEventTypeTranslation" ADD CONSTRAINT "LogEventType_fk" FOREIGN KEY ("id_LogEventType")
+REFERENCES pigtraxrefdata."LogEventType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 
 -- object: "RemovalEvent_fk" | type: CONSTRAINT --

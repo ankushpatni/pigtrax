@@ -22,4 +22,6 @@ public interface PigInfoService {
     PigInfoDto getInactivePigInformation(PigInfoDto dto) throws Exception;
     
     List<String> getAvailablePigIds(Integer companyId);
+    
+    PigInfoDto getPigInformationById(final Integer pigInfoId) throws PigTraxException ;
 }  

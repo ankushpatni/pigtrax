@@ -244,7 +244,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 		
 		try
 		{
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigInfoIdId,
+			PigInfo pigInfo = pigInfoDao.getInactivePigInformationByPigId(pigInfoIdId,
 					companyId);
 
 			if (null != pigInfo)

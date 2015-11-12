@@ -22,7 +22,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		console.log(companyId);
 		//$scope.removalExceptSales.removalEventId = removalGeneratedId;
 		$scope.removalTypeId = removalTypeId;
-		$scope.removalTypeId.removalEventId = removalTypeId;
+		$scope.removalExceptSales.removalEventId = removalTypeId;
 		console.log(removalTypeId);
 		
 		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
@@ -41,7 +41,11 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		res2.success(function(data, status, headers, config) {
 			console.log(data);
 			
-			$scope.removalEventType = data.payload[0];
+			var removalEventTypeMap = data.payload[0];
+			$scope.removalEventTypeKeys = removalEventTypeMap['RemovalEventKey'];
+			$scope.removalEventType = removalEventTypeMap['RemovalEventValue'];
+			
+			//$scope.removalEventType = data.payload[0];
 			$scope.pigInfoOriginalList = data.payload[1];
 			$scope.premiseList = data.payload[2];
 			$scope.groupEventOriginalList = data.payload[3];

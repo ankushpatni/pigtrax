@@ -99,7 +99,7 @@ public class RefDataDaoImpl implements RefDataDao {
 	
 	@Override
 	public List<RefDataTranslationDto> removalEventType() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_RemovalType\" FROM pigtraxrefdata.\"RemovalEventTypeTranslation\" order by \"fieldLanguage\", \"id_RemovalType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_RemovalType\" FROM pigtraxrefdata.\"RemovalEventTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
@@ -132,6 +132,12 @@ public class RefDataDaoImpl implements RefDataDao {
 	@Override
 	public List<RefDataTranslationDto> getGlineTypes() {
 		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_GlineType\" FROM pigtraxrefdata.\"GlineTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getLogEventTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_LogEventType\" FROM pigtraxrefdata.\"LogEventTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	

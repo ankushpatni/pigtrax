@@ -22,8 +22,30 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		$rootScope.companyId = companyId;
 		$rootScope.loggedInUser = loggedInUserName;
 		$scope.getProductionLogList();
+		$scope.getRooms();
+		$scope.getLogEventTypes();
 	};
 	
+	
+	$scope.getRooms = function()
+	{
+		restServices.getRoomsForCompany($rootScope.companyId, function(data){
+			if(!data.error){
+				$scope.roomMap = data.payload;
+			}
+		});
+	}
+	
+	$scope.getLogEventTypes = function()
+	{
+		restServices.getLogEventTypes(function(data){
+			if(!data.error){
+				var responseList = data.payload;
+				$scope.logEventKeys = responseList[0];
+				$scope.logEventTypes =responseList[1];
+			}
+		});
+	}
 	
 	$scope.clearAllMessages = function()
 	{
@@ -33,6 +55,11 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		$scope.productionLogDeleted = false;
 	}
 	
+	
+	$scope.AddProductionLog = function()
+	{
+		$scope.productionLog = {};
+	}
 	
 	
 	$scope.searchProductionLog = function()
@@ -47,6 +74,15 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 						"startDate" : DateUtils.convertLocaleDateToServer(new Date(dates[0])),
 						"endDate" : DateUtils.convertLocaleDateToServer(new Date(dates[1]))
 			};
+		}
+		else
+			{
+			var productionLog = {
+					"companyId" : $rootScope.companyId,
+					"startDate" : null,
+					"endDate" : null
+				};
+			}
 			
 			 restServices.getProductionLogList(productionLog, function(data){
 				 if(!data.error)
@@ -55,7 +91,7 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 					$scope.totalPages = Math.ceil($scope.rowCollection.length/10);
 				 }
 			});
-		}
+		
 	}
 	
 	
@@ -72,7 +108,10 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		}
 		if(!$scope.observationRequired)
 		{	
-			$scope.productionLog["companyId"] = $rootScope.companyId
+			var observationDate = document.getElementById("observationDate").value;
+			
+			$scope.productionLog["companyId"] = $rootScope.companyId;
+			$scope.productionLog["observationDate"] = observationDate;
 		   restServices.productionLog($scope.productionLog, function(data){
 			   if(!data.error){
 				   $scope.clearAllMessages();
@@ -93,6 +132,11 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 	{
 		$scope.productionLog["observation"] = selectedLog["observation"];
 		$scope.productionLog["id"] = selectedLog["id"];
+		$scope.productionLog["logEventTypeId"] = selectedLog["logEventTypeId"]
+		$scope.productionLog["roomId"] = selectedLog["roomId"]
+		$scope.productionLog["eventId"] = selectedLog["eventId"]
+		$scope.productionLog["observationDate"] = selectedLog["observationDate"]
+		document.getElementById("observationDate").value = $scope.productionLog["observationDate"];
 	}
 	
 	
