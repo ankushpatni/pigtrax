@@ -252,6 +252,18 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		$window.scrollTo(0,5);
 	}
 	
+	$scope.getPremise = function()
+	{
+		$scope.premiseObj = null;
+		restServices.getRemovalPremise($scope.removalExceptSales, function(data){
+			if(!data.error)
+			{
+			   $scope.premiseObj = data.payload;	
+			   $scope.removalExceptSales["premiseId"] = $scope.premiseObj["id"];
+			}
+		});
+	}
+	
 	 $scope.gotoRemovalEvent = function()
 	    {
 	    	document.getElementById("selectedCompany").value = $scope.companyId;		

@@ -196,4 +196,18 @@ public class PigInfoServiceImpl implements PigInfoService {
 		return pigInfoDao.getAvailablePigIds(companyId); 
 	}
 	
+	@Override
+	public PigInfoDto getPigInformationById(final Integer pigInfoId) throws PigTraxException {
+		PigInfo info = null;
+		if(pigInfoId != null)
+		{
+			try {
+				info = pigInfoDao.getPigInformationById(pigInfoId);
+			} catch (SQLException e) {
+				throw new PigTraxException(e.getMessage());
+			} 
+		}
+		return builder.convertToDto(info);
+	}
+	
 }
