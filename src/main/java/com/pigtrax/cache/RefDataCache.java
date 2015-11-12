@@ -45,4 +45,6 @@ public interface RefDataCache {
 	Map<Integer, String> getGcompanyTypeMap(String language);
 	
 	Map<Integer, String> getGlineTypeMap(String language);
+	
+	Map<Integer, String> getLogEventTypeMap(String language);
 }

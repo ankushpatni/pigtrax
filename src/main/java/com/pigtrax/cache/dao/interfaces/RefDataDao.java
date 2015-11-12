@@ -52,4 +52,5 @@ public interface RefDataDao {
 	
 	List<RefDataTranslationDto> getGlineTypes();
 
+	List<RefDataTranslationDto> getLogEventTypes();
 }

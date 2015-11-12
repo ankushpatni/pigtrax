@@ -8,6 +8,10 @@ public class ProductionLog {
 	private Integer companyId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer roomId;
+	private Integer logEventTypeId;
+	private String eventId;
+	private Date observationDate;
 
 	public Integer getId() {
 		return id;
@@ -49,4 +53,37 @@ public class ProductionLog {
 		this.userUpdated = userUpdated;
 	}
 
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+
+	public Integer getLogEventTypeId() {
+		return logEventTypeId;
+	}
+
+	public void setLogEventTypeId(Integer logEventTypeId) {
+		this.logEventTypeId = logEventTypeId;
+	}
+
+	public String getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
+	}
+
+	public Date getObservationDate() {
+		return observationDate;
+	}
+
+	public void setObservationDate(Date observationDate) {
+		this.observationDate = observationDate;
+	}
+
+	
 }

@@ -69,6 +69,11 @@ public class ProductionLogRestController {
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try{
+			
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			productionLogDto.setLanguage(language);
+			
 			productionLogDto.setUserUpdated(activeUser.getUsername());
 			List<ProductionLogDto> productionLogDtoList  = productionLogService.getProductLogList(productionLogDto);			
 			dto.setPayload(productionLogDtoList);

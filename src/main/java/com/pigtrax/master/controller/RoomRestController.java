@@ -2,6 +2,7 @@ package com.pigtrax.master.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pigtrax.master.dto.Barn;
 import com.pigtrax.master.dto.Room;
 import com.pigtrax.master.service.interfaces.RoomService;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -38,6 +38,21 @@ public class RoomRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		List<Room> roomList  = roomService.getRoomList(generatedBarnId);
 		dto.setPayload(roomList);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
+	/**
+	 * Service to retrive the list of Room
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getRoomsForCompany", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	public ServiceResponseDto getRoomsForCompany(@RequestBody int companyId)
+	{
+		logger.info("Inside getRoomsForCompany" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		Map<Integer, String> roomMap   = roomService.getRoomListBasedOnCompanyId(companyId);
+		dto.setPayload(roomMap);
 		dto.setStatusMessage("Success");
 		return dto;
 	}

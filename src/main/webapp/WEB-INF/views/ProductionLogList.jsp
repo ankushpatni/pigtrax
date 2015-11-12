@@ -40,7 +40,7 @@
                               <div class="input-prepend input-group"><span class="add-on input-group-addon primary"><span class="glyphicon glyphicon-th"></span></span>
                                 <input id="reservation" type="text" style="width: 200px" name="reservation"  class="form-control">
 								<button type="button" class="btn btn-primary active" ng-click="searchProductionLog()"><i class="fa fa-search"></i></button>
-								  <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-primary btn-flat md-trigger pull-right">
+								  <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-primary btn-flat md-trigger pull-right" ng-click="AddProductionLog()">
 						<i class="glyphicon glyphicon-plus"> </i>
 						<spring:message code="label.productionlogform.addproductionlog"
 							text="Add Production Log" />
@@ -65,8 +65,16 @@
 								class="table table-striped" style="background-color: LightGray">
 								<thead style="background-color: #3399CC">
 									<tr>
-										<th st-sort="observation" ><spring:message
+									   <th st-sort="roomId" ><spring:message
+												code="label.productionlogform.roomId" text="Room Id" /></th>
+										<th st-sort="eventId" ><spring:message
+												code="label.productionlogform.eventId" text="Event Id" /></th>
+										<th st-sort="eventId" ><spring:message
+												code="label.productionlogform.logeventType" text="Log Event Type" /></th>
+										<th st-sort="logeventType" ><spring:message
 												code="label.productionlogform.observation" text="Observation" /></th>
+										<th st-sort="date" ><spring:message
+												code="label.productionlogform.observationDate" text="Date" /></th>		
 										<th st-sort="date"><spring:message
 												code="label.productionlogform.loggedon" text="Logged On" /></th>
 										<th st-sort="date"><spring:message
@@ -79,7 +87,11 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="row in displayedCollection track by $index">
-										<td><span ng-bind-html="row.observation | newline"></td>
+										<td>{{row.room}}</td>
+										<td>{{row.eventId}}</td>
+										<td>{{row.logEventType}}</td>
+										<td><span ng-bind-html="row.observation | newline"></span></td>
+										<td>{{row.observationDate}}</td>
 										<td>{{row.lastUpdated}}</td>
 										<td>{{row.userUpdated}}</td>
 										<td>
@@ -121,6 +133,34 @@
                      
                   <input type=hidden name="companyId" ng-model="productionLog.companyId" value="${CompanyId}"/>
                     
+                    <div class="form-group">
+                      <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/></label>                      
+                      <select class="form-control" type="text" name="roomId" ng-model="productionLog.roomId"  ng-options="k as v for (k, v) in roomMap"></select>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.productionlogform.eventId'  text='Event Id'/></label>                      
+                      <input name="eventId" ng-model="productionLog.eventId" class="form-control" 
+                        placeholder="<spring:message code='label.productionlogform.eventId.placeholder' text='Enter event id'/>" maxlength = "30"/>                        
+                    </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.productionlogform.observationDate'  text='Date'/></label>
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="observationDateDiv" >
+                          <input size="16" type="date" id="observationDate" name="observationDate" ng-model="productionLog.observationDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                        </div> 
+                        <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.productionlogform.logeventType'  text='Log Event Type'/></label>
+                       <select class="form-control"  name="logEventType" ng-model="productionLog.logEventTypeId" >
+                      	<option ng-repeat="key in logEventKeys" ng-value="key" ng-selected="productionLog.logEventTypeId==key">{{logEventTypes[key]}}</option>        
+                        </select>
+                        
+                    </div>
+                    
+                    
                      <div class="form-group">
                       <label><spring:message code='label.productionlogform.observation'  text='Observation'/><span style='color: red'>*</span></label>                      
                       <textarea name="remarks" ng-model="productionLog.observation" class="form-control" rows="10" cols="10"
@@ -136,6 +176,14 @@
                       </div>
                       
                      </div>
+                     
+                     <script>
+$(document).ready(function(){
+ var currDate = new Date();
+ var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
+	  $("#observationDateDiv").attr('data-date-enddate',dateVal);
+});  
+</script>
             </div>
 
 		
