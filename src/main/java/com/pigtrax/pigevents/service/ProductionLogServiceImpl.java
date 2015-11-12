@@ -45,6 +45,7 @@ public class ProductionLogServiceImpl implements ProductionLogService {
     		productionLog.setCompanyId(productionLogDto.getCompanyId());
     		productionLog.setUserUpdated(productionLogDto.getUserUpdated());
     		productionLog.setId(productionLogDto.getId());
+    		productionLog.setGroupId(productionLogDto.getGroupId());
     		try {
     			if(productionLog.getId() == null)
     				return productionLogDao.addProductionLog(productionLog);
@@ -81,6 +82,7 @@ public class ProductionLogServiceImpl implements ProductionLogService {
 	    			dto.setLastUpdated(productionLog.getLastUpdated());
 	    			dto.setUserUpdated(productionLog.getUserUpdated());
 	    			dto.setEventId(productionLog.getEventId());
+	    			dto.setGroupId(productionLog.getGroupId());
 	    			if(productionLog.getRoomId() != null && productionLog.getRoomId() !=0)
 	    				dto.setRoomId(productionLog.getRoomId());
 	    			if(productionLog.getLogEventTypeId() != null && productionLog.getLogEventTypeId() !=0)

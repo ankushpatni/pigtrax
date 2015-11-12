@@ -2198,6 +2198,7 @@ CREATE TABLE pigtrax."ProductionLog"(
 	"id_Room" int null,
 	"eventId" varchar(30),
 	"observationDate" timestamp,
+	"groupId" varchar(30),
 	CONSTRAINT "PRODUCTIONLOG_PK" PRIMARY KEY (id)
 
 );

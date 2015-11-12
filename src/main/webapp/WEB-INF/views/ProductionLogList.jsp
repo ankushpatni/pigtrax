@@ -69,6 +69,8 @@
 												code="label.productionlogform.roomId" text="Room Id" /></th>
 										<th st-sort="eventId" ><spring:message
 												code="label.productionlogform.eventId" text="Event Id" /></th>
+												<th st-sort="eventId" ><spring:message
+												code="label.productionlogform.groupId" text="Group Id" /></th>
 										<th st-sort="eventId" ><spring:message
 												code="label.productionlogform.logeventType" text="Log Event Type" /></th>
 										<th st-sort="logeventType" ><spring:message
@@ -89,6 +91,7 @@
 									<tr ng-repeat="row in displayedCollection track by $index">
 										<td>{{row.room}}</td>
 										<td>{{row.eventId}}</td>
+										<td>{{row.groupId}}</td>
 										<td>{{row.logEventType}}</td>
 										<td><span ng-bind-html="row.observation | newline"></span></td>
 										<td>{{row.observationDate}}</td>
@@ -142,6 +145,11 @@
                       <label><spring:message code='label.productionlogform.eventId'  text='Event Id'/></label>                      
                       <input name="eventId" ng-model="productionLog.eventId" class="form-control" 
                         placeholder="<spring:message code='label.productionlogform.eventId.placeholder' text='Enter event id'/>" maxlength = "30"/>                        
+                    </div>
+                     <div class="form-group">
+                      <label><spring:message code='label.productionlogform.groupId'  text='Group Id'/></label>                      
+                      <input name="groupId" ng-model="productionLog.groupId" class="form-control" 
+                        placeholder="<spring:message code='label.productionlogform.groupId.placeholder' text='Enter group id'/>" maxlength = "30"/>                        
                     </div>
                     
                     <div class="form-group">

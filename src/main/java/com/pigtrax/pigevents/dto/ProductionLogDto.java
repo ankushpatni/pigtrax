@@ -17,6 +17,7 @@ public class ProductionLogDto {
 	private String logEventType;
 	private String language;
 	private String room;
+	private String groupId;
 
 	public Integer getId() {
 		return id;
@@ -130,6 +131,14 @@ public class ProductionLogDto {
 
 	public void setRoom(String room) {
 		this.room = room;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 	
 

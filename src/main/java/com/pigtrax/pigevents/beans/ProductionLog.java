@@ -12,7 +12,7 @@ public class ProductionLog {
 	private Integer logEventTypeId;
 	private String eventId;
 	private Date observationDate;
-
+	private String groupId;
 	public Integer getId() {
 		return id;
 	}
@@ -85,5 +85,13 @@ public class ProductionLog {
 		this.observationDate = observationDate;
 	}
 
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+	
 	
 }

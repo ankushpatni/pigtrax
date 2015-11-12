@@ -39,8 +39,8 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 	@Override
 	public int addProductionLog(final ProductionLog productionLog)
 			throws SQLException {
-		final String Qry = "insert into pigtrax.\"ProductionLog\"(\"observation\", \"id_Company\", \"lastUpdated\", \"userUpdated\",\"id_Room\",\"id_LogEventType\",\"eventId\",\"observationDate\") "
-				+ "values(?,?,current_timestamp,?,?,?,?,?)";
+		final String Qry = "insert into pigtrax.\"ProductionLog\"(\"observation\", \"id_Company\", \"lastUpdated\", \"userUpdated\",\"id_Room\",\"id_LogEventType\",\"eventId\",\"observationDate\",\"groupId\") "
+				+ "values(?,?,current_timestamp,?,?,?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -75,6 +75,7 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 	    					ps.setDate(7, new java.sql.Date(productionLog.getObservationDate().getTime()));
 	    				else
 	    					ps.setNull(7,  java.sql.Types.DATE);
+	    				ps.setObject(8, productionLog.getGroupId(), java.sql.Types.VARCHAR);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -90,7 +91,7 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 	@Override
 	public int updateProductionLog(final ProductionLog productionLog)
 			throws SQLException {
-		String query = "update pigtrax.\"ProductionLog\" SET \"observation\"= ?,\"id_Room\" = ?,\"id_LogEventType\"=?,\"eventId\"= ?,\"observationDate\"=?  WHERE \"id\" = ?";
+		String query = "update pigtrax.\"ProductionLog\" SET \"observation\"= ?,\"id_Room\" = ?,\"id_LogEventType\"=?,\"eventId\"= ?,\"observationDate\"=?,\"groupId\"=?,\"lastUpdated\"=current_timestamp  WHERE \"id\" = ?";
 
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
@@ -113,7 +114,8 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 					ps.setDate(5, new java.sql.Date(productionLog.getObservationDate().getTime()));
 				else
 					ps.setNull(5,  java.sql.Types.DATE);
-				ps.setInt(6, productionLog.getId());
+				ps.setObject(6, productionLog.getGroupId(), java.sql.Types.VARCHAR);
+				ps.setInt(7, productionLog.getId());
 			}
 		});
 	}
@@ -121,7 +123,7 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 	
 	public List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate, final String username) throws SQLException
 	{
-		String sql = "select \"id\", \"observation\", \"id_Company\", \"lastUpdated\", \"userUpdated\",\"id_Room\",\"id_LogEventType\",\"eventId\",\"observationDate\" " 
+		String sql = "select \"id\", \"observation\", \"id_Company\", \"lastUpdated\", \"userUpdated\",\"id_Room\",\"id_LogEventType\",\"eventId\",\"observationDate\",\"groupId\" " 
 				+ "from pigtrax.\"ProductionLog\" where \"id_Company\" = ?";
 		
 		if(startDate != null && endDate != null)
@@ -161,6 +163,7 @@ private static final Logger logger = Logger.getLogger(ProductionLogDaoImpl.class
 			productionLog.setLogEventTypeId(rs.getInt("id_LogEventType"));
 			productionLog.setEventId(rs.getString("eventId"));
 			productionLog.setObservationDate(rs.getDate("observationDate"));
+			productionLog.setGroupId(rs.getString("groupId"));
 			return productionLog;
 		}
 	}
