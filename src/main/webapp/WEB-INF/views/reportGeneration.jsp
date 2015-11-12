@@ -1,7 +1,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-	<h2>Mass Upload - Events</h2>
+	<h2><spring:message	code='label.piginfo.generateReport.heading'
+								text='Generate Report' /></h2>
 </div>
 <div class="cl-mcont" id="reposrtGeneraterControllerId">
 	<div class="row">

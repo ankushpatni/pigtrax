@@ -4,13 +4,17 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +29,8 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	private static final Logger logger = Logger.getLogger(PigInfoDaoImpl.class);
 	
 	private JdbcTemplate jdbcTemplate;
+	
+	NamedParameterJdbcTemplate namedPrameterTemplate;
 	
 	@Autowired
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -218,7 +224,7 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	@Override
 	public List<Integer> selectFerrowEvents(final Date startDate,
 			final Date endDate) throws SQLException {
-		String qry = "select \"id_FarrowEvent\" from pigtrax.\"PigTraxEventMaster\" where \"lastUpdated\" >= ? and \"lastUpdated\" <= ? and \"id_FarrowEvent\" != 0 order by \"id\" desc ";
+		String qry = "select \"id\" from pigtrax.\"FarrowEvent\" where \"farrowDateTime\" >= ? and \"farrowDateTime\" <= ?";
 
 		List<Integer> eventMasterList = jdbcTemplate.query(qry,
 				new PreparedStatementSetter() {
@@ -230,11 +236,57 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 				}, new RowMapper<Integer>() {
 					public Integer mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return rs.getInt("id_FarrowEvent");
+						return rs.getInt("id");
 					}
 				});
 
 		return eventMasterList;
+	}
+	
+	@Override
+	public List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList){
+		
+		String qry = "select sum(\"liveBorns\"+\"mummies\"+\"stillBorns\"), sum(\"liveBorns\"), sum(\"stillBorns\"+\"mummies\"), sum(\"stillBorns\"),sum(\"mummies\"),sum(\"weightInKgs\") from pigtrax.\"FarrowEvent\" where \"id\" in (:ids) ";
+		Map idsMap = Collections.singletonMap("ids", ferrowEventIdList);
+		
+		namedPrameterTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+		
+		List<List> eventMasterList = namedPrameterTemplate.query(qry, idsMap, new RowMapper<List>() {
+										public List mapRow(ResultSet rs, int rowNum)
+												throws SQLException {
+											List allvalue = new LinkedList();
+											allvalue.add(rs.getInt(1));
+											allvalue.add(rs.getInt(2));
+											allvalue.add(rs.getInt(3));
+											allvalue.add(rs.getInt(4));
+											allvalue.add(rs.getInt(5));
+											allvalue.add(rs.getFloat(6));
+											return allvalue;
+										}
+									});
+		return eventMasterList.get(0);
+	
+	}
+	
+	@Override
+	public int getLitterForGivenrange(final Date endDate)
+	{
+		String qry ="select sum(\"liveBorns\") from pigtrax.\"FarrowEvent\" where DATE_PART('day', ?::timestamp - \"farrowDateTime\"::timestamp)<7 ";
+		
+		List<Integer> eventMasterList = jdbcTemplate.query(qry,
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {						
+						ps.setDate(1, endDate);
+					}
+				}, new RowMapper<Integer>() {
+					public Integer mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return rs.getInt(1);
+					}
+				});
+
+		return eventMasterList.get(0);
 	}
 	
 }

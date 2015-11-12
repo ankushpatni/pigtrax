@@ -1,9 +1,10 @@
 package com.pigtrax.master.service.interfaces;
 
+import java.sql.Date;
 import java.util.Map;
 
 public interface ReportService {
 	
-	public Map<String,String> getFerrowEventReport(String startDate, String enddate);
+	public Map<Date, Map> getFerrowEventReport(String startDate, String enddate);
 
 }

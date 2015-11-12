@@ -79,5 +79,11 @@ public interface PigTraxEventMasterDao {
 		 */
 	List<Integer> selectFerrowEvents(Date startDate, Date endDate)
 			throws SQLException;
+
+
+	List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList);
+
+
+	int getLitterForGivenrange(Date endDate);
 	
 }

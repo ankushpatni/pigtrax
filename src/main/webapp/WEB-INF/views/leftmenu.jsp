@@ -44,6 +44,9 @@
                                          </ul>
                                       </li>
                              <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytic Reports"/></span></a>
+                             	<ul class="sub-menu">
+                                         	<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.link"  text="Ferrow Report"/></a></li>
+                                </ul>
                               </li>
                               
                               
