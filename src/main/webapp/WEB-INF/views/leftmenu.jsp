@@ -14,19 +14,70 @@
                              
                             </li>
                             <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span><spring:message code="label.leftmenu.managemasterdata.link"  text="Manage Master Data"/></span></a>
-                              			<ul class="sub-menu"> 
-                                      <% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
-                                    		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
-                                         	<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.companydata.link"  text="Company Data"/></a></li>
-                                      <%}else { %>
-									  <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
-									   <li><a href="transportTrailerAndTruck"><spring:message code="label.transportTrailer.truckAndtrailer"  text="Truck And Trailer"/></a></li>
-									   <li><a href="transportDestination"><spring:message code="label.transportDestination.gotToTranportDestination"  text="Destination"/></a></li>
-									   <li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managemasterdata.targets.link"  text="Targets"/></a></li>
-									  <%}%>									  
-                                         	<li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
-                                         	
-                                         </ul>
+                            
+                            			<ul class="sub-menu">
+                            			
+                            			<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
+                                      		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) {%>
+                            			
+                            			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Options"/></a>
+                            			  <ul class="sub-menu">
+                            			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Origin"/></a></li>
+                            			   <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
+                            			  </ul>
+                            			  </li>
+                            			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a>
+                            			     <ul class="sub-menu">
+                            			   		<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
+                            			 	 </ul>                            			 
+                            			  </li>
+                            			   <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a>
+                            			     <ul class="sub-menu">
+                            			   		<li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
+                            			 	 </ul>                               			  
+                            			  </li>
+                            			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.transportation.link"  text="Transportation"/></a>
+                            			  <ul class="sub-menu">
+                            			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.truckandtrailer.link"  text="Truck & Trailer"/></a></li>
+                            			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
+                            			  </ul>
+                            			  </li>
+                            			   <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a>
+                            			     <ul class="sub-menu">
+                            			   		<li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a></li>
+                            			 	 </ul>                               			  
+                            			  </li>
+                            			  <%}else {%>
+                            			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Options"/></a>
+                            			  <ul class="sub-menu">
+                            			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Origin"/></a></li>
+                            			   <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
+                            			  </ul>
+                            			  </li>
+                            			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a>
+                            			     <ul class="sub-menu">
+                            			   		<li><a href="loadPremises"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
+                            			 	 </ul>                            			 
+                            			  </li>
+                            			   <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a>
+                            			     <ul class="sub-menu">
+                            			   		<li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
+                            			 	 </ul>                               			  
+                            			  </li>
+                            			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.transportation.link"  text="Transportation"/></a>
+                            			  <ul class="sub-menu">
+                            			   <li><a href="transportTrailerAndTruck"><spring:message code="label.leftmenu.managemasterdata.truckandtrailer.link"  text="Truck & Trailer"/></a></li>
+                            			   <li><a href="transportDestination"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
+                            			  </ul>
+                            			  </li>
+                            			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a>
+                            			     <ul class="sub-menu">
+                            			   		<li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a></li>
+                            			 	 </ul>                               			  
+                            			  </li>
+                            			  <%} %>
+                            			</ul>                            			
+                              	
                                 </li>      
                             <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span></span><spring:message code="label.leftmenu.managepigevents.link"  text="Manage Pig Events"/></span></a>
                                       	<ul class="sub-menu">
@@ -51,7 +102,14 @@
                               
                               
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i><span><spring:message code="label.leftmenu.settings.link"  text="Settings"/></span></a>
-                              
+                            <ul class="sub-menu">
+                              <% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
+                                    		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
+                                         	<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.companydata.link"  text="Company Data"/></a></li>
+                                      <%} else {%>
+                                      <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
+                                      <%}  %>
+                               </ul>
                             </li>           
                             <li><a href="massupload"><i class="glyphicon glyphicon-cog"></i><span>Mass Upload</span></a></li>    
                               </ul>

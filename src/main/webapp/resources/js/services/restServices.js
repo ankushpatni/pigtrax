@@ -98,5 +98,12 @@ pigTrax.factory("restServices", function($resource) {
 		"getRoomsForCompany" : {method:"POST", url:"rest/room/getRoomsForCompany"},
 		"getLogEventTypes" : {method:"GET", url:"rest/util/getLogEventTypes"},
 		"getRemovalPremise" : {method:"POST", url:"rest/removalEvent/getRemovalPremise"},
+		"getOriginList" : {method:"GET", url:"rest/origin/getOriginList"},
+		"saveOrigin" : {method:"POST", url:"rest/origin/saveOrigin"},
+		"deleteOrigin" : {method:"POST", url:"rest/origin/deleteOrigin"},
+		"saveRation" : {method:"POST", url:"rest/ration/saveRation"},
+		"deleteRation" : {method:"POST", url:"rest/ration/deleteRation"},
+		"getFeedEventTypes" : {method:"GET", url:"rest/util/getFeedEventTypes"},
+		"getRationList" : {method:"GET", url:"rest/ration/getRationList"},
     });
 });

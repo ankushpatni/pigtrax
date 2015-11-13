@@ -401,4 +401,25 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto; 
 	}
+	
+	
+	@RequestMapping(value = "/getFeedEventTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getFeedEventTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getFeedTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getFeedEventTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto;
+	}
 }

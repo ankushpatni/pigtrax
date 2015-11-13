@@ -228,4 +228,5 @@ public class RefDataCacheImpl implements RefDataCache {
 	public Map<Integer, String> getLogEventTypeMap(String language) {
 		return logEventTypeMap.get(language);
 	}
+	
 }

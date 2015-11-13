@@ -2406,6 +2406,18 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 
+-- object: pigtrax."Origin" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."Origin" CASCADE;
+CREATE TABLE pigtrax."Origin"(
+	id serial NOT NULL,	
+	"name" varchar(500) NOT NULL,
+	"lastUpdated" timestamp not null,
+	"userUpdated" varchar(30) not null,
+	CONSTRAINT "ORIGIN_PK" PRIMARY KEY (id)
+
+);
+
+
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
 as(

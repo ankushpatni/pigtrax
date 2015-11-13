@@ -80,6 +80,8 @@
 	<script src="resources/js/controllers/productionLogController.js"></script>
 	<script src="resources/js/controllers/addEmployeeController.js"></script>
 	<script src="resources/js/controllers/passwordController.js"></script>
+	<script src="resources/js/controllers/originController.js"></script>
+	<script src="resources/js/controllers/rationController.js"></script>
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
 	<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
