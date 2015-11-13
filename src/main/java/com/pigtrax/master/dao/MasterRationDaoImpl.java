@@ -98,7 +98,7 @@ public class MasterRationDaoImpl implements MasterRationDao {
 	}
 	@Override
 	public List<MasterRationDto> getRationList(final String language) {
-		String query = "SELECT \"id\",\"rationValue\", \"id_FeedEventType\", \"lastUpdated\",\"userUpdated\" from pigtrax.\"MasterRation\" order by \"id_FeedEventType\" ";
+		String query = "SELECT \"id\",\"rationValue\", \"id_FeedEventType\", \"lastUpdated\",\"userUpdated\" from pigtrax.\"MasterRation\" order by \"rationValue\" ";
 
 		   List<MasterRationDto> rationDtoList =  jdbcTemplate.query(query, new MasterRationMapper());
 		   

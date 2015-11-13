@@ -33,6 +33,7 @@ public class PigInfoBuilder {
 		   info.setSexTypeId(dto.getSexTypeId());
 		   info.setActive(dto.isActive());
 		   info.setGfunctionTypeId(dto.getGfunctionTypeId());
+		   info.setOriginId(dto.getOriginId());
 	   }
 	   return info;
    }
@@ -64,6 +65,7 @@ public class PigInfoBuilder {
 		   dto.setFarrowEventId(info.getFarrowId());
 		   dto.setActive(info.isActive());
 		   dto.setGfunctionTypeId(info.getGfunctionTypeId());
+		   dto.setOriginId(info.getOriginId());
 	   }
 	   return dto;
    }

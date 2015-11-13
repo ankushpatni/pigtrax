@@ -693,6 +693,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"parity" integer default 0,
 	"id_GfunctionType" smallint,
 	"isActive" boolean,
+	"id_Origin" smallint,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id)
 );
 -- ddl-end --
@@ -774,7 +775,6 @@ ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "Barn_fk" FOREIGN KEY ("id_Barn")
 REFERENCES pigtrax."Barn" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
-
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
@@ -2417,6 +2417,13 @@ CREATE TABLE pigtrax."Origin"(
 
 );
 
+
+-- object: "Origin_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "Origin_fk" CASCADE;
+ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "Origin_fk" FOREIGN KEY ("id_Origin")
+REFERENCES pigtrax."Origin" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"

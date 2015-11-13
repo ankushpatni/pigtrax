@@ -1,6 +1,8 @@
 package com.pigtrax.master.service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,4 +41,18 @@ public class MasterRationServiceImpl implements MasterRationService {
 public List<MasterRationDto> getRationList(String language) {
 	  return rationDao.getRationList(language);
 }
+  
+  @Override
+	public Map<Integer, String> getRationListAsMap(String language) {
+		List<MasterRationDto> rationDtoList = getRationList(language);
+		Map<Integer, String> rationMap = new LinkedHashMap<Integer, String>();
+		if(rationDtoList != null && 0 <rationDtoList.size())
+		{
+			for(MasterRationDto dto : rationDtoList)
+			{
+				rationMap.put(dto.getId(), dto.getRationValue());
+			}
+		}
+		return rationMap;
+	}
 }

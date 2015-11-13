@@ -125,8 +125,10 @@
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.origin'  text='Origin'/></label>
-                      <input type="text" class="form-control" name="origin" ng-model="pigInfo.origin" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.origin.placeholder' text='Enter origin'/>" 			   
-					   invalid-message="'<spring:message code='label.piginfo.entryeventform.origin.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+                      <input type="hidden" class="form-control" name="origin" ng-model="pigInfo.origin" maxlength="30" />
+                       <select class="form-control"  name="originId" ng-model="pigInfo.originId" >
+                      	<option ng-repeat="originDto in originList" ng-value="originDto.id" ng-selected="pigInfo.originId==originDto.id">{{originDto.name}}</option>        
+                        </select>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gline'  text='Gline'/></label>

@@ -32,10 +32,21 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				    $scope.getGfunctionTypes();
 				    $scope.getGcompanyTypes();
 				    $scope.getGlineTypes();
+				    $scope.getOriginList();
 			 }
 		});
 	};
 	
+	
+	$scope.getOriginList = function()
+	{
+		restServices.getOriginList( function(data){
+			if(!data.error)
+			{
+				  $scope.originList = data.payload;
+			}
+		})
+	};
 	
 	$scope.getGfunctionTypes = function()
 	{

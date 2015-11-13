@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.service.interfaces.BarnService;
+import com.pigtrax.master.service.interfaces.MasterRationService;
 import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.master.service.interfaces.RoomService;
 import com.pigtrax.master.service.interfaces.SiloService;
@@ -52,6 +53,9 @@ public class UtilController {
 	
 	@Autowired
 	PremisesService premisesService;
+	
+	@Autowired
+	MasterRationService rationService;
 	
 	@RequestMapping(value = "/getCityCountryList", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getCityCountryList(HttpServletRequest request	)
@@ -185,7 +189,7 @@ public class UtilController {
 	@RequestMapping(value = "/getFeedEventDetailMasterData", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getFeedEventDetailMasterData(HttpServletRequest request,  @RequestParam Integer companyId)
 	{
-		logger.info("Inside getPhaseType" );
+		logger.info("Inside getPhaseType" );		
 		ServiceResponseDto dto = new ServiceResponseDto();
 		List<Map> phaseOfProductionType = new ArrayList<Map>();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
@@ -193,7 +197,7 @@ public class UtilController {
 		phaseOfProductionType.add(refDataCache.getFeedEventTypeMap(language));
 		phaseOfProductionType.add(siloService.getSiloListBasedOnCompanyId(companyId));
 		phaseOfProductionType.add(groupeventService.getGroupEventByCompanyId(companyId));
-		phaseOfProductionType.add(refDataCache.getRationTypeMap());
+		phaseOfProductionType.add(rationService.getRationListAsMap(language));
 		dto.setPayload(phaseOfProductionType);
 		dto.setStatusMessage("Success");
 		return dto;
