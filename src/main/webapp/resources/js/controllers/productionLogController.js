@@ -132,10 +132,11 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 	{
 		$scope.productionLog["observation"] = selectedLog["observation"];
 		$scope.productionLog["id"] = selectedLog["id"];
-		$scope.productionLog["logEventTypeId"] = selectedLog["logEventTypeId"]
-		$scope.productionLog["roomId"] = selectedLog["roomId"]
-		$scope.productionLog["eventId"] = selectedLog["eventId"]
-		$scope.productionLog["observationDate"] = selectedLog["observationDate"]
+		$scope.productionLog["logEventTypeId"] = selectedLog["logEventTypeId"];
+		$scope.productionLog["roomId"] = selectedLog["roomId"];
+		$scope.productionLog["eventId"] = selectedLog["eventId"];
+		$scope.productionLog["groupId"] = selectedLog["groupId"];
+		$scope.productionLog["observationDate"] = selectedLog["observationDate"];
 		document.getElementById("observationDate").value = $scope.productionLog["observationDate"];
 	}
 	
