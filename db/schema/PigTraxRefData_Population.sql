@@ -7632,6 +7632,7 @@ INSERT INTO pigtraxrefdata."LogEventTypeTranslation" ("fieldValue","fieldLanguag
 INSERT INTO pigtraxrefdata."LogEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_LogEventType") VALUES ('Other_PR','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."LogEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_LogEventType") VALUES ('Production_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 
+------------------------------------------
 
 INSERT INTO pigtraxrefdata."PigletCondition" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Mixed Color', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."PigletCondition" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Small', CURRENT_TIMESTAMP,'pigtraxadmin');
@@ -7649,8 +7650,146 @@ INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Small_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Weak_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
+----------------------------------------------
+
+INSERT INTO pigtraxrefdata."SalesType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Genetic', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Premarket', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Market', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Weaner', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Feeder', CURRENT_TIMESTAMP,'pigtraxadmin');
+
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Genetic','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Premarket','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Market','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Weaner','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Feeder','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Genetic_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Premarket_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Market_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Weaner_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Feeder_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Genetic_PR','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Premarket_PR','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Market_PR','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Weaner_PR','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."SalesTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesType") VALUES ('Feeder_PR','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 
 -------------------------
+
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'ABORT', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'BOAR INFERTILITY', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'DID NOT CONCEIVE', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'FOUND NOT PREGNANT', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Hernia', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'HOOF PROBLEMS', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'INJURY', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'JOINT INFECTION', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'LAMENESS', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'Low FARROWING PRODUCTIVITY', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (11,'MASTITIS', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (12,'NO HEAT', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (13,'NonCastarate', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (14,'OLD AGE', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (15,'OTHER', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (16,'PREG CHECK NEGATIVE', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (17,'PROLAPSE Rectal', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (18,'PROLAPSE Uterine', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (19,'PROLAPSE Vaginal', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (20,'Rupture', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (21,'SAVAGING', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (22,'Substandard', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (23,'TailBite', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (24,'Too Big', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (25,'UNKNOWN', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."SalesReasons" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (26,'VAGINAL DISCHARGE', CURRENT_TIMESTAMP,'pigtraxadmin');
+
+
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('ABORT','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('BOAR INFERTILITY','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('DID NOT CONCEIVE','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('FOUND NOT PREGNANT','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Hernia','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('HOOF PROBLEMS','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('INJURY','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('JOINT INFECTION','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('LAMENESS','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Low FARROWING PRODUCTIVITY','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('MASTITIS','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('NO HEAT','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('NonCastarate','en',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('OLD AGE','en',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('OTHER','en',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PREG CHECK NEGATIVE','en',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Rectal','en',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Uterine','en',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Vaginal','en',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Rupture','en',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('SAVAGING','en',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Substandard','en',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('TailBite','en',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Too Big','en',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('UNKNOWN','en',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('VAGINAL DISCHARGE','en',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+
+
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('ABORT_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('BOAR INFERTILITY_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('DID NOT CONCEIVE_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('FOUND NOT PREGNANT_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Hernia_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('HOOF PROBLEMS_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('INJURY_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('JOINT INFECTION_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('LAMENESS_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Low FARROWING PRODUCTIVITY_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('MASTITIS_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('NO HEAT_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('NonCastarate_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('OLD AGE_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('OTHER_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PREG CHECK NEGATIVE_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Rectal_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Uterine_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Vaginal_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Rupture_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('SAVAGING_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Substandard_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('TailBite_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Too Big_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('UNKNOWN_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('VAGINAL DISCHARGE_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+
+
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('ABORT_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('BOAR INFERTILITY_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('DID NOT CONCEIVE_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('FOUND NOT PREGNANT_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Hernia_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('HOOF PROBLEMS_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('INJURY_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('JOINT INFECTION_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('LAMENESS_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Low FARROWING PRODUCTIVITY_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('MASTITIS_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('NO HEAT_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('NonCastarate_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',13);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('OLD AGE_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',14);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('OTHER_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',15);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PREG CHECK NEGATIVE_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',16);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Rectal_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',17);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Uterine_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',18);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('PROLAPSE Vaginal_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',19);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Rupture_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',20);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('SAVAGING_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',21);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Substandard_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',22);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('TailBite_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',23);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('Too Big_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',24);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('UNKNOWN_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',25);
+INSERT INTO pigtraxrefdata."SalesReasonsTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_SalesReason") VALUES ('VAGINAL DISCHARGE_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',26);
+
+-----------------------------------
 
 
 INSERT INTO pigtrax."Company"(

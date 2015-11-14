@@ -447,4 +447,45 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto; 
 	}
+	
+	
+	@RequestMapping(value = "/getSaleTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getSaleTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getSaleTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getSaleTypesMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	@RequestMapping(value = "/getSaleReasons", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getSaleReasons(HttpServletRequest request)
+	{
+		logger.info("Inside getSaleReasons" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getSaleReasonsMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
 }

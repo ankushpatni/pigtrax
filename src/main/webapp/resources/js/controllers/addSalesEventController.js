@@ -14,7 +14,6 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	$scope.removalExceptSales={};
 	$scope.sourceAndDestinationPremisesSameError = false;
 	
-	
 	$scope.setCompanyId = function(companyId,removalTypeId)
 	{
 		$scope.companyId = companyId;
@@ -24,6 +23,10 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		$scope.removalTypeId = removalTypeId;
 		$scope.removalExceptSales.removalEventId = removalTypeId;
 		console.log(removalTypeId);
+		
+		$scope.getSaleTypes();
+		$scope.getSaleReasons();
+		
 		
 		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
 		res1.success(function(data, status, headers, config) {
@@ -69,7 +72,32 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		});	
 	};
 	
+	
+	
+	$scope.getSaleTypes = function()
+	{
+		restServices.getSaleTypes(function(data)
+		{
+			if(!data.error){
+				var responseList = data.payload;
+				$scope.saleTypeKeys = responseList[0];
+				$scope.saleTypeKeyValues =responseList[1];
+			}
+		});
+	}
+	
 
+	$scope.getSaleReasons = function()
+	{
+		restServices.getSaleReasons(function(data)
+		{
+			if(!data.error){
+				var responseList = data.payload;
+				$scope.saleReasonKeys = responseList[0];
+				$scope.saleReasonKeyValues =responseList[1];
+			}
+		});
+	}
 	$scope.getRemovalExceptSales = function(removalExceptSalesId)
     {
 		if(removalExceptSalesId && removalExceptSalesId != undefined )
@@ -155,6 +183,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	
 	$scope.addSalesEventDetails = function() 
 	{
+				
 		$scope.clearAllMessages();
 		if(document.getElementById("salesDateTime").value === "")
 		{
@@ -200,6 +229,9 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		
 		
 		if($scope.salesEventForm.$valid)
+			
+			
+			
 			{
 				$scope.clearAllMessages();
 				$scope.removalExceptSales.companyId = $scope.companyId;

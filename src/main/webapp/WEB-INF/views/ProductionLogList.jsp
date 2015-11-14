@@ -67,11 +67,9 @@
 									<tr>
 									   <th st-sort="roomId" ><spring:message
 												code="label.productionlogform.roomId" text="Room Id" /></th>
-										<th st-sort="eventId" ><spring:message
-												code="label.productionlogform.eventId" text="Event Id" /></th>
-												<th st-sort="eventId" ><spring:message
+												<th st-sort="groupId" ><spring:message
 												code="label.productionlogform.groupId" text="Group Id" /></th>
-										<th st-sort="eventId" ><spring:message
+										<th st-sort="eventType" ><spring:message
 												code="label.productionlogform.logeventType" text="Log Event Type" /></th>
 										<th st-sort="logeventType" ><spring:message
 												code="label.productionlogform.observation" text="Observation" /></th>
@@ -89,8 +87,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="row in displayedCollection track by $index">
-										<td>{{row.room}}</td>
-										<td>{{row.eventId}}</td>
+										<td>{{row.room}}</td>										
 										<td>{{row.groupId}}</td>
 										<td>{{row.logEventType}}</td>
 										<td><span ng-bind-html="row.observation | newline"></span></td>
@@ -139,13 +136,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/></label>                      
                       <select class="form-control" type="text" name="roomId" ng-model="productionLog.roomId"  ng-options="k as v for (k, v) in roomMap"></select>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label><spring:message code='label.productionlogform.eventId'  text='Event Id'/></label>                      
-                      <input name="eventId" ng-model="productionLog.eventId" class="form-control" 
-                        placeholder="<spring:message code='label.productionlogform.eventId.placeholder' text='Enter event id'/>" maxlength = "30"/>                        
-                    </div>
+                    </div>                   
                      <div class="form-group">
                       <label><spring:message code='label.productionlogform.groupId'  text='Group Id'/></label>                      
                       <input name="groupId" ng-model="productionLog.groupId" class="form-control" 

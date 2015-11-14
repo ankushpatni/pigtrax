@@ -22,6 +22,11 @@ public class SalesEventDetails {
 	private TransportJourney transportJourney;
 	private Integer companyId;
 	private String remarks;
+	private Integer[] salesTypes;
+	private Integer[] salesReasons;
+	private String salesTypesAsString;
+	
+	private String salesReasonsAsString;
 	
 	public Integer getId() {
 		return id;
@@ -125,7 +130,90 @@ public class SalesEventDetails {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	public Integer[] getSalesTypes() {
+		return salesTypes;
+	}
+	public void setSalesTypes(Integer[] salesTypes) {
+		this.salesTypes = salesTypes;
+	}
+	public Integer[] getSalesReasons() {
+		return salesReasons;
+	}
+	public void setSalesReasons(Integer[] salesReasons) {
+		this.salesReasons = salesReasons;		
+	}
 	
+	public void setSalesTypesAsString(String salesTypesAsString) {
+		this.salesTypesAsString = salesTypesAsString;
+		if(this.salesTypesAsString != null)
+		{
+			String[] types = this.salesTypesAsString.split(",");
+			if(types != null && 0<types.length)
+				salesTypes = new Integer[types.length];
+			int i = 0;
+			for(String s : types)
+			{
+				try{
+					salesTypes[i] = Integer.parseInt(s);
+				}catch(Exception e)
+				{
+					
+				}
+				i++;
+			}
+		}
+		
+	}
+	public String getSalesReasonsAsString() {
+		this.salesReasonsAsString = "";
+		if(this.salesReasons != null && 0< this.salesReasons.length)
+		{
+			int i = 0;
+			for(Integer in : salesReasons)
+			{
+				i++;
+				this.salesReasonsAsString += in;
+				if(i<this.salesReasons.length)
+					this.salesReasonsAsString+=",";
+			}
+		}
+		return this.salesReasonsAsString;
+	}
+	public void setSalesReasonsAsString(String salesReasonsAsString) {
+		this.salesReasonsAsString = salesReasonsAsString;
+		if(this.salesTypesAsString != null)
+		{
+			String[] reasons = this.salesReasonsAsString.split(",");
+			if(reasons != null && 0<reasons.length)
+				salesReasons = new Integer[reasons.length];
+			int i = 0;
+			for(String s : reasons)
+			{				
+				try{
+					salesReasons[i] = Integer.parseInt(s);
+				}catch(Exception e)
+				{
+					
+				}
+				i++;
+			}
+		}
+	}
 	
+	public String getSalesTypesAsString() {
+		this.salesTypesAsString = "";
+		if(this.salesTypes != null && 0< this.salesTypes.length)
+		{
+			int i = 0;
+			for(Integer in : salesTypes)
+			{
+				i++;
+				this.salesTypesAsString += in;
+				if(i<this.salesTypes.length)
+					this.salesTypesAsString+=",";
+			}
+		}
+		return this.salesTypesAsString;
+	}
 	
 }

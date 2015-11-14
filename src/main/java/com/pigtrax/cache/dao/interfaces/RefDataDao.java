@@ -55,4 +55,8 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getLogEventTypes();
 	
 	List<RefDataTranslationDto> getPigletConditions();
+	
+	List<RefDataTranslationDto> getSaleTypes();
+	
+	List<RefDataTranslationDto> getSaleReasons();
 }

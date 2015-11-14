@@ -74,6 +74,24 @@
                          <label ng-show="removalTypeId == 3"> :  {{removalEventType[removalTypeId]}}</label> 
                         
                     </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.removalEventform.salesType'  text='Sales Type'/></label>                      
+ 						<select  multiple="" size=4 class="form-control"    name="salesType" id="salesType" ng-model="removalExceptSales.salesTypes" >
+                      	<option ng-repeat="key in saleTypeKeys" ng-value="key" >{{saleTypeKeyValues[key]}}</option>        
+                        </select>
+                        
+                    </div>
+                    
+                    <div class="form-group" ng-show="selectGroup==='pigInfo'">
+                      <label><spring:message code='label.piginfo.removalEventform.salesReason'  text='Sales Reason'/></label>                      
+ 						<select  multiple="" size=4 class="form-control"    name="salesReason" id="salesReason" ng-model="removalExceptSales.salesReasons" >
+                      	<option ng-repeat="key in saleReasonKeys" ng-value="key" >{{saleReasonKeyValues[key]}}</option>        
+                        </select>
+                        
+                    </div>
+                    
+                    
                    <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.removalEventform.removalId'  text='Removal Id'/><span style='color: red'>*</span></label>
                       <input type="text" ng-hide="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage" ng-model="removalExceptSales.removalEventId" id="removalEventId" name="removalEventId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.removalEventform.removalId.placeholder'  text='Enter Removal Id'/>" required

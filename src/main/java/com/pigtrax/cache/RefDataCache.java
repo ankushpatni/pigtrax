@@ -49,4 +49,8 @@ public interface RefDataCache {
 	Map<Integer, String> getLogEventTypeMap(String language);
 	
 	Map<Integer, String> getPigletConditionMap(String language);
+	
+	Map<Integer, String> getSaleTypesMap(String language);
+	
+	Map<Integer, String> getSaleReasonsMap(String language);
 }

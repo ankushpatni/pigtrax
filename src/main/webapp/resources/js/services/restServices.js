@@ -107,5 +107,7 @@ pigTrax.factory("restServices", function($resource) {
 		"getRationList" : {method:"GET", url:"rest/ration/getRationList"},
 		"getPigletConditions" : {method:"GET", url:"rest/util/getPigletConditions"},
 		"getBarnDetailsByRoom" : {method:"POST", url:"rest/barn/getBarnDetailsByRoom"},
+		"getSaleTypes" : {method:"GET", url:"rest/util/getSaleTypes"},
+		"getSaleReasons" : {method:"GET", url:"rest/util/getSaleReasons"},
     });
 });
