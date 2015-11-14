@@ -39,7 +39,14 @@
 				              </label>
 				              <label >
 				                  <input type="radio" name="rad1" id="rad2" value="pigInfo" ng-model="selectGroup"> <spring:message code='label.piginfo.removalExceptSales.pigInfoId'  text='Premises'/>
-				              </label>				
+				              </label>			
+				              <div class="form-group">
+                      <label ng-show="removalTypeId != 9"><spring:message code='label.piginfo.removalExceptSales.removalDateTime'  text='Removal Date'/><span style='color: red'>*</span></label>
+                      <label ng-show="removalTypeId == 9"><spring:message code='label.piginfo.removalExceptSales.transferDateTime'  text='Transfer Date'/><span style='color: red'>*</span></label>
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                          <input size="16" type="date" id="removalDateTime" name="removalDateTime" ng-model="removalExceptSales.removalDateTime" readonly="" class="form-control" format-date /><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+						</div>
+                    
 			              </div>
 				      </div> 
 				        <div class="form-group" ng-show="selectGroup==='pigInfo'">
@@ -58,7 +65,7 @@
                     <div ng-show="selectGroup==='group'">
 						<label style="margin-top: -15px;" class="control-label" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigsInGroup' text='No. Of pigs in Group.' />{{groupEventList[removalExceptSales.groupEventId].currentInventory}}</label>
 					</div>
-                    <div class="form-group">
+                    <div class="form-group" ng-show="removalTypeId != 9">
                       <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>
                       
                       <select class="form-control"   required required-message="'<spring:message code='label.piginfo.removalEventform.removalTypeId.required' text='Removal Type is required' />'" name="removalEventId" id="removalEventId" ng-model="removalExceptSales.removalEventId"  ng-show="removalTypeId != 9">
@@ -67,12 +74,7 @@
                          <label ng-show="removalTypeId == 9"> :  {{removalEventType[removalExceptSales.removalEventId]}}</label>                       
                     </div> 
                     
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.removalDateTime'  text='Removal Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="removalDateTime" name="removalDateTime" ng-model="removalExceptSales.removalDateTime" readonly="" class="form-control" format-date /><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-						</div>
-                    </div>
+                    
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.removalDateTime.requiredMessage' text='Removal Except Sales Date Time is required' /></label>
 					</div>
