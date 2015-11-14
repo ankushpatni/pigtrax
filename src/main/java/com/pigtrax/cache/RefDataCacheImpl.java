@@ -65,7 +65,8 @@ public class RefDataCacheImpl implements RefDataCache {
 	private Map<String, Map<Integer, String>> glineTypeMap;
 	
 	private Map<String, Map<Integer, String>> logEventTypeMap;
-
+	
+	private Map<String, Map<Integer, String>> pigletConditionMap;
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
 	 * 
@@ -98,6 +99,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		gcompanyTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getGcompanyType()));
 		glineTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getGlineTypes()));
 		logEventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getLogEventTypes()));
+		pigletConditionMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPigletConditions()));
 	}
 
 	@Override
@@ -227,6 +229,11 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getLogEventTypeMap(String language) {
 		return logEventTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getPigletConditionMap(String language) {
+		return pigletConditionMap.get(language);
 	}
 	
 }

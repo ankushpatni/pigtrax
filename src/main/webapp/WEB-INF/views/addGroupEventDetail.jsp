@@ -17,20 +17,19 @@
                 	 <div class="form-group">
 						<label><spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
 						<label>{{groupAlphaId}}</label>
-					 </div>
-					 <div class="form-group">
-						<label ><spring:message code="label.groupEventDetail.barn" text="Barn" /><span style='color: red'>*</span></label>
-						<!-- <input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.barn' text='Origin' />" name="area" ng-model="groupEvent.origin" maxlength="20" />-->
-						<select class="form-control"  name="barnId" id="barnId" ng-model="groupEvent.barnId"   required required-message="'<spring:message code='label.groupEventDetail.barn.required' text='Barn is required' />'"
-                         ng-options="k as v for (k, v) in barnList">
-                        </select>
-					</div>
+					 </div>					 
 					<div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/></label>
-                       <select class="form-control"  name="roomId" id="roomId" ng-model="groupEvent.roomId"   
-                         ng-options="k as v for (k, v) in roomType">
+                      <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="roomId" id="roomId" ng-model="groupEvent.roomId"  required required-message="'<spring:message code='label.groupEventDetail.room.required' text='Room is required' />'" 
+                         ng-options="k as v for (k, v) in roomType" ng-change="getBarnDetailsByRoom()">
                         </select>
                     </div>
+                    <div class="form-group">
+						<label ><spring:message code="label.groupEventDetail.barn" text="Barn" /></label>
+						<!-- <input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.barn' text='Origin' />" name="area" ng-model="groupEvent.origin" maxlength="20" />-->
+						<label ng-show="groupEvent.barnId != null">{{groupEvent.barnIdValue}}</label>
+						<input type="hidden"  name="barnId" id="barnId" ng-model="groupEvent.barnId"/>
+					</div>
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.source'  text='Source'/></label>
                        <select class="form-control"  name="source" id="source" ng-model="groupEvent.transportDestination"   

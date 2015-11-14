@@ -21,6 +21,7 @@ public class GroupEventDto {
 	private EmployeeGroupDto employeeGroup;
 	private Integer companyId;
 	private Integer transportDestination;
+	private String barnIdValue;
 	
 	//groupevent fields	
 	
@@ -116,5 +117,12 @@ public class GroupEventDto {
 	public void setTransportDestination(Integer transportDestination) {
 		this.transportDestination = transportDestination;
 	}
+	public String getBarnIdValue() {
+		return barnIdValue;
+	}
+	public void setBarnIdValue(String barnIdValue) {
+		this.barnIdValue = barnIdValue;
+	}
+	
 	
 }

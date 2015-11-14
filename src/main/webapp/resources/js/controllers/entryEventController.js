@@ -137,7 +137,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				{
 				   $scope.invalidEntryDate = true;	
 				}
-				else if(duration < 100 || duration > 200)
+				else if(duration < 100 || duration > 300)
 				{
 					$scope.invalidDateDuration = true;
 				}

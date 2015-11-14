@@ -260,5 +260,10 @@ public class RefDataDaoImpl implements RefDataDao {
 		});
 	}
 	
+	@Override
+	public List<RefDataTranslationDto> getPigletConditions() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PigletCondition\" FROM pigtraxrefdata.\"PigletConditionTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
 	
 }

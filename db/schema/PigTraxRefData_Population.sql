@@ -7633,6 +7633,22 @@ INSERT INTO pigtraxrefdata."LogEventTypeTranslation" ("fieldValue","fieldLanguag
 INSERT INTO pigtraxrefdata."LogEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_LogEventType") VALUES ('Production_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 
 
+INSERT INTO pigtraxrefdata."PigletCondition" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Mixed Color', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."PigletCondition" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Small', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."PigletCondition" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Weak', CURRENT_TIMESTAMP,'pigtraxadmin');
+
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Mixed Color','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Small','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Weak','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Mixed Color_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Small_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Weak_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Mixed Color_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Small_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."PigletConditionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletCondition") VALUES ('Weak_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+
 
 -------------------------
 

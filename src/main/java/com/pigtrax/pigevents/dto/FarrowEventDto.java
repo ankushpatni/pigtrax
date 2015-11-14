@@ -36,6 +36,7 @@ public class FarrowEventDto {
 	private String language;
 	private boolean pigletsAdded;
 	private Integer teats;
+	private Integer pigletConditionId;
 	
 	public Integer getId() {
 		return id;
@@ -216,6 +217,12 @@ public class FarrowEventDto {
 	}
 	public void setBreedingEventDto(BreedingEventDto breedingEventDto) {
 		this.breedingEventDto = breedingEventDto;
+	}
+	public Integer getPigletConditionId() {
+		return pigletConditionId;
+	}
+	public void setPigletConditionId(Integer pigletConditionId) {
+		this.pigletConditionId = pigletConditionId;
 	}
 	
 	 

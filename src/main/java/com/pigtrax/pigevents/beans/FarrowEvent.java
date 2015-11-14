@@ -23,6 +23,7 @@ public class FarrowEvent {
 	private Integer pigInfoId;
 	private Integer pregnancyEventId;
 	private Integer teats;
+	private Integer pigletConditionId;
 	
 	public Integer getId() {
 		return id;
@@ -137,6 +138,12 @@ public class FarrowEvent {
 	}
 	public void setTeats(Integer teats) {
 		this.teats = teats;
+	}
+	public Integer getPigletConditionId() {
+		return pigletConditionId;
+	}
+	public void setPigletConditionId(Integer pigletConditionId) {
+		this.pigletConditionId = pigletConditionId;
 	}
 	
 	

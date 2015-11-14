@@ -58,15 +58,13 @@
              <table>
 				<thead>
                      <tr>                       
-                       <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>
-                       <th><spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid'  text='Wean Group Id'/> </th>
+                       <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>                       
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
                  </thead>   
                  <tbody>
                    <tr ng-repeat="pigletStatusEventDto in pigletStatusEventList"> 
-					<td >{{pigletStatusEventDto.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</td>                   
-                    <td >{{pigletStatusEventDto.weanGroupId}}</td>
+					<td >{{pigletStatusEventDto.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs" ng-click="setPigletStatusDetails(pigletStatusEventDto)">
 						<span class="glyphicon glyphicon-pencil"></span>
 						<spring:message code="label.employeegroup.list.edit" text="Edit" />												
@@ -251,12 +249,12 @@
                     </table>                    
                     </div>
                     </div>		                   
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid'  text='Weaning Group Id'/></label>
                       <input type="text" ng-model="pigletStatusEvent.weanGroupId"  name="weaningGroupId"  class="form-control" 
                        placeholder="<spring:message code='label.piginfo.pigletstatuseventform.weaninggroupid.placeholder'  
                        text='Enter Weaning group Id'/>"/>
-                    </div>
+                    </div> -->
 					
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.remarks'  text='Remarks'/></label>

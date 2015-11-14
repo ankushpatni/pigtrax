@@ -301,6 +301,7 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"id_PregnancyEvent" integer,
 	"teats" smallint,
 	"litterId" int,
+	"id_PigletCondition" smallint,
 	CONSTRAINT "FAROW_PK" PRIMARY KEY (id)
 
 );
@@ -2424,6 +2425,58 @@ ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "Origin_fk" FOREIGN KEY ("id_Origin
 REFERENCES pigtrax."Origin" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+
+
+-- object: pigtraxrefdata."PigletCondition" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."PigletCondition" CASCADE;
+CREATE TABLE pigtraxrefdata."PigletCondition"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "PigletCondition_PK" PRIMARY KEY (id),
+	CONSTRAINT "PigletCondition_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."PigletCondition" OWNER TO pitraxadmin;
+
+
+-- object: "PigletCondition_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "PigletCondition_fk" CASCADE;
+ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "PigletCondition_fk" FOREIGN KEY ("id_PigletCondition")
+REFERENCES pigtraxrefdata."PigletCondition" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."PigletConditionTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."PigletConditionTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."PigletConditionTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_PigletCondition" integer,
+	CONSTRAINT "PigletConditionTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "PigletConditionTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."PigletConditionTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "PigletCondition_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."PigletConditionTranslation" DROP CONSTRAINT IF EXISTS "PigletCondition_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."PigletConditionTranslation" ADD CONSTRAINT "PigletCondition_fk" FOREIGN KEY ("id_PigletCondition")
+REFERENCES pigtraxrefdata."PigletCondition" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"

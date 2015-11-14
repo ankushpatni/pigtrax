@@ -52,6 +52,18 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		
 	};
 	
+	$scope.getBarnDetailsByRoom = function()
+	{
+		restServices.getBarnDetailsByRoom($scope.groupEvent.roomId, function(data){
+			if(!data.error){
+				var barn = data.payload;
+				$scope.groupEvent["barnId"] = barn.id;
+				$scope.groupEvent["barnIdValue"] = barn.barnId;
+			}
+		});
+	}
+	
+	
 	$scope.getGroupEventDetail = function(groupDetailId)
     {
 		restServices.getGroupEventDetail(groupDetailId, function(data){

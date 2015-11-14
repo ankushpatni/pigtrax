@@ -43,7 +43,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 		final String Qry = "insert into pigtrax.\"FarrowEvent\"(\"farrowDateTime\", \"id_Pen\", \"liveBorns\", "
 				+ "\"stillBorns\", \"mummies\", \"maleBorns\", \"femaleBorns\", \"weightInKgs\", \"inducedBirth\", "
 				+ "\"assistedBirth\", \"remarks\", \"sowCondition\", \"lastUpdated\", \"userUpdated\", \"id_EmployeeGroup\", "
-				+ "\"id_PigInfo\", \"id_PregnancyEvent\",\"teats\" ) values(?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
+				+ "\"id_PigInfo\", \"id_PregnancyEvent\",\"teats\",\"id_PigletCondition\" ) values(?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -105,7 +105,13 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	    				}
 	    				
 	    				ps.setInt(17,  farrowEvent.getTeats());
-	    			
+	    				if(farrowEvent.getPigletConditionId() != null && farrowEvent.getPigletConditionId() != 0){
+	    					ps.setInt(18, farrowEvent.getPigletConditionId());
+	    				}
+	    				else{
+	    					ps.setNull(18, java.sql.Types.INTEGER);
+	    				}
+	    				
 	    	            return ps;
 	    	        }
 	    	    },
@@ -124,7 +130,8 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
 		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
-		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
+		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
+		   		+ "FE.\"teats\", FE.\"id_PigletCondition\" "
 		   		+ " from pigtrax.\"FarrowEvent\" FE "
 		   		+ " WHERE FE.\"id\" = ? ";
 		
@@ -149,7 +156,8 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
 		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
-		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
+		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
+		   		+ "FE.\"teats\", FE.\"id_PigletCondition\" "
 		   		+ " from pigtrax.\"FarrowEvent\" FE "
 		   		+ " WHERE FE.\"id_PregnancyEvent\" = ? ";
 		
@@ -189,7 +197,8 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 	   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
 	   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
-	   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
+	   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
+	   		+ "FE.\"teats\", FE.\"id_PigletCondition\" "
 	   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
 		
@@ -211,7 +220,8 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
 		   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
-		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", FE.\"teats\" "
+		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
+		   		+ "FE.\"teats\", FE.\"id_PigletCondition\" "
 		   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
 		   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? ";
  		
@@ -232,7 +242,8 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 		String Qry = "update pigtrax.\"FarrowEvent\" set  \"id_Pen\" = ?, \"farrowDateTime\"= ?, \"liveBorns\"= ?"
 				+ ", \"stillBorns\" = ?, \"mummies\" = ?, \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"maleBorns\" = ?, \"femaleBorns\" = ? "
 				+ " , \"weightInKgs\" = ? , \"inducedBirth\" = ?, \"assistedBirth\" = ?, \"remarks\" = ? "
-				+ ", \"sowCondition\" = ?, \"id_EmployeeGroup\" = ? , \"id_PigInfo\" = ?, \"id_PregnancyEvent\"=?, \"teats\" = ? where \"id\" = ? ";
+				+ ", \"sowCondition\" = ?, \"id_EmployeeGroup\" = ? , \"id_PigInfo\" = ?, \"id_PregnancyEvent\"=?, "
+				+ "\"teats\" = ?,\"id_PigletCondition\"=? where \"id\" = ? ";
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
@@ -323,11 +334,18 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 				
 				ps.setInt(17, farrowEvent.getTeats());
 				
-				if(farrowEvent.getId() != null){
-					ps.setInt(18, farrowEvent.getId());
+				if(farrowEvent.getPigletConditionId() != null){
+					ps.setInt(18, farrowEvent.getPigletConditionId());
 				}
 				else{
 					ps.setNull(18, java.sql.Types.INTEGER);
+				}
+				
+				if(farrowEvent.getId() != null){
+					ps.setInt(19, farrowEvent.getId());
+				}
+				else{
+					ps.setNull(19, java.sql.Types.INTEGER);
 				}
 			}
 		});
@@ -356,6 +374,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 			farrowEvent.setPregnancyEventId(rs.getInt("id_PregnancyEvent"));
 			farrowEvent.setSowCondition(rs.getInt("sowCondition"));
 			farrowEvent.setTeats(rs.getInt("teats"));
+			farrowEvent.setPigletConditionId(rs.getInt("id_PigletCondition"));
 			return farrowEvent;
 		}
 	} 

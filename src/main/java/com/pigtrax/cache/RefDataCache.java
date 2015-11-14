@@ -47,4 +47,6 @@ public interface RefDataCache {
 	Map<Integer, String> getGlineTypeMap(String language);
 	
 	Map<Integer, String> getLogEventTypeMap(String language);
+	
+	Map<Integer, String> getPigletConditionMap(String language);
 }

@@ -36,7 +36,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	$scope.loadPage = function(companyId, selectedFarrowEventId)
 	{ 
 		$scope.setCompanyId(companyId);		
-		$scope.getPenList();		
+		$scope.getPenList();	
+		$scope.getPigletConditions();
 		if(selectedFarrowEventId != null && selectedFarrowEventId != undefined && selectedFarrowEventId != "")
 		{
 			restServices.getFarrowEventDetailsById(selectedFarrowEventId, function(data){
@@ -49,6 +50,18 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			 });
 		}
 	};
+	
+	$scope.getPigletConditions = function()
+	{
+		restServices.getPigletConditions(function(data)
+		{
+			if(!data.error){
+				var responseList = data.payload;
+				$scope.pigletConditionKeys = responseList[0];
+				$scope.pigletConditionKeyValues =responseList[1];
+			}
+		});
+	}
 	
 	
 	$scope.getPenList = function(){
