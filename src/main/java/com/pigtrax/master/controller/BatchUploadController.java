@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -47,6 +48,11 @@ public class BatchUploadController {
 				stream.write(bytes);
 				stream.close();
 				httpBatchPost.execute(eventType, header, UserUtil.getLoggedInUser(), path);
+				
+				HttpSession session = request.getSession(true);
+				String reportFileName = fileName.toLowerCase().replaceAll(".csv", "_report.txt");
+				session.setAttribute("REPORT_FILE", reportFileName);	
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
