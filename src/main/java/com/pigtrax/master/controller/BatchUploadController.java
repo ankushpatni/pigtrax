@@ -51,7 +51,7 @@ public class BatchUploadController {
 				
 				HttpSession session = request.getSession(true);
 				String reportFileName = fileName.toLowerCase().replaceAll(".csv", "_report.txt");
-				session.setAttribute("REPORT_FILE", reportFileName);	
+				session.setAttribute("REPORT_FILE", reportFileName); 	
 				
 			} catch (Exception e) {
 				e.printStackTrace();
