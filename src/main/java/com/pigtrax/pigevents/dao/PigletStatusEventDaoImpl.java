@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -308,4 +309,132 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			return pigletStatusEventList.get(0);
  		return null;
 	}
+	
+	/**
+	 * To get the list of PigletStatus Ferrow ID count Weavn  farrowId and companyId
+	 */
+	@Override
+	public Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(final Date start,final Date end,
+			final Integer companyId) {
+		//String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?";
+		
+		String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?";
+
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				/*ps.setInt(1, companyId);
+ 				ps.setInt(2, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(3, start);
+ 				ps.setDate(4, end);*/
+ 				//ps.setInt(1, companyId);
+ 				ps.setInt(1, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the list of PigletStatus Ferrow ID count Weavn  farrowId and companyId
+	 */
+	@Override
+	public Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(final Date start,final Date end,
+			final Integer companyId) {
+		//String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ? and \"numberOfPigs\" >12 ";
+		String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where  \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ? and \"numberOfPigs\" >12 ";
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				/*ps.setInt(1, companyId);
+ 				ps.setInt(2, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(3, start);
+ 				ps.setDate(4, end);*/
+ 				//ps.setInt(1, companyId);
+ 				ps.setInt(1, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the total pigs weavned count companyId
+	 */
+	@Override
+	public Integer getTotalPigsWeavend(final Date start,final Date end,
+			final Integer companyId) {
+		//String qry = "select sum(\"numberOfPigs\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?  ";
+		String qry = "select sum(\"numberOfPigs\") from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?  ";
+
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				/*ps.setInt(1, companyId);
+ 				ps.setInt(2, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(3, start);
+ 				ps.setDate(4, end);*/
+ 			//	ps.setInt(1, companyId);
+ 				ps.setInt(1, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the list of PigletStatus Ferrow ID count Weavn  farrowId and companyId
+	 */
+	@Override
+	public Integer getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(final Date start,final Date end,
+			final Integer companyId) {
+	//	String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and  \"eventDateTime\" >= ? and \"eventDateTime\" <= ? " 
+	//			      +" and (\"id_PigletStatusEventType\" <> ? or \"id_PigletStatusEventType\" <> ? or \"id_PigletStatusEventType\" <> ?";
+
+		String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"eventDateTime\" >= ? and \"eventDateTime\" <= ? " 
+			      +" and (\"id_PigletStatusEventType\" = ? or \"id_PigletStatusEventType\" = ? or \"id_PigletStatusEventType\" = ?)";
+
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				/*ps.setInt(1, companyId); 				
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 				ps.setInt(4, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setInt(5, PigletStatusEventType.FosterIn.getTypeCode());
+ 				ps.setInt(6, PigletStatusEventType.FosterOut.getTypeCode());*/
+ 			//	ps.setInt(1, companyId); 				
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 				ps.setInt(3, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setInt(4, PigletStatusEventType.FosterIn.getTypeCode());
+ 				ps.setInt(5, PigletStatusEventType.FosterOut.getTypeCode());
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
 }

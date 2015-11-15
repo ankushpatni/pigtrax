@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Repository;
 
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
+import com.pigtrax.usermanagement.enums.PigletStatusEventType;
+import com.pigtrax.usermanagement.enums.RemovalEventType;
 import com.pigtrax.util.UserUtil;
 
 @Repository
@@ -381,5 +384,35 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			return removalEventExceptSalesDetails;
 		}		
 	}
+	
+	/**
+	 * To get the total pigs mortal count companyId
+	 */
+	@Override
+	public Integer getTotalPigsMortal(final Date start,final Date end,
+			final Integer companyId) {
+		
+		//select sum("numberOfPigs") from pigtrax."RemovalEventExceptSalesDetails" where "id_GroupEvent" in(select "id" from pigtrax."GroupEvent" where "id_Company" = 1);
+		String qry = "select sum(\"numberOfPigs\") from pigtrax.\"RemovalEventExceptSalesDetails\" "+
+					" where \"id_GroupEvent\" in (select \"id\" from pigtrax.\"GroupEvent\" where \"id_Company\" = ?) "+
+					"and \"id_RemovalEvent\" <> ? and \"removalDateTime\" >= ? and \"removalDateTime\" <= ?  ";
+
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setInt(1, companyId);
+ 				ps.setInt(2, RemovalEventType.Mortality.getTypeCode());
+ 				ps.setDate(3, start);
+ 				ps.setDate(4, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+
 
 }

@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface RemovalEventExceptSalesDetailsDao {
 
 	List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId(
 			int id) throws SQLException;
+
+	Integer getTotalPigsMortal(Date start, Date end, Integer companyId);
 }

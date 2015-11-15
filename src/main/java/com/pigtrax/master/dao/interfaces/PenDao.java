@@ -45,4 +45,7 @@ public interface PenDao {
 	 */
 	public List<Pen> getPenListByCompanyId(Integer companyId) throws SQLException;
 
+
+	int getTotalPenActive(Integer companyId) throws SQLException;
+
 }

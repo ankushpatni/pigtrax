@@ -3,13 +3,18 @@ package com.pigtrax.master.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,6 +135,42 @@ public class PenDaoImpl implements PenDao {
 			pen.setActive(rs.getBoolean("isActive"));
 			return pen;
 		}  
+	}
+	
+	@Override
+	public int getTotalPenActive(final Integer companyId) throws SQLException {
+		
+		String query ="select count(\"id\") from pigtrax.\"Pen\" where \"isActive\" = true and \"id\" in (SELECT \"penserialid\" as \"id\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"penId\" != '' and companyserialid = ?)";
+		//String query = "SELECT \"penserialid\" as \"id\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"penId\" != '' and companyserialid = ?";
+		//CompPremBarnRoomPenVw
+			List<Integer> penList = jdbcTemplate.query(query,
+					new PreparedStatementSetter() {
+						@Override
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setInt(1, companyId);
+						}
+					}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+			
+		 return penList.get(0); 
+		/* String qry ="select count(\"id\") from pigtrax.\"Pen\" where \"isActive\" = true and \"id\" in (:ids)";
+		  
+		 Map idsMap = Collections.singletonMap("ids", penList);
+			
+		 NamedParameterJdbcTemplate namedPrameterTemplate  = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+			
+		List<Integer> penListCount = namedPrameterTemplate.query(qry, idsMap, new RowMapper<Integer>() {
+											public Integer mapRow(ResultSet rs, int rowNum)
+													throws SQLException {
+												return rs.getInt(1);
+											}
+										});
+			return penListCount.get(0);*/
 	}
 
 }
