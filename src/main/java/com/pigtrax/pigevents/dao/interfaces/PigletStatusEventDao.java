@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,5 +26,16 @@ public interface PigletStatusEventDao {
 	void deletePigletStatusEventsByFarrowId(Integer pigInfoId, Integer farrowEventId) throws SQLException;
 	
 	PigletStatusEvent getFosterInRecord(Integer farrowEventId) throws SQLException;
+
+	Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(
+			Date start, Date end, Integer companyId);
+
+	Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(
+			Date start, Date end, Integer companyId);
+
+	Integer getTotalPigsWeavend(Date start, Date end, Integer companyId);
+
+	Integer getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(Date start,
+			Date end, Integer companyId);
 	
 }
