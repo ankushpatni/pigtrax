@@ -3,7 +3,7 @@
 <div class="page-head">
 	<h2>Mass Upload - Events</h2>
 </div>
-<div class="cl-mcont" id="massuploadControllerId">
+<div class="cl-mcont" id="massuploadControllerId" ng-controller="MassUploadController" ng-init="setStatus('${token}')">
 	<div class="row">
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">
@@ -11,7 +11,19 @@
 				<form method="POST" action="uploadFile" name="batchupload"
 					enctype="multipart/form-data">
 					<div class="head">
-						<h3 style="color:green">${token}</h3>
+						<div class="alert alert-success alert-white rounded"  ng-show="uploadStatus == 'success'">
+		                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+		                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.uploadprocess.success.message' text='Upload process completed successfully'/>
+                 		 </div>
+                 		 
+						<%
+						String reportName = "";
+						if(session.getAttribute("REPORT_FILE") != null)
+							reportName = (String)session.getAttribute("REPORT_FILE");
+						
+						%>
+						<a href="<%=request.getContextPath()%>/downloadReport?file=<%=reportName%>"   ng-show="uploadStatus == 'success'"><spring:message code='label.uploadprocess.viewreport.link' text='Download Report'/></a>
+						
 						<h3>
 							<spring:message
 								code='label.piginfo.entryeventform.batchupload.heading'
