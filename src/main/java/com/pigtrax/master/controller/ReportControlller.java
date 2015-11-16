@@ -100,8 +100,7 @@ public class ReportControlller {
 		List<Float> averageLiveBirthWeightList = new LinkedList<Float>();
 		List<Integer> litterWithAgeLessSevenList = new LinkedList<Integer>();
 		List<Float> percentageLitterWithAgeLessSevenList = new LinkedList<Float>();
-		
-		
+				
 		//Farrow Capacity (Farrows / crate / year)
 		List<Float> ferrowCapacityList = new LinkedList<Float>();
 		
@@ -112,13 +111,20 @@ public class ReportControlller {
 		List<Integer> littersWeanedWithMoreThanTwalePigsList = new LinkedList<Integer>();
 		List<Float> percentageLittersWeanedWithMoreThanTwalePigsList = new LinkedList<Float>();
 		List<Integer> sowsWeaningZeroPigList = new LinkedList<Integer>();
-		List<Float> percentageSowsWeaningZeroPigList = new LinkedList<Float>();
-		
+		List<Float> percentageSowsWeaningZeroPigList = new LinkedList<Float>();		
 		List<Integer> totalPigsWeavnedList = new LinkedList<Integer>();
 		List<Float> pigsWeaningDivideLitterWeanedList = new LinkedList<Float>();
 		List<Float> pigsWeaningDivideSowWeanedList = new LinkedList<Float>();
 		List<Float> percentagePingsWeanedDivideByTotalPigsList = new LinkedList<Float>();
 		List<Integer> netFosterList = new LinkedList<Integer>();
+		
+		//Pre-weaning Mortality
+		List<Float> percentagePreWeaningMortalityList = new LinkedList<Float>();
+		
+		//Litters with weaning weight
+		List<Integer> littersWithWeaingWeightList = new LinkedList<Integer>();
+		//Piglets with weaning weight
+		List<Integer> pigletsWithWeainngWeightList = new LinkedList<Integer>();
 		
 		
 		while(itr.hasNext())
@@ -142,6 +148,8 @@ public class ReportControlller {
 			int totalPigsWeavened = (Integer)valueList.get(9);
 			int totalLitterSWeanedFosterInOut = (Integer)valueList.get(10);
 			int totalPigsMortal = (Integer)valueList.get(11);
+			int littersWithWeaingWeight = (Integer)valueList.get(12);
+			int pigletsWithWeainngWeight = (Integer)valueList.get(13);
 			
 			totalBornList.add(totalBorn);
 			totalLiveBornList.add(totalLiveBorn);
@@ -181,6 +189,8 @@ public class ReportControlller {
 			
 			int netFoster = totalLiveBorn -totalPigsMortal- totalPigsWeavened;
 			
+			float percentagePreWeaningMortality = ((float)(totalPigsMortal)/totalLiveBorn)*100;
+			
 			averageTotalBornList.add(averageTotalBorn);
 			averageLiveBornList.add(averageLiveBorn);
 			averageDeadBornList.add(averageDeadBorn);
@@ -202,13 +212,19 @@ public class ReportControlller {
 			pigsWeaningDivideSowWeanedList.add(pigsWeaningDivideSowWeaned);
 			percentagePingsWeanedDivideByTotalPigsList.add(percentagePingsWeanedDivideByTotalPigs);
 			netFosterList.add(netFoster);
+			percentagePreWeaningMortalityList.add(percentagePreWeaningMortality);
+			littersWithWeaingWeightList.add(littersWithWeaingWeight);
+			pigletsWithWeainngWeightList.add(pigletsWithWeainngWeight);
 			
 		}
+		
+		ArrayList<String> rows = new ArrayList<String>();
+		rows.add("Piglets");
+		rows.add("\n");
 		
 		int size = dateList.size();
 		StringBuffer dateBuffer = new StringBuffer();
 		dateBuffer.append("Calander Week,");
-		ArrayList<String> rows = new ArrayList<String>();
 		for(int i=0;i<size;i++)
 		{
 			dateBuffer.append(dateList.get(i)+",");
@@ -445,6 +461,7 @@ public class ReportControlller {
 		rows.add(percentagePingsWeanedDivideByTotalPigsBuffer.toString());
 		rows.add("\n");
 		
+		//Net foster
 		StringBuffer netFosterBuffer = new StringBuffer();
 		netFosterBuffer.append("Net foster,");
 		for (int i = 0; i < size; i++) {
@@ -452,9 +469,41 @@ public class ReportControlller {
 		}
 		rows.add(netFosterBuffer.toString());
 		rows.add("\n");
-		//Net foster
+		
+		
+		rows.add("\n");
+		rows.add("Pre-weaning Mortality");
+		rows.add("\n");
+		//Pre-weaning Mortality
+		StringBuffer percentagePreWeaningMortalityBuffer = new StringBuffer();
+		percentagePreWeaningMortalityBuffer.append("PWM(%),");
+		for (int i = 0; i < size; i++) {
+			percentagePreWeaningMortalityBuffer.append(percentagePreWeaningMortalityList.get(i)+",");					
+		}
+		rows.add(percentagePreWeaningMortalityBuffer.toString());
+		rows.add("\n");
 
-
+		rows.add("\n");
+		rows.add("Piglet Weight and Age");
+		rows.add("\n");
+		//Pre-weaning Mortality
+		StringBuffer littersWithWeaingWeightBuffer = new StringBuffer();
+		littersWithWeaingWeightBuffer.append("Litters with weaning weight,");
+		for (int i = 0; i < size; i++) {
+			littersWithWeaingWeightBuffer.append(littersWithWeaingWeightList.get(i)+",");					
+		}
+		rows.add(littersWithWeaingWeightBuffer.toString());
+		rows.add("\n");
+		
+		
+		StringBuffer pigletsWithWeainngWeightBuffer = new StringBuffer();
+		pigletsWithWeainngWeightBuffer.append("Piglets with weaning weight,");
+		for (int i = 0; i < size; i++) {
+			pigletsWithWeainngWeightBuffer.append(pigletsWithWeainngWeightList.get(i)+",");					
+		}
+		rows.add(pigletsWithWeainngWeightBuffer.toString());
+		rows.add("\n");
+		
 		return rows;
 	}
 	

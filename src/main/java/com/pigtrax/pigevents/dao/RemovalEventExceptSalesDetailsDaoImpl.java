@@ -395,7 +395,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 		//select sum("numberOfPigs") from pigtrax."RemovalEventExceptSalesDetails" where "id_GroupEvent" in(select "id" from pigtrax."GroupEvent" where "id_Company" = 1);
 		String qry = "select sum(\"numberOfPigs\") from pigtrax.\"RemovalEventExceptSalesDetails\" "+
 					" where \"id_GroupEvent\" in (select \"id\" from pigtrax.\"GroupEvent\" where \"id_Company\" = ?) "+
-					"and \"id_RemovalEvent\" <> ? and \"removalDateTime\" >= ? and \"removalDateTime\" <= ?  ";
+					"and \"id_RemovalEvent\" = ? and \"removalDateTime\" >= ? and \"removalDateTime\" <= ?  ";
 
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
