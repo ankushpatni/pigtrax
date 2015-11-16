@@ -117,6 +117,8 @@ CREATE TABLE pigtrax."Barn"(
 	"id_WaterType" smallint,
 	"id_BarnPosition" smallint,
 	"id_FeederType" smallint,
+	"holesPerFeeder" integer,
+	"remarks" varchar(255),
 	CONSTRAINT "BARN_U_BI" UNIQUE ("barnId"),
 	CONSTRAINT "BARN_PK" PRIMARY KEY (id)
 

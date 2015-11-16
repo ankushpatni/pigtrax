@@ -23,6 +23,8 @@ public class Barn {
 	private Integer waterTypeId;
 	private Integer barnPositionId;
 	private Integer feederTypeId;
+	private Integer holesPerFeeder;
+	private String remarks;
 	
 	
 	public int getId() {
@@ -132,6 +134,18 @@ public class Barn {
 	}
 	public void setFeederTypeId(Integer feederTypeId) {
 		this.feederTypeId = feederTypeId;
+	}
+	public Integer getHolesPerFeeder() {
+		return holesPerFeeder;
+	}
+	public void setHolesPerFeeder(Integer holesPerFeeder) {
+		this.holesPerFeeder = holesPerFeeder;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 	
 	

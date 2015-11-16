@@ -33,6 +33,10 @@
 				<input class="form-control" placeholder="<spring:message code='label.barn.feederCount' text='Feeder Count' />" name="feederCount" ng-model="add.feederCount" maxlength="8" required-message="'<spring:message code='label.barn.feederCountRequired' text='Feeder Count is required' />'" ng-pattern="/^\d{1,8}?$/i" invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 			</div>
 			<div class="form-group">
+				<label ><spring:message code="label.barn.holesPerFeeder" text="Holes Per Feeder" /></label>
+				<input class="form-control" placeholder="<spring:message code='label.barn.holesPerFeeder' text='Holes Per Feeder' />" name="holesPerFeeder" ng-model="add.holesPerFeeder" maxlength="8" ng-pattern="/^\d{1,8}?$/i" invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
+			</div>
+			<div class="form-group">
 				<label><spring:message code="label.barn.waterAccessCount" text="Water Access Count" /></label>
 				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.waterAccessCount' text='Water Access Count' />" name="waterAccessCount" ng-model="add.waterAccessCount" maxlength="8" required-message="'<spring:message code='label.premise.waterAccessCountRequired' text='Water Access Count is required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 			</div>
@@ -78,6 +82,10 @@
                     </select>
              </div>
 			
+			<div class="form-group">
+                 <label><spring:message code='label.piginfo.entryeventform.remarks'  text='Remarks'/></label>
+                 <textarea name="remarks" ng-model="add.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.entryeventform.remarks' text='Remarks'/>" ></textarea>
+               </div>
          <div class="modal-footer">
 
             <button class="btn btn-primary btn-flat md-close"  ng-click="addBarn()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>

@@ -91,6 +91,8 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 		$scope.add.waterTypeId = barnData.waterTypeId;
 		$scope.add.barnPositionId = barnData.barnPositionId;
 		$scope.add.feederTypeId = barnData.feederTypeId;
+		$scope.add.holesPerFeeder = barnData.holesPerFeeder;
+		$scope.add.remarks = barnData.remarks;
     	
 	}
 	
@@ -117,7 +119,10 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 							"barnLocationId" : $scope.add.barnLocationId,
 							"barnPositionId" : $scope.add.barnPositionId,
 							"waterTypeId" : $scope.add.waterTypeId,
-							"feederTypeId" : $scope.add.feederTypeId
+							"feederTypeId" : $scope.add.feederTypeId,
+							"holesPerFeeder" : $scope.add.holesPerFeeder,
+							"remarks" : $scope.add.remarks
+						
 					};
 				}
 				else
@@ -137,7 +142,9 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 							"barnLocationId" : $scope.add.barnLocationId,
 							"barnPositionId" : $scope.add.barnPositionId,
 							"waterTypeId" : $scope.add.waterTypeId,
-							"feederTypeId" : $scope.add.feederTypeId
+							"feederTypeId" : $scope.add.feederTypeId,
+							"holesPerFeeder" : $scope.add.holesPerFeeder,
+							"remarks" : $scope.add.remarks
 					};
 				}
 				console.log(postParam);
