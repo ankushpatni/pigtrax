@@ -12,6 +12,7 @@ public class Room {
 	private boolean isActive;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer roomPositionId;
 	
 	public int getId() {
 		return id;
@@ -61,6 +62,12 @@ public class Room {
 				+ ", location=" + location + ", isActive=" + isActive
 				+ ", lastUpdated=" + lastUpdated + ", userUpdated="
 				+ userUpdated + "]";
+	}
+	public Integer getRoomPositionId() {
+		return roomPositionId;
+	}
+	public void setRoomPositionId(Integer roomPositionId) {
+		this.roomPositionId = roomPositionId;
 	}
 	
 	

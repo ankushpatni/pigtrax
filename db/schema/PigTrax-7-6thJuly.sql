@@ -162,6 +162,7 @@ CREATE TABLE pigtrax."Room"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Barn" integer,
+	"id_roomPosition" integer,
 	CONSTRAINT "ROOM_PK" PRIMARY KEY (id),
 	CONSTRAINT "ROOM_U_RI" UNIQUE ("roomId")
 
@@ -525,6 +526,8 @@ CREATE TABLE pigtrax."TransportTruck"(
 	"id_Company" integer,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"purchaseYear" integer  NOT NULL,
+	"make" varchar(30),
 	CONSTRAINT "TRANSPORTTRUCK_PK" PRIMARY KEY (id),
 	CONSTRAINT "TANSPORTTRUCK_TI" UNIQUE ("truckId")
 

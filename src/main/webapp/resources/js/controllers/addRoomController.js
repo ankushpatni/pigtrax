@@ -18,6 +18,7 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 		$scope.add.id = roomData.id;
 		$scope.add.roomIdEdit = roomData.roomId;
 		$scope.add.roomId = 1;
+		$scope.add.roomPositionId = roomData.roomPositionId;
     	
 	}
 	
@@ -32,7 +33,8 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 							"location" : $scope.add.location,
 							"active" : roomData.active,
 							"id" : $scope.add.id,
-							"barnId" : roomData.generatedBarnId
+							"barnId" : roomData.generatedBarnId,
+							"roomPositionId" : $scope.add.roomPositionId
 					};
 				}
 				else
@@ -41,7 +43,8 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 							"roomId" : roomData.barnId +''+$scope.add.roomId,
 							"location" : $scope.add.location,
 							"active" : true,
-							"barnId" : roomData.generatedBarnId							
+							"barnId" : roomData.generatedBarnId	,
+							"roomPositionId" : $scope.add.roomPositionId
 						};
 				}
 				console.log(postParam);
