@@ -37,5 +37,11 @@ public interface PigletStatusEventDao {
 
 	Integer getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(Date start,
 			Date end, Integer companyId);
+
+	Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(
+			Date start, Date end, Integer companyId);
+
+	Integer getTotalPigsWeavendWithWeight(Date start, Date end,
+			Integer companyId);
 	
 }
