@@ -59,4 +59,14 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getSaleTypes();
 	
 	List<RefDataTranslationDto> getSaleReasons();
+	
+	List<RefDataTranslationDto> getPremiseTypes();
+	
+	List<RefDataTranslationDto> getBarnLocations();
+	
+	List<RefDataTranslationDto> getWaterTypes();
+	
+	List<RefDataTranslationDto> getBarnPositions();
+	
+	List<RefDataTranslationDto> getFeederTypes();
 }

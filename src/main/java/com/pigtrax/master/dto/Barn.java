@@ -17,6 +17,12 @@ public class Barn {
 	private int ventilationTypeId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer barnOrientationId;
+	private String barnOrientation;
+	private Integer barnLocationId;
+	private Integer waterTypeId;
+	private Integer barnPositionId;
+	private Integer feederTypeId;
 	
 	
 	public int getId() {
@@ -91,5 +97,43 @@ public class Barn {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	public Integer getBarnOrientationId() {
+		return barnOrientationId;
+	}
+	public void setBarnOrientationId(Integer barnOrientationId) {
+		this.barnOrientationId = barnOrientationId;
+	}
+	public String getBarnOrientation() {
+		return barnOrientation;
+	}
+	public void setBarnOrientation(String barnOrientation) {
+		this.barnOrientation = barnOrientation;
+	}
+	public Integer getBarnLocationId() {
+		return barnLocationId;
+	}
+	public void setBarnLocationId(Integer barnLocationId) {
+		this.barnLocationId = barnLocationId;
+	}
+	public Integer getWaterTypeId() {
+		return waterTypeId;
+	}
+	public void setWaterTypeId(Integer waterTypeId) {
+		this.waterTypeId = waterTypeId;
+	}
+	public Integer getBarnPositionId() {
+		return barnPositionId;
+	}
+	public void setBarnPositionId(Integer barnPositionId) {
+		this.barnPositionId = barnPositionId;
+	}
+	public Integer getFeederTypeId() {
+		return feederTypeId;
+	}
+	public void setFeederTypeId(Integer feederTypeId) {
+		this.feederTypeId = feederTypeId;
+	}
+	
+	
 	
 }

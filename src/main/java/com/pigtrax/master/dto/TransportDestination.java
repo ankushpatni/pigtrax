@@ -8,6 +8,7 @@ public class TransportDestination {
 	public String name;
 	public String address;
 	public String city;
+	public String state;
 	private Date lastUpdated;
 	private String userUpdated;
 	private int companyId;
@@ -52,6 +53,12 @@ public class TransportDestination {
 	}
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}	
-
+	
 }

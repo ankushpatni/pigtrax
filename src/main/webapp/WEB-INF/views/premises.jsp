@@ -25,10 +25,13 @@
 			<tr>
 				<th st-sort="premiseID" style="width:10%"><spring:message code="label.premise.premiseID" text="Premise ID" /></th>
 				<th st-sort="name" style="width:10%"><spring:message code="label.premise.name" text="Name" /></th>
+				<th st-sort="name" style="width:10%"><spring:message code="label.premise.premiseType" text="Premise Type" /></th>
 				<th st-sort="address" style="width:25%"><spring:message code="label.premise.address" text="Address" /></th>
 				<th st-sort="city" style="width:10%"><spring:message code="label.premise.city" text="City" /></th>
 				<th st-sort="state" style="width:10%"><spring:message code="label.company.country" text="Country" /></th>
 				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.zipcode" text="Zip Code" /></th>
+				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.gpsLatittude" text="GPS Latittude" /></th>
+				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.gpsLongitude" text="GPS Longitude" /></th>
 				<th style="width:8%"><spring:message code="label.premise.edit" text="Edit" /></th>
 				<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) {%>
 				<th style="width:8%"><spring:message code="label.premise.delete" text="Delete" /></th>
@@ -38,17 +41,20 @@
 												text="Activate/Deactivate"/></th>
 			</tr>
 		 	<tr>
-				<th colspan="10"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
+				<th colspan="13"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in displayedCollection track by $index">
 				<td style="width:10%">{{row.permiseId}}</td>
 				<td style="width:10%">{{row.name}}</td>
+				<td style="width:10%">{{row.premiseType}}</td>
 				<td style="width:25%">{{row.address}}</td>
 				<td style="width:10%">{{row.city}}</td>
 				<td style="width:10%">{{row.state}}</td>
 				<td style="width:10%">{{row.zipcode}}</td>
+				<td style="width:10%">{{row.gpsLatittude}}</td>
+				<td style="width:10%">{{row.gpsLongitude}}</td>
 				<td style="width: 8%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editPremiseData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

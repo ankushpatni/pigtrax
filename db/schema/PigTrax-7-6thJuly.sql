@@ -79,6 +79,9 @@ CREATE TABLE pigtrax."Premise"(
 	"isActive" bool,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"gpsLatittude" varchar(30),
+	"gpsLongitude" varchar(30),
+	"id_PremiseType" smallint,
 	CONSTRAINT "Premise_U_PI" UNIQUE ("permiseId"),
 	CONSTRAINT "Premise_PK_PI" PRIMARY KEY (id)
 
@@ -109,6 +112,11 @@ CREATE TABLE pigtrax."Barn"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_VentilationType" integer,
+	"id_BarnOrientation" smallint,
+	"id_BarnLocation" smallint,
+	"id_WaterType" smallint,
+	"id_BarnPosition" smallint,
+	"id_FeederType" smallint,
 	CONSTRAINT "BARN_U_BI" UNIQUE ("barnId"),
 	CONSTRAINT "BARN_PK" PRIMARY KEY (id)
 
@@ -222,7 +230,8 @@ CREATE TABLE pigtrax."TransportDestination"(
 	id serial NOT NULL,
 	name varchar(30) NOT NULL,
 	address varchar(255),
-	city varchar(30),
+	state varchar(100),
+	city varchar(100),	
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Company" integer,
@@ -2563,6 +2572,264 @@ ALTER TABLE pigtraxrefdata."SalesReasonsTranslation" ADD CONSTRAINT "SalesReason
 REFERENCES pigtraxrefdata."SalesReasons" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+
+
+
+-- object: pigtraxrefdata."PremiseType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."PremiseType" CASCADE;
+CREATE TABLE pigtraxrefdata."PremiseType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "PremiseType_PK" PRIMARY KEY (id),
+	CONSTRAINT "PremiseType_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."PremiseType" OWNER TO pitraxadmin;
+
+
+-- object: "GlineType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Premise" DROP CONSTRAINT IF EXISTS "LogEventType_fk" CASCADE;
+ALTER TABLE pigtrax."Premise" ADD CONSTRAINT "PremiseType_fk" FOREIGN KEY ("id_PremiseType")
+REFERENCES pigtraxrefdata."PremiseType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."PremiseTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."PremiseTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."PremiseTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_PremiseType" integer,
+	CONSTRAINT "PremiseTypeTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "PremiseTypeTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."PremiseTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "PremiseType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."PremiseTypeTranslation" DROP CONSTRAINT IF EXISTS "PremiseType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."PremiseTypeTranslation" ADD CONSTRAINT "PremiseType_fk" FOREIGN KEY ("id_PremiseType")
+REFERENCES pigtraxrefdata."PremiseType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+
+
+
+-- object: pigtraxrefdata."BarnLocation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."BarnLocation" CASCADE;
+CREATE TABLE pigtraxrefdata."BarnLocation"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "BarnLocation_PK" PRIMARY KEY (id),
+	CONSTRAINT "BarnLocation_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."BarnLocation" OWNER TO pitraxadmin;
+
+
+-- object: "BarnLocation_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Barn" DROP CONSTRAINT IF EXISTS "BarnLocation_fk" CASCADE;
+ALTER TABLE pigtrax."Barn" ADD CONSTRAINT "BarnLocation_fk" FOREIGN KEY ("id_BarnLocation")
+REFERENCES pigtraxrefdata."BarnLocation" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."BarnLocationTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."BarnLocationTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."BarnLocationTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_BarnLocation" integer,
+	CONSTRAINT "BarnLocationTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "BarnLocationTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."BarnLocationTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "BarnLocation_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."BarnLocationTranslation" DROP CONSTRAINT IF EXISTS "BarnLocation_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."BarnLocationTranslation" ADD CONSTRAINT "BarnLocation_fk" FOREIGN KEY ("id_BarnLocation")
+REFERENCES pigtraxrefdata."BarnLocation" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+
+
+
+
+-- object: pigtraxrefdata."WaterType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."WaterType" CASCADE;
+CREATE TABLE pigtraxrefdata."WaterType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "WaterType_PK" PRIMARY KEY (id),
+	CONSTRAINT "WaterType_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."WaterType" OWNER TO pitraxadmin;
+
+
+-- object: "WaterType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Barn" DROP CONSTRAINT IF EXISTS "WaterType_fk" CASCADE;
+ALTER TABLE pigtrax."Barn" ADD CONSTRAINT "WaterType_fk" FOREIGN KEY ("id_WaterType")
+REFERENCES pigtraxrefdata."WaterType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."WaterTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."WaterTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."WaterTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_WaterType" integer,
+	CONSTRAINT "WaterTypeTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "WaterTypeTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."WaterTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "WaterType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."WaterTypeTranslation" DROP CONSTRAINT IF EXISTS "WaterType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."WaterTypeTranslation" ADD CONSTRAINT "WaterType_fk" FOREIGN KEY ("id_WaterType")
+REFERENCES pigtraxrefdata."WaterType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+
+
+
+-- object: pigtraxrefdata."BarnPosition" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."BarnPosition" CASCADE;
+CREATE TABLE pigtraxrefdata."BarnPosition"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "BarnPosition_PK" PRIMARY KEY (id),
+	CONSTRAINT "BarnPosition_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."BarnPosition" OWNER TO pitraxadmin;
+
+
+-- object: "BarnPosition_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Barn" DROP CONSTRAINT IF EXISTS "BarnPosition_fk" CASCADE;
+ALTER TABLE pigtrax."Barn" ADD CONSTRAINT "BarnPosition_fk" FOREIGN KEY ("id_BarnPosition")
+REFERENCES pigtraxrefdata."BarnPosition" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."BarnPositionTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."BarnPositionTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."BarnPositionTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_BarnPosition" integer,
+	CONSTRAINT "BarnPositionTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "BarnPositionTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."BarnPositionTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "BarnPosition_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."BarnPositionTranslation" DROP CONSTRAINT IF EXISTS "BarnPosition_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."BarnPositionTranslation" ADD CONSTRAINT "BarnPosition_fk" FOREIGN KEY ("id_BarnPosition")
+REFERENCES pigtraxrefdata."BarnPosition" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+
+
+
+
+-- object: pigtraxrefdata."FeederType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."FeederType" CASCADE;
+CREATE TABLE pigtraxrefdata."FeederType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "FeederType_PK" PRIMARY KEY (id),
+	CONSTRAINT "FeederType_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."FeederType" OWNER TO pitraxadmin;
+
+
+-- object: "FeederType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Barn" DROP CONSTRAINT IF EXISTS "FeederType_fk" CASCADE;
+ALTER TABLE pigtrax."Barn" ADD CONSTRAINT "FeederType_fk" FOREIGN KEY ("id_FeederType")
+REFERENCES pigtraxrefdata."FeederType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."FeederTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."FeederTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."FeederTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_FeederType" integer,
+	CONSTRAINT "FeederTypeTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "FeederTypeTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."FeederTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "FeederType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."FeederTypeTranslation" DROP CONSTRAINT IF EXISTS "FeederType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."FeederTypeTranslation" ADD CONSTRAINT "FeederType_fk" FOREIGN KEY ("id_FeederType")
+REFERENCES pigtraxrefdata."FeederType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 
 

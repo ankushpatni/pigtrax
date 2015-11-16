@@ -1,4 +1,4 @@
-pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalInstance,premisesData) {	
+pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalInstance,premisesData, restServices) {	
 	$scope.premisesData = premisesData;
 	$scope.edit = false;
 	$scope.add ={};
@@ -10,6 +10,22 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	$scope.add.companyId = premisesData.companyId;
 	$scope.generatedCompanyId = premisesData.generatedCompanyId;
 	console.log(premisesData);
+	
+	$scope.getPremiseTypes = function()
+	{
+		restServices.getPremiseTypes(function(data){
+			if(!data.error)
+			{
+				var responseList = data.payload;
+				$scope.premiseTypeKeys = responseList[0];
+				$scope.premiseTypeKeyValues = responseList[1];
+			}
+		});
+	}
+	
+	$scope.getPremiseTypes();
+	
+	
 	if(premisesData != null && premisesData.permiseId !=null )
 	{
 		$scope.edit = true;
@@ -23,6 +39,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 		$scope.city = $scope.cityJSON[$scope.add.state];
 		$scope.add.city = premisesData.city;
 		$scope.add.id = premisesData.id
+		$scope.add.premiseTypeId = premisesData.premiseTypeId
     	
 	}
 	
@@ -43,7 +60,10 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"zipcode" : $scope.add.zipcode,
 							"active" : true,
 							"id" : $scope.add.id,
-							"companyId" : premisesData.generatedCompanyId
+							"companyId" : premisesData.generatedCompanyId,
+							"gpsLatittude" : $scope.add.gpsLatittude,
+							"gpsLongitude" : $scope.add.gpsLongitude,
+							"premiseTypeId" : $scope.add.premiseTypeId
 					};
 				}
 				else
@@ -57,7 +77,10 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"zipcode" : $scope.add.zipcode,
 							"active" : true,
 							"id" : $scope.add.id,
-							"companyId" : premisesData.generatedCompanyId
+							"companyId" : premisesData.generatedCompanyId,
+							"gpsLatittude" : $scope.add.gpsLatittude,
+							"gpsLongitude" : $scope.add.gpsLongitude,
+							"premiseTypeId" : $scope.add.premiseTypeId
 					};
 				}
 				console.log(postParam);

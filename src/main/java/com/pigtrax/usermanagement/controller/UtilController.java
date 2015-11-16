@@ -488,4 +488,108 @@ public class UtilController {
 		dto.setStatusMessage("Success");
 		return dto; 
 	}
+	
+	@RequestMapping(value = "/getPremiseTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getPremiseTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getPremiseTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getPremiseTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	
+	@RequestMapping(value = "/getBarnLocations", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getBarnLocations(HttpServletRequest request)
+	{
+		logger.info("Inside getBarnLocations" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getBarnLocationMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	
+	@RequestMapping(value = "/getWaterTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getWaterTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getWaterTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getWaterTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	@RequestMapping(value = "/getBarnPositions", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getBarnPositions(HttpServletRequest request)
+	{
+		logger.info("Inside getBarnPositions" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getBarnPositionMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	
+	@RequestMapping(value = "/getFeederTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getFeederTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getBarnPositions" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getFeederTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
 }

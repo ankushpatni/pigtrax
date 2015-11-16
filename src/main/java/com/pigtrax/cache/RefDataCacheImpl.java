@@ -71,6 +71,17 @@ public class RefDataCacheImpl implements RefDataCache {
 	private Map<String, Map<Integer, String>> saleReasonsMap;
 	
 	private Map<String, Map<Integer, String>> saleTypesMap;
+	
+	private Map<String, Map<Integer, String>> premiseTypeMap;
+	
+	private Map<String, Map<Integer, String>> barnLocationMap;
+	
+	private Map<String, Map<Integer, String>> waterTypeMap;
+	
+	private Map<String, Map<Integer, String>> barnPositionMap;
+	
+	private Map<String, Map<Integer, String>> feederTypeMap;
+	
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
 	 * 
@@ -106,6 +117,11 @@ public class RefDataCacheImpl implements RefDataCache {
 		pigletConditionMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPigletConditions()));
 		saleTypesMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSaleTypes()));
 		saleReasonsMap = Collections.unmodifiableMap(convertToMap(refDataDao.getSaleReasons()));
+		premiseTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getPremiseTypes()));		
+		barnLocationMap = Collections.unmodifiableMap(convertToMap(refDataDao.getBarnLocations()));
+		waterTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getWaterTypes()));
+		barnPositionMap = Collections.unmodifiableMap(convertToMap(refDataDao.getBarnPositions()));
+		feederTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFeederTypes()));
 	}
 
 	@Override
@@ -250,6 +266,32 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getSaleTypesMap(String language) {
 		return saleTypesMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getPremiseTypeMap(String language) {
+		// TODO Auto-generated method stub
+		return premiseTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getBarnLocationMap(String language) {
+		return barnLocationMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getBarnPositionMap(String language) {
+		return barnPositionMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getFeederTypeMap(String language) {
+		return feederTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getWaterTypeMap(String language) {
+		return waterTypeMap.get(language);
 	}
 	
 }

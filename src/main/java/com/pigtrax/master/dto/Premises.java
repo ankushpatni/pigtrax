@@ -15,6 +15,11 @@ public class Premises {
 	private boolean isActive;
 	private Date lastUpdated;
 	private String userUpdated;
+	private String gpsLatittude;
+	private String gpsLongitude;
+	private String premiseType;
+	private Integer premiseTypeId;
+	private String language;
 	
 	public int getId() {
 		return id;
@@ -82,4 +87,35 @@ public class Premises {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	public String getGpsLatittude() {
+		return gpsLatittude;
+	}
+	public void setGpsLatittude(String gpsLatittude) {
+		this.gpsLatittude = gpsLatittude;
+	}
+	public String getGpsLongitude() {
+		return gpsLongitude;
+	}
+	public void setGpsLongitude(String gpsLongitude) {
+		this.gpsLongitude = gpsLongitude;
+	}
+	public String getPremiseType() {
+		return premiseType;
+	}
+	public void setPremiseType(String premiseType) {
+		this.premiseType = premiseType;
+	}
+	public Integer getPremiseTypeId() {
+		return premiseTypeId;
+	}
+	public void setPremiseTypeId(Integer premiseTypeId) {
+		this.premiseTypeId = premiseTypeId;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
 }

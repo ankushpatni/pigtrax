@@ -20,10 +20,11 @@
 				<th st-sort="name" style="width:20%"><spring:message code="label.transportDestination.name" text="Name" /></th>
 				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.address" text="Address" /></th>
 				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.city" text="City" /></th>
+				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.state" text="State" /></th>
 				<th style="width:20%"><spring:message code="label.transportDestination.delete" text="Delete" /></th>
 			</tr>
 		 	<tr>
-				<th colspan="4"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
+				<th colspan="5"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -31,6 +32,7 @@
 				<td style="width:20%">{{row.name}}</td>
 				<td style="width:20%">{{row.address}}</td>
 				<td style="width:20%">{{row.city}}</td>
+				<td style="width:20%">{{row.state}}</td>
 				<td style="width: 20%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="deleteTransportDestinationData(row)">
 					<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.transportDestination.delete" text="Delete" /></a></button>					

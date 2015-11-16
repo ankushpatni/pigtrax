@@ -11,7 +11,8 @@ pigTrax.controller('addTransportDestinationCtrl', function($scope, $http, $windo
 							"name" : $scope.add.name,
 							"address" : $scope.add.address,
 							"city" : $scope.add.city,
-							"companyId" : transportDestinationData.generatedCompanyId							
+							"companyId" : transportDestinationData.generatedCompanyId,
+							"companyId" : $scope.add.state	
 						};
 				
 				console.log(postParam);

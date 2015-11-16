@@ -16,6 +16,12 @@ public interface PremisesService {
 	public List<Premises> getPremisesList( int generatedCompanyId );
 	
 	/**
+	 * To get the list of Premises
+	 * @return List<Premises>
+	 */
+	public List<Premises> getPremisesList( int generatedCompanyId, String language );
+	
+	/**
 	 * To update Premises Status
 	 * @return 
 	 */

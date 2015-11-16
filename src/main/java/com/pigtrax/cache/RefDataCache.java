@@ -53,4 +53,14 @@ public interface RefDataCache {
 	Map<Integer, String> getSaleTypesMap(String language);
 	
 	Map<Integer, String> getSaleReasonsMap(String language);
+	
+	Map<Integer, String> getPremiseTypeMap(String language);
+	
+	Map<Integer, String> getBarnLocationMap(String language);
+	
+	Map<Integer, String> getWaterTypeMap(String language);
+	
+	Map<Integer, String> getBarnPositionMap(String language);
+	
+	Map<Integer, String> getFeederTypeMap(String language);
 }
