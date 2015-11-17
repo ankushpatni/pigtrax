@@ -10,20 +10,16 @@
 			<div class="block-flat">
 				<form method="POST" action="uploadFile" name="batchupload"
 					enctype="multipart/form-data">
-					<div class="head">
-						<div class="alert alert-success alert-white rounded"  ng-show="uploadStatus == 'success'">
-		                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-		                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.uploadprocess.success.message' text='Upload process completed successfully'/>
-                 		 </div>
-                 		 
-						<%
+					<%
 						String reportName = "";
 						if(session.getAttribute("REPORT_FILE") != null)
 							reportName = (String)session.getAttribute("REPORT_FILE");
 						
 						%>
-						<a href="<%=request.getContextPath()%>/downloadReport?file=<%=reportName%>"   ng-show="uploadStatus == 'success'"><spring:message code='label.uploadprocess.viewreport.link' text='Download Report'/></a>
-						
+					<div class="head">
+						  <b  ng-show="uploadStatus == 'success'"  class="color-primary"><spring:message code='label.uploadprocess.success.message' text='Upload process completed.'/>&nbsp;
+						  <a href="<%=request.getContextPath()%>/downloadReport?file=<%=reportName%>"><spring:message code='label.uploadprocess.success.message.clickhere' text='Click here'/></a>&nbsp; <spring:message code='label.uploadprocess.success.download.text' text='to download the report.'/></b>
+                 		
 						<h3>
 							<spring:message
 								code='label.piginfo.entryeventform.batchupload.heading'
@@ -42,9 +38,9 @@
 							<option value="GROUPEVENTDETAILEVENT">GROUP DETAIL</option>
 							<option value="FEEDEVENT">FEED</option>
 													
-						</select> <br />CSV HEADER: <select class="form-control" name="header">
-							<option value="false">WITHOUT HEADER</option>
+						</select> <br />CSV HEADER: <select class="form-control" name="header">							
 							<option value=true>WITH HEADER</option>
+							<option value="false">WITHOUT HEADER</option>
 						</select> <br />
 						<button type="submit" value="upload">
 							<spring:message code='label.piginfo.entryeventform.upload.button'
