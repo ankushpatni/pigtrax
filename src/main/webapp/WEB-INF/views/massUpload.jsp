@@ -36,11 +36,12 @@
 							<option value="MATINGDETAILS">MATINGDETAILS</option>
 							<option value="PREGNANCYINFO">PREGNANCY INFO</option>
 							<option value="FARROWEVENT">FARROW</option>
+							<option value="INDIVIDUALPIGLETSTATUS">INDIVIDUAL PIGLET STATUS</option>	
 							<option value="PIGLETSTATUSINFO">PIGLET STATUS INFO</option>							
 							<option value="GROUPEVENT">GROUP</option>
 							<option value="GROUPEVENTDETAILEVENT">GROUP DETAIL</option>
 							<option value="FEEDEVENT">FEED</option>
-							<option value="FEEDEVENT">INDIVIDUAL PIGLET STATUS</option>							
+													
 						</select> <br />CSV HEADER: <select class="form-control" name="header">
 							<option value="false">WITHOUT HEADER</option>
 							<option value=true>WITH HEADER</option>
