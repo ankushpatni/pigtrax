@@ -551,7 +551,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  				ps.setInt(1, PigletStatusEventType.Wean.getTypeCode());
  				ps.setDate(2, start);
  				ps.setDate(3, end);
- 				ps.setDate(4, start);
+ 				ps.setDate(4, end);
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
