@@ -5,13 +5,26 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 	$scope.generatedCompanyId = truckTrailorData.generatedCompanyId;
 	$scope.transportTrailerType = truckTrailorData.transportTrailerType;
 	$scope.truck = truckTrailorData.truck;
-		
+
+	var currDate = new Date();
+	var currentYear = currDate.getFullYear();
+	$scope.purchaseYearArr = [];
+	
+	var yearVal = currentYear;
+	for(i=0; i<20; i++)
+	{
+		$scope.purchaseYearArr[i] = yearVal;
+		yearVal--;
+	}
+	
 	$scope.addTransportTruck = function() {
 		if($scope.truckAddForm.$valid)
 			{
 			var postParam = {
 							"transportTruckId" : $scope.add.transportTruckId,
-							"companyId" : truckTrailorData.generatedCompanyId							
+							"companyId" : truckTrailorData.generatedCompanyId,
+							"purchaseYear" : $scope.add.purchaseYear,
+							"make" : $scope.add.make,
 						};
 				
 				console.log(postParam);

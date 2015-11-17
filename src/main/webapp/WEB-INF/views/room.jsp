@@ -18,7 +18,7 @@
 			<thead style="background-color: #3399CC">
 			<tr>
 				<th st-sort="roomId" style="width:20%"><spring:message code="label.room.roomID" text="Room ID" /></th>
-				<th st-sort="location" style="width:30%"><spring:message code="label.barn.location" text="Location" /></th>
+				<th st-sort="location" style="width:30%"><spring:message code="label.barn.roomPosition" text="RoomPosition" /></th>
 				<th style="width:20%"><spring:message code="label.premise.edit" text="Edit" /></th>
 				<th style="width:20%"><spring:message code="label.company.goto" text="Go To" /></th>
 				<th style="width:20px"><spring:message code="label.company.activateDeactivate"
@@ -31,7 +31,10 @@
 			<tbody>
 			<tr ng-repeat="row in displayedCollection track by $index">
 				<td style="width:20%">{{row.roomId}}</td>
-				<td style="width:30%">{{row.location}}</td>
+				<td style="width:30%"><p ng-show="row.roomPositionId ==1"><spring:message code="label.barn.roomPosition.center" text="Center" /></p>
+				<p ng-show="row.roomPositionId ==2"><spring:message code="label.barn.roomPosition.inside" text="Inside" /></p>
+				<p ng-show="row.roomPositionId ==3"><spring:message code="label.barn.roomPosition.outside" text="Outside" /></p>
+				<p ng-show="row.roomPositionId == null || row.roomPositionId == 0">&nbsp;</p></td>
 				<td style="width: 20%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editRoomData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

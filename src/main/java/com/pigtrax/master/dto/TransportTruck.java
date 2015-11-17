@@ -9,6 +9,9 @@ public class TransportTruck {
 	private int companyId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private int purchaseYear;
+	private String make;
+	
 	public int getId() {
 		return id;
 	}
@@ -44,6 +47,18 @@ public class TransportTruck {
 		return "TransportTruck [id=" + id + ", truckId=" + transportTruckId
 				+ ", companyId=" + companyId + ", lastUpdated=" + lastUpdated
 				+ ", userUpdated=" + userUpdated + "]";
+	}
+	public int getPurchaseYear() {
+		return purchaseYear;
+	}
+	public void setPurchaseYear(int purchaseYear) {
+		this.purchaseYear = purchaseYear;
+	}
+	public String getMake() {
+		return make;
+	}
+	public void setMake(String make) {
+		this.make = make;
 	}
 	
 	

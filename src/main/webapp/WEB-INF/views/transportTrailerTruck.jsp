@@ -18,12 +18,16 @@
 							<thead style="background-color: #3399CC">
 							<tr>
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.transportTruckId" text="Truck Number Plate" /></th>
+								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.purchaseYear" text="Purchase Year" /></th>
+								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.make" text="Make" /></th>
 								<th style="width:20%"><spring:message code="label.transportTruck.deleteTruckData" text="Delete Truck" /></th>
 							</tr>
 						 	</thead>
 							<tbody>
 							<tr ng-repeat="row in displayedCollection1 track by $index">
 								<td style="width:20%">{{row.transportTruckId}}</td>
+								<td style="width:20%">{{row.purchaseYear}}</td>
+								<td style="width:20%">{{row.make}}</td>
 								<td style="width: 20%">
 									<button type="button" class="btn btn-edit btn-xs" ng-click="deleteTransportTruckData(row)">
 										<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.transportTruck.deleteTruck" text="Delete" /></a></button>					

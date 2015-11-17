@@ -283,9 +283,9 @@
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.mateQuality'  text='Mating Quality'/></label>
                       <select ng-model="matingDetails.matingQuality" name="matingQuality" id="matingQuality" class="form-control">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
+                      <option value="1"><spring:message code='label.piginfo.breedingeventform.mateQuality.good'  text='Good'/></option>
+                      <option value="2"><spring:message code='label.piginfo.breedingeventform.mateQuality.ok'  text='OK'/></option>
+                      <option value="3"><spring:message code='label.piginfo.breedingeventform.mateQuality.poor'  text='Poor'/></option>
                       </select>
                     </div>                   
                     

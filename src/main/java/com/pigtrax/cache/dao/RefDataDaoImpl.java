@@ -278,4 +278,34 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
+	@Override
+	public List<RefDataTranslationDto> getPremiseTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PremiseType\" FROM pigtraxrefdata.\"PremiseTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getBarnLocations() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_BarnLocation\" FROM pigtraxrefdata.\"BarnLocationTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getBarnPositions() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_BarnPosition\" FROM pigtraxrefdata.\"BarnPositionTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getWaterTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_WaterType\" FROM pigtraxrefdata.\"WaterTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getFeederTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_FeederType\" FROM pigtraxrefdata.\"FeederTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
 }

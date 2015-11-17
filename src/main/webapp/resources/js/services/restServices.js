@@ -109,5 +109,10 @@ pigTrax.factory("restServices", function($resource) {
 		"getBarnDetailsByRoom" : {method:"POST", url:"rest/barn/getBarnDetailsByRoom"},
 		"getSaleTypes" : {method:"GET", url:"rest/util/getSaleTypes"},
 		"getSaleReasons" : {method:"GET", url:"rest/util/getSaleReasons"},
+		"getPremiseTypes" : {method:"GET", url:"rest/util/getPremiseTypes"},
+		"getBarnLocations" : {method:"GET", url:"rest/util/getBarnLocations"},
+		"getWaterTypes" : {method:"GET", url:"rest/util/getWaterTypes"},
+		"getBarnPositions" : {method:"GET", url:"rest/util/getBarnPositions"},
+		"getFeederTypes" : {method:"GET", url:"rest/util/getFeederTypes"},
     });
 });

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.BarnDao;
 import com.pigtrax.master.dao.interfaces.PremisesDao;
 import com.pigtrax.master.dto.Barn;
@@ -23,10 +24,23 @@ public class PremisesServiceImpl implements PremisesService{
 	@Autowired
 	BarnDao barnDao;
 	
+	@Autowired
+	RefDataCache refDataCache;
+	
 
 	@Override
 	public List<Premises> getPremisesList(int generatedCompanyId) {
 		return premisesDao.getPremisesList( generatedCompanyId );
+	}
+	
+	@Override
+	public List<Premises> getPremisesList(int generatedCompanyId, String language) { 
+		List<Premises> premiseList =  premisesDao.getPremisesList( generatedCompanyId);
+		for(Premises premise : premiseList)
+		{
+			premise.setPremiseType(refDataCache.getPremiseTypeMap(language).get(premise.getPremiseTypeId()));
+		}
+		return premiseList;
 	}
 
 	@Override

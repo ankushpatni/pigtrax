@@ -17,6 +17,14 @@ public class Barn {
 	private int ventilationTypeId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer barnOrientationId;
+	private String barnOrientation;
+	private Integer barnLocationId;
+	private Integer waterTypeId;
+	private Integer barnPositionId;
+	private Integer feederTypeId;
+	private Integer holesPerFeeder;
+	private String remarks;
 	
 	
 	public int getId() {
@@ -91,5 +99,55 @@ public class Barn {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	public Integer getBarnOrientationId() {
+		return barnOrientationId;
+	}
+	public void setBarnOrientationId(Integer barnOrientationId) {
+		this.barnOrientationId = barnOrientationId;
+	}
+	public String getBarnOrientation() {
+		return barnOrientation;
+	}
+	public void setBarnOrientation(String barnOrientation) {
+		this.barnOrientation = barnOrientation;
+	}
+	public Integer getBarnLocationId() {
+		return barnLocationId;
+	}
+	public void setBarnLocationId(Integer barnLocationId) {
+		this.barnLocationId = barnLocationId;
+	}
+	public Integer getWaterTypeId() {
+		return waterTypeId;
+	}
+	public void setWaterTypeId(Integer waterTypeId) {
+		this.waterTypeId = waterTypeId;
+	}
+	public Integer getBarnPositionId() {
+		return barnPositionId;
+	}
+	public void setBarnPositionId(Integer barnPositionId) {
+		this.barnPositionId = barnPositionId;
+	}
+	public Integer getFeederTypeId() {
+		return feederTypeId;
+	}
+	public void setFeederTypeId(Integer feederTypeId) {
+		this.feederTypeId = feederTypeId;
+	}
+	public Integer getHolesPerFeeder() {
+		return holesPerFeeder;
+	}
+	public void setHolesPerFeeder(Integer holesPerFeeder) {
+		this.holesPerFeeder = holesPerFeeder;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	
+	
 	
 }

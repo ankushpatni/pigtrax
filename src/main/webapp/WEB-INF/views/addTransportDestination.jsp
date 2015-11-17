@@ -13,7 +13,11 @@
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.transportDestination.city" text="City" /><span style='color: red'>*</span></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.city' text='City' />" name="city" ng-model="add.city" maxlength="255"  required required-message="'<spring:message code='label.transportDestination.cityRequired' text='City is required' />'" />
+						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.city' text='City' />" name="city" ng-model="add.city" maxlength="100"  required required-message="'<spring:message code='label.transportDestination.cityRequired' text='City is required' />'" />
+					</div>
+					<div class="form-group">
+						<label><spring:message code="label.transportDestination.state" text="State" /><span style='color: red'>*</span></label>
+						<input class="form-control" type="text" placeholder="<spring:message code='state' text='State' />" name="state" ng-model="add.state" maxlength="100"  required required-message="'<spring:message code='label.transportDestination.stateRequired' text='State is required' />'" />
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.transportDestination.address" text="Address" /><span style='color: red'>*</span></label>

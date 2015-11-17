@@ -30,7 +30,12 @@
 			<tbody>
 			<tr ng-repeat="row in displayedCollection track by $index">
 				<td style="width:20%">{{row.penId}}</td>
-				<td style="width:30%">{{row.location}}</td>
+				<td style="width:30%">
+				 <p ng-show="row.location=='doorway'"><spring:message code="label.pen.location.doorway" text="Doorway" /></p>
+				 <p ng-show="row.location=='interior'"><spring:message code="label.pen.location.doorway" text="Interior" /></p>
+				 <p ng-show="row.location=='exterior'"><spring:message code="label.pen.location.doorway" text="Exterior" /></p>
+				 &nbsp;
+				</td>
 				<td style="width: 20%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editPenData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

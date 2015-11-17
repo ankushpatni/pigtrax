@@ -19,6 +19,14 @@
 				<label><spring:message code="label.premise.name" text="Name" /><span style='color: red'>*</span></label>
 				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.name'  text='Name'/>" name="premiseName" ng-model="add.name" maxlength="50" required  required-message="'<spring:message code='label.premise.premiseNameRequired' text='Premise Name is required' />'"/>	
 			</div>
+			
+			<div class="form-group">
+                <label><spring:message code='label.premise.premiseType'  text='Premise Type'/></label>                      
+   				<select class="form-control"  name="premiseTypeId" ng-model="add.premiseTypeId" >
+                	<option ng-repeat="key in premiseTypeKeys" ng-value="key" ng-selected="add.premiseTypeId==key">{{premiseTypeKeyValues[key]}}</option>        
+                  </select>
+             </div>
+			
 			<div class="form-group">
 				<label><spring:message code="label.premise.address" text="Address" /></label>
 				<textarea class="form-control" type="text" placeholder="<spring:message code='label.premise.address' text='Address' />" name="address" ng-model="add.address" maxlength="255" required-message="'<spring:message code='label.premise.premiseAddressRequired' text='Premise address is required' />'" />
@@ -37,6 +45,15 @@
 				<label><spring:message code="label.premise.zipcode" text="Zipcode" /></label>
 				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.zipcode' text='Zipcode' />" name="zipcode" ng-model="add.zipcode" maxlength="9" required-message="'<spring:message code='label.premise.zipcodeRequired' text='Zipcode address is required' />'" />
 			</div>  
+			 <div class="form-group">
+				<label><spring:message code="label.premise.gpslatittude" text="GPS Latittude" /></label>
+				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.gpslatittude'  text='GPS Latittude'/>" name="gpsLatittude" ng-model="add.gpsLatittude" maxlength="30"/>	
+			</div>
+			<div class="form-group">
+				<label><spring:message code="label.premise.gpslongitude" text="GPS Longitude" /></label>
+				<input class="form-control" type="text" placeholder="<spring:message code='gpslongitude'  text='GPS Longitude'/>" name="gpsLongitude" ng-model="add.gpsLongitude" maxlength="30"/>	
+			</div>
+			
         <div class="modal-footer">
 
             <button class="btn btn-primary btn-flat md-close" ng-click="addPremise()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
