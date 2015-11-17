@@ -125,6 +125,12 @@ public class ReportControlller {
 		List<Integer> littersWithWeaingWeightList = new LinkedList<Integer>();
 		//Piglets with weaning weight
 		List<Integer> pigletsWithWeainngWeightList = new LinkedList<Integer>();
+		//total pigs weave weight
+		List<Integer> weainngWeightList = new LinkedList<Integer>();
+		List<Float> weaningWeightWithLitterList = new LinkedList<Float>();
+		List<Float> weaningWeightWithPigletsList = new LinkedList<Float>();
+		List<Integer> littersWeanedLessThan17DaysList = new LinkedList<Integer>();
+		List<Float> percentageLittersWeanedLessThan17DaysList = new LinkedList<Float>();
 		
 		
 		while(itr.hasNext())
@@ -150,6 +156,8 @@ public class ReportControlller {
 			int totalPigsMortal = (Integer)valueList.get(11);
 			int littersWithWeaingWeight = (Integer)valueList.get(12);
 			int pigletsWithWeainngWeight = (Integer)valueList.get(13);
+			int weainngWeight = (Integer)valueList.get(14);
+			int littersWeanedLessThan17Days = (Integer)valueList.get(15);
 			
 			totalBornList.add(totalBorn);
 			totalLiveBornList.add(totalLiveBorn);
@@ -191,6 +199,11 @@ public class ReportControlller {
 			
 			float percentagePreWeaningMortality = ((float)(totalPigsMortal)/totalLiveBorn)*100;
 			
+			float weaningWeightWithLitter = (float)(weainngWeight)/littersWeaned;
+			float weaningWeightWithPiglets = (float)(weainngWeight)/totalPigsWeavened;
+			
+			float percentageLittersWeanedLessThan17Days = ((float)(littersWeanedLessThan17Days)/littersWeaned)*100;
+			
 			averageTotalBornList.add(averageTotalBorn);
 			averageLiveBornList.add(averageLiveBorn);
 			averageDeadBornList.add(averageDeadBorn);
@@ -215,6 +228,11 @@ public class ReportControlller {
 			percentagePreWeaningMortalityList.add(percentagePreWeaningMortality);
 			littersWithWeaingWeightList.add(littersWithWeaingWeight);
 			pigletsWithWeainngWeightList.add(pigletsWithWeainngWeight);
+			weainngWeightList.add(weainngWeight);
+			weaningWeightWithLitterList.add(weaningWeightWithLitter);
+			weaningWeightWithPigletsList.add(weaningWeightWithPiglets);
+			littersWeanedLessThan17DaysList.add(littersWeanedLessThan17Days);
+			percentageLittersWeanedLessThan17DaysList.add(percentageLittersWeanedLessThan17Days);
 			
 		}
 		
@@ -504,6 +522,46 @@ public class ReportControlller {
 		rows.add(pigletsWithWeainngWeightBuffer.toString());
 		rows.add("\n");
 		
+		
+		StringBuffer weainngWeightBuffer = new StringBuffer();
+		weainngWeightBuffer.append("Total weaning weight,");
+		for (int i = 0; i < size; i++) {
+			weainngWeightBuffer.append(weainngWeightList.get(i)+",");					
+		}
+		rows.add(weainngWeightBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer weaningWeightWithLitterBuffer = new StringBuffer();
+		weaningWeightWithLitterBuffer.append("Weaning weight/litter,");
+		for (int i = 0; i < size; i++) {
+			weaningWeightWithLitterBuffer.append(weaningWeightWithLitterList.get(i)+",");					
+		}
+		rows.add(weaningWeightWithLitterBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer weaningWeightWithPigletsBuffer = new StringBuffer();
+		weaningWeightWithPigletsBuffer.append("Weaning weight/piglet,");
+		for (int i = 0; i < size; i++) {
+			weaningWeightWithPigletsBuffer.append(weaningWeightWithPigletsList.get(i)+",");					
+		}
+		rows.add(weaningWeightWithPigletsBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer littersWeanedLessThan17DaysBuffer = new StringBuffer();
+		littersWeanedLessThan17DaysBuffer.append("Litters weaned less than 17 days,");
+		for (int i = 0; i < size; i++) {
+			littersWeanedLessThan17DaysBuffer.append(littersWeanedLessThan17DaysList.get(i)+",");					
+		}
+		rows.add(littersWeanedLessThan17DaysBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageLittersWeanedLessThan17DaysBuffer = new StringBuffer();
+		percentageLittersWeanedLessThan17DaysBuffer.append("Litters weaned less than 17 days,");
+		for (int i = 0; i < size; i++) {
+			percentageLittersWeanedLessThan17DaysBuffer.append(percentageLittersWeanedLessThan17DaysList.get(i)+",");					
+		}
+		rows.add(percentageLittersWeanedLessThan17DaysBuffer.toString());
+		rows.add("\n");		
 		return rows;
 	}
 	

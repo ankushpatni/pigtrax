@@ -110,6 +110,8 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(getTotalPigsMortal(start,end,companyId));//11
 				listValues.add(getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(start,end,companyId));//12
 				listValues.add(getTotalPigsWeavendWithWeight(start,end,companyId));//13
+				listValues.add(getTotalPigsWeight(start,end,companyId));//14
+				listValues.add(getPigletStatusEventsFerrowIdForWeavnAndDateRange(start,end,companyId));//15
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);
@@ -177,6 +179,16 @@ public class ReportServiceImpl implements ReportService{
 	private int getTotalPigsWeavendWithWeight(Date start, Date end, int companyId)
 	{
 		return pigletStatusEventDao.getTotalPigsWeavendWithWeight( start,  end, companyId);
+	}
+	
+	private int getTotalPigsWeight(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getTotalPigsWeight(start,  end, companyId);
+	}
+	
+	private int getPigletStatusEventsFerrowIdForWeavnAndDateRange(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getPigletStatusEventsFerrowIdForWeavnAndDateRange(start, end, companyId);
 	}
 
 }

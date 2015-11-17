@@ -498,5 +498,68 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		return pigletStatusEventList.get(0);
 	}
 
+	/**
+	 * To get the total pigs weavned weight
+	 */
+	@Override
+	public Integer getTotalPigsWeight(final Date start,final Date end,
+			final Integer companyId) {
+		//String qry = "select sum(\"numberOfPigs\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?  ";
+		String qry = "select sum(\"weightInKgs\") from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ? ";
+
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				/*ps.setInt(1, companyId);
+ 				ps.setInt(2, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(3, start);
+ 				ps.setDate(4, end);*/
+ 			//	ps.setInt(1, companyId);
+ 				ps.setInt(1, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the list of PigletStatus Ferrow ID count Weavn  farrowId and companyId
+	 */
+	@Override
+	public Integer getPigletStatusEventsFerrowIdForWeavnAndDateRange(final Date start,final Date end,
+			final Integer companyId) {
+		//String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?";
+		
+		String qry = "select count(\"id\") from pigtrax.\"FarrowEvent\" where \"id\" in  "+
+					 "(select \"id_FarrowEvent\" from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?) and " + 
+					 " DATE_PART('day', ?::timestamp - \"farrowDateTime\"::timestamp)<17 ";
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				/*ps.setInt(1, companyId);
+ 				ps.setInt(2, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(3, start);
+ 				ps.setDate(4, end);*/
+ 				//ps.setInt(1, companyId);
+ 				ps.setInt(1, PigletStatusEventType.Wean.getTypeCode());
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 				ps.setDate(4, start);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
 	
 }
