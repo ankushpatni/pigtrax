@@ -112,8 +112,8 @@ public class FeedEventDaoImpl implements FeedEventDao
 				ps.setDate(3, new java.sql.Date(feedEvent
 						.getInitialFeedEntryDateTime().getTime()));
 				ps.setInt(4, feedEvent.getRationId());
-				ps.setInt(5, feedEvent.getInitialFeedQuantityKgs());
-				ps.setBigDecimal(6, feedEvent.getFeedCost());
+				ps.setObject(5, feedEvent.getInitialFeedQuantityKgs(), java.sql.Types.INTEGER);
+				ps.setObject(6, feedEvent.getFeedCost(), java.sql.Types.DECIMAL);
 				ps.setString(7, feedEvent.getFeedMedication());
 				if(null != feedEvent.getTransportJourneyId() && feedEvent.getTransportJourneyId()>0)
 					ps.setInt(8, feedEvent.getTransportJourneyId());

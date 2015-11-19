@@ -72,13 +72,13 @@ public class FeedEventServiceImpl implements FeedEventService
 				}
 				
 			}
-			else
-			{
-				returnValue = feedEventDao.addFeedEvent(feedEvent);
-			}
+			
+			returnValue = feedEventDao.addFeedEvent(feedEvent);
+			
 		} 
 		catch (SQLException sqlEx)
 		{
+			sqlEx.printStackTrace();
 			if ("23505".equals(sqlEx.getSQLState()))
 			{
 				throw new PigTraxException("GroupId already exists",
@@ -92,8 +92,13 @@ public class FeedEventServiceImpl implements FeedEventService
 		}
 		catch (DuplicateKeyException sqlExDup)
 		{
+			sqlExDup.printStackTrace();
 			throw new PigTraxException("GroupId already exists",
 						null, true);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		return returnValue;
 	}

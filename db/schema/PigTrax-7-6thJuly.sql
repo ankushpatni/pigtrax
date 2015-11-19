@@ -834,8 +834,8 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 CREATE TABLE pigtrax."IndividualPigletStatus"(
 	id serial NOT NULL,
 	"tattooId" varchar(30) NOT NULL,
-	"weightAtBirth" smallint,
-	"weightAtWeaning" smallint,
+	"weightAtBirth" numeric(20,2),
+	"weightAtWeaning" numeric(20,2),
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_FarrowEvent" integer,
