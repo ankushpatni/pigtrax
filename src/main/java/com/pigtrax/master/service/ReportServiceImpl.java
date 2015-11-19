@@ -112,6 +112,11 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(getTotalPigsWeavendWithWeight(start,end,companyId));//13
 				listValues.add(getTotalPigsWeight(start,end,companyId));//14
 				listValues.add(getPigletStatusEventsFerrowIdForWeavnAndDateRange(start,end,companyId));//15
+				listValues.add(getCountPifIngoIdFromFarrowWithParityOneInPigInfo(start,end,companyId));//16
+				listValues.add(getCountParityOfPigIngoIdFromFarrow(start,end,companyId));//17
+				listValues.add(getSumOfDiffOfFerrowAndBreedingDate(start,end,companyId));//18
+				listValues.add(getPiGIdFromFerrow(start,end,companyId));//19
+				listValues.add(getPiGIdFromBreeding(start,end,companyId));//20
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);
@@ -190,5 +195,29 @@ public class ReportServiceImpl implements ReportService{
 	{
 		return pigletStatusEventDao.getPigletStatusEventsFerrowIdForWeavnAndDateRange(start, end, companyId);
 	}
-
+	
+	private int getCountPifIngoIdFromFarrowWithParityOneInPigInfo(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountPifIngoIdFromFarrowWithParityOneInPigInfo(start, end, companyId);
+	}
+	
+	private int getCountParityOfPigIngoIdFromFarrow(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountParityOfPigIngoIdFromFarrow(start, end, companyId);
+	}
+	
+	private int getSumOfDiffOfFerrowAndBreedingDate(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getSumOfDiffOfFerrowAndBreedingDate(start, end, companyId);
+	}
+	
+	private int getPiGIdFromFerrow(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getPiGIdFromFerrow(start, end, companyId);
+	}
+	
+	private int getPiGIdFromBreeding(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getPiGIdFromBreeding(start, end, companyId);
+	}
 }

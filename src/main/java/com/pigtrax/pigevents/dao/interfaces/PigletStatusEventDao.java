@@ -48,5 +48,20 @@ public interface PigletStatusEventDao {
 
 	Integer getPigletStatusEventsFerrowIdForWeavnAndDateRange(Date start,
 			Date end, Integer companyId);
+
+	Integer getCountPifIngoIdFromFarrowWithParityOneInPigInfo(Date start,
+			Date end, Integer companyId);
+
+	Integer getCountParityOfPigIngoIdFromFarrow(Date start, Date end,
+			Integer companyId);
+
+	Integer getSumOfDiffOfFerrowAndBreedingDate(Date start, Date end,
+			Integer companyId);
+
+	Integer getPiGIdFromFerrow(Date start, Date end, Integer companyId);
+
+	Integer getPiGIdFromBreeding(Date start, Date end, Integer companyId);
+
+	Integer getCountOfFirstService(Date start, Date end, Integer companyId);
 	
 }

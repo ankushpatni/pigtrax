@@ -132,7 +132,12 @@ public class ReportControlller {
 		List<Integer> littersWeanedLessThan17DaysList = new LinkedList<Integer>();
 		List<Float> percentageLittersWeanedLessThan17DaysList = new LinkedList<Float>();
 		
-		
+		List<Integer> giltsFarrowedList = new LinkedList<Integer>();
+		List<Float> avgGestlenList = new LinkedList<Float>();
+		List<Float> avgParityList = new LinkedList<Float>();
+		List<Integer> littersFarrowedList = new LinkedList<Integer>();
+		List<Float> farrowingRateList = new LinkedList<Float>();
+				
 		while(itr.hasNext())
 		{
 			Date calWeek = (Date)itr.next();
@@ -158,6 +163,11 @@ public class ReportControlller {
 			int pigletsWithWeainngWeight = (Integer)valueList.get(13);
 			int weainngWeight = (Integer)valueList.get(14);
 			int littersWeanedLessThan17Days = (Integer)valueList.get(15);
+			int countPifIngoIdFromFarrowWithParityOneInPigInfo = (Integer)valueList.get(16);
+			int countParityOfPigIngoIdFromFarrow = (Integer)valueList.get(17);
+			int sumOfDiffOfFerrowAndBreedingDate = (Integer)valueList.get(18);
+			int piGIdFromFerrow = (Integer)valueList.get(19);
+			int piGIdFromBreeding = (Integer)valueList.get(20);
 			
 			totalBornList.add(totalBorn);
 			totalLiveBornList.add(totalLiveBorn);
@@ -234,13 +244,87 @@ public class ReportControlller {
 			littersWeanedLessThan17DaysList.add(littersWeanedLessThan17Days);
 			percentageLittersWeanedLessThan17DaysList.add(percentageLittersWeanedLessThan17Days);
 			
+			littersFarrowedList.add(piGIdFromFerrow);
+			avgParityList.add((float)countParityOfPigIngoIdFromFarrow/piGIdFromFerrow);	
+			avgGestlenList.add((float)sumOfDiffOfFerrowAndBreedingDate/piGIdFromFerrow);
+			giltsFarrowedList.add(countPifIngoIdFromFarrowWithParityOneInPigInfo);
+			farrowingRateList.add((float)piGIdFromFerrow/piGIdFromBreeding);
+			
 		}
 		
 		ArrayList<String> rows = new ArrayList<String>();
+		int size = dateList.size();
+		
+		rows.add("Farrowing Performance");
+		rows.add("\n");
+		rows.add("Gilts and Sows");
+		rows.add("\n");
+		
 		rows.add("Piglets");
 		rows.add("\n");
 		
-		int size = dateList.size();
+		
+		StringBuffer littersFarrowedBuffer = new StringBuffer();
+		littersFarrowedBuffer.append("Litters farrowed,");
+		for(int i=0;i<size;i++)
+		{
+			littersFarrowedBuffer.append(littersFarrowedList.get(i)+",");
+		}
+		
+		rows.add(littersFarrowedBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer avgParityBuffer = new StringBuffer();
+		avgParityBuffer.append("Avg parity,");
+		for(int i=0;i<size;i++)
+		{
+			avgParityBuffer.append(avgParityList.get(i)+",");
+		}
+		
+		rows.add(avgParityBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer avgGestlenBuffer = new StringBuffer();
+		avgGestlenBuffer.append("Avg gestlen,");
+		for(int i=0;i<size;i++)
+		{
+			avgGestlenBuffer.append(avgGestlenList.get(i)+",");
+		}
+		
+		rows.add(avgGestlenBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer giltsFarrowedBuffer = new StringBuffer();
+		giltsFarrowedBuffer.append("Gilts farrowed,");
+		for(int i=0;i<size;i++)
+		{
+			giltsFarrowedBuffer.append(giltsFarrowedList.get(i)+",");
+		}
+		
+		rows.add(giltsFarrowedBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer farrowingRateBuffer = new StringBuffer();
+		farrowingRateBuffer.append("Farrowing rate,");
+		for(int i=0;i<size;i++)
+		{
+			farrowingRateBuffer.append(farrowingRateList.get(i)+",");
+		}
+		
+		rows.add(farrowingRateBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer adjFarrowingRateListRateBuffer = new StringBuffer();
+		adjFarrowingRateListRateBuffer.append("Adj farrowing rate,");
+		for(int i=0;i<size;i++)
+		{
+			//adjFarrowingRateListRateBuffer.append(farrowingRateList.get(i)+",");
+			adjFarrowingRateListRateBuffer.append(",");
+		}
+		
+		rows.add(adjFarrowingRateListRateBuffer.toString());
+		rows.add("\n");
+		
 		StringBuffer dateBuffer = new StringBuffer();
 		dateBuffer.append("Calander Week,");
 		for(int i=0;i<size;i++)

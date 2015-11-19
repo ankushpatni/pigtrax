@@ -316,7 +316,6 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	@Override
 	public Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(final Date start,final Date end,
 			final Integer companyId) {
-		//String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?";
 		
 		String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?";
 
@@ -474,7 +473,6 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	@Override
 	public Integer getTotalPigsWeavendWithWeight(final Date start,final Date end,
 			final Integer companyId) {
-		//String qry = "select sum(\"numberOfPigs\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?  ";
 		String qry = "select sum(\"numberOfPigs\") from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ? and \"weightInKgs\" !=0 ";
 
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -534,7 +532,6 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	@Override
 	public Integer getPigletStatusEventsFerrowIdForWeavnAndDateRange(final Date start,final Date end,
 			final Integer companyId) {
-		//String qry = "select count(\"id_FarrowEvent\") from pigtrax.\"PigletStatus\" where \"id_Company\" = ? and \"id_PigletStatusEventType\" <> ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?";
 		
 		String qry = "select count(\"id\") from pigtrax.\"FarrowEvent\" where \"id\" in  "+
 					 "(select \"id_FarrowEvent\" from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" = ? and \"eventDateTime\" >= ? and \"eventDateTime\" <= ?) and " + 
@@ -562,4 +559,164 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		return pigletStatusEventList.get(0);
 	}
 	
+	/**
+	 * To get the count of piginfo id from farrow with parity 1 in piginfo
+	 */
+	@Override
+	public Integer getCountPifIngoIdFromFarrowWithParityOneInPigInfo(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = "SELECT count(PS.\"id_PigInfo\") FROM pigtrax.\"FarrowEvent\" PS " +
+				 " JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where PI.\"parity\" = 1 " +
+				" and PS.\"farrowDateTime\" >= ? and PS.\"farrowDateTime\" <= ? and PI.\"id_Company\" = ?";
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 				ps.setInt(3, companyId);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	
+	/**
+	 * To get the sum of parity of piginfo id from piginfo for ferrow
+	 */
+	@Override
+	public Integer getCountParityOfPigIngoIdFromFarrow(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = "SELECT sum(PI.\"parity\") FROM pigtrax.\"PigInfo\" PI "+
+				 "JOIN pigtrax.\"FarrowEvent\" FE ON PI.\"id\" = FE.\"id_PigInfo\" "+
+				" and FE.\"farrowDateTime\" >= ? and  FE.\"farrowDateTime\" <= ? and PI.\"id_Company\" = ?"; 
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 				ps.setInt(3, companyId);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the sum of parity of piginfo id from piginfo for ferrow
+	 */
+	@Override
+	public Integer getSumOfDiffOfFerrowAndBreedingDate(final Date start,final Date end, final Integer companyId) {
+		
+		String qry =  "SELECT sum(DATE_PART('day', FE.\"farrowDateTime\"::timestamp - BE.\"serviceStartDate\"::timestamp )) FROM pigtrax.\"FarrowEvent\" FE " +
+		 " JOIN pigtrax.\"BreedingEvent\" BE ON FE.\"id_PigInfo\" = BE.\"id_PigInfo\" and FE.\"farrowDateTime\" >= ? and  FE.\"farrowDateTime\" <= ? " +
+				" and BE.\"serviceStartDate\" >= ? and BE.\"serviceStartDate\" <= ? ";
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the count of pigid from ferrow
+	 */
+	@Override
+	public Integer getPiGIdFromFerrow(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = "SELECT count(PS.\"id_PigInfo\") FROM pigtrax.\"FarrowEvent\" PS " +
+				 " JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where " +
+				" PS.\"farrowDateTime\" >= ? and PS.\"farrowDateTime\" <= ? and PI.\"id_Company\" = ?";
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the count of pigid from breeding
+	 */
+	@Override
+	public Integer getPiGIdFromBreeding(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = "SELECT count(PS.\"id_PigInfo\") FROM pigtrax.\"BreedingEvent\" PS " +
+				 " JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where " +
+				" PS.\"farrowDateTime\" >= ? and PS.\"farrowDateTime\" <= ? and PI.\"id_Company\" = ?";
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the count of pigid from breeding
+	 */
+	@Override
+	public Integer getCountOfFirstService(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = "select count(PI.\"id\") from pigtrax.\"PigInfo\" PI "+
+					" JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id\" = BE.\"id_PigInfo\" "+ 
+				" where BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setInt(1, companyId);
+ 				//ps.setDate(2, end);
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
 }
