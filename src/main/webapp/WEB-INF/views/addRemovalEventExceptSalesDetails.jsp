@@ -48,6 +48,13 @@
 						</div>
                     
 			              </div>
+			              
+			              <div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.removalDateTime.requiredMessage' text='Removal Except Sales Date Time is required' /></label>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="errorRemovalDateTime" ><spring:message code='label.piginfo.removalExceptSales.removalDateTime.wrongDateMessage' text='Removal Except Sales Date Time is can not be less than Event Start Date' /></label>
+					</div>	
 				      </div> 
 				        <div class="form-group" ng-show="selectGroup==='pigInfo'">
                       <label><spring:message code='label.piginfo.removalExceptSales.pigInfoId'  text='Pig Info'/></label>
@@ -73,15 +80,6 @@
                         </select>                      
                          <label ng-show="removalTypeId == 9"> :  {{removalEventType[removalExceptSales.removalEventId]}}</label>                       
                     </div> 
-                    
-                    
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.removalDateTime.requiredMessage' text='Removal Except Sales Date Time is required' /></label>
-					</div>
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="errorRemovalDateTime" ><spring:message code='label.piginfo.removalExceptSales.removalDateTime.wrongDateMessage' text='Removal Except Sales Date Time is can not be less than Event Start Date' /></label>
-					</div>	
-                    
                     <div class="form-group" ng-show="removalExceptSales.removalEventId != 9">
                       <label><spring:message code='label.piginfo.removalEventform.mortalityReason'  text='Mortality Reason'/></label>                      
                        <select class="form-control" name="mortalityReasonId" id="mortalityReasonId" ng-model="removalExceptSales.mortalityReasonId" >

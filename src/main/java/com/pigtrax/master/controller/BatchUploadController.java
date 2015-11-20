@@ -51,7 +51,9 @@ public class BatchUploadController {
 				
 				HttpSession session = request.getSession(true);
 				String reportFileName = fileName.toLowerCase().replaceAll(".csv", "_report.txt");
-				session.setAttribute("REPORT_FILE", reportFileName); 	
+				session.setAttribute("REPORT_FILE", reportFileName);
+				session.setAttribute("eventType", eventType);
+				session.setAttribute("header", header);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -65,6 +67,14 @@ public class BatchUploadController {
 		Map<String, String> model = new HashMap<String, String>();
 		model.put("contentUrl", "massUpload.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		HttpSession session = request.getSession(true);
+		
+		if(request.getParameter("token") == null)
+		{
+		session.removeAttribute("REPORT_FILE");
+		session.removeAttribute("eventType");
+		session.removeAttribute("header");
+		}
 		return new ModelAndView("template", model);
 	}
 }
