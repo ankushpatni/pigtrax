@@ -627,8 +627,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setDate(1, start);
  				ps.setDate(2, end);
- 				ps.setDate(1, start);
- 				ps.setDate(2, end);
+ 				ps.setDate(3, start);
+ 				ps.setDate(4, end);
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -654,8 +654,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setDate(1, start);
  				ps.setDate(2, end);
- 				ps.setDate(1, start);
- 				ps.setDate(2, end);
+ 				ps.setInt(3, companyId);
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -674,15 +673,14 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		
 		String qry = "SELECT count(PS.\"id_PigInfo\") FROM pigtrax.\"BreedingEvent\" PS " +
 				 " JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where " +
-				" PS.\"farrowDateTime\" >= ? and PS.\"farrowDateTime\" <= ? and PI.\"id_Company\" = ?";
+				" PS.\"serviceStartDate\" >= ? and PS.\"serviceStartDate\" <= ? and PI.\"id_Company\" = ?";
 		
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setDate(1, start);
  				ps.setDate(2, end);
- 				ps.setDate(1, start);
- 				ps.setDate(2, end);
+ 				ps.setInt(3, companyId);
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -694,20 +692,19 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	}
 	
 	/**
-	 * To get the count of pigid from breeding
+	 * To get the count of first service from breeding
 	 */
 	@Override
 	public Integer getCountOfFirstService(final Date start,final Date end, final Integer companyId) {
 		
 		String qry = "select count(PI.\"id\") from pigtrax.\"PigInfo\" PI "+
 					" JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id\" = BE.\"id_PigInfo\" "+ 
-				" where BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
+				" where PI.\"parity\" = 1 and PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
 		
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setInt(1, companyId);
- 				//ps.setDate(2, end);
  				ps.setDate(2, start);
  				ps.setDate(3, end);
  			}}, new RowMapper<Integer>() {
@@ -719,4 +716,87 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 
 		return pigletStatusEventList.get(0);
 	}
+	
+	/**
+	 * To get the count repeate Service of pigid from breeding
+	 */
+	@Override
+	public Integer getCountOfRepeateService(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = "select count(PI.\"id\") from pigtrax.\"PigInfo\" PI "+
+				" JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id\" = BE.\"id_PigInfo\" "+ 
+			" where PI.\"parity\" > 1 and PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
+	
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setInt(1, companyId);
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the count of breeding with mating one
+	 */
+	@Override
+	public Integer getCountOfServiceWithMatingGreaterThanOne(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = " select count(MD.\"id\"), BE.\"id\", BE.\"serviceStartDate\" from pigtrax.\"MatingDetails\" MD " +
+						" JOIN pigtrax.\"BreedingEvent\" BE on BE.\"id\" = MD.\"id_BreedingEvent\" "+ 		
+						" where BE.\"serviceStartDate\" :: date between ? and ? group by BE.\"id\" 	having count(MD.\"id\") > 1";
+	
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+ 		
+ 		if(pigletStatusEventList!=null && !pigletStatusEventList.isEmpty())
+ 			return pigletStatusEventList.get(0);
+ 		else
+ 			return 0;
+	}
+	
+	/**
+	 * To get the count of breeding with mating one
+	 */
+	@Override
+	public Integer getCountOfMating(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = " select count(MD.\"id\"), BE.\"id\", BE.\"serviceStartDate\" from pigtrax.\"MatingDetails\" MD " +
+						" JOIN pigtrax.\"BreedingEvent\" BE on BE.\"id\" = MD.\"id_BreedingEvent\" "+ 		
+						" where BE.\"serviceStartDate\" :: date between ? and ? group by BE.\"id\" ";
+	
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+ 		if(pigletStatusEventList!=null && !pigletStatusEventList.isEmpty())
+ 			return pigletStatusEventList.get(0);
+ 		else
+ 			return 0;
+	}
+	
 }

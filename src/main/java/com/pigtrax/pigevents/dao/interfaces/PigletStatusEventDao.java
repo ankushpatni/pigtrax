@@ -63,5 +63,12 @@ public interface PigletStatusEventDao {
 	Integer getPiGIdFromBreeding(Date start, Date end, Integer companyId);
 
 	Integer getCountOfFirstService(Date start, Date end, Integer companyId);
+
+	Integer getCountOfRepeateService(Date start, Date end, Integer companyId);
+
+	Integer getCountOfServiceWithMatingGreaterThanOne(Date start, Date end,
+			Integer companyId);
+
+	Integer getCountOfMating(Date start, Date end, Integer companyId);
 	
 }

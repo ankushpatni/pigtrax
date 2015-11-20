@@ -137,6 +137,20 @@ public class ReportControlller {
 		List<Float> avgParityList = new LinkedList<Float>();
 		List<Integer> littersFarrowedList = new LinkedList<Integer>();
 		List<Float> farrowingRateList = new LinkedList<Float>();
+		
+		//Total services 1st services
+
+		List<Integer> totalServicesList = new LinkedList<Integer>();
+		List<Integer> firstServiceList = new LinkedList<Integer>();
+		List<Integer> repeateServiceList = new LinkedList<Integer>();
+		List<Float> percentageFirstServiceList = new LinkedList<Float>();
+		List<Float> percentageRepeateServiceList = new LinkedList<Float>();
+		List<Float> percentageFirstServiceGiltList = new LinkedList<Float>();//keep it blank at present
+		List<Float> percentageFirstServiceSowsList = new LinkedList<Float>();// keep it balnk at present
+		List<Integer> breedingEventWithMatingMoreThanOneList = new LinkedList<Integer>();
+		List<Float> percentageBreedingEventWithMatingMoreThanOneList = new LinkedList<Float>();
+		List<Float> countOfMatingPerServiceList = new LinkedList<Float>();
+
 				
 		while(itr.hasNext())
 		{
@@ -168,6 +182,10 @@ public class ReportControlller {
 			int sumOfDiffOfFerrowAndBreedingDate = (Integer)valueList.get(18);
 			int piGIdFromFerrow = (Integer)valueList.get(19);
 			int piGIdFromBreeding = (Integer)valueList.get(20);
+			int firstServiceCount = (Integer)valueList.get(21);
+			int repeateServiceCount = (Integer)valueList.get(21);
+			int breedingEventWithMatingMoreThanOne = (Integer)valueList.get(22);
+			int countOfMating = (Integer)valueList.get(23);
 			
 			totalBornList.add(totalBorn);
 			totalLiveBornList.add(totalLiveBorn);
@@ -177,6 +195,9 @@ public class ReportControlller {
 			totalBirthWeightList.add(totalBirthWeight);
 			litterWithAgeLessSevenList.add(litterWithAgeLessSeven);
 			totalPigsWeavnedList.add(totalPigsWeavened);
+			totalServicesList.add(piGIdFromBreeding);
+			firstServiceList.add(firstServiceCount);
+			repeateServiceList.add(repeateServiceCount);
 			
 			float averageTotalBorn = (float)(totalBorn)/totalFerrow;
 			float averageLiveBorn = (float)(totalLiveBorn)/totalFerrow;
@@ -250,19 +271,137 @@ public class ReportControlller {
 			giltsFarrowedList.add(countPifIngoIdFromFarrowWithParityOneInPigInfo);
 			farrowingRateList.add((float)piGIdFromFerrow/piGIdFromBreeding);
 			
+			percentageFirstServiceList.add(((float)firstServiceCount/piGIdFromBreeding)*100);
+			percentageRepeateServiceList.add(((float)repeateServiceCount/piGIdFromBreeding)*100);
+			breedingEventWithMatingMoreThanOneList.add(breedingEventWithMatingMoreThanOne);
+			percentageBreedingEventWithMatingMoreThanOneList.add(((float)breedingEventWithMatingMoreThanOne/piGIdFromBreeding)*100);
+			countOfMatingPerServiceList.add((float)countOfMating/piGIdFromBreeding);
+			
 		}
 		
 		ArrayList<String> rows = new ArrayList<String>();
-		int size = dateList.size();
+		int size = dateList.size();		
+
+		StringBuffer dateBuffer = new StringBuffer();
+		dateBuffer.append("Calander Week,");
+		for(int i=0;i<size;i++)
+		{
+			dateBuffer.append(dateList.get(i)+",");
+		}
+		
+		rows.add(dateBuffer.toString());
+		rows.add("\n");
+		
+		rows.add("Breeding Performance");
+		rows.add("\n");
+		rows.add("Gilts and Sows");
+		rows.add("\n");
+		
+		StringBuffer totalServicesBuffer = new StringBuffer();
+		totalServicesBuffer.append("Total services,");
+		for(int i=0;i<size;i++)
+		{
+			totalServicesBuffer.append(totalServicesList.get(i)+",");
+		}
+		
+		rows.add(totalServicesBuffer.toString());
+		rows.add("\n");
+		rows.add("\n");
+		
+		rows.add("% Services");
+		rows.add("\n");
+		
+		
+		StringBuffer firstServiceBuffer = new StringBuffer();
+		firstServiceBuffer.append("First services,");
+		for(int i=0;i<size;i++)
+		{
+			firstServiceBuffer.append(firstServiceList.get(i)+",");
+		}
+		
+		rows.add(firstServiceBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer repeateServiceBuffer = new StringBuffer();
+		repeateServiceBuffer.append("Repeat services,");
+		for(int i=0;i<size;i++)
+		{
+			repeateServiceBuffer.append(repeateServiceList.get(i)+",");
+		}
+		
+		rows.add(repeateServiceBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageFirstServiceBuffer = new StringBuffer();
+		percentageFirstServiceBuffer.append("% First services,");
+		for(int i=0;i<size;i++)
+		{
+			percentageFirstServiceBuffer.append(percentageFirstServiceList.get(i)+",");
+		}
+		
+		rows.add(percentageFirstServiceBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageFirstServiceGiltBuffer = new StringBuffer(); //percentageFirstServiceGiltList
+		percentageFirstServiceGiltBuffer.append("% 1st services: gilts,");
+		for(int i=0;i<size;i++)
+		{
+			percentageFirstServiceGiltBuffer.append(",");
+		}		
+		rows.add(percentageFirstServiceGiltBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageFirstServiceSowsBuffer = new StringBuffer(); //percentageFirstServiceSowsList
+		percentageFirstServiceSowsBuffer.append("% 1st services: sows,");
+		for(int i=0;i<size;i++)
+		{
+			percentageFirstServiceSowsBuffer.append(",");
+		}		
+		rows.add(percentageFirstServiceSowsBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageRepeateServiceBuffer = new StringBuffer();
+		percentageRepeateServiceBuffer.append("% Repeat services,");
+		for(int i=0;i<size;i++)
+		{
+			percentageRepeateServiceBuffer.append(percentageRepeateServiceList.get(i)+",");
+		}		
+		rows.add(percentageRepeateServiceBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer breedingEventWithMatingMoreThanOneBuffer = new StringBuffer();
+		breedingEventWithMatingMoreThanOneBuffer.append("Services with >1 matings,");
+		for(int i=0;i<size;i++)
+		{
+			breedingEventWithMatingMoreThanOneBuffer.append(breedingEventWithMatingMoreThanOneList.get(i)+",");
+		}		
+		rows.add(breedingEventWithMatingMoreThanOneBuffer.toString());
+		rows.add("\n");
+		
+			
+		StringBuffer percentageBreedingEventWithMatingMoreThanOneBuffer = new StringBuffer();
+		percentageBreedingEventWithMatingMoreThanOneBuffer.append("% Services with 1+ matings,");
+		for(int i=0;i<size;i++)
+		{
+			percentageBreedingEventWithMatingMoreThanOneBuffer.append(percentageBreedingEventWithMatingMoreThanOneList.get(i)+",");
+		}		
+		rows.add(percentageBreedingEventWithMatingMoreThanOneBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer countOfMatingPerServiceListBuffer = new StringBuffer();
+		countOfMatingPerServiceListBuffer.append("Matings per Service,");
+		for(int i=0;i<size;i++)
+		{
+			countOfMatingPerServiceListBuffer.append(countOfMatingPerServiceList.get(i)+",");
+		}		
+		rows.add(countOfMatingPerServiceListBuffer.toString());
+		rows.add("\n");
+		rows.add("\n");
 		
 		rows.add("Farrowing Performance");
 		rows.add("\n");
 		rows.add("Gilts and Sows");
 		rows.add("\n");
-		
-		rows.add("Piglets");
-		rows.add("\n");
-		
 		
 		StringBuffer littersFarrowedBuffer = new StringBuffer();
 		littersFarrowedBuffer.append("Litters farrowed,");
@@ -324,16 +463,10 @@ public class ReportControlller {
 		
 		rows.add(adjFarrowingRateListRateBuffer.toString());
 		rows.add("\n");
-		
-		StringBuffer dateBuffer = new StringBuffer();
-		dateBuffer.append("Calander Week,");
-		for(int i=0;i<size;i++)
-		{
-			dateBuffer.append(dateList.get(i)+",");
-		}
-		
-		rows.add(dateBuffer.toString());
+		rows.add("\n");		
+		rows.add("Piglets");
 		rows.add("\n");
+		
 		
 		StringBuffer totalBornBuffer = new StringBuffer();
 		totalBornBuffer.append("Total Born,");

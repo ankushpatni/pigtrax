@@ -117,6 +117,10 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(getSumOfDiffOfFerrowAndBreedingDate(start,end,companyId));//18
 				listValues.add(getPiGIdFromFerrow(start,end,companyId));//19
 				listValues.add(getPiGIdFromBreeding(start,end,companyId));//20
+				listValues.add(getCountOfFirstService(start, end, companyId));//21
+				listValues.add(getCountOfRepeateService(start, end, companyId));//22
+				listValues.add(getCountOfServiceWithMatingGreaterThanOne(start, end, companyId));//23
+				listValues.add(getCountOfMating(start, end, companyId));//24
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);
@@ -219,5 +223,25 @@ public class ReportServiceImpl implements ReportService{
 	private int getPiGIdFromBreeding(Date start, Date end, int companyId)
 	{
 		return pigletStatusEventDao.getPiGIdFromBreeding(start, end, companyId);
+	}
+	
+	private int getCountOfFirstService(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountOfFirstService(start, end, companyId);
+	}
+	
+	private int getCountOfRepeateService(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountOfRepeateService(start, end, companyId);
+	}
+	
+	private int getCountOfServiceWithMatingGreaterThanOne(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountOfServiceWithMatingGreaterThanOne(start, end, companyId);
+	}
+	
+	private int getCountOfMating(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountOfMating(start, end, companyId);
 	}
 }
