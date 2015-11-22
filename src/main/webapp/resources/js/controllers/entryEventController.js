@@ -198,7 +198,12 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 						if(!data.error){
 							$scope.clearAllMessages();
 							$scope.pigInfo = data.payload;			
+							if($scope.pigInfo.birthDate != null)
+								$scope.pigInfo.birthDate = new Date($scope.pigInfo.birthDate);
 							document.getElementById("birthDate").value = $scope.pigInfo.birthDate;
+							if($scope.pigInfo.entryDate != null)
+								$scope.pigInfo.entryDate = new Date($scope.pigInfo.entryDate);
+							document.getElementById("entryDate").value = $scope.pigInfo.entryDate;
 							
 						}
 						else

@@ -379,8 +379,7 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"id_fosterFarrowEvent" int,
 	"id_GroupEvent" int,
 	"id_MortalityReasonType" int,
-	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id),
-	CONSTRAINT "PIGLETSTATUS_U_FI" UNIQUE ("id_PigInfo", "id_PigletStatusEventType", "id_FarrowEvent")
+	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id)
 );
 -- ddl-end --
 ALTER TABLE pigtrax."PigletStatus" OWNER TO pitraxadmin;

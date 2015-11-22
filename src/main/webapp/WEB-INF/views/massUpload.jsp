@@ -12,8 +12,14 @@
 					enctype="multipart/form-data">
 					<%
 						String reportName = "";
+						String eventType = "";
+						String header = "";
 						if(session.getAttribute("REPORT_FILE") != null)
 							reportName = (String)session.getAttribute("REPORT_FILE");
+						if(session.getAttribute("eventType") != null)
+							eventType = (String)session.getAttribute("eventType");
+						if(session.getAttribute("header") != null)
+							header = (String)session.getAttribute("header");
 						
 						%>
 					<div class="head">
@@ -27,20 +33,21 @@
 						</h3>
 						<input type="file" name="file" value="upload" class="form-control">
 						<br /> Event Type: <select class="form-control" name="eventType">
-							<option value="PIGINFO">PIGINFO</option>
-							<option value="BREEDINGEVENT">BREEDING EVENT</option>
-							<option value="MATINGDETAILS">MATINGDETAILS</option>
-							<option value="PREGNANCYINFO">PREGNANCY INFO</option>
-							<option value="FARROWEVENT">FARROW</option>
-							<option value="INDIVIDUALPIGLETSTATUS">INDIVIDUAL PIGLET STATUS</option>	
-							<option value="PIGLETSTATUSINFO">PIGLET STATUS INFO</option>							
-							<option value="GROUPEVENT">GROUP</option>
-							<option value="GROUPEVENTDETAILEVENT">GROUP DETAIL</option>
-							<option value="FEEDEVENT">FEED</option>
+							<option value="PIGINFO" <%=eventType.equals("PIGINFO")?"selected":"" %>>PIGINFO</option>
+							<option value="BREEDINGEVENT" <%=eventType.equals("BREEDING EVENT")?"selected":"" %>>BREEDING EVENT</option>
+							<option value="MATINGDETAILS" <%=eventType.equals("MATINGDETAILS")?"selected":"" %>>MATINGDETAILS</option>
+							<option value="PREGNANCYINFO" <%=eventType.equals("PREGNANCY INFO")?"selected":"" %>>PREGNANCY INFO</option>
+							<option value="FARROWEVENT" <%=eventType.equals("FARROW")?"selected":"" %>>FARROW</option>
+							<option value="INDIVIDUALPIGLETSTATUS" <%=eventType.equals("INDIVIDUAL PIGLET STATUS")?"selected":"" %>>INDIVIDUAL PIGLET STATUS</option>	
+							<option value="PIGLETSTATUSINFO" <%=eventType.equals("PIGLET STATUS INFO")?"selected":"" %>>PIGLET STATUS INFO</option>							
+							<option value="GROUPEVENT" <%=eventType.equals("GROUP")?"selected":"" %>>GROUP</option>
+							<option value="GROUPEVENTDETAILEVENT" <%=eventType.equals("GROUP DETAIL")?"selected":"" %>>GROUP DETAIL</option>
+							<option value="FEEDEVENT" <%=eventType.equals("FEED")?"selected":"" %>>FEED</option>
+							<option value="REMOVALEVENTEXCEPTSALESEVENT" <%=eventType.equals("REMOVALEVENTEXCEPTSALESEVENT")?"selected":"" %>>REMOVALEVENTEXCEPTSALESEVENT</option>
 													
 						</select> <br />CSV HEADER: <select class="form-control" name="header">							
-							<option value=true>WITH HEADER</option>
-							<option value="false">WITHOUT HEADER</option>
+							<option value="true" <%=eventType.equals("true")?"selected":"" %>>WITH HEADER</option>
+							<option value="false" <%=eventType.equals("false")?"selected":"" %>>WITHOUT HEADER</option>
 						</select> <br />
 						<button type="submit" value="upload">
 							<spring:message code='label.piginfo.entryeventform.upload.button'
