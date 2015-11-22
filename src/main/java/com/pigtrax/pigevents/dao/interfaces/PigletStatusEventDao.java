@@ -84,5 +84,8 @@ public interface PigletStatusEventDao {
 
 	Integer getCountPifIngoIdWithParityOneInPigInfo(Date start, Date end,
 			Integer companyId);
+
+	Integer getSumOfDateDiffBetweenServiceAndEntryDate(Date start, Date end,
+			Integer companyId);
 	
 }

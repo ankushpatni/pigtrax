@@ -159,6 +159,8 @@ public class ReportControlller {
 		List<Float> avgParityOfServedFemalesList = new LinkedList<Float>();
 		List<Integer> serviceToFalloutIntervalList = new LinkedList<Integer>();
 		List<Float> serviceCapacityList = new LinkedList<Float>();
+		List<Integer> arrivalTo1stServIntervalList = new LinkedList<Integer>();
+		
 		
 				
 		while(itr.hasNext())
@@ -200,6 +202,7 @@ public class ReportControlller {
 			int numberOfDaysBetweenWeanAndServiceDate = (Integer)valueList.get(27);
 			int pairtyOfServedFemals = (Integer)valueList.get(28);
 			int countPifIngoIdWithParityOneInPigInfo = (Integer)valueList.get(29);
+			int arrivalTo1stServInterval = (Integer)valueList.get(30);
 			
 			totalBornList.add(totalBorn);
 			totalLiveBornList.add(totalLiveBorn);
@@ -296,6 +299,7 @@ public class ReportControlller {
 			weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/countPifIngoIdWithParityOneInPigInfo);
 			avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/piGIdFromBreeding);
 			serviceCapacityList.add((float)piGIdFromBreeding/totalActivePenAvailable);
+			arrivalTo1stServIntervalList.add(arrivalTo1stServInterval);
 			
 		}
 		
@@ -415,6 +419,19 @@ public class ReportControlller {
 			countOfMatingPerServiceListBuffer.append(countOfMatingPerServiceList.get(i)+",");
 		}		
 		rows.add(countOfMatingPerServiceListBuffer.toString());
+		rows.add("\n");
+		rows.add("\n");
+		
+		rows.add("Gilts");
+		rows.add("\n");
+		
+		StringBuffer arrivalTo1stServIntervalListBuffer = new StringBuffer();
+		arrivalTo1stServIntervalListBuffer.append("Arrival to 1st serv interval,");
+		for(int i=0;i<size;i++)
+		{
+			arrivalTo1stServIntervalListBuffer.append(arrivalTo1stServIntervalList.get(i)+",");
+		}		
+		rows.add(arrivalTo1stServIntervalListBuffer.toString());
 		rows.add("\n");
 		rows.add("\n");
 		

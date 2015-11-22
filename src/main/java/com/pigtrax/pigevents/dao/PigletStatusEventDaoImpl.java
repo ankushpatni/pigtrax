@@ -945,4 +945,30 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		return pigletStatusEventList.get(0);
 	}
 	
+	/**
+	 * To get the sum of date difference in Service and Entry date
+	 */
+	@Override
+	public Integer getSumOfDateDiffBetweenServiceAndEntryDate(final Date start,final Date end, final Integer companyId) {
+		
+		String qry = " select sum(DATE_PART('day', BE.\"serviceStartDate\"::timestamp - PI.\"entryDate\"::timestamp))  from "+ 
+		" pigtrax.\"PigInfo\" PI, pigtrax.\"BreedingEvent\" BE where PI.\"id\" = BE.\"id_PigInfo\" and PI.\"parity\" = 1 and " + 
+				" BE.\"serviceStartDate\" :: date between ? and ? and PI.\"id_Company\"=? ";
+
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
+ 				ps.setInt(3, companyId);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
 }

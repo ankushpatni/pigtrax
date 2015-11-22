@@ -126,6 +126,7 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(getNumberOfDaysBetweenWeanAndServiceDate(start, end, companyId));//27
 				listValues.add(getPairtyOfServedFemals(start, end, companyId));//28
 				listValues.add(getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId));//29
+				listValues.add(getSumOfDateDiffBetweenServiceAndEntryDate(start, end, companyId));//30
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);
@@ -274,5 +275,11 @@ public class ReportServiceImpl implements ReportService{
 	{
 		return pigletStatusEventDao.getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId);
 	}
+	
+	private int getSumOfDateDiffBetweenServiceAndEntryDate(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getSumOfDateDiffBetweenServiceAndEntryDate(start, end, companyId);
+	}
+	
 	
 }
