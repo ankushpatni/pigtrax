@@ -70,5 +70,19 @@ public interface PigletStatusEventDao {
 			Integer companyId);
 
 	Integer getCountOfMating(Date start, Date end, Integer companyId);
+
+	Integer getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(
+			Date start, Date end, Integer companyId);
+
+	Integer getPigletStatusEventsPigIdCountForWeavnAndDateRange(
+			Date start, Date end, Integer companyId);
+
+	Integer getNumberOfDaysBetweenWeanAndServiceDate(Date start, Date end,
+			Integer companyId);
+
+	Integer getPairtyOfServedFemals(Date start, Date end, Integer companyId);
+
+	Integer getCountPifIngoIdWithParityOneInPigInfo(Date start, Date end,
+			Integer companyId);
 	
 }

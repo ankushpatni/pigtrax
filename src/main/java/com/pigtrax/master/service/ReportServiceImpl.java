@@ -121,6 +121,11 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(getCountOfRepeateService(start, end, companyId));//22
 				listValues.add(getCountOfServiceWithMatingGreaterThanOne(start, end, companyId));//23
 				listValues.add(getCountOfMating(start, end, companyId));//24
+				listValues.add(getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(start, end, companyId));//25
+				listValues.add(getPigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig(start, end, companyId));//26
+				listValues.add(getNumberOfDaysBetweenWeanAndServiceDate(start, end, companyId));//27
+				listValues.add(getPairtyOfServedFemals(start, end, companyId));//28
+				listValues.add(getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId));//29
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);
@@ -244,4 +249,30 @@ public class ReportServiceImpl implements ReportService{
 	{
 		return pigletStatusEventDao.getCountOfMating(start, end, companyId);
 	}
+	
+	private int getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(start, end, companyId);
+	}
+	
+	private int getPigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getPigletStatusEventsPigIdCountForWeavnAndDateRange(start, end, companyId);
+	}
+	
+	private int getNumberOfDaysBetweenWeanAndServiceDate(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getNumberOfDaysBetweenWeanAndServiceDate(start, end, companyId);
+	}
+	
+	private int getPairtyOfServedFemals(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getPairtyOfServedFemals(start, end, companyId);
+	}
+	
+	private int getCountPifIngoIdWithParityOneInPigInfo(Date start, Date end, int companyId)
+	{
+		return pigletStatusEventDao.getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId);
+	}
+	
 }
