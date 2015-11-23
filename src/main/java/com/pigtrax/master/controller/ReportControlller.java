@@ -150,7 +150,18 @@ public class ReportControlller {
 		List<Integer> breedingEventWithMatingMoreThanOneList = new LinkedList<Integer>();
 		List<Float> percentageBreedingEventWithMatingMoreThanOneList = new LinkedList<Float>();
 		List<Float> countOfMatingPerServiceList = new LinkedList<Float>();
-
+		
+		List<Integer> weanSowsBredBy7DaysList = new LinkedList<Integer>();
+		List<Float> percentageWeanSowsBredBy7DaysList = new LinkedList<Float>();
+		List<Float> weanTo1stServiceIntervalList = new LinkedList<Float>();
+		List<Float> conceptionRateAt30dPresumedPregnantList = new LinkedList<Float>();
+		List<Float> conceptionRateAtDay42List = new LinkedList<Float>();
+		List<Float> avgParityOfServedFemalesList = new LinkedList<Float>();
+		List<Integer> serviceToFalloutIntervalList = new LinkedList<Integer>();
+		List<Float> serviceCapacityList = new LinkedList<Float>();
+		List<Integer> arrivalTo1stServIntervalList = new LinkedList<Integer>();
+		
+		
 				
 		while(itr.hasNext())
 		{
@@ -183,9 +194,15 @@ public class ReportControlller {
 			int piGIdFromFerrow = (Integer)valueList.get(19);
 			int piGIdFromBreeding = (Integer)valueList.get(20);
 			int firstServiceCount = (Integer)valueList.get(21);
-			int repeateServiceCount = (Integer)valueList.get(21);
-			int breedingEventWithMatingMoreThanOne = (Integer)valueList.get(22);
-			int countOfMating = (Integer)valueList.get(23);
+			int repeateServiceCount = (Integer)valueList.get(22);
+			int breedingEventWithMatingMoreThanOne = (Integer)valueList.get(23);
+			int countOfMating = (Integer)valueList.get(24);
+			int countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding = (Integer)valueList.get(25);
+			int pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig = (Integer)valueList.get(26);
+			int numberOfDaysBetweenWeanAndServiceDate = (Integer)valueList.get(27);
+			int pairtyOfServedFemals = (Integer)valueList.get(28);
+			int countPifIngoIdWithParityOneInPigInfo = (Integer)valueList.get(29);
+			int arrivalTo1stServInterval = (Integer)valueList.get(30);
 			
 			totalBornList.add(totalBorn);
 			totalLiveBornList.add(totalLiveBorn);
@@ -276,6 +293,13 @@ public class ReportControlller {
 			breedingEventWithMatingMoreThanOneList.add(breedingEventWithMatingMoreThanOne);
 			percentageBreedingEventWithMatingMoreThanOneList.add(((float)breedingEventWithMatingMoreThanOne/piGIdFromBreeding)*100);
 			countOfMatingPerServiceList.add((float)countOfMating/piGIdFromBreeding);
+			
+			weanSowsBredBy7DaysList.add(countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding);
+			percentageWeanSowsBredBy7DaysList.add((float)countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding/pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig);
+			weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/countPifIngoIdWithParityOneInPigInfo);
+			avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/piGIdFromBreeding);
+			serviceCapacityList.add((float)piGIdFromBreeding/totalActivePenAvailable);
+			arrivalTo1stServIntervalList.add(arrivalTo1stServInterval);
 			
 		}
 		
@@ -398,6 +422,100 @@ public class ReportControlller {
 		rows.add("\n");
 		rows.add("\n");
 		
+		rows.add("Gilts");
+		rows.add("\n");
+		
+		StringBuffer arrivalTo1stServIntervalListBuffer = new StringBuffer();
+		arrivalTo1stServIntervalListBuffer.append("Arrival to 1st serv interval,");
+		for(int i=0;i<size;i++)
+		{
+			arrivalTo1stServIntervalListBuffer.append(arrivalTo1stServIntervalList.get(i)+",");
+		}		
+		rows.add(arrivalTo1stServIntervalListBuffer.toString());
+		rows.add("\n");
+		rows.add("\n");
+		
+		rows.add("Wean Sows");
+		rows.add("\n");
+		
+		StringBuffer weanSowsBredBy7DaysListBuffer = new StringBuffer();
+		weanSowsBredBy7DaysListBuffer.append("Wean sows bred by 7 days,");
+		for(int i=0;i<size;i++)
+		{
+			weanSowsBredBy7DaysListBuffer.append(weanSowsBredBy7DaysList.get(i)+",");
+		}		
+		rows.add(weanSowsBredBy7DaysListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageWeanSowsBredBy7DaysListBuffer = new StringBuffer();
+		percentageWeanSowsBredBy7DaysListBuffer.append("% Wean sows bred by 7 days,");
+		for(int i=0;i<size;i++)
+		{
+			percentageWeanSowsBredBy7DaysListBuffer.append(percentageWeanSowsBredBy7DaysList.get(i)+",");
+		}		
+		rows.add(percentageWeanSowsBredBy7DaysListBuffer.toString());
+		rows.add("\n");
+				
+		//Wean to 1st service interval
+		
+		StringBuffer weanTo1stServiceIntervalListBuffer = new StringBuffer();
+		weanTo1stServiceIntervalListBuffer.append("Wean to 1st service interval,");
+		for(int i=0;i<size;i++)
+		{
+			weanTo1stServiceIntervalListBuffer.append(weanTo1stServiceIntervalList.get(i)+",");
+		}		
+		rows.add(weanTo1stServiceIntervalListBuffer.toString());
+		rows.add("\n");
+
+		StringBuffer conceptionRateAt30dPresumedPregnantListBuffer = new StringBuffer(); // no calculation
+		conceptionRateAt30dPresumedPregnantListBuffer.append("Conception rate at 30d Presumed Pregnant,");
+		for(int i=0;i<size;i++)
+		{
+			conceptionRateAt30dPresumedPregnantListBuffer.append(",");
+		}		
+		rows.add(conceptionRateAt30dPresumedPregnantListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer conceptionRateAtDay42ListBuffer = new StringBuffer(); // no calculation
+		conceptionRateAtDay42ListBuffer.append("Conception rate at day42,");
+		for(int i=0;i<size;i++)
+		{
+			conceptionRateAtDay42ListBuffer.append(",");
+		}		
+		rows.add(conceptionRateAtDay42ListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer avgParityOfServedFemalesListBuffer = new StringBuffer(); // no calculation
+		avgParityOfServedFemalesListBuffer.append("Avg parity of served females,");
+		for(int i=0;i<size;i++)
+		{
+			avgParityOfServedFemalesListBuffer.append(avgParityOfServedFemalesList.get(i)+",");
+		}		
+		rows.add(avgParityOfServedFemalesListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer serviceToFalloutIntervalListBuffer = new StringBuffer();
+		serviceToFalloutIntervalListBuffer.append("Service to fallout interval,");
+		for(int i=0;i<size;i++)
+		{
+			if(!serviceToFalloutIntervalList.isEmpty())
+				serviceToFalloutIntervalListBuffer.append(serviceToFalloutIntervalList.get(i)+",");
+			else
+				serviceToFalloutIntervalListBuffer.append(",");
+		}		
+		rows.add(serviceToFalloutIntervalListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer serviceCapacityListBuffer = new StringBuffer();
+		serviceCapacityListBuffer.append("Service Capacity (Services/crate/year),");
+		for(int i=0;i<size;i++)
+		{
+			serviceCapacityListBuffer.append(serviceCapacityList.get(i)+",");
+		}		
+		rows.add(serviceCapacityListBuffer.toString());
+		rows.add("\n");
+		
+		rows.add("\n");
 		rows.add("Farrowing Performance");
 		rows.add("\n");
 		rows.add("Gilts and Sows");
