@@ -44,6 +44,7 @@
 							<option value="GROUPEVENTDETAILEVENT" <%=eventType.equals("GROUP DETAIL")?"selected":"" %>>GROUP DETAIL</option>
 							<option value="FEEDEVENT" <%=eventType.equals("FEED")?"selected":"" %>>FEED</option>
 							<option value="REMOVALEVENTEXCEPTSALESEVENT" <%=eventType.equals("REMOVALEVENTEXCEPTSALESEVENT")?"selected":"" %>>REMOVALEVENTEXCEPTSALESEVENT</option>
+							<option value="SALESEVENTDETAILS" <%=eventType.equals("SALESEVENTDETAILS")?"selected":"" %>>SALESEVENTDETAILS</option>
 													
 						</select> <br />CSV HEADER: <select class="form-control" name="header">							
 							<option value="true" <%=eventType.equals("true")?"selected":"" %>>WITH HEADER</option>

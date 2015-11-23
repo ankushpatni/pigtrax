@@ -33,4 +33,6 @@ public interface EmployeeDao {
 	public String  changePassword(String employeeId, String newPassword);
 	
 	public Employee  getEmployeeByEmployeeId(String employeeId);
+	
+	List<Employee> getEmployeeRoles(int empId, String language);
 }

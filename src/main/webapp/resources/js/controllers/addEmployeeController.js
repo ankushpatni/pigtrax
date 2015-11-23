@@ -24,21 +24,44 @@ pigTrax.controller('addEmployeeCtrl', function($scope, $http, $window, $modalIns
 				 }
 			});
 		};
+		
+		
+		$scope.getFunctionTypes = function(){
+			restServices.getFunctionTypes(function(data){
+				 if(!data.error)
+				 {
+					 if(!data.error){
+							var responseList = data.payload;
+							$scope.functionTypeKeys = responseList[0];
+							$scope.functionTypeKeyValues = responseList[1];
+						}
+				 }
+			});
+		};
+		
+		$scope.gtJobFunctionRoles = function(){
+			restServices.gtJobFunctionRoles(function(data){
+				 if(!data.error)
+				 {
+					 if(!data.error){
+							var responseList = data.payload;
+							$scope.jobFunctionRoleKeys = responseList[0];
+							$scope.jobFunctionRoleKeyValues = responseList[1];
+						}
+				 }
+			});
+		};
+		
+		
 	
 		$scope.getCompanyList();
 		$scope.getRoleTypes();
+		$scope.getFunctionTypes();
+		$scope.gtJobFunctionRoles();
 	
 	$scope.addEmployee = function() {
 	
 		if($scope.employeeAddForm.$valid){
-			
-		if(document.getElementById("setCompany").value!=null){
-		$scope.add.companyId=document.getElementById("setCompany").value;
-		}
-		if(document.getElementById("userRole").value!=null){
-		$scope.add.userRoleId=document.getElementById("userRole").value;
-		
-		}
 			
 				var postParam = {
 						"employeeId" : $scope.add.employeeId,
@@ -47,7 +70,10 @@ pigTrax.controller('addEmployeeCtrl', function($scope, $http, $window, $modalIns
 						"email" : $scope.add.email,
 						"userRoleId" : $scope.add.userRoleId,
 						"active"  : $scope.add.active,
-						"portalUser" :  $scope.add.portalUser
+						"portalUser" :  $scope.add.portalUser,
+						"functionTypeId" : $scope.add.functionTypeId,
+						"jobFunctionRoleId" : $scope.add.jobFunctionRoleId,
+						"phoneNumber" : $scope.add.phoneNumber
 						//"portalId" :  $scope.add.portalId
 				};
 				var res = $http.post('rest/employee/insertEmployeeRecordSubmit', postParam);
@@ -74,10 +100,7 @@ pigTrax.controller('addEmployeeCtrl', function($scope, $http, $window, $modalIns
 	
 		if($scope.employeeEditForm.$valid)
 			{
-			if(document.getElementById("userRole").value!=null||document.getElementById("userRole").value!="")
-			{
-				$scope.add.userRoleId=document.getElementById("userRoles").value;
-			}
+			
 				var postParam = {
 						"id" : $scope.add.id,
 						"employeeId" : $scope.add.employeeId,
@@ -86,7 +109,10 @@ pigTrax.controller('addEmployeeCtrl', function($scope, $http, $window, $modalIns
 						"email" : $scope.add.email,
 						"userRoleId" : $scope.add.userRoleId,
 						"active"  : $scope.add.active,
-						"portalUser" :  $scope.add.portalUser 
+						"portalUser" :  $scope.add.portalUser,
+						"functionTypeId" : $scope.add.functionTypeId,
+						"jobFunctionRoleId" : $scope.add.jobFunctionRoleId,
+						"phoneNumber" : $scope.add.phoneNumber
 						//"portalId" : $scope.add.portalId 
 						
 				};
@@ -125,5 +151,21 @@ pigTrax.controller('addEmployeeCtrl', function($scope, $http, $window, $modalIns
 				  $scope.add = data.payload;
 				}
 		})
+	}
+	
+	$scope.getPreviousRoles = function(employeeId)
+	{		
+		if($scope.onPrevRoles)
+			$scope.onPrevRoles = false;
+		else
+		{
+			$scope.onPrevRoles = true;
+			restServices.getEmployeeRoles(employeeId, function(data){
+				if(!data.error)
+				{
+				  $scope.prevRoleList = data.payload;
+				}
+			});
+		}
 	}
 });

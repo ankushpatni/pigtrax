@@ -17,6 +17,8 @@ public class EmployeeDto {
      private String email;
      private int portalId;
      private String activeFlag;
+     private Integer functionTypeId;
+     
 	public String getActiveFlag() {
 		return activeFlag;
 	}
@@ -138,4 +140,12 @@ public class EmployeeDto {
 		// TODO Auto-generated method stub
 		return this.id.hashCode();
 	}
+	public Integer getFunctionTypeId() {
+		return functionTypeId;
+	}
+	public void setFunctionTypeId(Integer functionTypeId) {
+		this.functionTypeId = functionTypeId;
+	}
+	
+	
 }

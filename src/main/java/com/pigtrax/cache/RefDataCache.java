@@ -63,4 +63,8 @@ public interface RefDataCache {
 	Map<Integer, String> getBarnPositionMap(String language);
 	
 	Map<Integer, String> getFeederTypeMap(String language);
+	
+	Map<Integer, String> getFunctionTypeMap(String language);
+	
+	Map<Integer, String> getJobFunctionRoleMap(String language);
 }

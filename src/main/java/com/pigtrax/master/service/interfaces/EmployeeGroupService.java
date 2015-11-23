@@ -10,7 +10,7 @@ import com.pigtrax.usermanagement.dto.EmployeeDto;
 public interface EmployeeGroupService {
 	 List<EmployeeGroupDto> getEmployeeGroups(Integer companyId) throws PigTraxException;
 	 
-	 List<EmployeeDto> getEmployeeList(Integer companyId, String jobFunction) throws PigTraxException;
+	 List<EmployeeDto> getEmployeeList(Integer companyId, Integer jobFunctionRoleId) throws PigTraxException;
 	 
 	 String saveEmployeeGroup(EmployeeGroupDto dto) throws PigTraxException;
 	 

@@ -188,10 +188,10 @@
                     </div>                   
                    
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.sowcondition'  text='Sow Condition'/><span style='color: red'>*</span>
+                      <label><spring:message code='label.piginfo.pregnancyeventform.sowcondition'  text='Sow Condition'/>
                       </label>
                       <i>[1:  <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/> - 5:<spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/>]</i>
-                      <select class="form-control" name="sowCondition" ng-model="pregnancyEvent.sowCondition" required required-message="'<spring:message code='label.piginfo.pregnancyeventform.sowcondition.requiredmessage' text='Sow condition is required'/>'">
+                      <select class="form-control" name="sowCondition" ng-model="pregnancyEvent.sowCondition" >
                            <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -314,9 +314,9 @@
 	                        </div>
 	                        <div class="form-group">
 	                          <label><spring:message code='label.employeegroup.add.jobFunction'  text='Job Function'/></label>
-	                          <select class="form-control" ng-model="employeeGrp.employeeJobFunction">
-	                            <option value="Any"><spring:message code='label.employeegroup.add.functions.any'  text='Any'/></option>
-	                          </select>
+	                           <select class="form-control" id="jobFunctionRoleId"  name="jobFunctionRoleId" ng-model="employeeGrp.jobFunctionRoleId"  ng-change="getEmployeeList()">
+                        	    <option ng-repeat="key in jobFunctionRoleKeys" ng-value="key" ng-selected="employeeGrp.jobFunctionRoleId==key">{{jobFunctionRoleKeyValues[key]}}</option>
+                        	  </select>	     
 	                          <p class="color-danger" ng-show="employeeGrpJobFunctionInvalid"><spring:message code='label.employeegroup.message.jobfunction.invalid'  text='Job function is required'/></p>
 	                        </div>
 	                        <div class="row">

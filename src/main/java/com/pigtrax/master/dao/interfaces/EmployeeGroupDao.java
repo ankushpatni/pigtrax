@@ -11,7 +11,7 @@ import com.pigtrax.usermanagement.dto.EmployeeDto;
 public interface EmployeeGroupDao {
     List<EmployeeGroupDto> getEmployeeGroups(Integer companyId) throws SQLException;
     
-    List<EmployeeDto> getEmployeeList(Integer companyId, String jobFunction) throws SQLException;
+    List<EmployeeDto> getEmployeeList(Integer companyId, Integer jobFunctionRoleId) throws SQLException;
     
     void addEmployeeGroup(EmployeeGroupDto employeeGroupDto) throws SQLException, DuplicateKeyException;
     

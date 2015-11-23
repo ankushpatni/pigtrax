@@ -14,6 +14,7 @@ public class EmployeeGroupDto {
 	private String userUpdated;
 	private int employeeJobFunctionId;	
 	private String employeeJobFunction;
+	private Integer jobFunctionRoleId;
 	private List<EmployeeDto> employeeList;
 	private int companyId;
 	private boolean selected;
@@ -104,6 +105,16 @@ public class EmployeeGroupDto {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+	
+	
+
+	public Integer getJobFunctionRoleId() {
+		return jobFunctionRoleId;
+	}
+
+	public void setJobFunctionRoleId(Integer jobFunctionRoleId) {
+		this.jobFunctionRoleId = jobFunctionRoleId;
 	}
 
 	@Override

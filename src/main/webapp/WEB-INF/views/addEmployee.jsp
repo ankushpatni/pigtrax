@@ -17,7 +17,7 @@
 				<div class="form-group">
 					<label><spring:message code="label.employee.company" text="Company" /><span style='color: red'>*</span></label> 
 					<!--<label ng-show="edit">{{add.employeeId}}</label> -->
-						<select class="form-control" id="companyId" name="companyId" onchange="setCompanyId();" >
+						<select class="form-control" id="companyId" name="companyId" ng-model="add.companyId" >
 						<option value=""></option>
                         <option ng-repeat="company in companyList" ng-value="company.id" ng-selected="add.companyId == company.id">{{company.companyId}}</option>
                         </select>
@@ -58,11 +58,20 @@
 						ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required maxlength="30"
 						required-message="'<spring:message code='label.employee.emailRequired' text='Email is required' />'"/>
 				</div>
+				<div>
+					<label><spring:message code="label.employee.phone"
+							text="Phone" /><span style='color: red'>*</span></label>
+							<input 	class="form-control" type="text" placeholder="+1-111-111-1111"
+						name="phone" ng-model="add.phoneNumber" maxlength="15" required
+						required-message="'<spring:message code='label.company.phoneRequired' text='Phone is required' />'"
+						ng-pattern="/^[\0-9-+]+$/"
+						invalid-message="'Please input correct number in US format.'" />
+				</div>
 				<div class="form-group">
 					<label ><spring:message
 							code="label.employee.role"
 							text="Role" /><span style='color: red'>*</span></label>
-						<select class="form-control" id="userRoles"  name="userRoleId" ng-model="add.userRoleId"  required onchange="userRolesSubmit();">
+						<select class="form-control" id="userRoles"  name="userRoleId" ng-model="add.userRoleId"  required required-message="'<spring:message code='label.employee.roleRequired' text='Role is required' />'">
                         <option ng-repeat="key in roleTypeKeys" ng-value="key" ng-selected="add.userRoleId==key">{{roleTypes[key]}}</option>
                         </select>
 				</div>
@@ -83,6 +92,27 @@
 					  <input type="text" class="form-control" value="<spring:message code="label.employee.portaluser" text="Portal User"/>"readonly="readonly">
 					</div>
 				  </div> 
+				  
+				  
+				  <div class="form-group">
+					<label ><spring:message
+							code="label.employee.functionType"
+							text="Function Type" /><span style='color: red'>*</span></label>
+						<select class="form-control" id="functionTypeId"  name="functionTypeId" ng-model="add.functionTypeId"  required 
+						required-message="'<spring:message code='label.employee.functionTypeIdRequired' text='Function type is required' />'">
+                        <option ng-repeat="key in functionTypeKeys" ng-value="key" ng-selected="add.functionTypeId==key">{{functionTypeKeyValues[key]}}</option>
+                        </select>
+				</div>
+				
+				 <div class="form-group">
+					<label ><spring:message
+							code="label.employee.jobFunctionRole"
+							text="Job Function" /><span style='color: red'>*</span></label>
+						<select class="form-control" id="jobFunctionRoleId"  name="jobFunctionRoleId" ng-model="add.jobFunctionRoleId"  required 
+						required-message="'<spring:message code='label.employee.jobFunctionRoleIdRequired' text='Job function is required' />'">
+                        <option ng-repeat="key in jobFunctionRoleKeys" ng-value="key" ng-selected="add.jobFunctionRoleId==key">{{jobFunctionRoleKeyValues[key]}}</option>
+                        </select>
+				</div>
 
 				<div class="modal-footer">
 
@@ -113,11 +143,6 @@
 			 document.getElementById("setCompany").value=f;
 			}
 	</script>
-	<script type="text/javascript">
-			function userRolesSubmit(){
-			var f = document.getElementById("userRoles").value;
-			 document.getElementById("userRole").value=f;
-			}
-	</script>
+	
 
 </div>

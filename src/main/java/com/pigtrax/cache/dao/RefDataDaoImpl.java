@@ -308,4 +308,16 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
+	@Override
+	public List<RefDataTranslationDto> getFunctionTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_FunctionType\" FROM pigtraxrefdata.\"FunctionTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
+	@Override
+	public List<RefDataTranslationDto> getJobFunctionRole() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_JobFunctionRole\" FROM pigtraxrefdata.\"JobFunctionRoleTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
 }

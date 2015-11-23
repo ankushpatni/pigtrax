@@ -232,4 +232,20 @@ public class EmployeeRestController {
 		return dto;		
 	}
 	
+	
+	@RequestMapping(value = "/getEmployeeRoles", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto getEmployeeRoles(HttpServletRequest request, @RequestBody Integer employeeId)
+	{
+		logger.debug("Inside getEmployeeRoles()  ");
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		List<Employee> empList = employeeService.getEmployeeRoles(employeeId, language);
+		dto.setStatusMessage("success");
+		dto.setPayload(empList);
+		
+		return dto;
+	}
+	
+	
 }

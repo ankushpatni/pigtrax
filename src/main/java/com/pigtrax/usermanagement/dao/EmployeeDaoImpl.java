@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -14,9 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -25,6 +28,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.notification.BlockingQueueEmail;
 import com.pigtrax.notification.NotificationManager;
 import com.pigtrax.usermanagement.beans.Company;
@@ -46,6 +50,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	
 	@Autowired
 	MessageSource messageSource;
+	
+	@Autowired
+	RefDataCache refDataCache;
 	
 
 private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
@@ -170,8 +177,9 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 		String password = "pigtrax";
 		final String hashedPassword = passwordEncoder.encode(password);
 		
-		final String query = "INSERT INTO pigtrax.\"Employee\"(\"employeeId\", \"id_Company\", name, \"ptPassword\",\"isActive\",  \"isPortalUser\", \"lastUpdated\", \"userUpdated\", \"id_RoleType\", \"email\")"+
-				 "VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?)";
+		final String query = "INSERT INTO pigtrax.\"Employee\"(\"employeeId\", \"id_Company\", name, \"ptPassword\",\"isActive\",  \"isPortalUser\", "
+				+ "\"lastUpdated\", \"userUpdated\", \"id_RoleType\", \"email\", \"id_FunctionType\",\"id_JobFunctionRole\", \"phoneNumber\")"+
+				 "VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?)";
 	
 		KeyHolder holder = new GeneratedKeyHolder();
 		
@@ -189,6 +197,9 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 		        	 ps.setString(8, employee.getUserUpdated());
 		        	 ps.setLong(9, employee.getUserRoleId());
 		        	 ps.setString(10, employee.getEmail());
+		        	 ps.setInt(11, employee.getFunctionTypeId());
+		        	 ps.setInt(12, employee.getJobFunctionRoleId());
+		        	 ps.setString(13, employee.getPhoneNumber());
 		        	 return ps;
 				//preparedStatement.setInt(11, employee.getPortalId());
 			}
@@ -215,13 +226,13 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 	}
 	
 	private void insertEmployeeJobFunction(final Employee employee){
-		String query = "INSERT INTO pigtrax.\"EmployeeJobFunction\"(\"functionName\", \"functionFrom\", \"functionTo\", \"lastUpdated\",\"userUpdated\",  \"id_Employee\")"+
+		String query = "INSERT INTO pigtrax.\"EmployeeJobFunction\"(\"id_JobFunctionRole\", \"functionFrom\", \"functionTo\", \"lastUpdated\",\"userUpdated\",  \"id_Employee\")"+
 				 "VALUES (?, current_timestamp, null, current_timestamp, ?, ?)";
 	
 		 int result = jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
-				preparedStatement.setString(1, "Any");
+				preparedStatement.setInt(1, employee.getJobFunctionRoleId());
 				preparedStatement.setLong(2, employee.getUserRoleId());
 				preparedStatement.setInt(3, employee.getId());
 			}
@@ -229,10 +240,46 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 	}
 	
 	
+	private void endDateEmployeeJobFunction(final Employee employee){
+		String query = "update pigtrax.\"EmployeeJobFunction\" set \"functionTo\" = current_timestamp where \"id_Employee\" = ? and \"functionTo\" is NULL";
+	
+		 int result = jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement preparedStatement) throws SQLException {				
+				preparedStatement.setInt(1, employee.getId());
+			}
+		});
+	}
+	
+	
+	private Integer getEmployeeJobFunctionRoleId(final Employee employee){
+		String query = "select \"id_JobFunctionRole\" from pigtrax.\"EmployeeJobFunction\" where \"id_Employee\" = ? and \"functionTo\" is NULL";
+	
+		Long roleId = jdbcTemplate.query(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, employee.getId());
+			}
+		}, new ResultSetExtractor<Long>() {
+			public Long extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				if (resultSet.next()) {
+					return resultSet.getLong(1);
+				}
+				return null;
+			}
+		});
+		
+		if (roleId != null) {
+			return Integer.decode(roleId.toString());
+		}
+		return null;
+	}
+	
 	@Override
 	public Employee getEmployeeById(int empId) {
 		List<Employee> empList = null;
-		String Qry = "SELECT \"id\", \"employeeId\", \"id_Company\", \"name\", \"ptPassword\", \"isActive\",  \"isPortalUser\", \"lastUpdated\", \"userUpdated\", \"id_RoleType\", \"email\" FROM pigtrax.\"Employee\" where \"id\"="+empId+"";
+		String Qry = "SELECT \"id\", \"employeeId\", \"id_Company\", \"name\", \"ptPassword\", \"isActive\",  \"isPortalUser\", \"lastUpdated\", \"userUpdated\", "
+				+ "\"id_RoleType\", \"email\",\"id_FunctionType\", \"id_JobFunctionRole\",\"phoneNumber\" FROM pigtrax.\"Employee\" where \"id\"="+empId+"";
 		List<Map<String,Object>> empRows = jdbcTemplate.queryForList(Qry);
 		for(Map<String,Object> empRow : empRows){
 			empList  =	new ArrayList<Employee>();
@@ -242,12 +289,14 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 	            emp.setName(String.valueOf(empRow.get("name")));
 	            emp.setEmail(String.valueOf(empRow.get("email")));
 	            emp.setPortalUser(Boolean.parseBoolean(empRow.get("isPortalUser").toString()));
-	            emp.setPtPassword(empRow.get("ptPassword").toString());
+	            emp.setPtPassword((empRow.get("ptPassword") != null)?empRow.get("ptPassword").toString():"");
 	            emp.setActive(Boolean.parseBoolean(empRow.get("isActive").toString()));
 	            emp.setCompanyId(Integer.parseInt(empRow.get("id_Company").toString()));
-	            emp.setUserRoleId(Integer.parseInt(empRow.get("id_RoleType").toString()));
+	            emp.setUserRoleId(Integer.parseInt((empRow.get("id_RoleType") != null)? empRow.get("id_RoleType").toString() : "0"));
+	            emp.setFunctionTypeId(Integer.parseInt((empRow.get("id_FunctionType") != null) ? empRow.get("id_FunctionType").toString() : "0"));
+	            emp.setJobFunctionRoleId(Integer.parseInt((empRow.get("id_JobFunctionRole") != null) ? empRow.get("id_JobFunctionRole").toString() : "0"));
 	          //  emp.setPortalId(Integer.parseInt(empRow.get("portalId").toString()));
-	            
+	            emp.setPhoneNumber((empRow.get("phoneNumber") != null)?String.valueOf(empRow.get("phoneNumber")) : "");
 	            empList.add(emp);   
 	            
 	    }
@@ -259,7 +308,9 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 	public int editEmployeeRecord(final Employee employee) {
 		 int result = 0;
 		try{
-			String query = "UPDATE pigtrax.\"Employee\" SET  \"employeeId\"=?, \"id_Company\"=?, \"name\"=?, \"isActive\"=?, \"isPortalUser\"=?, \"lastUpdated\"=?, \"userUpdated\"=?, \"id_RoleType\"=?, \"email\"=?  WHERE \"id\"=?";
+			String query = "UPDATE pigtrax.\"Employee\" SET  \"employeeId\"=?, \"id_Company\"=?, \"name\"=?, \"isActive\"=?, "
+					+ "\"isPortalUser\"=?, \"lastUpdated\"=?, \"userUpdated\"=?, \"id_RoleType\"=?, \"email\"=?,\"id_FunctionType\"=?, "
+					+ "\"id_JobFunctionRole\"=?, \"phoneNumber\"= ?  WHERE \"id\"=?";
 
 			logger.info("in edit employee method -->" + employee.getId());
 			result =jdbcTemplate.update(query, new PreparedStatementSetter() {
@@ -272,15 +323,36 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 					ps.setBoolean(5, employee.isPortalUser());
 					ps.setDate(6, new java.sql.Date(System.currentTimeMillis()));
 					ps.setString(7, request.getRemoteUser().toString());
-					ps.setInt(8, employee.getUserRoleId());
+					if(employee.getUserRoleId() != 0)					
+						ps.setInt(8, employee.getUserRoleId());
+					else
+						ps.setNull(8, java.sql.Types.INTEGER);
+					
 					ps.setString(9, employee.getEmail());
-					ps.setInt(10, employee.getId());
+					if(employee.getFunctionTypeId() != null && employee.getFunctionTypeId() != 0)
+						ps.setInt(10, employee.getFunctionTypeId());
+					else 
+						ps.setNull(10,java.sql.Types.INTEGER);	
+					if(employee.getJobFunctionRoleId() != null && employee.getJobFunctionRoleId() != 0)
+						ps.setInt(11, employee.getJobFunctionRoleId());
+					else 
+						ps.setNull(11,java.sql.Types.INTEGER);		
+					ps.setString(12, employee.getPhoneNumber());
+					ps.setObject(13, employee.getId(), java.sql.Types.INTEGER);
 				}
-			});			
-	         return result;
+			});		
+	       
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		Integer currentRoleId = getEmployeeJobFunctionRoleId(employee);
+		if(currentRoleId != null && employee.getJobFunctionRoleId() != currentRoleId)
+		{
+			endDateEmployeeJobFunction(employee);		
+			insertEmployeeJobFunction(employee);
+		}
+		
 	return result;
 	}
 	
@@ -437,4 +509,27 @@ private static final Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 			return empList.get(0);
 	    return null;
 	}
+	
+
+	@Override
+	public List<Employee> getEmployeeRoles(int empId, String language) {
+		List<Employee> empList = null;
+		empList  =	new ArrayList<Employee>();
+		String Qry = "SELECT * from pigtrax.\"EmployeeJobFunction\" EJF where EJF.\"id_Employee\" = "+empId+" order by EJF.\"id\" desc";
+		List<Map<String,Object>> empRows = jdbcTemplate.queryForList(Qry);
+		for(Map<String,Object> empRow : empRows){
+			
+			Employee emp = new Employee();
+	            emp.setJobFunctionRoleId(Integer.parseInt(empRow.get("id_JobFunctionRole").toString()));
+	            emp.setFunctionStartDate((empRow.get("functionFrom") != null)?(Date)empRow.get("functionFrom") : null);
+	            emp.setFunctionEndDate((empRow.get("functionTo") != null)?(Date)empRow.get("functionTo") : null);
+	            emp.setEmpFunctionName(refDataCache.getJobFunctionRoleMap(language).get(emp.getJobFunctionRoleId()));
+	            empList.add(emp);   
+	            
+	    }
+		if(empList != null && 0 < empList.size())
+			return empList;
+	    return null;
+	}
+	
 }

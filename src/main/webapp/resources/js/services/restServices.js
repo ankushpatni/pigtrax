@@ -114,5 +114,8 @@ pigTrax.factory("restServices", function($resource) {
 		"getWaterTypes" : {method:"GET", url:"rest/util/getWaterTypes"},
 		"getBarnPositions" : {method:"GET", url:"rest/util/getBarnPositions"},
 		"getFeederTypes" : {method:"GET", url:"rest/util/getFeederTypes"},
+		"getFunctionTypes" : {method:"GET", url:"rest/util/getFunctionTypes"},
+		"gtJobFunctionRoles" : {method:"GET", url:"rest/util/getJobFunctionRoles"},
+		"getEmployeeRoles" : {method:"POST", url:"rest/employee/getEmployeeRoles"},
     });
 });

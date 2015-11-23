@@ -143,4 +143,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.getEmployeeByEmployeeId(employeeId);
 	}
 	
+	@Override
+	public List<Employee> getEmployeeRoles(int empId, String language) {
+		return employeeDao.getEmployeeRoles(empId, language);
+	}
+	
 }

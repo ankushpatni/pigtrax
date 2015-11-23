@@ -19,6 +19,12 @@ public class Employee {
 	private int portalId;
 	private String companyIdValue;
 	private String companyName;
+	private Integer functionTypeId;
+	private Integer jobFunctionRoleId;
+	private String phoneNumber;
+	private Date functionStartDate;
+	private Date functionEndDate;
+	private String empFunctionName;
 
 	
 	public int getPortalId() {
@@ -158,6 +164,64 @@ public class Employee {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+	
+	
+
+	public Integer getFunctionTypeId() {
+		return functionTypeId;
+	}
+
+	public void setFunctionTypeId(Integer functionTypeId) {
+		this.functionTypeId = functionTypeId;
+	}
+	
+	
+
+	public Integer getJobFunctionRoleId() {
+		return jobFunctionRoleId;
+	}
+
+	public void setJobFunctionRoleId(Integer jobFunctionRoleId) {
+		this.jobFunctionRoleId = jobFunctionRoleId;
+	}
+
+	
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+	
+
+	public Date getFunctionStartDate() {
+		return functionStartDate;
+	}
+
+	public void setFunctionStartDate(Date functionStartDate) {
+		this.functionStartDate = functionStartDate;
+	}
+
+	public Date getFunctionEndDate() {
+		return functionEndDate;
+	}
+
+	public void setFunctionEndDate(Date functionEndDate) {
+		this.functionEndDate = functionEndDate;
+	}
+	
+	
+
+	public String getEmpFunctionName() {
+		return empFunctionName;
+	}
+
+	public void setEmpFunctionName(String empFunctionName) {
+		this.empFunctionName = empFunctionName;
 	}
 
 	@Override

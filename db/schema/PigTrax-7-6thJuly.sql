@@ -211,6 +211,9 @@ CREATE TABLE pigtrax."Employee"(
 	"userUpdated" varchar(20) NOT NULL,
 	"id_RoleType" integer,
 	"email" varchar(100) NOT NULL,
+	"id_FunctionType" integer,
+	"phoneNumber" varchar(15) NOT NULL, 
+	"id_JobFunctionRole" integer,
 	CONSTRAINT "EMPLOYEE_PK" PRIMARY KEY (id),
 	CONSTRAINT "EMPLOYEE_U_EI" UNIQUE ("employeeId")
 
@@ -801,7 +804,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."EmployeeJobFunction" CASCADE;
 CREATE TABLE pigtrax."EmployeeJobFunction"(
 	id serial NOT NULL,
-	"functionName" varchar(30) NOT NULL,
+	"id_JobFunctionRole" integer,
 	"functionFrom" timestamp NOT NULL,
 	"functionTo" timestamp,
 	"lastUpdated" timestamp NOT NULL,
@@ -2833,6 +2836,107 @@ ALTER TABLE pigtraxrefdata."FeederTypeTranslation" ADD CONSTRAINT "FeederType_fk
 REFERENCES pigtraxrefdata."FeederType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+
+
+-- object: pigtraxrefdata."FunctionType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."FunctionType" CASCADE;
+CREATE TABLE pigtraxrefdata."FunctionType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "FunctionType_PK" PRIMARY KEY (id),
+	CONSTRAINT "FunctionType_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."FunctionType" OWNER TO pitraxadmin;
+
+
+-- object: "FeederType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Employee" DROP CONSTRAINT IF EXISTS "FunctionType_fk" CASCADE;
+ALTER TABLE pigtrax."Employee" ADD CONSTRAINT "FunctionType_fk" FOREIGN KEY ("id_FunctionType")
+REFERENCES pigtraxrefdata."FunctionType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."FunctionTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."FunctionTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."FunctionTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_FunctionType" integer,
+	CONSTRAINT "FunctionTypeTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "FunctionTypeTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."FunctionTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "FunctionType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."FunctionTypeTranslation" DROP CONSTRAINT IF EXISTS "FunctionType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."FunctionTypeTranslation" ADD CONSTRAINT "FunctionType_fk" FOREIGN KEY ("id_FunctionType")
+REFERENCES pigtraxrefdata."FunctionType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+
+
+-- object: pigtraxrefdata."JobFunctionRole" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."JobFunctionRole" CASCADE;
+CREATE TABLE pigtraxrefdata."JobFunctionRole"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "JobFunctionRole_PK" PRIMARY KEY (id),
+	CONSTRAINT "JobFunctionRole_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."JobFunctionRole" OWNER TO pitraxadmin;
+
+
+-- object: "FeederType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Employee" DROP CONSTRAINT IF EXISTS "JobFunctionRole_fk" CASCADE;
+ALTER TABLE pigtrax."Employee" ADD CONSTRAINT "JobFunctionRole_fk" FOREIGN KEY ("id_JobFunctionRole")
+REFERENCES pigtraxrefdata."JobFunctionRole" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."JobFunctionRoleTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."JobFunctionRoleTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."JobFunctionRoleTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_JobFunctionRole" integer,
+	CONSTRAINT "JobFunctionRoleTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "JobFunctionRoleTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."JobFunctionRoleTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "JobFunctionRole_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."JobFunctionRoleTranslation" DROP CONSTRAINT IF EXISTS "JobFunctionRole_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."JobFunctionRoleTranslation" ADD CONSTRAINT "JobFunctionRole_fk" FOREIGN KEY ("id_JobFunctionRole")
+REFERENCES pigtraxrefdata."JobFunctionRole" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 
 

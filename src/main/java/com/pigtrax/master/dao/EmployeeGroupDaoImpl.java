@@ -41,7 +41,7 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 	@Override
 	public EmployeeGroupDto getEmployeeGroup(final Integer employeeGroupIdKey)
 			throws SQLException {
-		String qry = "Select EG.\"id\", EG.\"groupId\", EG.\"id_EmployeeJobFunction\", EJF.\"id_Employee\", EJF.\"functionName\", E.\"employeeId\", E.\"name\", EJF.\"functionName\" "
+		String qry = "Select EG.\"id\", EG.\"groupId\", EG.\"id_EmployeeJobFunction\", EJF.\"id_Employee\", EJF.\"id_JobFunctionRole\", E.\"employeeId\", E.\"name\" "
 				+ "from pigtrax.\"EmployeeGroup\" EG "
 				+ "JOIN pigtrax.\"EmployeeJobFunction\" EJF on EG.\"id_EmployeeJobFunction\" = EJF.\"id\" "
 				+ "JOIN pigtrax.\"Employee\" E on EJF.\"id_Employee\" = E.\"id\" "
@@ -69,7 +69,7 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 	@Override
 	public List<EmployeeGroupDto> getEmployeeGroups(final Integer companyId)
 			throws SQLException {
-		String qry = "Select EG.\"id\", EG.\"groupId\", EG.\"id_EmployeeJobFunction\", EJF.\"id_Employee\", EJF.\"functionName\", E.\"employeeId\", E.\"name\", EJF.\"functionName\" "
+		String qry = "Select EG.\"id\", EG.\"groupId\", EG.\"id_EmployeeJobFunction\", EJF.\"id_Employee\", E.\"employeeId\", E.\"name\", EJF.\"id_JobFunctionRole\" "
 				+ "from pigtrax.\"EmployeeGroup\" EG "
 				+ "JOIN pigtrax.\"EmployeeJobFunction\" EJF on EG.\"id_EmployeeJobFunction\" = EJF.\"id\" "
 				+ "JOIN pigtrax.\"Employee\" E on EJF.\"id_Employee\" = E.\"id\" "
@@ -115,7 +115,8 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 				grp.setId(rs.getInt("id"));
 				grp.setGroupId(groupId);
 				grp.setEmployeeJobFunctionId(rs.getInt("id_EmployeeJobFunction"));
-				grp.setEmployeeJobFunction(rs.getString("functionName"));
+				//grp.setEmployeeJobFunction(rs.getString("functionName"));
+				grp.setJobFunctionRoleId(rs.getInt("id_JobFunctionRole"));
 
 				employeeDto.setId(rs.getInt("id_Employee"));
 				employeeDto.setEmployeeId(rs.getString("employeeId"));
@@ -129,18 +130,18 @@ public class EmployeeGroupDaoImpl implements EmployeeGroupDao {
 	}
 
 	public List<EmployeeDto> getEmployeeList(final Integer companyId,
-			final String jobFunction) throws SQLException {
+			final Integer jobFunctionRoleId) throws SQLException {
 		List<EmployeeDto> employeeList = new ArrayList<EmployeeDto>();
 		String qry = "Select E.\"id\", E.\"employeeId\", E.\"name\", EJF.\"id\" as \"employeeJobId\" "
 				+ "from pigtrax.\"Employee\" E "
 				+ " join pigtrax.\"EmployeeJobFunction\" EJF On E.\"id\" = EJF.\"id_Employee\" "
-				+ "where E.\"id_Company\" = ? and lower(EJF.\"functionName\") = ? and E.\"isActive\" is true order by E.\"name\"";
+				+ "where E.\"id_Company\" = ? and EJF.\"id_JobFunctionRole\" = ?  and EJF.\"functionTo\" is NULL and E.\"isActive\" is true order by E.\"name\"";
 
 		employeeList = jdbcTemplate.query(qry, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, companyId);
-				ps.setString(2, jobFunction.trim().toLowerCase());
+				ps.setInt(2, jobFunctionRoleId);
 			}
 		}, new EmployeeMapper());
 

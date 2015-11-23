@@ -592,4 +592,46 @@ public class UtilController {
 		return dto; 
 	}
 	
+	
+	@RequestMapping(value = "/getFunctionTypes", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getFunctionTypes(HttpServletRequest request)
+	{
+		logger.info("Inside getFunctionTypes" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getFunctionTypeMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	@RequestMapping(value = "/getJobFunctionRoles", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getJobFunctionRoles(HttpServletRequest request)
+	{
+		logger.info("Inside getJobFunctionRoles" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getJobFunctionRoleMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
+	
+	
 }

@@ -69,4 +69,8 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getBarnPositions();
 	
 	List<RefDataTranslationDto> getFeederTypes();
+	
+	List<RefDataTranslationDto> getFunctionTypes();
+	
+	List<RefDataTranslationDto> getJobFunctionRole();
 }

@@ -416,9 +416,10 @@
 	                        </div>
 	                        <div class="form-group">
 	                          <label><spring:message code='label.employeegroup.add.jobFunction'  text='Job Function'/></label>
-	                          <select class="form-control" ng-model="employeeGrp.employeeJobFunction">
-	                            <option value="Any"><spring:message code='label.employeegroup.add.functions.any'  text='Any'/></option>
-	                          </select>
+	                          
+	                          <select class="form-control" id="jobFunctionRoleId"  name="jobFunctionRoleId" ng-model="employeeGrp.jobFunctionRoleId"  ng-change="getEmployeeList()">
+                        	    <option ng-repeat="key in jobFunctionRoleKeys" ng-value="key" ng-selected="employeeGrp.jobFunctionRoleId==key">{{jobFunctionRoleKeyValues[key]}}</option>
+                        	  </select>	                          
 	                          <p class="color-danger" ng-show="employeeGrpJobFunctionInvalid"><spring:message code='label.employeegroup.message.jobfunction.invalid'  text='Job function is required'/></p>
 	                        </div>
 	                        <div class="row">

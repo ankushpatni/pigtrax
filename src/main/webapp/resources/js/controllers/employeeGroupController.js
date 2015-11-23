@@ -3,6 +3,30 @@ pigTrax.controller('EmployeeGroupController', function($scope, $rootScope, $http
 	$scope.employeeGrp = {};
 	$scope.employeeList = [];
 	
+	
+	$scope.getEmployeeList = function()
+	{	
+		var employeeGroup = {
+				companyId : $rootScope.companyId,
+				employeeJobFunction : "Any",
+				jobFunctionRoleId : $scope.employeeGrp.jobFunctionRoleId
+		};
+		restServices.getEmployeeList(employeeGroup, function(data) {
+			if(!data.error){
+				$scope.employeeList = data.payload;
+				var selectedGroupEmployees = $scope.employeeGrp.employeeList;
+				var employees = $scope.employeeList;
+				for (var i = 0; i < employees.length; i++) { 
+				  for(var j=0; j<selectedGroupEmployees.length; j++)
+				  {
+					if(employees[i].id == selectedGroupEmployees[j].id)
+						employees[i].selected = true;
+				  }
+				}
+			}
+		});
+	}
+	
 	$scope.showAddGroupForm = function()
 	{
 		$rootScope.viewAddForm = true;
@@ -33,7 +57,7 @@ pigTrax.controller('EmployeeGroupController', function($scope, $rootScope, $http
 		
 		if($scope.employeeGrp.groupId == "" || $scope.employeeGrp.groupId == "undefined" || $scope.employeeGrp.groupId == undefined)
 			$scope.employeeGrpGroupIdInvalid = true;
-		else if($scope.employeeGrp.employeeJobFunction == undefined  || $scope.employeeGrp.employeeJobFunction == "undefined")
+		else if($scope.employeeGrp.jobFunctionRoleId == undefined  || $scope.employeeGrp.jobFunctionRoleId == "undefined")
 			$scope.employeeGrpJobFunctionInvalid = true;
 		else if(selectedEmployees== null || selectedEmployees.length == 0)
 			$scope.employeeGrpEmployeeInvalid = true;
@@ -72,6 +96,21 @@ pigTrax.controller('EmployeeGroupController', function($scope, $rootScope, $http
 				}
 		});
 	};
+	
+	
+	$scope.gtJobFunctionRoles = function(){
+		restServices.gtJobFunctionRoles(function(data){
+			 if(!data.error)
+			 {
+				 if(!data.error){
+						var responseList = data.payload;
+						$scope.jobFunctionRoleKeys = responseList[0];
+						$scope.jobFunctionRoleKeyValues = responseList[1];
+					}
+			 }
+		});
+	};
+	$scope.gtJobFunctionRoles();
 	
 	$scope.clearAllMessages=function()
 	{

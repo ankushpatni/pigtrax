@@ -60,9 +60,10 @@ public class EmployeeGroupRestController {
 	{
 		logger.info("Inside getEmployeeGroups" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		List<EmployeeDto> employeeDtoList = null;
+		List<EmployeeDto> employeeDtoList = null; 
 		try {
-			employeeDtoList = employeeGroupService.getEmployeeList(employeeGroupDto.getCompanyId(), employeeGroupDto.getEmployeeJobFunction());
+			if(employeeGroupDto.getJobFunctionRoleId() != null)
+				employeeDtoList = employeeGroupService.getEmployeeList(employeeGroupDto.getCompanyId(), employeeGroupDto.getJobFunctionRoleId());
 			dto.setPayload(employeeDtoList);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {

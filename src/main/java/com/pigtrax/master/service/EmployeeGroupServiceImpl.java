@@ -35,9 +35,9 @@ public class EmployeeGroupServiceImpl implements EmployeeGroupService {
 	 */
 	@Override
 	public List<EmployeeDto> getEmployeeList(Integer companyId,
-			String jobFunction) throws PigTraxException {
+			Integer jobFunctionRoleId) throws PigTraxException { 
 		try {
-			return employeeGroupDao.getEmployeeList(companyId, jobFunction);
+			return employeeGroupDao.getEmployeeList(companyId, jobFunctionRoleId);
 		} catch (SQLException e) {
 			throw new PigTraxException("Sql error occurred", e.getSQLState());
 		}

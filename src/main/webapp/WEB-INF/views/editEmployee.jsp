@@ -47,12 +47,20 @@
 						name="email" ng-model="add.email"  ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"  required maxlength="30"
 						required-message="'<spring:message code='label.employee.emailRequired' text='Email is required' />'"/>
 				</div>
-				
+				<div>
+					<label><spring:message code="label.employee.phone"
+							text="Phone" /><span style='color: red'>*</span></label>
+							<input 	class="form-control" type="text" placeholder="+1-111-111-1111"
+						name="phone" ng-model="add.phoneNumber" maxlength="15" required
+						required-message="'<spring:message code='label.company.phoneRequired' text='Phone is required' />'"
+						ng-pattern="/^[\0-9-+]+$/"
+						invalid-message="'Please input correct number in US format.'" />
+				</div>
 				<div class="form-group">
 					<label ><spring:message
 							code="label.employee.role"
 							text="Role" /><span style='color: red'>*</span></label> 						
-						<select class="form-control" id="userRoles"  name="userRoleId" ng-model="add.userRoleId"  required onchange="userRolesSubmit();" required-message="'<spring:message code='label.employee.userRoleId' text='Role  is required' />'">
+						<select class="form-control" id="userRoles"  name="userRoleId" ng-model="add.userRoleId"  required  required-message="'<spring:message code='label.employee.userRoleId' text='Role  is required' />'">
                         <option ng-repeat="key in roleTypeKeys" ng-value="key" ng-selected="add.userRoleId==key">{{roleTypes[key]}}</option>
                         </select>
 						
@@ -75,7 +83,44 @@
 					</div>
 				  </div> 
 				
+				  <div class="form-group">
+					<label ><spring:message
+							code="label.employee.functionType"
+							text="Function Type" /><span style='color: red'>*</span></label>
+						<select class="form-control" id="functionTypeId"  name="functionTypeId" ng-model="add.functionTypeId"  required >
+                        <option ng-repeat="key in functionTypeKeys" ng-value="key" ng-selected="add.functionTypeId==key">{{functionTypeKeyValues[key]}}</option>
+                        </select>
+				</div>
 				
+				 <div class="form-group">
+					<label ><spring:message
+							code="label.employee.jobFunctionRole"
+							text="Job Function" /><span style='color: red'>*</span></label>    
+						<select class="form-control" id="jobFunctionRoleId"  name="jobFunctionRoleId" ng-model="add.jobFunctionRoleId"  required >
+                        <option ng-repeat="key in jobFunctionRoleKeys" ng-value="key" ng-selected="add.jobFunctionRoleId==key">{{jobFunctionRoleKeyValues[key]}}</option>
+                        </select>
+				</div>
+				 <div class="form-group">
+					<label ><a href="" ng-click="getPreviousRoles(add.id)"><spring:message
+							code="label.employee.previousRoles"
+							text="Previous Roles" /></a></label>
+					<table ng-show="onPrevRoles">
+					  <tr> <th> <spring:message code="label.employee.functionName"	text="Function Name" /> </th>
+						   <th><spring:message code="label.employee.functionStartDate"	text="Start Date" /></th>
+						   <th><spring:message code="label.employee.functionEndDate"	text="End Date" /></th>
+					 </tr>
+					 <tr ng-repeat="emp in prevRoleList" ng-if="prevRoleList != null && 0<prevRoleList.length">
+					   <td>{{emp.empFunctionName}}</td>
+					   <td>{{emp.functionStartDate | date : 'yyyy-MM-dd'}}</td>
+					   <td>{{emp.functionEndDate  | date : 'yyyy-MM-dd'}}</td>
+					 </tr>
+					  <tr ng-if="prevRoleList == null || 0 == prevRoleList.length">
+					    <td colspan="3"><spring:message code="label.employee.noFunctionRoles"	text="No functions assigned" /></td>
+					  </tr>
+					 
+					</table>
+				</div>
+		
 
 				<div class="modal-footer">
 
@@ -91,6 +136,14 @@
 			</div>
 		</form>
 		<div class="modal-footer" ng-show="alertVisible"></div>
+		
+		
+		
+		
+		<div id="selectEmployeeGroupModal" class="modal colored-header modal-sm" >
+      
+		
+		
 	</div>
 	<script type="text/javascript">
 			function userRolesSubmit(){

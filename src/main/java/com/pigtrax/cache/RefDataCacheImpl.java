@@ -82,6 +82,10 @@ public class RefDataCacheImpl implements RefDataCache {
 	
 	private Map<String, Map<Integer, String>> feederTypeMap;
 	
+	private Map<String, Map<Integer, String>> functionTypeMap;
+	
+	private Map<String, Map<Integer, String>> jobFunctionRoleMap;
+	
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
 	 * 
@@ -122,6 +126,8 @@ public class RefDataCacheImpl implements RefDataCache {
 		waterTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getWaterTypes()));
 		barnPositionMap = Collections.unmodifiableMap(convertToMap(refDataDao.getBarnPositions()));
 		feederTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFeederTypes()));
+		functionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFunctionTypes()));
+		jobFunctionRoleMap = Collections.unmodifiableMap(convertToMap(refDataDao.getJobFunctionRole()));
 	}
 
 	@Override
@@ -292,6 +298,16 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getWaterTypeMap(String language) {
 		return waterTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getFunctionTypeMap(String language) {
+		return functionTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getJobFunctionRoleMap(String language) {
+		return jobFunctionRoleMap.get(language);
 	}
 	
 }

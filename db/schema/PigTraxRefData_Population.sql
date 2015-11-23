@@ -7938,6 +7938,95 @@ INSERT INTO pigtraxrefdata."FeederTypeTranslation" ("fieldValue","fieldLanguage"
 
 ---------------------------------------------------------------------------------------
 
+
+
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Breeding', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Driver', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Farrowing', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Feed Mill', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Finishing', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'GDU', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Nursery', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'Quarantine', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'Transport', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FunctionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'WeanFinish', CURRENT_TIMESTAMP,'pigtraxadmin');
+
+
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Breeding','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Driver','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Farrowing','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Feed Mill','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Finishing','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('GDU','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Nursery','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Quarantine','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Transport','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('WeanFinish','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+
+
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Breeding_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Driver_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Farrowing_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Feed Mill_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Finishing_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('GDU_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Nursery_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Quarantine_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Transport_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('WeanFinish_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Breeding_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Driver_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Farrowing_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Feed Mill_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Finishing_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('GDU_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Nursery_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Quarantine_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('Transport_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."FunctionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FunctionType") VALUES ('WeanFinish_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+
+
+---------------------------------------------------------------------------------------
+
+
+INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Caretaker', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Mgr-Barn', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Mgr-Room', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Mgr-Premise', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Supervisor', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'Vet', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Any', CURRENT_TIMESTAMP,'pigtraxadmin');
+
+
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Caretaker','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Barn','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Room','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Premise','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Supervisor','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Vet','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Any','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Caretaker_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Barn_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Room_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Premise_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Supervisor_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Vet_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Any_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+
+
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Caretaker_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Barn_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Room_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Premise_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Supervisor_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Vet_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Any_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+
+
+-----------------------------------------------------------------------------------------
+
 INSERT INTO pigtrax."Company"(
 
             "companyId", name, address, city, country, "registrationNumber", email,
@@ -8106,9 +8195,9 @@ Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true,
 
 CURRENT_DATE,'pigtraxadmin',4,'vidyar2002@yahoo.com');
 
-INSERT into pigtrax."EmployeeJobFunction" ("functionName", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values ('ANY',CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT into pigtrax."EmployeeJobFunction" ("id_JobFunctionRole", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values (7,CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',7);
 
-INSERT into pigtrax."EmployeeJobFunction" ("functionName", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values ('ANY',CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT into pigtrax."EmployeeJobFunction" ("id_JobFunctionRole", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values (7,CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',8);
 
 INSERT INTO pigtrax."MasterRation"(
             "rationValue", "id_FeedEventType", "lastUpdated", "userUpdated")
