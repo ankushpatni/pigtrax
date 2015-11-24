@@ -67,4 +67,6 @@ public interface RefDataCache {
 	Map<Integer, String> getFunctionTypeMap(String language);
 	
 	Map<Integer, String> getJobFunctionRoleMap(String language);
+	
+	Map<Integer, String> getTrailerFunctionMap(String language);
 }

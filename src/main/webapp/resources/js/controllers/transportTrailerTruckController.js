@@ -17,6 +17,21 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
         this.hoverEdit = false;
     };
     
+    
+    $scope.getTrailerFunctions = function()
+	{
+		restServices.getTrailerFunctions(function(data)
+		{
+			if(!data.error){
+				var responseList = data.payload;
+				$scope.trailerFunctionKeys = responseList[0];
+				$scope.trailerFunctionKeyTypes =responseList[1];
+			}
+		});
+	}
+    
+    $scope.getTrailerFunctions();
+    
     $scope.gotToPage = function(index,row)
 	{
 		document.getElementById("generatedSiloId").value = row.id;

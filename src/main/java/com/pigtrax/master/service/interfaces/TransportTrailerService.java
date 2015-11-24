@@ -42,4 +42,6 @@ public interface TransportTrailerService {
 			throws SQLException;
 
 
+	List<TransportTrailer> getTransportTrailerList(int generatedCompanyId, String language);
+	
 }

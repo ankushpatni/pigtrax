@@ -633,5 +633,24 @@ public class UtilController {
 		return dto; 
 	}
 	
+	@RequestMapping(value = "/getTrailerFunctions", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getTrailerFunctions(HttpServletRequest request)
+	{
+		logger.info("Inside getTrailerFunctions" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		Map<Integer, String> refDataMap = refDataCache.getTrailerFunctionMap(language);
+		Set<Integer> keySet = null;
+		if(refDataMap != null)
+			keySet  = refDataMap.keySet();
+		
+		List<Object> responseList = new ArrayList<Object>();
+		responseList.add(keySet);
+		responseList.add(refDataMap);		
+		dto.setPayload(responseList); 
+		dto.setStatusMessage("Success");
+		return dto; 
+	}
 	
 }

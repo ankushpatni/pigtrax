@@ -73,4 +73,6 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getFunctionTypes();
 	
 	List<RefDataTranslationDto> getJobFunctionRole();
+	
+	List<RefDataTranslationDto> getTrailerFunctions();
 }

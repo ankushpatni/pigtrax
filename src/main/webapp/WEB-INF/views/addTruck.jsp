@@ -47,6 +47,12 @@
 						<label><spring:message code="label.transportTrailer.trailerTypeId" text="Trailer Type" /><span style='color: red'>*</span></label>
 						<select class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.trailerTypeId'  text='Trailer Type'/>" name="trailerTypeId" ng-model="add.trailerTypeId" required required-message="'<spring:message code='label.transportTrailer.trailerTypeRequired' text='Trailer Type is required' />'" ng-options="k as v for (k, v) in transportTrailerType"/>	
 					</div>
+					<div class="form-group">
+						<label><spring:message code="label.transportTrailer.trailerFunction" text="Trailer Function" /></label>
+						<select class="form-control"  name="glineType" ng-model="add.trailerFunctionId" >
+                      	<option ng-repeat="key in trailerFunctionKeys" ng-value="key" ng-selected="add.trailerFunctionId==key">{{trailerFunctionKeyTypes[key]}}</option>        
+                        </select>	
+					</div>
 					<div class="modal-footer">
 		            	<button class="btn btn-primary btn-flat md-close"  ng-click="addTransportTrailer()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
 						<button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>

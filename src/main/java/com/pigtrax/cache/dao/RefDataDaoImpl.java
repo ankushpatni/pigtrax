@@ -320,4 +320,10 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
+	@Override
+	public List<RefDataTranslationDto> getTrailerFunctions() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TrailerFunction\" FROM pigtraxrefdata.\"TrailerFunctionTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
 }

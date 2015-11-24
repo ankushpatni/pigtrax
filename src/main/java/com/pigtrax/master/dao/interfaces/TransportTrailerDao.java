@@ -39,7 +39,7 @@ public interface TransportTrailerDao {
 
 
 	int deleteTransportTrailer(TransportTrailer transportTrailer)
-			throws SQLException;
-
+			throws SQLException;	
+	
 
 }

@@ -10,6 +10,8 @@ public class TransportTrailer {
 	private int companyId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer trailerFunctionId;
+	private String trailerFunction;
 	/**
 	 * @return the id
 	 */
@@ -81,6 +83,20 @@ public class TransportTrailer {
 	 */
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
+	}
+	
+	
+	public Integer getTrailerFunctionId() {
+		return trailerFunctionId;
+	}
+	public void setTrailerFunctionId(Integer trailerFunctionId) {
+		this.trailerFunctionId = trailerFunctionId;
+	}
+	public String getTrailerFunction() {
+		return trailerFunction;
+	}
+	public void setTrailerFunction(String trailerFunction) {
+		this.trailerFunction = trailerFunction;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

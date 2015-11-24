@@ -547,6 +547,7 @@ CREATE TABLE pigtrax."TransportTrailer"(
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Company" integer,
 	"id_TrailerType" integer,
+	"id_TrailerFunction" integer,
 	CONSTRAINT "TANSPORTTAILER_PK" PRIMARY KEY (id),
 	CONSTRAINT "TANSPORTRAILER_TI" UNIQUE ("trailerId")
 
@@ -2934,6 +2935,58 @@ ALTER TABLE pigtraxrefdata."JobFunctionRoleTranslation" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtraxrefdata."JobFunctionRoleTranslation" DROP CONSTRAINT IF EXISTS "JobFunctionRole_fk" CASCADE;
 ALTER TABLE pigtraxrefdata."JobFunctionRoleTranslation" ADD CONSTRAINT "JobFunctionRole_fk" FOREIGN KEY ("id_JobFunctionRole")
 REFERENCES pigtraxrefdata."JobFunctionRole" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+
+
+
+
+-- object: pigtraxrefdata."TrailerFunction" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."TrailerFunction" CASCADE;
+CREATE TABLE pigtraxrefdata."TrailerFunction"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "TrailerFunction_PK" PRIMARY KEY (id),
+	CONSTRAINT "TrailerFunction_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."TrailerFunction" OWNER TO pitraxadmin;
+
+
+-- object: "FeederType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."TransportTrailer" DROP CONSTRAINT IF EXISTS "TrailerFunction_fk" CASCADE;
+ALTER TABLE pigtrax."TransportTrailer" ADD CONSTRAINT "TrailerFunction_fk" FOREIGN KEY ("id_TrailerFunction")
+REFERENCES pigtraxrefdata."TrailerFunction" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."TrailerFunctionTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."TrailerFunctionTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."TrailerFunctionTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_TrailerFunction" integer,
+	CONSTRAINT "TrailerFunctionTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "TrailerFunctionTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."TrailerFunctionTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "TrailerFunction_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."TrailerFunctionTranslation" DROP CONSTRAINT IF EXISTS "TrailerFunction_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."TrailerFunctionTranslation" ADD CONSTRAINT "TrailerFunction_fk" FOREIGN KEY ("id_TrailerFunction")
+REFERENCES pigtraxrefdata."TrailerFunction" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

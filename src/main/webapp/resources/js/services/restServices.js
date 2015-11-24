@@ -117,5 +117,6 @@ pigTrax.factory("restServices", function($resource) {
 		"getFunctionTypes" : {method:"GET", url:"rest/util/getFunctionTypes"},
 		"gtJobFunctionRoles" : {method:"GET", url:"rest/util/getJobFunctionRoles"},
 		"getEmployeeRoles" : {method:"POST", url:"rest/employee/getEmployeeRoles"},
+		"getTrailerFunctions" : {method:"GET", url:"rest/util/getTrailerFunctions"},
     });
 });

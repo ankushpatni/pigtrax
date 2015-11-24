@@ -86,6 +86,8 @@ public class RefDataCacheImpl implements RefDataCache {
 	
 	private Map<String, Map<Integer, String>> jobFunctionRoleMap;
 	
+	private Map<String, Map<Integer, String>> trailerFunctionMap;
+	
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
 	 * 
@@ -128,6 +130,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		feederTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFeederTypes()));
 		functionTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getFunctionTypes()));
 		jobFunctionRoleMap = Collections.unmodifiableMap(convertToMap(refDataDao.getJobFunctionRole()));
+		trailerFunctionMap = Collections.unmodifiableMap(convertToMap(refDataDao.getTrailerFunctions()));
 	}
 
 	@Override
@@ -308,6 +311,11 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getJobFunctionRoleMap(String language) {
 		return jobFunctionRoleMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getTrailerFunctionMap(String language) {
+		return trailerFunctionMap.get(language);
 	}
 	
 }

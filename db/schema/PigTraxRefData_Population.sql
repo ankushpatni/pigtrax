@@ -6982,8 +6982,7 @@ INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 3 Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Other','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Single Deck','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
-INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine
-','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
 
 
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American 2 Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -6997,8 +6996,7 @@ INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('MX/BZ Open 3 Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Other','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Single Deck','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
-INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine
-','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('Quarantine','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
 
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American 2 Deck','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."TrailerTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerType") VALUES ('American Pot Belly','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -7996,7 +7994,6 @@ INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","la
 INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Mgr-Premise', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Supervisor', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'Vet', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."JobFunctionRole" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Any', CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Caretaker','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -8005,7 +8002,6 @@ INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Premise','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Supervisor','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Vet','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Any','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
 
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Caretaker_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Barn_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -8013,7 +8009,6 @@ INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Premise_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Supervisor_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Vet_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Any_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
 
 
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Caretaker_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -8022,11 +8017,40 @@ INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Mgr-Premise_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Supervisor_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Vet_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."JobFunctionRoleTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_JobFunctionRole") VALUES ('Any_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-
 
 -----------------------------------------------------------------------------------------
+INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Cull market', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Dedicated movement', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Feed', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Feed vacum', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Internal movement', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'Market', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Quarantine movement', CURRENT_TIMESTAMP,'pigtraxadmin');
 
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Cull market','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Dedicated movement','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed vacum','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Internal movement','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Market','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Quarantine movement','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Cull market_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Dedicated movement_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed vacum_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Internal movement_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Market_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Quarantine movement_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Cull market_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Dedicated movement_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed vacum_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Internal movement_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Market_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Quarantine movement_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+---------------------------------------------------------------------------------------------
 INSERT INTO pigtrax."Company"(
 
             "companyId", name, address, city, country, "registrationNumber", email,
@@ -8045,25 +8069,25 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('pigtraxsuperadmin',1,'PT 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',1,'vidyar2002@yahoo.com');
+true, CURRENT_DATE,'pigtraxadmin',1,'vidyar2002@yahoo.com','123343433');
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('pigtraxdatacfgmgr',1,'PT Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',2,'vidyar2002@yahoo.com');
+CURRENT_DATE,'pigtraxadmin',2,'vidyar2002@yahoo.com','23232323');
 
 INSERT INTO pigtrax."Company"(
 
@@ -8083,25 +8107,25 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('pigfarmsuperadmin',2,'PF 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',3,'vidyar2002@yahoo.com');
+true, CURRENT_DATE,'pigtraxadmin',3,'vidyar2002@yahoo.com','34343434');
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('pigfarmdatacfgmgr',2,'PF Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',4,'vidyar2002@yahoo.com');
+CURRENT_DATE,'pigtraxadmin',4,'vidyar2002@yahoo.com','3534535435');
 
 INSERT INTO pigtrax."Company"(
 
@@ -8121,41 +8145,41 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('praveensuperadmin',3,'PT 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',3,'vidyar2002@yahoo.com');
+true, CURRENT_DATE,'pigtraxadmin',3,'vidyar2002@yahoo.com','34532423432');
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('praveendatacfgmgr',3,'PT Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',4,'vidyar2002@yahoo.com');
+CURRENT_DATE,'pigtraxadmin',4,'vidyar2002@yahoo.com','2323232');
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
-VALUES ('praveenfarmemployee1',3, 'Alan', null, true, false, CURRENT_DATE,'pigtraxadmin',null,'vidyar2002@yahoo.com');
+VALUES ('praveenfarmemployee1',3, 'Alan', null, true, false, CURRENT_DATE,'pigtraxadmin',null,'vidyar2002@yahoo.com','32323233');
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
-VALUES ('praveenfarmemployee2',3, 'Tom', null, true, false, CURRENT_DATE,'pigtraxadmin',null,'vidyar2002@yahoo.com');
+VALUES ('praveenfarmemployee2',3, 'Tom', null, true, false, CURRENT_DATE,'pigtraxadmin',null,'vidyar2002@yahoo.com','33431212');
 
 INSERT INTO pigtrax."Company"(
 
@@ -8175,25 +8199,25 @@ INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('roysuperadmin',4,'PT 
 
 SuperAdmin','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, 
 
-true, CURRENT_DATE,'pigtraxadmin',3,'vidyar2002@yahoo.com');
+true, CURRENT_DATE,'pigtraxadmin',3,'vidyar2002@yahoo.com','232323222');
 
 INSERT INTO pigtrax."Employee"(
 
             "employeeId", "id_Company", name, "ptPassword", "isActive", "isPortalUser",
 
-            "lastUpdated", "userUpdated", "id_RoleType","email")
+            "lastUpdated", "userUpdated", "id_RoleType","email","phoneNumber")
 
 VALUES ('roydatacfgmgr',4,'PT Data Cfg 
 
 Mgr','$2a$10$iF4BCj2.AvqVcvbf7aTb2u6fVNK/YxQ8ltPQt2N0n0csBb5rCIin.',true, true, 
 
-CURRENT_DATE,'pigtraxadmin',4,'vidyar2002@yahoo.com');
+CURRENT_DATE,'pigtraxadmin',4,'vidyar2002@yahoo.com','232323232');
 
 INSERT into pigtrax."EmployeeJobFunction" ("id_JobFunctionRole", "functionFrom", "functionTo", "lastUpdated", "userUpdated", "id_Employee") values (7,CURRENT_TIMESTAMP,null,CURRENT_TIMESTAMP,'pigtraxadmin',7);
 

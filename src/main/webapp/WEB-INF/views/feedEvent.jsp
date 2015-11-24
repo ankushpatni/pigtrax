@@ -81,9 +81,9 @@
                          ng-options="k as v for (k, v) in rationType"> </select>
                    </div>
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Initial Feed Quantity (In Kgs)'/></label>
-                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.placeHolder' text='Enter Initial Feed Quantity (In Kgs)' />" 
-                     	name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" maxlength="20" required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.requiredMessage' text='Initial Feed Quantity required' />'" 
+                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Feed Quantity (In Kgs)'/></label>
+                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.placeHolder' text='Enter Feed Quantity (In Kgs)' />" 
+                     	name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" maxlength="20" required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.requiredMessage' text='Feed Quantity required' />'" 
                      	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
                    <div class="form-group">

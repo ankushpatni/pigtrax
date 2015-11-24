@@ -52,7 +52,7 @@ public class TransportTrailerTruckRestController {
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		phaseType.add(transportTruckServiceImpl.getTransportTruckList(generatedCompanyId));
-		phaseType.add(transportTrailerServiceImpl.getTransportTrailerList(generatedCompanyId));
+		phaseType.add(transportTrailerServiceImpl.getTransportTrailerList(generatedCompanyId, language));
 		phaseType.add(refDataCache.transportTrailerType(language));
 		dto.setPayload(phaseType);
 		dto.setStatusMessage("Success");
