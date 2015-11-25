@@ -10,7 +10,7 @@ public class FeedEvent {
 	private String feedContentId;
 	private Date initialFeedEntryDateTime;
 	private Integer rationId;
-	private Integer initialFeedQuantityKgs;
+	private Double initialFeedQuantityKgs;
 	private BigDecimal feedCost;
 	private String feedMedication;
 	private Integer transportJourneyId;
@@ -43,10 +43,10 @@ public class FeedEvent {
 		this.initialFeedEntryDateTime = initialFeedEntryDateTime;
 	}
 	
-	public Integer getInitialFeedQuantityKgs() {
+	public Double getInitialFeedQuantityKgs() {
 		return initialFeedQuantityKgs;
 	}
-	public void setInitialFeedQuantityKgs(Integer initialFeedQuantityKgs) {
+	public void setInitialFeedQuantityKgs(Double initialFeedQuantityKgs) {
 		this.initialFeedQuantityKgs = initialFeedQuantityKgs;
 	}
 	public BigDecimal getFeedCost() {

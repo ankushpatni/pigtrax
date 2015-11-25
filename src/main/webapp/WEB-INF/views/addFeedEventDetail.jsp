@@ -40,7 +40,7 @@
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.feedEventDetail.weightInKgs.placeHolder'  text='Enter Weight in KG'/>" name="weightInKgs" ng-model="feedEventDetail.weightInKgs" ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>	
+						<input class="form-control" type="text" placeholder="<spring:message code='label.feedEventDetail.weightInKgs.placeHolder'  text='Enter Weight in KG'/>" name="weightInKgs" ng-model="feedEventDetail.weightInKgs" ng-pattern="/^[-]?[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>	
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></label>

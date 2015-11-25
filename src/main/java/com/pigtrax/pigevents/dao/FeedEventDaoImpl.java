@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.pigevents.beans.FeedEvent;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDao;
-import com.pigtrax.util.UserUtil;
 
 @Repository
 @Transactional
@@ -112,14 +111,14 @@ public class FeedEventDaoImpl implements FeedEventDao
 				ps.setDate(3, new java.sql.Date(feedEvent
 						.getInitialFeedEntryDateTime().getTime()));
 				ps.setInt(4, feedEvent.getRationId());
-				ps.setObject(5, feedEvent.getInitialFeedQuantityKgs(), java.sql.Types.INTEGER);
+				ps.setObject(5, feedEvent.getInitialFeedQuantityKgs(), java.sql.Types.DOUBLE);
 				ps.setObject(6, feedEvent.getFeedCost(), java.sql.Types.DECIMAL);
 				ps.setString(7, feedEvent.getFeedMedication());
 				if(null != feedEvent.getTransportJourneyId() && feedEvent.getTransportJourneyId()>0)
 					ps.setInt(8, feedEvent.getTransportJourneyId());
 				else
 					ps.setNull(8,  java.sql.Types.INTEGER);
-				ps.setString(9, UserUtil.getLoggedInUser());				
+				ps.setString(9, feedEvent.getUserUpdated());				
 				return ps;
 			}
 		}, holder);
@@ -151,9 +150,9 @@ public class FeedEventDaoImpl implements FeedEventDao
 					ps.setInt(3, feedEvent.getRationId());
 					
 					if(feedEvent.getInitialFeedQuantityKgs() != null )
-						ps.setInt(4, feedEvent.getInitialFeedQuantityKgs());
+						ps.setDouble(4, feedEvent.getInitialFeedQuantityKgs());
 					else
-						ps.setNull(4, java.sql.Types.INTEGER);
+						ps.setNull(4, java.sql.Types.DOUBLE);
 					
 					if(feedEvent.getFeedCost() != null )
 						ps.setBigDecimal(5, feedEvent.getFeedCost());
@@ -167,7 +166,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 					else
 						ps.setNull(7, java.sql.Types.INTEGER);
 					
-					ps.setString(8, UserUtil.getLoggedInUser());
+					ps.setString(8, feedEvent.getUserUpdated());
 					ps.setInt(9, feedEvent.getId());
 				}
 			});	
@@ -181,7 +180,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 			feedEvent.setFeedContentId(rs.getString("feedContentId"));
 			feedEvent.setInitialFeedEntryDateTime(rs.getDate("initialFeedEntryDateTime"));
 			feedEvent.setRationId(rs.getInt("batchId"));
-			feedEvent.setInitialFeedQuantityKgs(rs.getInt("initialFeedQuantityKgs"));
+			feedEvent.setInitialFeedQuantityKgs(rs.getDouble("initialFeedQuantityKgs"));
 			feedEvent.setFeedCost(rs.getBigDecimal("feedCost"));
 			feedEvent.setFeedMedication(rs.getString("feedMedication"));			
 			feedEvent.setFeedCost(rs.getBigDecimal("feedCost"));
