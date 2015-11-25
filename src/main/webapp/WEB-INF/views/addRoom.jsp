@@ -24,6 +24,11 @@
 				<option value="3"><spring:message code="label.barn.roomPosition.outside" text="Outside" /></option>
 				</select>
 			</div>
+			 <div class="form-group">
+				<label><spring:message code="label.room.pigSpaces" text="Pig Spaces" /></label>				
+				<input class="form-control" type="text" placeholder="<spring:message code='label.room.pigSpaces' text='Pig Spaces' />" 
+				name="pigSpaces" ng-model="add.pigSpaces" maxlength="6"   ng-pattern="/^[0-9]{1,6}?$/i" invalid-message="'<spring:message code='label.room.pigSpaceInvalid' text='Only whole numbers are accepted'/>'"/ >
+			</div>
 			<div class="modal-footer">
 
             <button class="btn btn-primary btn-flat md-close"  ng-click="addRoom()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>

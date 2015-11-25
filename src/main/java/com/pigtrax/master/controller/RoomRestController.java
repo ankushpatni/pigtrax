@@ -4,9 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pigtrax.master.dto.Room;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -62,11 +66,12 @@ public class RoomRestController {
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/updateRoomStatus", method=RequestMethod.POST, produces="application/json")
-	public ServiceResponseDto updateRoomStatus( @RequestParam String roomId, @RequestParam String isActive)
+	public ServiceResponseDto updateRoomStatus(@RequestParam String roomId, @RequestParam String isActive)
 	{
 		logger.info("Inside updateBarnStatus()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		int updatedRecord;
+		
 		try 
 		{
 			updatedRecord = roomService.updateRoomStatus(roomId.toUpperCase(), new Boolean(isActive));
@@ -90,10 +95,12 @@ public class RoomRestController {
 	public ServiceResponseDto insertRoomRecord( @RequestBody Room room)
 	{
 		logger.debug("Inside insertRoomRecord()" );
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ServiceResponseDto dto = new ServiceResponseDto();
 		int updatedRecord = 0;
 		try 
 		{
+			room.setUserUpdated(activeUser.getUsername());
 		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
 			if( 0 == room.getId() )
 			{

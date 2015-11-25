@@ -13,6 +13,7 @@ public class Room {
 	private Date lastUpdated;
 	private String userUpdated;
 	private Integer roomPositionId;
+	private Integer pigSpaces;
 	
 	public int getId() {
 		return id;
@@ -68,6 +69,12 @@ public class Room {
 	}
 	public void setRoomPositionId(Integer roomPositionId) {
 		this.roomPositionId = roomPositionId;
+	}
+	public Integer getPigSpaces() {
+		return pigSpaces;
+	}
+	public void setPigSpaces(Integer pigSpaces) {
+		this.pigSpaces = pigSpaces;
 	}
 	
 	

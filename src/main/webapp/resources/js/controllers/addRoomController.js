@@ -34,7 +34,8 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 							"active" : roomData.active,
 							"id" : $scope.add.id,
 							"barnId" : roomData.generatedBarnId,
-							"roomPositionId" : $scope.add.roomPositionId
+							"roomPositionId" : $scope.add.roomPositionId,
+							"pigSpaces" : $scope.add.pigSpaces
 					};
 				}
 				else
@@ -44,7 +45,8 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 							"location" : $scope.add.location,
 							"active" : true,
 							"barnId" : roomData.generatedBarnId	,
-							"roomPositionId" : $scope.add.roomPositionId
+							"roomPositionId" : $scope.add.roomPositionId,
+							"pigSpaces" : $scope.add.pigSpaces
 						};
 				}
 				console.log(postParam);

@@ -40,10 +40,10 @@
 												code="label.company.phone" text="Phone" /></th>
 										<th st-sort="contactName" size="8%"><spring:message
 												code="label.company.contactName" text="Contact Name" /></th>-->
-										<th st-sort="payment" size="5%"><spring:message
-												code="label.company.payment" text="Payment" /></th>
+										<!-- <th st-sort="payment" size="5%"><spring:message
+												code="label.company.payment" text="Payment" /></th> 
 										<th st-sort="paymentDate" size="10%"><spring:message
-												code="label.company.paymentDate" text="Payment Date" /></th>
+												code="label.company.paymentDate" text="Payment Date" /></th>-->
 										<th size="5%"><spring:message code="label.company.edit"
 												text="Edit" /></th>
 										<th size="5%"><spring:message code="label.company.detail"
@@ -69,8 +69,8 @@
 										<!--<td size="5%">{{row.email}}</td>
 										<td size="8%">{{row.phone}}</td>
 										<td size="8%">{{row.contactName}}</td>-->
-										<td size="5%">{{row.payment}}</td>
-										<td size="10%">{{row.paymentDate}}</td>
+										<!--<td size="5%">{{row.payment}}</td>
+										<td size="10%">{{row.paymentDate}}</td>-->
 										<td size="10%">
 											<button type="button" class="btn btn-edit btn-xs"
 												ng-click="editCompanyData(row)">
