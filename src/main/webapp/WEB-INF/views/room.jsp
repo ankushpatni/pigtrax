@@ -26,7 +26,7 @@
 												text="Activate/Deactivate"/></th>
 			</tr>
 		 	<tr>
-				<th colspan="5"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
+				<th colspan="6"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>

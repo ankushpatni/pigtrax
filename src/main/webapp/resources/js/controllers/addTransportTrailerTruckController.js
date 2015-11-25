@@ -79,7 +79,9 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 							"transportTrailerId" : $scope.add.transportTrailerId,
 							"companyId" : truckTrailorData.generatedCompanyId,
 							"trailerTypeId" : $scope.add.trailerTypeId,
-							"trailerFunctionId" : $scope.add.trailerFunctionId
+							"trailerFunctionId" : $scope.add.trailerFunctionId,
+							"trailerYear" : $scope.add.trailerYear,
+							"trailerMake" : $scope.add.trailerMake,
 							
 						};
 				

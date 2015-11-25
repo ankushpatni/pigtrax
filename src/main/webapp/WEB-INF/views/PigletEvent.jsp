@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.farroweventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
+          <h2><spring:message code='label.piginfo.pigletEventform.pigletinformation'  text='Piglet Information'/> - ${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="PigletEventController" ng-init="loadPage(${CompanyId})" id="PigletEventControllerId">
@@ -70,7 +70,7 @@
             <div class="col-sm-6 col-md-6">
               <div class="block-flat">
                 <div class="header">
-                  <h3><spring:message code='label.piginfo.pigleteventform.pigletEvent'  text='Piglet Event'/></h3>
+                  <h3><spring:message code='label.piginfo.pigleteventform.pigletEvent'  text='Individual Piglet Event'/></h3>
                   
                   <div class="alert alert-success alert-white rounded"  ng-show="entryEventSuccessMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>

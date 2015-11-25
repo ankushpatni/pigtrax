@@ -53,6 +53,17 @@
 				<label><spring:message code="label.premise.gpslongitude" text="GPS Longitude" /></label>
 				<input class="form-control" type="text" placeholder="<spring:message code='gpslongitude'  text='GPS Longitude'/>" name="gpsLongitude" ng-model="add.gpsLongitude" maxlength="30"/>	
 			</div>
+			<div class="form-group">
+				<label><spring:message code="label.premise.sowSource" text="Sow Source" /></label> 
+				<div class="form-group">
+                <label class="radio-inline">
+                  <input type="radio" name="rad1" id="rad1"  value="Yes" ng-model="add.sowSource" ng-checked="add.sowSource == 'Yes'"><spring:message code="label.premise.sowSourceYes" text="Yes" />
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="rad2"  id="rad2" value="No"  ng-model="add.sowSource"   ng-checked="add.sowSource == 'No'"> <spring:message code="label.premise.sowSourceNo" text="No" /> 
+                </label>
+              </div>
+			</div>
 			
         <div class="modal-footer">
 

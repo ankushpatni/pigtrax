@@ -13,6 +13,12 @@ public interface TransportDestinationService {
 	 */
 	public List<TransportDestination> getTransportDestinationList( int generatedCompanyId );
 	
+	/**
+	 * To get the list of TransportDestination
+	 * @return List<TransportDestination>
+	 */
+	public List<TransportDestination> getTransportDestinationList( int generatedCompanyId, String language);
+	
 	
 	/**
 	 * To Insert TransportDestination record

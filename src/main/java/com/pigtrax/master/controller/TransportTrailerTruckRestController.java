@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import com.pigtrax.master.dto.TransportTrailer;
 import com.pigtrax.master.dto.TransportTruck;
 import com.pigtrax.master.service.interfaces.TransportTrailerService;
 import com.pigtrax.master.service.interfaces.TransportTruckService;
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 
@@ -116,8 +118,10 @@ public class TransportTrailerTruckRestController {
 		logger.debug("Inside insertTransportTruckRecord()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		int updatedRecord = 0;
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try 
 		{
+			transportTrailer.setUserUpdated(activeUser.getUsername());
 		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
 			if( 0 == transportTrailer.getId() )
 			{

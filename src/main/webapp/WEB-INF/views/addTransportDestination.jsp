@@ -23,6 +23,12 @@
 						<label><spring:message code="label.transportDestination.address" text="Address" /><span style='color: red'>*</span></label>
 						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.address' text='Address' />" name="address" ng-model="add.address" maxlength="30"  required required-message="'<spring:message code='label.transportDestination.addressRequired' text='Address is required' />'" />
 					</div>
+					<div class="form-group">
+						<label><spring:message code="label.transportDestination.marketType" text="Market Type" /><span style='color: red'>*</span></label>
+						<select class="form-control"  name="marketType" ng-model="add.marketTypeId" >
+                      	<option ng-repeat="key in marketTypeKeys" ng-value="key" ng-selected="add.marketType==key">{{marketTypeKeyValues[key]}}</option>        
+                        </select>						
+					</div>
 					<div class="modal-footer">
 		            	<button class="btn btn-primary btn-flat md-close"  ng-click="addTransportDestination()"><spring:message code="label.premise.add" text="Add" /></button>
 						<button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>

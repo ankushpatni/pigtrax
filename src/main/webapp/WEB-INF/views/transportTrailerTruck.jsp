@@ -61,6 +61,8 @@
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTrailer.transportTrailerId" text="Trailer Number Plate" /></th>
 								<th style="width:30%"><spring:message code="label.transportTrailer.transportTrailerTypeId" text="Trailer Type" /></th>
 								<th style="width:30%"><spring:message code="label.transportTrailer.trailerFunction" text="Trailer Function" /></th>
+								<th style="width:30%"><spring:message code="label.transportTrailer.trailerYear" text="Year" /></th>
+								<th style="width:30%"><spring:message code="label.transportTrailer.trailerMake" text="Make" /></th>
 								<th style="width:20%"><spring:message code="label.transportTrailer.deleteTrailerData" text="Delete Trailer" /></th>
 							</tr>
 						 	</thead>
@@ -69,6 +71,8 @@
 								<td style="width:20%">{{row.transportTrailerId}}</td>
 								<td style="width:30%">{{transportTrailerType[row.trailerTypeId]}}</td>
 								<td style="width:30%">{{row.trailerFunction}}</td>
+								<td style="width:30%">{{row.trailerYear}}</td>
+								<td style="width:30%">{{row.trailerMake}}</td>
 								<td style="width: 20%">
 									<button type="button" class="btn btn-edit btn-xs" ng-click="deleteTransportTrailerData(row)">
 										<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.transportTrailer.deleteTrailer" text="Delete" /></a></button>					

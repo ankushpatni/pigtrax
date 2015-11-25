@@ -75,4 +75,7 @@ public interface RefDataDao {
 	List<RefDataTranslationDto> getJobFunctionRole();
 	
 	List<RefDataTranslationDto> getTrailerFunctions();
+	
+	List<RefDataTranslationDto> getMarketTypes();
+	
 }

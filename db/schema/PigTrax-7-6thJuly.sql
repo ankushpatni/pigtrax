@@ -82,6 +82,7 @@ CREATE TABLE pigtrax."Premise"(
 	"gpsLatittude" varchar(30),
 	"gpsLongitude" varchar(30),
 	"id_PremiseType" smallint,
+	"sowSource" varchar(5),
 	CONSTRAINT "Premise_U_PI" UNIQUE ("permiseId"),
 	CONSTRAINT "Premise_PK_PI" PRIMARY KEY (id)
 
@@ -241,6 +242,7 @@ CREATE TABLE pigtrax."TransportDestination"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Company" integer,
+	"id_MarketType" integer,
 	CONSTRAINT "DESTINATIONS_PK" PRIMARY KEY (id)
 
 );
@@ -548,6 +550,8 @@ CREATE TABLE pigtrax."TransportTrailer"(
 	"id_Company" integer,
 	"id_TrailerType" integer,
 	"id_TrailerFunction" integer,
+	"trailerYear" integer,
+	"trailerMake" varchar(50),
 	CONSTRAINT "TANSPORTTAILER_PK" PRIMARY KEY (id),
 	CONSTRAINT "TANSPORTRAILER_TI" UNIQUE ("trailerId")
 
@@ -2989,6 +2993,59 @@ ALTER TABLE pigtraxrefdata."TrailerFunctionTranslation" ADD CONSTRAINT "TrailerF
 REFERENCES pigtraxrefdata."TrailerFunction" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+
+
+
+
+-- object: pigtraxrefdata."MarketType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."MarketType" CASCADE;
+CREATE TABLE pigtraxrefdata."MarketType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "MarketType_PK" PRIMARY KEY (id),
+	CONSTRAINT "MarketType_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."MarketType" OWNER TO pitraxadmin;
+
+
+-- object: "FeederType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."TransportTrailer" DROP CONSTRAINT IF EXISTS "MarketType_fk" CASCADE;
+ALTER TABLE pigtrax."TransportDestination" ADD CONSTRAINT "MarketType_fk" FOREIGN KEY ("id_MarketType")
+REFERENCES pigtraxrefdata."MarketType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."MarketTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."MarketTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."MarketTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_MarketType" integer,
+	CONSTRAINT "MarketTypeTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "MarketTypeTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."MarketTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "MarketType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."MarketTypeTranslation" DROP CONSTRAINT IF EXISTS "MarketType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."MarketTypeTranslation" ADD CONSTRAINT "MarketType_fk" FOREIGN KEY ("id_MarketType")
+REFERENCES pigtraxrefdata."MarketType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 
 

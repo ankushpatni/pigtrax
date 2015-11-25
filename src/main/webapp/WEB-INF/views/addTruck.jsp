@@ -53,6 +53,16 @@
                       	<option ng-repeat="key in trailerFunctionKeys" ng-value="key" ng-selected="add.trailerFunctionId==key">{{trailerFunctionKeyTypes[key]}}</option>        
                         </select>	
 					</div>
+					<div class="form-group">
+                      <label><spring:message code='label.transportTrailer.trailerYear'  text='Year'/></label>                      
+                      <select class="form-control" name="purchaseYear" ng-model="add.trailerYear" >
+                            <option ng-repeat="i in purchaseYearArr" ng-value="i">{{i}}</option>                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label><spring:message code='label.transportTrailer.trailerMake'  text='Make'/></label>                      
+                      <input class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.trailerMake' text='Trailer Make' />" name="trailerMake" ng-model="add.trailerMake" maxlength="50"/ >
+                    </div>
 					<div class="modal-footer">
 		            	<button class="btn btn-primary btn-flat md-close"  ng-click="addTransportTrailer()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
 						<button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>

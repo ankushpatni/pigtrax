@@ -8051,6 +8051,40 @@ INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Market_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Quarantine movement_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
 ---------------------------------------------------------------------------------------------
+
+INSERT INTO pigtraxrefdata."MarketType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Feeder', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MarketType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Genetic', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MarketType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Market', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MarketType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Premarket', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MarketType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Sow Market', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."MarketType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'Weaner', CURRENT_TIMESTAMP,'pigtraxadmin');
+
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Feeder','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Genetic','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Market','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Premarket','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Sow Market','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Weaner','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+
+
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Feeder_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Genetic_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Market_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Premarket_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Sow Market_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Weaner_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+
+
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Feeder','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Genetic','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Market','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Premarket','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Sow Market','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."MarketTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MarketType") VALUES ('Weaner','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+
+
+
+--------------------------------------------------------------------------------------------
 INSERT INTO pigtrax."Company"(
 
             "companyId", name, address, city, country, "registrationNumber", email,

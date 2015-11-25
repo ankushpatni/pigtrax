@@ -69,4 +69,6 @@ public interface RefDataCache {
 	Map<Integer, String> getJobFunctionRoleMap(String language);
 	
 	Map<Integer, String> getTrailerFunctionMap(String language);
+	
+	Map<Integer, String> getMarketTypeMap(String language);
 }

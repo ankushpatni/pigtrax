@@ -20,6 +20,7 @@ public class Premises {
 	private String premiseType;
 	private Integer premiseTypeId;
 	private String language;
+	private String sowSource;
 	
 	public int getId() {
 		return id;
@@ -117,5 +118,13 @@ public class Premises {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+	public String getSowSource() {
+		return sowSource;
+	}
+	public void setSowSource(String sowSource) {
+		this.sowSource = sowSource;
+	}
+	
+	
 	
 }

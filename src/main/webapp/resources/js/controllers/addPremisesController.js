@@ -40,6 +40,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 		$scope.add.city = premisesData.city;
 		$scope.add.id = premisesData.id
 		$scope.add.premiseTypeId = premisesData.premiseTypeId
+		$scope.add.sowSource = premisesData.sowSource;		
     	
 	}
 	
@@ -47,6 +48,11 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	console.log($scope.premisesAddForm	.$valid);
 		if($scope.premisesAddForm.$valid)
 			{
+			var sowSource = null;
+			if(document.getElementById("rad1").checked)
+				sowSource = document.getElementById("rad1").value;
+			else if(document.getElementById("rad2").checked)
+				sowSource = document.getElementById("rad2").value;
 			var postParam;
 				if( premisesData != null && premisesData.permiseId !=null )
 				{
@@ -63,7 +69,8 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"companyId" : premisesData.generatedCompanyId,
 							"gpsLatittude" : $scope.add.gpsLatittude,
 							"gpsLongitude" : $scope.add.gpsLongitude,
-							"premiseTypeId" : $scope.add.premiseTypeId
+							"premiseTypeId" : $scope.add.premiseTypeId,
+							"sowSource" : sowSource,
 					};
 				}
 				else
@@ -80,7 +87,8 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"companyId" : premisesData.generatedCompanyId,
 							"gpsLatittude" : $scope.add.gpsLatittude,
 							"gpsLongitude" : $scope.add.gpsLongitude,
-							"premiseTypeId" : $scope.add.premiseTypeId
+							"premiseTypeId" : $scope.add.premiseTypeId,
+							"sowSource" : sowSource,
 					};
 				}
 				console.log(postParam);

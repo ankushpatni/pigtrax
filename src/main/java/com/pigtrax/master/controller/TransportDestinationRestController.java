@@ -9,14 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.master.dto.TransportDestination;
 import com.pigtrax.master.service.interfaces.TransportDestinationService;
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -35,10 +39,12 @@ public class TransportDestinationRestController {
 	@RequestMapping(value = "/getTransportDestination", method=RequestMethod.GET, produces="application/json")
 	public ServiceResponseDto getTransportDestination(@RequestParam int generatedCompanyId, HttpServletRequest request)
 	{
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
 		logger.info("Inside getTransportDestination" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		List phaseType = new ArrayList();
-		phaseType.add(transportDestinationServiceImpl.getTransportDestinationList(generatedCompanyId));
+		phaseType.add(transportDestinationServiceImpl.getTransportDestinationList(generatedCompanyId, language));
 		dto.setPayload(phaseType);
 		dto.setStatusMessage("Success");
 		return dto;
@@ -49,9 +55,11 @@ public class TransportDestinationRestController {
 	{
 		logger.debug("Inside insertTransportDestination()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int updatedRecord = 0;
 		try 
 		{
+			transportDestination.setUserUpdated(activeUser.getUsername());
 			if( 0 == transportDestination.getId() )
 			{
 				updatedRecord = transportDestinationServiceImpl.insertTransportDestinationRecord(transportDestination);

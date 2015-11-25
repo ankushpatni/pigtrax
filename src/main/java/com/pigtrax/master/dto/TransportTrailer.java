@@ -12,6 +12,8 @@ public class TransportTrailer {
 	private String userUpdated;
 	private Integer trailerFunctionId;
 	private String trailerFunction;
+	private Integer trailerYear;
+	private String trailerMake;
 	/**
 	 * @return the id
 	 */
@@ -97,6 +99,19 @@ public class TransportTrailer {
 	}
 	public void setTrailerFunction(String trailerFunction) {
 		this.trailerFunction = trailerFunction;
+	}
+		
+	public Integer getTrailerYear() {
+		return trailerYear;
+	}
+	public void setTrailerYear(Integer trailerYear) {
+		this.trailerYear = trailerYear;
+	}
+	public String getTrailerMake() {
+		return trailerMake;
+	}
+	public void setTrailerMake(String trailerMake) {
+		this.trailerMake = trailerMake;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
