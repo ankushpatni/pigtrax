@@ -56,17 +56,7 @@
                                  <td style="width:20%;"><b><spring:message code="label.company.contactName"
 									text="Contact Name" /></b></td>
                                   <td>${CompanyId.contactName}</td>
-                                </tr>
-								<tr>
-                                 <td style="width:20%;"><b><spring:message code="label.company.payment"
-									text="Payment" /></b></td>
-                                  <td>${CompanyId.payment}</td>
-                                </tr>
-                                <tr>
-                                 <td style="width:20%;"><b><spring:message code="label.company.paymentDate"
-									text="PaymentDate" /></b></td>
-                                  <td>${CompanyId.paymentDate}</td>
-                                </tr>								
+                                </tr>											
                               </tbody>
                             </table>
                           </td>

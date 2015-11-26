@@ -55,19 +55,19 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 						"phone" : $scope.add.phone,
 						"contactName" : $scope.add.contactName,
 						"payment" : $scope.add.payment,
-						"paymentDate" : document.getElementById("paymentDate").value, 
+						"paymentDate" : null, 
 						"active" : $scope.add.active,
 						"id" : $scope.add.id
 				};
 				
-				if($scope.add.payment)
+				/*if($scope.add.payment)
 				{
 					if(document.getElementById("paymentDate").value === "")
 					{
 						$scope.paymentDateFlag = true;
 						return false;
 					}
-				}
+				}*/
 				
 				var res = $http.post('rest/company/insertCompanyRecord', postParam);
 				res.success(function(data, status, headers, config) {
