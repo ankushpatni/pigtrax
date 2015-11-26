@@ -7,6 +7,33 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	$scope.groupDateError = false;
 	$scope.groupdaterequiredMove = false;
 	
+	$scope.init = function(){
+	var res2 = $http.get('rest/util/getPhaseOfProductionType?companyId='+$scope.companyId);
+	res2.success(function(data, status, headers, config) {
+		$scope.phaseOfProductionType = data.payload[0];	
+		$scope.roomList = data.payload[1];
+		$scope.barnList = data.payload[2]
+		//$scope.phaseOfProductionTypeForNewAdd = data.payload[0];
+		for( var x in $scope.phaseOfProductionType) {
+			if( x == 1 || x == 3 )
+				{		
+				var obje = $scope.phaseOfProductionType[x];
+				$scope.phaseOfProductionTypeForNewAdd[x] = $scope.phaseOfProductionType[x];
+				}
+			}
+			console.log($scope.phaseOfProductionTypeForNewAdd);
+	});
+	
+	res2.error(function(data, status, headers, config) {
+		console.log( "failure message: " + {data: data});
+	});
+	
+	
+	}
+	
+	$scope.init();
+	
+	
 	$scope.$watch("moveGroupevent.groupId", function(newValue, oldValue) {
 		if (newValue === $scope.previousGroupId) {
 			$scope.groupIdMatches = true;
@@ -79,7 +106,9 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 			restServices.saveGroupEventInformation(postParam, function(data){
 				if(!data.error)
 					{
-					$modalInstance.close(data);					
+					$modalInstance.close(data);		
+					//alert("removalEvent?selectedCompany="+$scope.companyId);
+					$window.location = "removalEvent?selectedCompany="+$scope.companyId;
 					return data;
 					}
 				else

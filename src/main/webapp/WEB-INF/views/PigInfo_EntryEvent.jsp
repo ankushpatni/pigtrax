@@ -9,16 +9,6 @@
  		  <div class="col-sm-6 col-md-6">
  		  
  		  <div class="block-flat">
-		   <form method="POST" action="uploadFile" name="batchupload" enctype="multipart/form-data">
- 		     <div class="head">
- 		     <h3> <spring:message code='label.piginfo.entryeventform.batchupload.heading'  text='Batch Upload'/></h3>
-            <input type="file" name="file" value="upload" class="form-control"> <button type="submit" value="upload"><spring:message code='label.piginfo.entryeventform.upload.button'  text='Upload'/></button>
-            <input type="hidden" name="eventType" value="PIGINFO">
-          </div>
-		  </form>
-          </div>
- 		  
- 		  <div class="block-flat">
 		   <form name="entryEventSearchForm" >
  		     <div class="head">
  		     
@@ -118,13 +108,13 @@
 					  />   
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.dam'  text='Dame'/></label>
+                      <label><spring:message code='label.piginfo.entryeventform.dam'  text='Dam'/></label>
                        <input type="text" class="form-control" name="dame" ng-model="pigInfo.damId" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.dam.placeholder' text='Enter Dame'/>" 
 					     invalid-message="'<spring:message code='label.piginfo.entryeventform.dam.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
 					  />
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.origin'  text='Origin'/></label>
+                      <label><spring:message code='label.piginfo.entryeventform.origin'  text='Genetic Origin'/></label>
                       <input type="hidden" class="form-control" name="origin" ng-model="pigInfo.origin" maxlength="30" />
                        <select class="form-control"  name="originId" ng-model="pigInfo.originId" >
                       	<option ng-repeat="originDto in originList" ng-value="originDto.id" ng-selected="pigInfo.originId==originDto.id">{{originDto.name}}</option>        

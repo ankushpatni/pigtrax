@@ -152,10 +152,10 @@
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
                       <input type="text" ng-model="removalExceptSales.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
                        ng-focus="clearMessages()"/>
-                   </div>
-                    					
+                   </div>                    			
                   	<button class="btn btn-primary" ng-click="addRemovalExceptSales()" type="submit" ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-primary" ng-click="addRemovalExceptSales()" type="submit" ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="selectGroup=='group' && removalTypeId == 9"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>					
 					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
 					
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>

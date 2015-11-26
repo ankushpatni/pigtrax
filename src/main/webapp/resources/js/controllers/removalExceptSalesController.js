@@ -270,6 +270,40 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			document.getElementById("fromExcept").value = true;
 			document.forms['removalExceptFormSales'].action = 'removalEvent';
 			document.forms['removalExceptFormSales'].submit();
-	    }	
+	    }
+	 
+	 
+	 
+
+		$scope.moveToAnotherGroup = function()
+		{
+			var  groupEventObj  = $scope.groupEventList[$scope.removalExceptSales.groupEventId];
+		console.log($scope.phaseOfProductionType);
+			var modalInstance = $modal.open ({
+				templateUrl: 'moveToAnotherGroup',
+				controller: 'moveToAnotherGroupCtrl',
+				backdrop:true,
+				windowClass : 'cp-model-window',
+				resolve:{
+					moveToAnotherGroup : function(){
+						var moveToAnotherGroup={};
+						moveToAnotherGroup.phaseOfProductionType = $scope.phaseOfProductionType;
+						moveToAnotherGroup.companyId = $rootScope.companyId;
+						moveToAnotherGroup.groupGeneratedIdSeq = $scope.removalExceptSales.groupEventId;						
+						moveToAnotherGroup.previousGroupId = groupEventObj.groupId;
+						moveToAnotherGroup.pigCount = groupEventObj.currentInventory;
+						moveToAnotherGroup.groupStartDateTime = groupEventObj.groupStartDateTime;
+						return moveToAnotherGroup;
+					}
+				}
+			});
+			
+			modalInstance.result.then( function(res) {   
+				if(res.statusMessage==="Success")
+				{
+					$scope.getGroupEventInformation(groupEventObj.groupId,false,true);
+				}
+			});
+		}
 	
 });

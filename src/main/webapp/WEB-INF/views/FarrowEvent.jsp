@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.farroweventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
+          <h2><spring:message code='label.piginfo.farroweventform.litterinformation'  text='Litter Information'/> - ${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="FarrowEventController" ng-init="loadPage(${CompanyId}, '${FarrowEventId}')" id="FarrowEventControllerId">
@@ -101,6 +101,7 @@
                   <form name="farroweventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="farrowEvent.id"/>
 				  <input type=hidden name="pregnancyEventId" ng-model="farrowEvent.pregnancyEventId"/>
+				  <input type="hidden" ng-model="farrowEvent.pregnancyEventType" id="pregnancyEventType" />
 				  
 					 <div class="form-group"> 
                       <label><spring:message code='label.piginfo.farroweventform.pigInfoId'  text='Pig Id'/><span style='color: red'>*</span></label>
@@ -114,15 +115,8 @@
                     <a href="#" ng-click="goToPregnancyEvent()" ng-show="farrowEvent.pregnancyEventId != null && farrowEvent.pregnancyEventId > 0"><spring:message code='label.piginfo.farroweventform.gotopregnancyeventtext'  text='Go to Pregnancy Event'/></a>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>					
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
-					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
-					<div class="form-group">
-                      <label><spring:message code='label.piginfo.farroweventform.pregnancyEventId'  text='Pregnancy Event'/><span style='color: red'>*</span></label>
-                      
-                     	<input type="text" ng-model="farrowEvent.pregnancyEventType" id="pregnancyEventType" name="pregnancyEventType"  class="form-control" maxlength="30" readonly=""/>
-						<!-- <span class="input-group-addon btn btn-primary" ng-click="searchPregnancyService(farrowEvent.pigId, farrowEvent.companyId)"  data-target="#searchPregnancyService"><span class="fa fa-search"></span></span> -->
-						
-                    </div>
-                    <label ng-show="pregnancyEventRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pregnancyeventRequired' text='Select a pregnancy event' /></label>
+					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>					
+                    <label ng-show="!requiredPigIdMessage && pregnancyEventRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pregnancyeventRequired' text='Select a pregnancy event' /></label>
 					<label ng-show="inValidServiceIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.serviceId.server.invalidmessage' text='Invalid Pregnancy event for the selected Pig Id' /></label>					
 					
 					
@@ -155,16 +149,13 @@
 					   <input type="number" ng-value="0" min="0"  max="50" step="1" name="liveBorns" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control">
                        </td>
                        <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="number" ng-value = "0"  min="0"   max="50" step="1" name="stillBorns" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
+                     <td><label><spring:message code='label.piginfo.farroweventform.weakBorns'  text='Weak Borns'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.weakBorns"  maxlength="3"  size="3" class="form-control"></td>
                        <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50"  step="1"  name="maleBorns" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
                        <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50" step="1" name="femaleBorns" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
-                     </tr>
-                     <tr>
-                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
-                       <td>&nbsp;</td>
-					   <td>&nbsp;</td>
-                     </tr>
+                     </tr>                     
                     </table>                    
                     </div>
                     </div>
@@ -209,12 +200,12 @@
                         </select>
                     </div>
                     
-                     <div class="form-group">
+                     <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.pigletCondition'  text='Piglet Condition'/></label>
                       <select class="form-control"  name="pigletCondition" ng-model="farrowEvent.pigletConditionId" >
                       	<option ng-repeat="key in pigletConditionKeys" ng-value="key" ng-selected="farrowEvent.pigletConditionId==key">{{pigletConditionKeyValues[key]}}</option>        
                         </select>
-                    </div>
+                    </div> -->
                     
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.teats'  text='Teats'/><span style='color: red'>*</span></label>                      

@@ -24,6 +24,7 @@ public class FarrowEvent {
 	private Integer pregnancyEventId;
 	private Integer teats;
 	private Integer pigletConditionId;
+	private Integer weakBorns;
 	
 	public Integer getId() {
 		return id;
@@ -144,6 +145,12 @@ public class FarrowEvent {
 	}
 	public void setPigletConditionId(Integer pigletConditionId) {
 		this.pigletConditionId = pigletConditionId;
+	}
+	public Integer getWeakBorns() {
+		return weakBorns;
+	}
+	public void setWeakBorns(Integer weakBorns) {
+		this.weakBorns = weakBorns;
 	}
 	
 	

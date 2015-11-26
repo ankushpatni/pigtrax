@@ -166,6 +166,12 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			mummies = 0;
 			$scope.farrowEvent.mummies = mummies;
 		}
+		var weakBorns = $scope.farrowEvent.weakBorns;
+		if(weakBorns == null || weakBorns == undefined)
+		{
+			weakBorns = 0;
+			$scope.farrowEvent.weakBorns = weakBorns
+		}
 		
 		/*if($scope.farrowEvent["farrowId"] != null && $scope.farrowEvent["farrowId"] != undefined && $scope.farrowEvent["farrowId"] != "")
 		{	
@@ -249,7 +255,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			}
 		 
 		if(parseInt(liveBorns)!= liveBorns || parseInt(maleBorns) != maleBorns 
-				|| parseInt(femaleBorns) != femaleBorns || parseInt(stillBorns) != stillBorns || parseInt(mummies) != mummies )
+				|| parseInt(femaleBorns) != femaleBorns || parseInt(stillBorns) != stillBorns || parseInt(mummies) != mummies ||  parseInt(weakBorns) != weakBorns)
 		{
 			$scope.invalidFarrowValue = true;
 			$scope.invalidFarrowCount = false; 
@@ -262,7 +268,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.invalidFarrowCount = true; 
 			$scope.pigletInformationRequired = false;
 		}*/
-		else if (liveBorns == 0 && maleBorns == 0 && femaleBorns == 0 && stillBorns == 0 && mummies == 0)
+		else if (liveBorns == 0 && maleBorns == 0 && femaleBorns == 0 && stillBorns == 0 && mummies == 0 && weakBorns == 0)
 		{
 			$scope.invalidFarrowValue = false;
 			$scope.invalidFarrowCount = false;

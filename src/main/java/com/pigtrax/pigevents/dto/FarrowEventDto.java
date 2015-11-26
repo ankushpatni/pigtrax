@@ -37,6 +37,7 @@ public class FarrowEventDto {
 	private boolean pigletsAdded;
 	private Integer teats;
 	private Integer pigletConditionId;
+	private Integer weakBorns;
 	
 	public Integer getId() {
 		return id;
@@ -223,6 +224,12 @@ public class FarrowEventDto {
 	}
 	public void setPigletConditionId(Integer pigletConditionId) {
 		this.pigletConditionId = pigletConditionId;
+	}
+	public Integer getWeakBorns() {
+		return weakBorns;
+	}
+	public void setWeakBorns(Integer weakBorns) {
+		this.weakBorns = weakBorns;
 	}
 	
 	 

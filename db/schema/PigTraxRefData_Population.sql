@@ -6727,20 +6727,23 @@ INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fie
 INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletStatusEventType") VALUES ('Pig Death_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 ------PigletstatuevebntType
-INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Feed Assigned', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Feed Transferred', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Feed Destroyed',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Feed In', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Feed Out', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Feed Invenadj',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
-INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Assigned','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Destroyed','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed In','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Out','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Invenadj','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
-INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Assigned_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Destroyed_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed In_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Out_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Invenadj_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 
-INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Assigned_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Destroyed_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed In_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Out_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed Invenadj_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 ---------
 INSERT INTO pigtraxrefdata."RemovalType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Death', CURRENT_TIMESTAMP,'pigtraxadmin');

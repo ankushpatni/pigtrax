@@ -66,6 +66,13 @@ public class RemovalEventController
 	   }
 	 
 	 
+	 
+	 @RequestMapping(value="/removalEvent", method=RequestMethod.GET)
+	   public String loadFeedEventGET(HttpServletRequest request, Model model)  
+	   {
+		 return loadFeedEvent(request,  model);  
+	   }
+	 
 	 @RequestMapping(value = "/addSalesEventDetails")
 		public String addSalesEventDetails(Model model)
 		{

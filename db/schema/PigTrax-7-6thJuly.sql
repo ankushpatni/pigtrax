@@ -164,6 +164,7 @@ CREATE TABLE pigtrax."Room"(
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Barn" integer,
 	"id_roomPosition" integer,
+	"pigSpaces" integer,
 	CONSTRAINT "ROOM_PK" PRIMARY KEY (id),
 	CONSTRAINT "ROOM_U_RI" UNIQUE ("roomId")
 
@@ -319,6 +320,7 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"teats" smallint,
 	"litterId" int,
 	"id_PigletCondition" smallint,
+	"weakBorns" smallint,
 	CONSTRAINT "FAROW_PK" PRIMARY KEY (id)
 
 );
