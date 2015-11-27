@@ -41,15 +41,13 @@
 				<thead>
                      <tr>
                        <th><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventType'  text='Pregnancy Event Type'/> </th>
-                       <th><spring:message code='label.piginfo.pregnancyeventform.examDate'  text='Exam Date'/> </th>
                        <th><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
                  </thead>
                  <tbody>
                    <tr ng-repeat="pregnancyEventDto in pregnancyEventList">
-                    <td>{{pregnancyEventDto.pregnancyEventType}}</td>
-                    <td>{{pregnancyEventDto.examDate | date : 'yyyy-MM-dd'}}</td>
+                    <td>{{pregnancyEventDto.pregnancyEventType}}</td>                    
                     <td>{{pregnancyEventDto.resultDate | date : 'yyyy-MM-dd'}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs"
 												ng-click="getPregnancyEventDetails(pregnancyEventDto)">
@@ -160,13 +158,7 @@
                        <select class="form-control"  name="examResultType" id="examResultType" ng-model="pregnancyEvent.pregnancyExamResultTypeId" >
                        <option ng-repeat="key in pregnancyExamResultTypeKeys" ng-value="key" ng-selected="pregnancyEvent.pregnancyExamResultTypeId==key">{{pregnancyExamResultTypes[key]}}</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.examDate'  text='Exam Date'/></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="examDateDiv">
-                          <input size="16" type="date" id="examDate" name="examDate" ng-model="pregnancyEvent.examDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
-                    </div>
+                    </div>                    
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="resultDateDiv">
@@ -361,8 +353,7 @@
 <script>
 $(document).ready(function(){
  var currDate = new Date();
- var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
-	  $("#examDateDiv").attr('data-date-enddate',dateVal);
+ var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();	  
 	  $("#resultDateDiv").attr('data-date-enddate',dateVal);
 });  
 </script>

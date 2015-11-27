@@ -91,6 +91,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setEventDateTime(pigletStatusEventDto.getWeanEventDateTime());
 				event.setGroupEventId(pigletStatusEventDto.getGroupEventId());
 				event.setMortalityReasonTypeId(null);
+				event.setPenId(pigletStatusEventDto.getPenId());
 				eventId = addPigletStatusEvent(event);
 			}
 			if(pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0)
@@ -105,6 +106,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setEventDateTime(pigletStatusEventDto.getFosterEventDateTime());
 				event.setGroupEventId(null);
 				event.setMortalityReasonTypeId(null);
+				event.setPenId(pigletStatusEventDto.getPenId());
 				eventId = addPigletStatusEvent(event);
 				
 				PigletStatusEvent fosterInEvent = builder.generateFosterInEvent(pigletStatusEventDto);   
@@ -123,6 +125,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				event.setEventDateTime(pigletStatusEventDto.getDeathEventDateTime());
 				event.setMortalityReasonTypeId(pigletStatusEventDto.getMortalityReasonTypeId());
 				event.setGroupEventId(null);
+				event.setPenId(pigletStatusEventDto.getPenId());
 				logger.info("farrow event id "+event.getFarrowEventId());
 				eventId = addPigletStatusEvent(event);
 			}					
@@ -211,6 +214,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setPigInfoId(pigletStatusEvent.getPigInfoId());
 					   pigletStatusEventDto.setEventReason(pigletStatusEvent.getEventReason());
 					   pigletStatusEventDto.setRemarks(pigletStatusEvent.getRemarks());
+					   pigletStatusEventDto.setPenId(pigletStatusEvent.getPenId());
 					   pigletStatusEventDto.setSowCondition(pigletStatusEvent.getSowCondition());
 					   pigletStatusEventDto.setWeanGroupId(pigletStatusEvent.getWeanGroupId());
 					   pigletStatusEventDto.setUserUpdated(pigletStatusEvent.getUserUpdated());

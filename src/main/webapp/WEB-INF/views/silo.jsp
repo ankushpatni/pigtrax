@@ -18,7 +18,7 @@
 			<thead style="background-color: #3399CC">
 			<tr>
 				<th st-sort="siloId" style="width:20%"><spring:message code="label.silo.siloID" text="Silo ID" /></th>
-				<th st-sort="location" style="width:30%"><spring:message code="label.barn.location" text="Location" /></th>
+				<th st-sort="location" style="width:30%"><spring:message code="label.silo.feedline" text="Feed Line" /></th>
 				<th st-sort="location" style="width:30%"><spring:message code="label.silo.siloTypeId" text="Silo Type" /></th>
 				<th style="width:20%"><spring:message code="label.premise.edit" text="Edit" /></th>
 			</tr>
@@ -29,7 +29,11 @@
 			<tbody>
 			<tr ng-repeat="row in displayedCollection track by $index">
 				<td style="width:20%">{{row.siloId}}</td>
-				<td style="width:30%">{{row.location}}</td>
+				<td style="width:30%">
+				<p ng-show="row.location==1"><spring:message code='label.silo.feedline.automatic' text='Automatic' /></p>
+				<p ng-show="row.location==2"><spring:message code='label.silo.feedline.individdrop' text='IndividDrop' /></p>
+				<p ng-show="row.location==3"><spring:message code='label.silo.feedline.manual' text='Manual' /></p>
+				</td>
 				<td style="width:30%">{{siloType[row.siloTypeId]}}</td>
 				<td style="width: 20%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editSiloData(row)">

@@ -47,6 +47,7 @@ public class PigletStatusEventDto {
     private Integer groupEventId;
     private String groupId;
     private Integer mortalityReasonTypeId;
+    private Integer penId;
     
     
     
@@ -401,6 +402,16 @@ public class PigletStatusEventDto {
 
 	public void setMortalityReasonTypeId(Integer mortalityReasonTypeId) {
 		this.mortalityReasonTypeId = mortalityReasonTypeId;
+	}
+
+	public Integer getPenId() {
+		return penId;
+	}
+
+	public void setPenId(Integer penId) {
+		this.penId = penId;
 	} 
+	
+	
 	
 }

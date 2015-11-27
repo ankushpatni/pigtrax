@@ -38,6 +38,7 @@ public class FarrowEventDto {
 	private Integer teats;
 	private Integer pigletConditionId;
 	private Integer weakBorns;
+	private Integer litterId;
 	
 	public Integer getId() {
 		return id;
@@ -230,6 +231,12 @@ public class FarrowEventDto {
 	}
 	public void setWeakBorns(Integer weakBorns) {
 		this.weakBorns = weakBorns;
+	}
+	public Integer getLitterId() {
+		return litterId;
+	}
+	public void setLitterId(Integer litterId) {
+		this.litterId = litterId;
 	}
 	
 	 

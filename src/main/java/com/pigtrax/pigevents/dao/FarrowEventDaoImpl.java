@@ -132,7 +132,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
 		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
-		   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\" "
+		   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\", FE.\"litterId\" "
 		   		+ " from pigtrax.\"FarrowEvent\" FE "
 		   		+ " WHERE FE.\"id\" = ? ";
 		
@@ -158,7 +158,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\" "
 		   		+ ", FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
-		   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\" "
+		   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\", FE.\"litterId\" "
 		   		+ " from pigtrax.\"FarrowEvent\" FE "
 		   		+ " WHERE FE.\"id_PregnancyEvent\" = ? ";
 		
@@ -199,7 +199,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
 	   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 	   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
-	   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\" "
+	   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\", FE.\"litterId\" "
 	   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
 		
@@ -222,7 +222,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
 		   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
 		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
-		   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\" "
+		   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\", FE.\"litterId\" "
 		   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
 		   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? ";
  		
@@ -335,7 +335,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 				
 				ps.setInt(17, farrowEvent.getTeats());
 				
-				if(farrowEvent.getPigletConditionId() != null){
+				if(farrowEvent.getPigletConditionId() != null && farrowEvent.getPigletConditionId() != 0){
 					ps.setInt(18, farrowEvent.getPigletConditionId());
 				}
 				else{
@@ -384,6 +384,7 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 			farrowEvent.setTeats(rs.getInt("teats"));
 			farrowEvent.setPigletConditionId(rs.getInt("id_PigletCondition"));
 			farrowEvent.setWeakBorns(rs.getInt("weakBorns"));
+			farrowEvent.setLitterId(rs.getInt("litterId"));
 			return farrowEvent;
 		}
 	} 

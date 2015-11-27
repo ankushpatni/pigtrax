@@ -66,6 +66,10 @@
 						<th style="width:20%"><spring:message code="label.originform.createdBy" text="Created By" /></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
 					</tr>
+					<tr>
+						<th colspan="4"><input st-search="" class="form-control"
+							placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text" /></th>
+					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">

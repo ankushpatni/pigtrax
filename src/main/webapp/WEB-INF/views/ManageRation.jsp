@@ -45,7 +45,10 @@
                       	<option ng-repeat="key in feedTypeKeys" ng-value="key" ng-selected="masterRation.feedTypeId==key">{{feedTypeKeyValues[key]}}</option>        
                         </select>             
                     </div> 
-                    
+                    <div class="form-group">
+                      <label><spring:message code='label.rationform.rationdescription'  text='Ration Description'/></label>
+                      <textarea name="remarks" ng-model="masterRation.rationDescription" class="form-control" placeholder="<spring:message code='label.rationform.rationdescription.placeholder' text='Enter ration description'/>" ></textarea>
+                    </div>
                     <button class="btn btn-primary" ng-click="saveRation()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                    
                   </form>
@@ -71,15 +74,21 @@
 					<tr>
 						<th style="width:20%"><spring:message code="label.rationform.ration" text="Ration" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.feedType" text="Feed Type" /></th>
+						<th style="width:20%"><spring:message code="label.rationform.rationDescription" text="Ration Description" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.createdOn" text="Created On" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.createdBy" text="Created By" /></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
+					</tr>
+					<tr>
+						<th colspan="6"><input st-search="" class="form-control"
+							placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:20%">{{row.rationValue}}</td>
 					<td style="width:20%">{{row.feedType}}</td>
+					<td style="width:20%">{{row.rationDescription}}</td>
 					<td style="width:20%">{{row.lastUpdated|  date : 'yyyy-MM-dd'}}</td>
 					<td style="width:20%">{{row.userUpdated}}</td>										
 					<td style="width:20%">						

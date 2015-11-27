@@ -42,8 +42,18 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	{
 		$scope.setCompanyId(companyId);	
 		$scope.loadMortalityReasonTypes();
+		$scope.getPenList();
 	};
 	
+	
+	$scope.getPenList = function(){
+		restServices.getPenListForCompany($rootScope.companyId, function(data){
+			 if(!data.error)
+			 {
+				 $scope.penInfo = data.payload;
+			 }
+		});
+	};
 	
 	$scope.loadMortalityReasonTypes = function()	
 	{
@@ -354,8 +364,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				return;
 		}
 		else if($scope.pigletStatusEvent["weanPigNum"] != undefined && $scope.pigletStatusEvent["weanPigNum"] != null && $scope.pigletStatusEvent["weanPigNum"] != 0
-				&& ( $scope.pigletStatusEvent["weanEventDateTime"] === undefined || $scope.pigletStatusEvent["weanEventDateTime"] === null || 
-				$scope.pigletStatusEvent["weanEventDateTime"] == "") || $scope.pigletStatusEvent["weanEventDateTime"] == "Invalid Date")
+				&& $scope.pigletStatusEvent["weanPigNum"] != "" && ( $scope.pigletStatusEvent["weanEventDateTime"] === undefined || $scope.pigletStatusEvent["weanEventDateTime"] === null || 
+				$scope.pigletStatusEvent["weanEventDateTime"] == "" || $scope.pigletStatusEvent["weanEventDateTime"] == "Invalid Date") )
 		{
 			
 			$scope.clearAllMessages();
@@ -364,7 +374,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		}
 		
 		else if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null && $scope.pigletStatusEvent["fosterPigNum"] != 0
-				&& ( $scope.pigletStatusEvent["fosterEventDateTime"] === undefined || $scope.pigletStatusEvent["fosterEventDateTime"] === null ||
+				&& $scope.pigletStatusEvent["fosterPigNum"] != "" && ( $scope.pigletStatusEvent["fosterEventDateTime"] === undefined || $scope.pigletStatusEvent["fosterEventDateTime"] === null ||
 				$scope.pigletStatusEvent["fosterEventDateTime"] == ""  || $scope.pigletStatusEvent["fosterEventDateTime"] == "Invalid Date"))
 		{
 			$scope.clearAllMessages();
@@ -373,7 +383,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		}
 		
 		else if($scope.pigletStatusEvent["deathPigNum"] != undefined && $scope.pigletStatusEvent["deathPigNum"] != null && $scope.pigletStatusEvent["deathPigNum"] != 0
-				&& ( $scope.pigletStatusEvent["deathEventDateTime"] === undefined || $scope.pigletStatusEvent["deathEventDateTime"] === null || 
+				&& $scope.pigletStatusEvent["deathPigNum"] != "" && ( $scope.pigletStatusEvent["deathEventDateTime"] === undefined || $scope.pigletStatusEvent["deathEventDateTime"] === null || 
 				$scope.pigletStatusEvent["deathEventDateTime"] === null || $scope.pigletStatusEvent["deathEventDateTime"] == "Invalid Date")) 
 		{
 			$scope.clearAllMessages();

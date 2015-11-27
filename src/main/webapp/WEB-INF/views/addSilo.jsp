@@ -17,12 +17,16 @@
 				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.silo.siloID' text='Silo ID' />" name="siloId" ng-model="add.siloId" maxlength="4" required required-message="'<spring:message code='label.silo.siloIDRequired' text='Silo Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.silo.siloIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.barn.location" text="Location" /></label>
-				<input class="form-control" type="text" placeholder="<spring:message code='label.barn.location' text='Location' />" name="location" ng-model="add.location" maxlength="30" required-message="'<spring:message code='label.barn.barnLocationRequired' text='Location is required' />'" />
+				<label><spring:message code="label.silo.feedline" text="Feed Line" /></label>
+				<select class="form-control"  name="location" ng-model="add.location" >
+				 <option value="1" ng-selected="add.location == 1"><spring:message code='label.silo.feedline.automatic' text='Automatic' /></option>
+				 <option value="2" ng-selected="add.location == 2"><spring:message code='label.silo.feedline.individdrop' text='IndividDrop' /></option>
+				 <option value="3" ng-selected="add.location == 3"><spring:message code='label.silo.feedline.manual' text='Manual' /></option>
+				</select>
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.silo.siloTypeId" text="Silo Type" /></label>
-				<select class="form-control" type="text" placeholder="<spring:message code='label.silo.siloTypeId'  text='Silo Type'/>" name="siloType" ng-model="add.siloTypeId" required-message="'<spring:message code='label.silo.siloTypeRequired' text='Silo Type is required' />'" ng-options="k as v for (k, v) in siloType"/>	
+ 				<select class="form-control" type="text" placeholder="<spring:message code='label.silo.siloTypeId'  text='Silo Type'/>" name="siloType" ng-model="add.siloTypeId" required-message="'<spring:message code='label.silo.siloTypeRequired' text='Silo Type is required' />'" ng-options="k as v for (k, v) in siloType"/>	
 			</div>
 			<div class="modal-footer">
 

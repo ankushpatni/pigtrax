@@ -117,11 +117,17 @@
                      	name="revenueUsd" ng-model="removalExceptSales.revenueUsd" maxlength="23" required-message="'<spring:message code='label.piginfo.removalExceptSales.revenueUsd.requiredMessage' text='Revenue required' />'" 
                      	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
-                   <div class="form-group">
+                   <div class="form-group" ng-hide="selectGroup==='group'">
                       <label><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.soldTo.placeHolder' text='Enter Sold To' />" 
                      	name="soldTo" ng-model="removalExceptSales.soldTo" maxlength="20" required-message="'<spring:message code='label.piginfo.removalExceptSales.soldTo.requiredMessage' text='Sold To Required' />'" 
                      	 />
+                   </div>
+                   <div class="form-group" ng-show="selectGroup==='group'">
+                      <label><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/></label>
+                     <select class="form-control" type="text"  	name="soldTo" ng-model="removalExceptSales.soldTo" >
+                       <option ng-repeat="destination in destinationList" ng-value="destination.name">{{destination.name}}</option>
+                     </select>
                    </div>
                    <div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="noOfPigsrequired" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigs.requiredMessage' text='No. Of pigs are required.' /></label>

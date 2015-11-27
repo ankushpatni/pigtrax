@@ -246,6 +246,13 @@
                        text='Enter Weaning group Id'/>"/>
                     </div> -->
 					
+					<div class="form-group">
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.pen'  text='Pen'/></label>
+                     <select class="form-control" ng-model="pigletStatusEvent.penId">
+                          <option ng-repeat="pen in penInfo" value="{{pen.id}}" ng-selected="pigletStatusEvent.penId == pen.id">{{pen.penId}}</option>
+                        </select>
+                    </div>
+					
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.remarks'  text='Remarks'/></label>
                       <textarea name="remarks" ng-model="pigletStatusEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.pigletstatuseventform.remarks.placeholder' text='Enter remarks'/>"></textarea>

@@ -39,7 +39,8 @@
              <table>
 				<thead>
                      <tr>     
-                       <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>                  
+                       <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>
+                       <th><spring:message code='label.piginfo.farroweventform.litterId'  text='Litter Id'/> </th>                   
                        <th><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </th>                       
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
@@ -47,7 +48,8 @@
                  <tbody>
                    <tr ng-repeat="farrowEventDto in farrowEventList">
                     <td>{{farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
-                    <td>{{farrowEventDto.liveBorns}}</td>                   
+                    <td>{{farrowEventDto.litterId}}</td>
+                    <td>{{farrowEventDto.liveBorns}}</td>                     
                     <td><button type="button" class="btn btn-edit btn-xs"
 												ng-click="getFarrowEventDetails(farrowEventDto)">
 												<span class="glyphicon glyphicon-pencil"></span>
@@ -119,6 +121,11 @@
                     <label ng-show="!requiredPigIdMessage && pregnancyEventRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.pregnancyeventRequired' text='Select a pregnancy event' /></label>
 					<label ng-show="inValidServiceIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.serviceId.server.invalidmessage' text='Invalid Pregnancy event for the selected Pig Id' /></label>					
 					
+					
+					<div class="form-group" ng-show="farrowEvent.id != null && farrowEvent.id > 0">
+                      <label><spring:message code='label.piginfo.farroweventform.litterId'  text='LitterId'/></label>
+                     <label> : {{farrowEvent.litterId}}</label>
+                    </div>
 					
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.pen'  text='Pen'/></label>

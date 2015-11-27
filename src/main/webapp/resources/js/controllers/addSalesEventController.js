@@ -14,6 +14,21 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	$scope.removalExceptSales={};
 	$scope.sourceAndDestinationPremisesSameError = false;
 	
+	
+	
+	$scope.getTransportDestinationList = function(){
+		alert("going to get destinationList");
+		var res = $http.get('rest/transportDestination/getTransportDestination?generatedCompanyId='+$scope.companyId);
+			res.success(function(data, status, headers, config) {
+				$scope.destinationList = data.payload[0];		
+			});
+			res.error(function(data, status, headers, config) {
+				console.log( "failure message: " + {data: data});
+			});			
+	};
+	
+	
+	
 	$scope.setCompanyId = function(companyId,removalTypeId)
 	{
 		$scope.companyId = companyId;
@@ -70,6 +85,11 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		res2.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+		
+		
+		
+		$scope.getTransportDestinationList();
+		
 	};
 	
 	

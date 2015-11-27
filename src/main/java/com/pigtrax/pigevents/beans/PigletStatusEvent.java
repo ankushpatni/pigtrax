@@ -21,6 +21,7 @@ public class PigletStatusEvent {
 	private Integer fosterFarrowEventId;
 	private Integer groupEventId;
 	private Integer mortalityReasonTypeId;
+	private Integer penId;
 	
 	private String pigId;
 
@@ -175,6 +176,15 @@ public class PigletStatusEvent {
 	public void setMortalityReasonTypeId(Integer mortalityReasonTypeId) {
 		this.mortalityReasonTypeId = mortalityReasonTypeId;
 	}
+
+	public Integer getPenId() {
+		return penId;
+	}
+
+	public void setPenId(Integer penId) {
+		this.penId = penId;
+	}
+	
 	
 	
 

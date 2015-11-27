@@ -9,6 +9,7 @@ public class MasterRation {
 	private String feedType;
 	private String userUpdated;
 	private Date lastUpdated;
+	private String rationDescription;
 
 	public Integer getId() {
 		return id;
@@ -58,4 +59,13 @@ public class MasterRation {
 		this.lastUpdated = lastUpdated;
 	}
 
+	public String getRationDescription() {
+		return rationDescription;
+	}
+
+	public void setRationDescription(String rationDescription) {
+		this.rationDescription = rationDescription;
+	}
+
+	
 }

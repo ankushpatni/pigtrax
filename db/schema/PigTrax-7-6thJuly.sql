@@ -386,10 +386,19 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"id_fosterFarrowEvent" int,
 	"id_GroupEvent" int,
 	"id_MortalityReasonType" int,
+	"id_Pen" int,
 	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id)
 );
 -- ddl-end --
 ALTER TABLE pigtrax."PigletStatus" OWNER TO pitraxadmin;
+-- ddl-end --
+
+
+-- object: "Company_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "Pen_fk" CASCADE;
+ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "Pen_fk" FOREIGN KEY ("id_Pen")
+REFERENCES pigtrax."Pen" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: "Company_fk" | type: CONSTRAINT --
@@ -2256,6 +2265,7 @@ CREATE TABLE pigtrax."MasterRation"
   "id_FeedEventType" integer,
   "lastUpdated" timestamp without time zone NOT NULL,
   "userUpdated" character varying(20) NOT NULL,
+  "rationDescription" varchar(200),
   CONSTRAINT "MasterRation_PK" PRIMARY KEY (id)
 );
 

@@ -18,9 +18,14 @@
                     			<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
                               		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) {%>
                     			
+                    			 <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a>
+                    			     <ul class="sub-menu">
+                    			   		<li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data"/></a></li>
+                    			 	 </ul>                               			  
+                    			  </li>
                     			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Options"/></a>
                     			  <ul class="sub-menu">
-                    			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Origin"/></a></li>
+                    			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Genetic Origin"/></a></li>
                     			   <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
                     			  </ul>
                     			  </li>
@@ -29,9 +34,9 @@
                     			   		<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
                     			 	 </ul>                            			 
                     			  </li>
-                    			   <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a>
+                    			   <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a>
                     			     <ul class="sub-menu">
-                    			   		<li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a></li>
+                    			   		<li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a></li>
                     			 	 </ul>                               			  
                     			  </li>
                     			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.transportation.link"  text="Transportation"/></a>
@@ -40,11 +45,7 @@
                     			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
                     			  </ul>
                     			  </li>
-                    			   <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a>
-                    			     <ul class="sub-menu">
-                    			   		<li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Targets"/></a></li>
-                    			 	 </ul>                               			  
-                    			  </li>
+                    			  
                     			  <%}else {%>
                     			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Options"/></a>
                     			  <ul class="sub-menu">
