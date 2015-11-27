@@ -1,6 +1,8 @@
 pigTrax.controller('OriginController', function($scope,$rootScope, $http,$window,restServices, DateUtils) {
 	$scope.companyId = "";
 	$scope.origin = {};
+	$scope.itemsByPage=10;
+	$scope.totalPages;
 	
 	
 	$scope.getOriginList = function()
@@ -9,6 +11,7 @@ pigTrax.controller('OriginController', function($scope,$rootScope, $http,$window
 			if(!data.error)
 			{
 				  $scope.originList = data.payload;
+				  $scope.totalPages = Math.ceil($scope.originList.length/$scope.itemsByPage);
 			}
 		})
 	};
@@ -37,7 +40,9 @@ pigTrax.controller('OriginController', function($scope,$rootScope, $http,$window
 				  {
 					  	$scope.clearAllMessages();
 					    $scope.originSaved = true;
+					    $scope.origin = {};
 					    $scope.getOriginList();
+					    
 				   }
 				  else
 					  {

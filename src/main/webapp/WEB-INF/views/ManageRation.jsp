@@ -19,7 +19,7 @@
                   </div>   
                   <div class="alert alert-success alert-white rounded"  ng-show="duplicateOrigin">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.rationform.duplicateorigin' text='Origin already exists'/>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.rationform.duplicateorigin' text='Ration already exists'/>
                   </div>               
                    <div class="alert alert-success alert-white rounded"  ng-show="rationValueDeleted">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
@@ -33,7 +33,7 @@
                      
                     <div class="form-group">
                       <label><spring:message code='label.rationform.ration'  text='Ration'/><span style='color: red'>*</span></label>
-                      <input type="text" maxlength="30" name="origin" ng-model="masterRation.rationValue" class="form-control" placeholder="<spring:message code='label.rationform.ration.placegolder' text='Enter Ration'/>"
+                      <input type="text" maxlength="30" name="origin" ng-model="masterRation.rationValue" class="form-control" placeholder="<spring:message code='label.rationform.ration.placeholder' text='Enter Ration'/>"
                       ></input>
                       <label ng-show="rationRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.rationform.rationRequiredMessage' text='Ration is required' /></label>
                     </div>

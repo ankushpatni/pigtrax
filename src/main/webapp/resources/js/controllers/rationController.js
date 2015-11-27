@@ -1,7 +1,8 @@
 pigTrax.controller('RationController', function($scope,$rootScope, $http,$window,restServices, DateUtils) {
 	$scope.companyId = "";
 	$scope.masterRation = {};
-	
+	$scope.itemsByPage=10;
+	$scope.totalPages;	
 	
 	
 	
@@ -26,6 +27,7 @@ pigTrax.controller('RationController', function($scope,$rootScope, $http,$window
 			if(!data.error)
 				{
 				   $scope.rationList = data.payload;
+				   $scope.totalPages = Math.ceil($scope.rationList.length/$scope.itemsByPage);
 				}
 		});
 	};
@@ -54,6 +56,7 @@ pigTrax.controller('RationController', function($scope,$rootScope, $http,$window
 				  {
 					  	$scope.clearAllMessages();
 					    $scope.rationSaved = true;
+					    $scope.masterRation = {};
 					    $scope.getRationList();
 					   
 				   }				  

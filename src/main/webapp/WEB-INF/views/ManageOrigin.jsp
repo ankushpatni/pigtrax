@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.originform.topheading'  text='Origins'/> </h2>
+          <h2><spring:message code='label.originform.topheading'  text='Genetic Origin'/> </h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="OriginController" ng-init="getOriginList()">
