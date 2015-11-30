@@ -120,6 +120,7 @@ CREATE TABLE pigtrax."Barn"(
 	"id_FeederType" smallint,
 	"holesPerFeeder" integer,
 	"remarks" varchar(255),
+	"year" int,
 	CONSTRAINT "BARN_U_BI" UNIQUE ("barnId"),
 	CONSTRAINT "BARN_PK" PRIMARY KEY (id)
 
@@ -127,6 +128,14 @@ CREATE TABLE pigtrax."Barn"(
 -- ddl-end --
 ALTER TABLE pigtrax."Barn" OWNER TO pitraxadmin;
 -- ddl-end --
+
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Barn" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."Barn" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- object: pigtrax."Silo" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."Silo" CASCADE;
@@ -509,11 +518,6 @@ REFERENCES pigtrax."Barn" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Premise_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."Barn" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
-ALTER TABLE pigtrax."Barn" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
-REFERENCES pigtrax."Premise" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
 
 
 -- object: pigtrax."Genetics" | type: TABLE --
@@ -1758,6 +1762,7 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 	"id_EmployeeGroup" integer,	
 	"id_GroupEvent" integer,
 	"id_TransportDestination" integer,
+	"id_Premise" integer,
 	CONSTRAINT "GROUPDEVENTDETAIL_PK" PRIMARY KEY (id)
 
 );
@@ -1805,6 +1810,15 @@ ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "TransportDestination_fk"
 REFERENCES pigtrax."TransportDestination" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 -- object: pigtrax."FeedEventDetails" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."FeedEventDetails" CASCADE;

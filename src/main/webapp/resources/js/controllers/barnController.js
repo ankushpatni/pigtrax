@@ -9,6 +9,70 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
 	$scope.validationType;
 	
 	
+	
+
+	$scope.getBarnLocations = function()
+	{
+		restServices.getBarnLocations(function(data){
+			if(!data.error)
+			{
+				var responseList = data.payload;
+				$scope.barnLocationKeys = responseList[0];
+				$scope.barnLocationKeyValues = responseList[1];
+			}
+		});
+	}
+	
+	$scope.getBarnLocations();
+	
+	$scope.getWaterTypes = function()
+	{
+		restServices.getWaterTypes(function(data){
+			if(!data.error)
+			{
+				var responseList = data.payload;
+				$scope.waterTypeKeys = responseList[0];
+				$scope.waterTypeKeyValues = responseList[1];
+			}
+		});
+	}
+	
+	$scope.getWaterTypes();
+	
+	
+	$scope.getBarnPositions = function()
+	{
+		restServices.getBarnPositions(function(data){
+			if(!data.error)
+			{
+				var responseList = data.payload;
+				$scope.barnPositionKeys = responseList[0];
+				$scope.barnPositionKeyValues = responseList[1];
+			}
+		});
+	}
+	
+	$scope.getBarnPositions();
+	
+	
+	$scope.getFeederTypes = function()
+	{
+		restServices.getFeederTypes(function(data){
+			if(!data.error)
+			{
+				var responseList = data.payload;
+				$scope.feederTypeKeys = responseList[0];
+				$scope.feederTypeKeyValues = responseList[1];
+			}
+		});
+	}
+	
+	$scope.getFeederTypes();
+	
+	
+	
+	
+	
 	console.log($scope.differentPages);
 	
 	$scope.hoverIn = function(){

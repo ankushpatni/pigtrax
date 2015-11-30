@@ -10,6 +10,18 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 	$scope.phaseType = barnData.phaseType;
 	$scope.validationType = barnData.validationType;
 	
+	var currDate = new Date();
+	var currentYear = currDate.getFullYear();
+	$scope.purchaseYearArr = [];
+	
+	var yearVal = currentYear;
+	for(i=0; i<20; i++)
+	{
+		$scope.purchaseYearArr[i] = yearVal;
+		yearVal--;
+	}
+	
+	
 	$scope.getBarnLocations = function()
 	{
 		restServices.getBarnLocations(function(data){
@@ -93,6 +105,7 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 		$scope.add.feederTypeId = barnData.feederTypeId;
 		$scope.add.holesPerFeeder = barnData.holesPerFeeder;
 		$scope.add.remarks = barnData.remarks;
+		$scope.add.year = barnData.year;
     	
 	}
 	
@@ -121,7 +134,8 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 							"waterTypeId" : $scope.add.waterTypeId,
 							"feederTypeId" : $scope.add.feederTypeId,
 							"holesPerFeeder" : $scope.add.holesPerFeeder,
-							"remarks" : $scope.add.remarks
+							"remarks" : $scope.add.remarks,
+							"year" : $scope.add.year
 						
 					};
 				}
@@ -144,7 +158,8 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 							"waterTypeId" : $scope.add.waterTypeId,
 							"feederTypeId" : $scope.add.feederTypeId,
 							"holesPerFeeder" : $scope.add.holesPerFeeder,
-							"remarks" : $scope.add.remarks
+							"remarks" : $scope.add.remarks,
+							"year" : $scope.add.year
 					};
 				}
 				console.log(postParam);

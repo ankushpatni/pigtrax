@@ -17,6 +17,7 @@ public class GroupEventDetails {
 	private Integer employeeGroupId;
 	private int groupId;
 	private Integer transportDestination;
+	private Integer premiseId;
 	
 	public Date getDateOfEntry() {
 		return dateOfEntry;
@@ -96,6 +97,12 @@ public class GroupEventDetails {
 	}
 	public void setTransportDestination(Integer transportDestination) {
 		this.transportDestination = transportDestination;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	
 }

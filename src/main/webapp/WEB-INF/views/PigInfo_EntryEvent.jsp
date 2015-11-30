@@ -69,17 +69,7 @@
                   <form name="entryEventForm" novalidate angular-validator my-reset>
                   <input type=hidden name="companyId" ng-model="pigInfo.companyId" value="${CompanyId}"/>
                   <input type=hidden name="id" ng-model="pigInfo.id"/>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.pigid'  text='Pig Id'/><span style='color: red'>*</span></label>
-                      <input ng-hide="pigInfo.id != null && pigInfo.id != 0" required="true" type="text" name="pigId" ng-model="pigInfo.pigId"  maxlength="30" 
-                      placeholder="<spring:message code='label.piginfo.entryeventform.pigid.placeholder'  text='Enter Pig Id'/>" 
-                      required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'"
-						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.entryeventform.pigid.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  class="form-control">
-				      <p ng-show="pigInfo.id != null && pigInfo.id != 0">{{pigInfo.pigId}}</p>
-				      &nbsp;<a href="#" ng-click="getAvailablePigIds()"  data-toggle="modal" data-target="#selectAvailablePigId" ng-hide="pigInfo.id != null && pigInfo.id != 0"><spring:message code='label.piginfo.entryeventform.availablepigids' text='Available Pig Ids'/></a>
-				      &nbsp;<a href="#" data-toggle="modal" data-target="#whatIsAvailablePigIdModal"><i class="fa fa-question-circle"></i></a>
-                    </div>
+                   
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.barn'  text='Barn'/></label>
                       <select class="form-control" ng-model="pigInfo.barnId"                      
@@ -93,7 +83,36 @@
                           <option ng-repeat="pen in penInfo" value="{{pen.id}}">{{pen.penId}}</option>
                         </select>
                     </div>
-                   
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.pigid'  text='Pig Id'/><span style='color: red'>*</span></label>
+                      <input ng-hide="pigInfo.id != null && pigInfo.id != 0" required="true" type="text" name="pigId" ng-model="pigInfo.pigId"  maxlength="30" 
+                      placeholder="<spring:message code='label.piginfo.entryeventform.pigid.placeholder'  text='Enter Pig Id'/>" 
+                      required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'"
+						ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.piginfo.entryeventform.pigid.invalidmessage' text='Only Alpha Numeric values are allowed' />'"  class="form-control">
+				      <p ng-show="pigInfo.id != null && pigInfo.id != 0">{{pigInfo.pigId}}</p>
+				      &nbsp;<a href="#" ng-click="getAvailablePigIds()"  data-toggle="modal" data-target="#selectAvailablePigId" ng-hide="pigInfo.id != null && pigInfo.id != 0"><spring:message code='label.piginfo.entryeventform.availablepigids' text='Available Pig Ids'/></a>
+				      &nbsp;<a href="#" data-toggle="modal" data-target="#whatIsAvailablePigIdModal"><i class="fa fa-question-circle"></i></a>
+                    </div>
+                     <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/><span style='color: red'>*</span></label>
+                      <input type="text" class="form-control" name="tattoo" ng-model="pigInfo.tattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.tattoo.placeholder' text='Enter tattoo'/>" 
+					     required required-message="'<spring:message code='label.piginfo.entryeventform.tattoo.requiredmessage' text='Tattoo is required' />'" invalid-message="'<spring:message code='label.piginfo.entryeventform.tattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+                    </div>
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.alternateTattoo'  text='Alternate Tattoo'/></label>
+                      <input type="text" class="form-control" name="alternateTattoo" ng-model="pigInfo.alternateTattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.alternateTattoo.placeholder' text='Enter tattoo'/>" 
+					    invalid-message="'<spring:message code='label.piginfo.entryeventform.alternateTattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+                    </div>
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="entryDateDiv"  >
+                          <input size="16" type="date" id="entryDate" name="entryDate" ng-model="pigInfo.entryDate" readonly="" class="form-control"  format-date required-message="'<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' />'"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                        </div> 
+                        <label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' /></label>
+                        <label ng-show="invalidEntryDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invalidmessage' text='Entry date can not be earlier than birth date' /></label>
+                        <label ng-show="invalidDateDuration" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invaliddurationmessage' text='The age of the pig can not be less than 100 days and more than 200 days' /></label>
+                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.sex'  text='Sex'/><span style='color: red'>*</span></label>
                       <select class="form-control"  name="sexType" ng-model="pigInfo.sexTypeId"  required 
@@ -102,37 +121,25 @@
                         </select>
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.sire'  text='Sire'/></label>
-                      <input type="text" class="form-control" name="sire" ng-model="pigInfo.sireId" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.sire.placeholder' text='Enter sire'/>" 
-					     invalid-message="'<spring:message code='label.piginfo.entryeventform.sire.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
-					  />   
-                    </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.dam'  text='Dam'/></label>
-                       <input type="text" class="form-control" name="dame" ng-model="pigInfo.damId" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.dam.placeholder' text='Enter Dame'/>" 
-					     invalid-message="'<spring:message code='label.piginfo.entryeventform.dam.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
-					  />
-                    </div>
-                    <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.origin'  text='Genetic Origin'/></label>
                       <input type="hidden" class="form-control" name="origin" ng-model="pigInfo.origin" maxlength="30" />
                        <select class="form-control"  name="originId" ng-model="pigInfo.originId" >
                       	<option ng-repeat="originDto in originList" ng-value="originDto.id" ng-selected="pigInfo.originId==originDto.id">{{originDto.name}}</option>        
                         </select>
                     </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.gline'  text='Gline'/></label>
-					   <select class="form-control"  name="glineType" ng-model="pigInfo.gline" >
-                      	<option ng-repeat="key in glineKeys" ng-value="key" ng-selected="pigInfo.gline==key">{{glineTypes[key]}}</option>        
-                        </select>
-                    </div>
+                   
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gcompany'  text='GCompany'/></label>                      
 					    <select class="form-control"  name="gcompanyType" ng-model="pigInfo.gcompany" >
                       	<option ng-repeat="key in gcompanyKeys" ng-value="key" ng-selected="pigInfo.gcompany==key">{{gcompanyTypes[key]}}</option>        
                         </select>
                     </div>
-                    
+                     <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.gline'  text='Gline'/></label>
+					   <select class="form-control"  name="glineType" ng-model="pigInfo.gline" >
+                      	<option ng-repeat="key in glineKeys" ng-value="key" ng-selected="pigInfo.gline==key">{{glineTypes[key]}}</option>        
+                        </select>
+                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.gfunction'  text='Gfunction'/></label>
                       <select class="form-control"  name="gfunctionType" ng-model="pigInfo.gfunctionTypeId" >
@@ -147,25 +154,20 @@
                         </div> 
                         <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
                     </div>
+                    
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="entryDateDiv"  >
-                          <input size="16" type="date" id="entryDate" name="entryDate" ng-model="pigInfo.entryDate" readonly="" class="form-control"  format-date required-message="'<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' />'"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div> 
-                        <label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' /></label>
-                        <label ng-show="invalidEntryDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invalidmessage' text='Entry date can not be earlier than birth date' /></label>
-                        <label ng-show="invalidDateDuration" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invaliddurationmessage' text='The age of the pig can not be less than 100 days and more than 200 days' /></label>
+                      <label><spring:message code='label.piginfo.entryeventform.sire'  text='Sire'/></label>
+                      <input type="text" class="form-control" name="sire" ng-model="pigInfo.sireId" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.sire.placeholder' text='Enter sire'/>" 
+					     invalid-message="'<spring:message code='label.piginfo.entryeventform.sire.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
+					  />   
                     </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/><span style='color: red'>*</span></label>
-                      <input type="text" class="form-control" name="tattoo" ng-model="pigInfo.tattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.tattoo.placeholder' text='Enter tattoo'/>" 
-					     required required-message="'<spring:message code='label.piginfo.entryeventform.tattoo.requiredmessage' text='Tattoo is required' />'" invalid-message="'<spring:message code='label.piginfo.entryeventform.tattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+                     <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.dam'  text='Dam'/></label>
+                       <input type="text" class="form-control" name="dame" ng-model="pigInfo.damId" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.dam.placeholder' text='Enter Dame'/>" 
+					     invalid-message="'<spring:message code='label.piginfo.entryeventform.dam.invalidmessage' text='Only Alpha Numeric values are allowed' />'"
+					  />
                     </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.alternateTattoo'  text='Alternate Tattoo'/></label>
-                      <input type="text" class="form-control" name="alternateTattoo" ng-model="pigInfo.alternateTattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.alternateTattoo.placeholder' text='Enter tattoo'/>" 
-					    invalid-message="'<spring:message code='label.piginfo.entryeventform.alternateTattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
-                    </div>
+                   
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.remarks'  text='Remarks'/></label>
                       <textarea name="remarks" ng-model="pigInfo.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.entryeventform.remarks.placeholder' text='Enter remarks'/>" ></textarea>

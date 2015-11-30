@@ -48,6 +48,24 @@ public class PremisesRestController {
 		return dto;
 	}
 	
+	
+	/**
+	 * Service to retrive the list of employees
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPremisesListBySowSource", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getPremisesListBySowSource(HttpServletRequest request, @RequestParam int generatedCompanyId)
+	{
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		logger.info("Inside getPremisesList" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<Premises> premisesList  = premisesService.getPremisesListBySowSource(generatedCompanyId); 
+		dto.setPayload(premisesList);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
 	/**String premisesID, Boolean premisesStatus
 	 * Service to update employees
 	 * @return ServiceResponseDto

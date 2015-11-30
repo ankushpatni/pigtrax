@@ -22,6 +22,7 @@ public class GroupEventDto {
 	private Integer companyId;
 	private Integer transportDestination;
 	private String barnIdValue;
+	private Integer premiseId;
 	
 	//groupevent fields	
 	
@@ -122,6 +123,12 @@ public class GroupEventDto {
 	}
 	public void setBarnIdValue(String barnIdValue) {
 		this.barnIdValue = barnIdValue;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	
 	

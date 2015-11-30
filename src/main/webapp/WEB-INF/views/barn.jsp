@@ -19,10 +19,16 @@
 			<tr>
 				<th st-sort="barnId" style="width:10%"><spring:message code="label.barn.barnId" text="Barn ID" /></th>
 				<th st-sort="phaseType" style="width:10%"><spring:message code="label.barn.phaseType" text="Phase Type" /></th>
-				<th st-sort="location" style="width:25%"><spring:message code="label.barn.location" text="Location" /></th>
-				<th st-sort="area" style="width:10%"><spring:message code="label.barn.area" text="Area" /></th>
+				<th st-sort="phaseType" style="width:10%"><spring:message code="label.barn.year" text="Year" /></th>
+				<th st-sort="phaseType" style="width:10%"><spring:message code="label.barn.barnOrientationId" text="Barn Orientation Id" /></th>
+				<th st-sort="location" style="width:25%"><spring:message code="label.barn.barnLocationId" text="Barn Location" /></th>
+				<th st-sort="area" style="width:10%"><spring:message code='label.barn.barnPositionId'  text='Barn Position'/></th>
+				<th st-sort="area" style="width:10%"><spring:message code='label.barn.area'  text='Area'/></th>
 				<th st-sort="feederCount" style="width:10%"><spring:message code="label.barn.feederCount" text="Feeder Count" /></th>
+				<th st-sort="feederCount" style="width:10%"><spring:message code="label.barn.holesPerFeeder" text="Holes Per Feeder" /></th>
+				<th st-sort="feederCount" style="width:10%"><spring:message code="label.barn.feederTypeId" text="Feeder Type" /></th>
 				<th st-sort="waterAccessCount" style="width:10%"><spring:message code="label.barn.waterAccessCount" text="Water Access Count" /></th>
+				<th st-sort="waterAccessCount" style="width:10%"><spring:message code="label.barn.waterTypeId" text="Water Type" /></th>
 				<th st-sort="ventilationType" style="width:10%"><spring:message code="label.barn.ventilationType" text="Ventilation Type" /></th>
 				<th style="width:8%"><spring:message code="label.premise.edit" text="Edit" /></th>
 				<th style="width:8%"><spring:message code="label.company.goto" text="Go To" /></th>
@@ -30,17 +36,26 @@
 												text="Activate/Deactivate"/></th>
 			</tr>
 		 	<tr>
-				<th colspan="10"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
+				<th colspan="16"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in displayedCollection track by $index">
-				<td style="width:10%">{{row.barnId}}</td>
+				<td style="width:10%">{{row.barnId}}</td>				
 				<td style="width:10%">{{phaseType[row.phaseTypeId]}}</td>
-				<td style="width:25%">{{row.location}}</td>
+				<td style="width:10%">{{row.year}}</td>
+				<td style="width:10%">
+				<p ng-show="row.barnOrientationId == 1"><spring:message code="label.barn.barnOrientationId.northSouth" text="North - South" /></p>
+				<p ng-show="row.barnOrientationId == 2"><spring:message code="label.barn.barnOrientationId.eastWest" text="East - West" /></p>
+				</td>
+				<td style="width:25%">{{barnLocationKeyValues[row.barnLocationId]}}</td>
+				<td style="width:10%">{{barnPositionKeyValues[row.barnPositionId]}}</td>
 				<td style="width:10%">{{row.area}}</td>
 				<td style="width:10%">{{row.feederCount}}</td>
-				<td style="width:10%">{{row.waterAccessCount}}</td>
+				<td style="width:10%">{{row.holesPerFeeder}}</td>
+				<td style="width:10%">{{feederTypeKeyValues[row.feederTypeId]}}</td>
+				<td style="width:10%">{{row.waterAccesCount}}</td>
+				<td style="width:10%">{{waterTypeKeyValues[row.waterTypeId]}}</td>
 				<td style="width:10%">{{validationType[row.ventilationTypeId]}}</td>
 				<td style="width: 8%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editBarnData(row)">

@@ -130,19 +130,16 @@
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
 					
                     </div>
-                    
+                      <div class="form-group">
+                      <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
+                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="resultDateDiv">
+                          <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                         <label ng-show="resultDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.requiredmessage' text='Result Date is required' /></label>
+	                    <label ng-show="invalidResultDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.invalidmessage' text='Result date can not be earlier than exam date' /></label>
+                    </div>   
 					
-                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.employeegroup'  text='Employee Group'/></label>
-                      <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span class="btn btn-primary" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
-                      <input type="hidden" ng-model="pregnancyEvent.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
-					  <div ng-show="pregnancyEvent.employeeGroup != null && pregnancyEvent.employeeGroup.id > 0">
-							<p>Group Id : <small>{{pregnancyEvent.employeeGroup.groupId}}</small></p>
-							<p ng-repeat="employee in pregnancyEvent.employeeGroup.employeeList">{{employee.name}} ( Id : {{employee.id}})</p>
-						</div>
-                      </div>
-                    </div>					
+                    	
 					
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.pregnancyEventType'  text='Pregnancy Event Type'/><span style='color: red'>*</span></label>
@@ -159,15 +156,18 @@
                        <option ng-repeat="key in pregnancyExamResultTypeKeys" ng-value="key" ng-selected="pregnancyEvent.pregnancyExamResultTypeId==key">{{pregnancyExamResultTypes[key]}}</option>
                         </select>
                     </div>                    
+                                  
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="resultDateDiv">
-                          <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
-                         <label ng-show="resultDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.requiredmessage' text='Result Date is required' /></label>
-	                    <label ng-show="invalidResultDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.invalidmessage' text='Result date can not be earlier than exam date' /></label>
-                    </div>                   
-                   
+                      <label><spring:message code='label.piginfo.pregnancyeventform.employeegroup'  text='Employee Group'/></label>
+                      <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
+					  <span class="btn btn-primary" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
+                      <input type="hidden" ng-model="pregnancyEvent.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
+					  <div ng-show="pregnancyEvent.employeeGroup != null && pregnancyEvent.employeeGroup.id > 0">
+							<p>Group Id : <small>{{pregnancyEvent.employeeGroup.groupId}}</small></p>
+							<p ng-repeat="employee in pregnancyEvent.employeeGroup.employeeList">{{employee.name}} ( Id : {{employee.id}})</p>
+						</div>
+                      </div>
+                    </div>				
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.sowcondition'  text='Sow Condition'/>
                       </label>

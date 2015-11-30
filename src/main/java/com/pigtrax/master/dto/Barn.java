@@ -25,6 +25,7 @@ public class Barn {
 	private Integer feederTypeId;
 	private Integer holesPerFeeder;
 	private String remarks;
+	private Integer year;
 	
 	
 	public int getId() {
@@ -146,6 +147,12 @@ public class Barn {
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 	
 	

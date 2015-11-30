@@ -5,6 +5,7 @@ pigTrax.factory("restServices", function($resource) {
     	"getCompanyList"   	   :  {method:"GET", url:"rest/company/getCompanyList"},
     	"updateCompanyStatus"  :  {method:"POST", url:"rest/company/updateCompanyStatus"},
     	"getPremisesList"      :  {method:"GET", url:"rest/premises/getPremisesList"},
+    	"getPremisesListBySowSource"      :  {method:"GET", url:"rest/premises/getPremisesListBySowSource"},
     	"updatePremisesStatus"  :  {method:"POST", url:"rest/premises/updatePremisesStatus"},
     	"getBarns"			   :  {method:"POST", url:"rest/entryEvent/getBarns"},
     	"getPenList"		   :  {method:"POST", url:"rest/entryEvent/getPenList"},

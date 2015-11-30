@@ -32,8 +32,8 @@
 					</div>
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.source'  text='Source'/></label>
-                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.transportDestination"   
-                         ng-options="k as v for (k, v) in transportDestination">
+                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.premiseId">
+                       	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.premiseId == premise.id">{{premise.permiseId}}</option>
                         </select>
                     </div>			
 					<div class="form-group">

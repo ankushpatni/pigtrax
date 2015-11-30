@@ -15,6 +15,12 @@ public interface PremisesDao {
 	 */
 	public List<Premises> getPremisesList( int generatedCompanyId );
 	
+	/**
+	 * To get the list of Premises
+	 * @return List<Company>
+	 */
+	public List<Premises> getPremisesListBySowSource( int generatedCompanyId );
+	
 	
 	/**
 	 * To update Premises Status

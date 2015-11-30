@@ -15,6 +15,13 @@ public interface PremisesService {
 	 */
 	public List<Premises> getPremisesList( int generatedCompanyId );
 	
+	
+	/**
+	 * To get the list of Premises
+	 * @return List<Premises>
+	 */
+	public List<Premises> getPremisesListBySowSource( int generatedCompanyId );
+	
 	/**
 	 * To get the list of Premises
 	 * @return List<Premises>

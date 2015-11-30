@@ -12,6 +12,19 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	$scope.dateOfEntryFlag =  false;
 	$scope.transportDestination;
 	
+	
+	$scope.getPremisesListBySowSource = function(){
+		var res = $http.get('rest/premises/getPremisesListBySowSource?generatedCompanyId='+$rootScope.companyId);
+			res.success(function(data, status, headers, config) {
+				$scope.premiseList = data.payload;
+				
+			});
+			res.error(function(data, status, headers, config) {
+				console.log( "failure message: " + {data: data});
+			});	
+	};
+	
+	
 	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId,groupStartDateTime)
 	{
 		$scope.groupAlphaId = groupId;
@@ -49,8 +62,11 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 			$scope.getGroupEventDetail(groupDetailId);
 		}
 		
-		
+		$scope.getPremisesListBySowSource();
 	};
+	
+	
+	
 	
 	$scope.getBarnDetailsByRoom = function()
 	{

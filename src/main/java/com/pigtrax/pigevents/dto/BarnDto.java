@@ -16,6 +16,7 @@ public class BarnDto {
     private Date lastUpdated;
     private String userUpdated;
     private Integer ventilationTypeId;
+    private Integer year;
 	public Integer getId() {
 		return id;
 	}
@@ -88,5 +89,13 @@ public class BarnDto {
 	public void setVentilationTypeId(Integer ventilationTypeId) {
 		this.ventilationTypeId = ventilationTypeId;
 	}
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+	
+	
     
 }

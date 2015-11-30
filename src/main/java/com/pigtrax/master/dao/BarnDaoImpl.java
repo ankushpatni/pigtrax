@@ -36,7 +36,7 @@ public class BarnDaoImpl implements BarnDao {
 	public List<Barn> getBarnList(final int generatedPremisesId) {
 		String query = "SELECT \"id\",\"barnId\", \"id_Premise\", \"id_PhaseType\", \"location\", \"area\", \"feederCount\","+
 						" \"waterAccessCount\", \"isActive\", \"id_VentilationType\",\"id_BarnOrientation\",\"id_BarnLocation\", \"id_WaterType\","
-						+ " \"id_BarnPosition\", \"id_FeederType\",\"holesPerFeeder\", \"remarks\" "
+						+ " \"id_BarnPosition\", \"id_FeederType\",\"holesPerFeeder\", \"remarks\",\"year\" "
 						+ " from pigtrax.\"Barn\" where \"id_Premise\" = ? order by \"id\" desc ";
 
 		List<Barn> barnList = jdbcTemplate.query(query, new PreparedStatementSetter(){
@@ -69,7 +69,7 @@ public class BarnDaoImpl implements BarnDao {
 			final int generatedBarnId) {
 		String query = "SELECT \"id\",\"barnId\", \"id_Premise\", \"id_PhaseType\", \"location\", \"area\", \"feederCount\","+
 				" \"waterAccessCount\", \"isActive\", \"id_VentilationType\",\"id_BarnOrientation\",\"holesPerFeeder\",\"remarks\",\"id_BarnLocation\","
-				+ "\"id_BarnPosition\", \"id_WaterType\",\"id_FeederType\" from pigtrax.\"Barn\" where \"id\" = ? ";
+				+ "\"id_BarnPosition\", \"id_WaterType\",\"id_FeederType\",\"year\" from pigtrax.\"Barn\" where \"id\" = ? ";
 
 		List<Barn> barnList = jdbcTemplate.query(query,
 				new PreparedStatementSetter() {
@@ -92,8 +92,8 @@ public class BarnDaoImpl implements BarnDao {
 	public int insertBarnRecord(final Barn barn) throws SQLException {
 		String query = "INSERT INTO pigtrax.\"Barn\"(  \"barnId\", \"id_Premise\", \"id_PhaseType\", location, area, \"feederCount\", \"waterAccessCount\", "
 				 +" \"isActive\", \"lastUpdated\",\"userUpdated\",\"id_VentilationType\",\"id_BarnOrientation\","
-				 + "\"id_BarnLocation\", \"id_WaterType\", \"id_BarnPosition\", \"id_FeederType\",\"holesPerFeeder\", \"remarks\")"+
-				 "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?, ?)";
+				 + "\"id_BarnLocation\", \"id_WaterType\", \"id_BarnPosition\", \"id_FeederType\",\"holesPerFeeder\", \"remarks\",\"year\")"+
+				 "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?, ?,?)";
 	
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
@@ -159,6 +159,7 @@ public class BarnDaoImpl implements BarnDao {
 				
 				ps.setObject(17, barn.getHolesPerFeeder(),  java.sql.Types.INTEGER);
 				ps.setString(18, barn.getRemarks());
+				ps.setObject(19, barn.getYear(),  java.sql.Types.INTEGER);
 			
 				
 			}
@@ -169,7 +170,7 @@ public class BarnDaoImpl implements BarnDao {
 	public int updateBarnRecord(final Barn barn) throws SQLException {
 		String query = "update pigtrax.\"Barn\" SET \"id_PhaseType\"=?, location=?, area=?, \"feederCount\"=?, \"waterAccessCount\"=?, \"lastUpdated\"=?,"+
 						" \"userUpdated\"=?,\"id_VentilationType\"=?,\"id_BarnOrientation\" = ?,\"id_BarnLocation\"=?, \"id_WaterType\"= ?,"
-						+ " \"id_BarnPosition\"=?, \"id_FeederType\"=?,\"holesPerFeeder\" = ?, \"remarks\" = ? "
+						+ " \"id_BarnPosition\"=?, \"id_FeederType\"=?,\"holesPerFeeder\" = ?, \"remarks\" = ?,\"year\"=? "
 						+ "  WHERE \"barnId\"=?";
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
@@ -235,7 +236,9 @@ public class BarnDaoImpl implements BarnDao {
 				
 				ps.setString(15, barn.getRemarks());
 				
-				ps.setString(16, barn.getBarnId().toUpperCase());
+				ps.setObject(16, barn.getYear(), java.sql.Types.INTEGER);
+				
+				ps.setString(17, barn.getBarnId().toUpperCase());
 			}
 		});
 	}
@@ -260,6 +263,7 @@ public class BarnDaoImpl implements BarnDao {
 			barn.setFeederTypeId(rs.getInt("id_FeederType"));
 			barn.setHolesPerFeeder(rs.getInt("holesPerFeeder"));
 			barn.setRemarks(rs.getString("remarks"));
+			barn.setYear(rs.getInt("year"));
 			return barn;
 		}
 	}
@@ -279,7 +283,7 @@ public class BarnDaoImpl implements BarnDao {
 		
 		String Qry = "SELECT \"id\", \"barnId\",\"id_Premise\",\"id_PhaseType\", \"location\", "
 				+ "\"area\",\"feederCount\",\"waterAccessCount\",\"id_VentilationType\",\"isActive\",\"id_BarnOrientation\",\"id_BarnLocation\", "
-				+ "\"id_WaterType\", \"id_BarnPosition\", \"id_FeederType\", \"holesPerFeeder\",\"remarks\" "
+				+ "\"id_WaterType\", \"id_BarnPosition\", \"id_FeederType\", \"holesPerFeeder\",\"remarks\",\"year\" "
 				+ "from pigtrax.\"Barn\" where \"isActive\" is true and \"id_Premise\" in "
 				+ "( Select \"id\" from pigtrax.\"Premise\" where \"id_Company\" = ?::smallint) order by \"barnId\"";
 		List<Barn> barnList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){

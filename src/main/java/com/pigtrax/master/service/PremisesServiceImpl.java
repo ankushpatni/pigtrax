@@ -34,6 +34,11 @@ public class PremisesServiceImpl implements PremisesService{
 	}
 	
 	@Override
+	public List<Premises> getPremisesListBySowSource(int generatedCompanyId) {
+		return premisesDao.getPremisesListBySowSource( generatedCompanyId );
+	}
+	
+	@Override
 	public List<Premises> getPremisesList(int generatedCompanyId, String language) { 
 		List<Premises> premiseList =  premisesDao.getPremisesList( generatedCompanyId);
 		for(Premises premise : premiseList)

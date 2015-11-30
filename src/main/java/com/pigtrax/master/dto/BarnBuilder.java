@@ -33,6 +33,7 @@ public class BarnBuilder {
     		   dto.setPremiseId(barn.getPremiseId());
     		   dto.setVentilationTypeId(barn.getVentilationTypeId());
     		   dto.setWaterAccessCount(barn.getWaterAccessCount());
+    		   dto.setYear(barn.getYear());
     		   return dto;
     	   }
     	   return null;
