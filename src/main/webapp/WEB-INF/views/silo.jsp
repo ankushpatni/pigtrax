@@ -8,7 +8,7 @@
 				<div class="header">
 							<h3><spring:message code="label.silo.header" text="Silo Data" /></h3>
 						</div>
-		<button type="button" ng-click="addSiloData()" class="btn btn-sm btn btn-primary">
+		<button type="button" ng-click="addSiloData()" class="btn btn-sm btn btn-success">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.silo.addSiloData" text="Add New Silo" />
 		</button>

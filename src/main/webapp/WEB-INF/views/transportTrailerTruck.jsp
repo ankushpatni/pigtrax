@@ -8,7 +8,7 @@
 				<div class="header">
 					<h3><spring:message code="label.transportTruck.header" text="Truck Data" /></h3>
 				</div>
-				<button type="button" ng-click="addTransportTruckData()" class="btn btn-sm btn btn-primary">
+				<button type="button" ng-click="addTransportTruckData()" class="btn btn-sm btn btn-success">
 					<i class="glyphicon glyphicon-plus">
 					</i> <spring:message code="label.transportTruck.addTransportTruckData" text="Add New Truck" />
 				</button>
@@ -49,7 +49,7 @@
 				<div class="header">
 					<h3><spring:message code="label.transportTrailer.header" text="Trailer Data" /></h3>
 				</div>
-				<button type="button" ng-click="addTransportTrailerData()" class="btn btn-sm btn btn-primary">
+				<button type="button" ng-click="addTransportTrailerData()" class="btn btn-sm btn btn-success">
 					<i class="glyphicon glyphicon-plus">
 					</i> <spring:message code="label.transportTrailer.addTransportTruckData" text="Add New Trailer" />
 				</button>

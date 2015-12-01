@@ -14,6 +14,7 @@ public class PregnancyEvent {
 	private Date lastUpdated;
 	private String userUpdated;
 	private int breedingEventId;
+	private Integer premiseId;
 
 	public Integer getId() {
 		return id;
@@ -101,6 +102,14 @@ public class PregnancyEvent {
 
 	public void setBreedingEventId(int breedingEventId) {
 		this.breedingEventId = breedingEventId;
+	}
+
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 
 	

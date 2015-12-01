@@ -30,7 +30,7 @@
 						</div>						
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button class="btn btn-primary" style="margin-left:inherit;" ng-click="forgotPassword()"><spring:message code="label.employee.submit"  text="Submit"/></button>
+								<button class="btn btn-success" style="margin-left:inherit;" ng-click="forgotPassword()"><spring:message code="label.employee.submit"  text="Submit"/></button>
 							</div>
 						</div>
 					</form>

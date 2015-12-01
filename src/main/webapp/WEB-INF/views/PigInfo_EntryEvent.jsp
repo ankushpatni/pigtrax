@@ -70,6 +70,14 @@
                   <input type=hidden name="companyId" ng-model="pigInfo.companyId" value="${CompanyId}"/>
                   <input type=hidden name="id" ng-model="pigInfo.id"/>
                    
+                   	<div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigInfo.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigInfo.premiseId == premise.id">{{premise.permiseId}} - {{premise.name}}</option>
+                        </select>
+                    </div>	
+				  
+				  
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.barn'  text='Barn'/></label>
                       <select class="form-control" ng-model="pigInfo.barnId"                      
@@ -172,7 +180,7 @@
                       <label><spring:message code='label.piginfo.entryeventform.remarks'  text='Remarks'/></label>
                       <textarea name="remarks" ng-model="pigInfo.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.entryeventform.remarks.placeholder' text='Enter remarks'/>" ></textarea>
                     </div>
-                    <button class="btn btn-primary" ng-click="addEntryEvent()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="addEntryEvent()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>
                     <button class="btn btn-danger pull-right" ng-click="deletePigInfo()" type="button" ng-show="pigInfo.id != null && pigInfo.id > 0" ng-confirm-click="<spring:message code='label.piginfo.entryeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.entryeventform.delete'  text='Delete'/></button>
                   </form>
@@ -208,8 +216,8 @@
                       </div>
                       <div class="modal-footer">
                       <input type="checkbox" ng-model="copyPigDetails"> <spring:message code='label.piginfo.entryEventForm.copypigdetails'  text='Check if you want to copy the pig details'/>
-                      <button type="button" class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-hide="availablePigIdList == null || availablePigIdList.length == 0" ng-click="selectAvailablePigId(object.selectedAvailablePigID)"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close" data-dismiss="modal" ng-hide="availablePigIdList == null || availablePigIdList.length == 0" ng-click="selectAvailablePigId(object.selectedAvailablePigID)"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>
@@ -228,7 +236,7 @@
 						<spring:message code='label.piginfo.entryeventform.availablePigIdnote' text=''/>
                       </div>
                       <div class="modal-footer">                                           
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>

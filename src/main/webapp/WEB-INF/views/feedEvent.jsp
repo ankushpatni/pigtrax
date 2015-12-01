@@ -101,7 +101,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span ng-hide="(feedEvent.transportJourney.id != null && feedEvent.transportJourney.trailerFunction != 0)" class="btn btn-primary" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span ng-hide="(feedEvent.transportJourney.id != null && feedEvent.transportJourney.trailerFunction != 0)" class="btn btn-success" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="feedEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"/>
 					  <div ng-show="(feedEvent.transportJourney.trailerFunction != null && feedEvent.transportJourney.trailerFunction != '') ||
 							(feedEvent.transportJourney.id != 0 && feedEvent.transportJourney.id != null)">
@@ -113,8 +113,8 @@
                       </div>
                     </div>
                     					
-                  	<button class="btn btn-primary" ng-click="addFeedEvent()" type="submit" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addFeedEvent()" type="submit" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+                  	<button class="btn btn-success" ng-click="addFeedEvent()" type="submit" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
+					<button class="btn btn-success" ng-click="addFeedEvent()" type="submit" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                    </form>
                 </div>
@@ -124,12 +124,12 @@
             </div>
           </div>
 		  
-		<button type="button" ng-click="addFeedEventDetail()" class="btn btn-sm btn btn-primary" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
+		<button type="button" ng-click="addFeedEventDetail()" class="btn btn-sm btn btn-success" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus"></i> 
 			<spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" />
 		</button>
 		<!-- <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  > 
-			<span class="btn btn-primary" ng-click="addFeedEventDetailData()"><spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" /><span class="glyphicon glyphicon-plus" style="margin-left:5px"></span></span>	
+			<span class="btn btn-success" ng-click="addFeedEventDetailData()"><spring:message code="label.feedEventDetail.addFeedEventDetail" text="Add Feed Event" /><span class="glyphicon glyphicon-plus" style="margin-left:5px"></span></span>	
           </div>-->
 		 
 	<form name="groupEventFormAdd" method="post">	
@@ -139,26 +139,24 @@
 				<thead style="background-color: #3399CC">
 					<tr>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventId" text="Feed Event" /></th>
-						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.groupEventId" text="Group Event" /></th>
+						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
+						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>												
+						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
+						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>						
 						<th style="width:10%"><spring:message code="label.feedEventDetail.edit" text="Edit" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:10%">{{$index+1}}</td>
+					<td style="width:10%">{{row.groupEventGroupId}}</td>
 					<td style="width:10%">{{row.feedEventDate}}</td>
-					<td style="width:10%">{{row.weightInKgs}}</td>
-					<td style="width:25%">{{row.remarks}}</td>
-					<td style="width:25%">{{row.feedEventId}}</td>
-					<td style="width:25%">{{siloList[row.siloId]}}</td>
-					<td style="width:10%">{{row.groupEventId}}</td>
 					<td style="width:25%">{{feedEventType[row.feedEventTypeId]}}</td>
+					<td style="width:10%">{{row.weightInKgs}}</td>
+					<td style="width:25%">{{siloList[row.siloId]}}</td>
+					<td style="width:25%">{{row.remarks}}</td>
 					<td style="width: 8%">
 						<button type="button" class="btn btn-edit btn-xs" ng-click="addFeedEventDetail(row.id)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

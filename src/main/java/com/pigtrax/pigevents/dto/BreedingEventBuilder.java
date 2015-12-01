@@ -24,6 +24,7 @@ public class BreedingEventBuilder {
 			   info.setLastUpdated(dto.getLastUpdated());
 			   info.setPenId(dto.getPenId());
 			   info.setWeightInKgs(dto.getWeightInKgs());
+			   info.setPremiseId(dto.getPremiseId());
 		   }
 		   return info;
 	   }
@@ -44,6 +45,7 @@ public class BreedingEventBuilder {
 			   dto.setPenId(info.getPenId());
 			   dto.setWeightInKgs(info.getWeightInKgs());
 			   dto.setServiceStartDate(info.getServiceStartDate());
+			   dto.setPremiseId(info.getPremiseId());
 		   }
 		   return dto;
 	   }

@@ -111,6 +111,13 @@
 				  
 				  <label style='color:blue' class='control-label'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.instruction' text='Please enter the Pig Id and select the farrow event to proceed' /></label>
 				  
+				  		<div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigletStatusEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigletStatusEvent.premiseId == premise.id">{{premise.permiseId}} - {{premise.name}}</option>
+                        </select>
+                    </div>	
+				  
 					 <div class="form-group"> 
                       <label><spring:message code='label.piginfo.pigletstatuseventform.pigId'  text='Pig Id'/></label>
                      
@@ -270,7 +277,7 @@
                         </select>
                     </div> 
                     
-                    <button class="btn btn-primary" ng-click="addPigletStatusEvent()" type="submit" ng-disabled="inValidPigIdFromServer || pigletStatusEvent.farrowEventId == null"><spring:message code='label.piginfo.pigletstatuseventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="addPigletStatusEvent()" type="submit" ng-disabled="inValidPigIdFromServer || pigletStatusEvent.farrowEventId == null"><spring:message code='label.piginfo.pigletstatuseventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pigletstatuseventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletStatusEvent()" ng-show="editBtnclicked" ng-confirm-click="<spring:message code='label.piginfo.pigletstatuseventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigletstatuseventform.delete'  text='Delete'/></button>
                   </form>
@@ -314,8 +321,8 @@
                       </div>
                       </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="farrowEventList == null || farrowEventList.length == 0" ng-click="selectFarrowEvent()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close" ng-hide="farrowEventList == null || farrowEventList.length == 0" ng-click="selectFarrowEvent()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>
@@ -353,8 +360,8 @@
                       </div>
                       </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="fosterPigList == null || fosterPigList.length == 0" ng-click="selectFoster()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close" ng-hide="fosterPigList == null || fosterPigList.length == 0" ng-click="selectFoster()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>

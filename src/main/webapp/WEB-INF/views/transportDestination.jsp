@@ -8,7 +8,7 @@
 				<div class="header">
 							<h3><spring:message code="label.transportDestination.header" text="Transport Destination Data" /></h3>
 						</div>
-		<button type="button" ng-click="addTransportDestinationData()" class="btn btn-sm btn btn-primary">
+		<button type="button" ng-click="addTransportDestinationData()" class="btn btn-sm btn btn-success">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.transportDestination.addTransportDestinationData" text="Add New Transport Destination" />
 		</button>

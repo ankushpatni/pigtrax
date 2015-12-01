@@ -115,6 +115,12 @@
                   <input type=hidden name="id" ng-model="pregnancyEvent.id"/>
 				  <input type=hidden name="breedingEventId" ng-model="pregnancyEvent.breedingEventId"/>
 				  
+				  	<div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pregnancyEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pregnancyEvent.premiseId == premise.id">{{premise.permiseId}} - {{premise.name}}</option>
+                        </select>
+                    </div>	
 				  
 				  
 					 <div class="form-group">
@@ -160,7 +166,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span class="btn btn-primary" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span class="btn btn-success" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="pregnancyEvent.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
 					  <div ng-show="pregnancyEvent.employeeGroup != null && pregnancyEvent.employeeGroup.id > 0">
 							<p>Group Id : <small>{{pregnancyEvent.employeeGroup.groupId}}</small></p>
@@ -180,7 +186,7 @@
                           <option value="5">5</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" ng-click="addPregnancyEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.pregnancyeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="addPregnancyEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.pregnancyeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePregnancyEvent()" ng-show="pregnancyEvent.id != null && pregnancyEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.pregnancyeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pregnancyeventform.delete'  text='Delete'/></button>
                   </form>
@@ -223,8 +229,8 @@
                       </div>
                       </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="breedingEventList == null || breedingEventList.length == 0" ng-click="selectBreedingEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close" ng-hide="breedingEventList == null || breedingEventList.length == 0" ng-click="selectBreedingEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>
@@ -332,11 +338,11 @@
                       </div>
                       <div class="modal-footer">
 					    <div class="pull-left">
-						<button type="button" class="btn btn-primary btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
+						<button type="button" class="btn btn-success btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
 						</div>
-                        <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
-                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(pregnancyEvent)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
-                        <button type="button"  class="btn btn-primary btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-success btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(pregnancyEvent)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
+                        <button type="button"  class="btn btn-success btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
                       </div>
                     </div>
                   </div>

@@ -8,7 +8,7 @@
 				<div class="header">
 							<h3><spring:message	code="label.barn.barnData" text="Barn Data" /></h3>
 						</div>
-		<button type="button" ng-click="addBarnData()" class="btn btn-sm btn btn-primary">
+		<button type="button" ng-click="addBarnData()" class="btn btn-sm btn btn-success">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.barn.addNewBarn" text="Add New Barn" />
 		</button>

@@ -299,6 +299,7 @@ CREATE TABLE pigtrax."BreedingEvent"(
 	"weightInKgs" numeric(20,2),
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"id_Premise" integer,
 	CONSTRAINT "BREEDING_PK" PRIMARY KEY (id)
 );
 ALTER TABLE pigtrax."BreedingEvent" OWNER TO pitraxadmin;
@@ -330,7 +331,8 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"litterId" int,
 	"id_PigletCondition" smallint,
 	"weakBorns" smallint,
-	CONSTRAINT "FAROW_PK" PRIMARY KEY (id)
+	"id_Premise" int,
+ 	CONSTRAINT "FAROW_PK" PRIMARY KEY (id)
 
 );
 -- ddl-end --
@@ -341,6 +343,13 @@ ALTER TABLE pigtrax."FarrowEvent" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "Pen_fk" CASCADE;
 ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "Pen_fk" FOREIGN KEY ("id_Pen")
 REFERENCES pigtrax."Pen" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -360,6 +369,7 @@ CREATE TABLE pigtrax."PregnancyEvent"(
 	"sowCondition" smallint,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"id_Premise" integer,
 	CONSTRAINT "PREGNANCYEXAM_PK" PRIMARY KEY (id)
 
 );
@@ -394,8 +404,9 @@ CREATE TABLE pigtrax."PigletStatus"(
 	"id_FarrowEvent" int NOT NULL,
 	"id_fosterFarrowEvent" int,
 	"id_GroupEvent" int,
-	"id_MortalityReasonType" int,
+	"id_MortalityReasonType" integer,
 	"id_Pen" int,
+	"id_Premise" int,
 	CONSTRAINT "PIGLETSTATUS_PK" PRIMARY KEY (id)
 );
 -- ddl-end --
@@ -407,6 +418,13 @@ ALTER TABLE pigtrax."PigletStatus" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "Pen_fk" CASCADE;
 ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "Pen_fk" FOREIGN KEY ("id_Pen")
 REFERENCES pigtrax."Pen" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigletStatus" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."PigletStatus" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -731,6 +749,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"id_GfunctionType" smallint,
 	"isActive" boolean,
 	"id_Origin" smallint,
+	"id_Premise" integer,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id)
 );
 -- ddl-end --
@@ -751,6 +770,15 @@ ALTER TABLE pigtrax."Genetics" ADD CONSTRAINT "PigInfo_fk" FOREIGN KEY ("id_PigI
 REFERENCES pigtrax."PigInfo" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 
 -- object: "Genetics_uq" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."Genetics" DROP CONSTRAINT IF EXISTS "Genetics_uq" CASCADE;
@@ -3071,9 +3099,6 @@ ALTER TABLE pigtraxrefdata."MarketTypeTranslation" ADD CONSTRAINT "MarketType_fk
 REFERENCES pigtraxrefdata."MarketType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
-
-
-
 
 
 

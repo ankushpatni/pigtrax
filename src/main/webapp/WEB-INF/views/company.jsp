@@ -10,7 +10,7 @@
 						<div class="header">
 							<h3><spring:message	code="label.company.companyData" text="Company Data" /></h3>
 						</div>
-					<button type="button" ng-click="addCompanyData()" data-modal="form-primary"  class="btn btn-primary btn-flat md-trigger">
+					<button type="button" ng-click="addCompanyData()" data-modal="form-primary"  class="btn btn-success btn-flat md-trigger">
 						<i class="glyphicon glyphicon-plus"> </i>
 						<spring:message code="label.company.addNewCompany"
 							text="Add New company" />

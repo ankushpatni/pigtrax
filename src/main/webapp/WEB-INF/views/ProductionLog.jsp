@@ -17,8 +17,8 @@
                     </div>
                         </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-primary btn-flat md-close"  ng-click="saveProductionLog()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close"  ng-click="saveProductionLog()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>
@@ -63,7 +63,7 @@
                         <label ng-show="targetIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.targetIdRequiredMessage' text='Target Id is required' /></label>
                     </div>
                     
-                    <button class="btn btn-primary" ng-click="saveProductionLog()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="saveProductionLog()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                    
                   </form>
                 </div>

@@ -61,7 +61,7 @@
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span class="btn btn-primary" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span class="btn btn-success" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="groupEvent.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
 					  <div ng-show="groupEvent.employeeGroup != null && groupEvent.employeeGroup.id > 0">
 							<p>Group Id : <small>{{groupEvent.employeeGroup.groupId}}</small></p>
@@ -76,9 +76,9 @@
 			
                    
                   
-			<button class="btn btn-primary btn-flat md-close"  ng-click="addGroupEventDetail()" ng-hide="groupEvent.id>0"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-primary btn-flat md-close"  ng-click="addGroupEventDetail()" ng-show="groupEvent.id>0"><spring:message code="label.groupEventDetail.update" text="Update" /></button>
-            <button class="btn btn-default btn-flat md-close"  ng-click="gotoGroupEvent()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
+			<button class="btn btn-success btn-flat md-close"  ng-click="addGroupEventDetail()" ng-hide="groupEvent.id>0"><spring:message code="label.premise.add" text="Add" /></button>
+			<button class="btn btn-success btn-flat md-close"  ng-click="addGroupEventDetail()" ng-show="groupEvent.id>0"><spring:message code="label.groupEventDetail.update" text="Update" /></button>
+            <button class="btn btn-warning btn-flat md-close"  ng-click="gotoGroupEvent()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
 			<input type="hidden" name="searchedGroupid" id="searchedGroupid"/>
 			<input type="hidden" name="selectedCompany" id="selectedCompany"/>
                   </form>
@@ -186,11 +186,11 @@
                       </div>
                       <div class="modal-footer">
 					    <div class="pull-left">
-						<button type="button" class="btn btn-primary btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
+						<button type="button" class="btn btn-success btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
 						</div>
-                        <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
-                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(groupEvent)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
-                        <button type="button"  class="btn btn-primary btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-success btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(groupEvent)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
+                        <button type="button"  class="btn btn-success btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
                       </div>
                     </div>
                   </div>

@@ -47,6 +47,7 @@ public class PigletStatusEventBuilder {
 			   info.setGroupEventId(dto.getGroupEventId());
 			   info.setMortalityReasonTypeId(dto.getMortalityReasonTypeId());
 			   info.setPenId(dto.getPenId());
+			   info.setPremiseId(dto.getPremiseId());
 			    
 		   }
 		   return info;
@@ -96,6 +97,7 @@ public class PigletStatusEventBuilder {
 			   dto.setGroupEventId(info.getGroupEventId());
 			   dto.setMortalityReasonTypeId(info.getMortalityReasonTypeId());
 			   dto.setPenId(info.getPenId());
+			   dto.setPremiseId(info.getPremiseId());
 		   }		   
 		   return dto; 
 	   }
@@ -121,6 +123,7 @@ public class PigletStatusEventBuilder {
 			   fosterInEvent.setUserUpdated(pigletStatusEventDto.getUserUpdated());
 			   fosterInEvent.setFarrowEventId(pigletStatusEventDto.getFosterFarrowEventId()); 
 			   fosterInEvent.setFosterFarrowEventId(pigletStatusEventDto.getFarrowEventId());
+			   fosterInEvent.setPremiseId(pigletStatusEventDto.getPremiseId());
 		   }
 		   System.out.println("before returning : "+fosterInEvent.getFarrowEventId()+"/"+fosterInEvent.getFosterFarrowEventId());
 		   return fosterInEvent;

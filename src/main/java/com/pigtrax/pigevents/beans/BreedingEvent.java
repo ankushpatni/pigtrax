@@ -14,6 +14,7 @@ public class BreedingEvent {
     private String breedingServiceType;
     private Double weightInKgs;
     private Date serviceStartDate;
+    private Integer premiseId;
     
 	public Integer getId() {
 		return id;
@@ -83,6 +84,12 @@ public class BreedingEvent {
 	}
 	public void setServiceStartDate(Date serviceStartDate) {
 		this.serviceStartDate = serviceStartDate;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	
 	

@@ -131,10 +131,10 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="inventoryAdjustmentError" ><spring:message code='label.piginfo.groupEventform.inventoryAdjustmentError' text='Inventory Adjustment can not be greater than no of pigs in group.' /></label>
 					</div>
 					
-					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage "><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addGroupEvent()" type="submit" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
-					<!-- <button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button> -->
-					<!-- <button class="btn btn-primary" ng-click="editGroupEventInventoryAmount()" type="button" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0 && groupEvent.active"><spring:message code='label.piginfo.groupEventform.adjustInventory'  text='Adjust Inventory'/></button> -->
+					<button class="btn btn-success" ng-click="addGroupEvent()" type="submit" ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage "><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
+					<button class="btn btn-success" ng-click="addGroupEvent()" type="submit" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+					<!-- <button class="btn btn-success" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button> -->
+					<!-- <button class="btn btn-success" ng-click="editGroupEventInventoryAmount()" type="button" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0 && groupEvent.active"><spring:message code='label.piginfo.groupEventform.adjustInventory'  text='Adjust Inventory'/></button> -->
                     <button class="btn btn-default" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button> 
 					
                     <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus(false)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button>
@@ -148,7 +148,7 @@
             </div>
           </div>
 		  
-		<button type="button" ng-click="addGroupEventDetailData()" class="btn btn-sm btn btn-primary" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage">
+		<button type="button" ng-click="addGroupEventDetailData()" class="btn btn-sm btn btn-success" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.groupEventDetail.addAddPigstoGroup" text="Add Pigs to Group" />
 		</button>

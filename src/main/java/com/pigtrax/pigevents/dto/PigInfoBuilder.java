@@ -34,6 +34,7 @@ public class PigInfoBuilder {
 		   info.setActive(dto.isActive());
 		   info.setGfunctionTypeId(dto.getGfunctionTypeId());
 		   info.setOriginId(dto.getOriginId());
+		   info.setPremiseId(dto.getPremiseId());
 	   }
 	   return info;
    }
@@ -66,6 +67,7 @@ public class PigInfoBuilder {
 		   dto.setActive(info.isActive());
 		   dto.setGfunctionTypeId(info.getGfunctionTypeId());
 		   dto.setOriginId(info.getOriginId());
+		   dto.setPremiseId(info.getPremiseId());
 	   }
 	   return dto;
    }

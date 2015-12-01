@@ -105,6 +105,21 @@
 				  <input type=hidden name="pregnancyEventId" ng-model="farrowEvent.pregnancyEventId"/>
 				  <input type="hidden" ng-model="farrowEvent.pregnancyEventType" id="pregnancyEventType" />
 				  
+				  
+				  	<div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="farrowEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="farrowEvent.premiseId == premise.id">{{premise.permiseId}} - {{premise.name}}</option>
+                        </select>
+                    </div>	
+				  
+				   <div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.pen'  text='Pen'/></label>
+                     <select class="form-control" ng-model="farrowEvent.penId">
+                          <option ng-repeat="pen in penInfo" value="{{pen.id}}">{{pen.penId}}</option>
+                        </select>
+                    </div>
+                    
 					 <div class="form-group"> 
                       <label><spring:message code='label.piginfo.farroweventform.pigInfoId'  text='Pig Id'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" class="input-group col-md-7 col-xs-9"  >
@@ -127,12 +142,7 @@
                      <label> : {{farrowEvent.litterId}}</label>
                     </div>
 					
-					 <div class="form-group">
-                      <label><spring:message code='label.piginfo.farroweventform.pen'  text='Pen'/></label>
-                     <select class="form-control" ng-model="farrowEvent.penId">
-                          <option ng-repeat="pen in penInfo" value="{{pen.id}}">{{pen.penId}}</option>
-                        </select>
-                    </div>
+					
 					
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/><span style='color: red'>*</span></label>
@@ -155,13 +165,27 @@
                        <td> <label><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </label></td><td>
 					   <input type="number" ng-value="0" min="0"  max="50" step="1" name="liveBorns" ng-model="farrowEvent.liveBorns"  maxlength="3"  size="3" class="form-control">
                        </td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td><td><input type="number" ng-value = "0"  min="0"   max="50" step="1" name="stillBorns" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
+                      </tr>
+                      <tr>
+                       <td><label><spring:message code='label.piginfo.farroweventform.stillborns'  text='Still Borns'/></label> </td>
+                       <td><input type="number" ng-value = "0"  min="0"   max="50" step="1" name="stillBorns" ng-model="farrowEvent.stillBorns"  maxlength="3"  size="3" class="form-control"></td>
+                      </tr>
+                      <tr>
+                       <td><label><spring:message code='label.piginfo.farroweventform.mummies'  text='Mummies'/></label> </td>
+                       <td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.mummies"  maxlength="3"  size="3" class="form-control"></td>
                      </tr>
                      <tr>
-                     <td><label><spring:message code='label.piginfo.farroweventform.weakBorns'  text='Weak Borns'/></label> </td><td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.weakBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50"  step="1"  name="maleBorns" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
-                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td><td><input type="number" ng-value="0"  min="0"   max="50" step="1" name="femaleBorns" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                     <td><label><spring:message code='label.piginfo.farroweventform.weakBorns'  text='Weak Borns'/></label> </td>
+                     <td> <input type="number" ng-value="0"  min="0"   max="50" step="1"  name="mummies" ng-model="farrowEvent.weakBorns"  maxlength="3"  size="3" class="form-control"></td>
+                     </tr>
+                     <tr>
+                       <td><label><spring:message code='label.piginfo.farroweventform.maleborns'  text='Male Borns'/></label> </td>
+                       <td><input type="number" ng-value="0"  min="0"   max="50"  step="1"  name="maleBorns" ng-model="farrowEvent.maleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       </tr>
+                       <tr>
+                       <td><label><spring:message code='label.piginfo.farroweventform.femaleborns'  text='Female Borns'/></label> </td>
+                       <td><input type="number" ng-value="0"  min="0"   max="50" step="1" name="femaleBorns" ng-model="farrowEvent.femaleBorns"  maxlength="3"  size="3" class="form-control"></td>
+                       </tr>
                      </tr>                     
                     </table>                    
                     </div>
@@ -186,7 +210,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span class="btn btn-primary" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span class="btn btn-success" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="farrowEvent.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
 					  <div ng-show="farrowEvent.employeeGroup != null && farrowEvent.employeeGroup.id > 0">
 							<p>Group Id : <small>{{farrowEvent.employeeGroup.groupId}}</small></p>
@@ -226,7 +250,7 @@
                       <textarea name="remarks" ng-model="farrowEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.farroweventform.remarks.placeholder' text='Enter remarks'/>" ></textarea>
                     </div>
                     
-                    <button class="btn btn-primary" ng-click="addFarrowEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="addFarrowEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deleteFarrowEvent()" ng-show="farrowEvent.id != null && farrowEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.farroweventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.farroweventform.delete'  text='Delete'/></button>
                   </form>
@@ -271,8 +295,8 @@
                       </div>
                       </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="breedingEventList == null || breedingEventList.length == 0" ng-click="selectBreedingEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close" ng-hide="breedingEventList == null || breedingEventList.length == 0" ng-click="selectBreedingEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>
@@ -314,8 +338,8 @@
                       </div>
                       </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-primary btn-flat md-close" ng-hide="pregnancyEventList == null || pregnancyEventList.length == 0" ng-click="selectPergnancyEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close" ng-hide="pregnancyEventList == null || pregnancyEventList.length == 0" ng-click="selectPergnancyEventService()"><spring:message code='label.employeegroup.list.header.select'  text='Select'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>
@@ -423,11 +447,11 @@
                       </div>
                       <div class="modal-footer">
 					    <div class="pull-left">
-						<button type="button" class="btn btn-primary btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
+						<button type="button" class="btn btn-success btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
 						</div>
-                        <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
-                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(farrowEvent)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
-                        <button type="button"  class="btn btn-primary btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-success btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(farrowEvent)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
+                        <button type="button"  class="btn btn-success btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
                       </div>
                     </div>
                   </div>

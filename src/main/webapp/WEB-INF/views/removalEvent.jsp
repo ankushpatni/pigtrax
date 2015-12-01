@@ -59,7 +59,7 @@
 				           							
 				            <div class="options">
 							 <div class="btn-group pull-right">
-				                <button type="button" class="btn btn-primary active" ng-click="addDifferentRemovalEvent()"><i class="glyphicon glyphicon-plus"></i></button>
+				                <button type="button" class="btn btn-success active" ng-click="addDifferentRemovalEvent()"><i class="glyphicon glyphicon-plus"></i></button>
 				              </div>
 				              <div class="form-group">
 				              <label class="radio-inline">
@@ -143,7 +143,7 @@
                     <%-- <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span ng-hide="(removalEvent.transportJourney.id != null && removalEvent.transportJourney.trailerFunction != 0)" class="btn btn-primary" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span ng-hide="(removalEvent.transportJourney.id != null && removalEvent.transportJourney.trailerFunction != 0)" class="btn btn-success" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="removalEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"/>
 					  <div ng-show="(removalEvent.transportJourney.trailerFunction != null && removalEvent.transportJourney.trailerFunction != '') ||
 							(removalEvent.transportJourney.id != 0 && removalEvent.transportJourney.id != null)">
@@ -155,8 +155,8 @@
                       </div>
                     </div> --%>
                     					
-                  	<button class="btn btn-primary" ng-click="addRemovalEvent()" type="submit" ng-hide="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addRemovalEvent()" type="submit" ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+                  	<button class="btn btn-success" ng-click="addRemovalEvent()" type="submit" ng-hide="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
+					<button class="btn btn-success" ng-click="addRemovalEvent()" type="submit" ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                    </form>
                 </div>

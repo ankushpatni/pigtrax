@@ -41,8 +41,9 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 	@Override
 	public int addPregnancyEventdDetails(final PregnancyEvent pregnancyEvent)
 			throws SQLException {
-		final String Qry = "insert into pigtrax.\"PregnancyEvent\"(\"id_PigInfo\", \"id_BreedingEvent\", \"id_EmployeeGroup\", \"id_PregnancyEventType\", \"id_PregnancyExamResultType\", \"examDate\", \"resultDate\", \"sowCondition\", \"lastUpdated\", \"userUpdated\") "
-				+ "values(?,?,?,?,?,?,?,?,current_timestamp,?)";
+		final String Qry = "insert into pigtrax.\"PregnancyEvent\"(\"id_PigInfo\", \"id_BreedingEvent\", \"id_EmployeeGroup\", \"id_PregnancyEventType\", "
+				+ "\"id_PregnancyExamResultType\", \"examDate\", \"resultDate\", \"sowCondition\", \"lastUpdated\", \"userUpdated\",\"id_Premise\") "
+				+ "values(?,?,?,?,?,?,?,?,current_timestamp,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -78,6 +79,11 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 	    					ps.setNull(8, java.sql.Types.INTEGER);
 	    				
 	    				ps.setString(9, pregnancyEvent.getUserUpdated());
+	    				
+	    				if(pregnancyEvent.getPremiseId() != null && pregnancyEvent.getPremiseId() != 0)
+	    					ps.setInt(10, pregnancyEvent.getPremiseId());
+	    				else
+	    					ps.setNull(10, java.sql.Types.INTEGER);
 	    			
 	    	            return ps;
 	    	        }
@@ -95,7 +101,7 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
    public PregnancyEvent getPregnancyEvent(final Integer pregnancyEventId) {
 	   String qry = "select \"id\", \"id_PigInfo\", \"id_BreedingEvent\", \"id_EmployeeGroup\", \"id_PregnancyEventType\", "
 	   		+ "\"id_PregnancyExamResultType\", \"examDate\", \"resultDate\", \"sowCondition\", "
-	   		+ "\"lastUpdated\", \"userUpdated\" from pigtrax.\"PregnancyEvent\" where \"id\" = ?";
+	   		+ "\"lastUpdated\", \"userUpdated\",\"id_Premise\" from pigtrax.\"PregnancyEvent\" where \"id\" = ?";
 		
 		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -133,7 +139,8 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
   private List<PregnancyEvent> getPregnancyEventsByPigId(final String pigId, final Integer companyId) throws SQLException{
 	   String qry = "select PE.\"id\", PE.\"id_PigInfo\", PE.\"id_EmployeeGroup\", PE.\"id_PregnancyEventType\", "
 	   		+ "PE.\"id_PregnancyExamResultType\", PE.\"examDate\", PE.\"resultDate\", PE.\"sowCondition\", "
-	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\" from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\""
+	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\",PE.\"id_Premise\" "
+	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\""
 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
 		
 		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -153,7 +160,8 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
    private List<PregnancyEvent> getPregnancyEventsByTattoo(final String tattoo, final Integer companyId) throws SQLException{
  	   String qry = "select PE.\"id\", PE.\"id_PigInfo\", PE.\"id_EmployeeGroup\", PE.\"id_PregnancyEventType\", "
  	   		+ "PE.\"id_PregnancyExamResultType\", PE.\"examDate\", PE.\"resultDate\", PE.\"sowCondition\", "
- 	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\" from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\""
+ 	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\",\"id_Premise\" "
+ 	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\""
  	   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? ";
  		
  		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -170,7 +178,9 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
     @Override
 	public int updatePregnancyEventDetails(final PregnancyEvent pregnancyEvent)
 			throws SQLException, DuplicateKeyException {
-		String Qry = "update pigtrax.\"PregnancyEvent\" set \"id_PigInfo\" = ?, \"id_EmployeeGroup\" = ?, \"id_PregnancyEventType\" = ?, \"id_PregnancyExamResultType\"= ?, \"examDate\"= ?, \"resultDate\" = ?, \"sowCondition\" = ?, \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_BreedingEvent\" = ? where \"id\" = ? ";
+		String Qry = "update pigtrax.\"PregnancyEvent\" set \"id_PigInfo\" = ?, \"id_EmployeeGroup\" = ?, \"id_PregnancyEventType\" = ?, "
+				+ "\"id_PregnancyExamResultType\"= ?, \"examDate\"= ?, \"resultDate\" = ?, \"sowCondition\" = ?, \"lastUpdated\" = current_timestamp, "
+				+ "\"userUpdated\" = ?, \"id_BreedingEvent\" = ?,\"id_Premise\"= ? where \"id\" = ? ";
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
@@ -206,7 +216,11 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 				
 				ps.setString(8, pregnancyEvent.getUserUpdated());	
 				ps.setInt(9, pregnancyEvent.getBreedingEventId());
-				ps.setInt(10, pregnancyEvent.getId());
+				if(pregnancyEvent.getPremiseId() != null && pregnancyEvent.getPremiseId() != 0)
+					ps.setInt(10, pregnancyEvent.getPremiseId());
+				else
+					ps.setNull(10, java.sql.Types.INTEGER);
+				ps.setInt(11, pregnancyEvent.getId());
 			}
 		});
 	}
@@ -226,6 +240,7 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 			pregnancyEvent.setSowCondition(rs.getInt("sowCondition"));
 			pregnancyEvent.setLastUpdated(rs.getDate("lastUpdated"));
 			pregnancyEvent.setUserUpdated(rs.getString("userUpdated"));
+			pregnancyEvent.setPremiseId(rs.getInt("id_Premise"));
 			return pregnancyEvent;
 		}
 	}

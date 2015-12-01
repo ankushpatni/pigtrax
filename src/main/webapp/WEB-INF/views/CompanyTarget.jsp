@@ -62,7 +62,7 @@
                       <label ng-show="remarksRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.remarksRequiredMessage' text='Remarks is required' /></label>
                     </div>
                     
-                    <button class="btn btn-primary" ng-click="saveCompanyTarget()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="saveCompanyTarget()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                    
                   </form>
                 </div>

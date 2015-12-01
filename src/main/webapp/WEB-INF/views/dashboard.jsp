@@ -144,17 +144,17 @@
 			       <!-- Wrapper for carousel items --> 
 			        <div class="carousel-inner">
 			            <div class="active item">
-			                <button class="btn btn-primary" ><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></button>
+			                <button class="btn btn-success" ><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></button>
 			                
 			            </div>
 				            <div class="item">
-				                 <button class="btn btn-primary"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></button>
+				                 <button class="btn btn-success"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></button>
 				            </div>
 				            <div class="item">
-				                <button class="btn btn-primary"><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></button>
+				                <button class="btn btn-success"><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></button>
 				            </div>
 				            <div class="item">
-				                <button class="btn btn-primary"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></button>
+				                <button class="btn btn-success"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></button>
 				            </div>
 				        </div>
 				        <!-- Carousel controls -->

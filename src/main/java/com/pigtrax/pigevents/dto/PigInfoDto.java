@@ -31,6 +31,7 @@ public class PigInfoDto {
 	private String newPigId;
 	private Date changePigIdDate;
 	private Integer originId;
+	private Integer premiseId;
 
 	public Integer getFarrowEventId() {
 		return farrowEventId;
@@ -269,6 +270,17 @@ public class PigInfoDto {
 
 	public void setOriginId(Integer originId) {
 		this.originId = originId;
+	}
+	
+	
+	
+
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 
 	@Override

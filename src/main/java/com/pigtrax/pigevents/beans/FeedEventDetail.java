@@ -15,6 +15,7 @@ public class FeedEventDetail {
 	private Integer feedEventTypeId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private String groupEventGroupId;
 	public Integer getId() {
 		return id;
 	}
@@ -75,5 +76,13 @@ public class FeedEventDetail {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+	public String getGroupEventGroupId() {
+		return groupEventGroupId;
+	}
+	public void setGroupEventGroupId(String groupEventGroupId) {
+		this.groupEventGroupId = groupEventGroupId;
+	}
+	
+	
 	
 }

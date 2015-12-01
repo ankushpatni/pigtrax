@@ -1,3 +1,4 @@
+<%@ page import="com.pigtrax.usermanagement.enums.RoleType" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div id="form-primary" 	class="md-modal colored-header md-effect-9" ng-controller="CompanyController">
 	<div class="md-content">
@@ -64,13 +65,16 @@
 						</tbody>
 						</table>
 				<div class="modal-footer">
-					<button class="btn btn-primary btn-flat md-close" ng-click="gotToPageFromDetails('${CompanyId.id}')">
+				<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
+                              		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) {%>
+					<button class="btn btn-success btn-flat md-close" ng-click="gotToPageFromDetails('${CompanyId.id}')">
 						<spring:message code="label.company.goToPremise" text="Go To Premises" />
 					</button>
 					
-					<button class="btn btn-primary btn-flat md-close" ng-click="gotToTransportFromDetails()">
+					<button class="btn btn-success btn-flat md-close" ng-click="gotToTransportFromDetails()">
 						<spring:message code="label.company.goToTransportPage" text="Go To Transport Page" />
-					</button>						
+					</button>		
+					<%} %>				
 				</div>
 			</div>
 			

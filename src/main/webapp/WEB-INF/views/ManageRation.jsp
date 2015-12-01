@@ -49,7 +49,7 @@
                       <label><spring:message code='label.rationform.rationdescription'  text='Ration Description'/></label>
                       <textarea name="remarks" ng-model="masterRation.rationDescription" class="form-control" placeholder="<spring:message code='label.rationform.rationdescription.placeholder' text='Enter ration description'/>" ></textarea>
                     </div>
-                    <button class="btn btn-primary" ng-click="saveRation()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="saveRation()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                    
                   </form>
                 </div>

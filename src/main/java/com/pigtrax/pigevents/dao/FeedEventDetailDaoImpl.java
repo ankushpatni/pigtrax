@@ -35,9 +35,9 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	@Override
 	public FeedEventDetail getFeedEventDetailById(final int id)
 			throws SQLException {
-		String qry = "select \"id\", \"feedEventDate\", \"weightInKgs\", \"remarks\", \"id_FeedEvent\", "
-		   		+ "\"id_Silo\", \"id_GroupEvent\", \"id_FeedEventType\",\"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"FeedEventDetails\" where \"id\" = ? ";
+		String qry = "select FED.\"id\", FED.\"feedEventDate\", FED.\"weightInKgs\", FED.\"remarks\", FED.\"id_FeedEvent\", "
+		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\" "+
+		   		"from pigtrax.\"FeedEventDetails\" FED LEFT JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" where FED.\"id\" = ? ";
 			
 			List<FeedEventDetail> feedEventDetailList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
@@ -54,9 +54,9 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	@Override
 	public List<FeedEventDetail> getFeedEventDetailByFeedEventId(final int feedEventid)
 			throws SQLException {
-		String qry = "select \"id\", \"feedEventDate\", \"weightInKgs\", \"remarks\", \"id_FeedEvent\", "
-		   		+ "\"id_Silo\", \"id_GroupEvent\", \"id_FeedEventType\",\"lastUpdated\", \"userUpdated\" "+
-		   		"from pigtrax.\"FeedEventDetails\" where \"id_FeedEvent\" = ? ";
+		String qry = "select FED.\"id\", FED.\"feedEventDate\", FED.\"weightInKgs\", FED.\"remarks\", FED.\"id_FeedEvent\", "
+		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\" "+
+		   		"from pigtrax.\"FeedEventDetails\" FED LEFT JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" where FED.\"id_FeedEvent\" = ? ";
 			
 			List<FeedEventDetail> feedEventDetailList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
@@ -179,6 +179,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			feedEventDetail.setFeedEventTypeId(rs.getInt("id_FeedEventType"));
 			feedEventDetail.setLastUpdated(rs.getDate("lastUpdated"));
 			feedEventDetail.setUserUpdated(rs.getString("userUpdated"));
+			feedEventDetail.setGroupEventGroupId(rs.getString("groupId"));
 			return feedEventDetail;
 		}	
 	}

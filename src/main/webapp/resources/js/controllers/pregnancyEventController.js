@@ -29,6 +29,18 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.breedingEventIdRequired = false;
 	};
 	
+	
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.loadPage = function(companyId, selectedPregnancyEventId)
 	{
 		$scope.setCompanyId(companyId);
@@ -48,6 +60,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 				  }
 			  });
 		}
+		$scope.loadPremises();
 	};
 	
 	$scope.setCompanyId = function(companyId)

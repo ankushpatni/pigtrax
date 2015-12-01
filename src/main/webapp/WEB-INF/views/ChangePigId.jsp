@@ -80,7 +80,7 @@
                         </div> 
                         <label ng-show="changeDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.changepigidform.changeDate.requiredmessage' text='Change Date is required' /></label>
                     </div>
-                    <button class="btn btn-primary" ng-disabled="!pigInfo.active || newPigIdActiveError" ng-click="changePigId()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-disabled="!pigInfo.active || newPigIdActiveError" ng-click="changePigId()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                   
                   </form>
                 </div> 

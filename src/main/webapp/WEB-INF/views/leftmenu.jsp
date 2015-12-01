@@ -46,7 +46,7 @@
                     			  </ul>
                     			  </li>
                     			  
-                    			  <%}else {%>
+                    			  <%}else if(request.isUserInRole(RoleType.DataManager.getRoleValue())){%>
                     			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Selection"/></a>
                     			  <ul class="sub-menu">
                     			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Origin"/></a></li>
@@ -75,8 +75,9 @@
                     			 	 </ul>                               			  
                     			  </li>
                     			  <%} %>
-                            			  
-                            <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span></span><spring:message code="label.leftmenu.managepigevents.link"  text="Manage Pig Events"/></span></a>
+                            	<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
+                              		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue()) || request.isUserInRole(RoleType.DataManager.getRoleValue())) {%>		  
+                            	<li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span></span><spring:message code="label.leftmenu.managepigevents.link"  text="Manage Pig Events"/></span></a>
                                       	<ul class="sub-menu">
                                          	<li><a href="pigEntryEvent"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></li>
                                          	<li><a href="pigBreedingEvent"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></li>
@@ -91,17 +92,20 @@
                                          	<li><a href="getProductionLogs"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>
                                          </ul>
                                       </li>
+                                      <%}%>
                              <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytic Reports"/></span></a>
                              	<ul class="sub-menu">
                                          	<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.link"  text="Ferrow Report"/></a></li>
                                 </ul>
                               </li>
                               
-                              
+                                <% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
+                              		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue()) || request.isUserInRole(RoleType.DataManager.getRoleValue())) {%> 
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i><span><spring:message code="label.leftmenu.settings.link"  text="Settings"/></span></a>
                             <ul class="sub-menu">
-                              <% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
-                                    		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) { %>
+                          				 <% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
+                              		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) {%> 
+                          
                                          	<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.companydata.link"  text="Company Data"/></a></li>
                                       <%} else {%>
                                       <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
@@ -109,6 +113,7 @@
                                </ul>
                             </li>           
                             <li><a href="massupload"><i class="glyphicon glyphicon-cog"></i><span>Mass Upload</span></a></li>    
+                            <%} %>
                               </ul>
                   </div>
                 </div>

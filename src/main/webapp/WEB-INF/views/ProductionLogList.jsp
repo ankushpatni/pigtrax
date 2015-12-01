@@ -25,7 +25,7 @@
                   
 						</div>
 					<div class="row">
-					<!-- <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-primary btn-flat md-trigger">
+					<!-- <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-success btn-flat md-trigger">
 						<i class="glyphicon glyphicon-plus"> </i>
 						<spring:message code="label.productionlogform.addproductionlog"
 							text="Add Production Log" />
@@ -40,7 +40,7 @@
                               <div class="input-prepend input-group"><span class="add-on input-group-addon primary"><span class="glyphicon glyphicon-th"></span></span>
                                 <input id="reservation" type="text" style="width: 200px" name="reservation"  class="form-control">
 								<button type="button" class="btn btn-primary active" ng-click="searchProductionLog()"><i class="fa fa-search"></i></button>
-								  <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-primary btn-flat md-trigger pull-right" ng-click="AddProductionLog()">
+								  <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-success btn-flat md-trigger pull-right" ng-click="AddProductionLog()">
 						<i class="glyphicon glyphicon-plus"> </i>
 						<spring:message code="label.productionlogform.addproductionlog"
 							text="Add Production Log" />
@@ -170,8 +170,8 @@
                     
                      </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-click="saveProductionLog()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
-                      <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      <button type="button" class="btn btn-success btn-flat md-close" data-dismiss="modal" ng-click="saveProductionLog()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                      <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
                       </div>
                       
                      </div>

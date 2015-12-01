@@ -135,14 +135,14 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="paymentDateFlag" ><spring:message code='label.company.paymentDate.required' text='Payment Date is required' /></label>
 					</div> -->
 				<div class="modal-footer">
-					<button ng-hide="showDetail" class="btn btn-primary btn-flat md-close" ng-click="addCompany()"
+					<button ng-hide="showDetail" class="btn btn-success btn-flat md-close" ng-click="addCompany()"
 						ng-if="!edit">
 						<spring:message code="label.company.add" text="Add" />
 					</button>
-					<button class="btn btn-primary btn-flat md-close" ng-click="addCompany()" ng-if="edit">
+					<button class="btn btn-success btn-flat md-close" ng-click="addCompany()" ng-if="edit">
 						<spring:message code="label.company.save" text="Save" />
 					</button>
-					<button class="btn btn-default btn-flat md-close" ng-click="cancel()">
+					<button class="btn btn-warning btn-flat md-close" ng-click="cancel()">
 						<spring:message code="label.company.cancel" text="Cancel" />
 					</button>
 					<p style="color: red">{{alertMessage}}</p>

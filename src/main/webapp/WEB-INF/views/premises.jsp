@@ -14,7 +14,7 @@
 			                  </div>
 							
 						</div>
-	<button type="button" ng-click="addPremiseData()" class="btn btn-sm btn btn-primary">
+	<button type="button" ng-click="addPremiseData()" class="btn btn-sm btn btn-success">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.premise.addNewPremise" text="Add New Premise" />
 		</button>

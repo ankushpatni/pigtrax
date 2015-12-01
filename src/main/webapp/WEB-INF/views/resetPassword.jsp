@@ -42,7 +42,7 @@
 						<p style="color:red"><spring:message code="<%=message%>"  text=""/></p>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit"  class="btn btn-primary"><spring:message code="label.employee.reset"  text="Save"/></button>
+								<button type="submit"  class="btn btn-success"><spring:message code="label.employee.reset"  text="Save"/></button>
 							</div>
 						</div>
 					</form>

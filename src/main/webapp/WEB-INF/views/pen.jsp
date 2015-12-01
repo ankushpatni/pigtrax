@@ -8,7 +8,7 @@
 				<div class="header">
 							<h3><spring:message code="label.pen.header" text="Pen Data" /></h3>
 						</div>
-		<button type="button" ng-click="addPenData()" class="btn btn-sm btn btn-primary">
+		<button type="button" ng-click="addPenData()" class="btn btn-sm btn btn-success">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.pen.addPenDataButton" text="Add New Pen" />
 		</button>

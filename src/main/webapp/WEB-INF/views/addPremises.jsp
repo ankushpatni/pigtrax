@@ -67,9 +67,9 @@
 			
         <div class="modal-footer">
 
-            <button class="btn btn-primary btn-flat md-close" ng-click="addPremise()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-primary btn-flat md-close" ng-click="addPremise()" ng-show="edit"><spring:message code="label.premise.save" text="Save" /></button>
-            <button class="btn btn-default btn-flat md-close" ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
+            <button class="btn btn-success btn-flat md-close" ng-click="addPremise()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>
+			<button class="btn btn-success btn-flat md-close" ng-click="addPremise()" ng-show="edit"><spring:message code="label.premise.save" text="Save" /></button>
+            <button class="btn btn-warning btn-flat md-close" ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
             <p style="color:red">{{alertMessage}}</p>
         </div>
        </div>

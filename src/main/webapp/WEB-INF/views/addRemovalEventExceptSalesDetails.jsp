@@ -138,7 +138,7 @@
                    <!--  <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span ng-hide="(removalExceptSales.transportJourney.id != null && removalExceptSales.transportJourney.trailerFunction != 0)" class="btn btn-primary" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span ng-hide="(removalExceptSales.transportJourney.id != null && removalExceptSales.transportJourney.trailerFunction != 0)" class="btn btn-success" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="removalExceptSales.transportJourneyId" id="transportJourneyId" name="transportJourneyId"/>
 					  <div ng-show="(removalExceptSales.transportJourney.id != 0 && removalExceptSales.transportJourney.id != null)">
 							<p><spring:message code="label.transportJourney.trailerFunction" text="Trailer Function" /> : <small>{{removalExceptSales.transportJourney.trailerFunction}}</small></p>
@@ -153,9 +153,9 @@
                       <input type="text" ng-model="removalExceptSales.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
                        ng-focus="clearMessages()"/>
                    </div>                    			
-                  	<button class="btn btn-primary" ng-click="addRemovalExceptSales()" type="submit" ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-primary" ng-click="addRemovalExceptSales()" type="submit" ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
-					<button class="btn btn-primary" ng-click="moveToAnotherGroup()" type="submit" ng-show="selectGroup=='group' && removalTypeId == 9"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>					
+                  	<button class="btn btn-success" ng-click="addRemovalExceptSales()" type="submit" ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
+					<button class="btn btn-success" ng-click="addRemovalExceptSales()" type="submit" ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+					<button class="btn btn-success" ng-click="moveToAnotherGroup()" type="submit" ng-show="selectGroup=='group' && removalTypeId == 9"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>					
 					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
 					
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>

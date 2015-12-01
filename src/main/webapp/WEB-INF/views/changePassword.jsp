@@ -57,7 +57,7 @@
 						
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button  class="btn btn-primary" ng-click="forgotChangePassword()"><spring:message code="label.employee.save"  text="Save"/></button>
+								<button  class="btn btn-success" ng-click="forgotChangePassword()"><spring:message code="label.employee.save"  text="Save"/></button>
 							</div>
 						</div>
 					</form>

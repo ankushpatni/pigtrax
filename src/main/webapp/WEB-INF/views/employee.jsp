@@ -16,7 +16,7 @@
 						<%PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();%>
 						<%if(activeUser.getUserRole()==1 || activeUser.getUserRole() == 2){%>
 						
-					<button type="button" ng-click="addEmployeeData()" data-modal="form-primary"  class="btn btn-primary btn-flat md-trigger">
+					<button type="button" ng-click="addEmployeeData()" data-modal="form-primary"  class="btn btn-success btn-flat md-trigger">
 						<i class="glyphicon glyphicon-plus"> </i>
 						<spring:message code="label.employee.addNewEmployee"
 							text="Add New Employee" />

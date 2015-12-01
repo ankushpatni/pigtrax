@@ -30,8 +30,8 @@
                         </select>						
 					</div>
 					<div class="modal-footer">
-		            	<button class="btn btn-primary btn-flat md-close"  ng-click="addTransportDestination()"><spring:message code="label.premise.add" text="Add" /></button>
-						<button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
+		            	<button class="btn btn-success btn-flat md-close"  ng-click="addTransportDestination()"><spring:message code="label.premise.add" text="Add" /></button>
+						<button class="btn btn-warning btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
 		        	</div>
 		       </div>
 	    </form>

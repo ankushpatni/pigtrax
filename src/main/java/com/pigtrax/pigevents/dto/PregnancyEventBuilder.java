@@ -31,6 +31,7 @@ public class PregnancyEventBuilder {
 			   info.setResultDate(dto.getResultDate());
 			   info.setSowCondition(dto.getSowCondition());
 			   info.setUserUpdated(dto.getUserUpdated());
+			   info.setPremiseId(dto.getPremiseId());
 		   }
 		   return info;
 	   }
@@ -56,6 +57,7 @@ public class PregnancyEventBuilder {
 			   dto.setResultDate(info.getResultDate());
 			   dto.setSowCondition(info.getSowCondition());
 			   dto.setUserUpdated(info.getUserUpdated());
+			   dto.setPremiseId(info.getPremiseId());
 		   }
 		   return dto;
 	   }

@@ -55,9 +55,9 @@
             </div>
 			<div class="modal-footer">
 
-            <button class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-click="addTransportJourney()"><spring:message code="label.premise.add" text="Add" /></button>
-			<!--<button class="btn btn-primary btn-flat md-close" data-dismiss="modal" ng-click="addTransportJourney()" ng-show="edit"><spring:message code="label.premise.edit" text="Edit" /></button>-->
-            <button class="btn btn-default btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
+            <button class="btn btn-success btn-flat md-close" data-dismiss="modal" ng-click="addTransportJourney()"><spring:message code="label.premise.add" text="Add" /></button>
+			<!--<button class="btn btn-success btn-flat md-close" data-dismiss="modal" ng-click="addTransportJourney()" ng-show="edit"><spring:message code="label.premise.edit" text="Edit" /></button>-->
+            <button class="btn btn-warning btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
         </div>
        </div>
     </form>

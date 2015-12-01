@@ -1,5 +1,6 @@
-pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices, DateUtils) {
+pigTrax.controller('EntryEventController', function($scope, $http,$window,restServices, DateUtils, $rootScope) {
 	$scope.companyId = "";
+	$rootScope.companyId = "";
 	$scope.object = {};
 		
 	$scope.clearAllMessages = function()
@@ -17,11 +18,24 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		$scope.birthDateRequired = false;
 	};
 	
+	
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.clearAllMessages();
 	$scope.searchOption = "";
 	$scope.pigInfo = {};
 	$scope.populateBarns = function(companyId){
 		$scope.pigInfo.companyId = companyId;
+		$rootScope.companyId = companyId;
 		$scope.companyId  = companyId;
 		restServices.getBarns(companyId, function(data){
 			 if(!data.error)
@@ -33,6 +47,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				    $scope.getGcompanyTypes();
 				    $scope.getGlineTypes();
 				    $scope.getOriginList();
+				    $scope.loadPremises();
 			 }
 		});
 	};

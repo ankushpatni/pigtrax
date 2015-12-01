@@ -45,6 +45,7 @@ public class FarrowEventBuilder {
 			   info.setPigletConditionId(dto.getPigletConditionId());
 			   info.setWeakBorns(dto.getWeakBorns());
 			   info.setLitterId(dto.getLitterId());
+			   info.setPremiseId(dto.getPremiseId());
 		   }
 		   return info;
 	   }
@@ -83,6 +84,7 @@ public class FarrowEventBuilder {
 			   dto.setPigletConditionId(info.getPigletConditionId());
 			   dto.setWeakBorns(info.getWeakBorns());
 			   dto.setLitterId(info.getLitterId());
+			   dto.setPremiseId(info.getPremiseId());
 		   }
 		   return dto;
 	   }

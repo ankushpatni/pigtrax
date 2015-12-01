@@ -25,6 +25,7 @@ public class PregnancyEventDto {
 	private int breedingEventId;
 	private BreedingEventDto breedingEventDto;
 	private String breedingServiceId;
+	private Integer premiseId;
 
 	public Integer getId() {
 		return id;
@@ -186,6 +187,14 @@ public class PregnancyEventDto {
 
 	public void setBreedingServiceId(String breedingServiceId) {
 		this.breedingServiceId = breedingServiceId;
+	}
+
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	
 	

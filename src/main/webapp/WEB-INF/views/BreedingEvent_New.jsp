@@ -116,14 +116,24 @@
                     <!--  <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span class="btn btn-primary" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span class="btn btn-success" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="breedingEvent.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
 					  <div ng-show="breedingEvent.employeeGroup != null && breedingEvent.employeeGroup.id > 0">
 							<p>Group Id : <small>{{breedingEvent.employeeGroup.groupId}}</small></p>
 							<p ng-repeat="employee in breedingEvent.employeeGroup.employeeList">{{employee.name}} ( Id : {{employee.id}})</p>
 						</div>
                       </div>
-                    </div>	 -->				
+                    </div>	 -->	
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="breedingEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="breedingEvent.premiseId == premise.id">{{premise.permiseId}} - {{premise.name}}</option>
+                        </select>
+                    </div>	
+				  
+				  
+                    			
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.pigInfoId'  text='Pig Id'/><span style='color: red'>*</span></label>
                       <label  ng-show="breedingEvent.id != null && breedingEvent.id > 0" >{{breedingEvent.pigInfoId}}</label>
@@ -175,7 +185,7 @@
                     	<label ng-if="breedingEvent.serviceStartDate != null"> -  {{breedingEvent.serviceStartDate}}</label>
                     </div>
                     
-                    <button class="btn btn-primary" ng-click="addBreedingEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="addBreedingEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deleteBreedingEventInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry and delete all the associated mating details?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
                   </form>
@@ -265,7 +275,7 @@
                       <div class="form-group">
                       <label><spring:message code='label.piginfo.matingdetailsform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span class="btn btn-primary" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
+					  <span class="btn btn-success" ng-click="viewEmployeeGroup()" data-toggle="modal" data-target="#selectEmployeeGroupModal"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="matingDetails.employeeGroupId" id="employeeGroupId" name="employeeGroupId"  class="form-control" readonly = ""/>
 					  <div ng-show="matingDetails.employeeGroup != null && matingDetails.employeeGroup.id > 0">
 							<p>Group Id : <small>{{matingDetails.employeeGroup.groupId}}</small></p>
@@ -289,7 +299,7 @@
                       </select>
                     </div>                   
                     
-                    <button class="btn btn-primary" ng-click="saveMatingDetails()" type="submit"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
+                    <button class="btn btn-success" ng-click="saveMatingDetails()" type="submit"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>                    
                   </form>
                 </div>
@@ -307,7 +317,7 @@
 		 
             <div class="col-sm-12 col-md-12">
               <div class="block-flat">
-            <button type="button" ng-click="addMatingDetailData()" class="btn btn-sm btn btn-primary" ng-show="(breedingEvent.id != null && breedingEvent.id > 0) || entryEventSuccessMessage">
+            <button type="button" ng-click="addMatingDetailData()" class="btn btn-sm btn btn-success" ng-show="(breedingEvent.id != null && breedingEvent.id > 0) || entryEventSuccessMessage">
 			<i class="glyphicon glyphicon-plus">
 			</i> <spring:message code="label.breedingeventform.addMatingDetails" text="Add Mating Details" />
 		</button>
@@ -454,11 +464,11 @@
                       </div>
                       <div class="modal-footer">
 					    <div class="pull-left">
-						<button type="button" class="btn btn-primary btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
+						<button type="button" class="btn btn-success btn-flat" ng-click="showAddGroupForm()"  ng-hide="viewAddForm"><spring:message code='label.employeegroup.button.addgroup'  text='New Group'/></button>
 						</div>
-                        <button type="button" data-dismiss="modal" class="btn btn-default btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
-                        <button type="button" data-dismiss="modal" class="btn btn-primary btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(matingDetails)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
-                        <button type="button"  class="btn btn-primary btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                        <button type="button" data-dismiss="modal" class="btn btn-success btn-flat md-close" ng-hide="viewAddForm || employeeGroups == null || employeeGroups.length == 0" ng-click="selectEmployeeGroup(matingDetails)"><spring:message code='label.employeegroup.button.proceed'  text='Proceed'/></button>
+                        <button type="button"  class="btn btn-success btn-flat" ng-show="viewAddForm && employeeList.length > 0" ng-click="addEmployeeGroup()"><spring:message code='label.employeegroup.button.save'  text='Save'/></button>
                       </div>
                     </div>
                   </div>      
