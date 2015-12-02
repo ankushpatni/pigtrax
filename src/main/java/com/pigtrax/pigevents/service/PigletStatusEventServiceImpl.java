@@ -184,8 +184,12 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		public void deletePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto)
 				throws PigTraxException {
 			try{
-				pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventDto().getId());
-				eventMasterDao.deletePigletStatusEvents( pigletStatusEventDto.getFarrowEventDto().getId());
+				pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventDto().getId(), pigletStatusEventDto.getPigletStatusEventTypeId());
+				if(pigletStatusEventDto.getPigletStatusEventTypeId() == 2)
+					pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventDto().getId(), PigletStatusEventType.FosterIn.getTypeCode());
+				
+				if(pigletStatusEventDto.getId() != null)
+					eventMasterDao.deletePigletStatusEvents( pigletStatusEventDto.getId(), pigletStatusEventDto.getPigletStatusEventTypeId());
 			}
 			catch(SQLException e)
 			{
@@ -210,9 +214,10 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			   for(PigletStatusEvent pigletStatusEvent : pigletStatusEvents)
 			   { 
 				   
-				   if(farrowid != pigletStatusEvent.getFarrowEventId()){
+				   //if(farrowid != pigletStatusEvent.getFarrowEventId()){
 					   pigletStatusEventDto = new PigletStatusEventDto();
 					   //generic fields
+					   pigletStatusEventDto.setId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setEventDateTime(pigletStatusEvent.getEventDateTime());
 					   pigletStatusEventDto.setPigInfoId(pigletStatusEvent.getPigInfoId());
 					   pigletStatusEventDto.setEventReason(pigletStatusEvent.getEventReason());
@@ -231,9 +236,10 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setPigId(pigInfo.getPigId());					   
 					   farrowid = pigletStatusEvent.getFarrowEventId();// set the next farrow id
 					   subList.add(pigletStatusEventDto);
-				   } 
+				   //} 
 
 				   if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.Wean.getTypeCode())){
+					   pigletStatusEventDto.setPigletStatusEventTypeId(PigletStatusEventType.Wean.getTypeCode());
 					   pigletStatusEventDto.setWeanId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setWeanPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setWeanPigWt(pigletStatusEvent.getWeightInKgs());
@@ -248,6 +254,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   }
 					   
 				   } else if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.FosterOut.getTypeCode())){
+					   pigletStatusEventDto.setPigletStatusEventTypeId(PigletStatusEventType.FosterOut.getTypeCode());
 					   pigletStatusEventDto.setFosterId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setFosterPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setFosterPigWt(pigletStatusEvent.getWeightInKgs());
@@ -269,6 +276,8 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   
 					   
 				   } else if(pigletStatusEvent.getPigletStatusEventTypeId().equals(PigletStatusEventType.Death.getTypeCode())){
+					   
+					   pigletStatusEventDto.setPigletStatusEventTypeId(PigletStatusEventType.Death.getTypeCode());
 					   pigletStatusEventDto.setDeathId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setDeathPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setDeathPigWt(pigletStatusEvent.getWeightInKgs());
@@ -306,6 +315,14 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			List<PigletStatusEventDto> pigletStatusDtoEvents = builder.convertToDtos(pigletStatusEvents);		
 			return pigletStatusDtoEvents;
 	}
+	 
+	 
+	 @Override
+		public List<PigletStatusEventDto> getPigletStatusEventsByFarrowEventId (Integer farrowEventId, Integer pigletStatusEventTypeId) throws PigTraxException {
+			 List<PigletStatusEvent> pigletStatusEvents = pigletStatusEventDao.getPigletStatusEventsByFarrowEventId(farrowEventId, pigletStatusEventTypeId);		 
+				List<PigletStatusEventDto> pigletStatusDtoEvents = builder.convertToDtos(pigletStatusEvents);		
+				return pigletStatusDtoEvents;
+		}
 	 
 
 }

@@ -86,4 +86,6 @@ public interface PigTraxEventMasterDao {
 
 	int getLitterForGivenrange(Date endDate);
 	
+	int deletePigletStatusEvents(Integer pigletStatusId, int pigletStatusEventTypeId) throws SQLException;
+	
 }

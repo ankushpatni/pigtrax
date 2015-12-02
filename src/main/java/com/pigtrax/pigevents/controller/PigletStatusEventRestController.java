@@ -170,12 +170,12 @@ public class PigletStatusEventRestController {
 	 */
 	@RequestMapping(value = "/getPigletStatusEventsByFarrowEventId", method=RequestMethod.POST, produces="application/json", consumes="application/json")
 	@ResponseBody
-	public ServiceResponseDto getPigletStatusEventsByFarrowEventId( @RequestBody Integer farrowEventId)
+	public ServiceResponseDto getPigletStatusEventsByFarrowEventId( @RequestBody PigletStatusEventDto pigletStatusEventDto)
 	{
 		logger.info("Inside getFosterInRecords method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			List<PigletStatusEventDto> pigletStatusEvents = pigletStatusEventService.getPigletStatusEventsByFarrowEventId(farrowEventId);
+			List<PigletStatusEventDto> pigletStatusEvents = pigletStatusEventService.getPigletStatusEventsByFarrowEventId(pigletStatusEventDto.getFarrowEventId(), pigletStatusEventDto.getPigletStatusEventTypeId());
 			if(pigletStatusEvents != null && pigletStatusEvents.size() > 0)
 			{
 				dto.setPayload(false);

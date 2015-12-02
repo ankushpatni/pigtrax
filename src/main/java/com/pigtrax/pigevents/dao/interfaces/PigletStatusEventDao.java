@@ -23,6 +23,9 @@ public interface PigletStatusEventDao {
 	
 	List<PigletStatusEvent> getPigletStatusEventsByFarrowEventId(Integer farrowEventId);
 	
+	List<PigletStatusEvent> getPigletStatusEventsByFarrowEventId(Integer farrowEventId, Integer pigletStatusEventTypeId);
+	
+	
 	void deletePigletStatusEventsByFarrowId(Integer pigInfoId, Integer farrowEventId) throws SQLException;
 	
 	PigletStatusEvent getFosterInRecord(Integer farrowEventId) throws SQLException;
@@ -87,5 +90,8 @@ public interface PigletStatusEventDao {
 
 	Integer getSumOfDateDiffBetweenServiceAndEntryDate(Date start, Date end,
 			Integer companyId);
+	
+	void deletePigletStatusEventsByFarrowId(final Integer pigInfoId, final Integer farrowEventId, final Integer pigletStatusEventType)
+			throws SQLException;
 	
 }

@@ -242,7 +242,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = "SELECT PS.\"id\", PS.\"id_PigInfo\", PS.\"fosterFrom\", PS.\"fosterTo\", PS.\"id_PigletStatusEventType\", "+ 
 				"PS.\"eventDateTime\", PS.\"numberOfPigs\", PS.\"weightInKgs\", PS.\"eventReason\", "+ 
 				"PS.\"remarks\", PS.\"sowCondition\", PS.\"weanGroupId\", PS.\"lastUpdated\", PS.\"userUpdated\", "+ 
-				"PS.\"id_FarrowEvent\", PS.\"id_fosterFarrowEvent\", PS.\"id_GroupEvent\", PS.\"id_MortalityReasonType\" "
+				"PS.\"id_FarrowEvent\", PS.\"id_fosterFarrowEvent\", PS.\"id_GroupEvent\", PS.\"id_MortalityReasonType\", PS.\"id_Pen\",PS.\"id_Premise\" "
 				+ " FROM pigtrax.\"PigletStatus\" PS "
 				+ "JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where PI.\"pigId\" = ? "
 				+ "and PS.\"id_PigletStatusEventType\" = ? and PI.\"id_Company\" = ? and PS.\"id_FarrowEvent\" = ?";
@@ -277,6 +277,31 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setInt(1, farrowEventId);
  				ps.setInt(2, PigletStatusEventType.FosterIn.getTypeCode());
+ 			}}, new PigletStatusEventMapper());
+
+		return pigletStatusEventList;
+	}
+	
+	
+	/**
+	 * To get the list of PigletStatus events of a given farrowEventId
+	 */
+
+	public List<PigletStatusEvent> getPigletStatusEventsByFarrowEventId(final Integer  farrowEventId, final Integer pigletStatusEventTypeId) {
+		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
+		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
+		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\","
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\","
+		   		+ " PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\", PSE.\"id_Pen\",PSE.\"id_Premise\" "
+		   		+ " from pigtrax.\"PigletStatus\" PSE "
+		   		+ " WHERE PSE.\"id_FarrowEvent\" = ? and PSE.\"id_PigletStatusEventType\" = ? ";
+ 		
+ 		List<PigletStatusEvent> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setInt(1, farrowEventId);
+ 				//ps.setInt(2, PigletStatusEventType.FosterIn.getTypeCode());
+ 				ps.setInt(2, pigletStatusEventTypeId);
  			}}, new PigletStatusEventMapper());
 
 		return pigletStatusEventList;
@@ -988,4 +1013,40 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 
 		return pigletStatusEventList.get(0);
 	}
+	
+	
+	/***
+	 * Delete the piglet status events for a given farrow event Id
+	 */
+	@Override
+	public void deletePigletStatusEventsByFarrowId(final Integer pigInfoId, final Integer farrowEventId, final Integer pigletStatusEventType)
+			throws SQLException {
+		//final String qry = "delete from pigtrax.\"PigletStatus\" where \"id_FarrowEvent\" = ? or \"id_fosterFarrowEvent\" = ?";
+		
+		StringBuffer buffer = new StringBuffer();
+	
+		if(pigletStatusEventType == 3 || pigletStatusEventType == 4 || pigletStatusEventType == 2)
+		{
+			buffer.append("delete from pigtrax.\"PigletStatus\" where "
+					+ "\"id_FarrowEvent\" = ? and \"id_PigletStatusEventType\" = ? and \"id_PigInfo\" = ?");
+			
+		}
+		else if(pigletStatusEventType == 1)
+		{
+			buffer.append("delete from pigtrax.\"PigletStatus\" where "
+					+ "\"id_fosterFarrowEvent\" = ? and \"id_PigletStatusEventType\" = ? and \"fosterFrom\" = ?");
+		}
+		
+		
+		final String qry = buffer.toString();
+		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, farrowEventId);
+				ps.setInt(2, pigletStatusEventType);
+				ps.setInt(3, pigInfoId); 
+			}
+		});
+	}
+	
 }

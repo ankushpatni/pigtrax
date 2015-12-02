@@ -38,6 +38,33 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		
 	}
 	
+	$scope.changeEvent = function()
+	{
+		if($scope.pigletStatusEvent.pigletStatusEventTypeId == 2)
+			$scope.eventSection = 'transfer';
+		else if($scope.pigletStatusEvent.pigletStatusEventTypeId == 3)
+			$scope.eventSection = 'wean';
+		else if($scope.pigletStatusEvent.pigletStatusEventTypeId == 4)
+			$scope.eventSection = 'death';
+		
+		restServices.getPigletStatusEventsByFarrowEventId($scope.pigletStatusEvent, function(data){
+			$scope.fosterInRecords = [];
+			if(!data.error)
+			{
+				//$('#searchFarrowEvents').modal('hide');				
+				$scope.pigletStatusEventAlreadyAdded = false;
+				$scope.getFosterInRecords();
+			}
+			else
+			{
+				//$('#searchFarrowEvents').modal('hide');
+				$scope.clearAllMessages();
+				$scope.pigletStatusEventAlreadyAdded = true;
+				$scope.pigletStatusEvent = {};
+			}
+		});
+	}
+	
 	
 	$scope.loadPremises = function()
 	{
@@ -91,7 +118,13 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	$scope.setPigletStatusDetails = function(pigletStatusObj)
 	{
 		$scope.clearAllMessages();
-		$scope.pigletStatusEvent = pigletStatusObj;		
+		$scope.pigletStatusEvent = pigletStatusObj;
+		if($scope.pigletStatusEvent.pigletStatusEventTypeId == 2)
+			$scope.eventSection = 'transfer';
+		else if($scope.pigletStatusEvent.pigletStatusEventTypeId == 3)
+			$scope.eventSection = 'wean';
+		else if($scope.pigletStatusEvent.pigletStatusEventTypeId == 4)
+			$scope.eventSection = 'death';
 		$scope.getFosterInRecords();
 		$scope.editBtnclicked = true;
 	}	
@@ -199,24 +232,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.clearAllMessages(); 
 		$scope.pigletStatusEvent.farrowEventId = $scope.pigletStatusEvent.farrowEventDto.id;
 		$scope.clearPigletInformation();
-		restServices.getPigletStatusEventsByFarrowEventId($scope.pigletStatusEvent.farrowEventId, function(data){
-			$scope.fosterInRecords = [];
-			if(!data.error)
-			{
-				$('#searchFarrowEvents').modal('hide');
-				$scope.pigletStatusEventAlreadyAdded = false;
-				$scope.getFosterInRecords();				
-			}
-			else
-			{
-				$('#searchFarrowEvents').modal('hide');
-				$scope.clearAllMessages();
-				$scope.pigletStatusEventAlreadyAdded = true;
-				$scope.pigletStatusEvent = {};
-			}
-		});
-		
-		
+		$scope.getFosterInRecords();	
+		$('#searchFarrowEvents').modal('hide');
 	}
 	
 	
@@ -244,8 +261,10 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.fosterInRecords = [];
 	}
 	
+	
+	
 	$scope.getFosterInRecords = function()
-	{
+	{		
 		$scope.clearAllMessages(); 
 		if($scope.pigletStatusEvent.pigId != null)
 			{  

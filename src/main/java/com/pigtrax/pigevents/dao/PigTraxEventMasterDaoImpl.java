@@ -289,4 +289,25 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 		return eventMasterList.get(0);
 	}
 	
+	
+	/**
+	 * Delete the piglet status event entries for a given farrow event id
+	 * @param farrowEventId
+	 * @return
+	 * @throws SQLException
+	 */
+	@Override
+	public int deletePigletStatusEvents(final Integer pigletStatusId, int pigletStatusEventTypeId)
+			throws SQLException {
+		final String qry = "delete from pigtrax.\"PigTraxEventMaster\" where \"id_PigletStatus\" = ? ";
+				
+		int rowsDeleted = this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, pigletStatusId);
+			}
+		});
+		return rowsDeleted;
+	}
+	
 }

@@ -19,4 +19,6 @@ public interface PigletStatusEventService {
 	List<PigletStatusEventDto> getFosterInRecords(String pigId, Integer companyId, Integer farrowEventId) throws PigTraxException;
 	
 	List<PigletStatusEventDto> getPigletStatusEventsByFarrowEventId(Integer  farrowEventId) throws PigTraxException;  
+	
+	List<PigletStatusEventDto> getPigletStatusEventsByFarrowEventId(Integer  farrowEventId, Integer pigletStatusEventTypeId) throws PigTraxException;  
 }
