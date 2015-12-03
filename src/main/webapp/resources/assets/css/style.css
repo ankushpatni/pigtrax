@@ -227,7 +227,7 @@ pre {
 /*navigation*/
 .navbar {
   border: 0;
-  background-color: #2494F2;
+  background-color: #f28224;
   color: #FFF;
   padding-left: 10px;
   padding-right: 25px;
@@ -251,7 +251,7 @@ pre {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  background-color: #36a3ff;
+  background-color: #f28244;
   color: #fff;
 }
 .navbar-default .navbar-nav > li > a {
