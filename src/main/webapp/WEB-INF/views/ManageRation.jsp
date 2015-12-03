@@ -32,7 +32,7 @@
                                         
                      
                     <div class="form-group">
-                      <label><spring:message code='label.rationform.ration'  text='Ration'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.rationform.ration'  text='Feed Ration'/><span style='color: red'>*</span></label>
                       <input type="text" maxlength="30" name="origin" ng-model="masterRation.rationValue" class="form-control" placeholder="<spring:message code='label.rationform.ration.placeholder' text='Enter Ration'/>"
                       ></input>
                       <label ng-show="rationRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.rationform.rationRequiredMessage' text='Ration is required' /></label>

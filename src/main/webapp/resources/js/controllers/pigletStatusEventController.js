@@ -47,22 +47,25 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		else if($scope.pigletStatusEvent.pigletStatusEventTypeId == 4)
 			$scope.eventSection = 'death';
 		
-		restServices.getPigletStatusEventsByFarrowEventId($scope.pigletStatusEvent, function(data){
-			$scope.fosterInRecords = [];
-			if(!data.error)
+		if($scope.pigletStatusEvent["pigId"] != null)
 			{
-				//$('#searchFarrowEvents').modal('hide');				
-				$scope.pigletStatusEventAlreadyAdded = false;
-				$scope.getFosterInRecords();
+				restServices.getPigletStatusEventsByFarrowEventId($scope.pigletStatusEvent, function(data){
+					$scope.fosterInRecords = [];
+					if(!data.error)
+					{
+						//$('#searchFarrowEvents').modal('hide');				
+						$scope.pigletStatusEventAlreadyAdded = false;
+						$scope.getFosterInRecords();
+					}
+					else
+					{
+						//$('#searchFarrowEvents').modal('hide');
+						$scope.clearAllMessages();
+						$scope.pigletStatusEventAlreadyAdded = true;
+						$scope.pigletStatusEvent = {};
+					}
+				});
 			}
-			else
-			{
-				//$('#searchFarrowEvents').modal('hide');
-				$scope.clearAllMessages();
-				$scope.pigletStatusEventAlreadyAdded = true;
-				$scope.pigletStatusEvent = {};
-			}
-		});
 	}
 	
 	

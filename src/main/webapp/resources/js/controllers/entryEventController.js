@@ -2,7 +2,13 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	$scope.companyId = "";
 	$rootScope.companyId = "";
 	$scope.object = {};
-		
+	
+	 $scope.testData = {
+		      blankDate: null,
+		      realDate: new Date("September 30, 2010 15:30:00")
+		    };
+	
+	
 	$scope.clearAllMessages = function()
 	{ 
 		$scope.searchDataErrorMessage = false;
@@ -47,9 +53,10 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				    $scope.getGcompanyTypes();
 				    $scope.getGlineTypes();
 				    $scope.getOriginList();
-				    $scope.loadPremises();
+				    $scope.loadPremises();				   
 			 }
 		});
+		
 	};
 	
 	
@@ -113,15 +120,15 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			
 			$scope.clearAllMessages();
 			
-			var entryDate = document.getElementById("entryDate").value;
-			var birthDate = document.getElementById("birthDate").value;
+			//var entryDate = document.getElementById("entryDate").value;
+			//var birthDate = document.getElementById("birthDate").value;
 			
-			if(entryDate == null || entryDate == undefined || entryDate == "")
+			if($scope.pigInfo.entryDate == null || $scope.pigInfo.entryDate == undefined || $scope.pigInfo.entryDate == "")
 			{
 				$scope.entryDateRequired = true;
 			}				
 			
-			if(birthDate == null || birthDate == undefined || birthDate == "")
+			if($scope.pigInfo.birthDate == null || $scope.pigInfo.birthDate == undefined || $scope.pigInfo.birthDate == "")
 			{
 				$scope.birthDateRequired = true;
 			}				
@@ -132,13 +139,13 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			{
 				$scope.clearAllMessages();
 				
-				var birthDate = document.getElementById("birthDate").value;							
-				var dateVal = new Date(birthDate);
+				//var birthDate = document.getElementById("birthDate").value;							
+				var dateVal = new Date($scope.pigInfo.birthDate);
 				
-				birthDate = DateUtils.convertLocaleDateToServer(dateVal);				
+				var birthDate = DateUtils.convertLocaleDateToServer(dateVal);				
 				
-				var entrydateVal = new Date(entryDate);
-				entryDate = DateUtils.convertLocaleDateToServer(entrydateVal);
+				var entrydateVal = new Date($scope.pigInfo.entryDate);
+				var entryDate = DateUtils.convertLocaleDateToServer(entrydateVal);
 				
 				var duration  = 100;
 				
@@ -215,10 +222,10 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 							$scope.pigInfo = data.payload;			
 							if($scope.pigInfo.birthDate != null)
 								$scope.pigInfo.birthDate = new Date($scope.pigInfo.birthDate);
-							document.getElementById("birthDate").value = $scope.pigInfo.birthDate;
+							//document.getElementById("birthDate").value = $scope.pigInfo.birthDate;
 							if($scope.pigInfo.entryDate != null)
 								$scope.pigInfo.entryDate = new Date($scope.pigInfo.entryDate);
-							document.getElementById("entryDate").value = $scope.pigInfo.entryDate;
+							//document.getElementById("entryDate").value = $scope.pigInfo.entryDate;
 							
 						}
 						else

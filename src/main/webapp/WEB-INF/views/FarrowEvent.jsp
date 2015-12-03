@@ -109,7 +109,7 @@
 				  	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="premiseId" id="premiseId" ng-model="farrowEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
-                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="farrowEvent.premiseId == premise.id">{{premise.permiseId}} - {{premise.name}}</option>
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="farrowEvent.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>	
 				  

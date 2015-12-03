@@ -31,9 +31,9 @@
 						<input type="hidden"  name="barnId" id="barnId" ng-model="groupEvent.barnId"/>
 					</div>
 					<div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.source'  text='Source'/></label>
+                      <label><spring:message code='label.groupEventDetail.source'  text='Sow Source'/></label>
                        <select class="form-control"  name="source" id="source" ng-model="groupEvent.premiseId">
-                       	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.premiseId == premise.id">{{premise.permiseId}}</option>
+                       	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>			
 					<div class="form-group">
@@ -47,7 +47,7 @@
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /><span style='color: red'>*</span></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.numberOfPigs' text='Number of Alive Pigs' />" name="numberOfPigs" ng-model="groupEvent.numberOfPigs" maxlength="8" required required-message="'<spring:message code='label.groupEventDetail.numberOfPigs.required' text='Number Of Pigs required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
+						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.numberOfPigs' text='Number of Pigs' />" name="numberOfPigs" ng-model="groupEvent.numberOfPigs" maxlength="8" required required-message="'<spring:message code='label.groupEventDetail.numberOfPigs.required' text='Number Of Pigs required' />'" ng-pattern="/^\d{1,8}?$/i"  invalid-message="'<spring:message code='label.company.paymentInvalid' text='Only Numeric values Allowed.'/>'"/>
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /><span style='color: red'>*</span></label>

@@ -73,7 +73,7 @@
                    	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigInfo.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
-                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigInfo.premiseId == premise.id">{{premise.permiseId}} - {{premise.name}}</option>
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigInfo.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>	
 				  
@@ -112,7 +112,16 @@
                       <input type="text" class="form-control" name="alternateTattoo" ng-model="pigInfo.alternateTattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.alternateTattoo.placeholder' text='Enter tattoo'/>" 
 					    invalid-message="'<spring:message code='label.piginfo.entryeventform.alternateTattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
-                    <div class="form-group">
+                    
+                     <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
+                     <input rsmdatedropdowns ng-model="pigInfo.entryDate" day-div-class="day-container" day-class="day-selector"/>
+                      	<label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' /></label>
+                        <label ng-show="invalidEntryDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invalidmessage' text='Entry date can not be earlier than birth date' /></label>
+                        <label ng-show="invalidDateDuration" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invaliddurationmessage' text='The age of the pig can not be less than 100 days and more than 200 days' /></label>
+                    </div>
+                    
+                     <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="entryDateDiv"  >
                           <input size="16" type="date" id="entryDate" name="entryDate" ng-model="pigInfo.entryDate" readonly="" class="form-control"  format-date required-message="'<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' />'"><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
@@ -120,7 +129,7 @@
                         <label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' /></label>
                         <label ng-show="invalidEntryDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invalidmessage' text='Entry date can not be earlier than birth date' /></label>
                         <label ng-show="invalidDateDuration" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invaliddurationmessage' text='The age of the pig can not be less than 100 days and more than 200 days' /></label>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.sex'  text='Sex'/><span style='color: red'>*</span></label>
                       <select class="form-control"  name="sexType" ng-model="pigInfo.sexTypeId"  required 
@@ -155,13 +164,22 @@
                         </select>
                     </div>
                     
-                    <div class="form-group">
+                   <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/><span style='color: red'>*</span></label>
                       <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="birthDateDiv" >
                           <input size="16" type="date" id="birthDate" name="birthDate" ng-model="pigInfo.birthDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
                         </div> 
                         <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
+                    </div>-->
+                    
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/><span style='color: red'>*</span></label>
+                     <input rsmdatedropdowns ng-model="pigInfo.birthDate" day-div-class="day-container" day-class="day-selector"/>
+                     <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
                     </div>
+                    
+                    
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.sire'  text='Sire'/></label>
@@ -186,6 +204,9 @@
                   </form>
                 </div>
               </div>
+              
+             
+              
             </div>
             <div class="col-sm-3 col-md-3">        
             </div>
