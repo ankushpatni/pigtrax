@@ -21,7 +21,7 @@
 <div class="content">
 	<div class="table-responsive">
 		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" style="background-color: LightGray">  
-			<thead style="background-color: #3399CC">
+			<thead style="background-color: #f7b781">
 			<tr>
 				<th st-sort="premiseID" style="width:10%"><spring:message code="label.premise.premiseID" text="Premise ID" /></th>
 				<th st-sort="name" style="width:10%"><spring:message code="label.premise.name" text="Name" /></th>
@@ -84,7 +84,7 @@
 				</td>
 			</tr>
 			</tbody>		
-			<tr style="background-color: #3399CC">
+			<tr style="background-color: #f7b781">
 				<td colspan="14">
 					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 				</td>

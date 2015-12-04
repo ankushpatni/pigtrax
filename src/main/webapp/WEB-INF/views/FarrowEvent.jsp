@@ -15,7 +15,7 @@
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.farroweventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.farroweventform.search.data.errormessage' text='Farrow event information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.farroweventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
+            <input type="text" name="search" ng-model="searchText" ng-enter="getFarrowEventInformation()"  placeholder="<spring:message code='label.piginfo.farroweventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
 
 			 <div class="options">
 			 <div class="btn-group pull-right">
@@ -251,7 +251,7 @@
                     </div>
                     
                     <button class="btn btn-success" ng-click="addFarrowEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deleteFarrowEvent()" ng-show="farrowEvent.id != null && farrowEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.farroweventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.farroweventform.delete'  text='Delete'/></button>
                   </form>
                 </div>

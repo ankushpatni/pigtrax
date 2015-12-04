@@ -17,7 +17,7 @@
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.data.errormessage' text='Breeding event information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.breedingeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
+            <input type="text" name="search" ng-enter="getBreedingEventInformation()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.breedingeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
  		    
             <div class="options">
 			 <div class="btn-group pull-right">
@@ -186,7 +186,7 @@
                     </div>
                     
                     <button class="btn btn-success" ng-click="addBreedingEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deleteBreedingEventInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry and delete all the associated mating details?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
                   </form>
                 </div>
@@ -300,7 +300,7 @@
                     </div>                   
                     
                     <button class="btn btn-success" ng-click="saveMatingDetails()" type="submit"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>                    
+                    <button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>                    
                   </form>
                 </div>
               </div>
@@ -325,7 +325,7 @@
 		<div class="content" ng-show="(breedingEvent.id != null && breedingEvent.id > 0) || entryEventSuccessMessage">
 			<div class="table-responsive">
 			<table st-table="displayedCollection" st-safe-src="breedingEvent.matingDetailsList" class="table table-striped" style="background-color: LightGray">  
-				<thead style="background-color: #3399CC">
+				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.matingDate" text="Mating Date" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.employeeGroupId" text="Group Id" /></th>
@@ -347,7 +347,7 @@
 					</td>				
 				</tr>
 				</tbody>		
-				<tr style="background-color: #3399CC">
+				<tr style="background-color: #f7b781">
 					<td colspan="14">
 						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 					</td>

@@ -13,7 +13,7 @@
 			 		     <div class="head">
 			            	<h3> <spring:message code='label.piginfo.groupEventForm.search.heading'  text='Search Group Events'/></h3>
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.groupEventForm.search.data.errormessage' text='Group event information not found for the search criteria'/></p>
-					   		 <input type="text" name="search" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
+					   		 <input type="text" name="search"  ng-enter="getGroupEventInformation(searchText)" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.groupEventForm.search.placeholder'  text='Search by Group Id ...'/>" class="form-control" style="width:90%;display:inline">
 							 <button type="button" class="btn btn-primary active" ng-click="getGroupEventInformation(searchText)"><i class="fa fa-search"></i></button>
 			          	</div>
@@ -84,11 +84,11 @@
                          ng-options="k as v for (k, v) in phaseOfProductionType"> </select>
                          <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       
                     </div>
-                     <!-- <div class="form-group">
+                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
                       <input type="text" ng-model="groupEvent.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
                        ng-focus="clearMessages()"/>
-                   </div> -->
+                   </div> 
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.currentInventory'  text='Current Inventory'/></label>
                       <label ng-show="(groupEvent.currentInventory >= 0)"> : {{groupEvent.currentInventory}}</label>
@@ -140,7 +140,7 @@
 		</button>
 					<!-- <button class="btn btn-success" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button> -->
 					<!-- <button class="btn btn-success" ng-click="editGroupEventInventoryAmount()" type="button" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0 && groupEvent.active"><spring:message code='label.piginfo.groupEventform.adjustInventory'  text='Adjust Inventory'/></button> -->
-                    <button class="btn btn-default" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button> 
+                    <button class="btn btn-warning" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button> 
 					
                     <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus(false)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button>
 					
@@ -158,7 +158,7 @@
 		<div class="content" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.active) || entryEventSuccessMessage">
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection" st-safe-src="groupEventDetailList" class="table table-striped" style="background-color: LightGray">  
-				<thead style="background-color: #3399CC">
+				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:5%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.barn" text="Barn" /></th>
@@ -187,7 +187,7 @@
 					</td>				
 				</tr>
 				</tbody>		
-				<tr style="background-color: #3399CC">
+				<tr style="background-color: #f7b781">
 					<td colspan="14">
 						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 					</td>

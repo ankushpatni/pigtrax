@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<div id="form-primary" 	class="md-modal colored-header md-effect-9">
+<div id="form-primary" 	class="md-modal colored-header warning md-effect-9">
 	<div class="md-content" ng-show="truck">
 		<div class="modal-header" >
 			<h3><spring:message code="label.transportTruck.addTransportTruckData" text="Add Truck Data" /></h3>

@@ -55,8 +55,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.resetForm = function()
 	{
 		$scope.clearAllMessages();
-		$scope.removalEvent = {};
-		$scope.changeText();
+		$scope.removalEvent = {};		
 	}
 	
 	$scope.clearAllMessages = function()

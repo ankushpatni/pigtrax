@@ -16,35 +16,20 @@
                             
                     			
                     			<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
-                              		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) {%>
-                    			
-                    			 <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data/Roles"/></a>
-                    			     <ul class="sub-menu">
-                    			   		<li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data"/></a></li>
-                    			 	 </ul>                               			  
-                    			  </li>
+                              		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) {%>                    			
+                    		
                     			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Selection"/></a>
                     			  <ul class="sub-menu">
+                    			  <li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee Data"/></a></li>
                     			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Genetic Origin"/></a></li>
                     			   <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
-                    			  </ul>
-                    			  </li>
-                    			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a>
-                    			     <ul class="sub-menu">
-                    			   		<li><a href="company"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
-                    			 	 </ul>                            			 
-                    			  </li>
-                    			   <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Parameters"/></a>
-                    			     <ul class="sub-menu">
-                    			   		<li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Parameters"/></a></li>
-                    			 	 </ul>                               			  
-                    			  </li>
-                    			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.transportation.link"  text="Transportation"/></a>
-                    			  <ul class="sub-menu">
-                    			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.truckandtrailer.link"  text="Truck & Trailer"/></a></li>
+                    			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
+                    			   <li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Parameters"/></a></li>
                     			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
+                    			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.truckandtrailer.link"  text="Truck & Trailer"/></a></li>
                     			  </ul>
                     			  </li>
+                    			  
                     			  
                     			  <%}else if(request.isUserInRole(RoleType.DataManager.getRoleValue())){%>
                     			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Selection"/></a>
@@ -93,7 +78,7 @@
                                          </ul>
                                       </li>
                                       <%}%>
-                             <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytic Reports"/></span></a>
+                             <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Performance Reports"/></span></a>
                              	<ul class="sub-menu">
                                          	<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.link"  text="Ferrow Report"/></a></li>
                                 </ul>

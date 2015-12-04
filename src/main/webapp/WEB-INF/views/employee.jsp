@@ -26,7 +26,7 @@
 				<div class="table-responsive">
 		 <table st-table="employeeList" st-safe-src="rowCollection"
 								class="table table-striped" style="background-color: LightGray">
-			<thead style="background-color: #3399CC">
+			<thead style="background-color: #f7b781">
 			<tr>
 				<th><label><spring:message code="label.employee.employeeId" text="Employee Id" /></label></th>
 				<th><label><spring:message code="label.employee.name" text="Name" /></label></th>

@@ -1,6 +1,6 @@
 <%@ page import="com.pigtrax.usermanagement.enums.RoleType" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<div id="form-primary" 	class="md-modal colored-header md-effect-9" ng-controller="CompanyController">
+<div id="form-primary" 	class="md-modal colored-header warning md-effect-9" ng-controller="CompanyController">
 	<div class="md-content">
 		<div class="modal-header">
 			<h3><spring:message code="label.company.companyDetail" text="Company Detail" /></h3>

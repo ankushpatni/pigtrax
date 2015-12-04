@@ -69,10 +69,10 @@
 						</div>
                       </div>
                     </div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 				<label><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></label>
 				<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.remarks' text='Remarks' />" name="remarks" ng-model="groupEvent.remarks" maxlength="255" />
-			</div>
+			</div> -->
 			
                    
                   

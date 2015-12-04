@@ -4,7 +4,7 @@
 <%@page import="com.pigtrax.usermanagement.beans.Company"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> 
-<div id="form-primary" 	class="md-modal colored-header md-effect-9" ng-init="getEmployeeDetails(${employeeId})">
+<div id="form-primary" 	class="md-modal colored-header warning md-effect-9" ng-init="getEmployeeDetails(${employeeId})">
 	<div class="md-content">
 		<div class="modal-header">
 			<h3><spring:message code="label.employee.editEmployeeData" text="Edit Employee Data" /></h3>

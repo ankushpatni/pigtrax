@@ -16,7 +16,7 @@
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.data.errormessage' text='Pregnancy event information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pregnancyeventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
+            <input type="text" name="search" ng-model="searchText" ng-enter="getPregnancyEventInformation()"  placeholder="<spring:message code='label.piginfo.pregnancyeventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
 
 			 <div class="options">
 			 <div class="btn-group pull-right">
@@ -187,7 +187,7 @@
                         </select>
                     </div>
                     <button class="btn btn-success" ng-click="addPregnancyEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.pregnancyeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePregnancyEvent()" ng-show="pregnancyEvent.id != null && pregnancyEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.pregnancyeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pregnancyeventform.delete'  text='Delete'/></button>
                   </form>
                 </div>

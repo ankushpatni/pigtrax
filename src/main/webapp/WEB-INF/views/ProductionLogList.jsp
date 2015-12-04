@@ -63,7 +63,7 @@
 						<div class="table-responsive" style="overflow-x: hidden">
 						 	<table st-table="displayedCollection" st-safe-src="rowCollection"
 								class="table table-striped" style="background-color: LightGray">
-								<thead style="background-color: #3399CC">
+								<thead style="background-color: #f7b781">
 									<tr>
 									   <th st-sort="roomId" ><spring:message
 												code="label.productionlogform.roomId" text="Room Id" /></th>
@@ -106,7 +106,7 @@
 										</td>
 									</tr>
 								</tbody>
-								<tr style="background-color: #3399CC">
+								<tr style="background-color: #f7b781">
 									<td colspan="14">
 										<div st-pagination="" st-items-by-page="itemsByPage"
 											st-displayed-pages="totalPages"></div>

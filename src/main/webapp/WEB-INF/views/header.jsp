@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="fa fa-gear"></span></button>
-          <a href="#" class="navbar-brand"><span><!--<spring:message code="label.application.title"  text="PigTrax"/>-->&nbsp;<!--<spring:message code="label.application.system.title"  text="System"/>--></span></a>
+          <a href="#" class="navbar-brand"><span></span></a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">

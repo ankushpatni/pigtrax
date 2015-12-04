@@ -156,7 +156,7 @@
                   	<button class="btn btn-success" ng-click="addRemovalExceptSales()" type="submit" ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-success" ng-click="addRemovalExceptSales()" type="submit" ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
 					<button class="btn btn-success" ng-click="moveToAnotherGroup()" type="submit" ng-show="selectGroup=='group' && removalTypeId == 9"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button>					
-					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
+					<button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
 					
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>
 					<input type="hidden" name="selectedCompany" id="selectedCompany"/>

@@ -15,12 +15,10 @@
  		     <h3> <spring:message code='label.piginfo.entryeventform.search.heading'  text='Search Pig'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.entryeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
-			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
- 		    
+ 		    <input type="text" name="search" ng-enter="getPigInformation()" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>"/>
             <div class="options">
 			 <div class="btn-group pull-right">
-                <button type="button" class="btn btn-primary active" ng-click="getPigInformation()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-primary active" ng-enter="getPigInformation()" ng-click="getPigInformation()"><i class="fa fa-search"></i></button>
               </div>
               <div class="form-group">
                 <label class="radio-inline">
@@ -199,7 +197,7 @@
                       <textarea name="remarks" ng-model="pigInfo.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.entryeventform.remarks.placeholder' text='Enter remarks'/>" ></textarea>
                     </div>
                     <button class="btn btn-success" ng-click="addEntryEvent()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-warning" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>
                     <button class="btn btn-danger pull-right" ng-click="deletePigInfo()" type="button" ng-show="pigInfo.id != null && pigInfo.id > 0" ng-confirm-click="<spring:message code='label.piginfo.entryeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.entryeventform.delete'  text='Delete'/></button>
                   </form>
                 </div>

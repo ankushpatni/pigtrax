@@ -1,5 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<div id="addFeedEventDetailModal" class="md-modal colored-header md-effect-9" ng-init="init()">
+<div id="addFeedEventDetailModal" class="md-modal colored-header warning md-effect-9" ng-init="init()">
 	<div class="md-content">
 <div class="modal-header">
 	<h3 ng-hide="edit"><spring:message code="label.feedEventDetail.add" text="Add Feed Event Detail" /></h3>

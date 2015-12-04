@@ -50,7 +50,7 @@
                       <textarea name="remarks" ng-model="masterRation.rationDescription" class="form-control" placeholder="<spring:message code='label.rationform.rationdescription.placeholder' text='Enter ration description'/>" ></textarea>
                     </div>
                     <button class="btn btn-success" ng-click="saveRation()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                    
+                    <button class="btn btn-warning" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                    
                   </form>
                 </div>
               </div>
@@ -70,7 +70,7 @@
 		<div class="content" ng-show="rationList != null && rationList.length > 0 ">
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection" st-safe-src="rationList" class="table table-striped" style="background-color: LightGray">  
-				<thead style="background-color: #3399CC">
+				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:20%"><spring:message code="label.rationform.ration" text="Ration" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.feedType" text="Feed Type" /></th>
@@ -99,7 +99,7 @@
 					</td>				
 				</tr>
 				</tbody>		
-				<tr style="background-color: #3399CC">
+				<tr style="background-color: #f7b781">
 					<td colspan="14">
 						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 					</td>

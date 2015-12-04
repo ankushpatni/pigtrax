@@ -24,8 +24,8 @@
 				            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.errormessage' text='Please enter Group Id/Pig Id/Removal Event Id  and select the corresponding option'/></p>
 				            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.data.errormessage' text='Removal/Sales information not found for the search criteria'/></p>
 							
-				            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.removalExceptSales.search.placeholder'  text='Search by Group Id/Pig Id/Removal Event Id ...'/>" class="form-control">
-				
+				            <input type="text" name="search" ng-model="searchText"  ng-enter="searchRemovalEvent(searchText)" placeholder="<spring:message code='label.piginfo.removalExceptSales.search.placeholder'  text='Search by Group Id/Pig Id/Removal Event Id ...'/>" class="form-control">
+				 
 							 <div class="options">
 							 <div class="btn-group pull-right">
 				                <button type="button" class="btn btn-primary active" ng-click="searchRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
@@ -157,7 +157,7 @@
                     					
                   	<button class="btn btn-success" ng-click="addRemovalEvent()" type="submit" ng-hide="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-success" ng-click="addRemovalEvent()" type="submit" ng-show="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
-					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
+					<button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
                    </form>
                 </div>
               </div>
@@ -171,7 +171,7 @@
 		<h3><spring:message code='label.piginfo.removalExceptSales.removalExcept.header'  text='Removal Except Sales'/></h3>
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection2" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
-				<thead style="background-color: #3399CC">
+				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
@@ -202,7 +202,7 @@
 					</td>				
 				</tr>
 				</tbody>		
-				<tr style="background-color: #3399CC">
+				<tr style="background-color: #f7b781">
 					<td colspan="14">
 						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 					</td>
@@ -223,7 +223,7 @@
 		<div class="content">
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection1" st-safe-src="salesEventList" class="table table-striped" style="background-color: LightGray">  
-				<thead style="background-color: #3399CC">
+				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number' /></th>
@@ -260,7 +260,7 @@
 					</td>				
 				</tr>
 				</tbody>		
-				<tr style="background-color: #3399CC">
+				<tr style="background-color: #f7b781">
 					<td colspan="14">
 						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 					</td>

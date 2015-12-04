@@ -15,7 +15,7 @@
 				<div class="content">
 					<div class="table-responsive" style="overflow-x: hidden">
 						<table st-table="displayedCollection1" st-safe-src="rowCollectionTruck" class="table table-striped" style="background-color: LightGray">  
-							<thead style="background-color: #3399CC">
+							<thead style="background-color: #f7b781">
 							<tr>
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.transportTruckId" text="Truck Number Plate" /></th>
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.purchaseYear" text="Purchase Year" /></th>
@@ -34,7 +34,7 @@
 								</td>				
 							</tr>
 							</tbody>		
-							<tr style="background-color: #3399CC">
+							<tr style="background-color: #f7b781">
 								<td colspan="14">
 									<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPagesTruck" ></div>
 								</td>
@@ -56,7 +56,7 @@
 				<div class="content">
 					<div class="table-responsive" style="overflow-x: hidden">
 						<table st-table="displayedCollection" st-safe-src="rowCollectionTrailer" class="table table-striped" style="background-color: LightGray">  
-							<thead style="background-color: #3399CC">
+							<thead style="background-color: #f7b781">
 							<tr>
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTrailer.transportTrailerId" text="Trailer Number Plate" /></th>
 								<th style="width:30%"><spring:message code="label.transportTrailer.transportTrailerTypeId" text="Trailer Type" /></th>
@@ -79,7 +79,7 @@
 								</td>				
 							</tr>
 							</tbody>		
-							<tr style="background-color: #3399CC">
+							<tr style="background-color: #f7b781">
 								<td colspan="14">
 									<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPagesTrailer" ></div>
 								</td>

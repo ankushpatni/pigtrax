@@ -190,7 +190,7 @@
                    </div>
                     					
                   	<button class="btn btn-success" ng-click="addSalesEventDetails()" type="submit"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
-					<button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
+					<button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
 					
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>
 					<input type="hidden" name="selectedCompany" id="selectedCompany"/>

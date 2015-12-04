@@ -20,13 +20,13 @@
             	<spring:message code='label.piginfo.pigletstatuseventform.search.data.errormessage' 
             	text='Piglet status event information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" 
+            <input type="text" name="search" ng-model="searchText"  ng-enter="searchPigletStatusEvents()" 
             placeholder="<spring:message code='label.piginfo.pigletstatuseventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" 
             class="form-control">
 
 			 <div class="options">
 			 <div class="btn-group pull-right">
-                <button type="button" class="btn btn-primary active" ng-click="searchPigletStatusEvents()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-primary active"  ng-click="searchPigletStatusEvents()"><i class="fa fa-search"></i></button>
               </div>
               <div class="form-group">
                 <label class="radio-inline">
@@ -300,7 +300,7 @@
                     </div> 
                     
                     <button class="btn btn-success" ng-click="addPigletStatusEvent()" type="submit" ng-disabled="inValidPigIdFromServer || pigletStatusEvent.farrowEventId == null"><spring:message code='label.piginfo.pigletstatuseventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pigletstatuseventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pigletstatuseventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletStatusEvent()" ng-show="editBtnclicked" ng-confirm-click="<spring:message code='label.piginfo.pigletstatuseventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigletstatuseventform.delete'  text='Delete'/></button>
                   </form>
                 </div>

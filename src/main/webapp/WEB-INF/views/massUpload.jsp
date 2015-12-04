@@ -50,7 +50,7 @@
 							<option value="true" <%=eventType.equals("true")?"selected":"" %>>WITH HEADER</option>
 							<option value="false" <%=eventType.equals("false")?"selected":"" %>>WITHOUT HEADER</option>
 						</select> <br />
-						<button type="submit" value="upload">
+						<button type="submit" value="upload" class="btn btn-success">
 							<spring:message code='label.piginfo.entryeventform.upload.button'
 								text='Upload' />
 						</button>

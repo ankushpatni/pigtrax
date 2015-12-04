@@ -208,7 +208,7 @@
                         </select>
                     </div>
                     <button class="btn btn-success" ng-click="addBreedingEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.breedingeventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deleteBreedingEventInfo()" ng-show="breedingEvent.id != null && breedingEvent.id > 0" ng-confirm-click="<spring:message code='label.piginfo.breedingeventform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.breedingeventform.delete'  text='Delete'/></button>
                   </form>
                 </div>
@@ -335,7 +335,7 @@
 		<div class="content" ng-show="(breedingEvent.id != null && breedingEvent.id > 0) || entryEventSuccessMessage">
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection" st-safe-src="breedingEvent.matingDetailsList" class="table table-striped" style="background-color: LightGray">  
-				<thead style="background-color: #3399CC">
+				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:10%"><spring:message code="label.matingdetailsform.matingDate" text="Mating Date" /></th>
 						<th style="width:10%"><spring:message code="label.matingdetailsform.employeeGroupId" text="Group Id" /></th>
@@ -364,7 +364,7 @@
 					</td>				
 				</tr>
 				</tbody>		
-				<tr style="background-color: #3399CC">
+				<tr style="background-color: #f7b781">
 					<td colspan="14">
 						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
 					</td>

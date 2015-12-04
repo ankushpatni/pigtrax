@@ -15,7 +15,7 @@
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.pigletEventform.search.errormessage' text='Please enter Farrow Id/ Piglet Tattoo Id and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.pigletEventform.search.data.errormessage' text='Piglet event information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pigleteventform.search.placeholder'  text='Search by Farrow Id / Tattoo ...'/>" class="form-control">
+            <input type="text" name="search"  ng-enter="getPigletEventInformation()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pigleteventform.search.placeholder'  text='Search by Farrow Id / Tattoo ...'/>" class="form-control">
 
 			 <div class="options">
 			 <div class="btn-group pull-right">
@@ -123,7 +123,7 @@
                       required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.requiredmessage' text='Weight at weaning information is required' />'"/>
                     </div>						
                     <button class="btn btn-success" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" type="button" ng-click="pigleteventform.reset()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
+                    <button class="btn btn-warning" type="button" ng-click="pigleteventform.reset()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletEvent()" ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0" ng-confirm-click="<spring:message code='label.piginfo.pigleteventformform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigleteventform.delete'  text='Delete'/></button>
                   </form>
                 </div> 

@@ -2,7 +2,7 @@
 <%@page import="com.pigtrax.usermanagement.beans.PigTraxUser"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<div id="form-primary" 	class="md-modal colored-header md-effect-9">
+<div id="form-primary" 	class="md-modal colored-header warning md-effect-9">
 	<div class="md-content">
 		<div class="modal-header">
 			<h3><spring:message code="label.employee.addEmployeeData" text="Add Employee Data" /></h3> 

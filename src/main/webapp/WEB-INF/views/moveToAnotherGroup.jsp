@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-<div id="form-primary" 	class="md-modal colored-header md-effect-9">
+<div id="form-primary" 	class="md-modal colored-header warning md-effect-9">
 	<div class="md-content">
 <div class="modal-header">
 	<h3 ng-hide="edit"><spring:message code="label.groupEventDetail.moveGroupEvent" text="Move Group Event" /></h3>

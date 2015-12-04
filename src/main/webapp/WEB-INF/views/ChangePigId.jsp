@@ -19,7 +19,7 @@
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.entryeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
 			
-            <input type="text" name="search" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
+            <input type="text" name="search"  ng-enter="getPigInformationForChangeId()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
  		    
             <div class="options">
 			 <div class="btn-group pull-right">
@@ -81,7 +81,7 @@
                         <label ng-show="changeDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.changepigidform.changeDate.requiredmessage' text='Change Date is required' /></label>
                     </div>
                     <button class="btn btn-success" ng-disabled="!pigInfo.active || newPigIdActiveError" ng-click="changePigId()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
-                    <button class="btn btn-default" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                   
+                    <button class="btn btn-warning" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                   
                   </form>
                 </div> 
               </div>
