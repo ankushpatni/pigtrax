@@ -7,7 +7,7 @@
 	            <div class="col-sm-6 col-md-6">
 			<div class="block-flat">
 				<div class="header">
-					<h3><spring:message code="label.employee.ForgetPassword"  text="Forget Password"/></h3>
+					<h3><spring:message code="label.employee.ForgetPassword"  text="Forgot Password"/></h3>
 					
 				<div class="alert alert-success alert-white rounded"  ng-show="successMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>

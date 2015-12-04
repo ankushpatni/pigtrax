@@ -30,7 +30,7 @@
 
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-primary"><spring:message code="label.login"  text="Login"/></button>
+								<button type="submit" class="btn btn-success"><spring:message code="label.login"  text="Login"/></button>
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
 									<a href="forgetPassword"><p style="float: right;">Forgot your password?</p></a>
