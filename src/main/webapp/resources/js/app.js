@@ -224,6 +224,7 @@ pigTrax.directive('ngConfirmClick', [ function() {
                     });
 
                     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+						alert("old : "+oldValue+"/ new : "+newValue);
                         if (newValue) {
                             element.bootstrapSwitch('state', true, true);
                         } else {

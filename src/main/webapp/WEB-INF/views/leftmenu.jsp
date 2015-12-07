@@ -6,8 +6,8 @@
               <div class="cl-navblock">
                 <div class="menu-space">
                   <div class="content">
-                    <div class="side-user">
-                      	<input id="switch-state" type="checkbox"  ng-model="myDateFormat" data-on-text="MM/DD/YYYY " data-off-text="DD/MM/YYYY " data-on-color="warning" class="switch" data-label-width="20"  checked="false">
+                    <div class="side-user">                      						
+						<label>Date Format :</label> <button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-success"  ng-click="toggle()">dd/MM/yyyy</button>
                     </div>
                      <ul class="cl-vnavigation">
                             <li><a href="home"><i class="fa fa-home"></i><span><spring:message code="label.leftmenu.dashboard.link"  text="Dashboard"/></span></a>
