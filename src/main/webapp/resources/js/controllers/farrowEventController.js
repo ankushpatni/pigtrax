@@ -6,6 +6,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	$scope.farrowEvent = {};
 	$scope.confirmClick = false;
 	$scope.farrowEventList = [];
+	$scope.DateUtils = DateUtils;
 	
 	$scope.clearAllMessages = function()
 	{
@@ -138,8 +139,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
     {	
 		$scope.farrowEvent["inducedBirth"] = false;
 		$scope.farrowEvent["assistedBirth"] = false;
-		var farrowDate = document.getElementById("farrowDate").value;
-		$scope.farrowEvent["farrowDateTime"] = farrowDate;
+		var farrowDate = $scope.farrowEvent["farrowDateTime"]
+		//$scope.farrowEvent["farrowDateTime"] = farrowDate;
 		var pattern = /^[a-z0-9]+$/i;
 		var birthType = "";
 		if(document.getElementById("birthType1").checked)

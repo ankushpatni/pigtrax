@@ -49,9 +49,8 @@
                     
                     <div class="form-group"> 
                       <label><spring:message code='label.companytargetform.completiondate'  text='Start Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="completionTargetDiv">
-                          <input size="16" type="date" id="completionDate" name="completionDate" ng-model="companyTarget.completionDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                      <input rsmdatedropdowns ng-model="companyTarget.completionDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
+                     
                         <label ng-show="completionDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.completionDateRequiredMessage' text='Completion date is required' /></label> 
                     </div>
 					
@@ -96,7 +95,7 @@
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:20%">{{row.targetName}}</td>
 					<td style="width:20%">{{row.targetValue}}</td>					
-					<td style="width:20%">{{row.completionDate|  date : 'yyyy-MM-dd'}}</td>
+					<td style="width:20%">{{DateUtils.getFormatedDate(row.completionDate)}}</td>
 					<td style="width:20%">{{row.remarks}}</td>
 					<td style="width:20%">
 					<button type="button" class="btn btn-edit btn-xs"
@@ -123,14 +122,7 @@
 	</form>	 
      </div>             
       </div>        
-      </div>          
-	  <script>
-         $(document).ready(function(){
-	      var currDate = new Date();
-		  var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
-      	  $("#completionTargetDiv").attr('data-date-startdate',dateVal);
-      });  
-	  </script>
+      </div>
 </div>
 
 

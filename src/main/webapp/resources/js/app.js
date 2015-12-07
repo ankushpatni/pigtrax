@@ -1,4 +1,4 @@
-var pigTrax = angular.module('pigTrax',['ngResource', 'ui.bootstrap',,'smart-table','rorymadden.date-dropdowns']);
+var pigTrax = angular.module('pigTrax',['ngResource', 'ui.bootstrap',,'smart-table','rorymadden.date-dropdowns','ngCookies']);
 
 //directive to show a confirm prompt
 pigTrax.directive('ngConfirmClick', [ function() {
@@ -207,6 +207,33 @@ pigTrax.directive('ngConfirmClick', [ function() {
 		    }
 		  }
 		})
+ .directive('bootstrapSwitch', [
+        function() {
+            return {
+                restrict: 'A',
+                require: '?ngModel',
+                link: function(scope, element, attrs, ngModel) {
+                    element.bootstrapSwitch();
+
+                    element.on('switchChange.bootstrapSwitch', function(event, state) {
+                        if (ngModel) {
+                            scope.$apply(function() {
+                                ngModel.$setViewValue(state);
+                            });
+                        }
+                    });
+
+                    scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+                        if (newValue) {
+                            element.bootstrapSwitch('state', true, true);
+                        } else {
+                            element.bootstrapSwitch('state', false, true);
+                        }
+                    });
+                }
+            };
+        }
+    ])
 .directive('myReset', function(){
 	  return {
 		     restrict: 'A',

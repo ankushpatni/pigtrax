@@ -1,4 +1,4 @@
-var groupEventController = pigTrax.controller('GroupEventController', function($scope,$rootScope, $http,$window,$modal,restServices) {
+var groupEventController = pigTrax.controller('GroupEventController', function($scope,$rootScope, $http,$window,$modal,restServices, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -16,6 +16,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.barnList={};
 	$scope.entryEventStatusChangeSuccessMessage = false;
 	$scope.editGroupEventInventory = false;
+	$scope.DateUtils = DateUtils;
 		
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid)
@@ -87,8 +88,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.groupEventDetailList = [];
 		$scope.groupEvent = {};
 		$scope.clearAllMessages();
-		document.getElementById("groupStartDateTime").value = "";
-		document.getElementById("groupCloseDateTime").value = "";
+		//document.getElementById("groupStartDateTime").value = "";
+		//document.getElementById("groupCloseDateTime").value = "";
 		$scope.changeText();
 	}
 	
@@ -108,7 +109,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					moveToAnotherGroup.groupGeneratedIdSeq = $scope.groupEvent.id;
 					moveToAnotherGroup.previousGroupId = $scope.groupEvent.groupId;
 					moveToAnotherGroup.pigCount = $scope.groupEvent.currentInventory;
-					moveToAnotherGroup.groupStartDateTime = document.getElementById("groupStartDateTime").value;
+					moveToAnotherGroup.groupStartDateTime = $scope.groupEvent.groupStartDateTime;
 					return moveToAnotherGroup;
 				}
 			}
@@ -124,7 +125,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.addGroupEvent = function()
 	{
-		if(document.getElementById("groupStartDateTime").value === "")
+		if($scope.groupEvent.groupStartDateTime == null || $scope.groupEvent.groupStartDateTime === "")
 		{
 			$scope.groupdaterequired = true;
 			console.log($scope.groupdaterequired);
@@ -143,8 +144,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			
 					"groupId" : $scope.groupEvent.groupId,
 					"companyId" : $rootScope.companyId,
-					"groupStartDateTime" : document.getElementById("groupStartDateTime").value,
-					"groupCloseDateTime" : document.getElementById("groupCloseDateTime").value,					
+					"groupStartDateTime" : $scope.groupEvent.groupStartDateTime,
+					"groupCloseDateTime" : $scope.groupEvent.groupCloseDateTime,					
 					"remarks" : $scope.groupEvent.remarks,
 					"phaseOfProductionTypeId" : $scope.groupEvent.phaseOfProductionTypeId,
 					"fromMove" : false,
@@ -192,7 +193,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.clearAllMessages();
 		if(!flag)
 		{
-			if(document.getElementById("groupCloseDateTime").value === "")
+			if($scope.groupEvent.groupCloseDateTime == null || $scope.groupEvent.groupCloseDateTime == "")
 			{
 				$scope.groupenddaterequired = true;
 				return;
@@ -200,7 +201,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			else
 			{
 				$scope.groupenddaterequired = false; 
-				if($scope.groupEvent.groupStartDateTime > document.getElementById("groupCloseDateTime").value)
+				if($scope.groupEvent.groupStartDateTime > $scope.groupEvent.groupCloseDateTime)
 				{
 					$scope.groupStartEndDateError = true;
 					return;
@@ -217,7 +218,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"id" : $scope.groupEvent.id,
 					"companyId" : $rootScope.companyId,
 					"active" : flag,
-					"groupCloseDateTime" : document.getElementById("groupCloseDateTime").value,
+					"groupCloseDateTime" : $scope.groupEvent.groupCloseDateTime,
 					
 				};
 			
@@ -293,7 +294,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		document.getElementById("groupEventId").value = groupEventId;
 		document.getElementById("groupGeneratedIdSeq").value = $scope.groupEvent.id;
 		document.getElementById("companyId").value = $scope.companyId;
-		document.getElementById("groupStartDateTimeAdd").value = document.getElementById("groupStartDateTime").value;
+		document.getElementById("groupStartDateTimeAdd").value = $scope.groupEvent.groupStartDateTime;
 		
 		document.forms['groupEventFormAdd'].action = 'addGroupEventDetail';
 		document.forms['groupEventFormAdd'].submit();

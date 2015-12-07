@@ -6,6 +6,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	$scope.pregnancyEvent = {};
 	$scope.confirmClick = false;
 	$scope.breedingEventList = [];
+	$scope.DateUtils = DateUtils;
 	
 	$scope.clearAllMessages = function()
 	{
@@ -158,9 +159,9 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	 */
 	$scope.addPregnancyEvent = function()
     {
-		var examDate = document.getElementById("resultDate").value;
+		var examDate = $scope.pregnancyEvent["resultDate"];
 		
-		var resultDate = document.getElementById("resultDate").value;
+		var resultDate = $scope.pregnancyEvent["resultDate"];
 		
 		if($scope.pregnancyEvent.breedingEventId == undefined || $scope.pregnancyEvent.breedingEventId == null && $scope.pregnancyEvent.breedingEventId == "")
 		{

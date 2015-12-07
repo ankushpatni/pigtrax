@@ -5,6 +5,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	$rootScope.selectedEmployeeGroup = {};
 	$scope.breedingEvent = {};
 	$scope.confirmClick = false;
+	$scope.DateUtils = DateUtils;
 	
 	$scope.clearAllMessages = function()
 	{
@@ -208,12 +209,12 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	
 	$scope.confirmAddMatingDetails = function()
 	{
-		var matingDate = document.getElementById("matingDate").value;
-		var matingDateVal = new Date(matingDate);
-		matingDate = DateUtils.convertLocaleDateToServer(matingDateVal);
+		//var matingDate = document.getElementById("matingDate").value;
+		//var matingDateVal = new Date(matingDate);
+		//matingDate = DateUtils.convertLocaleDateToServer(matingDateVal);
 		
 		$scope.matingDetails["breedingEventId"] = $scope.breedingEvent["id"];
-		$scope.matingDetails["matingDate"] =matingDate;
+		//$scope.matingDetails["matingDate"] =matingDate;
 		
 		//alert(JSON.stringify($scope.breedingEvent)); 
 		restServices.saveMatingDetails($scope.matingDetails, function(data){
@@ -253,9 +254,9 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	{	
 		$scope.matingDateRequired = false;
 		
-		var matingDate = document.getElementById("matingDate").value;
+		//var matingDate = document.getElementById("matingDate").value;
 		
-		if(matingDate == null || matingDate == undefined || matingDate == "")
+		if($scope.matingDetails["matingDate"] == null || $scope.matingDetails["matingDate"] == undefined || $scope.matingDetails["matingDate"] == "")
 		{
 			$scope.matingDateRequired = true;
 		}	
@@ -268,12 +269,12 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 			}
 			else
 			{	
-				var matingDate = document.getElementById("matingDate").value;
-				var matingDateVal = new Date(matingDate);
-				matingDate = DateUtils.convertLocaleDateToServer(matingDateVal);
+				//var matingDate = document.getElementById("matingDate").value;
+				//var matingDateVal = new Date(matingDate);
+				//matingDate = DateUtils.convertLocaleDateToServer(matingDateVal);
 				
 				$scope.matingDetails["breedingEventId"] = $scope.breedingEvent["id"];
-				$scope.matingDetails["matingDate"] = matingDate;
+				//$scope.matingDetails["matingDate"] = matingDate;
 				
 				restServices.validateMatingDetails($scope.matingDetails, function(data){
 			   		if(!data.error)

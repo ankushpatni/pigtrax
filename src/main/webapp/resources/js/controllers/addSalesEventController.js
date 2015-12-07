@@ -205,7 +205,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	{
 				
 		$scope.clearAllMessages();
-		if(document.getElementById("salesDateTime").value === "")
+		if($scope.removalExceptSales["salesDateTime"] === "")
 		{
 			$scope.removalDateTimerequired = true;
 			return;
@@ -214,7 +214,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		{
 			return false;
 		}
-		$scope.removalExceptSales.salesDateTime = document.getElementById("salesDateTime").value;
+		
 		if($scope.removalExceptSales.id === 'undefined' )
 		{
 			$scope.removalExceptSales.id = 0;

@@ -89,7 +89,7 @@
 					<td style="width:20%">{{row.rationValue}}</td>
 					<td style="width:20%">{{row.feedType}}</td>
 					<td style="width:20%">{{row.rationDescription}}</td>
-					<td style="width:20%">{{row.lastUpdated|  date : 'yyyy-MM-dd'}}</td>
+					<td style="width:20%">{{DateUtils.getFormatedDate(row.lastUpdated)}}</td>
 					<td style="width:20%">{{row.userUpdated}}</td>										
 					<td style="width:20%">						
 					<button type="button" class="btn btn-edit btn-xs"

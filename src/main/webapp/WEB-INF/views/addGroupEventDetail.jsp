@@ -15,7 +15,7 @@
                   <form name="groupEventDetailAddForm" novalidate angular-validator method="post">
 				  <input type=hidden name="groupId" ng-model="groupEvent.groupId"/>
                 	 <div class="form-group">
-						<label><spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
+						<label>{{groupStartDateTime}}<spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
 						<label>{{groupAlphaId}}</label>
 					 </div>					 
 					<div class="form-group">
@@ -38,9 +38,7 @@
                     </div>			
 					<div class="form-group">
 						<label ><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /><span style='color: red'>*</span></label>
-						<div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-							 <input size="16" type="date" id="dateOfEntry" name="groupEvent.dateOfEntry" ng-model="groupEvent.dateOfEntry" readonly="" class="form-control" format-date required-message="'<spring:message code='label.groupEventDetail.dateOfEntry.required' text='Date of Entry is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-						</div>
+						<input rsmdatedropdowns ng-model="groupEvent.dateOfEntry" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>						
 					</div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="dateOfEntryFlag" ><spring:message code='label.groupEventDetail.dateOfEntry.conditionMaessag' text='Date Of Entry should be greater than Group Start Date.' /></label>

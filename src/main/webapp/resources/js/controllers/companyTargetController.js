@@ -30,6 +30,7 @@ pigTrax.service("CompanyTargetsService", function() {
 pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,$window,restServices, DateUtils, CompanyTargetsService) {
 	$scope.companyId = "";
 	$scope.companyTarget = {};
+	$scope.DateUtils = DateUtils;
 	
 	
 	$scope.setCompanyId = function(companyId)
@@ -79,8 +80,8 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	$scope.saveCompanyTarget = function()
 	{
 		valid = true;
-		var completionDate = document.getElementById("completionDate").value;
-		$scope.companyTarget["completionDate"] = completionDate;
+		//var completionDate = document.getElementById("completionDate").value;
+		//$scope.companyTarget["completionDate"] = completionDate;
 		
 		if($scope.companyTarget["targetId"] == null)
 		{
@@ -118,8 +119,8 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		  if(!exists)
 			  {
 			
-		   var completionDate = document.getElementById("completionDate").value;
-		   $scope.companyTarget["completionDate"] = completionDate;
+		   //var completionDate = document.getElementById("completionDate").value;
+		   //$scope.companyTarget["completionDate"] = completionDate;
 		   $scope.companyTarget["companyId"] = $rootScope.companyId;
 			
 		   restServices.saveCompanyTarget($scope.companyTarget, function(data){
@@ -193,7 +194,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	$scope.resetForm = function()
 	{
 		$scope.clearAllMessages();
-		$scope.companyTarget = {};
-		document.getElementById("completionDate").value = null;
+		$scope.companyTarget = {};		
+		//document.getElementById("completionDate").value = null;
 	}
 });

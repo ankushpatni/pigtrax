@@ -154,7 +154,7 @@
                        <tbody>
 	                   <tr ng-repeat="farrowEventObj in farrowEventList" ng-if="farrowEventList != null && farrowEventList.length > 0">
 	                    <td><input type="radio" name="farrowEventDtoId" id="farrowEventDtoId" ng-model="pigletEvent.farrowEventDto" ng-value="farrowEventObj"></td>	                   
-	                    <td>{{farrowEventObj.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{DateUtils.getFormatedDate(farrowEventObj.farrowDateTime)}}</td>
 	                     <td>{{farrowEventObj.liveBorns}}</td>
 	                   </tr>
 	                   <tr ng-if="farrowEventList == null || farrowEventList.length == 0">

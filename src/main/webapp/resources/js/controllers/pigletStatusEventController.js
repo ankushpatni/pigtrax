@@ -5,7 +5,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	$scope.pigletStatusEvent = {};
 	$scope.confirmClick = false;
 	$scope.editBtnclicked = false;
-	
+	$scope.DateUtils = DateUtils;
 	
 	$scope.clearAllMessages = function()
 	{
@@ -351,7 +351,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
     {
 		$scope.clearAllMessages();
 		
-		var weanEventDateTime = document.getElementById("weanEventDateTime").value;
+		/*var weanEventDateTime = document.getElementById("weanEventDateTime").value;
 		var weanEventDateVal = new Date(weanEventDateTime);
 		weanEventDateTime = DateUtils.convertLocaleDateToServer(weanEventDateVal);
 		$scope.pigletStatusEvent["weanEventDateTime"] = weanEventDateTime;
@@ -364,7 +364,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		var deathEventDateTime = document.getElementById("deathEventDateTime").value;
 		var deathEventDateVal = new Date(deathEventDateTime);
 		deathEventDateTime = DateUtils.convertLocaleDateToServer(deathEventDateVal);   
-		$scope.pigletStatusEvent["deathEventDateTime"] = deathEventDateTime;
+		$scope.pigletStatusEvent["deathEventDateTime"] = deathEventDateTime;*/
 					
 		
 		var weanPigNum = $scope.pigletStatusEvent["weanPigNum"];

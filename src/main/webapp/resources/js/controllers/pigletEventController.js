@@ -1,4 +1,4 @@
-var pigletEventController = pigTrax.controller('PigletEventController', function($scope,$rootScope, $http,$window,restServices) {
+var pigletEventController = pigTrax.controller('PigletEventController', function($scope,$rootScope, $http,$window,restServices, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -6,6 +6,7 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 	$scope.pigletEvent = {};
 	$scope.confirmClick = false;
 	$scope.farrowEventList = [];
+	$scope.DateUtils = DateUtils;
 	
 	$scope.clearAllMessages = function()
 	{

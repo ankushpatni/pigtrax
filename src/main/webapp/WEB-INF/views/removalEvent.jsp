@@ -188,7 +188,7 @@
 				<tr ng-repeat="row in displayedCollection2 track by $index">
 					<td style="width:10%">{{$index+1}}</td>
 					<td style="width:10%">{{row.numberOfPigs}}</td>
-					<td style="width:10%">{{row.removalDateTime}}</td>
+					<td style="width:10%">{{DateUtils.getFormatedDate(row.removalDateTime)}}</td>
 					<td style="width:25%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{pigInfoList[row.pigInfoId].pigId}}</td>
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
@@ -247,7 +247,7 @@
 					<td style="width:25%">{{row.revenueUsd}}</td>
 					<td style="width:25%">{{row.soldTo}}</td>
 					<td style="width:10%">{{row.numberOfPigs}}</td>
-					<td style="width:10%">{{row.salesDateTime}}</td>
+					<td style="width:10%">{{DateUtils.getFormatedDate(row.salesDateTime)}}</td>
 					<td style="width:25%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{pigInfoList[row.pigInfoId].pigId}}</td>
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>

@@ -1,4 +1,4 @@
-var feedEventController = pigTrax.controller('FeedEventController', function($scope,$rootScope,$modal,$http,$window,restServices) {
+var feedEventController = pigTrax.controller('FeedEventController', function($scope,$rootScope,$modal,$http,$window,restServices, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -11,7 +11,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	$scope.feedEventType={};
 	$scope.groupEvent={};
 	$scope.rationType={};
-	
+	$scope.DateUtils = DateUtils;
 	
 	$scope.setCompanyId = function(companyId,ticketNumber)
 	{
@@ -69,33 +69,33 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	{
 		if($scope.feedEventForm.$valid)
 			{
-				if(document.getElementById("initialFeedEntryDateTime").value != "")
-				{
-					$scope.feedEvent.initialFeedEntryDateTime =  document.getElementById("initialFeedEntryDateTime").value;
-				}
-				$scope.clearAllMessages();
+				if($scope.feedEvent["initialFeedEntryDateTime"] != "")
+				{					
 				
-				restServices.addFeedEvent($scope.feedEvent, function(data){
-				console.log(data);
-					if(!data.error)
-						{
-							
-							$scope.entryEventSuccessMessage = true;
-							$scope.getFeedEvent($scope.feedEvent.ticketNumber,true);
-						}
-					else
-						{
-							$scope.clearAllMessages();
-							if(data.duplicateRecord)
+					$scope.clearAllMessages();
+					
+					restServices.addFeedEvent($scope.feedEvent, function(data){
+					console.log(data);
+						if(!data.error)
 							{
-								$scope.groupEventDuplicateErrorMessage = true;
+								
+								$scope.entryEventSuccessMessage = true;
+								$scope.getFeedEvent($scope.feedEvent.ticketNumber,true);
 							}
-							else
+						else
 							{
-								$scope.entryEventErrorMessage = true;
-							}
-						} 
-				});
+								$scope.clearAllMessages();
+								if(data.duplicateRecord)
+								{
+									$scope.groupEventDuplicateErrorMessage = true;
+								}
+								else
+								{
+									$scope.entryEventErrorMessage = true;
+								}
+							} 
+					});
+				}
 			}
 		
 		$window.scrollTo(0,5);

@@ -97,7 +97,7 @@
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:20%">{{row.targetName}}</td>
 					<td style="width:20%">{{row.targetValue}}</td>					
-					<td style="width:20%">{{row.completionDate|  date : 'yyyy-MM-dd'}}</td>
+					<td style="width:20%">{{DateUtils.getFormatedDate(row.completionDate)}}</td>
 					<td style="width:20%">{{row.remarks}}</td>
 					<td style="width:20%">
 					<button type="button" class="btn btn-edit btn-xs"

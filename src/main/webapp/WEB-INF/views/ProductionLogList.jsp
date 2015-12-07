@@ -91,8 +91,8 @@
 										<td>{{row.groupId}}</td>
 										<td>{{row.logEventType}}</td>
 										<td><span ng-bind-html="row.observation | newline"></span></td>
-										<td>{{row.observationDate}}</td>
-										<td>{{row.lastUpdated}}</td>
+										<td>{{DateUtils.getFormatedDate(row.observationDate)}}</td>
+										<td>{{DateUtils.getFormatedDate(row.lastUpdated)}}</td>
 										<td>{{row.userUpdated}}</td>
 										<td>
 											<button type="button" class="btn btn-edit btn-xs" data-toggle="modal" data-target="#addProductionLogModal"  ng-click="selectProductionLogForEdit(row)" ng-show="loggedInUser == row.userUpdated">
@@ -123,7 +123,7 @@
 		
 
 		 <!-- - Add Production Log modal-->
-		  <div id="addProductionLogModal" class="modal colored-header custom-width">
+		  <div id="addProductionLogModal" class="modal colored-header warning custom-width">
                     <div class="md-content">
                       <div class="modal-header">
                          <h3><spring:message code='label.productionlogform.add.heading'  text='Add Production Log'/></h3>
@@ -145,10 +145,8 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.productionlogform.observationDate'  text='Date'/></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="observationDateDiv" >
-                          <input size="16" type="date" id="observationDate" name="observationDate" ng-model="productionLog.observationDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div> 
-                        <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
+                      <input rsmdatedropdowns ng-model="productionLog.observationDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+                       
                     </div>
                     
                     <div class="form-group">

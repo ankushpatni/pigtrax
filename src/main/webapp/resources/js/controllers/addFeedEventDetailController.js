@@ -52,10 +52,7 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 	$scope.addFeedEventDetail = function() {
 		if($scope.feedEventDetailAddForm.$valid)
 			{
-				if(document.getElementById("feedEventDate").value != "")
-				{
-					$scope.feedEventDetail.feedEventDate =  document.getElementById("feedEventDate").value;
-				}
+				
 				console.log($scope.feedEventDetail);
 				if($scope.feedEventDetail.groupEventId)
 				{

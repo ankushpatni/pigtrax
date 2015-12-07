@@ -1,4 +1,10 @@
-pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices) {	
+pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, restServices, DateUtils) {	
+	$scope.today = new Date();
+	
+	$scope.formattedToday = DateUtils.getFormatedDate($scope.today);
+	
+	$scope.DateUtils = DateUtils;
+	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;

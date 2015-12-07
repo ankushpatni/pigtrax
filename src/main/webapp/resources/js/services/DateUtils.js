@@ -1,4 +1,4 @@
-pigTrax.service("DateUtils", function($resource) {
+pigTrax.service("DateUtils", function($resource, $filter, $cookieStore) {
     this.convertLocaleDateToServer = function(date) {
         if (date) {
           var utcDate = new Date();
@@ -9,5 +9,28 @@ pigTrax.service("DateUtils", function($resource) {
         } else {
           return null;
         }
+      };
+      
+      
+      this.getServerFormat = function(date) {
+    	  var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+	
+	      if (month.length < 2) month = '0' + month;
+	      if (day.length < 2) day = '0' + day;
+
+	      	return [year, month, day].join('-');
+        };
+      
+      this.getFormatedDate = function(date)
+      {
+    	  if (date) {
+    		  if($cookieStore.get('PT_DATEFORMAT') != null && $cookieStore.get('PT_DATEFORMAT') != undefined)
+    			  return $filter('date')(date,$cookieStore.get('PT_DATEFORMAT'));
+    		  else
+    			  return $filter('date')(date,'MM/dd/YYYY');
+    	  }
       };
 });

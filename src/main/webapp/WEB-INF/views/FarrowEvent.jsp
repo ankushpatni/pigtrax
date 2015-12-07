@@ -47,7 +47,7 @@
                  </thead>
                  <tbody>
                    <tr ng-repeat="farrowEventDto in farrowEventList">
-                    <td>{{farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
+                    <td>{{DateUtils.getFormatedDate(farrowEventDto.farrowDateTime)}}</td>
                     <td>{{farrowEventDto.litterId}}</td>
                     <td>{{farrowEventDto.liveBorns}}</td>                     
                     <td><button type="button" class="btn btn-edit btn-xs"
@@ -146,9 +146,7 @@
 					
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="farrowDateDiv">
-                          <input size="16" type="date" id="farrowDate" name="farrowDate" ng-model="farrowEvent.farrowDateTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                      <input rsmdatedropdowns ng-model="farrowEvent.farrowDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
                     </div>
                     <label ng-show="farrowDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowDate.requiredmessage' text='Farrow Date is required' /></label>
 					
@@ -282,7 +280,7 @@
 	                   <tr ng-repeat="breedingEventObj in breedingEventList" ng-if="breedingEventList != null && breedingEventList.length > 0">
 	                    <td><input type="radio" name="breedingEventDtoId" id="breedingEventDtoId" ng-model="farrowEvent.breedingEventDto" ng-value="breedingEventObj"></td>	                    
 	                    <td>{{breedingEventObj.breedingServiceType}}</td>
-	                    <td>{{breedingEventObj.serviceStartDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{DateUtils.getFormatedDate(breedingEventObj.serviceStartDate)}}</td>
 	                   </tr>
 	                   <tr ng-if="breedingEventList == null || breedingEventList.length == 0">
 	                     <td colspan="4">
@@ -324,8 +322,8 @@
                        <tbody>
 	                   <tr ng-repeat="pregnancyEventObj in pregnancyEventList" ng-if="pregnancyEventList != null && pregnancyEventList.length > 0">
 	                    <td><input type="radio" name="pregnancyEventDtoId" id="pregnancyEventDtoId" ng-model="farrowEvent.pregnancyEventDto" ng-value="pregnancyEventObj"></td>
-	                    <td>{{pregnancyEventObj.examDate | date : 'yyyy-MM-dd'}}</td>
-	                    <td>{{pregnancyEventObj.resultDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{DateUtils.getFormatedDate(pregnancyEventObj.examDate)}}</td>
+	                    <td>{{DateUtils.getFormatedDate(pregnancyEventObj.resultDate)}}</td>
 	                   </tr>
 	                   <tr ng-if="pregnancyEventList == null || pregnancyEventList.length == 0">
 	                     <td colspan="3">
@@ -463,15 +461,6 @@
 <form method="post" action="pregnancyEvent" id="prevPregnancyEventForm">
   <input type="hidden" name="selectedCompany" id="selectedCompany">
   <input type="hidden" name="selectedPregnancyEventId" id="selectedPregnancyEventId">
-</form>
-
-<script>
-$(document).ready(function(){
- var currDate = new Date();
- var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
-	  $("#farrowDateDiv").attr('data-date-enddate',dateVal);
-});  
-</script>  
-		  
+</form>		  
 
 	

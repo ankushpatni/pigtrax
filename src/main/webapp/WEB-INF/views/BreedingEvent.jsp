@@ -55,7 +55,7 @@
 				   <td>{{breedingEventDto.pigInfoId}}</td>
                     <td>{{breedingEventDto.serviceId}}</td>
                     <td>{{breedingEventDto.breedingServiceType}}</td>
-                    <td>{{breedingEventDto.breedingDate | date : 'yyyy-MM-dd'}}</td>
+                    <td>{{DateUtils.getFormatedDate(breedingEventDto.breedingDate)}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs"
 												ng-click="getBreedingEventDetails(breedingEventDto)">
 												<span class="glyphicon glyphicon-pencil"></span>
@@ -157,7 +157,7 @@
                       required-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>
-						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null && !malePigIdentified && breedingEvent.gestationRecordDate != null">Gestation window started on {{breedingEvent.gestationRecordDate}}</label>
+						<label ng-show="!inValidPigIdFromServer && breedingEvent.pigInfoId != null && !malePigIdentified && breedingEvent.gestationRecordDate != null">Gestation window started on {{DateUtils.getFormatedDate(breedingEvent.gestationRecordDate)}}</label>
                     </div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
@@ -352,7 +352,7 @@
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:10%">{{$index+1}}</td>
 					<td style="width:10%">{{row.origin}}</td>
-					<td style="width:25%">{{row.dateOfEntry}}</td>
+					<td style="width:25%">{{DateUtils.getFormatedDate(row.dateOfEntry)}}</td>
 					<td style="width:25%">{{row.numberOfPigs}}</td>
 					<td style="width:25%">{{row.weightInKgs}}</td>
 					<td style="width:10%">{{row.inventoryAdjustment}}</td>

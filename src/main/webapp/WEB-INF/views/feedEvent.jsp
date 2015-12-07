@@ -73,9 +73,7 @@
                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime'  text='Initial Feed Entry Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="initialFeedEntryDateTime" name="initialFeedEntryDateTime" ng-model="feedEvent.initialFeedEntryDateTime" readonly="" class="form-control" format-date required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime.requiredMessage' text='Initial Feed Entry Date Time is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-						</div>
+                      <input rsmdatedropdowns ng-model="feedEvent.initialFeedEntryDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="initialFeedEntryDateTimerequired" ><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime.requiredMessage' text='Initial Feed Entry Date Time is required' /></label>
@@ -152,7 +150,7 @@
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:10%">{{$index+1}}</td>
 					<td style="width:10%">{{row.groupEventGroupId}}</td>
-					<td style="width:10%">{{row.feedEventDate}}</td>
+					<td style="width:10%">{{DateUtils.getFormatedDate(row.feedEventDate)}}</td>
 					<td style="width:25%">{{feedEventType[row.feedEventTypeId]}}</td>
 					<td style="width:10%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{siloList[row.siloId]}}</td>

@@ -1,4 +1,4 @@
-var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailController', function($scope, $http, $window, restServices,$rootScope) {	
+var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailController', function($scope, $http, $window, restServices,$rootScope, DateUtils) {	
 	$scope.edit = false;
 	$scope.add ={};
 	$scope.alertVisible = false;
@@ -101,10 +101,9 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
     {
 		if($scope.groupEventDetailAddForm.$valid)
 		{
-			var dateOfEntry = document.getElementById("dateOfEntry").value;
-			$scope.groupEvent["dateOfEntry"] = dateOfEntry;
+			var dateOfEntry = $scope.groupEvent["dateOfEntry"] ;
 			
-			if(dateOfEntry<$scope.groupStartDateTime)
+			if(DateUtils.getServerFormat(dateOfEntry) <$scope.groupStartDateTime)
 			{
 				$scope.dateOfEntryFlag =  true;
 				return;

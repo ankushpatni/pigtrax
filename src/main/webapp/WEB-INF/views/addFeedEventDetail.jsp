@@ -35,13 +35,8 @@
 					 
 					<div class="form-group">
 						<label ><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /><span style='color: red'>*</span></label>
-						<div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-							<!-- <input size="16" type="date" id="feedEventDate" name="feedEventDate" ng-model="feedEventDetail.feedEventDate" readonly="" class="form-control" format-date required-message="'<spring:message code='label.feedEventDetail.feedEventDate.required' text='Feed Event Date is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>-->
-							 
-							 <input type="text" datepicker-popup="yyyy-MM-dd" class="form-control" datepicker-popup="shortDate" id="feedEventDate" name="feedEventDate" ng-model="feedEventDetail.feedEventDate" is-open="opened"/>
-							<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-						</div>
+						<input rsmdatedropdowns ng-model="feedEventDetail.feedEventDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+						
 					</div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="feedEventDateFlag" ><spring:message code='label.feedEventDetail.feedEventDate.required' text='Feed Event Date is required' /></label>

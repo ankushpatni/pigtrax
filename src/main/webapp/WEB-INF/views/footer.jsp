@@ -3,6 +3,7 @@
     <script type="text/javascript" src="resources/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.js"></script>
     <script type="text/javascript" src="resources/assets/js/cleanzone.js"></script>
     <script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="resources/assets/lib/bootstrap.switch/js/bootstrap-switch.js"></script>
     <script src="resources/assets/js/voice-recognition.js"></script>
     <script src="resources/assets/lib/jquery.gritter/js/jquery.gritter.js" type="text/javascript"></script>
     <script src="resources/assets/lib/skycons/skycons.js" type="text/javascript"></script>

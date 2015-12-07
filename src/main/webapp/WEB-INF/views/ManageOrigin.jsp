@@ -74,7 +74,7 @@
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:20%">{{row.name}}</td>
-					<td style="width:20%">{{row.lastUpdated|  date : 'yyyy-MM-dd'}}</td>
+					<td style="width:20%">{{DateUtils.getFormatedDate(row.lastUpdated)}}</td>
 					<td style="width:20%">{{row.userUpdated}}</td>										
 					<td style="width:20%">						
 					<button type="button" class="btn btn-edit btn-xs"

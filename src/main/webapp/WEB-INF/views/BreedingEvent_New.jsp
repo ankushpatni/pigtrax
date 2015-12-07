@@ -51,7 +51,7 @@
                    <tr ng-repeat="breedingEventDto in breedingEventList">
 				   <td>{{breedingEventDto.pigInfoId}}</td>
                     <td>{{breedingEventDto.breedingServiceType}}</td>
-                    <td>{{breedingEventDto.serviceStartDate | date : 'yyyy-MM-dd'}}</td>
+                    <td>{{DateUtils.getFormatedDate(breedingEventDto.serviceStartDate)}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs"
 												ng-click="getBreedingEventDetailsObj(breedingEventDto)">
 												<span class="glyphicon glyphicon-pencil"></span>
@@ -182,7 +182,7 @@
                     <div class="form-group">                    
                     	<label><spring:message code='label.piginfo.breedingeventform.serviceStartDate'  text='Service Start Date'/></label>
                     	<label ng-if="breedingEvent.serviceStartDate == null"><spring:message code='label.piginfo.breedingeventform.serviceStartDatedefault'  text='-:-'/></label>
-                    	<label ng-if="breedingEvent.serviceStartDate != null"> -  {{breedingEvent.serviceStartDate}}</label>
+                    	<label ng-if="breedingEvent.serviceStartDate != null"> -  {{DateUtils.getFormatedDate(breedingEvent.serviceStartDate)}}</label>
                     </div>
                     
                     <button class="btn btn-success" ng-click="addBreedingEvent()" type="submit" ng-disabled="inValidPigIdFromServer || malePigIdentified"><spring:message code='label.piginfo.breedingeventform.submit'  text='Submit'/></button>
@@ -265,9 +265,7 @@
                    
                    	<div class="form-group">
                       <label><spring:message code='label.piginfo.matingdetailsform.matingdate'  text='Mating Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="matingDateDiv">
-                          <input size="16" type="date" id="matingDate" name="matingDate" ng-model="matingDetails.matingDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div> 
+                      	<input rsmdatedropdowns ng-model="matingDetails.matingDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
                         <label ng-show="matingDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.matingdetailsform.matingdate.requiredmessage' text='Mating Date is required' /></label>
                     </div>
                    
@@ -336,7 +334,7 @@
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
-					<td style="width:20%">{{row.matingDate}}</td>
+					<td style="width:20%">{{DateUtils.getFormatedDate(row.matingDate)}}</td>
 					<td style="width:20%">{{row.employeeGroup.groupId}}</td>					
 					<td style="width:20%">{{row.semenId}}</td>
 					<td style="width:20%">{{row.matingQuality}}</td>
@@ -475,14 +473,7 @@
                   
 		<div class="md-overlay"></div>
 </div>
-<script>
-$(document).ready(function(){
- var currDate = new Date();
- var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
-	  $("#matingDateDiv").attr('data-date-enddate',dateVal);
-});  
-</script>
-  
+
 		  
 
 	

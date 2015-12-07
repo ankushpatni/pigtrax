@@ -34,14 +34,17 @@
 	<script src="resources/assets/lib/jquery/jquery.min.js"></script>
 	<!-- Include Angular JS files -->
 	<script src="resources/lib/angular/angular.min.js"></script>
+	<script src="resources/lib/angular/angular-cookies.js"></script>
 	<script src="resources/lib/angular/angular-resource.js"></script>
 	<script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="resources/assets/lib/bootstrap.switch/js/bootstrap-switch.js"></script>
 	<script src="resources/lib/angular-ui/0.11.2/ui-bootstrap-tpls-0.11.2.min.js"></script>
 	<script src="resources/js/app.js"></script>
 	<script src="resources/js/directive.js"></script>
 	<script src="resources/js/services/restServices.js"></script>
 	<script src="resources/js/services/DateUtils.js"></script> 
 	<script src="resources/js/services/angular-confirm.js"></script>
+	<script src="resources/js/controllers/menuController.js"></script>
 	<script src="resources/js/controllers/employeeController.js"></script>
 	<script src="resources/js/controllers/companyController.js"></script>
 	<script src="resources/js/controllers/entryEventController.js"></script>

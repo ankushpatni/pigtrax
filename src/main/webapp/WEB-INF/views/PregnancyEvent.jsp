@@ -48,7 +48,7 @@
                  <tbody>
                    <tr ng-repeat="pregnancyEventDto in pregnancyEventList">
                     <td>{{pregnancyEventDto.pregnancyEventType}}</td>                    
-                    <td>{{pregnancyEventDto.resultDate | date : 'yyyy-MM-dd'}}</td>
+                    <td>{{DateUtils.getFormatedDate(pregnancyEventDto.resultDate)}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs"
 												ng-click="getPregnancyEventDetails(pregnancyEventDto)">
 												<span class="glyphicon glyphicon-pencil"></span>
@@ -138,9 +138,7 @@
                     </div>
                       <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="resultDateDiv">
-                          <input size="16" type="date" id="resultDate" name="resultDate" ng-model="pregnancyEvent.resultDate" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                      <input rsmdatedropdowns ng-model="pregnancyEvent.resultDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
                          <label ng-show="resultDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.requiredmessage' text='Result Date is required' /></label>
 	                    <label ng-show="invalidResultDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.invalidmessage' text='Result date can not be earlier than exam date' /></label>
                     </div>   
@@ -216,7 +214,7 @@
 	                   <tr ng-repeat="breedingEventObj in breedingEventList" ng-if="breedingEventList != null && breedingEventList.length > 0">
 	                    <td><input type="radio" name="breedingEventDtoId" id="breedingEventDtoId" ng-model="pregnancyEvent.breedingEventDto" ng-value="breedingEventObj"></td>	                    
 	                    <td>{{breedingEventObj.breedingServiceType}}</td>
-	                    <td>{{breedingEventObj.serviceStartDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{DateUtils.getFormatedDate(breedingEventObj.serviceStartDate)}}</td>
 	                   </tr>
 	                   <tr ng-if="breedingEventList == null || breedingEventList.length == 0">
 	                     <td colspan="4">
@@ -356,14 +354,6 @@
   <input type="hidden" name="selectedBreedingEventId" id="selectedBreedingEventId">
 </form>
 
-<script>
-$(document).ready(function(){
- var currDate = new Date();
- var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();	  
-	  $("#resultDateDiv").attr('data-date-enddate',dateVal);
-});  
-</script>
-  
 		  
 
 	

@@ -56,7 +56,7 @@
 							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
 						</div>
-						<label ng-show="(moveGroupevent.id != null && moveGroupevent.id > 0)"> :{{ moveGroupevent.groupStartDateTimeAnother}}</label>	
+						<label ng-show="(moveGroupevent.id != null && moveGroupevent.id > 0)"> :{{ DateUtils.getFormatedDate(moveGroupevent.groupStartDateTimeAnother)}}</label>	
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupdaterequiredMove" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.requiredMessage' text='Group Start Date is required' /></label>

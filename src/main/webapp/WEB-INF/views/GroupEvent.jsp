@@ -59,18 +59,14 @@
                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.groupStartDateTime'  text='Group Start Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="groupStartDateTime" name="groupStartDateTime" ng-model="groupEvent.groupStartDateTime" readonly="" class="form-control" format-date required-message="'<spring:message code='label.piginfo.groupEventForm.groupStartDateTime.requiredMessage' text='Group Start Date is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-						</div>
+                      <input rsmdatedropdowns ng-model="groupEvent.groupStartDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30" required-message="'<spring:message code='label.piginfo.groupEventForm.groupStartDateTime.requiredMessage' text='Group Start Date is required' />'"/>                      
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupdaterequired" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.requiredMessage' text='Group Start Date is required' /></label>
 					</div>					
                     <div class="form-group" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory == 0)">
                       <label><spring:message code='label.piginfo.groupEventForm.groupCloseDateTime'  text='Group Close Date'/></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="groupCloseDateTime" name="groupCloseDateTime" ng-model="groupEvent.groupCloseDateTime" readonly="" class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                      <input rsmdatedropdowns ng-model="groupEvent.groupCloseDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                      
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupStartEndDateError" ><spring:message code='label.piginfo.groupEventForm.groupStartEndDateError.requiredMessage' text='Group Close Date can not be less than Group Start date ' /></label>
@@ -175,7 +171,7 @@
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:5%">{{$index+1}}</td>
 					<td style="width:7%">{{barnList[row.barnId]}}</td>
-					<td style="width:10%">{{row.dateOfEntry}}</td>
+					<td style="width:10%">{{DateUtils.getFormatedDate(row.dateOfEntry)}}</td>
 					<td style="width:7%">{{row.numberOfPigs}}</td>
 					<td style="width:7%">{{row.weightInKgs}}</td>
 					<td style="width:7%">{{row.inventoryAdjustment}}</td>

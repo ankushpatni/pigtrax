@@ -1,6 +1,7 @@
 pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,$window,restServices, DateUtils) {
 	
 	$scope.productionLog = {};
+	$scope.DateUtils = DateUtils;
 	
 	$scope.getProductionLogList = function(){
 		var productionLog = {
@@ -108,10 +109,8 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		}
 		if(!$scope.observationRequired)
 		{	
-			var observationDate = document.getElementById("observationDate").value;
-			
 			$scope.productionLog["companyId"] = $rootScope.companyId;
-			$scope.productionLog["observationDate"] = observationDate;
+			
 		   restServices.productionLog($scope.productionLog, function(data){
 			   if(!data.error){
 				   $scope.clearAllMessages();
@@ -136,8 +135,7 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		$scope.productionLog["roomId"] = selectedLog["roomId"];
 		$scope.productionLog["eventId"] = selectedLog["eventId"];
 		$scope.productionLog["groupId"] = selectedLog["groupId"];
-		$scope.productionLog["observationDate"] = selectedLog["observationDate"];
-		document.getElementById("observationDate").value = $scope.productionLog["observationDate"];
+		$scope.productionLog["observationDate"] = selectedLog["observationDate"];		
 	}
 	
 	

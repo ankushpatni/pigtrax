@@ -111,8 +111,8 @@
 					 </tr>
 					 <tr ng-repeat="emp in prevRoleList" ng-if="prevRoleList != null && 0<prevRoleList.length">
 					   <td>{{emp.empFunctionName}}</td>
-					   <td>{{emp.functionStartDate | date : 'yyyy-MM-dd'}}</td>
-					   <td>{{emp.functionEndDate  | date : 'yyyy-MM-dd'}}</td>
+					   <td>{{DateUtils.getFormatedDate(emp.functionStartDate)}}</td>
+					   <td>{{DateUtils.getFormatedDate(emp.functionEndDate)}}</td>
 					 </tr>
 					  <tr ng-if="prevRoleList == null || 0 == prevRoleList.length">
 					    <td colspan="3"><spring:message code="label.employee.noFunctionRoles"	text="No functions assigned" /></td>

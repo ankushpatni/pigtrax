@@ -1,4 +1,4 @@
-var feedEventController = pigTrax.controller('RemovalEventController',function($scope,$rootScope,$modal,$http,$window,restServices,$confirm) {
+var feedEventController = pigTrax.controller('RemovalEventController',function($scope,$rootScope,$modal,$http,$window,restServices,$confirm, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -13,6 +13,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.exceptSalesFlag= false;
 	$scope.salesEventFlag = false;
 	$scope.salesEventList={};
+	$scope.DateUtils = DateUtils;
 	
 	
 	$scope.setCompanyId = function(companyId,removalId,fromExcept)

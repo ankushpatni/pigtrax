@@ -113,7 +113,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	{
 		$scope.clearAllMessages();
 		$scope.removalExceptSales = {};
-		document.getElementById("removalDateTime").value = "";
+		//document.getElementById("removalDateTime").value = "";
 		$scope.changeText();
 	}
 	
@@ -177,7 +177,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	$scope.addRemovalExceptSales = function() 
 	{
 		$scope.clearAllMessages();
-		if(document.getElementById("removalDateTime").value === "")
+		if($scope.removalExceptSales["removalDateTime"] === "")
 		{
 			$scope.removalDateTimerequired = true;
 			return;
@@ -186,7 +186,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		{
 			return false;
 		}
-		$scope.removalExceptSales.removalDateTime = document.getElementById("removalDateTime").value;
+		
 		if($scope.removalExceptSales.id === 'undefined' )
 		{
 			$scope.removalExceptSales.id = 0;

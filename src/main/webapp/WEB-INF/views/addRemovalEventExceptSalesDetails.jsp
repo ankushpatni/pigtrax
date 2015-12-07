@@ -43,10 +43,9 @@
 				              <div class="form-group">
                       <label ng-show="removalTypeId != 9"><spring:message code='label.piginfo.removalExceptSales.removalDateTime'  text='Removal Date'/><span style='color: red'>*</span></label>
                       <label ng-show="removalTypeId == 9"><spring:message code='label.piginfo.removalExceptSales.transferDateTime'  text='Transfer Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                          <input size="16" type="date" id="removalDateTime" name="removalDateTime" ng-model="removalExceptSales.removalDateTime" readonly="" class="form-control" format-date /><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-						</div>
-                    
+	                      
+	                      <input rsmdatedropdowns ng-model="removalExceptSales.removalDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
+	                      
 			              </div>
 			              
 			              <div>

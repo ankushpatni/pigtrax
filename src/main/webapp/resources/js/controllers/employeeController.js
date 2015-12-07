@@ -1,8 +1,9 @@
-pigTrax.controller('EmployeeController', function($scope, $http, $window,$modal, restServices) {	
+pigTrax.controller('EmployeeController', function($scope, $http, $window,$modal, restServices, DateUtils) {	
 	$scope.rowCollection = [];
 	$scope.itemsByPage=10;
 	$scope.totalPages;
 	$scope.differentPages=[{"name":"Premises","value":"premises"}];
+	$scope.DateUtils = DateUtils;
 	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;

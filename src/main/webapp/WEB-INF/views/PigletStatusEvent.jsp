@@ -53,7 +53,7 @@
                  </thead>   
                  <tbody>
                    <tr ng-repeat="pigletStatusEventDto in pigletStatusEventList"> 
-					<td >{{pigletStatusEventDto.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
+					<td >{{DateUtils.getFormatedDate(pigletStatusEventDto.farrowEventDto.farrowDateTime)}}</td>
 					<td>
 						<p  ng-show="pigletStatusEventDto.id != null && pigletStatusEventDto.pigletStatusEventTypeId == 2"> <spring:message code='label.piginfo.pigletstatuseventform.foster'  text='Transfer'/> </p>
 						<p  ng-show="pigletStatusEventDto.id != null && pigletStatusEventDto.pigletStatusEventTypeId == 3"> <spring:message code='label.piginfo.pigletstatuseventform.wean'  text='Wean'/> </p>
@@ -144,7 +144,7 @@
 				    <div class=" block-flat bars-widget" ng-if="pigletStatusEvent.farrowEventId != null && pigletStatusEvent.farrowEventId>0 && !pigletStatusEventAlreadyAdded">
 		                <div class="spk4 pull-right spk-widget"></div>  
 		                <h4>Farrow Details</h4><div></div>
-		                <div>Farrow Event Date : {{pigletStatusEvent.farrowEventDto.farrowDateTime | date : 'yyyy-MM-dd'}}</div>
+		                <div>Farrow Event Date : {{DateUtils.getFormatedDate(pigletStatusEvent.farrowEventDto.farrowDateTime)}}</div>
 		                <div>Live Borns : {{pigletStatusEvent.farrowEventDto.liveBorns}}</div>
 		            </div>					 
 					 <div class=" block-flat bars-widget" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
@@ -204,10 +204,7 @@
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/></label>
-                      <div  data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"    id="deathEventDateDiv">
-                          <input size="16" type="date" id="deathEventDateTime" name="eventDateTime" ng-model="pigletStatusEvent.deathEventDateTime" readonly
-                          class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                      <input rsmdatedropdowns ng-model="pigletStatusEvent.deathEventDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -229,10 +226,8 @@
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"   id="fosterEventDateDiv" >
-                          <input size="16" type="date" id="fosterEventDateTime" name="fosterEventDateTime" ng-model="pigletStatusEvent.fosterEventDateTime" readonly
-                          class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                      <input rsmdatedropdowns ng-model="pigletStatusEvent.fosterEventDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
+                      
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -255,10 +250,8 @@
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  id="weanEventDateDiv">
-                          <input size="16" type="date" id="weanEventDateTime" name="weanEventDateTime" ng-model="pigletStatusEvent.weanEventDateTime" readonly
-                          class="form-control" format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div>
+                      <input rsmdatedropdowns ng-model="pigletStatusEvent.weanEventDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
+                      
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -329,7 +322,7 @@
                        <tbody>
 	                   <tr ng-repeat="farrowEventObj in farrowEventList" ng-if="farrowEventList != null && farrowEventList.length > 0">
 	                    <td><input type="radio" name="farrowEventDtoId" id="farrowEventDtoId" ng-model="pigletStatusEvent.farrowEventDto" ng-value="farrowEventObj"></td>	                   
-	                    <td>{{farrowEventObj.farrowDateTime | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{DateUtils.getFormatedDate(farrowEventObj.farrowDateTime)}}</td>
 	                     <td>{{farrowEventObj.liveBorns}}</td>
 	                   </tr>
 	                   <tr ng-if="farrowEventList == null || farrowEventList.length == 0">
@@ -369,7 +362,7 @@
 	                   <tr ng-repeat="fosterObj in fosterPigList" ng-if="fosterPigList != null && fosterPigList.length > 0">
 	                    <td><input type="radio" name="fosterId" id="fosterId" ng-model="pigletStatusEvent.fosterDto" ng-value="fosterObj"></td>
 	                    <td>{{fosterObj.pigId}}</td>
-	                    <td>{{fosterObj.currentFarrowEventDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>{{DateUtils.getFormatedDate(fosterObj.currentFarrowEventDate)}}</td>
 	                   </tr>
 	                   <tr ng-if="fosterPigList == null || fosterPigList.length == 0">
 	                     <td colspan="3">
@@ -395,12 +388,3 @@
   <input type="hidden" name="selectedCompany" id="selectedCompany">
   <input type="hidden" name="selectedFarrowEventId" id="selectedFarrowEventId">
 </form>
-<script>
-$(document).ready(function(){
- var currDate = new Date();
- var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
-	  $("#weanEventDateDiv").attr('data-date-enddate',dateVal);
-	  $("#fosterEventDateDiv").attr('data-date-enddate',dateVal);
-	  $("#deathEventDateDiv").attr('data-date-enddate',dateVal);
-});  
-</script>
