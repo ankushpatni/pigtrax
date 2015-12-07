@@ -16,8 +16,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	
 	
 	
-	$scope.getTransportDestinationList = function(){
-		alert("going to get destinationList");
+	$scope.getTransportDestinationList = function(){		
 		var res = $http.get('rest/transportDestination/getTransportDestination?generatedCompanyId='+$scope.companyId);
 			res.success(function(data, status, headers, config) {
 				$scope.destinationList = data.payload[0];		
