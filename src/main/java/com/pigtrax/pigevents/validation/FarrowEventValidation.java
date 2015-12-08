@@ -52,26 +52,32 @@ public class FarrowEventValidation {
    * Business validation method
    * @param farrowEventDto
    * @return
-   */
+   */   
   public int validate(FarrowEventDto farrowEventDto)
   {
 	  
 	  init();
 	  
-	  DateTime farrowDateTime = new DateTime(farrowEventDto.getFarrowDateTime());
-	  DateTime breedingDate = new DateTime(farrowEventDto.getPregnancyEventDto().getBreedingEventDto().getServiceStartDate());
-	  int duration = Days.daysBetween(breedingDate, farrowDateTime).getDays();
-	  
-	  FarrowEventDto eventDto = farrowEventService.getFarrowEventByPregancyEvent(farrowEventDto.getPregnancyEventId());
-	  
-	  if(eventDto != null && eventDto.getId() != null && eventDto.getId() > 0 && farrowEventDto.getId() != eventDto.getId())
-	  {
-		  return ERR_CODE_02;
-	  }
-	  else if(duration >= FARROW_EVENT_START_DURATION && duration <= FARROW_EVENT_END_DURATION)	  
-		  return SUCCESS_CODE;
+	  if(farrowEventDto.getPregnancyEventDto() == null)
+	    return SUCCESS_CODE;
 	  else
-		  return ERR_CODE_01;
+	  {
+	  
+		  DateTime farrowDateTime = new DateTime(farrowEventDto.getFarrowDateTime());
+		  DateTime breedingDate = new DateTime(farrowEventDto.getPregnancyEventDto().getBreedingEventDto().getServiceStartDate());
+		  int duration = Days.daysBetween(breedingDate, farrowDateTime).getDays();
+		  
+		  FarrowEventDto eventDto = farrowEventService.getFarrowEventByPregancyEvent(farrowEventDto.getPregnancyEventId());
+		  
+		  if(eventDto != null && eventDto.getId() != null && eventDto.getId() > 0 && farrowEventDto.getId() != eventDto.getId())
+		  {
+			  return ERR_CODE_02;
+		  }
+		  else if(duration >= FARROW_EVENT_START_DURATION && duration <= FARROW_EVENT_END_DURATION)	  
+			  return SUCCESS_CODE;
+		  else
+			  return ERR_CODE_01;
+	  }
 	 
   }
   

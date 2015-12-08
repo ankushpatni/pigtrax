@@ -20,7 +20,7 @@ pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http
 	}
 	
 	$scope.addTransportJourney = function()
-	{
+	{		
 		if ($scope.transportJourneyForm.$valid)
 		{
 			if (document.getElementById("journeyStartTime").value != "")
@@ -29,6 +29,8 @@ pigTrax.controller('addTransportJourneyCtrl', function($scope, $rootScope, $http
 			if (document.getElementById("journeyEndTime").value != "")
 				$scope.transportJourney.journeyEndTime = document
 						.getElementById("journeyEndTime").value;
+			//$scope.feedEvent.transportJourney.transportTrailerId = $scope.transportJourney.transportTrailerId;
+			//$scope.feedEvent.transportJourney.transportTruckId = $scope.transportJourney.transportTruckId;
 
 			$modalInstance.close($scope.transportJourney);
 		}

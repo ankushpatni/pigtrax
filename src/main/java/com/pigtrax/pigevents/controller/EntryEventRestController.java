@@ -100,14 +100,14 @@ public class EntryEventRestController {
 	 */
 	@RequestMapping(value = "/getPenList", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public ServiceResponseDto getPenInfo(HttpServletRequest request, @RequestBody Integer barnId)
+	public ServiceResponseDto getPenInfo(HttpServletRequest request, @RequestBody Integer premiseId)
 	{
 		logger.info("Inside getPenInfo method" );
 		
 		ServiceResponseDto dto = new ServiceResponseDto();
 		Map<String, Object> entryEventMap = new HashMap<String, Object>();
 		try {
-			List<Pen> penDtoList = penService.getPenListByBarnId(barnId);
+			List<Pen> penDtoList = penService.getPenListByPremiseId(premiseId);
 			dto.setPayload(penDtoList);
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -32,6 +32,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.entryEventDuplicateErrorMessage = false;
 		$scope.pigletInformationRequired = false;
 		$scope.pregnancyEventNotFound = false;
+		$scope.invalidPregnancyRecord = false;
 	};
 	
 	$scope.loadPremises = function()
@@ -230,15 +231,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			$scope.farrowDateRequired = false;
 		}
 		
-		 if($scope.farrowEvent["pregnancyEventId"] == null || $scope.farrowEvent["pregnancyEventId"] == undefined || $scope.farrowEvent["pregnancyEventId"] == "")
-		{
-			 
-			  $scope.pregnancyEventRequired = true;
-		}
-		 else
-			 {
-			 $scope.pregnancyEventRequired = false;
-			 }
+		
 		 
 		 	if(birthType != null && birthType == "induced")
 			{
@@ -330,6 +323,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 										$scope.clearAllMessages();
 										if(data.duplicateRecord)
 											$scope.entryEventDuplicateErrorMessage = true;
+										else if(data.statusMessage == "ERR:INVALID-PREGNANCY-RECORD")
+											$scope.invalidPregnancyRecord = true;
 										else
 											$scope.entryEventErrorMessage = true;
 									}

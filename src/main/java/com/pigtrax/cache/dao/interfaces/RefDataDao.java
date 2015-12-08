@@ -78,4 +78,6 @@ public interface RefDataDao {
 	
 	List<RefDataTranslationDto> getMarketTypes();
 	
+	List<RefDataTranslationDto> getRationTypes();
+	
 }

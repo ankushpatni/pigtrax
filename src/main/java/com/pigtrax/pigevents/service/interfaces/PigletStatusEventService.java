@@ -20,5 +20,6 @@ public interface PigletStatusEventService {
 	
 	List<PigletStatusEventDto> getPigletStatusEventsByFarrowEventId(Integer  farrowEventId) throws PigTraxException;  
 	
-	List<PigletStatusEventDto> getPigletStatusEventsByFarrowEventId(Integer  farrowEventId, Integer pigletStatusEventTypeId) throws PigTraxException;  
+	List<PigletStatusEventDto> getPigletStatusEventsByFarrowEventId(Integer  farrowEventId, Integer pigletStatusEventTypeId) throws PigTraxException; 
+	
 }

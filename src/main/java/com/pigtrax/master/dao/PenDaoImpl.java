@@ -172,5 +172,19 @@ public class PenDaoImpl implements PenDao {
 										});
 			return penListCount.get(0);*/
 	}
+	
+	@Override
+	public List<Pen> getPenListByPremiseId(final Integer premiseId)
+			throws SQLException {
+		 String Qry = "Select \"id\", \"penId\", \"id_Room\", \"location\", \"isActive\" from pigtrax.\"Pen\" where  \"isActive\" is true and "
+			  		+ "\"id_Room\" in (Select \"id\" from pigtrax.\"Room\" where \"id_Barn\" in (select \"id\" from pigtrax.\"Barn\" where \"id_Premise\" = ? and \"isActive\" is true) "
+			  		+ "and  \"isActive\" is true) order by \"penId\" ";
+			  List<Pen> penList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, premiseId);
+					}}, new PenMapper());
+
+			  return penList;
+	}
 
 }

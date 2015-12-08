@@ -37,7 +37,7 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 	@Override
 	public List<MatingDetails> getMatingDetails(final Integer breedingEventId) {
 		String qry = "select \"id\", \"id_BreedingEvent\", \"semenId\", \"matingDate\", \"matingQuality\", "
-				+ "\"id_EmployeeGroup\", \"lastUpdated\", \"userUpdated\" from pigtrax.\"MatingDetails\" where \"id_BreedingEvent\" = ?";
+				+ "\"id_EmployeeGroup\", \"lastUpdated\", \"userUpdated\",\"semenDate\" from pigtrax.\"MatingDetails\" where \"id_BreedingEvent\" = ?";
 		
 		List<MatingDetails> matingDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -60,6 +60,7 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 			matingDetails.setMatingQuality(rs.getInt("matingQuality"));
 			matingDetails.setLastUpdated(rs.getDate("lastUpdated"));
 			matingDetails.setUserUpdated(rs.getString("userUpdated"));
+			matingDetails.setSemenDate(rs.getDate("semenDate"));
 			return matingDetails;
 		}
 	}
@@ -67,8 +68,8 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 	@Override
 	public int addMatingDetails(final MatingDetails matingDetails) { 
 		final String qry = "insert into pigtrax.\"MatingDetails\" (\"matingDate\", \"semenId\", \"matingQuality\", "
-				+ "\"id_BreedingEvent\", \"id_EmployeeGroup\", \"lastUpdated\", \"userUpdated\") "
-				+ " values (?,?,?,?,?,current_timestamp, ?)";
+				+ "\"id_BreedingEvent\", \"id_EmployeeGroup\", \"lastUpdated\", \"userUpdated\",\"semenDate\") "
+				+ " values (?,?,?,?,?,current_timestamp, ?,?)";
 		
 		
 		KeyHolder holder = new GeneratedKeyHolder();
@@ -84,7 +85,8 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 	    				ps.setObject(3, matingDetails.getMatingQuality(), java.sql.Types.INTEGER);
 	    				ps.setObject(4, matingDetails.getBreedingEventId(), java.sql.Types.INTEGER);
 	    				ps.setObject(5, matingDetails.getEmployeeGroupId(), java.sql.Types.INTEGER);
-	    				ps.setString(6, matingDetails.getUserUpdated());	    			
+	    				ps.setString(6, matingDetails.getUserUpdated());
+	    				ps.setObject(7, new java.sql.Date(matingDetails.getSemenDate().getTime()), java.sql.Types.DATE);
 	    	            return ps;
 	    	        }
 	    	    },

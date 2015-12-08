@@ -48,11 +48,15 @@ public class PigletStatusEventRestController {
 			pigletStatusEventService.savePigletStatusEvent(pigletStatusEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
-			if(e.isDuplicateStatus())
+			if(e.getMessage().equalsIgnoreCase("INVALID-FARROW")){
+				dto.setStatusMessage("ERR:INVALID-FARROW");
+			}
+			else if(e.isDuplicateStatus())
 			{   
 				dto.setDuplicateRecord(true);
 			}
-			dto.setStatusMessage("ERROR : "+e.getMessage());
+			else
+				dto.setStatusMessage("ERROR : "+e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());

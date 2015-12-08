@@ -85,7 +85,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 					
 					if(dto.getId() == null)
 					{
-						boolean check = checkIfPreviousCycleCompleted(dto.getPigInfoKey());
+						boolean check = true;//checkIfPreviousCycleCompleted(dto.getPigInfoKey());
 						if(check)
 						{
 							logger.info("Breeding Event Dtoo : "+dto.toString());

@@ -71,4 +71,6 @@ public interface RefDataCache {
 	Map<Integer, String> getTrailerFunctionMap(String language);
 	
 	Map<Integer, String> getMarketTypeMap(String language);
+	
+	Map<Integer, String> getMasterRationTypeMap(String language);
 }

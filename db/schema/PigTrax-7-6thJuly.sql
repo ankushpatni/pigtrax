@@ -69,7 +69,7 @@ ALTER TABLE pigtrax."Company" OWNER TO postgres;
 -- DROP TABLE IF EXISTS pigtrax."Premise" CASCADE;
 CREATE TABLE pigtrax."Premise"(
 	id serial NOT NULL,
-	"permiseId" varchar(6) NOT NULL,
+	"permiseId" varchar(10) NOT NULL,
 	"id_Company" integer,
 	name varchar(50) NOT NULL,
 	address varchar(255),
@@ -482,12 +482,21 @@ CREATE TABLE pigtrax."FeedEvent"(
 	"id_TransportJourney" integer,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"id_Premise" int,
 	CONSTRAINT "FEED_PK" PRIMARY KEY (id),
 	CONSTRAINT "FEED_U_TN" UNIQUE ("ticketNumber")
 
 );
 -- ddl-end --
 ALTER TABLE pigtrax."FeedEvent" OWNER TO pitraxadmin;
+-- ddl-end --
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."FeedEvent" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."FeedEvent" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 
@@ -2135,6 +2144,7 @@ CREATE TABLE pigtrax."MatingDetails"(
 	"id_EmployeeGroup" integer,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"semenDate" timestamp,
 	CONSTRAINT "MATINGS_DETAILS_PK" PRIMARY KEY (id)
 
 );
@@ -2308,6 +2318,7 @@ CREATE TABLE pigtrax."MasterRation"
   "lastUpdated" timestamp without time zone NOT NULL,
   "userUpdated" character varying(20) NOT NULL,
   "rationDescription" varchar(200),
+  "id_RationType" int,
   CONSTRAINT "MasterRation_PK" PRIMARY KEY (id)
 );
 
@@ -3099,6 +3110,58 @@ ALTER TABLE pigtraxrefdata."MarketTypeTranslation" ADD CONSTRAINT "MarketType_fk
 REFERENCES pigtraxrefdata."MarketType" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+
+
+
+-- object: pigtraxrefdata."RationType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."RationType" CASCADE;
+CREATE TABLE pigtraxrefdata."RationType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "RationType_PK" PRIMARY KEY (id),
+	CONSTRAINT "RationType_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."RationType" OWNER TO pitraxadmin;
+
+
+-- object: "RationType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."MasterRation" DROP CONSTRAINT IF EXISTS "RationType_fk" CASCADE;
+ALTER TABLE pigtrax."MasterRation" ADD CONSTRAINT "RationType_fk" FOREIGN KEY ("id_RationType")
+REFERENCES pigtraxrefdata."RationType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtraxrefdata."RationTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."RationTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."RationTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(30) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_RationType" integer,
+	CONSTRAINT "RationTypeTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "RationTypeTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."RationTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "RationType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."RationTypeTranslation" DROP CONSTRAINT IF EXISTS "RationType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."RationTypeTranslation" ADD CONSTRAINT "RationType_fk" FOREIGN KEY ("id_RationType")
+REFERENCES pigtraxrefdata."RationType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 
 
 

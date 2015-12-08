@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
@@ -73,65 +76,73 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletStatusEventDto.getPigId(), pigletStatusEventDto.getCompanyId());
 			pigletStatusEventDto.setPigInfoId(pigInfo.getId());
 			
-			event = builder.convertToBean(pigletStatusEventDto);
-			//delete the records if present
-			deletePigletStatusEvent(pigletStatusEventDto);
-	
-			logger.info("farrow event ids : "+event.getFarrowEventId()+"/"+event.getFosterFarrowEventId());
 			
-			if(pigletStatusEventDto.getWeanPigNum() != null && pigletStatusEventDto.getWeanPigNum() > 0)
+			boolean flag = setDerivedFarrowEventId(pigletStatusEventDto);
+			
+			if(flag)
 			{
-				event.setFarrowEventId(pigletStatusEventDto.getFarrowEventId());
-				event.setPigletStatusEventTypeId(PigletStatusEventType.Wean.getTypeCode());
-				event.setNumberOfPigs(pigletStatusEventDto.getWeanPigNum());
-				event.setWeightInKgs(pigletStatusEventDto.getWeanPigWt());
-				event.setFosterFrom(null);
-				event.setFosterTo(null);
-				event.setFosterFarrowEventId(null);
-				event.setEventDateTime(pigletStatusEventDto.getWeanEventDateTime());
-				event.setGroupEventId(pigletStatusEventDto.getGroupEventId());
-				event.setMortalityReasonTypeId(null);
-				event.setPenId(pigletStatusEventDto.getPenId());
-				event.setPremiseId(pigletStatusEventDto.getPremiseId());
-				eventId = addPigletStatusEvent(event);
-			}
-			if(pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0)
-			{
-				event.setFarrowEventId(pigletStatusEventDto.getFarrowEventId());
-				event.setPigletStatusEventTypeId(PigletStatusEventType.FosterOut.getTypeCode());
-				event.setNumberOfPigs(pigletStatusEventDto.getFosterPigNum());
-				event.setWeightInKgs(pigletStatusEventDto.getFosterPigWt());
-				event.setFosterFrom(pigletStatusEventDto.getPigInfoId());
-				event.setFosterTo(pigletStatusEventDto.getFosterTo());
-				event.setFosterFarrowEventId(null);
-				event.setEventDateTime(pigletStatusEventDto.getFosterEventDateTime());
-				event.setGroupEventId(null);
-				event.setMortalityReasonTypeId(null);
-				event.setPenId(pigletStatusEventDto.getPenId());
-				event.setPremiseId(pigletStatusEventDto.getPremiseId());
-				eventId = addPigletStatusEvent(event);
+				event = builder.convertToBean(pigletStatusEventDto);
+				//delete the records if present
+				deletePigletStatusEvent(pigletStatusEventDto);
+		
+				logger.info("farrow event ids : "+event.getFarrowEventId()+"/"+event.getFosterFarrowEventId());
 				
-				PigletStatusEvent fosterInEvent = builder.generateFosterInEvent(pigletStatusEventDto);   
-				eventId = addPigletStatusEvent(fosterInEvent);
+				if(pigletStatusEventDto.getWeanPigNum() != null && pigletStatusEventDto.getWeanPigNum() > 0)
+				{
+					//event.setFarrowEventId(pigletStatusEventDto.getFarrowEventId());
+					event.setPigletStatusEventTypeId(PigletStatusEventType.Wean.getTypeCode());
+					event.setNumberOfPigs(pigletStatusEventDto.getWeanPigNum());
+					event.setWeightInKgs(pigletStatusEventDto.getWeanPigWt());
+					event.setFosterFrom(null);
+					event.setFosterTo(null);
+					event.setFosterFarrowEventId(null);
+					event.setEventDateTime(pigletStatusEventDto.getWeanEventDateTime());
+					event.setGroupEventId(pigletStatusEventDto.getGroupEventId());
+					event.setMortalityReasonTypeId(null);
+					event.setPenId(pigletStatusEventDto.getPenId());
+					event.setPremiseId(pigletStatusEventDto.getPremiseId());
+					eventId = addPigletStatusEvent(event);
+				}
+				if(pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0)
+				{
+					event.setFarrowEventId(pigletStatusEventDto.getFarrowEventId());
+					event.setPigletStatusEventTypeId(PigletStatusEventType.FosterOut.getTypeCode());
+					event.setNumberOfPigs(pigletStatusEventDto.getFosterPigNum());
+					event.setWeightInKgs(pigletStatusEventDto.getFosterPigWt());
+					event.setFosterFrom(pigletStatusEventDto.getPigInfoId());
+					event.setFosterTo(pigletStatusEventDto.getFosterTo());
+					event.setFosterFarrowEventId(null);
+					event.setEventDateTime(pigletStatusEventDto.getFosterEventDateTime());
+					event.setGroupEventId(null);
+					event.setMortalityReasonTypeId(null);
+					event.setPenId(pigletStatusEventDto.getPenId());
+					event.setPremiseId(pigletStatusEventDto.getPremiseId());
+					eventId = addPigletStatusEvent(event);
+					
+					PigletStatusEvent fosterInEvent = builder.generateFosterInEvent(pigletStatusEventDto);   
+					eventId = addPigletStatusEvent(fosterInEvent);
+				}
+				
+				if(pigletStatusEventDto.getDeathPigNum() != null && pigletStatusEventDto.getDeathPigNum() > 0)
+				{
+					event.setFarrowEventId(pigletStatusEventDto.getFarrowEventId()); 
+					event.setPigletStatusEventTypeId(PigletStatusEventType.Death.getTypeCode());
+					event.setNumberOfPigs(pigletStatusEventDto.getDeathPigNum());
+					event.setWeightInKgs(pigletStatusEventDto.getDeathPigWt());
+					event.setFosterFrom(null);
+					event.setFosterTo(null);
+					event.setFosterFarrowEventId(null);
+					event.setEventDateTime(pigletStatusEventDto.getDeathEventDateTime());
+					event.setMortalityReasonTypeId(pigletStatusEventDto.getMortalityReasonTypeId());
+					event.setGroupEventId(null);
+					event.setPenId(pigletStatusEventDto.getPenId());
+					event.setPremiseId(pigletStatusEventDto.getPremiseId());
+					logger.info("farrow event id "+event.getFarrowEventId());
+					eventId = addPigletStatusEvent(event);
+				}	
 			}
-			
-			if(pigletStatusEventDto.getDeathPigNum() != null && pigletStatusEventDto.getDeathPigNum() > 0)
-			{
-				event.setFarrowEventId(pigletStatusEventDto.getFarrowEventId()); 
-				event.setPigletStatusEventTypeId(PigletStatusEventType.Death.getTypeCode());
-				event.setNumberOfPigs(pigletStatusEventDto.getDeathPigNum());
-				event.setWeightInKgs(pigletStatusEventDto.getDeathPigWt());
-				event.setFosterFrom(null);
-				event.setFosterTo(null);
-				event.setFosterFarrowEventId(null);
-				event.setEventDateTime(pigletStatusEventDto.getDeathEventDateTime());
-				event.setMortalityReasonTypeId(pigletStatusEventDto.getMortalityReasonTypeId());
-				event.setGroupEventId(null);
-				event.setPenId(pigletStatusEventDto.getPenId());
-				event.setPremiseId(pigletStatusEventDto.getPremiseId());
-				logger.info("farrow event id "+event.getFarrowEventId());
-				eventId = addPigletStatusEvent(event);
-			}					
+			else
+				throw new PigTraxException("INVALID-FARROW");		
 			
 			}
 		}catch(SQLException e)
@@ -144,6 +155,58 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		}
 		return eventId;
 	}
+	 
+	 
+	 private boolean setDerivedFarrowEventId(PigletStatusEventDto pigletStatusEventDto) throws SQLException
+		{
+			if(pigletStatusEventDto.getPigInfoId() != null)
+			{
+			 List<FarrowEvent> farrowEvents = farrowEventDao.getFarrowEvents(pigletStatusEventDto.getPigId(), "pigId", pigletStatusEventDto.getCompanyId());	
+			 if(farrowEvents != null && 0 < farrowEvents.size())
+			 {
+				 for(FarrowEvent farrowEvent :  farrowEvents)
+				 {
+					 DateTime farrowDate = new DateTime(farrowEvent.getFarrowDateTime());
+					 if(pigletStatusEventDto.getPigletStatusEventTypeId() == PigletStatusEventType.Wean.getTypeCode() && pigletStatusEventDto.getWeanPigNum() != null && pigletStatusEventDto.getWeanPigNum() > 0)
+					 {
+						 DateTime weanDate = new DateTime(pigletStatusEventDto.getWeanEventDateTime());
+						 int duration = Days.daysBetween(farrowDate, weanDate).getDays();
+						 if(duration >= 0 && duration <= 60)
+						 {
+							 pigletStatusEventDto.setFarrowEventId(farrowEvent.getId());
+						 }
+					 }
+					 if(pigletStatusEventDto.getPigletStatusEventTypeId() == PigletStatusEventType.FosterOut.getTypeCode() && pigletStatusEventDto.getFosterPigNum() != null && pigletStatusEventDto.getFosterPigNum() > 0)
+					 {
+						 DateTime transferDate = new DateTime(pigletStatusEventDto.getFosterEventDateTime());
+						 int duration = Days.daysBetween(farrowDate, transferDate).getDays();
+						 if(duration >= 0 && duration <= 50 )
+						 {
+							 pigletStatusEventDto.setFarrowEventId(farrowEvent.getId());
+						 }						
+					 }
+					 if(pigletStatusEventDto.getPigletStatusEventTypeId() == PigletStatusEventType.Death.getTypeCode() && pigletStatusEventDto.getDeathPigNum() != null && pigletStatusEventDto.getDeathPigNum() > 0)
+					 {
+						 DateTime deathDate = new DateTime(pigletStatusEventDto.getDeathEventDateTime());
+						 int duration = Days.daysBetween(farrowDate, deathDate).getDays();
+						 if(duration >= 0 && duration <= 50 )
+						 {
+							 pigletStatusEventDto.setFarrowEventId(farrowEvent.getId());
+						 }
+					 }
+				 }
+				 if(pigletStatusEventDto.getFarrowEventId() == null || pigletStatusEventDto.getFarrowEventId() == 0)
+				 {
+					 return false;
+				 }
+				 else
+					 return true;
+			 }
+			 else
+				 return false;
+			}
+			return false;
+		}
 	 
 	 
 	 @Transactional("ptxJTransactionManager")
@@ -184,9 +247,9 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		public void deletePigletStatusEvent(PigletStatusEventDto pigletStatusEventDto)
 				throws PigTraxException {
 			try{
-				pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventDto().getId(), pigletStatusEventDto.getPigletStatusEventTypeId());
+				pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventId(), pigletStatusEventDto.getPigletStatusEventTypeId());
 				if(pigletStatusEventDto.getPigletStatusEventTypeId() == 2)
-					pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventDto().getId(), PigletStatusEventType.FosterIn.getTypeCode());
+					pigletStatusEventDao.deletePigletStatusEventsByFarrowId(pigletStatusEventDto.getPigInfoId(), pigletStatusEventDto.getFarrowEventId(), PigletStatusEventType.FosterIn.getTypeCode());
 				
 				if(pigletStatusEventDto.getId() != null)
 					eventMasterDao.deletePigletStatusEvents( pigletStatusEventDto.getId(), pigletStatusEventDto.getPigletStatusEventTypeId());

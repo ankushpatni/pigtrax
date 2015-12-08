@@ -10,6 +10,8 @@ public class MasterRationDto {
 	private String userUpdated;
 	private Date lastUpdated;
 	private String rationDescription;
+	private Integer rationTypeId;
+	private String rationType; 
 
 	public Integer getId() {
 		return id;
@@ -65,6 +67,22 @@ public class MasterRationDto {
 
 	public void setRationDescription(String rationDescription) {
 		this.rationDescription = rationDescription;
+	}
+
+	public Integer getRationTypeId() {
+		return rationTypeId;
+	}
+
+	public void setRationTypeId(Integer rationTypeId) {
+		this.rationTypeId = rationTypeId;
+	}
+
+	public String getRationType() {
+		return rationType;
+	}
+
+	public void setRationType(String rationType) {
+		this.rationType = rationType;
 	}
 	
 	

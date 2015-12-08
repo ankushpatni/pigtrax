@@ -70,8 +70,8 @@ public class MasterRationDaoImpl implements MasterRationDao {
    
    @Override
 	public Integer saveRation(final MasterRation rationObj) {
-	   String query = "INSERT INTO pigtrax.\"MasterRation\"(  \"rationValue\",\"id_FeedEventType\", \"lastUpdated\",\"userUpdated\",\"rationDescription\")"+
-				 "VALUES ( ?, ?,current_timestamp, ?,?)";
+	   String query = "INSERT INTO pigtrax.\"MasterRation\"(  \"rationValue\",\"id_FeedEventType\", \"lastUpdated\",\"userUpdated\",\"rationDescription\", \"id_RationType\")"+
+				 "VALUES ( ?, ?,current_timestamp, ?,?,?)";
 	
 	return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 		@Override
@@ -80,6 +80,7 @@ public class MasterRationDaoImpl implements MasterRationDao {
 			ps.setInt(2, rationObj.getFeedTypeId());
 			ps.setString(3, rationObj.getUserUpdated());
 			ps.setString(4, rationObj.getRationDescription());
+			ps.setInt(5, rationObj.getRationTypeId());
 		}
 	});
 		
@@ -99,7 +100,7 @@ public class MasterRationDaoImpl implements MasterRationDao {
 	}
 	@Override
 	public List<MasterRationDto> getRationList(final String language) {
-		String query = "SELECT \"id\",\"rationValue\", \"id_FeedEventType\", \"lastUpdated\",\"userUpdated\",\"rationDescription\" from pigtrax.\"MasterRation\" order by \"rationValue\" ";
+		String query = "SELECT \"id\",\"rationValue\", \"id_FeedEventType\", \"lastUpdated\",\"userUpdated\",\"rationDescription\",\"id_RationType\" from pigtrax.\"MasterRation\" order by \"rationValue\" ";
 
 		   List<MasterRationDto> rationDtoList =  jdbcTemplate.query(query, new MasterRationMapper());
 		   
@@ -108,6 +109,8 @@ public class MasterRationDaoImpl implements MasterRationDao {
 			   for(MasterRationDto rationDto : rationDtoList)
 			   {
 				   rationDto.setFeedType(refDataCache.getFeedEventTypeMap(language).get(rationDto.getFeedTypeId()));
+				   
+				   rationDto.setRationType(refDataCache.getMasterRationTypeMap(language).get(rationDto.getRationTypeId())); 
 			   }
 		   }
 		   
@@ -123,6 +126,7 @@ public class MasterRationDaoImpl implements MasterRationDao {
 			masterRationDto.setLastUpdated(rs.getDate("lastUpdated"));
 			masterRationDto.setUserUpdated(rs.getString("userUpdated"));
 			masterRationDto.setRationDescription(rs.getString("rationDescription"));
+			masterRationDto.setRationTypeId(rs.getInt("id_RationType"));
 			return masterRationDto;
 		}
 	}

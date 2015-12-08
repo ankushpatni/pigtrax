@@ -13,6 +13,18 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	$scope.rationType={};
 	$scope.DateUtils = DateUtils;
 	
+	
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.setCompanyId = function(companyId,ticketNumber)
 	{
 		$scope.companyId = companyId;
@@ -47,6 +59,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 			$scope.getFeedEvent();
 			$scope.entryEventDetailSuccessMessage = true;
 		}
+		$scope.loadPremises();		
 	};
 	
 	$scope.resetForm = function()
@@ -147,7 +160,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	}
 	
 	$scope.addTransportJourney = function()
-	{
+	{		
 		var modalInstance = $modal.open ({
 			templateUrl: 'transportJourney',
 			controller: 'addTransportJourneyCtrl',
@@ -165,7 +178,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 			}
 		});
 		
-		modalInstance.result.then( function(res) { 
+		modalInstance.result.then( function(res) {
 			console.log(res);
 			$scope.feedEvent.transportJourney = res;
 		});

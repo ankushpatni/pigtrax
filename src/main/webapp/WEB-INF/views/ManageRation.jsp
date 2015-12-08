@@ -46,6 +46,13 @@
                         </select>             
                     </div> 
                     <div class="form-group">
+                      <label><spring:message code='label.rationform.rationType'  text='Ration Type'/></label>
+                      
+                      <select class="form-control"   required required-message="'<spring:message code='label.rationform.rationType.required' text='Ration Type is required' />'" name="rationTypeId" id="rationTypeId" ng-model="masterRation.rationTypeId">
+                      	<option ng-repeat="key in rationTypeKeys" ng-value="key" ng-selected="masterRation.rationTypeId==key">{{rationTypeKeyValues[key]}}</option>        
+                        </select>             
+                    </div> 
+                    <div class="form-group">
                       <label><spring:message code='label.rationform.rationdescription'  text='Ration Description'/></label>
                       <textarea name="remarks" ng-model="masterRation.rationDescription" class="form-control" placeholder="<spring:message code='label.rationform.rationdescription.placeholder' text='Enter ration description'/>" ></textarea>
                     </div>
@@ -74,13 +81,14 @@
 					<tr>
 						<th style="width:20%"><spring:message code="label.rationform.ration" text="Ration" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.feedType" text="Feed Type" /></th>
+						<th style="width:20%"><spring:message code="label.rationform.rationType" text="Ration Type" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.rationDescription" text="Ration Description" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.createdOn" text="Created On" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.createdBy" text="Created By" /></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
 					</tr>
 					<tr>
-						<th colspan="6"><input st-search="" class="form-control"
+						<th colspan="7"><input st-search="" class="form-control"
 							placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text" /></th>
 					</tr>
 	 			</thead>
@@ -88,6 +96,7 @@
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:20%">{{row.rationValue}}</td>
 					<td style="width:20%">{{row.feedType}}</td>
+					<td style="width:20%">{{row.rationType}}</td>
 					<td style="width:20%">{{row.rationDescription}}</td>
 					<td style="width:20%">{{DateUtils.getFormatedDate(row.lastUpdated)}}</td>
 					<td style="width:20%">{{row.userUpdated}}</td>										

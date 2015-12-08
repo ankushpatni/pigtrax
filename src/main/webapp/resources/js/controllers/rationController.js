@@ -16,8 +16,23 @@ pigTrax.controller('RationController', function($scope,$rootScope, $http,$window
 				$scope.feedTypeKeyValues =responseList[1];
 				
 				$scope.getRationList();
+				$scope.getRationTypes();
 			}
 		})
+	};
+	
+	
+	$scope.getRationTypes = function()
+	{
+		restServices.getRationTypes(function(data) {
+			if(!data.error)
+				{
+					var responseList = data.payload;
+					$scope.rationTypeKeys = responseList[0];
+					$scope.rationTypeKeyValues =responseList[1];
+				
+				}
+		});
 	};
 	
 	

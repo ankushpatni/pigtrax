@@ -37,6 +37,8 @@ public interface PenDao {
 	
 	public List<Pen> getPenListByBarnId(Integer barnId) throws SQLException;
 	
+	public List<Pen> getPenListByPremiseId(Integer premiseId) throws SQLException;
+	
 	/**
 	 * Get the list of Pen for a given company
 	 * @param barnId

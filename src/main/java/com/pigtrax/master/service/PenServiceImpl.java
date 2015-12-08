@@ -62,5 +62,12 @@ public class PenServiceImpl implements PenService {
 		}
 		return penList;
 	}
+	
+	@Override
+	public List<Pen> getPenListByPremiseId(Integer premiseId)
+			throws SQLException {
+		List<Pen> penList = penDao.getPenListByPremiseId(premiseId);
+		return penList;
+	}
 
 }

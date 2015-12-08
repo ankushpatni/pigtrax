@@ -18,11 +18,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pigtrax.pigevents.beans.BreedingEvent;
-import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
 import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
-import com.pigtrax.pigevents.dto.BreedingEventDto;
 
 @Repository
 @Transactional
@@ -280,5 +277,23 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 
 		return pregnancyEventList;	
    }
+   
+   @Override
+	public List<PregnancyEvent> getOpenPregnancyRecords(final Integer pigInfoId) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("select PE.* from pigtrax.\"PregnancyEvent\" PE where PE.\"id_PregnancyEventType\" = ? and PE.\"id_PregnancyExamResultType\" = ? "
+				+ "and PE.\"id_PigInfo\" = ? and PE.\"id\" not in (select FE.\"id_PregnancyEvent\" from pigtrax.\"FarrowEvent\" FE where FE.\"id_PigInfo\" = ?) order by PE.\"id\" desc");
+		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(buffer.toString(), new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, 1);
+				ps.setInt(2, 1);
+				ps.setInt(3, pigInfoId);
+				ps.setInt(4, pigInfoId);
+			}}, new PregnancyEventMapper());
+		
+		return pregnancyEventList;
+		
+	}
   
 }

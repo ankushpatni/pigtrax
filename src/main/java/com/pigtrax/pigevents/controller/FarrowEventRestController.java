@@ -70,12 +70,17 @@ public class FarrowEventRestController {
 			int rowsInserted = farrowEventService.saveFarrowEventInformation(farrowEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			if(e.isDuplicateStatus())
 			{
 				dto.setDuplicateRecord(true);
+				dto.setStatusMessage("ERROR : "+e.getMessage());
 			}
-			dto.setStatusMessage("ERROR : "+e.getMessage());
+			else if(e.getMessage().equalsIgnoreCase("INVALID-PREGNANCY-RECORD"))
+				dto.setStatusMessage("ERR:INVALID-PREGNANCY-RECORD");
+			else
+				dto.setStatusMessage("ERROR : "+e.getMessage());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());

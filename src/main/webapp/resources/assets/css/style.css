@@ -227,7 +227,7 @@ pre {
 /*navigation*/
 .navbar {
   border: 0;
-  background-color: #f28224;
+  background-color: #F2581C;
   color: #FFF;
   padding-left: 10px;
   padding-right: 25px;
@@ -237,11 +237,11 @@ pre {
   text-align: left;
   width: 206px;
   color: #FFF;
-  background: url("../img/logo.png") no-repeat 0 11px;
+  background: url("../img/logo.png") no-repeat 0 0px;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   font-weight: 300;
   font-size: 19px;
-  line-height: 18px;
+  line-height: 40px;
   height: auto;
 }
 .navbar-default .navbar-brand:hover,
@@ -477,7 +477,7 @@ pre {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #f28224;
+  background-color: #F2581C;
   color: #FFF;
 }
 .navbar-default .navbar-nav > li > a:hover,

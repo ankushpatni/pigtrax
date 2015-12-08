@@ -107,7 +107,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	}
 	
 	 $scope.getPenList = function(){
-			restServices.getPenList($scope.pigInfo.barnId, function(data){
+			restServices.getPenList($scope.pigInfo.premiseId, function(data){
 				 if(!data.error)
 				 {
 					    $scope.penInfo = data.payload;

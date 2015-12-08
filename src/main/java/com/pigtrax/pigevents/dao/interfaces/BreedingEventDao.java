@@ -29,4 +29,8 @@ public interface BreedingEventDao {
    
    BreedingEvent getLatestServiceEvent(Integer pigInfoId);
    
+   List<BreedingEvent> getOpenServiceRecords(Integer pigInfoId);
+   
+   Date getServiceStartDate(Integer breedingEventId);
+   
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
@@ -17,9 +19,12 @@ import com.pigtrax.master.service.interfaces.EmployeeGroupService;
 import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
+import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
 import com.pigtrax.pigevents.dao.interfaces.FarrowEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
+import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.FarrowEventBuilder;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
 import com.pigtrax.pigevents.dto.PigletEventDto;
@@ -64,6 +69,12 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	@Autowired
 	CompanyDao companyDao;
 	
+	@Autowired
+	PregnancyEventDao pregnancyEventDao;
+	
+	@Autowired
+	BreedingEventDao breedingEventDao;
+	
 	
 	@Override
 	public int saveFarrowEventInformation(FarrowEventDto farrowEventDto)
@@ -71,17 +82,27 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 		try{
 			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(farrowEventDto.getPigId(), farrowEventDto.getCompanyId());
 			if(pigInfo != null)
-				farrowEventDto.setPigInfoId(pigInfo.getId());
-			
-			FarrowEvent farrowEvent = builder.convertToBean(farrowEventDto);
-			 
-			if(farrowEventDto.getId() == null)
-			{			   
-			   return addFarrowEventInformation(farrowEvent, farrowEventDto.getCompanyId());
-			}
-			else
 			{
-				return farrowEventDao.updateFarrowEventDetails(farrowEvent); 
+				farrowEventDto.setPigInfoId(pigInfo.getId());
+				
+				boolean check = setPregnancyEventId(farrowEventDto);
+				if(check)
+				{
+					FarrowEvent farrowEvent = builder.convertToBean(farrowEventDto);
+					 
+					if(farrowEventDto.getId() == null)
+					{			   
+					   return addFarrowEventInformation(farrowEvent, farrowEventDto.getCompanyId());
+					}
+					else
+					{
+						return farrowEventDao.updateFarrowEventDetails(farrowEvent); 
+					}
+				}
+				else
+				{
+					throw new PigTraxException("INVALID-PREGNANCY-RECORD");
+				}
 			}
 		}catch(SQLException sqlEx)
 		{
@@ -97,6 +118,39 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 			  logger.info("DuplicateKeyException : "+sqlEx.getRootCause()+"/"+sqlEx.getCause());
 				throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "", true);
 		}
+		return -1;
+	}
+	
+	
+	
+	private boolean setPregnancyEventId(FarrowEventDto farrowEventDto)
+	{
+		if(farrowEventDto.getPigInfoId() != null && farrowEventDto.getFarrowDateTime() != null)
+		{
+			List<PregnancyEvent> pregnancyList = pregnancyEventDao.getOpenPregnancyRecords(farrowEventDto.getPigInfoId());
+			if(pregnancyList != null && 0 <pregnancyList.size())
+			{
+				for(PregnancyEvent pregnancyInfo :  pregnancyList)
+				{
+					if(pregnancyInfo != null) 
+					{
+						DateTime serviceDate = new DateTime(breedingEventDao.getServiceStartDate(pregnancyInfo.getBreedingEventId()));
+						DateTime farrowDate = new DateTime(farrowEventDto.getFarrowDateTime());
+						int duration = Days.daysBetween(serviceDate, farrowDate).getDays();
+						if(duration >= 105 && duration <= 130)
+						{
+							farrowEventDto.setPregnancyEventId(pregnancyInfo.getId());
+							break;
+						}
+					}
+				}
+			}
+			if(farrowEventDto.getPregnancyEventId() != null && farrowEventDto.getPregnancyEventId() != 0)
+				return true;
+			else
+				return false;
+		}
+		return false;
 	}
 	
 	

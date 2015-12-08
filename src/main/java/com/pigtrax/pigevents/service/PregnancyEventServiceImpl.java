@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
@@ -15,10 +17,12 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.cache.dao.interfaces.RefDataDao;
 import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.master.service.interfaces.EmployeeGroupService;
+import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
 import com.pigtrax.pigevents.dao.interfaces.FarrowEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
@@ -63,6 +67,9 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	@Autowired
 	FarrowEventDao farrowEventDao;
 	
+	@Autowired
+	BreedingEventDao breedingEventDao;
+	
 	
 	@Override
 	public int savePregnancyEventInformation(PregnancyEventDto pregnancyEventDto)
@@ -72,15 +79,24 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 			if(pigInfo != null)
 				pregnancyEventDto.setPigInfoId(pigInfo.getId());
 			
-			PregnancyEvent pregnancyEvent = builder.convertToBean(pregnancyEventDto);
+			boolean flag = setBreedingEventId(pregnancyEventDto);
 			
-			if(pregnancyEventDto.getId() == null)
-			{
-			   return addPregnancyEventInformation(pregnancyEvent);
+			if(flag)
+			{			
+				PregnancyEvent pregnancyEvent = builder.convertToBean(pregnancyEventDto);
+				
+				if(pregnancyEventDto.getId() == null)
+				{
+				   return addPregnancyEventInformation(pregnancyEvent);
+				}
+				else
+				{
+					return pregnancyEventDao.updatePregnancyEventDetails(pregnancyEvent);  
+				}
 			}
 			else
 			{
-				return pregnancyEventDao.updatePregnancyEventDetails(pregnancyEvent);  
+				throw new PigTraxException("INVALID-SERVICE");
 			}
 		}catch(SQLException sqlEx)
 		{
@@ -97,6 +113,54 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 				throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "", true);
 		}
 	}
+	
+	
+	
+	private boolean setBreedingEventId(PregnancyEventDto pregnancyEventDto) {
+		try {
+			if(pregnancyEventDto.getResultDate() != null)
+			{
+				DateTime pregnancyResultDate = new DateTime(pregnancyEventDto.getResultDate());
+				Integer eventTypeId = pregnancyEventDto.getPregnancyEventTypeId();
+				
+				List<BreedingEvent> breedingEventList = breedingEventDao.getOpenServiceRecords(pregnancyEventDto.getPigInfoId());
+				
+				if(breedingEventList != null && 0<breedingEventList.size())
+				{
+					for(BreedingEvent breedingEvent : breedingEventList)
+					{
+						DateTime serviceDate = new DateTime(breedingEvent.getServiceStartDate());
+						int durationDays = Days.daysBetween(serviceDate, pregnancyResultDate).getDays();
+						
+						
+						if (eventTypeId == 1 && durationDays >= 18 && durationDays <= 60) {
+							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
+							break;
+						}
+						else if (eventTypeId == 2 && durationDays >= 18 && durationDays >= 110) {
+							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
+							break;
+						}
+						else if (eventTypeId == 3 && durationDays >= 105 && durationDays <= 125) {
+							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
+							break;
+						}						
+							
+					}
+				}
+				if(pregnancyEventDto.getBreedingEventId() != 0)
+					return true;
+				else
+					return false;
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	
 	
 	
 	

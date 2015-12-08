@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.pregnancyeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
+          <h2>${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="PregnancyEventController" ng-init="loadPage(${CompanyId},'${PregnancyEventId}')" id="PregnancyEventControllerId">
@@ -107,7 +107,11 @@
                   </div>
                   <div class="alert alert-danger alert-white rounded"  ng-show="entryEventDuplicateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.pregnancyeventform.duplicate.error.message' text='A pregnancy event record already exists with the same details'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.duplicate.error.message' text='A pregnancy event record already exists with the same details'/>
+                  </div>
+                  <div class="alert alert-danger alert-white rounded"  ng-show="matchingServiceRecordNotFound">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pregnancyeventform.matchingServiceRecordNotFound' text='Matching service record not found for the given result date'/>
                   </div>  
                 </div>
                 <div class="content">
@@ -125,17 +129,17 @@
 				  
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.pigInfoId'  text='Pig Id'/><span style='color: red'>*</span></label>
-                       <div data-min-view="2" class="input-group col-md-7 col-xs-9"> 
-                     <input type="text" ng-model="pregnancyEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>"/>
-						<span class="input-group-addon btn btn-primary" ng-click="searchBreedingService(pregnancyEvent.pigId, pregnancyEvent.companyId)"  ><a class="btn-primary"><spring:message code='label.piginfo.breedingeventform.breedingevent'  text='Breeding Event'/></a></span>
-						</div>
+                        
+                     <input type="text" ng-model="pregnancyEvent.pigId" id="pigId" name="pigId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.placeholder'  text='Enter Piginfo Id'/>" ng-blur="searchBreedingService(pregnancyEvent.pigId, pregnancyEvent.companyId)"/>
+						
 						<a href="#" ng-click="goToBreedingEvent()" ng-show="pregnancyEvent.breedingEventId != null && pregnancyEvent.breedingEventId > 0"><spring:message code='label.piginfo.pregnancyeventform.gotobreedingeventtext'  text='Go to Breeding Event'/></a>						 
-					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
+					
+                    </div>
+                    <label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
 					<label ng-show="breedingEventIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' /></label>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
 					
-                    </div>
                       <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
                       <input rsmdatedropdowns ng-model="pregnancyEvent.resultDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>

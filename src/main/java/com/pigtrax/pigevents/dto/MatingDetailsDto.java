@@ -14,6 +14,7 @@ public class MatingDetailsDto {
 	private String userUpdated;
 	private Integer breedingEventId;	
 	private EmployeeGroupDto employeeGroup;
+	private Date semenDate;
 	
 
 	public Integer getMatingDetailId() {
@@ -86,6 +87,14 @@ public class MatingDetailsDto {
 
 	public void setEmployeeGroup(EmployeeGroupDto employeeGroupDto) {
 		this.employeeGroup = employeeGroupDto;
+	}
+
+	public Date getSemenDate() {
+		return semenDate;
+	}
+
+	public void setSemenDate(Date semenDate) {
+		this.semenDate = semenDate;
 	}
 	
 	

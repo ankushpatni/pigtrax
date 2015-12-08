@@ -28,6 +28,7 @@ public class MasterRationServiceImpl implements MasterRationService {
 			ration.setFeedTypeId(rationDto.getFeedTypeId());;
 			ration.setUserUpdated(rationDto.getUserUpdated());
 			ration.setRationDescription(rationDto.getRationDescription());
+			ration.setRationTypeId(rationDto.getRationTypeId());
 			rationDao.saveRation(ration);
 		
 	  }

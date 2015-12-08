@@ -90,6 +90,8 @@ public class RefDataCacheImpl implements RefDataCache {
 	
 	private Map<String, Map<Integer, String>> marketTypeMap;
 	
+	private Map<String, Map<Integer, String>> masterRationTypeMap;
+	
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
 	 * 
@@ -134,6 +136,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		jobFunctionRoleMap = Collections.unmodifiableMap(convertToMap(refDataDao.getJobFunctionRole()));
 		trailerFunctionMap = Collections.unmodifiableMap(convertToMap(refDataDao.getTrailerFunctions()));
 		marketTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getMarketTypes()));
+		masterRationTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getRationTypes()));
 	}
 
 	@Override
@@ -324,6 +327,11 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getMarketTypeMap(String language) {
 		return marketTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getMasterRationTypeMap(String language) {
+		return masterRationTypeMap.get(language);
 	}
 	
 }

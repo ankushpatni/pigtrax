@@ -39,7 +39,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 			throws SQLException {
 		
 		String qry = "select \"id\", \"ticketNumber\", \"feedContentId\", \"initialFeedEntryDateTime\", \"batchId\", "
-		   		+ "\"initialFeedQuantityKgs\", \"feedCost\", \"feedMedication\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\" "+
+		   		+ "\"initialFeedQuantityKgs\", \"feedCost\", \"feedMedication\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\",\"id_Premise\" "+
 		   		"from pigtrax.\"FeedEvent\" where \"id\" = ? ";
 		
 			
@@ -58,7 +58,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 	@Override
 	public FeedEvent getFeedEventByTicketNumber(final String ticketNumber) throws SQLException {
 		String qry = "select \"id\", \"ticketNumber\", \"feedContentId\", \"initialFeedEntryDateTime\", \"batchId\", "
-		   		+ "\"initialFeedQuantityKgs\", \"feedCost\", \"feedMedication\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\" "+
+		   		+ "\"initialFeedQuantityKgs\", \"feedCost\", \"feedMedication\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\",\"id_Premise\" "+
 		   		"from pigtrax.\"FeedEvent\" where \"ticketNumber\" = ? ";
 			
 			List<FeedEvent> feedEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -96,8 +96,8 @@ public class FeedEventDaoImpl implements FeedEventDao
 	@Override
 	public int addFeedEvent(final FeedEvent feedEvent) throws SQLException {
 		final String Qry = "insert into pigtrax.\"FeedEvent\"(\"ticketNumber\", \"feedContentId\", \"initialFeedEntryDateTime\", \"batchId\","
-				+ " \"initialFeedQuantityKgs\",\"feedCost\", \"feedMedication\", \"id_TransportJourney\",  \"lastUpdated\",\"userUpdated\") "
-				+ "values(?,?,?,?,?,?,?,?,current_timestamp,?)";	
+				+ " \"initialFeedQuantityKgs\",\"feedCost\", \"feedMedication\", \"id_TransportJourney\",  \"lastUpdated\",\"userUpdated\",\"id_Premise\") "
+				+ "values(?,?,?,?,?,?,?,?,current_timestamp,?,?)";	
 		
 
 		KeyHolder holder = new GeneratedKeyHolder();
@@ -118,7 +118,11 @@ public class FeedEventDaoImpl implements FeedEventDao
 					ps.setInt(8, feedEvent.getTransportJourneyId());
 				else
 					ps.setNull(8,  java.sql.Types.INTEGER);
-				ps.setString(9, feedEvent.getUserUpdated());				
+				ps.setString(9, feedEvent.getUserUpdated());
+				if(null != feedEvent.getPremiseId() && feedEvent.getPremiseId()>0)
+					ps.setInt(10, feedEvent.getPremiseId());
+				else
+					ps.setNull(10,  java.sql.Types.INTEGER);
 				return ps;
 			}
 		}, holder);
@@ -131,7 +135,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 	public int updateFeedEvent(final FeedEvent feedEvent) throws SQLException {
 		String query = "update pigtrax.\"FeedEvent\" SET \"ticketNumber\"=?, \"initialFeedEntryDateTime\"=?, \"batchId\"=?,"
 				+" \"initialFeedQuantityKgs\"=? ,\"feedCost\" =? , \"feedMedication\" = ?, \"id_TransportJourney\"=?, \"lastUpdated\"=current_timestamp,"+
-				" \"userUpdated\"=?  where \"id\" = ? ";
+				" \"userUpdated\"=? ,\"id_Premise\"=? where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
@@ -167,7 +171,11 @@ public class FeedEventDaoImpl implements FeedEventDao
 						ps.setNull(7, java.sql.Types.INTEGER);
 					
 					ps.setString(8, feedEvent.getUserUpdated());
-					ps.setInt(9, feedEvent.getId());
+					if(feedEvent.getPremiseId() != null  && feedEvent.getPremiseId()>0)
+						ps.setInt(9, feedEvent.getPremiseId());
+					else
+						ps.setNull(9, java.sql.Types.INTEGER);
+					ps.setInt(10, feedEvent.getId());
 				}
 			});	
 	}
@@ -188,6 +196,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 			feedEvent.setTransportJourneyId(rs.getInt("id_TransportJourney"));
 			feedEvent.setLastUpdated(rs.getDate("lastUpdated"));
 			feedEvent.setUserUpdated(rs.getString("userUpdated"));
+			feedEvent.setPremiseId(rs.getInt("id_Premise"));
 			return feedEvent;
 		}		
 	}

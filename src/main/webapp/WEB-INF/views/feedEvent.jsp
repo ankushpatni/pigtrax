@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.feedEventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
+          <h2>${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="FeedEventController" ng-init="setCompanyId('${CompanyId}','${feedEventTicketNumber}')">
@@ -57,6 +57,14 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
                    </div> -->
+                   
+                   <div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="feedEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="feedEvent.premiseId == premise.id">{{premise.name}}</option>
+                        </select>
+                    </div>	
+                   
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.ticketNumber'  text='Ticket Number'/><span style='color: red'>*</span></label>
                       <label ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">{{feedEvent.ticketNumber}}</label>
@@ -89,7 +97,7 @@
                       <label><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.feedCost.placeHolder' text='Enter Feed Cost' />" 
                      	name="feedCost" ng-model="feedEvent.feedCost" maxlength="20" required-message="'<spring:message code='label.piginfo.feedCost.feedCost.requiredMessage' text='Feed Cost required' />'" 
-                     	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
+                     	 ng-pattern="/^[-]?[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.feedMedication'  text='Feed Medication'/></label>
@@ -101,10 +109,7 @@
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
 					  <span ng-hide="(feedEvent.transportJourney.id != null && feedEvent.transportJourney.trailerFunction != 0)" class="btn btn-success" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
                       <input type="hidden" ng-model="feedEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"/>
-					  <div ng-show="(feedEvent.transportJourney.trailerFunction != null && feedEvent.transportJourney.trailerFunction != '') ||
-							(feedEvent.transportJourney.id != 0 && feedEvent.transportJourney.id != null)">
-							<p><spring:message code="label.transportJourney.trailerFunction" text="Trailer Function" /> : <small>{{feedEvent.transportJourney.trailerFunction}}</small></p>
-							<p><spring:message code='label.transportJourney.transportDestinationId'  text='Transport Destination'/> : <small>{{transportDestination[feedEvent.transportJourney.transportDestinationId]}}</small></p>
+					  <div ng-show="feedEvent.transportJourney != null">							
 							<p><spring:message code='label.transportJourney.transportTruckId'  text='Transport Truck'/> : <small>{{transportTruck[feedEvent.transportJourney.transportTruckId]}}</small></p>
 							<p><spring:message code='label.transportJourney.transportTrailerId'  text='Transport Trailer'/> : <small>{{transportTrailer[feedEvent.transportJourney.transportTrailerId]}}</small></p>
 						</div>

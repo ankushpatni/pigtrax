@@ -28,6 +28,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		$scope.invalidPigletNumbers = false;
 		$scope.pigletNumbersRequired = false;
 		$scope.invalidGroupEventId = false;
+		$scope.matchingFarrowRecordNotFound = false;
 	};
 	
 	$scope.resetForm = function()
@@ -47,7 +48,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		else if($scope.pigletStatusEvent.pigletStatusEventTypeId == 4)
 			$scope.eventSection = 'death';
 		
-		if($scope.pigletStatusEvent["pigId"] != null)
+		/*if($scope.pigletStatusEvent["pigId"] != null)
 			{
 				restServices.getPigletStatusEventsByFarrowEventId($scope.pigletStatusEvent, function(data){
 					$scope.fosterInRecords = [];
@@ -65,7 +66,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 						$scope.pigletStatusEvent = {};
 					}
 				});
-			}
+			}*/
 	}
 	
 	
@@ -190,35 +191,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 						$scope.clearAllMessages();
 						$scope.inValidPigIdFromServer = true;		
 						$scope.pigletStatusEvent = {};
-					}
-					else
-					{
-						$('#searchFarrowEvents').modal('show');
-						
-						$scope.clearAllMessages();
-						var searchFarrowEvent = {
-								searchText : $scope.pigletStatusEvent.pigId,
-								searchOption : "PigId", 
-								companyId : $rootScope.companyId
-								
-						};				
-						restServices.getFarrowEventInformation(searchFarrowEvent, function(data){
-							$scope.clearAllMessages();
-							if(!data.error){
-								$scope.farrowEvent = {};
-								$scope.farrowEventList = data.payload;						
-								
-							}
-							else
-							{
-								$scope.clearAllMessages();
-								$scope.farrowEventList = [];
-								
-							}
-						});
-						
-					}
-						
+					}	
 				});
 			}
 		else
@@ -398,7 +371,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				
 				return;
 		}
-		else if($scope.pigletStatusEvent["weanPigNum"] != undefined && $scope.pigletStatusEvent["weanPigNum"] != null && $scope.pigletStatusEvent["weanPigNum"] != 0
+		else if($scope.pigletStatusEvent["pigletStatusEventTypeId"] == 3 && $scope.pigletStatusEvent["weanPigNum"] != undefined && $scope.pigletStatusEvent["weanPigNum"] != null && $scope.pigletStatusEvent["weanPigNum"] != 0
 				&& $scope.pigletStatusEvent["weanPigNum"] != "" && ( $scope.pigletStatusEvent["weanEventDateTime"] === undefined || $scope.pigletStatusEvent["weanEventDateTime"] === null || 
 				$scope.pigletStatusEvent["weanEventDateTime"] == "" || $scope.pigletStatusEvent["weanEventDateTime"] == "Invalid Date") )
 		{
@@ -408,7 +381,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 			return;
 		}
 		
-		else if($scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null && $scope.pigletStatusEvent["fosterPigNum"] != 0
+		else if($scope.pigletStatusEvent["pigletStatusEventTypeId"] == 2 && $scope.pigletStatusEvent["fosterPigNum"] != undefined && $scope.pigletStatusEvent["fosterPigNum"] != null && $scope.pigletStatusEvent["fosterPigNum"] != 0
 				&& $scope.pigletStatusEvent["fosterPigNum"] != "" && ( $scope.pigletStatusEvent["fosterEventDateTime"] === undefined || $scope.pigletStatusEvent["fosterEventDateTime"] === null ||
 				$scope.pigletStatusEvent["fosterEventDateTime"] == ""  || $scope.pigletStatusEvent["fosterEventDateTime"] == "Invalid Date"))
 		{
@@ -417,7 +390,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 			return;
 		}
 		
-		else if($scope.pigletStatusEvent["deathPigNum"] != undefined && $scope.pigletStatusEvent["deathPigNum"] != null && $scope.pigletStatusEvent["deathPigNum"] != 0
+		else if($scope.pigletStatusEvent["pigletStatusEventTypeId"] == 4 && $scope.pigletStatusEvent["deathPigNum"] != undefined && $scope.pigletStatusEvent["deathPigNum"] != null && $scope.pigletStatusEvent["deathPigNum"] != 0
 				&& $scope.pigletStatusEvent["deathPigNum"] != "" && ( $scope.pigletStatusEvent["deathEventDateTime"] === undefined || $scope.pigletStatusEvent["deathEventDateTime"] === null || 
 				$scope.pigletStatusEvent["deathEventDateTime"] === null || $scope.pigletStatusEvent["deathEventDateTime"] == "Invalid Date")) 
 		{
@@ -444,7 +417,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 					$scope.pigletStatusEvent["companyId"] = $rootScope.companyId;
 					delete $scope.pigletStatusEvent.fosterDto;
 					//alert($scope.pigletStatusEvent.farrowEventId);
-					restServices.validatePigletStatusEvent($scope.pigletStatusEvent, function(data){
+					/*restServices.validatePigletStatusEvent($scope.pigletStatusEvent, function(data){
 				   		if(!data.error)
 					   {
 				   			var statusCode = data.payload;
@@ -469,7 +442,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 						    	$window.scrollTo(0, 5);
 						   	 }
 					   }
-					});
+					});*/
+					$scope.confirmAddPigletStatusEvent();
 					
 				}
 			}
@@ -489,9 +463,11 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 				}
 			else
 				{ 
-					$scope.clearAllMessages();
+					$scope.clearAllMessages();					
 					if(data.duplicateRecord)
 						$scope.entryEventDuplicateErrorMessage = true;
+					else if(data.statusMessage == "ERR:INVALID-FARROW")
+						$scope.matchingFarrowRecordNotFound = true;
 					else
 						$scope.entryEventErrorMessage = true;
 				}

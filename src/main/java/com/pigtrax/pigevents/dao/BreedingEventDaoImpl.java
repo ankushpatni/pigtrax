@@ -9,10 +9,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -305,6 +307,43 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		}
 		return null; 
 	}
+	
+	@Override
+	public List<BreedingEvent> getOpenServiceRecords(final Integer pigInfoId) {
+		String qry = "select BE.* from pigtrax.\"BreedingEvent\" BE where BE.\"serviceStartDate\" "
+				+ "	is not NULL and BE.\"id\" not in (select PE.\"id_BreedingEvent\" from pigtrax.\"PregnancyEvent\" PE "
+				+ " JOIN pigtrax.\"BreedingEvent\" BE on PE.\"id_BreedingEvent\" = BE.\"id\" JOIN pigtrax.\"PigInfo\" PI "
+				+ " on BE.\"id_PigInfo\" = PI.\"id\" where PI.\"id\" = ?) and  BE.\"id_PigInfo\" = ? order by BE.\"id\" desc";
+		
+		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, pigInfoId);
+				ps.setInt(2, pigInfoId);
+			}}, new BreedingEventMapper());
+		
+		return breedingEventList;
+	}
+	
+	@Override
+	public Date getServiceStartDate(final Integer breedingEventId){
+		String qry = "Select  BE.\"serviceStartDate\" from pigtrax.\"BreedingEvent\" BE  where BE.\"id\" = ? ";
+		Date serviceStartDate = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, breedingEventId);
+			}}, new ResultSetExtractor<Date>() {
+				public Date extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+					if (resultSet.next()) {
+						return resultSet.getDate(1);
+					}
+					return null;
+				}
+			});	
+
+		return serviceStartDate;
+	}
+
 	
 }
 

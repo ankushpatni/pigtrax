@@ -38,6 +38,8 @@ public interface PenService {
 	
 	List<Pen> getPenListByBarnId(Integer barnId) throws SQLException;
 	
+	List<Pen> getPenListByPremiseId(Integer premiseId) throws SQLException;
+	
 	/**
 	 * Get the list of Pen for a given company
 	 * @param companyId

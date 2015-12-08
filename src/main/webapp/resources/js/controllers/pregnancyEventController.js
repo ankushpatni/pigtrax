@@ -28,6 +28,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.resultDateRequired = false;
 		$scope.invalidResultDate = false;
 		$scope.breedingEventIdRequired = false;
+		$scope.matchingServiceRecordNotFound = false;
 	};
 	
 	
@@ -163,10 +164,6 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		
 		var resultDate = $scope.pregnancyEvent["resultDate"];
 		
-		if($scope.pregnancyEvent.breedingEventId == undefined || $scope.pregnancyEvent.breedingEventId == null && $scope.pregnancyEvent.breedingEventId == "")
-		{
-			  $scope.breedingEventIdRequired = true;
-		}
 		if(resultDate == null || resultDate == undefined || resultDate == "")
 		{
 			$scope.resultDateRequired = true;
@@ -208,7 +205,10 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 							else
 								{
 									$scope.clearAllMessages();
-									$scope.entryEventErrorMessage = true;
+									if(data.statusMessage == "ERR:INVALID-SERVICE")
+										$scope.matchingServiceRecordNotFound = true;
+									else										
+										$scope.entryEventErrorMessage = true;
 								}
 								$window.scrollTo(0, 5);  
 						});
@@ -348,7 +348,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					if(pigInfo.sexTypeId == 2)
 					{
 						$scope.clearAllMessages();
-						$("#searchBreedingService").modal("show");
+						/*$("#searchBreedingService").modal("show");
 						
 						var searchBreedEvent = {
 								searchText : pigId,
@@ -367,7 +367,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 							{
 								$scope.breedingEventList = [];  
 							}
-						});
+						});*/
 					}
 					else
 					{

@@ -23,6 +23,7 @@ public class MatingDetailsBuilder {
 			   info.setMatingQuality(dto.getMatingQuality());
 			   info.setSemenId(dto.getSemenId());
 			   info.setUserUpdated(dto.getUserUpdated());
+			   info.setSemenDate(dto.getSemenDate());
 			   
 		   }
 		   return info;
@@ -42,7 +43,7 @@ public class MatingDetailsBuilder {
 			   dto.setMatingQuality(info.getMatingQuality());
 			   dto.setSemenId(info.getSemenId());
 			   dto.setUserUpdated(info.getUserUpdated());
-			   
+			   dto.setSemenDate(info.getSemenDate());
 		   }
 		   return dto;
 	   }

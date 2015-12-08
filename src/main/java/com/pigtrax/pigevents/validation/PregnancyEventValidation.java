@@ -79,49 +79,54 @@ public class PregnancyEventValidation {
   {
 	  
 	  init();
-	  
-	  int pregnancyEventType = pregnancyEventDto.getPregnancyEventTypeId();
-	  
-	  DateTime examDate = null;
-	  if(pregnancyEventDto.getExamDate() != null)
-		  examDate = new DateTime(pregnancyEventDto.getExamDate());
-	  DateTime resultDate = new DateTime(pregnancyEventDto.getResultDate());
-	  DateTime serviceDate = new DateTime(pregnancyEventDto.getBreedingEventDto().getServiceStartDate());
-	  
-	  int duration = Days.daysBetween(serviceDate, resultDate).getDays();
-	  
-	  int examDuration = 0;
-	  
-	  if(examDate != null) examDuration = Days.daysBetween(serviceDate, examDate).getDays();
-	  else
-		  examDuration = 18;
-	  
-	  boolean flag = checkPregnancyEventExists(pregnancyEventDto);
 	 
-	  if(pregnancyEventDto.getId() == null && flag) 
-	  {
-		  return ERR_CODE_05;
+	  if(pregnancyEventDto.getBreedingEventDto() == null)
+		  return SUCCESS_CODE;
+	  else
+	  {	  
+		  int pregnancyEventType = pregnancyEventDto.getPregnancyEventTypeId();
+		  
+		  DateTime examDate = null;
+		  if(pregnancyEventDto.getExamDate() != null)
+			  examDate = new DateTime(pregnancyEventDto.getExamDate());
+		  DateTime resultDate = new DateTime(pregnancyEventDto.getResultDate());
+		  DateTime serviceDate = new DateTime(pregnancyEventDto.getBreedingEventDto().getServiceStartDate());
+		  
+		  int duration = Days.daysBetween(serviceDate, resultDate).getDays();
+		  
+		  int examDuration = 0;
+		  
+		  if(examDate != null) examDuration = Days.daysBetween(serviceDate, examDate).getDays();
+		  else
+			  examDuration = 18;
+		  
+		  boolean flag = checkPregnancyEventExists(pregnancyEventDto);
+		 
+		  if(pregnancyEventDto.getId() == null && flag) 
+		  {
+			  return ERR_CODE_05;
+		  }
+		  //In case of pregnancy event
+		  else if(duration <= 0)
+		  {
+			  return ERR_CODE_04;
+		  }
+		  else if(pregnancyEventType == 1 && ((duration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || duration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION)
+				     || (examDuration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || examDuration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION)))
+		  {
+			  return ERR_CODE_01;
+		  }
+		  else if(pregnancyEventType == 2 && (duration < PREGNANCY_EVENT_ABORTION_START_DURATION || duration > PREGNANCY_EVENT_ABORTION_END_DURATION))
+		  {
+			  return ERR_CODE_02;
+		  }
+		  else if(pregnancyEventType == 3 && (duration < PREGNANCY_EVENT_NOT_IN_PIG_START_DURATION || duration > PREGNANCY_EVENT_NOT_IN_PIG_END_DURATION))
+		  {
+			  return ERR_CODE_03;
+		  }
+		  
+		  return SUCCESS_CODE;
 	  }
-	  //In case of pregnancy event
-	  else if(duration <= 0)
-	  {
-		  return ERR_CODE_04;
-	  }
-	  else if(pregnancyEventType == 1 && ((duration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || duration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION)
-			     || (examDuration < PREGNANCY_EVENT_PREG_EXAM_EVENT_START_DURATION || examDuration >  PREGNANCY_EVENT_PREG_EXAM_EVENT_END_DURATION)))
-	  {
-		  return ERR_CODE_01;
-	  }
-	  else if(pregnancyEventType == 2 && (duration < PREGNANCY_EVENT_ABORTION_START_DURATION || duration > PREGNANCY_EVENT_ABORTION_END_DURATION))
-	  {
-		  return ERR_CODE_02;
-	  }
-	  else if(pregnancyEventType == 3 && (duration < PREGNANCY_EVENT_NOT_IN_PIG_START_DURATION || duration > PREGNANCY_EVENT_NOT_IN_PIG_END_DURATION))
-	  {
-		  return ERR_CODE_03;
-	  }
-	  
-	  return SUCCESS_CODE;
 	 
   }
   

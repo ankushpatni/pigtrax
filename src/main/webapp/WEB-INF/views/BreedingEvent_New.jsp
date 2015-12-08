@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.breedingeventform.breedingevent'  text='Breeding Event'/> - ${CompanyName}</h2>
+          <h2>${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="BreedingEventController" ng-init="setCompanyId(${CompanyId},'${BreedingEventId}')" id="BreedingEventControllerId">
@@ -288,6 +288,12 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.semenId.invalidmessage' text='Only Alpha Numeric values are allowed' />'"/>
                     </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.matingdetailsform.semendate'  text='Semen Date'/></label>
+                      	<input rsmdatedropdowns ng-model="matingDetails.semenDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
+                    </div>
+                    
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.mateQuality'  text='Mating Quality'/></label>
                       <select ng-model="matingDetails.matingQuality" name="matingQuality" id="matingQuality" class="form-control">
@@ -328,6 +334,7 @@
 						<th style="width:20%"><spring:message code="label.matingdetailsform.matingDate" text="Mating Date" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.employeeGroupId" text="Group Id" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.semenId" text="Semen Id" /></th>
+						<th style="width:20%"><spring:message code="label.matingdetailsform.semendate" text="Semen Date" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.matingQuality" text="Mating Quality" /></th>
 						<th style="width:20%"><spring:message code="label.piginfo.breedingeventform.delete" text="Delete" /></th>
 					</tr>
@@ -337,6 +344,7 @@
 					<td style="width:20%">{{DateUtils.getFormatedDate(row.matingDate)}}</td>
 					<td style="width:20%">{{row.employeeGroup.groupId}}</td>					
 					<td style="width:20%">{{row.semenId}}</td>
+					<td style="width:20%">{{DateUtils.getFormatedDate(row.semenDate)}}</td>
 					<td style="width:20%">{{row.matingQuality}}</td>
 					<td style="width:20%">
 						<button type="button" class="btn btn-danger btn-xs" ng-click="deleteMatingDetails(row)" ng-confirm-click="<spring:message code='label.matingdetailsform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>">

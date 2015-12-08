@@ -11,6 +11,7 @@ public class MatingDetails {
 	private Date lastUpdated;
 	private String userUpdated;
 	private Integer breedingEventId;
+	private Date semenDate;
 
 	public Integer getMatingDetailId() {
 		return matingDetailId;
@@ -76,4 +77,12 @@ public class MatingDetails {
 		this.breedingEventId = breedingEventId;
 	}
 
+	public Date getSemenDate() {
+		return semenDate;
+	}
+
+	public void setSemenDate(Date semenDate) {
+		this.semenDate = semenDate;
+	}
+	
 }

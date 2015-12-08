@@ -53,12 +53,18 @@ public class PregnancyEventRestController {
 			int rowsInserted = pregnancyEventService.savePregnancyEventInformation(pregnancyEventDto);
 			dto.setStatusMessage("Success");
 		} catch (PigTraxException e) {
-			e.printStackTrace();
-			if(e.isDuplicateStatus())
+			//e.printStackTrace();
+			if(e.getMessage().equalsIgnoreCase("INVALID-SERVICE"))
+			{
+				dto.setStatusMessage("ERR:INVALID-SERVICE");
+			}
+			else if(e.isDuplicateStatus())
 			{
 				dto.setDuplicateRecord(true);
+				dto.setStatusMessage("ERROR : "+e.getMessage());
 			}
-			dto.setStatusMessage("ERROR : "+e.getMessage());
+			else
+				dto.setStatusMessage("ERROR : "+e.getMessage());
 		} catch (Exception e) {		
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR : "+e.getMessage());

@@ -17,6 +17,7 @@ public class FeedEvent {
 	private Date lastUpdated;
 	private String userUpdated;
 	private TransportJourney transportJourney; 
+	private Integer premiseId;
 	
 	public Integer getId() {
 		return id;
@@ -90,6 +91,12 @@ public class FeedEvent {
 	}
 	public void setRationId(Integer rationId) {
 		this.rationId = rationId;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	
 	

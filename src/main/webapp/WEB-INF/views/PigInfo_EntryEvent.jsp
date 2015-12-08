@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.entryeventform.piginformation'  text='Pig Information'/> - ${CompanyName}</h2>
+          <h2>${CompanyName}</h2>
 </div>
  <div class="cl-mcont" ng-controller="EntryEventController" ng-init="populateBarns(${CompanyId})"  id="EntryEventControllerId">
  <div class="row">
@@ -70,19 +70,11 @@
                    
                    	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigInfo.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigInfo.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'" ng-change="getPenList()">
                        	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigInfo.premiseId == premise.id">{{premise.name}}</option>
                         </select>
-                    </div>	
-				  
-				  
-                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.barn'  text='Barn'/></label>
-                      <select class="form-control" ng-model="pigInfo.barnId"                      
-                      ng-change="getPenList()">
-                          <option ng-repeat="barnDto in barns" value="{{barnDto.id}}">{{barnDto.barnId}}</option>
-                        </select>
                     </div>
+				  
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.pen'  text='Pen'/></label>
                      <select class="form-control" ng-model="pigInfo.penId">
