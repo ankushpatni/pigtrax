@@ -110,7 +110,7 @@
 					
                     </div>
                     <label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
-					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.server.invalidmessage' text='Invalid Farrow Id for the company' /></label>
+					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="pigletsAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.server.pigletsaddedmessage' text='All piglets information added for the selected farrow event.' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.requiredmessage' text='Farrow Id is required' /></label>
 					<div class="form-group"> 
