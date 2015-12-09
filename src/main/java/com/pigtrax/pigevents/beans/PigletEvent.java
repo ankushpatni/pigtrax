@@ -11,6 +11,8 @@ public class PigletEvent {
 	private Date lastUpdated;
 	private String userUpdated;
 	private int farrowEventId;
+	private Integer premiseId;
+	private Integer litterId;
 	
 	public Integer getId() {
 		return id;
@@ -53,6 +55,18 @@ public class PigletEvent {
 	}
 	public void setFarrowEventId(int farrowEventId) {
 		this.farrowEventId = farrowEventId;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
+	}
+	public Integer getLitterId() {
+		return litterId;
+	}
+	public void setLitterId(Integer litterId) {
+		this.litterId = litterId;
 	}
 	
 }

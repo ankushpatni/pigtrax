@@ -30,6 +30,7 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
     	$scope.add.paymentDate = companyData.paymentDate, 
     	$scope.add.active = companyData.active,
     	$scope.add.id = companyData.id;
+		$scope.add.otherCity = companyData.otherCity;
 		
 		for (i = 0; i < $scope.city.length; i++) { 
 			if($scope.city[i].value === companyData.city)
@@ -37,6 +38,16 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 				$scope.cityValue = $scope.city[i].name;
 				break;
 			}
+		}
+		
+		if($scope.add.city.toUpperCase()==="OTHERS")
+		{
+		   $scope.premiseOtherCityBox = true;
+		}
+		else
+		{
+		  $scope.premiseOtherCityBox = false
+		  $scope.add.otherCity = "";
 		}
 	}
 	
@@ -57,7 +68,8 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 						"payment" : $scope.add.payment,
 						"paymentDate" : null, 
 						"active" : $scope.add.active,
-						"id" : $scope.add.id
+						"id" : $scope.add.id,
+						"otherCity" : $scope.add.otherCity,
 				};
 				
 				/*if($scope.add.payment)
@@ -104,5 +116,17 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
 		$event.stopPropagation();
 		$scope.opened = true;
 	};
+	
+	$scope.selectOtherCity = function(){	
+		if($scope.add.city.toUpperCase()==="OTHERS")
+		{
+		   $scope.premiseOtherCityBox = true;
+		}
+		else
+		{
+		  $scope.premiseOtherCityBox = false
+		  $scope.add.otherCity = "";
+		}
+	}
 });
 

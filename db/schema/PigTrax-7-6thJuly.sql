@@ -47,6 +47,7 @@ CREATE TABLE pigtrax."Company"(
 	address varchar(255) NOT NULL,
 	city varchar(30) NOT NULL,
 	country varchar(30) NOT NULL,
+	"otherCity" varchar(30),
 	"registrationNumber" varchar(20) NOT NULL,
 	email varchar(50) NOT NULL,
 	phone varchar(15) NOT NULL,
@@ -74,6 +75,7 @@ CREATE TABLE pigtrax."Premise"(
 	name varchar(50) NOT NULL,
 	address varchar(255),
 	city varchar(30),
+	"otherCity" varchar(30),
 	state varchar(50),
 	zipcode varchar(9),
 	"isActive" bool,
@@ -898,6 +900,8 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_FarrowEvent" integer,
+	"id_Premise" integer,
+	"litterId" integer,
 	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId")
 
@@ -910,6 +914,14 @@ ALTER TABLE pigtrax."IndividualPigletStatus" OWNER TO pitraxadmin;
 -- ALTER TABLE pigtrax."IndividualPigletStatus" DROP CONSTRAINT IF EXISTS "FarrowEvent_fk" CASCADE;
 ALTER TABLE pigtrax."IndividualPigletStatus" ADD CONSTRAINT "FarrowEvent_fk" FOREIGN KEY ("id_FarrowEvent")
 REFERENCES pigtrax."FarrowEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."IndividualPigletStatus" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."IndividualPigletStatus" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

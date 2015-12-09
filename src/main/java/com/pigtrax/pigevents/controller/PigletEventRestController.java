@@ -16,8 +16,8 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
-import com.pigtrax.pigevents.dto.FarrowEventDto;
 import com.pigtrax.pigevents.dto.PigletEventDto;
+import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletEventService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
@@ -31,6 +31,9 @@ public class PigletEventRestController {
 	
 	@Autowired
 	PigletEventService pigletEventService;
+	
+	@Autowired
+	FarrowEventService farrowEventService;
 	
 		
 	/**
@@ -119,6 +122,39 @@ public class PigletEventRestController {
 		}
 		return dto;
 	}
+	
+	
+	/**
+	 * Service to get Piglet information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/checkForLitterId", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	@ResponseBody
+	public ServiceResponseDto checkForLitterId(HttpServletRequest request, @RequestBody PigletEventDto pigletEventDto)
+	{
+		logger.info("Inside checkForLitterId method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
+			pigletEventDto.setLanguage(language);
+			
+			if(pigletEventDto != null)
+			{
+				Integer farrowEventId = farrowEventService.getFarrowEventIdByLitterId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId(), pigletEventDto.getLitterId());
+			
+				if(farrowEventId != null && farrowEventId !=0)
+					dto.setStatusMessage("Success");
+				else
+					dto.setStatusMessage("ERROR");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
+	
 //    	
 //	
 //	@RequestMapping(value = "/validatePigletEvent", method=RequestMethod.POST, produces="application/json", consumes="application/json")

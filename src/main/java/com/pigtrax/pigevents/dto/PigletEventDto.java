@@ -18,6 +18,8 @@ public class PigletEventDto {
 	private int companyId;
 	private String language;
 	private FarrowEventDto farrowEventDto;
+	private Integer premiseId;
+	private Integer litterId;
 	
 	public String getTattooId() {
 		return tattooId;
@@ -102,6 +104,18 @@ public class PigletEventDto {
 	}
 	public void setFarrowId(String farrowId) {
 		this.farrowId = farrowId;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
+	}
+	public Integer getLitterId() {
+		return litterId;
+	}
+	public void setLitterId(Integer litterId) {
+		this.litterId = litterId;
 	}
 	
 	

@@ -5,6 +5,8 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 	$scope.companyId;
 	$scope.generatedCompanyId;
 	$scope.differentPages=[{"name":"Barn","value":"barn"}];
+	$scope.country;
+	$scope.cityJSON;
 	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
@@ -41,6 +43,9 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 			//$window.location = $scope.differentPages[index].value+'?generatedPremisesId='+row.id;
 		}
     
+	
+		
+	 
 	$scope.addPremiseData = function () {
 			var modalInstance = $modal.open ({
     			templateUrl: 'addPremises',
@@ -48,10 +53,12 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
     			backdrop:true,
     			windowClass : 'cp-model-window',
 				resolve:{
-					premisesData : function(){
+					premisesData : function(){						
 						var premisesData={};
 						premisesData.companyId= $scope.companyId;
-						premisesData.generatedCompanyId = $scope.generatedCompanyId;						
+						premisesData.generatedCompanyId = $scope.generatedCompanyId;	
+						premisesData.countryList = $scope.country;
+						premisesData.cityJSON = $scope.cityJSON;
     					return premisesData;
     				}
     			}
@@ -60,10 +67,13 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
     		modalInstance.result.then( function(res) {    			
     			if(res.statusMessage==="SUCCESS")
 				{
-					$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);				
+					$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);
 				}
     		});
     }
+	
+	
+	
 	
 	$scope.editPremiseData = function(premisesData){
 		var modalInstance = $modal.open ({
@@ -74,6 +84,7 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
     			resolve:{
     				premisesData : function(){
     					premisesData.generatedCompanyId = $scope.premisesData;
+    					premisesData.cityJSON = $scope.cityJSON;
     					return premisesData;
     				}
     			}
@@ -81,7 +92,7 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
     		modalInstance.result.then( function(res) {
 				if(res.statusMessage==="SUCCESS")
 				{
-					$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);				
+					$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);	
 				}
 			});
 		

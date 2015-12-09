@@ -86,7 +86,10 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 	    				ps.setObject(4, matingDetails.getBreedingEventId(), java.sql.Types.INTEGER);
 	    				ps.setObject(5, matingDetails.getEmployeeGroupId(), java.sql.Types.INTEGER);
 	    				ps.setString(6, matingDetails.getUserUpdated());
-	    				ps.setObject(7, new java.sql.Date(matingDetails.getSemenDate().getTime()), java.sql.Types.DATE);
+	    				if(matingDetails.getSemenDate() != null)
+	    					ps.setDate(7, new java.sql.Date(matingDetails.getSemenDate().getTime()));
+	    				else
+	    					ps.setNull(7, java.sql.Types.DATE);
 	    	            return ps;
 	    	        }
 	    	    },

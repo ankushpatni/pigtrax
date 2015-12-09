@@ -28,23 +28,14 @@
                   
                 </div>
                 <div class="content">
-                  <form name="rationform">
-                                        
-                     
+                  <form name="rationform">                                        
+                    <input class="form-control"  type="hidden" name="feedTypeId" id="feedTypeId" ng-model="masterRation.feedTypeId">
                     <div class="form-group">
                       <label><spring:message code='label.rationform.ration'  text='Feed Ration'/><span style='color: red'>*</span></label>
                       <input type="text" maxlength="30" name="origin" ng-model="masterRation.rationValue" class="form-control" placeholder="<spring:message code='label.rationform.ration.placeholder' text='Enter Ration'/>"
                       ></input>
                       <label ng-show="rationRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.rationform.rationRequiredMessage' text='Ration is required' /></label>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label><spring:message code='label.rationform.feedType'  text='Feed Type'/></label>
-                      
-                      <select class="form-control"   required required-message="'<spring:message code='label.rationform.feedType.required' text='Feed Type is required' />'" name="feedTypeId" id="feedTypeId" ng-model="masterRation.feedTypeId">
-                      	<option ng-repeat="key in feedTypeKeys" ng-value="key" ng-selected="masterRation.feedTypeId==key">{{feedTypeKeyValues[key]}}</option>        
-                        </select>             
-                    </div> 
+                    </div>   
                     <div class="form-group">
                       <label><spring:message code='label.rationform.rationType'  text='Ration Type'/></label>
                       
@@ -80,7 +71,6 @@
 				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:20%"><spring:message code="label.rationform.ration" text="Ration" /></th>
-						<th style="width:20%"><spring:message code="label.rationform.feedType" text="Feed Type" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.rationType" text="Ration Type" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.rationDescription" text="Ration Description" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.createdOn" text="Created On" /></th>
@@ -88,14 +78,13 @@
 						<th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
 					</tr>
 					<tr>
-						<th colspan="7"><input st-search="" class="form-control"
+						<th colspan="6"><input st-search="" class="form-control"
 							placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:20%">{{row.rationValue}}</td>
-					<td style="width:20%">{{row.feedType}}</td>
 					<td style="width:20%">{{row.rationType}}</td>
 					<td style="width:20%">{{row.rationDescription}}</td>
 					<td style="width:20%">{{DateUtils.getFormatedDate(row.lastUpdated)}}</td>

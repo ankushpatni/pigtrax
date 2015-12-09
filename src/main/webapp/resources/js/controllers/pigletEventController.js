@@ -21,12 +21,27 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 		$scope.inValidServiceIdFromServer = false;
 		$scope.farrowEventValidation_ErrCode_1 = false;
 		$scope.pigletsAdded = false;
+		$scope.malePigIdentified = false;		
+		$scope.invalidLitterId = false;
 	};
+	
+	
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
 	
 	//set the company id in root scope on page load
 	$scope.loadPage = function(companyId)
 	{
-		$rootScope.companyId = companyId;	
+		$rootScope.companyId = companyId;
+		$scope.loadPremises();
 	};
 	
 	/**
@@ -47,35 +62,23 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 						$scope.clearAllMessages();
 						$scope.inValidPigIdFromServer = true;		
 						$scope.pigletStatusEvent = {};
-					}
+					}	
 					else
 					{
-						$('#searchFarrowEvents').modal('show');
-						
-						$scope.clearAllMessages();
-						var searchFarrowEvent = {
-								searchText : $scope.pigletEvent.pigId,
-								searchOption : "PigId", 
-								companyId : $rootScope.companyId
-								
-						};				
-						restServices.getFarrowEventInformation(searchFarrowEvent, function(data){
+						$scope.inValidPigIdFromServer = false;
+						var pigInfo = data.payload;
+						if(pigInfo.sexTypeId == 1)
+						{
 							$scope.clearAllMessages();
-							if(!data.error){
-								$scope.farrowEvent = {};
-								$scope.farrowEventList = data.payload;						
-								
-							}
-							else
-							{
-								$scope.clearAllMessages();
-								$scope.farrowEventList = [];
-								
-							}
-						});
-						
+							$scope.malePigIdentified = true;			
+						}
+						else
+						{
+							$scope.clearAllMessages();
+							$scope.malePigIdentified = false;		
+						}
+					
 					}
-						
 				});
 			}
 		else
@@ -150,6 +153,8 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 		$scope.pigletEvent["pigId"] = pigletEventObj["pigId"];
 		$scope.pigletEvent["weightAtBirth"] = pigletEventObj["weightAtBirth"];
 		$scope.pigletEvent["weightAtWeaning"] = pigletEventObj["weightAtWeaning"];
+		$scope.pigletEvent["premiseId"] = pigletEventObj["premiseId"];
+		$scope.pigletEvent["litterId"] = pigletEventObj["litterId"];
 	}
 	
 	/**
@@ -215,6 +220,22 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 				  
 		}
     };
+    
+    
+    $scope.checkForLitterId = function()
+    {
+    	$scope.pigletEvent["companyId"] = $rootScope.companyId;
+    	restServices.checkForLitterId($scope.pigletEvent, function(data){
+			if(data.error)
+				{
+					$scope.invalidLitterId = true;
+				}
+			else
+				{
+					$scope.invalidLitterId = false;
+				}
+		});
+    }
 	
 });
 

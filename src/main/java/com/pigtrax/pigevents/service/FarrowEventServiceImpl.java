@@ -289,4 +289,23 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 			return null;
 	}
 	
+	@Override
+	public Integer getFarrowEventIdByLitterId(String pigId, Integer companyId,
+			Integer litterId) throws PigTraxException{
+		try{
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigId, companyId);
+			if(pigInfo != null)
+			{
+				FarrowEvent farrowEvent = farrowEventDao.getFarrowEventIdByLitterId(pigInfo.getId(), litterId);
+				if(farrowEvent != null)
+					return farrowEvent.getId();
+			}
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return null;
+	}
+	
 }

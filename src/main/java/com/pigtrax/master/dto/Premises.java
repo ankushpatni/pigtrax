@@ -21,6 +21,7 @@ public class Premises {
 	private Integer premiseTypeId;
 	private String language;
 	private String sowSource;
+	private String otherCity;
 	
 	public int getId() {
 		return id;
@@ -123,6 +124,12 @@ public class Premises {
 	}
 	public void setSowSource(String sowSource) {
 		this.sowSource = sowSource;
+	}
+	public String getOtherCity() {
+		return otherCity;
+	}
+	public void setOtherCity(String otherCity) {
+		this.otherCity = otherCity;
 	}
 	
 	

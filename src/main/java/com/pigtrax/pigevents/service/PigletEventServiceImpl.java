@@ -58,19 +58,22 @@ public class PigletEventServiceImpl implements PigletEventService {
 	public int savePigletEventInformation(PigletEventDto pigletEventDto)
 			throws PigTraxException {
 		try{
-			FarrowEvent farrowInfo = farrowInfoDao.getFarrowEvent(pigletEventDto.getFarrowEventId());  
-			if(farrowInfo != null)
-				pigletEventDto.setFarrowEventId(farrowInfo.getId());
-			
-			PigletEvent pigletEvent = builder.convertToBean(pigletEventDto);
-			
-			if(pigletEventDto.getPigletId() == null)
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId());
+			if(pigInfo != null)
 			{
-			   return pigletEventDao.addPigletEventDetails(pigletEvent); 
-			}
-			else
-			{
-				return pigletEventDao.updatePigletEventDetails(pigletEvent)   ;
+				FarrowEvent farrowEvent = farrowInfoDao.getFarrowEventIdByLitterId(pigInfo.getId(), pigletEventDto.getLitterId());
+				pigletEventDto.setFarrowEventId(farrowEvent.getId());
+			
+				PigletEvent pigletEvent = builder.convertToBean(pigletEventDto);
+				
+				if(pigletEventDto.getPigletId() == null)
+				{
+				   return pigletEventDao.addPigletEventDetails(pigletEvent); 
+				}
+				else
+				{
+					return pigletEventDao.updatePigletEventDetails(pigletEvent)   ;
+				}
 			}
 		}catch(SQLException sqlEx)
 		{
@@ -86,6 +89,7 @@ public class PigletEventServiceImpl implements PigletEventService {
 			  logger.info("DuplicateKeyException : "+sqlEx.getRootCause()+"/"+sqlEx.getCause());
 				throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "", true);
 		}
+		return -1;
 	}
 	
 	

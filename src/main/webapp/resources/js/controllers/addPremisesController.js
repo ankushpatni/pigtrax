@@ -4,13 +4,43 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	$scope.add ={};
 	$scope.alertVisible = false;
 	$scope.alertMessage;
-	$scope.country=[{"name":"US","value":"US"},{"name":"UK","value":"UK"},{"name":"Germany","value":"Germany"}];
-	$scope.cityJSON={"US":[{"name":"BOSTON","value":"BOS"}],"UK":[{"name":"LONDON","value":"LON"}],"Germany":[{"name":"Moscow","value":"mOS"}]};
+	//$scope.country=[{"name":"US","value":"US"},{"name":"UK","value":"UK"},{"name":"Germany","value":"Germany"}];
+	//$scope.cityJSON={"US":[{"name":"BOSTON","value":"BOS"}],"UK":[{"name":"LONDON","value":"LON"}],"Germany":[{"name":"Moscow","value":"mOS"}]};
+	$scope.country;
+	$scope.cityJSON;
 	$scope.city;
 	$scope.add.companyId = premisesData.companyId;
 	$scope.generatedCompanyId = premisesData.generatedCompanyId;
 	console.log(premisesData);
+	$scope.premiseOtherCityBox = false;
+	 $scope.getCountryList = function(){		 
+			restServices.getCityCountryList(function(data){
+			console.log("getCityCountryList :" +data);
+					 if(!data.error)
+					 {
+						$scope.country = data.payload[0];
+						var temp = data.payload[1];
+						$scope.cityJSON = temp[0];			
+						if(premisesData != null && premisesData.permiseId !=null )
+						{
+							$scope.city = $scope.cityJSON[$scope.add.state];
+							$scope.add.city = premisesData.city;
+							if($scope.add.city.toUpperCase()==="OTHERS")
+							{
+							   $scope.premiseOtherCityBox = true;
+							}
+							else
+							{
+							  $scope.premiseOtherCityBox = false
+							}
+						}
+					 }
+				});
+				
+			};
 	
+			 $scope.getCountryList();
+			 
 	$scope.getPremiseTypes = function()
 	{
 		restServices.getPremiseTypes(function(data){
@@ -28,6 +58,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	
 	if(premisesData != null && premisesData.permiseId !=null )
 	{
+		$scope.getCountryList();
 		$scope.edit = true;
 		$scope.add.permiseIdEdit = premisesData.permiseId,
 		$scope.add.permiseId = 1,
@@ -36,12 +67,13 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 		$scope.add.state = premisesData.state;
 		$scope.add.zipcode = premisesData.zipcode;
        	$scope.add.active = premisesData.active;		
-		$scope.city = $scope.cityJSON[$scope.add.state];
-		$scope.add.city = premisesData.city;
+		//$scope.city = $scope.cityJSON[$scope.add.state];
+		//$scope.add.city = premisesData.city;
 		$scope.add.id = premisesData.id
 		$scope.add.premiseTypeId = premisesData.premiseTypeId
 		$scope.add.sowSource = premisesData.sowSource;		
-    	
+		$scope.add.otherCity = premisesData.otherCity;
+		
 	}
 	
 	$scope.addPremise = function() {
@@ -71,6 +103,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"gpsLongitude" : $scope.add.gpsLongitude,
 							"premiseTypeId" : $scope.add.premiseTypeId,
 							"sowSource" : sowSource,
+							"otherCity" : $scope.add.otherCity,
 					};
 				}
 				else
@@ -89,6 +122,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"gpsLongitude" : $scope.add.gpsLongitude,
 							"premiseTypeId" : $scope.add.premiseTypeId,
 							"sowSource" : sowSource,
+							"otherCity" : $scope.add.otherCity,
 					};
 				}
 				console.log(postParam);
@@ -119,6 +153,18 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	
 	$scope.changeCity = function(){	
 		$scope.city = $scope.cityJSON[$scope.add.state];
+	}
+	
+	$scope.selectOtherCity = function(){	
+		if($scope.add.city.toUpperCase()==="OTHERS")
+		{
+		   $scope.premiseOtherCityBox = true;
+		}
+		else
+		{
+		  $scope.premiseOtherCityBox = false
+		  $scope.add.otherCity = "";
+		}
 	}
 });
 

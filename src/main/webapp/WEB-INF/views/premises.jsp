@@ -50,7 +50,7 @@
 				<td style="width:10%">{{row.name}}</td>
 				<td style="width:10%">{{row.premiseType}}</td>
 				<td style="width:25%">{{row.address}}</td>
-				<td style="width:10%">{{row.city}}</td>
+				<td style="width:10%">{{(row.city=='Others')? row.otherCity:row.city}}</td>
 				<td style="width:10%">{{row.state}}</td>
 				<td style="width:10%">{{row.zipcode}}</td>
 				<td style="width:10%">{{row.gpsLatittude}}</td>

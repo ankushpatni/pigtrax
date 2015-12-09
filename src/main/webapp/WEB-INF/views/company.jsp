@@ -64,7 +64,7 @@
 										<td size="10%">{{row.name}}</td>
 										<!--<td size="15%">{{row.address}}</td>-->
 										<td size="15%">{{row.country}}</td>
-										<td size="8%">{{row.city}}</td>
+										<td size="8%">{{(row.city=='Others')? row.otherCity:row.city}}</td>
 										<td size="5%">{{row.registrationNumber}}</td>
 										<!--<td size="5%">{{row.email}}</td>
 										<td size="8%">{{row.phone}}</td>

@@ -20,5 +20,7 @@ public interface FarrowEventService {
    FarrowEventDto getFarrowEventDetails(FarrowEventDto farrowEventDto) throws PigTraxException;
    
    FarrowEventDto getFarrowEventByPregancyEvent(final Integer pregnancyEventId);
+   
+   Integer getFarrowEventIdByLitterId(String pigId, Integer companyId, Integer litterId) throws PigTraxException;
 }
 

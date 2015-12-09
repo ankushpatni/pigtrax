@@ -33,13 +33,14 @@
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.company.country" text="Country" /></label>
-				<Select class="form-control" placeholder="<spring:message code='label.company.country' text='Country' />" name="state" ng-model="add.state" required-message="'<spring:message code='label.company.countryRequired' text='Country is required' />'" 
-				       ng-change="changeCity()"  ng-options="state.value as state.name for state in country"/>
+				<select class="form-control" placeholder="<spring:message code='label.company.country' text='Country' />" name="state" ng-model="add.state" required-message="'<spring:message code='label.company.countryRequired' text='Country is required' />'" 
+				       ng-change="changeCity()"  ng-options="state.value as state.name for state in country"></select>
 			</div>			
 			<div class="form-group">
 				<label><spring:message code="label.premise.city" text="City" /></label>
 				<select class="form-control" placeholder="<spring:message code='label.premise.city' text='City' />" name="city" ng-model="add.city" maxlength="30"  required-message="'<spring:message code='label.premise.cityRequired' text='City is required' />'" 
-					ng-options="city1.value as city1.name for city1 in city"/>
+					ng-options="city1.value as city1.name for city1 in city" ng-change="selectOtherCity()"/>
+				<br><label ng-show="premiseOtherCityBox" ><spring:message code="label.premise.specify" text="Specify City :" /></label><input type="text" ng-model="add.otherCity" class="input-sm form-control" maxlength="30" ng-show="premiseOtherCityBox"/>
 			</div>
 			<div class="form-group">
 				<label><spring:message code="label.premise.zipcode" text="Zipcode" /></label>

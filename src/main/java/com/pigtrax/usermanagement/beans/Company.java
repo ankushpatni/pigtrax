@@ -20,6 +20,7 @@ public class Company {
 	private boolean isActive;
 	private Date lastUpdated;
 	private String userUpdated;
+	private String otherCity;
 	public int getId() {
 		return id;
 	}
@@ -110,6 +111,15 @@ public class Company {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+	
+	
+	public String getOtherCity() {
+		return otherCity;
+	}
+	public void setOtherCity(String otherCity) {
+		this.otherCity = otherCity;
 	}
 	@Override
 	public String toString() {

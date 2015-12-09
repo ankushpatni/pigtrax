@@ -121,5 +121,6 @@ pigTrax.factory("restServices", function($resource) {
 		"getTrailerFunctions" : {method:"GET", url:"rest/util/getTrailerFunctions"},
 		"getMarketTypes" : {method:"GET", url:"rest/util/getMarketTypes"},
 		"getRationTypes" : {method:"GET", url:"rest/util/getRationTypes"},
+		"checkForLitterId" : {method:"POST", url:"rest/pigletEvent/checkForLitterId"},
     });
 });

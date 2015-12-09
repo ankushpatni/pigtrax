@@ -63,7 +63,8 @@
 						placeholder="<spring:message code='label.company.city' text='City' />"
 						name="city" ng-model="add.city" maxlength="30" required
 						required-message="'<spring:message code='label.company.cityRequired' text='City is required' />'"
-						ng-options="city1.value as city1.name for city1 in city" />
+						ng-options="city1.value as city1.name for city1 in city"  ng-change="selectOtherCity()"/>
+				  <br><label ng-show="premiseOtherCityBox" ><spring:message code="label.premise.specify" text="Specify City :" /></label><input type="text" ng-model="add.otherCity" class="input-sm form-control" maxlength="30" ng-show="premiseOtherCityBox"/>
 				</div>
 				<div class="form-group">
 					<label ><spring:message

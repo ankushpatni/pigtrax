@@ -77,10 +77,10 @@ public class MasterRationDaoImpl implements MasterRationDao {
 		@Override
 		public void setValues(PreparedStatement ps) throws SQLException {
 			ps.setString(1, rationObj.getRationValue());
-			ps.setInt(2, rationObj.getFeedTypeId());
+			ps.setObject(2, rationObj.getFeedTypeId(), java.sql.Types.INTEGER);
 			ps.setString(3, rationObj.getUserUpdated());
 			ps.setString(4, rationObj.getRationDescription());
-			ps.setInt(5, rationObj.getRationTypeId());
+			ps.setObject(5, rationObj.getRationTypeId(), java.sql.Types.INTEGER);
 		}
 	});
 		
