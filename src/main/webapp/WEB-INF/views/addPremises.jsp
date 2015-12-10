@@ -21,8 +21,8 @@
 			</div>
 			
 			<div class="form-group">
-                <label><spring:message code='label.premise.premiseType'  text='Premise Type'/></label>                      
-   				<select class="form-control"  name="premiseTypeId" ng-model="add.premiseTypeId" >
+                <label><spring:message code='label.premise.premiseType'  text='Premise Type'/><span style='color: red'>*</span></label>                      
+   				<select class="form-control"  name="premiseTypeId" ng-model="add.premiseTypeId" required required-message="'<spring:message code='label.premise.premiseType.requiredMessage'  text='Premise Type is required'/>'">
                 	<option ng-repeat="key in premiseTypeKeys" ng-value="key" ng-selected="add.premiseTypeId==key">{{premiseTypeKeyValues[key]}}</option>        
                   </select>
              </div>
@@ -55,15 +55,17 @@
 				<input class="form-control" type="text" placeholder="<spring:message code='gpslongitude'  text='GPS Longitude'/>" name="gpsLongitude" ng-model="add.gpsLongitude" maxlength="30"/>	
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.premise.sowSource" text="Sow Source" /></label> 
+				<label><spring:message code="label.premise.sowSource" text="Sow Source" /><span style='color: red'>*</span></label> 
 				<div class="form-group">
                 <label class="radio-inline">
                   <input type="radio" name="rad1" id="rad1"  value="Yes" ng-model="add.sowSource" ng-checked="add.sowSource == 'Yes'"><spring:message code="label.premise.sowSourceYes" text="Yes" />
                 </label>
-                <label class="radio-inline">
-                  <input type="radio" name="rad2"  id="rad2" value="No"  ng-model="add.sowSource"   ng-checked="add.sowSource == 'No'"> <spring:message code="label.premise.sowSourceNo" text="No" /> 
+                <label class="radio-inline" >
+                  <input type="radio" name="rad2"  id="rad2" value="No"  ng-model="add.sowSource"   ng-checked="add.sowSource == 'No'"
+                   /> <spring:message code="label.premise.sowSourceNo" text="No" /> 
                 </label>
               </div>
+              <label ng-show="sowSourceRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.premise.sowSourceYes.requiredMessage' text='Sow source is required' /></label>
 			</div>
 			
         <div class="modal-footer">

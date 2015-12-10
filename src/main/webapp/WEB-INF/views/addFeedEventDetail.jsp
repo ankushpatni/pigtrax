@@ -27,7 +27,7 @@
 					 </div>
 					 
 					  <div class="form-group">
-						<label><spring:message code="label.feedEventDetail.groupEventId" text="Group Event" /></label>
+						<label><spring:message code="label.feedEventDetail.groupEventId" text="Group Event" /><span style='color: red'>*</span></label>
 						 <select class="form-control"  name="groupEventId" id="groupEventId" ng-model="feedEventDetail.groupEventId"  required required-message="'<spring:message code='label.feedEventDetail.groupEventId.required' text='Group Event is required' />'"  
                          ng-options="k as v.groupId for (k, v) in groupEvent">
                         </select>
@@ -35,7 +35,7 @@
 					 
 					<div class="form-group">
 						<label ><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /><span style='color: red'>*</span></label>
-						<input rsmdatedropdowns ng-model="feedEventDetail.feedEventDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+						<input required required-message="'<spring:message code='label.piginfo.feedEventForm.feedDate.requiredMessage'  text='Feed date is required'/>'" rsmdatedropdowns ng-model="feedEventDetail.feedEventDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
 						
 					</div>
 					<div>

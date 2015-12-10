@@ -93,7 +93,7 @@ public class RefDataDaoImpl implements RefDataDao {
 	
 	@Override
 	public List<RefDataTranslationDto> transportTrailerType() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TrailerType\" FROM pigtraxrefdata.\"TrailerTypeTranslation\" order by \"fieldLanguage\", \"id_TrailerType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TrailerType\" FROM pigtraxrefdata.\"TrailerTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	

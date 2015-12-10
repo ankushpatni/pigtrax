@@ -135,11 +135,12 @@
 						<a href="#" ng-click="goToBreedingEvent()" ng-show="pregnancyEvent.breedingEventId != null && pregnancyEvent.breedingEventId > 0"><spring:message code='label.piginfo.pregnancyeventform.gotobreedingeventtext'  text='Go to Breeding Event'/></a>						 
 					
                     </div>
+                    <div>
                     <label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
 					<label ng-show="breedingEventIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.breedingserviceid.requiredmessage' text='Breeding Service Id is required' /></label>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
-					
+					</div>
                       <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label>
                       <input rsmdatedropdowns ng-model="pregnancyEvent.resultDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>

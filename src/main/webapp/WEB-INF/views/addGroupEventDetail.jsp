@@ -15,7 +15,7 @@
                   <form name="groupEventDetailAddForm" novalidate angular-validator method="post">
 				  <input type=hidden name="groupId" ng-model="groupEvent.groupId"/>
                 	 <div class="form-group">
-						<label>{{groupStartDateTime}}<spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
+						<label><spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
 						<label>{{groupAlphaId}}</label>
 					 </div>					 
 					<div class="form-group">
@@ -31,8 +31,8 @@
 						<input type="hidden"  name="barnId" id="barnId" ng-model="groupEvent.barnId"/>
 					</div>
 					<div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.source'  text='Sow Source'/></label>
-                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.premiseId">
+                      <label><spring:message code='label.groupEventDetail.source'  text='Sow Source'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.premiseId" required required-message="'<spring:message code='label.groupEventDetail.source.requiredMessage'  text='Sow Source is required'/>'">
                        	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>			

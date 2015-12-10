@@ -6,8 +6,7 @@
               <div class="cl-navblock">
                 <div class="menu-space">
                   <div class="content">
-                    <div class="side-user">                      						
-						<label>Date Format :</label> <button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-success"  ng-click="toggle()">dd/MM/yyyy</button>
+                    <div class="side-user">
                     </div>
                      <ul class="cl-vnavigation">
                             <li><a href="home"><i class="fa fa-home"></i><span><spring:message code="label.leftmenu.dashboard.link"  text="Dashboard"/></span></a>
@@ -79,6 +78,8 @@
                                       <%} else {%>
                                       <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
                                       <%}  %>
+                                      <li><a href="#">Date Format :<br> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-success"  ng-click="toggle()">dd/MM/yyyy</button></a>
+                                      </li>
                                </ul>
                             </li>           
                             <li><a href="massupload"><i class="glyphicon glyphicon-cog"></i><span>Mass Upload</span></a></li>    

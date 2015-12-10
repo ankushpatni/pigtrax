@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div id="companyContent" ng-controller="ProductionLogController"
 	ng-init="setCompanyId(${CompanyId}, '${loggedInUser}')" class="container-fluid">
-<form name="productionLogListForm" method="post" id="productionLogListForm">
+<form name="productionLogListForm"  id="productionLogListForm" novalidate angular-validator>
 	<div class="cl-mcont">
 		<div class="row">
 			<div class="col-md-12">
@@ -130,28 +130,27 @@
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
                       </div>
                       <div class="modal-body form" >
-                     
                   <input type=hidden name="companyId" ng-model="productionLog.companyId" value="${CompanyId}"/>
                     
                     <div class="form-group">
-                      <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/></label>                      
-                      <select class="form-control" type="text" name="roomId" ng-model="productionLog.roomId"  ng-options="k as v for (k, v) in roomMap"></select>
+                      <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/><span style='color: red'>*</span></label>                      
+                      <select class="form-control" required required-message="'<spring:message code='label.productionlogform.roomId.requiredMessage'  text='Room Id is required'/>'" name="roomId" ng-model="productionLog.roomId"  ng-options="k as v for (k, v) in roomMap"></select>
                     </div>                   
                      <div class="form-group">
-                      <label><spring:message code='label.productionlogform.groupId'  text='Group Id'/></label>                      
-                      <input name="groupId" ng-model="productionLog.groupId" class="form-control" 
+                      <label><spring:message code='label.productionlogform.groupId'  text='Group Id'/><span style='color: red'>*</span></label>                      
+                      <input required required-message="'<spring:message code='label.productionlogform.groupId.requiredMessage'  text='Group Id is required'/>'" type="text" name="groupId" ng-model="productionLog.groupId" class="form-control" 
                         placeholder="<spring:message code='label.productionlogform.groupId.placeholder' text='Enter group id'/>" maxlength = "30"/>                        
                     </div>
                     
                     <div class="form-group">
-                      <label><spring:message code='label.productionlogform.observationDate'  text='Date'/></label>
-                      <input rsmdatedropdowns ng-model="productionLog.observationDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
-                       
+                      <label><spring:message code='label.productionlogform.observationDate'  text='Date'/><span style='color: red'>*</span></label>                      
+                      <input  rsmdatedropdowns ng-model="productionLog.observationDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+                      <label ng-show="observationDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.productionlogform.observationDate.requiredMessage' text='Date is required' /></label>
                     </div>
                     
                     <div class="form-group">
-                      <label><spring:message code='label.productionlogform.logeventType'  text='Log Event Type'/></label>
-                       <select class="form-control"  name="logEventType" ng-model="productionLog.logEventTypeId" >
+                      <label><spring:message code='label.productionlogform.logeventType'  text='Log Event Type'/><span style='color: red'>*</span></label>
+                       <select required required-message="'<spring:message code='label.productionlogform.logeventType.requiredMessage'  text='Log event type is required'/>'" class="form-control"  name="logEventType" ng-model="productionLog.logEventTypeId" >
                       	<option ng-repeat="key in logEventKeys" ng-value="key" ng-selected="productionLog.logEventTypeId==key">{{logEventTypes[key]}}</option>        
                         </select>
                         
@@ -165,30 +164,20 @@
                         required-message="'<spring:message code='label.productionlogform.observation.requiredmessage' text='Observation is required'/>'" maxlength = "500"></textarea>
                         
                     </div>
-                    
+                  
                      </div>
                       <div class="modal-footer">
-                      <button type="button" class="btn btn-success btn-flat md-close" data-dismiss="modal" ng-click="saveProductionLog()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
+                      <button  class="btn btn-success btn-flat"  ng-click="saveProductionLog()"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                       <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>
+                      
                       </div>
                       
                      </div>
                      
-                     <script>
-$(document).ready(function(){
- var currDate = new Date();
- var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
-	  $("#observationDateDiv").attr('data-date-enddate',dateVal);
-});  
-</script>
             </div>
 
 		
 
 		
-		
+		</form>
 	</div>
-	</form>
-	
-</div>
-  

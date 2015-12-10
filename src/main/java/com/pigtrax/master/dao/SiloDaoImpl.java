@@ -104,7 +104,7 @@ public class SiloDaoImpl implements SiloDao {
 				}
 				else
 				{
-					ps.setInt(6, java.sql.Types.INTEGER);
+					ps.setNull(6, java.sql.Types.INTEGER);
 				}
 			}
 		});
@@ -127,7 +127,7 @@ public class SiloDaoImpl implements SiloDao {
 				}
 				else
 				{
-					ps.setInt(4, java.sql.Types.INTEGER);
+					ps.setNull(4, java.sql.Types.INTEGER);
 				}
 				ps.setString(5, silo.getSiloId());
 

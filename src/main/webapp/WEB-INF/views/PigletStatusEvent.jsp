@@ -146,9 +146,11 @@
 						
                     </div>
                     <a href="#" ng-click="goToFarrowEvent()" ng-show="pigletStatusEvent.farrowEventDto != null && pigletStatusEvent.farrowEventDto.id > 0"><spring:message code='label.piginfo.pigletstatuseventform.gotofarroweventtext'  text='Go to Farrow Event'/></a>
+                    <div>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.requiredmessage' text='Pig Info Id is required' /></label>
 					<label ng-show="pigletStatusEventAlreadyAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigletstatuseventform.pigInfoId.pigletStatusEventCreated' text='Piglet Status already captured for the selected Pig Id,  farrow event and the event type. Use search feature to modify it.' /></label>
+					</div>
 				    <div class=" block-flat bars-widget" ng-if="pigletStatusEvent.farrowEventId != null && pigletStatusEvent.farrowEventId>0 && !pigletStatusEventAlreadyAdded">
 		                <div class="spk4 pull-right spk-widget"></div>  
 		                <h4>Farrow Details</h4><div></div>
@@ -180,7 +182,7 @@
 					 
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.pigletStatusEventType'  text='Event Type'/><span style='color: red'>*</span></label>
-                     <select class="form-control" ng-model="pigletStatusEvent.pigletStatusEventTypeId" ng-change="changeEvent()"  ng-show="pigletStatusEvent.id == null" required 
+                     <select required class="form-control" ng-model="pigletStatusEvent.pigletStatusEventTypeId" name="eventType" id="eventType" ng-change="changeEvent()"  ng-show="pigletStatusEvent.id == null"   
                      required-message="'<spring:message code='label.piginfo.pigletstatuseventform.eventType.required' text='Event Type is required' />'">
                           <option value="4" ng-selected="pigletStatusEvent.penId == 4"><spring:message code='label.piginfo.pigletstatuseventform.death'  text='Piglet Mortality'/></option>
                           <option value="2" ng-selected="pigletStatusEvent.penId == 2"><spring:message code='label.piginfo.pigletstatuseventform.foster'  text='Transfer'/></option>

@@ -50,7 +50,7 @@
                   <form name="groupEventForm" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="groupEvent.id"/>
 				  <div class="form-group">
-                      <label><spring:message code='label.piginfo.groupEventForm.groupId'  text='Group Id'/></label>
+                      <label><spring:message code='label.piginfo.groupEventForm.groupId'  text='Group Id'/><span style='color: red'>*</span></label>
                       <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage">{{groupEvent.groupId}}</label>
                       <input type="text" ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage" ng-model="groupEvent.groupId" id="groupId" name="groupId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.groupEventForm.groupId.placeholder'  text='Enter Group Id'/>" required
                       required-message="'<spring:message code='label.piginfo.groupEventForm.groupId.requiredMessage' text='Group Id is required' />'"
@@ -75,7 +75,7 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupenddaterequired" ><spring:message code='label.piginfo.groupEventForm.groupEndDate.requiredMessage' text='Group Close Date is required' /></label>
 					</div>					
 					 <div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/></label>
+                      <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/><span style='color: red'>*</span></label>
                        <select ng-hide="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage" class="form-control"  required required-message="'<spring:message code='label.groupEventDetail.phaseOfProduction.required' text='Phase Of Production is required' />'" name="phaseOfProductionTypeId" id="phaseOfProductionTypeId" ng-model="groupEvent.phaseOfProductionTypeId"   
                          ng-options="k as v for (k, v) in phaseOfProductionType"> </select>
                          <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       

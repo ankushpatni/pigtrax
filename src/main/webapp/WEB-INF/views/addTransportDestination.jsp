@@ -12,20 +12,20 @@
 						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.name' text='Name' />" name="name1" ng-model="add.name" maxlength="30"  required required-message="'<spring:message code='label.transportDestination.nameRequired' text='Name is required' />'" />
 					</div>
 					<div class="form-group">
-						<label><spring:message code="label.transportDestination.address" text="Address" /><span style='color: red'>*</span></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.address' text='Address' />" name="address" ng-model="add.address" maxlength="30"  required required-message="'<spring:message code='label.transportDestination.addressRequired' text='Address is required' />'" />
+						<label><spring:message code="label.transportDestination.address" text="Address" /></label>
+						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.address' text='Address' />" name="address" ng-model="add.address" maxlength="30"   required-message="'<spring:message code='label.transportDestination.addressRequired' text='Address is required' />'" />
 					</div>
 					<div class="form-group">
-						<label><spring:message code="label.transportDestination.city" text="City" /><span style='color: red'>*</span></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.city' text='City' />" name="city" ng-model="add.city" maxlength="100"  required required-message="'<spring:message code='label.transportDestination.cityRequired' text='City is required' />'" />
+						<label><spring:message code="label.transportDestination.city" text="City" /></label>
+						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.city' text='City' />" name="city" ng-model="add.city" maxlength="100"  required-message="'<spring:message code='label.transportDestination.cityRequired' text='City is required' />'" />
 					</div>
 					<div class="form-group">
-						<label><spring:message code="label.transportDestination.state" text="State" /><span style='color: red'>*</span></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='state' text='State' />" name="state" ng-model="add.state" maxlength="100"  required required-message="'<spring:message code='label.transportDestination.stateRequired' text='State is required' />'" />
+						<label><spring:message code="label.transportDestination.state" text="State" /></label>
+						<input class="form-control" type="text" placeholder="<spring:message code='state' text='State' />" name="state" ng-model="add.state" maxlength="100"   required-message="'<spring:message code='label.transportDestination.stateRequired' text='State is required' />'" />
 					</div>					
 					<div class="form-group">
 						<label><spring:message code="label.transportDestination.marketType" text="Market Type" /><span style='color: red'>*</span></label>
-						<select class="form-control"  name="marketType" ng-model="add.marketTypeId" >
+						<select class="form-control"  name="marketType" ng-model="add.marketTypeId" required required-message="<spring:message code="label.transportDestination.marketType.requiredMessage" text="Market type is required" />">
                       	<option ng-repeat="key in marketTypeKeys" ng-value="key" ng-selected="add.marketType==key">{{marketTypeKeyValues[key]}}</option>        
                         </select>						
 					</div>

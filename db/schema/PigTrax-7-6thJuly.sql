@@ -479,7 +479,7 @@ CREATE TABLE pigtrax."FeedEvent"(
 	"initialFeedEntryDateTime" timestamp NOT NULL,
 	"batchId" integer,
 	"initialFeedQuantityKgs" numeric(20,2) NOT NULL,
-	"feedCost" numeric(20,2) NOT NULL,
+	"feedCost" numeric(20,2),
 	"feedMedication" varchar(255),
 	"id_TransportJourney" integer,
 	"lastUpdated" timestamp NOT NULL,

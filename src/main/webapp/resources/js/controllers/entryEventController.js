@@ -130,7 +130,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			
 			if($scope.pigInfo.birthDate == null || $scope.pigInfo.birthDate == undefined || $scope.pigInfo.birthDate == "")
 			{
-				$scope.birthDateRequired = true;
+				//$scope.birthDateRequired = true;
 			}				
 			
 			
@@ -139,21 +139,22 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			{
 				$scope.clearAllMessages();
 				
-				//var birthDate = document.getElementById("birthDate").value;							
-				var dateVal = new Date($scope.pigInfo.birthDate);
+				//var birthDate = document.getElementById("birthDate").value;	
+					
+				var dateVal = null;
+				if($scope.pigInfo.birthDate != null && $scope.pigInfo.birthDate != "")
+					dateVal = new Date($scope.pigInfo.birthDate);
 				
 				var birthDate = DateUtils.convertLocaleDateToServer(dateVal);				
 				
 				var entrydateVal = new Date($scope.pigInfo.entryDate);
 				var entryDate = DateUtils.convertLocaleDateToServer(entrydateVal);
 				
-				var duration  = 100;
-				
+				var duration  = 100;				
 				if(entryDate != null && birthDate != null)
 					{
 					duration = Math.round((entryDate-birthDate)/(1000*60*60*24));					
 					}
-				
 				
 				if(birthDate != null && birthDate >  entryDate)
 				{

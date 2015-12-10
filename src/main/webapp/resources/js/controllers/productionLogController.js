@@ -51,6 +51,7 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 	$scope.clearAllMessages = function()
 	{
 		$scope.observationRequired = false;
+		$scope.observationDateRequired = false;
 		$scope.productionLogSaved = false;
 		$scope.productionLogError = false;
 		$scope.productionLogDeleted = false;
@@ -98,21 +99,25 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 	
 	$scope.saveProductionLog = function()
 	{	
-		if($scope.productionLog["observation"] == null)
+		if($scope.productionLog["observationDate"] == null)
 		{
-			$scope.observationRequired = true;
-			valid = false;
+			$scope.observationDateRequired = true;
 		}
 		else
 		{
-			$scope.observationRequired = false;			
+			$scope.observationDateRequired = false;			
 		}
-		if(!$scope.observationRequired)
+		
+		if($scope.productionLogListForm.$valid && !$scope.observationDateRequired)
 		{	
+			
 			$scope.productionLog["companyId"] = $rootScope.companyId;
 			
-		   restServices.productionLog($scope.productionLog, function(data){
-			   if(!data.error){
+		   restServices.productionLog($scope.productionLog, function(data){			   
+			   $('#addProductionLogModal').modal('hide');
+			   $('body').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+			   if(!data.error){				   
 				   $scope.clearAllMessages();
 				   $scope.productionLogSaved = true;	
 				   $scope.productionLog = {};

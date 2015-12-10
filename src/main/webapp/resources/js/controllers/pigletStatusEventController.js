@@ -359,6 +359,12 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 			$scope.pigletStatusEvent["deathPigNum"] = deathPigNum;
 		}
 		
+		if($scope.pigletStatusEvent["pigId"] == null || $scope.pigletStatusEvent["pigId"] == undefined || $scope.pigletStatusEvent["pigId"] == "")
+		{
+			$scope.requiredPigIdMessage = true;
+			return;
+		}
+		
 		if(parseInt(weanPigNum) != weanPigNum || parseInt(fosterPigNum) != fosterPigNum || parseInt(deathPigNum) != deathPigNum)
 		{
 				$scope.clearAllMessages();

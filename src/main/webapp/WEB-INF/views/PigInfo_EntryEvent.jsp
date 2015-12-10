@@ -93,9 +93,9 @@
 				      &nbsp;<a href="#" data-toggle="modal" data-target="#whatIsAvailablePigIdModal"><i class="fa fa-question-circle"></i></a>
                     </div>
                      <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.entryeventform.tattoo'  text='Tattoo'/></label>
                       <input type="text" class="form-control" name="tattoo" ng-model="pigInfo.tattoo" maxlength="30" placeholder="<spring:message code='label.piginfo.entryeventform.tattoo.placeholder' text='Enter tattoo'/>" 
-					     required required-message="'<spring:message code='label.piginfo.entryeventform.tattoo.requiredmessage' text='Tattoo is required' />'" invalid-message="'<spring:message code='label.piginfo.entryeventform.tattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
+					     invalid-message="'<spring:message code='label.piginfo.entryeventform.tattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.alternateTattoo'  text='Alternate Tattoo'/></label>
@@ -130,26 +130,26 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.origin'  text='Genetic Origin'/></label>
                       <input type="hidden" class="form-control" name="origin" ng-model="pigInfo.origin" maxlength="30" />
-                       <select class="form-control"  name="originId" ng-model="pigInfo.originId" >
+                       <select class="form-control"  name="originId" ng-model="pigInfo.originId">
                       	<option ng-repeat="originDto in originList" ng-value="originDto.id" ng-selected="pigInfo.originId==originDto.id">{{originDto.name}}</option>        
                         </select>
                     </div>
                    
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.gcompany'  text='GCompany'/></label>                      
-					    <select class="form-control"  name="gcompanyType" ng-model="pigInfo.gcompany" >
+                      <label><spring:message code='label.piginfo.entryeventform.gcompany'  text='GCompany'/><span style='color: red'>*</span></label>                      
+					    <select class="form-control"  name="gcompanyType" ng-model="pigInfo.gcompany"  required required-message="'<spring:message code='label.piginfo.entryeventform.gcompany.requiredmessage' text='Genetic company is required' />'">
                       	<option ng-repeat="key in gcompanyKeys" ng-value="key" ng-selected="pigInfo.gcompany==key">{{gcompanyTypes[key]}}</option>        
                         </select>
                     </div>
                      <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.gline'  text='Gline'/></label>
-					   <select class="form-control"  name="glineType" ng-model="pigInfo.gline" >
+                      <label><spring:message code='label.piginfo.entryeventform.gline'  text='Gline'/><span style='color: red'>*</span></label>
+					   <select class="form-control"  name="glineType" ng-model="pigInfo.gline"   required required-message="'<spring:message code='label.piginfo.entryeventform.gline.requiredmessage' text='Genetic line is required' />'">
                       	<option ng-repeat="key in glineKeys" ng-value="key" ng-selected="pigInfo.gline==key">{{glineTypes[key]}}</option>        
                         </select>
                     </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.gfunction'  text='Gfunction'/></label>
-                      <select class="form-control"  name="gfunctionType" ng-model="pigInfo.gfunctionTypeId" >
+                      <label><spring:message code='label.piginfo.entryeventform.gfunction'  text='Gfunction'/><span style='color: red'>*</span></label>
+                      <select class="form-control"  name="gfunctionType" ng-model="pigInfo.gfunctionTypeId"    required required-message="'<spring:message code='label.piginfo.entryeventform.gfunction.requiredmessage' text='Genetic function is required' />'">
                       	<option ng-repeat="key in functionKeys" ng-value="key" ng-selected="pigInfo.gfunctionTypeId==key">{{gfunctionTypes[key]}}</option>        
                         </select>
                     </div>

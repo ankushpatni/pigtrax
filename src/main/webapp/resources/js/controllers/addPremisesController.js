@@ -3,6 +3,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	$scope.edit = false;
 	$scope.add ={};
 	$scope.alertVisible = false;
+	$scope.sowSourceRequired = false;
 	$scope.alertMessage;
 	//$scope.country=[{"name":"US","value":"US"},{"name":"UK","value":"UK"},{"name":"Germany","value":"Germany"}];
 	//$scope.cityJSON={"US":[{"name":"BOSTON","value":"BOS"}],"UK":[{"name":"LONDON","value":"LON"}],"Germany":[{"name":"Moscow","value":"mOS"}]};
@@ -77,15 +78,23 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	}
 	
 	$scope.addPremise = function() {
-	console.log($scope.premisesAddForm	.$valid);
+		console.log($scope.premisesAddForm	.$valid);
+		var sowSource = null;
+		if(document.getElementById("rad1").checked)
+			sowSource = document.getElementById("rad1").value;
+		else if(document.getElementById("rad2").checked)
+			sowSource = document.getElementById("rad2").value;
+		
+		if(sowSource == null)
+		{
+			  $scope.sowSourceRequired = true;
+			  return;
+		}
+		else
+			$scope.sowSourceRequired = false;
 		if($scope.premisesAddForm.$valid)
-			{
-			var sowSource = null;
-			if(document.getElementById("rad1").checked)
-				sowSource = document.getElementById("rad1").value;
-			else if(document.getElementById("rad2").checked)
-				sowSource = document.getElementById("rad2").value;
-			var postParam;
+			{			
+				var postParam;
 				if( premisesData != null && premisesData.permiseId !=null )
 				{
 				console.log();

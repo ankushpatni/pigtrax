@@ -29,6 +29,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		$scope.invalidResultDate = false;
 		$scope.breedingEventIdRequired = false;
 		$scope.matchingServiceRecordNotFound = false;
+		$scope.pigIdRequired = false;
 	};
 	
 	
@@ -128,6 +129,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 						if(pigInfo.sexTypeId == 2)
 						{
 							$scope.clearAllMessages();
+							$scope.malePigIdentified = false;
 							return true;
 						}
 						else
@@ -164,6 +166,15 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		
 		var resultDate = $scope.pregnancyEvent["resultDate"];
 		
+		if($scope.pregnancyEvent["pigId"] == undefined  || $scope.pregnancyEvent["pigId"] == "")		{					
+			$scope.requiredPigIdMessage = true;	
+			
+		}	
+		else{
+			$scope.requiredPigIdMessage = false;	
+			
+		}
+		
 		if(resultDate == null || resultDate == undefined || resultDate == "")
 		{
 			$scope.resultDateRequired = true;
@@ -172,7 +183,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		{
 		   $scope.invalidResultDate = true;	
 		}	
-		if($scope.pregnancyeventform.$valid && !$scope.breedingEventIdRequired && !$scope.resultDateRequired && !$scope.invalidResultDate)
+		if($scope.pregnancyeventform.$valid && !$scope.breedingEventIdRequired && !$scope.resultDateRequired && !$scope.invalidResultDate && !$scope.requiredPigIdMessage)
 		{
 			
 			

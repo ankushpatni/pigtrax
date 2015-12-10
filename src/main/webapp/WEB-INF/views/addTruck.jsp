@@ -20,8 +20,8 @@
 						<input class="form-control" type="text" placeholder="<spring:message code='label.transportTruck.make' text='Make' />" name="make" ng-model="add.make" maxlength="30"  ng-pattern="/^[a-z\0-9\s]+$/i" invalid-message="'<spring:message code='label.silo.siloIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 					</div>
 					<div class="form-group">
-                      <label><spring:message code='label.transportTruck.purchaseYear'  text='Purchase Year'/><span style='color: red'>*</span></label>                      
-                      <select class="form-control" name="purchaseYear" ng-model="add.purchaseYear" required required-message="'<spring:message code='label.transportTruck.purchaseYear.requiredmessage' text='Purchase year is required'/>'">
+                      <label><spring:message code='label.transportTruck.purchaseYear'  text='Purchase Year'/></label>                      
+                      <select class="form-control" name="purchaseYear" ng-model="add.purchaseYear" >
                             <option ng-repeat="i in purchaseYearArr" ng-value="i">{{i}}</option>                            
                         </select>
                     </div>
@@ -44,8 +44,8 @@
 						<input class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.transportTrailerId' text='Trailer Number Plate' />" name="transportTrailerId" ng-model="add.transportTrailerId" maxlength="20" required required-message="'<spring:message code='label.transportTrailer.transportTrailerIdRequired' text='Trailer Number plate is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.silo.siloIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 					</div>
 					<div class="form-group">
-						<label><spring:message code="label.transportTrailer.trailerTypeId" text="Trailer Type" /><span style='color: red'>*</span></label>
-						<select class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.trailerTypeId'  text='Trailer Type'/>" name="trailerTypeId" ng-model="add.trailerTypeId" required required-message="'<spring:message code='label.transportTrailer.trailerTypeRequired' text='Trailer Type is required' />'" ng-options="k as v for (k, v) in transportTrailerType"/>	
+						<label><spring:message code="label.transportTrailer.trailerTypeId" text="Trailer Type" /></label>
+						<select class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.trailerTypeId'  text='Trailer Type'/>" name="trailerTypeId" ng-model="add.trailerTypeId"  ng-options="k as v for (k, v) in transportTrailerType"/>	
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.transportTrailer.trailerFunction" text="Trailer Function" /></label>

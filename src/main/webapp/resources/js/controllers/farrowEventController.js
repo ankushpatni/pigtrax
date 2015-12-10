@@ -246,20 +246,6 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 				
 			}
 			
-			if($scope.farrowEvent["inducedBirth"] == false 
-					&& $scope.farrowEvent["assistedBirth"] == false)
-			{
-				
-				$scope.birthTypeRequired = true;
-				
-				
-			}
-			else
-			{
-				
-				$scope.birthTypeRequired = false;
-				
-			}
 		 
 		if(parseInt(liveBorns)!= liveBorns || parseInt(maleBorns) != maleBorns 
 				|| parseInt(femaleBorns) != femaleBorns || parseInt(stillBorns) != stillBorns || parseInt(mummies) != mummies ||  parseInt(weakBorns) != weakBorns)

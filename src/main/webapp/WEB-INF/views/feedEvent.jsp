@@ -81,16 +81,16 @@
                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime'  text='Initial Feed Entry Date'/><span style='color: red'>*</span></label>
-                      <input rsmdatedropdowns ng-model="feedEvent.initialFeedEntryDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+                      <input required required-message="'<spring:message code='label.piginfo.feedEventForm.feedDate.requiredMessage'  text='Feed date is required'/>'" rsmdatedropdowns ng-model="feedEvent.initialFeedEntryDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="initialFeedEntryDateTimerequired" ><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime.requiredMessage' text='Initial Feed Entry Date Time is required' /></label>
 					</div>	
 	 				
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Feed Quantity (In Kgs)'/></label>
+                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Feed Quantity (In Kgs)'/><span style='color: red'>*</span></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.placeHolder' text='Enter Feed Quantity (In Kgs)' />" 
-                     	name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" maxlength="20" required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.requiredMessage' text='Feed Quantity required' />'" 
+                     	name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.requiredMessage' text='Feed Quantity required' />'" 
                      	 ng-pattern="/^[-]?[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
                    <div class="form-group">

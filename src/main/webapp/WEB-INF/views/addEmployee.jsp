@@ -17,7 +17,7 @@
 				<div class="form-group">
 					<label><spring:message code="label.employee.company" text="Company" /><span style='color: red'>*</span></label> 
 					<!--<label ng-show="edit">{{add.employeeId}}</label> -->
-						<select class="form-control" id="companyId" name="companyId" ng-model="add.companyId" >
+						<select class="form-control" id="companyId" name="companyId" ng-model="add.companyId" required required-message="'<spring:message code='label.employee.companyRequired' text='Company is required' />'">
 						<option value=""></option>
                         <option ng-repeat="company in companyList" ng-value="company.id" ng-selected="add.companyId == company.id">{{company.companyId}}</option>
                         </select>

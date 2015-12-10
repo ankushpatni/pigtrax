@@ -14,7 +14,8 @@
 				<label><spring:message code="label.room.roomID" text="Barn ID" /><span style='color: red'>*</span></label>
 				<label ng-show="edit">{{add.roomIdEdit}}</label>
 				<label ng-hide="edit">{{add.barnId}}</label>
-				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.room.roomID' text='Room ID' />" name="roomId" ng-model="add.roomId" maxlength="4" required required-message="'<spring:message code='label.room.roomIDRequired' text='Room Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.room.roomIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
+				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.room.roomID' text='Room ID' />" 
+				name="roomId" ng-model="add.roomId" maxlength="4" required required-message="'<spring:message code='label.room.roomIDRequired' text='Room Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.room.roomIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>			
 			<div class="form-group">
 				<label><spring:message code="label.barn.roomPosition" text="Room Position" /></label>
@@ -25,9 +26,11 @@
 				</select>
 			</div>
 			 <div class="form-group">
-				<label><spring:message code="label.room.pigSpaces" text="Pig Spaces" /></label>				
+				<label><spring:message code="label.room.pigSpaces" text="Pig Spaces" /><span style='color: red'>*</span></label>				
 				<input class="form-control" type="text" placeholder="<spring:message code='label.room.pigSpaces' text='Pig Spaces' />" 
-				name="pigSpaces" ng-model="add.pigSpaces" maxlength="6"   ng-pattern="/^[0-9]{1,6}?$/i" invalid-message="'<spring:message code='label.room.pigSpaceInvalid' text='Only whole numbers are accepted'/>'"/ >
+				name="pigSpaces" ng-model="add.pigSpaces" maxlength="6"   ng-pattern="/^[0-9]{1,6}?$/i" 
+				invalid-message="'<spring:message code='label.room.pigSpaceInvalid' text='Only whole numbers are accepted'/>'" 
+				 required required-message="'<spring:message code='label.room.pigSpaces.requiredMessage' text='Pig spaces is required' />'"/>
 			</div>
 			<div class="modal-footer">
 
