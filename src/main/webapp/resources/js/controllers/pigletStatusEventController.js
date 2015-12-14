@@ -183,7 +183,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 			    var pigInfo = {
 						searchText : $scope.pigletStatusEvent.pigId,
 						searchOption : "pigId",
-						companyId : $rootScope.companyId
+						companyId : $rootScope.companyId,
+						selectedPremise : $scope.pigletStatusEvent.premiseId
 				};
 				restServices.getPigInformation(pigInfo, function(data) {
 					if(data.error)
@@ -492,7 +493,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 		 else if(document.getElementById("rad2").checked)
 			 option = document.getElementById("rad2").value;
     	
-		if($scope.searchText == undefined || $scope.searchText == "" || option == "")
+		if($scope.searchText == undefined || $scope.searchText == "" || option == "" || $scope.selectedPremise == null || $scope.selectedPremise == "")
 		{
 			   $scope.clearAllMessages();
 			   $scope.searchErrorMessage = true;
@@ -503,7 +504,8 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 					searchText : $scope.searchText,
 					searchOption : option,
 					pigId : $scope.searchText, 
-					companyId : $rootScope.companyId
+					companyId : $rootScope.companyId,
+					selectedPremise : $scope.selectedPremise
 					
 			};				
 			restServices.getPigletStatusEventInformation(searchPigletStatusEvent, function(data){

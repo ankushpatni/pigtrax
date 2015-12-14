@@ -189,6 +189,29 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	
 	
 	/**
+	 * Get the pig information based on pigId
+	 */
+	public PigInfo getPigInformationByPigId(final String pigId, final Integer companyId, final Integer premiseId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\","
+				+ "\"tattoo\",\"alternateTattoo\", \"remarks\",\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", "
+				+ "\"entryDate\",\"isActive\",\"id_GfunctionType\",\"id_Origin\",\"id_Premise\" "
+				+ " from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ? and \"id_Premise\" = ? and \"isActive\" is true";
+		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, pigId.trim());
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
+			}}, new PigInfoMapper());
+
+		if(pigInfoList != null && pigInfoList.size() > 0){
+			return pigInfoList.get(0);
+		}
+		return null;
+	}
+	
+	
+	
+	/**
 	 * Get the pig information based on tattoo
 	 */
 	public PigInfo getPigInformationByTattoo(final String tattoo, final Integer companyId) throws SQLException {
@@ -202,6 +225,29 @@ public class PigInfoDaoImpl implements PigInfoDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tattoo.trim());
 				ps.setInt(2, companyId);
+			}}, new PigInfoMapper());
+
+		if(pigInfoList != null && pigInfoList.size() > 0){
+			return pigInfoList.get(0);
+		}
+		return null;
+	}
+	
+	/**
+	 * Get the pig information based on tattoo
+	 */
+	public PigInfo getPigInformationByTattoo(final String tattoo, final Integer companyId, final Integer premiseId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", "
+				+ "\"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", "
+				+ "\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\","
+				+ "\"id_GfunctionType\",\"id_Origin\",\"id_Premise\" "
+				+ "from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ? and \"id_Premise\" = ? and \"isActive\" is true";
+		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, tattoo.trim());
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
 			}}, new PigInfoMapper());
 
 		if(pigInfoList != null && pigInfoList.size() > 0){
@@ -407,10 +453,30 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	
 	@Override
 	public PigInfo getInactivePigInformationByPigId(final String pigId,
+			final Integer companyId, final Integer premiseId) throws SQLException {
+		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\","
+				+ "\"tattoo\",\"alternateTattoo\", \"remarks\",\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\",\"id_GfunctionType\",\"id_Origin\",\"id_Premise\" "
+				+ " from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ? and \"id_Premise\" = ? and \"isActive\" is false order by \"id\" desc";
+		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, pigId.trim());
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
+			}}, new PigInfoMapper());
+
+		if(pigInfoList != null && pigInfoList.size() > 0){
+			return pigInfoList.get(0);
+		}
+		return null;
+	}
+	
+	
+	@Override
+	public PigInfo getInactivePigInformationByPigId(final String pigId,
 			final Integer companyId) throws SQLException {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", \"birthDate\","
 				+ "\"tattoo\",\"alternateTattoo\", \"remarks\",\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\",\"id_GfunctionType\",\"id_Origin\",\"id_Premise\" "
-				+ " from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ? and \"isActive\" is false order by \"id\" desc";
+				+ " from pigtrax.\"PigInfo\" where \"pigId\" = ? and \"id_Company\" = ? and \"id_Premise\" = ? and \"isActive\" is false order by \"id\" desc";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, pigId.trim());
@@ -426,16 +492,17 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	
 	@Override
 	public PigInfo getInactivePigInformationByTattoo(final String tattoo,
-			final Integer companyId) throws SQLException {
+			final Integer companyId, final Integer premiseId) throws SQLException {
 		String qry = "Select \"id\", \"pigId\", \"sireId\", \"damId\",\"origin\", \"gline\", \"gcompany\", "
 				+ "\"birthDate\",\"tattoo\",\"alternateTattoo\", \"remarks\", "
 				+ "\"id_Company\", \"id_Pen\", \"id_Barn\", \"id_SexType\", \"entryDate\",\"isActive\",\"id_GfunctionType\",\"id_Origin\",\"id_Premise\" "
-				+ "from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ? and \"isActive\" is false order by \"id\" desc";
+				+ "from pigtrax.\"PigInfo\" where \"tattoo\" = ? and \"id_Company\" = ? and \"id_Premise\" = ? and \"isActive\" is false order by \"id\" desc";
 		List<PigInfo> pigInfoList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tattoo.trim());
 				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
 			}}, new PigInfoMapper());
 
 		if(pigInfoList != null && pigInfoList.size() > 0){

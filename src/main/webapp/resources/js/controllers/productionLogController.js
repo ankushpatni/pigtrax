@@ -18,19 +18,32 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 			});
 		};
 	
+		
+		$scope.loadPremises = function()
+		{
+			var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+			res.success(function(data, status, headers, config) {
+				$scope.premiseList = data.payload;
+			});
+			res.error(function(data, status, headers, config) {
+				console.log( "failure message: " + {data: data});
+			});	
+		}
+		
+		
 	$scope.setCompanyId = function(companyId, loggedInUserName)
 	{
 		$rootScope.companyId = companyId;
 		$rootScope.loggedInUser = loggedInUserName;
-		$scope.getProductionLogList();
-		$scope.getRooms();
+		$scope.getProductionLogList();		
 		$scope.getLogEventTypes();
+		$scope.loadPremises();
 	};
 	
 	
 	$scope.getRooms = function()
 	{
-		restServices.getRoomsForCompany($rootScope.companyId, function(data){
+		restServices.getRoomsForPremise($scope.productionLog["premiseId"], function(data){
 			if(!data.error){
 				$scope.roomMap = data.payload;
 			}
@@ -74,7 +87,8 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 			var productionLog = {
 						"companyId" : $rootScope.companyId,
 						"startDate" : DateUtils.convertLocaleDateToServer(new Date(dates[0])),
-						"endDate" : DateUtils.convertLocaleDateToServer(new Date(dates[1]))
+						"endDate" : DateUtils.convertLocaleDateToServer(new Date(dates[1])),
+						"selectedPremise" : $scope.selectedPremise
 			};
 		}
 		else
@@ -82,7 +96,8 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 			var productionLog = {
 					"companyId" : $rootScope.companyId,
 					"startDate" : null,
-					"endDate" : null
+					"endDate" : null,
+					"selectedPremise" : $scope.selectedPremise
 				};
 			}
 			

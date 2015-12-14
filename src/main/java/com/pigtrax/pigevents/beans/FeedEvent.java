@@ -18,6 +18,7 @@ public class FeedEvent {
 	private String userUpdated;
 	private TransportJourney transportJourney; 
 	private Integer premiseId;
+	private Integer selectedPremise;
 	
 	public Integer getId() {
 		return id;
@@ -97,6 +98,12 @@ public class FeedEvent {
 	}
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
+	}
+	public Integer getSelectedPremise() {
+		return selectedPremise;
+	}
+	public void setSelectedPremise(Integer selectedPremise) {
+		this.selectedPremise = selectedPremise;
 	}
 	
 	

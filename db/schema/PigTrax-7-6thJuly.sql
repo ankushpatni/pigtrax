@@ -769,11 +769,11 @@ ALTER TABLE pigtrax."PigInfo" OWNER TO pitraxadmin;
 
 -- Index: pigtrax."PIGINFO_U_PI"
 -- DROP INDEX pigtrax."PIGINFO_U_PI";
-CREATE UNIQUE INDEX "PIGINFO_U_PI"  ON pigtrax."PigInfo"  USING btree  ("pigId" COLLATE pg_catalog."default", "id_Company", "isActive")   WHERE "isActive" IS TRUE;
+CREATE UNIQUE INDEX "PIGINFO_U_PI"  ON pigtrax."PigInfo"  USING btree  ("pigId" COLLATE pg_catalog."default", "id_Premise", "isActive")   WHERE "isActive" IS TRUE;
 
 -- Index: pigtrax."PIGINFO_U_TA"
 -- DROP INDEX pigtrax."PIGINFO_U_TA";
-CREATE UNIQUE INDEX "PIGINFO_U_TA"  ON pigtrax."PigInfo"  USING btree  ("tattoo" COLLATE pg_catalog."default", "id_Company", "isActive")  WHERE "isActive" IS TRUE;
+CREATE UNIQUE INDEX "PIGINFO_U_TA"  ON pigtrax."PigInfo"  USING btree  ("tattoo" COLLATE pg_catalog."default", "id_Premise", "isActive")  WHERE "isActive" IS TRUE;
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."Genetics" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
@@ -2298,6 +2298,7 @@ CREATE TABLE pigtrax."ProductionLog"(
 	"eventId" varchar(30),
 	"observationDate" timestamp,
 	"groupId" varchar(30),
+	"id_Premise" integer,
 	CONSTRAINT "PRODUCTIONLOG_PK" PRIMARY KEY (id)
 
 );

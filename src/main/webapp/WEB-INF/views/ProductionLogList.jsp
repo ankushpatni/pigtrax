@@ -31,6 +31,31 @@
 							text="Add Production Log" />
 					</button> -->
 					 <div class="content">
+					 
+					
+					
+					<div class="form-group">
+                      <label class="col-sm-10 control-label"><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/></label>
+                      <div class="col-sm-3">
+                        <div class="options">
+                          <div class="control-group">						  
+                            <div class="controls">
+                              <div class="input-prepend input-group">
+                                  <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+			  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+              <option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+              </select>
+                              </div>
+                            </div>
+							
+                          </div>
+						
+                        </div>
+						
+                      </div>
+                    </div>
+					
+					
 					<div class="form-group">
                       <label class="col-sm-10 control-label"><spring:message code='label.productionlogform.selectdaterange' text='Select Date Range'/></label>
                       <div class="col-sm-10">
@@ -65,6 +90,7 @@
 								class="table table-striped" style="background-color: LightGray">
 								<thead style="background-color: #f7b781">
 									<tr>
+									<th st-sort="roomId" ><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/></th>
 									   <th st-sort="roomId" ><spring:message
 												code="label.productionlogform.roomId" text="Room Id" /></th>
 												<th st-sort="groupId" ><spring:message
@@ -87,6 +113,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="row in displayedCollection track by $index">
+										<td>{{row.premise}}</td>
 										<td>{{row.room}}</td>										
 										<td>{{row.groupId}}</td>
 										<td>{{row.logEventType}}</td>
@@ -131,6 +158,14 @@
                       </div>
                       <div class="modal-body form" >
                   <input type=hidden name="companyId" ng-model="productionLog.companyId" value="${CompanyId}"/>
+                    
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-change="getRooms()" ng-model="productionLog.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}"  ng-selected="productionLog.premiseId == premise.id">{{premise.name}}</option>
+                        </select>
+                    </div>	
                     
                     <div class="form-group">
                       <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/><span style='color: red'>*</span></label>                      

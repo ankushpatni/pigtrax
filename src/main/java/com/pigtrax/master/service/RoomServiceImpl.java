@@ -75,5 +75,32 @@ public class RoomServiceImpl implements RoomService{
 		}
 		return roomIdMap;
 	}
+	
+	
+	/**
+	 * To get the list of Room BIdased on company
+	 * @return List<Room>
+	 * @throws SQLException 
+	 */
+	public Map<Integer,String> getRoomListBasedOnPremise( int premiseId )
+	{
+		Map<Integer,String> roomIdMap = new LinkedHashMap<Integer,String>();
+		try
+		{
+		List<Room> roomList =  roomDao.getRoomListBasedOnPremise(premiseId);
+			if(null != roomList && roomList.size()>0)
+			{
+				for(Room room : roomList)
+				{
+					roomIdMap.put(room.getId(),room.getRoomId());
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return roomIdMap;
+	}
 
 }

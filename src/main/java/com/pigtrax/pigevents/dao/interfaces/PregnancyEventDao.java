@@ -15,6 +15,8 @@ public interface PregnancyEventDao {
    
    List<PregnancyEvent> getPregnancyEvents(String pigId, String searchOption, Integer companyId) throws SQLException;
    
+   List<PregnancyEvent> getPregnancyEvents(String pigId, String searchOption, Integer companyId, Integer premiseId) throws SQLException;
+   
    void deletePregnancyEvent(Integer pregnancyEventId) throws SQLException;
 
    List<PregnancyEvent> getPregnancyEvents(final Integer breedingEventId);

@@ -15,7 +15,11 @@ public interface PigInfoDao {
    
    public PigInfo getPigInformationByPigId(String pigId, Integer companyId) throws SQLException;
    
+   public PigInfo getPigInformationByPigId(String pigId, Integer companyId, Integer premiseId) throws SQLException;
+   
    public PigInfo getPigInformationByTattoo(String tattoo, Integer companyId) throws SQLException;
+   
+   public PigInfo getPigInformationByTattoo(String tattoo, Integer companyId, Integer premiseId) throws SQLException;
    
    public void deletePigInfo(Integer id) throws SQLException;
    
@@ -33,9 +37,11 @@ public interface PigInfoDao {
    
    int changePigId(Integer pigInfoId, String newPigId);
    
+   PigInfo getInactivePigInformationByPigId(String pigId, Integer companyId, Integer premiseId) throws SQLException;
+   
    PigInfo getInactivePigInformationByPigId(String pigId, Integer companyId) throws SQLException;
    
-   PigInfo getInactivePigInformationByTattoo(String tattoo, Integer companyId) throws SQLException;
+   PigInfo getInactivePigInformationByTattoo(String tattoo, Integer companyId, Integer premiseId) throws SQLException;
    
    List<String> getAvailablePigIds(Integer companyId);
 }

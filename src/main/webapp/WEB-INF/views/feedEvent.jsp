@@ -13,9 +13,18 @@
 			 		     <div class="head">
 			            	<h3> <spring:message code='label.piginfo.feedEventForm.search.heading'  text='Search Feed Events'/></h3>
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.feedEventForm.search.data.errormessage' text='Feed event information not found for the search criteria'/></p>
-					   		 <input type="text" name="search"   ng-enter="getFeedEvent(searchText)" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
+			               	
+			               		<div  class="form-group">
+					              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+								  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+					              <option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+					              </select>
+								</div>
+			               	<div  class="form-group">
+					   		 <input type="text" name="search"   ng-enter="getFeedEvent(searchText, selectedPremise)" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.feedEventForm.search.placeholder'  text='Search by Ticket Number ...'/>" class="form-control" style="width:90%;display:inline">
-							 <button type="button" class="btn btn-primary active" ng-click="getFeedEvent(searchText)"><i class="fa fa-search"></i></button>
+							 <button type="button" class="btn btn-primary active" ng-click="getFeedEvent(searchText, selectedPremise)"><i class="fa fa-search"></i></button>
+							 </div>
 			          	</div>
 					  </form>	
 				 </div>
@@ -81,7 +90,7 @@
                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime'  text='Initial Feed Entry Date'/><span style='color: red'>*</span></label>
-                      <input required required-message="'<spring:message code='label.piginfo.feedEventForm.feedDate.requiredMessage'  text='Feed date is required'/>'" rsmdatedropdowns ng-model="feedEvent.initialFeedEntryDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+                      <input rsmdatedropdowns ng-model="feedEvent.initialFeedEntryDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="initialFeedEntryDateTimerequired" ><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime.requiredMessage' text='Initial Feed Entry Date Time is required' /></label>

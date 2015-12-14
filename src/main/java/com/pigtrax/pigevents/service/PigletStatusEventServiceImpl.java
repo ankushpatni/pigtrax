@@ -269,7 +269,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		 List<PigletStatusEventDto> subList = null;
 			try {
 				pigletStatusEvents = pigletStatusEventDao.getPigletStatusEvents(pigletEventStatusDto.getSearchText(), 
-						pigletEventStatusDto.getSearchOption(), pigletEventStatusDto.getCompanyId());
+						pigletEventStatusDto.getSearchOption(), pigletEventStatusDto.getCompanyId(), pigletEventStatusDto.getSelectedPremise());
 				
 				Integer farrowid =0;
 				PigletStatusEventDto pigletStatusEventDto = new PigletStatusEventDto();

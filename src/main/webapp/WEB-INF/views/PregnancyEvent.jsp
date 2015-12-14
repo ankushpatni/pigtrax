@@ -15,9 +15,15 @@
             <h3> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search Pregnancy Events'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.pregnancyeventform.search.data.errormessage' text='Pregnancy event information not found for the search criteria'/></p>
-			
+			<div  class="form-group">
+              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+			  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+              <option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+              </select>
+			</div>
+			<div  class="form-group">		
             <input type="text" name="search" ng-model="searchText" ng-enter="getPregnancyEventInformation()"  placeholder="<spring:message code='label.piginfo.pregnancyeventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" class="form-control">
-
+			</div>
 			 <div class="options">
 			 <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary active" ng-click="getPregnancyEventInformation()"><i class="fa fa-search"></i></button>

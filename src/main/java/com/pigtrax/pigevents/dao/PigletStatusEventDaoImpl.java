@@ -148,6 +148,34 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	}
 	
 	
+	/**
+	 * To get the list of PigletStatus events of a given farrowId and companyId
+	 */
+	
+	private List<PigletStatusEvent> getPigletStatusEventsByPigId(final String pigId,
+			final Integer companyId, final Integer premiseId) {
+		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
+		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
+		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\", "
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", "
+		   		+ "PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\", PSE.\"id_Pen\",PSE.\"id_Premise\" "
+		   		+ " from pigtrax.\"PigletStatus\" PSE "
+		   		+ "JOIN pigtrax.\"PigInfo\" PI on PSE.\"id_PigInfo\" = PI.\"id\" "
+		   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? and PSE.\"id_PigletStatusEventType\" <> ? and PSE.\"id_Premise\" = ? order by PSE.\"id_FarrowEvent\" ";
+ 		
+ 		List<PigletStatusEvent> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setString(1, pigId);
+ 				ps.setInt(2, companyId); 				
+ 				ps.setInt(3, PigletStatusEventType.FosterIn.getTypeCode());
+ 				ps.setInt(3, premiseId);
+ 			}}, new PigletStatusEventMapper());
+
+		return pigletStatusEventList;
+	}
+	
+	
 	
 	/**
 	 * To get the list of PigletStatus events of a given tattooId and companyId
@@ -178,6 +206,37 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	}
 	
 	/**
+	 * To get the list of PigletStatus events of a given tattooId and companyId
+	 */
+
+	private List<PigletStatusEvent> getPigletStatusEventsByTattooId(final String tattooId,
+			final Integer companyId, final Integer premiseId) {
+		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
+		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
+		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\","
+		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", "
+		   		+ "PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\", PSE.\"id_Pen\",PSE.\"id_Premise\" "
+		   		+ " from pigtrax.\"PigletStatus\" PSE "
+		   		+ "JOIN pigtrax.\"FarrowEvent\" FE ON PSE.\"id_FarrowEvent\" = FE.\"id\" "
+		   		+ "JOIN pigtrax.\"PregnancyEvent\" PE on FE.\"id_PregnancyEvent\" = PE.\"id\" "
+		   		+ "JOIN pigtrax.\"PigInfo\" PI on PE.\"id_PigInfo\" = PI.\"id\" "
+		   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? and PSE.\"id_PigletStatusEventType\" <> ? and PSE.\"id_Premise\" = ?  order by PSE.\"id_FarrowEvent\" ";
+ 		
+ 		List<PigletStatusEvent> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setString(1, tattooId);
+ 				ps.setInt(2, companyId);
+ 				ps.setInt(3, PigletStatusEventType.FosterIn.getTypeCode());
+ 				ps.setInt(4 , premiseId);
+ 			}}, new PigletStatusEventMapper());
+
+		return pigletStatusEventList;
+	}
+	
+	
+	
+	/**
 	 * Delete the breeding event information based for the given id
 	 */	
 	@Override
@@ -201,6 +260,19 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			   pigletStatusEventList = getPigletStatusEventsByPigId(searchText, companyId);
 		   else if("TATTOOID".equalsIgnoreCase(searchOption))
 			   pigletStatusEventList = getPigletStatusEventsByTattooId(searchText, companyId);
+		  return pigletStatusEventList; 
+	}
+	
+	
+	@Override
+	public List<PigletStatusEvent> getPigletStatusEvents(String searchText, String searchOption,
+			Integer companyId, Integer premiseId) {
+		List<PigletStatusEvent> pigletStatusEventList = null;	   
+		   if(searchOption ==null) searchOption = "pigId";
+		   else if("PIGId".equalsIgnoreCase(searchOption))
+			   pigletStatusEventList = getPigletStatusEventsByPigId(searchText, companyId, premiseId);
+		   else if("TATTOOID".equalsIgnoreCase(searchOption)) 
+			   pigletStatusEventList = getPigletStatusEventsByTattooId(searchText, companyId, premiseId);
 		  return pigletStatusEventList; 
 	}
 	

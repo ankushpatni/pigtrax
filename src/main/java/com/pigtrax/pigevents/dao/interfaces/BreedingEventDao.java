@@ -17,7 +17,11 @@ public interface BreedingEventDao {
    
    List<BreedingEvent> getBreedingEventInformationByPigId(String searchText, Integer companyId) throws SQLException;
    
+   List<BreedingEvent> getBreedingEventInformationByPigId(String searchText, Integer companyId, Integer premiseId) throws SQLException;
+   
    List<BreedingEvent> getBreedingEventInformationByTattoo(String searchText, Integer companyId) throws SQLException;
+   
+   List<BreedingEvent> getBreedingEventInformationByTattoo(String searchText, Integer companyId, Integer premiseId) throws SQLException;
    
    BreedingEvent getBreedingEventInformation(Integer breedingEventId) throws SQLException;
    

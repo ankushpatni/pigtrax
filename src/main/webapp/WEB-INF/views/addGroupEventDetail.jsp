@@ -17,7 +17,8 @@
                 	 <div class="form-group">
 						<label><spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
 						<label>{{groupAlphaId}}</label>
-					 </div>					 
+					 </div>	
+					
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="roomId" id="roomId" ng-model="groupEvent.roomId"  required required-message="'<spring:message code='label.groupEventDetail.room.required' text='Room is required' />'" 

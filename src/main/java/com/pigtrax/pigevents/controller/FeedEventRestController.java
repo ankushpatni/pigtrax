@@ -86,7 +86,7 @@ public class FeedEventRestController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
 			
-			List feedEventAndDetail = feedEventService.getFeedEventAndDetailByTicketNumber(feedEvent.getTicketNumber());
+			List feedEventAndDetail = feedEventService.getFeedEventAndDetailByTicketNumber(feedEvent.getTicketNumber(), feedEvent.getSelectedPremise());
 			if(feedEventAndDetail != null && feedEventAndDetail.size()>0 )
 			{
 				dto.setPayload(feedEventAndDetail);

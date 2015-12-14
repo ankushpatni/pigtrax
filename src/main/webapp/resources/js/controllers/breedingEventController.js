@@ -121,7 +121,7 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		 else if(document.getElementById("rad2").checked)
 			 option = document.getElementById("rad2").value;
 		
-		if($scope.searchText == undefined || $scope.searchText == ""|| option == "")
+		if($scope.searchText == undefined || $scope.searchText == ""|| option == "" || $scope.selectedPremise == null || $scope.selectedPremise == "")
 		{
 			   $scope.clearAllMessages();
 			   $scope.searchErrorMessage = true;
@@ -131,7 +131,8 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 				var searchBreedEvent = {
 						searchText : $scope.searchText,
 						searchOption : option,
-						companyId : $scope.companyId
+						companyId : $scope.companyId,
+						selectedPremise : $scope.selectedPremise
 						
 				};
 				restServices.getBreedingEventInformation(searchBreedEvent, function(data){
@@ -560,7 +561,8 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	    var pigInfo = {
 				searchText : $scope.breedingEvent.pigInfoId,
 				searchOption : "pigId",
-				companyId : $rootScope.companyId
+				companyId : $rootScope.companyId,
+				selectedPremise : $scope.breedingEvent.premiseId
 		};
 		restServices.getPigInformation(pigInfo, function(data) {
 			if(data.error)

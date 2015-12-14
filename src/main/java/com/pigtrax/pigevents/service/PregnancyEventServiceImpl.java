@@ -186,7 +186,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 		List<PregnancyEvent> pregnancyEvents = null;
 		List<PregnancyEventDto> pregnancyEventDtoList = new ArrayList<PregnancyEventDto>();
 		try {
-			pregnancyEvents = pregnancyEventDao.getPregnancyEvents(pregnancyEventDto.getSearchText(), pregnancyEventDto.getSearchOption(), pregnancyEventDto.getCompanyId());
+			pregnancyEvents = pregnancyEventDao.getPregnancyEvents(pregnancyEventDto.getSearchText(), pregnancyEventDto.getSearchOption(), pregnancyEventDto.getCompanyId(), pregnancyEventDto.getSelectedPremise());
 			pregnancyEventDtoList =  builder.convertToDtos(pregnancyEvents);
 			
 			for(PregnancyEventDto dto : pregnancyEventDtoList)

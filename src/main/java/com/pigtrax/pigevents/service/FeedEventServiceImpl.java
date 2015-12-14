@@ -161,5 +161,38 @@ public class FeedEventServiceImpl implements FeedEventService
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
 	}
+	
+	
+	@Override
+	public List getFeedEventAndDetailByTicketNumber(String ticketNumber, Integer selectedPremise)
+			throws PigTraxException {
+		try 
+		{
+			List eventAndDetailList = new ArrayList();
+			FeedEvent feedEvent =  feedEventDao.getFeedEventByTicketNumber(ticketNumber, selectedPremise);
+			if(null != feedEvent)
+			{
+				eventAndDetailList.add(feedEvent);
+				List<FeedEventDetail> feedEventDetailsList = feedEventDetailDao.getFeedEventDetailByFeedEventId(feedEvent.getId());
+				if(null != feedEventDetailsList)
+				{
+					eventAndDetailList.add(feedEventDetailsList);
+				}
+				else
+				{
+					eventAndDetailList.add(null);
+				}
+				if(null != feedEvent)
+				{
+					eventAndDetailList.add(transportJourneyDao.getTransportJourneyById(feedEvent.getTransportJourneyId()));
+				}
+			}
+			return eventAndDetailList;
+		}
+		catch (SQLException e)
+		{
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
+	}
 
 }

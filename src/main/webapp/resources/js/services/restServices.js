@@ -97,6 +97,7 @@ pigTrax.factory("restServices", function($resource) {
 		"getGlineTypes" : {method:"GET", url:"rest/util/getGlineTypes"},
 		"deletePremise" : {method:"POST", url:"rest/premises/deletePremise"},
 		"getRoomsForCompany" : {method:"POST", url:"rest/room/getRoomsForCompany"},
+		"getRoomsForPremise" : {method:"POST", url:"rest/room/getRoomsForPremise"},
 		"getLogEventTypes" : {method:"GET", url:"rest/util/getLogEventTypes"},
 		"getRemovalPremise" : {method:"POST", url:"rest/removalEvent/getRemovalPremise"},
 		"getOriginList" : {method:"GET", url:"rest/origin/getOriginList"},

@@ -93,7 +93,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 							{
 								
 								$scope.entryEventSuccessMessage = true;
-								$scope.getFeedEvent($scope.feedEvent.ticketNumber,true);
+								$scope.getFeedEvent($scope.feedEvent.ticketNumber,$scope.feedEvent.premiseId);
 							}
 						else
 							{
@@ -114,12 +114,15 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		$window.scrollTo(0,5);
 	}
 	
-	$scope.getFeedEvent = function (ticketNumber,flag,flag1)
+	$scope.getFeedEvent = function (ticketNumber,selectedPremise, flag,flag1)
 	{
 		console.log('Group ID is '+ $scope.searchText);
+		if(ticketNumber != null && ticketNumber != "" && selectedPremise != null && selectedPremise != "")
+			{
 		var postParam = {
 				
 				"ticketNumber" : ticketNumber,
+				"selectedPremise" : selectedPremise
 			};
 			
 			console.log();
@@ -157,6 +160,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 					}
 				}
 		});
+			}
 	}
 	
 	$scope.addTransportJourney = function()
@@ -209,7 +213,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		
 		modalInstance.result.then( function(res) { 
 			$scope.entryEventDetailSuccessMessage = true;
-			$scope.getFeedEvent($scope.feedEvent.ticketNumber,false,true);
+			$scope.getFeedEvent($scope.feedEvent.ticketNumber,$scope.feedEvent.premiseId, false,true);
 		});
 	}
 	

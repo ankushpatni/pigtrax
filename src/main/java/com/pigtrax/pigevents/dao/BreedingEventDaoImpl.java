@@ -170,6 +170,27 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	}
 	
 	/**
+	 * Retrive the breeding event information for a given pig Id and company Id
+	 */
+	@Override
+	public List<BreedingEvent> getBreedingEventInformationByPigId(final String pigId, final Integer companyId, final Integer premiseId)
+			throws SQLException {
+		String qry = "Select PI.\"id_Company\", BE.\"id\",BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"serviceGroupId\", BE.\"id_Pen\", BE.\"serviceStartDate\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", "
+				+ "BE.\"userUpdated\",BE.\"id_Premise\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
+				+ " where PI.\"pigId\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ? order by BE.\"id\" desc";
+		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, pigId);
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
+			}}, new BreedingEventMapper());
+		
+		return breedingEventList;
+	}
+	
+	/**
 	 * Retrive the breeding event information based on the given tattoo and company Id
 	 */
 	
@@ -187,6 +208,31 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tattoo);
 				ps.setInt(2, companyId);
+			}}, new BreedingEventMapper()); 
+
+		return breedingEventList;
+	}
+	
+	
+	/**
+	 * Retrive the breeding event information based on the given tattoo and company Id
+	 */
+	
+	@Override 
+	public List<BreedingEvent> getBreedingEventInformationByTattoo(final String tattoo, final Integer companyId, final Integer premiseId)
+			throws SQLException {
+		
+		String qry = "Select PI.\"id_Company\", BE.\"id\",BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
+				+ "BE.\"serviceGroupId\", BE.\"id_Pen\", BE.\"serviceStartDate\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", "
+				+ "BE.\"userUpdated\",BE.\"id_Premise\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
+				+ " where PI.\"tattoo\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ? order by BE.\"id\" desc";		
+		
+		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, tattoo);
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
 			}}, new BreedingEventMapper()); 
 
 		return breedingEventList;

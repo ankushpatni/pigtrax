@@ -12,6 +12,8 @@ public interface FeedEventDao {
 	
 	FeedEvent getFeedEventByTicketNumber(final String ticketNumber) throws SQLException;
 	
+	FeedEvent getFeedEventByTicketNumber(final String ticketNumber, final Integer selectedPremise) throws SQLException;
+	
 	/*FeedEvent getFeedEventByGeneratedFeedId(final int generatedFeedId) throws SQLException;
 	*/
 	int addFeedEvent(final FeedEvent groupEvent) throws SQLException;

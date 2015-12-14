@@ -13,5 +13,7 @@ public interface ProductionLogDao {
    
    List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate, String username) throws SQLException;
    
+   List<ProductionLog> getProductLogList(final Integer companyId, final Date startDate, final Date endDate, String username, Integer selectedPremise) throws SQLException;
+   
    int deleteProductionLog(Integer id) throws SQLException;
 }

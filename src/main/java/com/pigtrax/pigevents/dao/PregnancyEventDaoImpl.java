@@ -129,6 +129,22 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 	} 
    
    
+   /**
+  	 * Retrieves the Pregnancy Event information for a given pig Id 
+  	 */
+     @Override
+    public List<PregnancyEvent> getPregnancyEvents(String searchText, String option, final Integer companyId, final Integer premiseId) throws SQLException{	     
+  	   List<PregnancyEvent> pregnancyEventList = null;	   
+  	   if(option ==null) option = "pigId";
+  	   else if("PIGId".equalsIgnoreCase(option))
+  		   pregnancyEventList = getPregnancyEventsByPigId(searchText, companyId, premiseId);
+  	   else if("TATTOO".equalsIgnoreCase(option))
+  		   pregnancyEventList = getPregnancyEventsByTattoo(searchText, companyId, premiseId);
+  	    
+  		return pregnancyEventList;
+  	} 
+     
+   
    
    /**
 	 * Retrieves the Pregnancy Event information for a given pig Id 
@@ -150,6 +166,27 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 		return pregnancyEventList; 
 	}
   
+  /**
+ 	 * Retrieves the Pregnancy Event information for a given pig Id 
+ 	 */
+   private List<PregnancyEvent> getPregnancyEventsByPigId(final String pigId, final Integer companyId, final Integer premiseId) throws SQLException{
+ 	   String qry = "select PE.\"id\", PE.\"id_PigInfo\", PE.\"id_EmployeeGroup\", PE.\"id_PregnancyEventType\", "
+ 	   		+ "PE.\"id_PregnancyExamResultType\", PE.\"examDate\", PE.\"resultDate\", PE.\"sowCondition\", "
+ 	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\",PE.\"id_Premise\" "
+ 	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" and PE.\"id_Premise\" = ?"
+ 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
+ 		
+ 		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setString(1, pigId);
+ 				ps.setInt(2, companyId);
+ 				ps.setInt(3, premiseId);
+ 			}}, new PregnancyEventMapper());
+
+ 		return pregnancyEventList; 
+ 	}
+  
   
   /**
  	 * Retrieves the Pregnancy Event information for a given pig Id 
@@ -165,11 +202,32 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
  			@Override
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setString(1, tattoo);
- 				ps.setInt(2, companyId);
+ 				ps.setInt(2, companyId); 				
  			}}, new PregnancyEventMapper());
 
  		return pregnancyEventList;
  	}
+   
+   /**
+	 * Retrieves the Pregnancy Event information for a given pig Id 
+	 */
+  private List<PregnancyEvent> getPregnancyEventsByTattoo(final String tattoo, final Integer companyId, final Integer premiseId) throws SQLException{
+	   String qry = "select PE.\"id\", PE.\"id_PigInfo\", PE.\"id_EmployeeGroup\", PE.\"id_PregnancyEventType\", "
+	   		+ "PE.\"id_PregnancyExamResultType\", PE.\"examDate\", PE.\"resultDate\", PE.\"sowCondition\", "
+	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\",\"id_Premise\" "
+	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" and PE.\"id_Premise\" = ?"
+	   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? ";
+		
+		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, tattoo);
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
+			}}, new PregnancyEventMapper());
+
+		return pregnancyEventList;
+	}
    
     
     @Override

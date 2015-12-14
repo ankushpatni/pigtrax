@@ -72,6 +72,26 @@ public class FeedEventDaoImpl implements FeedEventDao
 			}
 			return null;
 	}
+	
+	
+	@Override
+	public FeedEvent getFeedEventByTicketNumber(final String ticketNumber, final Integer selectedPremise) throws SQLException {
+		String qry = "select \"id\", \"ticketNumber\", \"feedContentId\", \"initialFeedEntryDateTime\", \"batchId\", "
+		   		+ "\"initialFeedQuantityKgs\", \"feedCost\", \"feedMedication\", \"id_TransportJourney\",\"lastUpdated\", \"userUpdated\",\"id_Premise\" "+
+		   		"from pigtrax.\"FeedEvent\" where \"ticketNumber\" = ? and \"id_Premise\" = ?";
+			
+			List<FeedEvent> feedEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {					
+					ps.setString(1, ticketNumber);
+					ps.setInt(2, selectedPremise);
+				}}, new FeedEventMapper());
+
+			if(feedEventList != null && feedEventList.size() > 0){
+				return feedEventList.get(0);
+			}
+			return null;
+	}
 
 	/*@Override
 	public FeedEvent getFeedEventByGeneratedFeedId(final int generatedFeedId)

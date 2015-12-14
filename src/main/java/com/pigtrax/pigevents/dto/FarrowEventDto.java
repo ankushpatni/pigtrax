@@ -40,6 +40,7 @@ public class FarrowEventDto {
 	private Integer weakBorns;
 	private Integer litterId;
 	private Integer premiseId;
+	private Integer selectedPremise;
 	
 	public Integer getId() {
 		return id;
@@ -244,6 +245,12 @@ public class FarrowEventDto {
 	}
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
+	}
+	public Integer getSelectedPremise() {
+		return selectedPremise;
+	}
+	public void setSelectedPremise(Integer selectedPremise) {
+		this.selectedPremise = selectedPremise;
 	}
 	
 	 

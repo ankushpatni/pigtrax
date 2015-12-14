@@ -201,9 +201,9 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			if(document.getElementById("rad1").checked)
 				 option = document.getElementById("rad1").value;
 			 else if(document.getElementById("rad2").checked)
-				 option = document.getElementById("rad2").value;
+				 option = document.getElementById("rad2").value; 
 			 
-			if($scope.searchText == undefined || option == "")
+			if($scope.searchText == undefined || option == "" || $scope.selectedPremise == null || $scope.selectedPremise == "")
 			{
 				   $scope.clearAllMessages();
 				   $scope.searchErrorMessage = true;
@@ -214,7 +214,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 					var searchPigInfo = {
 							searchText : $scope.searchText,
 							searchOption : option,
-							companyId : $scope.companyId
+							companyId : $scope.companyId,
+							selectedPremise : $scope.selectedPremise
 					};
 					restServices.getPigInformation(searchPigInfo, function(data)
 					{

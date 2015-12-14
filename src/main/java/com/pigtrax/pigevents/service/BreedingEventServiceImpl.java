@@ -165,11 +165,11 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 		try{
 			if(breedingEventDto != null && breedingEventDto.getSearchOption().equals("pigId"))
 			{
-				breedingEventList =  breedingEventDao.getBreedingEventInformationByPigId(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId());
+				breedingEventList =  breedingEventDao.getBreedingEventInformationByPigId(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId(), breedingEventDto.getSelectedPremise());
 			}
 			else if(breedingEventDto != null && breedingEventDto.getSearchOption().equals("tattoo"))
 			{
-				breedingEventList =  breedingEventDao.getBreedingEventInformationByTattoo(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId());
+				breedingEventList =  breedingEventDao.getBreedingEventInformationByTattoo(breedingEventDto.getSearchText(), breedingEventDto.getCompanyId(), breedingEventDto.getSelectedPremise());
 			}
 			
 			breedingEventDtoList = builder.convertToDtos(breedingEventList);

@@ -110,7 +110,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 			    var pigInfo = {
 						searchText : $scope.pregnancyEvent.pigId,
 						searchOption : "pigId",
-						companyId : $rootScope.companyId
+						companyId : $rootScope.companyId,
+						selectedPremise : $scope.pregnancyEvent.premiseId
 				};
 				restServices.getPigInformation(pigInfo, function(data) {
 					if(data.error)
@@ -255,7 +256,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		 else if(document.getElementById("rad2").checked)
 			 option = document.getElementById("rad2").value;
     	
-		if($scope.searchText == undefined || $scope.searchText == "" || option == "")
+		if($scope.searchText == undefined || $scope.searchText == "" || option == "" || $scope.selectedPremise == null || $scope.selectedPremise == "")
 		{
 			   $scope.clearAllMessages();
 			   $scope.searchErrorMessage = true;
@@ -266,7 +267,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					searchText : $scope.searchText,
 					searchOption : option,
 					pigId : $scope.searchText, 
-					companyId : $scope.companyId
+					companyId : $scope.companyId,
+					selectedPremise : $scope.selectedPremise
 					
 			};				
 			restServices.getPregnancyEventInformation(searchPregnancyEvent, function(data){

@@ -52,5 +52,12 @@ public interface RoomDao {
 	 */
 	public List<Room> getRoomListBasedOnCompanyId( int generatedCompanyId ) throws SQLException;
 	
+	/**
+	 * To get the list of Room BIdased on premise
+	 * @return List<Room>
+	 * @throws SQLException 
+	 */
+	public List<Room> getRoomListBasedOnPremise( int premiseId ) throws SQLException;
+	
 
 }

@@ -61,6 +61,22 @@ public class RoomRestController {
 		return dto;
 	}
 	
+	
+	/**
+	 * Service to retrive the list of Room
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getRoomsForPremise", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	public ServiceResponseDto getRoomsForPremise(@RequestBody int premiseId)
+	{
+		logger.info("Inside getRoomsForPremise" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		Map<Integer, String> roomMap   = roomService.getRoomListBasedOnPremise(premiseId);
+		dto.setPayload(roomMap);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
 	/**String roomId, Boolean roomStatus
 	 * Service to update room
 	 * @return ServiceResponseDto

@@ -9,13 +9,21 @@
  		  <div class="col-sm-6 col-md-6">
  		  
  		  <div class="block-flat">
-		   <form name="entryEventSearchForm" >
+		   <form name="entryEventSearchForm">
  		     <div class="head">
  		     
  		     <h3> <spring:message code='label.piginfo.entryeventform.search.heading'  text='Search Pig'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.entryeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
+			<div  class="form-group">
+             <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+						<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+                        </select>
+						</div>
+				<div  class="form-group">			
  		    <input type="text" name="search" ng-enter="getPigInformation()" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>"/>
+			</div>
             <div class="options">
 			 <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary active" ng-enter="getPigInformation()" ng-click="getPigInformation()"><i class="fa fa-search"></i></button>

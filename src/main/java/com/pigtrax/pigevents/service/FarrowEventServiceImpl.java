@@ -209,7 +209,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 		List<FarrowEvent> farrowEvents = null;
 		List<FarrowEventDto> farrowEventDtoList = new ArrayList<FarrowEventDto>();
 		try {
-			farrowEvents = farrowEventDao.getFarrowEvents(farrowEventDto.getSearchText(), farrowEventDto.getSearchOption(), farrowEventDto.getCompanyId());
+			farrowEvents = farrowEventDao.getFarrowEvents(farrowEventDto.getSearchText(), farrowEventDto.getSearchOption(), farrowEventDto.getCompanyId(), farrowEventDto.getSelectedPremise());
 			farrowEventDtoList =  builder.convertToDtos(farrowEvents);
 			
 			for(FarrowEventDto dto : farrowEventDtoList)

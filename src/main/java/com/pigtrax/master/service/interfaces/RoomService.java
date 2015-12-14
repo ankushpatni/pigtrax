@@ -53,5 +53,13 @@ public interface RoomService {
 	 */
 	public Map<Integer,String> getRoomListBasedOnCompanyId( int generatedCompanyId );
 	
+	
+	/**
+	 * To get the list of Room BIdased on premise
+	 * @return List<Room>
+	 * @throws SQLException 
+	 */
+	public Map<Integer,String> getRoomListBasedOnPremise( int premiseId );
+	
 
 }

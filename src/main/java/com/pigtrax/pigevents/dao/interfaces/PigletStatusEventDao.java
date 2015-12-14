@@ -17,6 +17,8 @@ public interface PigletStatusEventDao {
 	
 	List<PigletStatusEvent> getPigletStatusEvents(String searchText, String searchOption, Integer companyId);
 	
+	List<PigletStatusEvent> getPigletStatusEvents(String searchText, String searchOption, Integer companyId, Integer premiseId);
+	
 	void deletePigletStatusEvent(Integer id) throws SQLException;
 	
 	List<PigletStatusEvent> getFosterInRecords(String pigId, Integer companyId, Integer farrowEventId);

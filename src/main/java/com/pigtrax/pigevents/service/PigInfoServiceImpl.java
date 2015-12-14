@@ -96,11 +96,11 @@ public class PigInfoServiceImpl implements PigInfoService {
 		PigInfo info = null;
 		if(dto != null && dto.getSearchOption().equals("pigId"))
 		{
-				info =  pigInfoDao.getPigInformationByPigId(dto.getSearchText(), dto.getCompanyId());
+				info =  pigInfoDao.getPigInformationByPigId(dto.getSearchText(), dto.getCompanyId(), dto.getSelectedPremise());
 		}
 		else 
 		{
-			info =  pigInfoDao.getPigInformationByTattoo(dto.getSearchText(), dto.getCompanyId());
+			info =  pigInfoDao.getPigInformationByTattoo(dto.getSearchText(), dto.getCompanyId(), dto.getSelectedPremise());
 		}
 		return builder.convertToDto(info);
 	}
@@ -182,11 +182,11 @@ public class PigInfoServiceImpl implements PigInfoService {
 		PigInfo info = null;
 		if(dto != null && dto.getSearchOption().equals("pigId"))
 		{
-				info =  pigInfoDao.getInactivePigInformationByPigId(dto.getSearchText(), dto.getCompanyId());
+				info =  pigInfoDao.getInactivePigInformationByPigId(dto.getSearchText(), dto.getCompanyId(), dto.getPremiseId());
 		}
 		else 
 		{
-			info =  pigInfoDao.getInactivePigInformationByTattoo(dto.getSearchText(), dto.getCompanyId()); 
+			info =  pigInfoDao.getInactivePigInformationByTattoo(dto.getSearchText(), dto.getCompanyId(), dto.getPremiseId()); 
 		}
 		return builder.convertToDto(info);
 	}

@@ -23,6 +23,7 @@ public class BreedingEventDto {
 	private Double weightInKgs;
     private List<MatingDetailsDto> matingDetailsList;
     private Integer premiseId;
+    private Integer selectedPremise;
 	
 	public Integer getId() {
 		return id;
@@ -149,6 +150,15 @@ public class BreedingEventDto {
 	}
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
+	}
+	
+	
+	
+	public Integer getSelectedPremise() {
+		return selectedPremise;
+	}
+	public void setSelectedPremise(Integer selectedPremise) {
+		this.selectedPremise = selectedPremise;
 	}
 	@Override
     public String toString() {

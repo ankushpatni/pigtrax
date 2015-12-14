@@ -35,7 +35,7 @@
 					 
 					<div class="form-group">
 						<label ><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /><span style='color: red'>*</span></label>
-						<input required required-message="'<spring:message code='label.piginfo.feedEventForm.feedDate.requiredMessage'  text='Feed date is required'/>'" rsmdatedropdowns ng-model="feedEventDetail.feedEventDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+						<input  rsmdatedropdowns ng-model="feedEventDetail.feedEventDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
 						
 					</div>
 					<div>
@@ -66,7 +66,7 @@
 					
                   
 			<button class="btn btn-success btn-flat md-close"  ng-click="addFeedEventDetail()" ng-hide="feedEventDetail.id>0"><spring:message code="label.premise.add" text="Add" /></button>
-			<button class="btn btn-success btn-flat md-close"  ng-click="addFeedEventDetail()" ng-show="feedEventDetail.id>0"><spring:message code="label.premise.edit" text="Edit" /></button>
+			<button class="btn btn-success btn-flat md-close"  ng-click="addFeedEventDetail()" ng-show="feedEventDetail.id>0"><spring:message code="label.piginfo.groupEventform.edit" text="Edit" /></button>
             <button class="btn btn-warning btn-flat md-close"  ng-click="cancel()"><spring:message code="label.premise.cancel" text="Cancel" /></button> 
          </div>
 		 <input type="hidden" name="feedEventTicketNumber" id="feedEventTicketNumber"/>

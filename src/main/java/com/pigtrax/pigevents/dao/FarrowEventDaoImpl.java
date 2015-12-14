@@ -197,6 +197,22 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 	} 
    
    
+   /**
+	 * Retrieves the Pregnancy Event information for a given pig Id 
+	 */
+  @Override
+ public List<FarrowEvent> getFarrowEvents(String searchText, String option, final Integer companyId, Integer premiseId) throws SQLException{	     
+	   List<FarrowEvent> farrowEventList = null;	   
+	   if(option ==null) option = "pigId";
+	   else if("PIGId".equalsIgnoreCase(option))
+		   farrowEventList = getFarrowEventsByPigId(searchText, companyId, premiseId);
+	   else if("TATTOO".equalsIgnoreCase(option))
+		   farrowEventList = getFarrowEventsByTattoo(searchText, companyId, premiseId);
+	    
+		return farrowEventList;
+	} 
+   
+   
    
    /**
 	 * Retrieves the Pregnancy Event information for a given pig Id 
@@ -215,6 +231,31 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, pigId);
 				ps.setInt(2, companyId);
+			}}, new FarrowEventMapper());
+
+		return farrowEventList; 
+	}
+  
+  
+  
+  /**
+	 * Retrieves the Pregnancy Event information for a given pig Id  
+	 */
+ private List<FarrowEvent> getFarrowEventsByPigId(final String pigId, final Integer companyId, final Integer premiseId) throws SQLException{
+	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+	   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
+	   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
+	   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
+	   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\", FE.\"litterId\",FE.\"id_Premise\" "
+	   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
+	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ? ";
+		
+		List<FarrowEvent> farrowEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, pigId);
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
 			}}, new FarrowEventMapper());
 
 		return farrowEventList; 
@@ -242,6 +283,30 @@ public class FarrowEventDaoImpl implements FarrowEventDao {
 
  		return farrowEventList;
  	}
+   
+   
+   /**
+	 * Retrieves the Pregnancy Event information for a given pig Id 
+	 */
+  private List<FarrowEvent> getFarrowEventsByTattoo(final String tattoo, final Integer companyId, final Integer premiseId) throws SQLException{
+	   String qry = "select FE.\"id\", FE.\"farrowDateTime\", FE.\"id_Pen\", "
+		   		+ "FE.\"liveBorns\", FE.\"stillBorns\", FE.\"mummies\", FE.\"maleBorns\", FE.\"femaleBorns\", "
+		   		+ "FE.\"weightInKgs\", FE.\"inducedBirth\", FE.\"assistedBirth\", FE.\"remarks\", FE.\"sowCondition\""
+		   		+" , FE.\"lastUpdated\", FE.\"userUpdated\", FE.\"id_EmployeeGroup\", FE.\"id_PigInfo\", FE.\"id_PregnancyEvent\", "
+		   		+ "FE.\"teats\", FE.\"id_PigletCondition\", FE.\"weakBorns\", FE.\"litterId\",FE.\"id_Premise\" "
+		   		+ " from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
+		   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ? ";
+		
+	   List<FarrowEvent> farrowEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, tattoo);
+				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId);
+			}}, new FarrowEventMapper());
+
+		return farrowEventList;
+	}
    
     
     @Override

@@ -262,6 +262,12 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 		return salesEventDetailsDetailsList;
 	}
 
-	
+		@Override
+			public List<SalesEventDetails> getSalesEventDetailsListByPigId(
+					String pigInfoIdId, int companyId, Integer premiseId)
+					throws PigTraxException {
+				// TODO Auto-generated method stub
+				return null;
+			}	
 
 }

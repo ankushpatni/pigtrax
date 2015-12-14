@@ -13,6 +13,9 @@ public class ProductionLog {
 	private String eventId;
 	private Date observationDate;
 	private String groupId;
+	private Integer premiseId;
+	private Integer selectedPremise;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -91,6 +94,22 @@ public class ProductionLog {
 
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
+	}
+
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
+	}
+
+	public Integer getSelectedPremise() {
+		return selectedPremise;
+	}
+
+	public void setSelectedPremise(Integer selectedPremise) {
+		this.selectedPremise = selectedPremise;
 	}
 	
 	

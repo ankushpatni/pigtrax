@@ -105,7 +105,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 			    var pigInfo = {
 						searchText : $scope.farrowEvent.pigId,
 						searchOption : "pigId",
-						companyId : $rootScope.companyId
+						companyId : $rootScope.companyId,
+						selectedPremise : $scope.farrowEvent.premiseId
 				};
 				restServices.getPigInformation(pigInfo, function(data) {
 					if(data.error)
@@ -344,7 +345,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		 else if(document.getElementById("rad2").checked)
 			 option = document.getElementById("rad2").value;
     	
-		if($scope.searchText == undefined || $scope.searchText == "" || option == "")
+		if($scope.searchText == undefined || $scope.searchText == "" || option == "" || $scope.selectedPremise == null || $scope.selectedPremise == "")
 		{
 			   $scope.clearAllMessages();
 			   $scope.searchErrorMessage = true;
@@ -355,7 +356,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 					searchText : $scope.searchText,
 					searchOption : option,
 					pigId : $scope.searchText, 
-					companyId : $scope.companyId
+					companyId : $scope.companyId,
+					selectedPremise : $scope.selectedPremise
 					
 			};				
 			restServices.getFarrowEventInformation(searchFarrowEvent, function(data){
