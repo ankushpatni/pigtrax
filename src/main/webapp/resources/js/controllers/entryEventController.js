@@ -195,10 +195,10 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 				
 				//var birthDate = document.getElementById("birthDate").value;
 				
-				var birthDate = $scope.pigInfo.birthDate			
+				var birthDate = new Date($scope.pigInfo.birthDate);			
 				
 				
-				var entryDate = $scope.pigInfo.entryDate;
+				var entryDate = new Date($scope.pigInfo.entryDate);
 							
 				
 				var duration  = 100;				
