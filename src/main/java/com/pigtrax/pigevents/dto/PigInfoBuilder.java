@@ -1,11 +1,13 @@
 package com.pigtrax.pigevents.dto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.pigtrax.pigevents.beans.PigInfo;
+import com.pigtrax.util.DateUtil;
 
 @Component
 public class PigInfoBuilder {
@@ -40,7 +42,7 @@ public class PigInfoBuilder {
    }
    
    
-   public PigInfoDto convertToDto(PigInfo info)
+   public PigInfoDto convertToDto(PigInfo info) throws ParseException
    {
 	   PigInfoDto dto = new PigInfoDto();
 	   if(info != null)
@@ -50,10 +52,12 @@ public class PigInfoBuilder {
 		   dto.setSireId(info.getSireId());
 		   dto.setDamId(info.getDamId());
 		   dto.setEntryDate(info.getEntryDate());
+		   dto.setEntryDateStr(DateUtil.convertToFormatString(dto.getEntryDate(), "MM/dd/yyyy"));
 		   dto.setOrigin(info.getOrigin());
 		   dto.setGline(info.getGline());
 		   dto.setGcompany(info.getGcompany());
 		   dto.setBirthDate(info.getBirthDate());
+		   dto.setBirthDateStr(DateUtil.convertToFormatString(dto.getBirthDate(), "MM/dd/yyyy"));
 		   dto.setTattoo(info.getTattoo());
 		   dto.setAlternateTattoo(info.getAlternateTattoo());
 		   dto.setRemarks(info.getRemarks());
@@ -72,7 +76,7 @@ public class PigInfoBuilder {
 	   return dto;
    }
    
-   public List<PigInfoDto> convertToDtos(List<PigInfo> piglist)
+   public List<PigInfoDto> convertToDtos(List<PigInfo> piglist) throws ParseException
    {
 	   List<PigInfoDto> pigDtolist = new ArrayList<PigInfoDto>();
 	   for(PigInfo pig : piglist)

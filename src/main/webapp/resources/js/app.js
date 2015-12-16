@@ -1,4 +1,4 @@
-var pigTrax = angular.module('pigTrax',['ngResource', 'ui.bootstrap',,'smart-table','rorymadden.date-dropdowns','ngCookies']);
+var pigTrax = angular.module('pigTrax',['ngResource', 'ui.bootstrap',,'smart-table','rorymadden.date-dropdowns','ngCookies','ngMask']);
 
 //directive to show a confirm prompt
 pigTrax.directive('ngConfirmClick', [ function() {

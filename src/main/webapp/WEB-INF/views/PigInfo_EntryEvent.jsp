@@ -111,13 +111,15 @@
 					    invalid-message="'<spring:message code='label.piginfo.entryeventform.alternateTattoo.invalidmessage' text='Only Alpha Numeric values are allowed' />'" />
                     </div>
                     
-                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
-                     <input rsmdatedropdowns ng-model="pigInfo.entryDate" day-div-class="day-container" day-class="day-selector"/>
-                      	<label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Entry Date is required' /></label>
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      	<input type="text" class="form-control" ng-model="pigInfo.entryDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.entryDateStr, 'entryDate')"/>                      	
+                    </div>
+					<div>
+					<label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Enter a valid entry date' /></label>
                         <label ng-show="invalidEntryDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invalidmessage' text='Entry date can not be earlier than birth date' /></label>
                         <label ng-show="invalidDateDuration" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.invaliddurationmessage' text='The age of the pig can not be less than 100 days and more than 200 days' /></label>
-                    </div>
+					</div>
                     
                      <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label>
@@ -170,14 +172,10 @@
                         <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
                     </div>-->
                     
-                    
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/><span style='color: red'>*</span></label>
-                     <input rsmdatedropdowns ng-model="pigInfo.birthDate" day-div-class="day-container" day-class="day-selector"/>
-                     <label ng-show="birthDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.birthdate.requiredmessage' text='Birth Date is required' /></label>
-                    </div>
-                    
-                    
+                      <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      	<input type="text" class="form-control" ng-model="pigInfo.birthDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.birthDateStr, 'birthDate')"/>                      	
+                    </div> 
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.sire'  text='Sire'/></label>
@@ -265,11 +263,3 @@
             
           </div>
 </div>
-<script>
-$(document).ready(function(){
- var currDate = new Date();
- var dateVal = currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate();
-	  $("#birthDateDiv").attr('data-date-enddate',dateVal);
-	  $("#entryDateDiv").attr('data-date-enddate',dateVal);
-});  
-</script>

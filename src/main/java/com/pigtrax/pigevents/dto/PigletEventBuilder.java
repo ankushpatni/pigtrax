@@ -30,6 +30,7 @@ public class PigletEventBuilder {
 			   info.setFarrowEventId(dto.getFarrowEventId());
 			   info.setPremiseId(dto.getPremiseId());
 			   info.setLitterId(dto.getLitterId());
+			   info.setPigInfoId(dto.getPigInfoId());
 		   }
 		   return info;
 	   }
@@ -53,6 +54,7 @@ public class PigletEventBuilder {
 			   dto.setFarrowEventId(info.getFarrowEventId());
 			   dto.setPremiseId(info.getPremiseId());
 			   dto.setLitterId(info.getLitterId());
+			   dto.setPigInfoId(info.getPigInfoId());
 		   }
 		   return dto;
 	   }

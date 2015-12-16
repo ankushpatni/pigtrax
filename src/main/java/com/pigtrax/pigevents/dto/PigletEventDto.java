@@ -13,13 +13,15 @@ public class PigletEventDto {
 	private String pigId;
 	private String searchText;
 	private String searchOption;
-	private int farrowEventId;
+	private Integer farrowEventId;
 	private String farrowId;
-	private int companyId;
+	private Integer companyId;
 	private String language;
 	private FarrowEventDto farrowEventDto;
 	private Integer premiseId;
 	private Integer litterId;
+	private Integer selectedPremise;
+	private Integer pigInfoId;
 	
 	public String getTattooId() {
 		return tattooId;
@@ -45,10 +47,10 @@ public class PigletEventDto {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	public int getCompanyId() {
+	public Integer getCompanyId() {
 		return companyId;
 	}
-	public void setCompanyId(int companyId) {
+	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
 	public Integer getPigletId() {
@@ -57,10 +59,10 @@ public class PigletEventDto {
 	public void setPigletId(Integer pigletId) {
 		this.pigletId = pigletId;
 	}
-	public int getFarrowEventId() {
+	public Integer getFarrowEventId() {
 		return farrowEventId;
 	}
-	public void setFarrowEventId(int farrowId) {
+	public void setFarrowEventId(Integer farrowId) {
 		this.farrowEventId = farrowId;
 	}
 	public Date getLastUpdated() {
@@ -116,6 +118,18 @@ public class PigletEventDto {
 	}
 	public void setLitterId(Integer litterId) {
 		this.litterId = litterId;
+	}
+	public Integer getSelectedPremise() {
+		return selectedPremise;
+	}
+	public void setSelectedPremise(Integer selectedPremise) {
+		this.selectedPremise = selectedPremise;
+	}
+	public Integer getPigInfoId() {
+		return pigInfoId;
+	}
+	public void setPigInfoId(Integer pigInfoId) {
+		this.pigInfoId = pigInfoId;
 	}
 	
 	

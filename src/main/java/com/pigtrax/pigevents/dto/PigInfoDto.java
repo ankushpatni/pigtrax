@@ -33,6 +33,8 @@ public class PigInfoDto {
 	private Integer originId;
 	private Integer premiseId;
 	private Integer selectedPremise;
+	private String entryDateStr;
+	private String birthDateStr;
 	
 	
 	public Integer getFarrowEventId() {
@@ -293,6 +295,22 @@ public class PigInfoDto {
 
 	public void setSelectedPremise(Integer selectedPremise) {
 		this.selectedPremise = selectedPremise;
+	}
+	
+	public String getEntryDateStr() {
+		return entryDateStr;
+	}
+
+	public void setEntryDateStr(String entryDateStr) {
+		this.entryDateStr = entryDateStr;
+	}
+
+	public String getBirthDateStr() {
+		return birthDateStr;
+	}
+
+	public void setBirthDateStr(String birthDateStr) {
+		this.birthDateStr = birthDateStr;
 	}
 
 	@Override

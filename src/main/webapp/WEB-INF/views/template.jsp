@@ -41,6 +41,8 @@
 	<script src="resources/lib/angular-ui/0.11.2/ui-bootstrap-tpls-0.11.2.min.js"></script>
 	<script src="resources/js/app.js"></script>
 	<script src="resources/js/directive.js"></script>
+	<script src="resources/js/services/ngMask.min.js"></script>
+	<script src="resources/js/services/date.js"></script>
 	<script src="resources/js/services/restServices.js"></script>
 	<script src="resources/js/services/DateUtils.js"></script> 
 	<script src="resources/js/services/angular-confirm.js"></script>

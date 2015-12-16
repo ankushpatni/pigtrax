@@ -902,12 +902,20 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"id_FarrowEvent" integer,
 	"id_Premise" integer,
 	"litterId" integer,
+	"id_PigInfo" integer,
 	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id),
-	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId")
+	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId","id_Premise")
 
 );
 -- ddl-end --
 ALTER TABLE pigtrax."IndividualPigletStatus" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "PigInfo_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."IndividualPigletStatus" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
+ALTER TABLE pigtrax."IndividualPigletStatus" ADD CONSTRAINT "PigInfo_fk" FOREIGN KEY ("id_PigInfo")
+REFERENCES pigtrax."PigInfo" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: "FarrowEvent_fk" | type: CONSTRAINT --

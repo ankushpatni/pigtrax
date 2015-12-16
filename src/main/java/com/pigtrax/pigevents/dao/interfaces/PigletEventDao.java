@@ -18,6 +18,8 @@ public interface PigletEventDao {
    
    public List<PigletEvent> getPigletEvents(String searchText, String searchOption, Integer companyId) throws SQLException;
    
+   public List<PigletEvent> getPigletEvents(String searchText, String searchOption, Integer companyId, Integer premiseId) throws SQLException;
+   
    void deletePigletEvent(Integer pigletEventId) throws SQLException;
    
 }

@@ -54,7 +54,8 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 			    var pigInfo = {
 						searchText : $scope.pigletEvent.pigId,
 						searchOption : "pigId",
-						companyId : $rootScope.companyId
+						companyId : $rootScope.companyId,
+						selectedPremise : $scope.pigletEvent.premiseId
 				};
 				restServices.getPigInformation(pigInfo, function(data) {
 					if(data.error)
@@ -121,7 +122,8 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 			var searchPigletEvent = {
 					searchText : $scope.searchText,
 					searchOption : option,
-					companyId : $rootScope.companyId
+					companyId : $rootScope.companyId,
+					selectedPremise : $scope.selectedPremise
 					
 			};				
 			restServices.getPigletEventInformation(searchPigletEvent, function(data){
@@ -146,9 +148,7 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 	$scope.getPigletEventDetails = function(pigletEventObj)
 	{
 		//alert("came here : "+JSON.stringify(pregnancyEventObj));
-		$scope.pigletEvent["pigletId"] = pigletEventObj["pigletId"]; 
-		$scope.pigletEvent["farrowEventDto"] = pigletEventObj["farrowEventDto"];
-		$scope.pigletEvent["farrowEventId"] = pigletEventObj.farrowEventDto.id;
+		$scope.pigletEvent["pigletId"] = pigletEventObj["pigletId"];
 		$scope.pigletEvent["tattooId"] = pigletEventObj["tattooId"];
 		$scope.pigletEvent["pigId"] = pigletEventObj["pigId"];
 		$scope.pigletEvent["weightAtBirth"] = pigletEventObj["weightAtBirth"];

@@ -61,9 +61,12 @@ public class PigletEventServiceImpl implements PigletEventService {
 			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId());
 			if(pigInfo != null)
 			{
-				FarrowEvent farrowEvent = farrowInfoDao.getFarrowEventIdByLitterId(pigInfo.getId(), pigletEventDto.getLitterId());
-				pigletEventDto.setFarrowEventId(farrowEvent.getId());
-			
+				pigletEventDto.setPigInfoId(pigInfo.getId());
+				/*if(pigletEventDto.getLitterId() != null)
+				{
+					FarrowEvent farrowEvent = farrowInfoDao.getFarrowEventIdByLitterId(pigInfo.getId(), pigletEventDto.getLitterId());
+					pigletEventDto.setFarrowEventId(farrowEvent.getId());
+				}*/
 				PigletEvent pigletEvent = builder.convertToBean(pigletEventDto);
 				
 				if(pigletEventDto.getPigletId() == null)
@@ -99,16 +102,16 @@ public class PigletEventServiceImpl implements PigletEventService {
 		List<PigletEvent> pigletEvents = null;
 		List<PigletEventDto> pigletEventDtoList = new ArrayList<PigletEventDto>();
 		try {
-			pigletEvents = pigletEventDao.getPigletEvents(pigletEventDto.getSearchText(), pigletEventDto.getSearchOption(), pigletEventDto.getCompanyId());
+			pigletEvents = pigletEventDao.getPigletEvents(pigletEventDto.getSearchText(), pigletEventDto.getSearchOption(), pigletEventDto.getCompanyId(), pigletEventDto.getSelectedPremise());
 			pigletEventDtoList =  builder.convertToDtos(pigletEvents);
 			
 			for(PigletEventDto dto : pigletEventDtoList)
 			{	
-				FarrowEventDto farrowEventDto = farrowEventService.getFarrowEventDetails(dto.getFarrowEventId());
+				//FarrowEventDto farrowEventDto = farrowEventService.getFarrowEventDetails(dto.getFarrowEventId());
 				
-				dto.setFarrowEventDto(farrowEventDto);
+				//dto.setFarrowEventDto(farrowEventDto);
 				
-				PigInfo pigInfo = pigInfoDao.getPigInformationById(farrowEventDto.getPigInfoId());
+				PigInfo pigInfo = pigInfoDao.getPigInformationById(dto.getPigInfoId());
 				
 				dto.setPigId(pigInfo.getPigId());
 				

@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -197,10 +198,10 @@ public class PigInfoServiceImpl implements PigInfoService {
 	}
 	
 	@Override
-	public PigInfoDto getPigInformationById(final Integer pigInfoId) throws PigTraxException {
+	public PigInfoDto getPigInformationById(final Integer pigInfoId) throws PigTraxException, ParseException {
 		PigInfo info = null;
 		if(pigInfoId != null)
-		{
+		{ 
 			try {
 				info = pigInfoDao.getPigInformationById(pigInfoId);
 			} catch (SQLException e) {

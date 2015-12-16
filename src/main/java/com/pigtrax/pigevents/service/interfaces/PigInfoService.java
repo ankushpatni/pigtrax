@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.service.interfaces;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,5 +24,5 @@ public interface PigInfoService {
     
     List<String> getAvailablePigIds(Integer companyId);
     
-    PigInfoDto getPigInformationById(final Integer pigInfoId) throws PigTraxException ;
+    PigInfoDto getPigInformationById(final Integer pigInfoId) throws PigTraxException, ParseException;
 }  

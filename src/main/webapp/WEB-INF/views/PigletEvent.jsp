@@ -14,9 +14,15 @@
             <h3> <spring:message code='label.piginfo.pigletEventform.search.heading'  text='Search Individual Piglet Details'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.pigletEventform.search.errormessage' text='Please enter Farrow Id/ Piglet Tattoo Id and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.pigletEventform.search.data.errormessage' text='Piglet event information not found for the search criteria'/></p>
-			
+			<div  class="form-group">
+              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+			  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+              <option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+              </select>
+             </div>
+           <div  class="form-group">  	
             <input type="text" name="search"  ng-enter="getPigletEventInformation()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pigleteventform.search.placeholder'  text='Search by Farrow Id / Tattoo ...'/>" class="form-control">
-
+			</div>
 			 <div class="options">
 			 <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary active" ng-click="getPigletEventInformation()"><i class="fa fa-search"></i></button>
@@ -86,12 +92,15 @@
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.pigleteventform.delete.message'  text='Piglet event information deleted'/>
                   </div>    
+                  <div class="alert alert-danger alert-white rounded" ng-show="entryEventDuplicateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.pigleteventform.error.duplicate' text='A piglet entry already exists with the same tattoo'/>
+                  </div>
                   
                 </div>
                 <div class="content">
                   <form novalidate angular-validator angular-validator-submit="addPigletEvent(pigleteventform)" name="pigleteventform">
-                  <input type=hidden name="id" ng-model="pigletEvent.pigletId"/>  
-				  <input type=hidden name="farrowEventId" ng-model="pigletEvent.farrowEventId"/>
+                  <input type=hidden name="id" ng-model="pigletEvent.pigletId"/>
 				  	
 				  	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
@@ -109,19 +118,21 @@
 						invalid-message="'<spring:message code='label.piginfo.pigleteventform.pigId.invalidmessage' text='Only Alpha numeric values are allowed' />'" ng-blur="searchFarrowEvent(pigletEvent.pigId.pigId, pigletEvent.companyId)"/>
 					
                     </div>
+                    <div>
                     <label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
 					<label ng-show="pigletsAdded" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.server.pigletsaddedmessage' text='All piglets information added for the selected farrow event.' /></label>
 					<label ng-show="requiredPigIdMessage" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pigleteventform.farrowId.requiredmessage' text='Farrow Id is required' /></label>
+					</div>
 					<div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.litterId'  text='Litter Id'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.pigleteventform.litterId'  text='Litter Id'/></label>
                       
                       <label ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0">{{pigletEvent.litterId}}</label> 
                       
-                     <input type="text"  ng-show="pigletEvent.pigletId == null || pigletEvent.pigletId == 0" required ng-model="pigletEvent.litterId" id="litterId" name="litterId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.litterId.placeholder'  text='Enter Litter Id of the piglet'/>" 
-                      required-message="'<spring:message code='label.piginfo.pigleteventform.litterId.requiredmessage' text='Litter Id is required' />'"
-						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.numeric.errormessage' text='Only Aplha numeric values are allowed' />'" ng-blur="checkForLitterId()" />
+                     <input type="number" min="0" ng-value="0" maxlength="10"  step="1" size="10"   ng-show="pigletEvent.pigletId == null || pigletEvent.pigletId == 0" ng-model="pigletEvent.litterId" id="litterId" name="litterId"  class="form-control"
+                       placeholder="<spring:message code='label.piginfo.pigleteventform.litterId.placeholder'  text='Enter Litter Id of the piglet'/>" 
+                      required-message="'<spring:message code='label.piginfo.pigleteventform.litterId.requiredmessage' text='Litter Id is required' />'"						
+						invalid-message="'<spring:message code='label.numeric.errormessage' text='Only Aplha numeric values are allowed' />'"  />
                     </div>	
                     <label ng-show="invalidLitterId" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidLitterId' text='Invalid litter Id for the selected pig' /></label>		
 					 <div class="form-group"> 
@@ -133,13 +144,13 @@
                     </div>					
 					<div class="form-group"> 
                       <label><spring:message code='label.piginfo.pigleteventform.weightAtBirth'  text='Weight at Birth'/></label>
-                     <input type="number" min="0" step="1"  ng-model="pigletEvent.weightAtBirth" id="weightAtBirth" name="weightAtBirth"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtBirth.placeholder'  text='Enter weigth at birth of the piglet'/>" 
+                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weightAtBirth" id="weightAtBirth" name="weightAtBirth"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtBirth.placeholder'  text='Enter weigth at birth of the piglet'/>" 
                       required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtBirth.requiredmessage' text='Weight at birth information is required' />'"/>
                     </div>	
                     
                     <div class="form-group"> 
                       <label><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/></label>
-                     <input type="number" min="0" step="1" ng-model="pigletEvent.weightAtWeaning" id="weightAtWeaning" name="weightAtWeaning"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.placeholder'  text='Enter weigth at weaning of the piglet'/>" 
+                     <input type="number" min="0" step="0.01" ng-model="pigletEvent.weightAtWeaning" id="weightAtWeaning" name="weightAtWeaning"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.placeholder'  text='Enter weigth at weaning of the piglet'/>" 
                       required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.requiredmessage' text='Weight at weaning information is required' />'"/>
                     </div>						
                     <button class="btn btn-success" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>

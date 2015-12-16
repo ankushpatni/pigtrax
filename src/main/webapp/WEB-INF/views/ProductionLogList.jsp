@@ -33,6 +33,13 @@
 					 <div class="content">
 					 
 					
+					<div class="form-group">
+                      <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-success btn-flat md-trigger " ng-click="AddProductionLog()">
+						<i class="glyphicon glyphicon-plus"> </i>
+						<spring:message code="label.productionlogform.addproductionlog"
+							text="Add Production Log" />
+					</button>
+                      </div>
 					
 					<div class="form-group">
                       <label class="col-sm-10 control-label"><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/></label>
@@ -64,12 +71,7 @@
                             <div class="controls">
                               <div class="input-prepend input-group"><span class="add-on input-group-addon primary"><span class="glyphicon glyphicon-th"></span></span>
                                 <input id="reservation" type="text" style="width: 200px" name="reservation"  class="form-control">
-								<button type="button" class="btn btn-primary active" ng-click="searchProductionLog()"><i class="fa fa-search"></i></button>
-								  <button type="button" data-toggle="modal" data-target="#addProductionLogModal"  class="btn btn-success btn-flat md-trigger pull-right" ng-click="AddProductionLog()">
-						<i class="glyphicon glyphicon-plus"> </i>
-						<spring:message code="label.productionlogform.addproductionlog"
-							text="Add Production Log" />
-					</button>
+								<button type="button" class="btn btn-primary active" ng-click="searchProductionLog()"><i class="fa fa-search"></i></button>								  
                               </div>
                             </div>
 							

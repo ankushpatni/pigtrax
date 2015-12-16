@@ -1,6 +1,6 @@
 pigTrax.service("DateUtils", function($resource, $filter, $cookieStore) {
     this.convertLocaleDateToServer = function(date) {
-        if (date) {
+        if (date) {          
           var utcDate = new Date();
           utcDate.setUTCDate(date.getDate());
           utcDate.setUTCMonth(date.getMonth());
