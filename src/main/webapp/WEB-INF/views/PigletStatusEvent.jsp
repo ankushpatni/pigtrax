@@ -24,6 +24,7 @@
 			  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
               <option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
               </select>
+              </div>
            <div  class="form-group">  	
             <input type="text" name="search" ng-model="searchText"  ng-enter="searchPigletStatusEvents()" 
             placeholder="<spring:message code='label.piginfo.pigletstatuseventform.search.placeholder'  text='Search by Pig Id / Tattoo ...'/>" 
