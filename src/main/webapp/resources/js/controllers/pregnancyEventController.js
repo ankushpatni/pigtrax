@@ -33,6 +33,48 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	};
 	
 	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "resultDate")
+				{
+					   $scope.resultDateRequired = true;
+					   $scope.pregnancyEvent["resultDate"] = null;
+				}			   
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "resultDate")
+				{
+				   $scope.resultDateRequired = false;
+				   $scope.pregnancyEvent["resultDate"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			  
+			}
+		}
+		else
+		{
+			if(fieldName == "resultDate")
+			{
+				 $scope.resultDateRequired = true;
+				   $scope.pregnancyEvent["resultDate"] = null;
+			}
+		}
+	  }
+	}
+	
+	
+	
+	
+	
 	$scope.loadPremises = function()
 	{
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
@@ -105,7 +147,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	 */
 	$scope.checkForPigId = function()
 	{
-		if($scope.pregnancyEvent.pigId != undefined && $scope.pregnancyEvent.pigId != "")
+		if($scope.pregnancyEvent.pigId != undefined && $scope.pregnancyEvent.pigId != "" && $scope.pregnancyEvent.premiseId != "" && $scope.pregnancyEvent.premiseId != undefined)
 			{
 			    var pigInfo = {
 						searchText : $scope.pregnancyEvent.pigId,
@@ -118,7 +160,6 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 					{
 						$scope.clearAllMessages();
 						$scope.inValidPigIdFromServer = true;		
-						$('#searchBreedingService').modal('hide');
 						return false;
 						
 					}
@@ -339,12 +380,13 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 			$scope.requiredPigIdMessage = true;
 			$('#searchBreedingService').modal('hide');
 		}		
-		else if(pigId != undefined && pigId != "")
+		else if(pigId != undefined && pigId != "" && $scope.pregnancyEvent.premiseId != undefined && $scope.pregnancyEvent.premiseId != "")
 		{
 		    var pigInfo = {
 					searchText : $scope.pregnancyEvent.pigId,
 					searchOption : "pigId",
-					companyId : $rootScope.companyId
+					companyId : $rootScope.companyId,
+					selectedPremise : $scope.pregnancyEvent.premiseId
 			};
 			restServices.getPigInformation(pigInfo, function(data) {
 				if(data.error)

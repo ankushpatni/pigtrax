@@ -1,11 +1,13 @@
 package com.pigtrax.pigevents.dto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.util.DateUtil;
 
 @Component
 public class PregnancyEventBuilder {
@@ -55,6 +57,13 @@ public class PregnancyEventBuilder {
 			   dto.setPregnancyEventTypeId(info.getPregnancyEventTypeId());
 			   dto.setPregnancyExamResultTypeId(info.getPregnancyExamResultTypeId());
 			   dto.setResultDate(info.getResultDate());
+			   try{
+				   dto.setResultDateStr(DateUtil.convertToFormatString(dto.getResultDate(), "MM/dd/yyyy"));
+			   }
+			   catch(ParseException ex)
+			   {
+				   dto.setResultDateStr(null);
+			   }
 			   dto.setSowCondition(info.getSowCondition());
 			   dto.setUserUpdated(info.getUserUpdated());
 			   dto.setPremiseId(info.getPremiseId());

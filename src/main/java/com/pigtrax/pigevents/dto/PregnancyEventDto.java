@@ -27,6 +27,7 @@ public class PregnancyEventDto {
 	private String breedingServiceId;
 	private Integer premiseId;
 	private Integer selectedPremise;
+	private String resultDateStr;
 
 	public Integer getId() {
 		return id;
@@ -204,6 +205,14 @@ public class PregnancyEventDto {
 
 	public void setSelectedPremise(Integer selectedPremise) {
 		this.selectedPremise = selectedPremise;
+	}
+
+	public String getResultDateStr() {
+		return resultDateStr;
+	}
+
+	public void setResultDateStr(String resultDateStr) {
+		this.resultDateStr = resultDateStr;
 	}
 	
 	
