@@ -65,9 +65,15 @@ public class PenServiceImpl implements PenService {
 	
 	@Override
 	public List<Pen> getPenListByPremiseId(Integer premiseId)
-			throws SQLException {
-		List<Pen> penList = penDao.getPenListByPremiseId(premiseId);
-		return penList;
+			throws PigTraxException {
+		try{
+			List<Pen> penList = penDao.getPenListByPremiseId(premiseId);
+			return penList;
+		}catch(SQLException sqlEx)
+		{
+			throw new PigTraxException(sqlEx.getMessage());
+		}		
+		
 	}
 
 }

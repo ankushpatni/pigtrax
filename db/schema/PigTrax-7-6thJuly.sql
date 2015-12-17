@@ -903,6 +903,12 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"id_Premise" integer,
 	"litterId" integer,
 	"id_PigInfo" integer,
+	"weight1" numeric(20,2),
+	"weight2" numeric(20,2),
+	"weight3" numeric(20,2),
+	"weight4" numeric(20,2),
+	"weight5" numeric(20,2),
+	"weight6" numeric(20,2),
 	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId","id_Premise")
 

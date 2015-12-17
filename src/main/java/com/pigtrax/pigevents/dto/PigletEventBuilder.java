@@ -31,6 +31,13 @@ public class PigletEventBuilder {
 			   info.setPremiseId(dto.getPremiseId());
 			   info.setLitterId(dto.getLitterId());
 			   info.setPigInfoId(dto.getPigInfoId());
+			   info.setWeight1(dto.getWeight1());
+			   info.setWeight2(dto.getWeight2());
+			   info.setWeight3(dto.getWeight3());
+			   info.setWeight4(dto.getWeight4());
+			   info.setWeight5(dto.getWeight5());
+			   info.setWeight6(dto.getWeight6());
+			   
 		   }
 		   return info;
 	   }
@@ -55,6 +62,12 @@ public class PigletEventBuilder {
 			   dto.setPremiseId(info.getPremiseId());
 			   dto.setLitterId(info.getLitterId());
 			   dto.setPigInfoId(info.getPigInfoId());
+			   dto.setWeight1(info.getWeight1());
+			   dto.setWeight2(info.getWeight2());
+			   dto.setWeight3(info.getWeight3());
+			   dto.setWeight4(info.getWeight4());
+			   dto.setWeight5(info.getWeight5());
+			   dto.setWeight6(info.getWeight6());
 		   }
 		   return dto;
 	   }

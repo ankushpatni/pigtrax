@@ -155,6 +155,12 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 		$scope.pigletEvent["weightAtWeaning"] = pigletEventObj["weightAtWeaning"];
 		$scope.pigletEvent["premiseId"] = pigletEventObj["premiseId"];
 		$scope.pigletEvent["litterId"] = pigletEventObj["litterId"];
+		$scope.pigletEvent["weight1"] = pigletEventObj["weight1"];
+		$scope.pigletEvent["weight2"] = pigletEventObj["weight2"];
+		$scope.pigletEvent["weight3"] = pigletEventObj["weight3"];
+		$scope.pigletEvent["weight4"] = pigletEventObj["weight4"];
+		$scope.pigletEvent["weight5"] = pigletEventObj["weight5"];
+		$scope.pigletEvent["weight6"] = pigletEventObj["weight6"];
 	}
 	
 	/**

@@ -35,6 +35,7 @@ pigTrax.factory("restServices", function($resource) {
     	"deletePregnancyEvent" : {method:"POST", url:"rest/pregnancyEvent/deletePregnancyEvent"},
     	"validatePregnancyEvent" : {method:"POST", url:"rest/pregnancyEvent/validatePregnancyEvent"},
     	"getPenListForCompany"		   :  {method:"POST", url:"rest/farrowEvent/getPenListForCompany"},
+    	"getPenListForPremise"		   :  {method:"POST", url:"rest/farrowEvent/getPenListForPremise"},
     	"validateFarrowEvent" : {method:"POST", url:"rest/farrowEvent/validateFarrowEvent"},
     	"saveFarrowEventInformation" : {method:"POST", url:"rest/farrowEvent/saveFarrowEventInformation"},
     	"getFarrowEventInformation" : {method:"POST", url:"rest/farrowEvent/getFarrowEventInformation"},

@@ -109,7 +109,7 @@ public class EntryEventRestController {
 		try {
 			List<Pen> penDtoList = penService.getPenListByPremiseId(premiseId);
 			dto.setPayload(penDtoList);
-		} catch (SQLException e) {
+		} catch (PigTraxException e) {
 			e.printStackTrace();
 			dto.setStatusMessage("ERROR");
 		}

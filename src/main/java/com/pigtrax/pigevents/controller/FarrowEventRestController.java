@@ -53,6 +53,26 @@ public class FarrowEventRestController {
 		} 
 		return dto;
 	}
+	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPenListForPremise", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPenListForPremise(HttpServletRequest request, @RequestBody Integer premiseId)
+	{
+		logger.info("Inside getPenListForPremise method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			List<Pen> penList = penService.getPenListByPremiseId(premiseId); 
+			dto.setPayload(penList);
+		} catch (PigTraxException e) { 
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
 		
 	/**
 	 * Service to save the Farrow event information

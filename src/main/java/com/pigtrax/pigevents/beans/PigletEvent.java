@@ -14,6 +14,12 @@ public class PigletEvent {
 	private Integer premiseId;
 	private Integer litterId;
 	private Integer pigInfoId;
+	private Double weight1;
+	private Double weight2;
+	private Double weight3;
+	private Double weight4;
+	private Double weight5;
+	private Double weight6;
 	
 	public Integer getId() {
 		return id;
@@ -74,6 +80,42 @@ public class PigletEvent {
 	}
 	public void setPigInfoId(Integer pigInfoId) {
 		this.pigInfoId = pigInfoId;
+	}
+	public Double getWeight1() {
+		return weight1;
+	}
+	public void setWeight1(Double weight1) {
+		this.weight1 = weight1;
+	}
+	public Double getWeight2() {
+		return weight2;
+	}
+	public void setWeight2(Double weight2) {
+		this.weight2 = weight2;
+	}
+	public Double getWeight3() {
+		return weight3;
+	}
+	public void setWeight3(Double weight3) {
+		this.weight3 = weight3;
+	}
+	public Double getWeight4() {
+		return weight4;
+	}
+	public void setWeight4(Double weight4) {
+		this.weight4 = weight4;
+	}
+	public Double getWeight5() {
+		return weight5;
+	}
+	public void setWeight5(Double weight5) {
+		this.weight5 = weight5;
+	}
+	public Double getWeight6() {
+		return weight6;
+	}
+	public void setWeight6(Double weight6) {
+		this.weight6 = weight6;
 	}
 	
 	

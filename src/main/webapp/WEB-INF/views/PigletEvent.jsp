@@ -152,7 +152,33 @@
                       <label><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/></label>
                      <input type="number" min="0" step="0.01" ng-model="pigletEvent.weightAtWeaning" id="weightAtWeaning" name="weightAtWeaning"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.placeholder'  text='Enter weigth at weaning of the piglet'/>" 
                       required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.requiredmessage' text='Weight at weaning information is required' />'"/>
-                    </div>						
+                    </div>	
+                    
+                    <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.weight1'  text='Weight (1st month)'/></label>
+                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight1" id="weight1" name="weight1"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight1.placeholder'  text='Enter weight at 1st month'/>"/>
+                    </div>	
+                    <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.weight2'  text='Weight (2nd month)'/></label>
+                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight2" id="weight2" name="weight2"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight2.placeholder'  text='Enter weight at 2nd month'/>"/>
+                    </div>	
+                    <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.weight3'  text='Weight (3rd month)'/></label>
+                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight3" id="weight3" name="weight3"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight3.placeholder'  text='Enter weight at 3rd month'/>"/>
+                    </div>	
+                    <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.weight4'  text='Weight (4th month)'/></label>
+                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight4" id="weight4" name="weight4"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight4.placeholder'  text='Enter weight at 4th month'/>"/>
+                    </div>	
+                    <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.weight5'  text='Weight (5th month)'/></label>
+                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight5" id="weight5" name="weight5"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight5.placeholder'  text='Enter weight at 5th month'/>"/>
+                    </div>	
+                    <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.weight6'  text='Weight (6th month)'/></label>
+                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight6" id="weight6" name="weight6"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight6.placeholder'  text='Enter weight at 6th month'/>"/>
+                    </div>	
+                    					
                     <button class="btn btn-success" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
                     <button class="btn btn-warning" type="button" ng-click="pigleteventform.reset()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletEvent()" ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0" ng-confirm-click="<spring:message code='label.piginfo.pigleteventformform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigleteventform.delete'  text='Delete'/></button>
