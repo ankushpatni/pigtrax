@@ -35,6 +35,45 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		$scope.invalidPregnancyRecord = false;
 	};
 	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "farrowDate")
+				{
+					   $scope.farrowDateRequired = true;
+					   $scope.farrowEvent["farrowDateTime"] = null;
+				}			   
+			}
+		   else
+			{			   
+			   if(fieldName == "farrowDate")
+				{
+				   $scope.farrowDateRequired = false;
+				   $scope.farrowEvent["farrowDateTime"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			  
+			}
+		}
+		else
+		{
+			if(fieldName == "farrowDate")
+			{
+				 $scope.farrowDateRequired = true;
+				 $scope.farrowEvent["farrowDateTime"] = null;
+			}
+		}
+	  }
+	}
+	
+	
+	
 	$scope.loadPremises = function()
 	{
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
@@ -100,7 +139,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	 */
 	$scope.checkForPigId = function()
 	{
-		if($scope.farrowEvent.pigId != undefined && $scope.farrowEvent.pigId != "")
+		if($scope.farrowEvent.pigId != undefined && $scope.farrowEvent.pigId != "" && $scope.farrowEvent.premiseId != "" && $scope.farrowEvent.premiseId != undefined)
 			{
 			    var pigInfo = {
 						searchText : $scope.farrowEvent.pigId,

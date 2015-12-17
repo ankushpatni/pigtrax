@@ -41,6 +41,7 @@ public class FarrowEventDto {
 	private Integer litterId;
 	private Integer premiseId;
 	private Integer selectedPremise;
+	private String farrowDateStr;
 	
 	public Integer getId() {
 		return id;
@@ -252,6 +253,13 @@ public class FarrowEventDto {
 	public void setSelectedPremise(Integer selectedPremise) {
 		this.selectedPremise = selectedPremise;
 	}
+	public String getFarrowDateStr() {
+		return farrowDateStr;
+	}
+	public void setFarrowDateStr(String farrowDateStr) {
+		this.farrowDateStr = farrowDateStr;
+	}
+
 	
 	 
 	

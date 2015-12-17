@@ -118,7 +118,7 @@
 				  
 				  	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="farrowEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       <select class="form-control"  ng-change="checkForPigId()"  name="premiseId" id="premiseId" ng-model="farrowEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
                        	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="farrowEvent.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>	
@@ -154,11 +154,12 @@
 					
 					
 					<div class="form-group">
-                      <label><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/><span style='color: red'>*</span></label>
-                      <input rsmdatedropdowns ng-model="farrowEvent.farrowDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
+                      <label><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/><span style='color: red'>*</span></label>                      
+                      <input type="text" class="form-control" ng-model="farrowEvent.farrowDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(farrowEvent.farrowDateStr, 'farrowDate')"/>
                     </div>
+                    <div>
                     <label ng-show="farrowDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowDate.requiredmessage' text='Farrow Date is required' /></label>
-					
+					</div>
                      
                     <div class="form-group">   
 					

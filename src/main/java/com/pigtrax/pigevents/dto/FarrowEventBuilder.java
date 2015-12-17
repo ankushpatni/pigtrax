@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.util.DateUtil;
 
 @Component
 public class FarrowEventBuilder {
@@ -64,6 +66,12 @@ public class FarrowEventBuilder {
 			   dto.setAssistedBirth(info.isAssistedBirth());
 			   dto.setEmployeeGroupId(info.getEmployeeGroupId());
 			   dto.setFarrowDateTime(info.getFarrowDateTime());
+			   try{
+				   dto.setFarrowDateStr(DateUtil.convertToFormatString(dto.getFarrowDateTime(), "MM/dd/yyyy"));
+			   }catch(ParseException ex)
+			   {
+				   dto.setFarrowDateStr(null);
+			   }
 			   dto.setFemaleBorns(info.getFemaleBorns());
 			   dto.setId(info.getId());
 			   dto.setInducedBirth(info.isInducedBirth());
