@@ -58,7 +58,7 @@ public class PigletEventServiceImpl implements PigletEventService {
 	public int savePigletEventInformation(PigletEventDto pigletEventDto)
 			throws PigTraxException {
 		try{
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId());
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId(), pigletEventDto.getPremiseId());
 			if(pigInfo != null)
 			{
 				pigletEventDto.setPigInfoId(pigInfo.getId());

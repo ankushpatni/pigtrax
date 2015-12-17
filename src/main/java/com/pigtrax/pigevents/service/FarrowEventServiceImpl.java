@@ -80,7 +80,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	public int saveFarrowEventInformation(FarrowEventDto farrowEventDto)
 			throws PigTraxException {
 		try{
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(farrowEventDto.getPigId(), farrowEventDto.getCompanyId());
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(farrowEventDto.getPigId(), farrowEventDto.getCompanyId(), farrowEventDto.getPremiseId());
 			if(pigInfo != null)
 			{
 				farrowEventDto.setPigInfoId(pigInfo.getId());
@@ -291,9 +291,9 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	
 	@Override
 	public Integer getFarrowEventIdByLitterId(String pigId, Integer companyId,
-			Integer litterId) throws PigTraxException{
+			Integer premiseId, Integer litterId) throws PigTraxException{
 		try{
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigId, companyId);
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigId, companyId, premiseId);
 			if(pigInfo != null)
 			{
 				FarrowEvent farrowEvent = farrowEventDao.getFarrowEventIdByLitterId(pigInfo.getId(), litterId);

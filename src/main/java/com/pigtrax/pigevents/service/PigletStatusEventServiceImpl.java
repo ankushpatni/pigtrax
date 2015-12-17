@@ -73,7 +73,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 		if(pigletStatusEventDto != null)
 		{
 			
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletStatusEventDto.getPigId(), pigletStatusEventDto.getCompanyId());
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletStatusEventDto.getPigId(), pigletStatusEventDto.getCompanyId(), pigletStatusEventDto.getPremiseId());
 			pigletStatusEventDto.setPigInfoId(pigInfo.getId());
 			
 			

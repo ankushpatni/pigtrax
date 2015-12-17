@@ -133,7 +133,7 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="breedingEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       <select class="form-control" ng-blur="checkForPigId()"  name="premiseId" id="premiseId" ng-model="breedingEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
                        	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="breedingEvent.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>	
@@ -148,9 +148,10 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.breedingeventform.pigInfoId.invalidmessage' text='Only Numeric values are allowed' />'" ng-blur="checkForPigId()" ng-focus="clearMessages()"/>	
                     </div>
-					
+					<div>
 					<label ng-show="malePigIdentified" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.malePigIdentified' text='The selected Pig Id is a boar.  Please select a Sow' /></label>
 					<label ng-show="inValidPigIdFromServer" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidmessage' text='Invalid Pig Id for the company' /></label>
+					</div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedingServiceType'  text='Breeding Service Type'/></label>
                        <select class="form-control"  id="sexType" name="sexType" ng-model="breedingEvent.breedingServiceTypeId"  ng-options="k as v for (k, v) in breedingServiceTypes">
@@ -268,11 +269,13 @@
                   </div>                  
                 <div class="content">
                   <form name="matingdetailsform" novalidate angular-validator my-reset>                  
-                   
-                   	<div class="form-group">
-                      <label><spring:message code='label.piginfo.matingdetailsform.matingdate'  text='Mating Date'/><span style='color: red'>*</span></label>
-                      	<input rsmdatedropdowns ng-model="matingDetails.matingDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
-                        <label ng-show="matingDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.matingdetailsform.matingdate.requiredmessage' text='Mating Date is required' /></label>
+                                       
+                     <div class="form-group">
+                      <label><spring:message code='label.piginfo.matingdetailsform.matingdate'  text='Mating Date'/><span style='color: red'>*</span></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      	<input type="text" class="form-control" ng-model="matingDetails.matingDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(matingDetails.matingDateStr, 'matingDate')"/>                      	
+                    </div>
+                    <div>
+                    <label ng-show="matingDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.matingdetailsform.matingdate.requiredmessage' text='Mating Date is required' /></label>
                     </div>
                    
                    
@@ -296,9 +299,9 @@
                     </div>
                     
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.matingdetailsform.semendate'  text='Semen Date'/></label>
-                      	<input rsmdatedropdowns ng-model="matingDetails.semenDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
-                    </div>
+                      <label><spring:message code='label.piginfo.matingdetailsform.semendate'  text='Semen Date'/></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      	<input type="text" class="form-control" ng-model="matingDetails.semenDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(matingDetails.semenDateStr, 'semenDate')"/>                      	
+                    </div>                    
                     
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.mateQuality'  text='Mating Quality'/></label>

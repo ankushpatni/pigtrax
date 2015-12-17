@@ -141,7 +141,7 @@ public class PigletEventRestController {
 			
 			if(pigletEventDto != null)
 			{
-				Integer farrowEventId = farrowEventService.getFarrowEventIdByLitterId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId(), pigletEventDto.getLitterId());
+				Integer farrowEventId = farrowEventService.getFarrowEventIdByLitterId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId(), pigletEventDto.getPremiseId(), pigletEventDto.getLitterId());
 			
 				if(farrowEventId != null && farrowEventId !=0)
 					dto.setStatusMessage("Success");

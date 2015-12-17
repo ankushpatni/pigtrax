@@ -75,7 +75,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 			Integer breedingEventId = null;
 		
 			try{
-				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(dto.getPigInfoId(), dto.getCompanyId());
+				PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(dto.getPigInfoId(), dto.getCompanyId(), dto.getPremiseId());
 				if(pigInfo != null)
 				{
 					if(pigInfo != null)

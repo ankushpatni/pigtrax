@@ -75,7 +75,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 	public int savePregnancyEventInformation(PregnancyEventDto pregnancyEventDto)
 			throws PigTraxException {
 		try{
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pregnancyEventDto.getPigId(), pregnancyEventDto.getCompanyId());
+			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pregnancyEventDto.getPigId(), pregnancyEventDto.getCompanyId(), pregnancyEventDto.getPremiseId());
 			if(pigInfo != null)
 				pregnancyEventDto.setPigInfoId(pigInfo.getId());
 			

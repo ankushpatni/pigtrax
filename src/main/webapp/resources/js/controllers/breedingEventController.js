@@ -38,6 +38,57 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	};
 	
 	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "matingDate")
+				{
+					   $scope.matingDateRequired = true;
+					   $scope.matingDetails["matingDate"] = null;
+				}
+			   else if(fieldName == "semenDate")
+			   {
+				   $scope.matingDetails["semenDate"] = null;
+			   }   
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "matingDate")
+				{
+				   $scope.matingDateRequired = false;
+				   $scope.matingDetails["matingDate"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			   else if(fieldName == "semenDate")
+				{
+				   $scope.matingDetails["semenDate"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			}
+		}
+		else
+		{
+			if(fieldName == "matingDate")
+			{
+				   $scope.matingDateRequired = true;
+				   $scope.matingDetails["matingDate"] = null;
+			}
+		   else if(fieldName == "semenDate")
+		   {
+			   $scope.matingDetails["semenDate"] = null;
+		   }   
+		}
+	  }
+	}
+	
+	
+	
 	$scope.$watch("selectedEmployeeGroup", function(newValue, oldValue) {
 		
 		if (newValue != null && newValue != undefined) {
@@ -558,34 +609,37 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	 */
 	$scope.checkForPigId = function()
 	{
-	    var pigInfo = {
-				searchText : $scope.breedingEvent.pigInfoId,
-				searchOption : "pigId",
-				companyId : $rootScope.companyId,
-				selectedPremise : $scope.breedingEvent.premiseId
-		};
-		restServices.getPigInformation(pigInfo, function(data) {
-			if(data.error)
+		if($scope.breedingEvent["premiseId"] != null && $scope.breedingEvent["premiseId"] != "" && $scope.breedingEvent["pigInfoId"] != null && $scope.breedingEvent["pigInfoId"] != "")
 			{
-				$scope.clearAllMessages();
-				$scope.inValidPigIdFromServer = true;
-			}
-			else
-			{
-				$scope.inValidPigIdFromServer = false;
-				var pigInfo = data.payload;
-				if(pigInfo.sexTypeId == 2)
-					{
-						$scope.breedingEvent["pigBirthDate"] = pigInfo.birthDate;						
-					}
-				else
+			    var pigInfo = {
+						searchText : $scope.breedingEvent.pigInfoId,
+						searchOption : "pigId",
+						companyId : $rootScope.companyId,
+						selectedPremise : $scope.breedingEvent.premiseId
+				};
+				restServices.getPigInformation(pigInfo, function(data) {
+					if(data.error)
 					{
 						$scope.clearAllMessages();
-						$scope.malePigIdentified = true;
+						$scope.inValidPigIdFromServer = true;
 					}
+					else
+					{
+						$scope.inValidPigIdFromServer = false;
+						var pigInfo = data.payload;
+						if(pigInfo.sexTypeId == 2)
+							{
+								$scope.breedingEvent["pigBirthDate"] = pigInfo.birthDate;						
+							}
+						else
+							{
+								$scope.clearAllMessages();
+								$scope.malePigIdentified = true;
+							}
+					}
+						
+				});
 			}
-				
-		});
 	};
 	
 	
