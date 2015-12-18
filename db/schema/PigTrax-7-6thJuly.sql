@@ -1825,6 +1825,7 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 	"id_EmployeeGroup" integer,	
 	"id_GroupEvent" integer,
 	"id_TransportDestination" integer,
+	"id_SowSource" integer,
 	"id_Premise" integer,
 	CONSTRAINT "GROUPDEVENTDETAIL_PK" PRIMARY KEY (id)
 
@@ -1875,11 +1876,19 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 
+-- object: "SowSource_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "SowSource_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "SowSource_fk" FOREIGN KEY ("id_SowSource")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+
+
 -- object: "Premise_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
 ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
 REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
+
 -- ddl-end --
 
 

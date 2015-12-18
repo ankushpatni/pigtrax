@@ -13,6 +13,17 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	$scope.transportDestination;
 	
 	
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.farmList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.getPremisesListBySowSource = function(){
 		var res = $http.get('rest/premises/getPremisesListBySowSource?generatedCompanyId='+$rootScope.companyId);
 			res.success(function(data, status, headers, config) {
@@ -23,6 +34,43 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 				console.log( "failure message: " + {data: data});
 			});	
 	};
+	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "dateOfEntry")
+				{
+					   $scope.dateOfEntryFlag = true;
+					   $scope.groupEvent["dateOfEntry"] = null;
+				}			   
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "dateOfEntry")
+				{
+				   $scope.dateOfEntryFlag = false;
+				   $scope.groupEvent["dateOfEntry"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}			  
+			}
+		}
+		else
+		{
+			if(fieldName == "dateOfEntry")
+			{
+				   $scope.dateOfEntryFlag = true;
+				   $scope.groupEvent["dateOfEntry"] = null;
+			}		  
+		}
+	  }
+	}
 	
 	
 	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId,groupStartDateTime)
@@ -48,7 +96,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 			res2.success(function(data, status, headers, config) {
 				console.log(data);
 				$scope.phaseOfProductionType = data.payload[0];	
-				$scope.roomType = data.payload[1];
+				//$scope.roomType = data.payload[1];
 				$scope.barnList = data.payload[2];
 				
 			});
@@ -62,11 +110,21 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 			$scope.getGroupEventDetail(groupDetailId);
 		}
 		
+		$scope.loadPremises();
+		
 		$scope.getPremisesListBySowSource();
 	};
 	
 	
-	
+	$scope.getRooms = function()
+	{
+		alert("1");
+		restServices.getRoomsForPremise($scope.groupEvent["premiseId"], function(data){
+			if(!data.error){
+				$scope.roomType = data.payload;
+			}
+		});
+	}
 	
 	$scope.getBarnDetailsByRoom = function()
 	{

@@ -169,7 +169,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  				ps.setString(1, pigId);
  				ps.setInt(2, companyId); 				
  				ps.setInt(3, PigletStatusEventType.FosterIn.getTypeCode());
- 				ps.setInt(3, premiseId);
+ 				ps.setInt(4, premiseId);
  			}}, new PigletStatusEventMapper());
 
 		return pigletStatusEventList;

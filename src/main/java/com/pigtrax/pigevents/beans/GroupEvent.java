@@ -19,6 +19,8 @@ public class GroupEvent {
 	private boolean fromMove; // added to get flag from UI for move
 	private Double weightInKgs; 
 	private Integer inventoryAdjustment;
+	private String groupStartDateStr;
+	private String groupCloseDateStr;
 	
 	public Integer getCompanyId() {
 		return companyId;
@@ -109,6 +111,20 @@ public class GroupEvent {
 	}
 	public void setInventoryAdjustment(Integer inventoryAdjustment) {
 		this.inventoryAdjustment = inventoryAdjustment;
-	}	
+	}
+	public String getGroupStartDateStr() {
+		return groupStartDateStr;
+	}
+	public void setGroupStartDateStr(String groupStartDateStr) {
+		this.groupStartDateStr = groupStartDateStr;
+	}
+	public String getGroupCloseDateStr() {
+		return groupCloseDateStr;
+	}
+	public void setGroupCloseDateStr(String groupCloseDateStr) {
+		this.groupCloseDateStr = groupCloseDateStr;
+	}
+	
+	
 	
 }

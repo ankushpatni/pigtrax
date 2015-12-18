@@ -135,7 +135,7 @@
 				  
 				  	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigletStatusEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       <select class="form-control"  ng-change="searchFarrowEvent()"  name="premiseId" id="premiseId" ng-model="pigletStatusEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
                        	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigletStatusEvent.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>	
@@ -211,7 +211,7 @@
 										
 					
 					 <div class="form-group" ng-show="eventSection=='death'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /></label>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /><span style='color: red'>*</span></label>
                       <input type="number" min="0" step="1" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control">
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
@@ -219,8 +219,8 @@
                       <input type="number" min="0" ng-value="0" name="deathPigWt" ng-model="pigletStatusEvent.deathPigWt"  maxlength="10"  step="0.01" size="10" class="form-control"> 
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/></label>
-                      <input rsmdatedropdowns ng-model="pigletStatusEvent.deathEventDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      <input type="text" class="form-control" ng-model="pigletStatusEvent.deathEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.deathEventDateStr, 'deathEventDate')"/>
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -233,7 +233,7 @@
                     
                     
                      <div class="form-group" ng-show="eventSection=='transfer'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /></label>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /><span style='color: red'>*</span></label>
                       <input type="number" min="0" step="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> 
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
@@ -241,9 +241,8 @@
                       <input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control">  
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/></label>
-                      <input rsmdatedropdowns ng-model="pigletStatusEvent.fosterEventDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
-                      
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
+                      <input type="text" class="form-control" ng-model="pigletStatusEvent.fosterEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.fosterEventDateStr, 'fosterEventDate')"/>
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -257,7 +256,7 @@
 					
 					
 					<div class="form-group" ng-show="eventSection=='wean'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /></label>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /><span style='color: red'>*</span></label>
                       <input type="number" min="0" step="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control" ng-blur="checkOnEraseOfWean()">
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
@@ -265,9 +264,8 @@
                       <input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> 
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/></label>
-                      <input rsmdatedropdowns ng-model="pigletStatusEvent.weanEventDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
-                      
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
+                      <input type="text" class="form-control" ng-model="pigletStatusEvent.weanEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.weanEventDateStr, 'weanEventDate')"/>
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>

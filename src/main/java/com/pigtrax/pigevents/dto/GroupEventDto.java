@@ -23,6 +23,9 @@ public class GroupEventDto {
 	private Integer transportDestination;
 	private String barnIdValue;
 	private Integer premiseId;
+	private String dateOfEntryStr;
+	private Integer sowSourceId;
+	
 	
 	//groupevent fields	
 	
@@ -130,6 +133,20 @@ public class GroupEventDto {
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
 	}
+	public String getDateOfEntryStr() {
+		return dateOfEntryStr;
+	}
+	public void setDateOfEntryStr(String dateOfEntryStr) {
+		this.dateOfEntryStr = dateOfEntryStr;
+	}
+	public Integer getSowSourceId() {
+		return sowSourceId;
+	}
+	public void setSowSourceId(Integer sowSourceId) {
+		this.sowSourceId = sowSourceId;
+	}
+	
+	
 	
 	
 }

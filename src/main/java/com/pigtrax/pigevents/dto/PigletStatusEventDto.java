@@ -50,6 +50,9 @@ public class PigletStatusEventDto {
     private Integer penId;
     private Integer premiseId;
     private Integer selectedPremise;
+    private String deathEventDateStr;
+    private String fosterEventDateStr;
+    private String weanEventDateStr;
     
     
     
@@ -428,6 +431,30 @@ public class PigletStatusEventDto {
 
 	public void setSelectedPremise(Integer selectedPremise) {
 		this.selectedPremise = selectedPremise;
+	}
+
+	public String getDeathEventDateStr() {
+		return deathEventDateStr;
+	}
+
+	public void setDeathEventDateStr(String deathEventDateStr) {
+		this.deathEventDateStr = deathEventDateStr;
+	}
+
+	public String getFosterEventDateStr() {
+		return fosterEventDateStr;
+	}
+
+	public void setFosterEventDateStr(String fosterEventDateStr) {
+		this.fosterEventDateStr = fosterEventDateStr;
+	}
+
+	public String getWeanEventDateStr() {
+		return weanEventDateStr;
+	}
+
+	public void setWeanEventDateStr(String weanEventDateStr) {
+		this.weanEventDateStr = weanEventDateStr;
 	} 
 	
 	

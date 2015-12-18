@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.util.DateUtil;
 
 @Component
 public class GroupEventBuilder {
@@ -35,6 +37,7 @@ public class GroupEventBuilder {
 				groupEventDetails.setUserUpdated(dto.getUserUpdated());
 				groupEventDetails.setTransportDestination(dto.getTransportDestination());
 				groupEventDetails.setPremiseId(dto.getPremiseId());
+				groupEventDetails.setSowSourceId(dto.getSowSourceId());
 		   }
 		   return groupEventDetails;
 	   }
@@ -53,6 +56,11 @@ public class GroupEventBuilder {
 				dto.setGroupId(groupEventDetails.getGroupId());
 				dto.setBarnId(groupEventDetails.getBarnId());
 				dto.setDateOfEntry(groupEventDetails.getDateOfEntry());
+				try {
+					dto.setDateOfEntryStr(DateUtil.convertToFormatString(dto.getDateOfEntry(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateOfEntryStr(null);
+				}
 				dto.setRoomId(groupEventDetails.getRoomId());
 				dto.setEmployeeGroupId(groupEventDetails.getEmployeeGroupId());
 				dto.setNumberOfPigs(groupEventDetails.getNumberOfPigs());
@@ -63,6 +71,7 @@ public class GroupEventBuilder {
 				dto.setUserUpdated(groupEventDetails.getUserUpdated());
 				dto.setTransportDestination(groupEventDetails.getTransportDestination());
 				dto.setPremiseId(groupEventDetails.getPremiseId());
+				dto.setSowSourceId(groupEventDetails.getSowSourceId());
 		   }
 		   return dto;
 	   }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
+import com.pigtrax.util.DateUtil;
 import com.pigtrax.util.UserUtil;
 
 @Repository
@@ -294,7 +296,18 @@ public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEven
 				groupEvent.setId(rs.getInt("id"));
 				groupEvent.setGroupId(rs.getString("groupId"));
 				groupEvent.setGroupStartDateTime(rs.getDate("groupStartDateTime"));
+				try {
+					groupEvent.setGroupStartDateStr(DateUtil.convertToFormatString(groupEvent.getGroupStartDateTime(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					groupEvent.setGroupStartDateStr(null);
+				}
+				
 				groupEvent.setGroupCloseDateTime(rs.getDate("groupCloseDateTime"));
+				try {
+					groupEvent.setGroupCloseDateStr(DateUtil.convertToFormatString(groupEvent.getGroupCloseDateTime(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					groupEvent.setGroupCloseDateStr(null);
+				}
 				groupEvent.setActive(rs.getBoolean("isActive"));
 				groupEvent.setRemarks(rs.getString("remarks"));
 				groupEvent.setLastUpdated(rs.getDate("lastUpdated"));

@@ -38,7 +38,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 		
 		 String qry = "select \"id\", \"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", "
 			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
-			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_TransportDestination\",\"id_Premise\" "
+			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_TransportDestination\",\"id_SowSource\",\"id_Premise\" "
 			   		+ "from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = ?";
 		 
 				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -58,7 +58,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	public GroupEventDetails groupEventDetailsListById(final Integer id) {
 		 String qry = "select \"id\", \"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", "
 			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
-			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_TransportDestination\", \"id_Premise\" "
+			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_TransportDestination\", \"id_SowSource\",\"id_Premise\" "
 			   		+ "  from pigtrax.\"GroupEventDetails\" where \"id\" = ?";
 				
 				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -78,7 +78,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 			throws SQLException {
 		final String Qry = "update pigtrax.\"GroupEventDetails\" set \"id_Barn\" = ?, \"dateOfEntry\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?," +
 			"\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"indeventoryAdjustment\" = ?, \"remarks\" = ?,  "
-			+ "\"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_TransportDestination\" = ?,\"id_Premise\"=? where \"id\" = ? ";
+			+ "\"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_TransportDestination\" = ?,\"id_SowSource\"=?,\"id_Premise\" = ? where \"id\" = ? ";
 
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
@@ -115,12 +115,17 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
  	            	ps.setInt(10, groupEventDetails.getTransportDestination());
  	            else
  	            	ps.setNull(10, java.sql.Types.INTEGER);
-				if(groupEventDetails.getPremiseId() != null && groupEventDetails.getPremiseId() != 0)
- 	            	ps.setInt(11, groupEventDetails.getPremiseId());
+				if(groupEventDetails.getSowSourceId() != null && groupEventDetails.getSowSourceId() != 0)
+ 	            	ps.setInt(11, groupEventDetails.getSowSourceId());
  	            else
  	            	ps.setNull(11, java.sql.Types.INTEGER);
 				
-				ps.setInt(12, groupEventDetails.getId());
+				if(groupEventDetails.getPremiseId() != null && groupEventDetails.getPremiseId() != 0)
+ 	            	ps.setInt(12, groupEventDetails.getPremiseId());
+ 	            else
+ 	            	ps.setNull(12, java.sql.Types.INTEGER);
+				
+				ps.setInt(13, groupEventDetails.getId());
 			}
 		});
 
@@ -130,8 +135,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	public int addGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException {
 		final String Qry = "insert into pigtrax.\"GroupEventDetails\"(\"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", \"id_EmployeeGroup\", \"numberOfPigs\","
 					+"\"weightInKgs\", \"indeventoryAdjustment\", \"remarks\", \"lastUpdated\", \"userUpdated\", "
-					+ "\"id_TransportDestination\", \"id_Premise\") "
-				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?)";
+					+ "\"id_TransportDestination\", \"id_SowSource\",\"id_Premise\") "
+				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -173,10 +178,14 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	     	            	ps.setInt(11, groupEventDetails.getTransportDestination());
 	     	            else
 	     	            	ps.setNull(11, java.sql.Types.INTEGER);
-	    	            if(groupEventDetails.getPremiseId() != null && groupEventDetails.getPremiseId() != 0)
-	     	            	ps.setInt(12, groupEventDetails.getPremiseId());
+	    	            if(groupEventDetails.getSowSourceId() != null && groupEventDetails.getSowSourceId() != 0)
+	     	            	ps.setInt(12, groupEventDetails.getSowSourceId());
 	     	            else
 	     	            	ps.setNull(12, java.sql.Types.INTEGER);
+	    	            if(groupEventDetails.getPremiseId() != null && groupEventDetails.getPremiseId() != 0)
+	     	            	ps.setInt(13, groupEventDetails.getPremiseId());
+	     	            else
+	     	            	ps.setNull(13, java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -217,6 +226,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				groupEventDetails.setLastUpdated(rs.getDate("lastUpdated"));
 				groupEventDetails.setUserUpdated(rs.getString("userUpdated"));
 				groupEventDetails.setTransportDestination(rs.getInt("id_TransportDestination"));
+				groupEventDetails.setSowSourceId(rs.getInt("id_SowSource"));
 				groupEventDetails.setPremiseId(rs.getInt("id_Premise"));
 				return groupEventDetails;
 			}

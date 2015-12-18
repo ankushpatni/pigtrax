@@ -6,6 +6,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	$scope.confirmClick = false;
 	$scope.editBtnclicked = false;
 	$scope.DateUtils = DateUtils;
+	$scope.eventSection = null;
 	
 	$scope.clearAllMessages = function()
 	{
@@ -35,9 +36,78 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	{
 		$scope.clearAllMessages();
 		$scope.pigletStatusEvent = {};
+		$scope.eventSection = null;
 		$scope.changeText();
 		
 	}
+	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "deathEventDate")
+				{
+					   $scope.eventDateTimerequired = true;
+					   $scope.pigletStatusEvent["deathEventDateTime"] = null;
+				}
+			   else if(fieldName == "fosterEventDate")
+			   {
+				   $scope.pigletStatusEvent["fosterEventDateTime"] = null;
+				   $scope.eventDateTimerequired = true;	   
+			   }   
+			   else if(fieldName == "weanEventDate")
+			   {
+				   $scope.pigletStatusEvent["weanEventDateTime"] = null;
+				   $scope.eventDateTimerequired = true;	   
+			   }   
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "deathEventDate")
+				{
+				   $scope.eventDateTimerequired = false;
+				   $scope.pigletStatusEvent["deathEventDateTime"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			   else if(fieldName == "fosterEventDate")
+				{
+				   $scope.eventDateTimerequired = false;	 
+				   $scope.pigletStatusEvent["fosterEventDateTime"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			   else if(fieldName == "weanEventDate")
+				{
+				   $scope.eventDateTimerequired = false;	 
+				   $scope.pigletStatusEvent["weanEventDateTime"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			}
+		}
+		else
+		{
+			if(fieldName == "deathEventDate")
+			{
+				   $scope.eventDateTimerequired = true;
+				   $scope.pigletStatusEvent["deathEventDateTime"] = null;
+			}
+		   else if(fieldName == "fosterEventDate")
+		   {
+			   $scope.pigletStatusEvent["fosterEventDateTime"] = null;
+			   $scope.eventDateTimerequired = true;	   
+		   }   
+		   else if(fieldName == "weanEventDate")
+		   {
+			   $scope.pigletStatusEvent["weanEventDateTime"] = null;
+			   $scope.eventDateTimerequired = true;	   
+		   }   
+		}
+	  }
+	}
+	
 	
 	$scope.changeEvent = function()
 	{
@@ -84,14 +154,13 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	$scope.loadPage = function(companyId)
 	{
 		$scope.setCompanyId(companyId);	
-		$scope.loadMortalityReasonTypes();
-		$scope.getPenList();
+		$scope.loadMortalityReasonTypes();		
 		$scope.loadPremises();
 	};
 	
 	
 	$scope.getPenList = function(){
-		restServices.getPenListForCompany($rootScope.companyId, function(data){
+		restServices.getPenListForPremise($scope.pigletStatusEvent["premiseId"], function(data){
 			 if(!data.error)
 			 {
 				 $scope.penInfo = data.payload;
@@ -129,6 +198,7 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 			$scope.eventSection = 'wean';
 		else if($scope.pigletStatusEvent.pigletStatusEventTypeId == 4)
 			$scope.eventSection = 'death';
+		$scope.getPenList();
 		$scope.getFosterInRecords();
 		$scope.editBtnclicked = true;
 	}	
@@ -177,7 +247,9 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
      * Search for the farrow events
      */
     $scope.searchFarrowEvent = function()
-	{	$scope.clearAllMessages();
+	{	
+    	$scope.getPenList();
+    	$scope.clearAllMessages();
 		if($scope.pigletStatusEvent.pigId != undefined && $scope.pigletStatusEvent.pigId != "")
 			{
 			    var pigInfo = {

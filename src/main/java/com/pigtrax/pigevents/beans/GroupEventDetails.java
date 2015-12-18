@@ -18,6 +18,7 @@ public class GroupEventDetails {
 	private int groupId;
 	private Integer transportDestination;
 	private Integer premiseId;
+	private Integer sowSourceId;
 	
 	public Date getDateOfEntry() {
 		return dateOfEntry;
@@ -104,5 +105,12 @@ public class GroupEventDetails {
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
 	}
+	public Integer getSowSourceId() {
+		return sowSourceId;
+	}
+	public void setSowSourceId(Integer sowSourceId) {
+		this.sowSourceId = sowSourceId;
+	}
+	
 	
 }

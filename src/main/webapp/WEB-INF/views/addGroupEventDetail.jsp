@@ -18,10 +18,17 @@
 						<label><spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
 						<label>{{groupAlphaId}}</label>
 					 </div>	
+					 
+					 <div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="groupEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="farm in farmList" value="{{farm.id}}" ng-value="farm.id" ng-selected="groupEvent.premiseId == farm.id">{{farm.name}}</option>
+                        </select>
+                    </div>	
 					
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="roomId" id="roomId" ng-model="groupEvent.roomId"  required required-message="'<spring:message code='label.groupEventDetail.room.required' text='Room is required' />'" 
+                       <select class="form-control" ng-change="getRooms()"  name="roomId" id="roomId" ng-model="groupEvent.roomId"  required required-message="'<spring:message code='label.groupEventDetail.room.required' text='Room is required' />'" 
                          ng-options="k as v for (k, v) in roomType" ng-change="getBarnDetailsByRoom()">
                         </select>
                     </div>
@@ -33,13 +40,13 @@
 					</div>
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.source'  text='Sow Source'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.premiseId" required required-message="'<spring:message code='label.groupEventDetail.source.requiredMessage'  text='Sow Source is required'/>'">
-                       	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.premiseId == premise.id">{{premise.name}}</option>
+                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.sowSourceId" required required-message="'<spring:message code='label.groupEventDetail.source.requiredMessage'  text='Sow Source is required'/>'">
+                       	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.sowSourceId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>			
 					<div class="form-group">
-						<label ><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /><span style='color: red'>*</span></label>
-						<input rsmdatedropdowns ng-model="groupEvent.dateOfEntry" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>						
+						<label ><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>						
+						<input type="text" class="form-control" ng-model="groupEvent.dateOfEntryStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.dateOfEntryStr, 'dateOfEntry')"/>						
 					</div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="dateOfEntryFlag" ><spring:message code='label.groupEventDetail.dateOfEntry.conditionMaessag' text='Date Of Entry should be greater than Group Start Date.' /></label>

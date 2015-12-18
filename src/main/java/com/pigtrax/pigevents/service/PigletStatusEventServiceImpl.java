@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletStatusEventService;
 import com.pigtrax.pigevents.validation.PigletStatusEventValidation;
 import com.pigtrax.usermanagement.enums.PigletStatusEventType;
+import com.pigtrax.util.DateUtil;
 @Service
 public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 	
@@ -307,6 +309,12 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setWeanPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setWeanPigWt(pigletStatusEvent.getWeightInKgs());
 					   pigletStatusEventDto.setWeanEventDateTime(pigletStatusEvent.getEventDateTime());
+					   try{
+						   pigletStatusEventDto.setWeanEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getWeanEventDateTime(), "MM/dd/yyyy"));
+					   }catch(ParseException ex)
+					   {
+						   pigletStatusEventDto.setWeanEventDateStr(null);
+					   }
 					   pigletStatusEventDto.setGroupEventId(pigletStatusEvent.getGroupEventId());
 					   
 					   if(pigletStatusEvent.getGroupEventId() != null && pigletStatusEvent.getGroupEventId() > 0)
@@ -323,6 +331,14 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setFosterPigWt(pigletStatusEvent.getWeightInKgs());
 					   pigletStatusEventDto.setFosterTo(pigletStatusEvent.getFosterTo());
 					   pigletStatusEventDto.setFosterEventDateTime(pigletStatusEvent.getEventDateTime());
+					   
+					   try{
+						   pigletStatusEventDto.setFosterEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getFosterEventDateTime(), "MM/dd/yyyy"));
+					   }catch(ParseException ex)
+					   {
+						   pigletStatusEventDto.setFosterEventDateStr(null);
+					   }
+					   
 					 	//Get the pig id for a given pigIdInfo
 					   if(pigletStatusEvent.getFosterTo() != null && pigletStatusEvent.getFosterTo() > 0)
 					   {
@@ -345,6 +361,13 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setDeathPigNum(pigletStatusEvent.getNumberOfPigs());
 					   pigletStatusEventDto.setDeathPigWt(pigletStatusEvent.getWeightInKgs());
 					   pigletStatusEventDto.setDeathEventDateTime(pigletStatusEvent.getEventDateTime());
+					   
+					   try{
+						   pigletStatusEventDto.setDeathEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getDeathEventDateTime(), "MM/dd/yyyy"));
+					   }catch(ParseException ex)
+					   {
+						   pigletStatusEventDto.setDeathEventDateStr(null);
+					   }
 					   pigletStatusEventDto.setMortalityReasonTypeId(pigletStatusEvent.getMortalityReasonTypeId());
 					   
 				   } else{ //foster in case					   

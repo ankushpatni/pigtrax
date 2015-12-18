@@ -58,15 +58,16 @@
 						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
                    </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.groupEventForm.groupStartDateTime'  text='Group Start Date'/><span style='color: red'>*</span></label>
-                      <input rsmdatedropdowns ng-model="groupEvent.groupStartDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30" required-message="'<spring:message code='label.piginfo.groupEventForm.groupStartDateTime.requiredMessage' text='Group Start Date is required' />'"/>                      
+                      <label><spring:message code='label.piginfo.groupEventForm.groupStartDateTime'  text='Group Start Date'/><span style='color: red'>*</span></label>	<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>					                      
+                      <input type="text" class="form-control" ng-model="groupEvent.groupStartDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.groupStartDateStr, 'groupStartDate')"/>
+                                            
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupdaterequired" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.requiredMessage' text='Group Start Date is required' /></label>
 					</div>					
                     <div class="form-group" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory == 0)">
-                      <label><spring:message code='label.piginfo.groupEventForm.groupCloseDateTime'  text='Group Close Date'/></label>
-                      <input rsmdatedropdowns ng-model="groupEvent.groupCloseDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                      
+                      <label><spring:message code='label.piginfo.groupEventForm.groupCloseDateTime'  text='Group Close Date'/></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
+                      <input type="text" class="form-control" ng-model="groupEvent.groupCloseDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.groupCloseDateStr, 'groupCloseDate')"/>                      
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupStartEndDateError" ><spring:message code='label.piginfo.groupEventForm.groupStartEndDateError.requiredMessage' text='Group Close Date can not be less than Group Start date ' /></label>

@@ -113,7 +113,7 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.entryDate'  text='Entry Date'/><span style='color: red'>*</span></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="pigInfo.entryDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.entryDateStr, 'entryDate')"/>                      	
+                      	<input type="text" class="form-control" ng-model="pigInfo.entryDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.entryDateStr, 'entryDate')"/>                      	
                     </div>
 					<div>
 					<label ng-show="entryDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.entryeventform.entryDate.requiredmessage' text='Enter a valid entry date' /></label>
@@ -174,7 +174,7 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.birthdate'  text='Birth Date'/></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="pigInfo.birthDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.birthDateStr, 'birthDate')"/>                      	
+                      	<input type="text" class="form-control" ng-model="pigInfo.birthDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.birthDateStr, 'birthDate')"/>                      	
                     </div> 
                     
                     <div class="form-group">

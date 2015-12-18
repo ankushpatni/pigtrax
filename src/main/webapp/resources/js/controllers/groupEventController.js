@@ -65,6 +65,59 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		
 	};
 	
+	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "groupStartDate")
+				{
+					   $scope.groupdaterequired = true;
+					   $scope.groupEvent["groupStartDateTime"] = null;
+				}	
+			   else if(fieldName == "groupCloseDate")
+			   {				  
+				   $scope.groupEvent["groupCloseDateTime"] = null;
+			   }
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "groupStartDate")
+				{
+				   $scope.groupdaterequired = false;
+				   $scope.groupEvent["groupStartDateTime"]  = DateUtils.convertLocaleDateToServer(dateObj);
+				}		
+			   else if(fieldName == "groupCloseDate")
+			   {				  
+				   $scope.groupEvent["groupCloseDateTime"] = DateUtils.convertLocaleDateToServer(dateObj);
+			   }
+			}
+		}
+		else
+		{
+			if(fieldName == "groupStartDate")
+			{
+				   $scope.groupdaterequired = true;
+				   $scope.groupEvent["groupStartDateTime"] = null;
+			}	
+			else if(fieldName == "groupCloseDate")
+			{				  
+				   $scope.groupEvent["groupCloseDateTime"] = null;
+			}
+		}
+	  }
+	}
+	
+	
+	
+	
 	$scope.clearAllMessages = function()
 	{
 		$scope.entryEventSuccessMessage = false;
