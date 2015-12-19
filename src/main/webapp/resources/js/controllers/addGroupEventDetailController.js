@@ -117,8 +117,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	
 	
 	$scope.getRooms = function()
-	{
-		alert("1");
+	{		
 		restServices.getRoomsForPremise($scope.groupEvent["premiseId"], function(data){
 			if(!data.error){
 				$scope.roomType = data.payload;

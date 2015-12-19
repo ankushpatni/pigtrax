@@ -21,6 +21,7 @@ public class ProductionLogDto {
 	private Integer premiseId;
 	private Integer selectedPremise;
 	private String premise;
+	private String observationDateStr;
 
 	public Integer getId() {
 		return id;
@@ -167,6 +168,15 @@ public class ProductionLogDto {
 	public void setPremise(String premise) {
 		this.premise = premise;
 	}
+
+	public String getObservationDateStr() {
+		return observationDateStr;
+	}
+
+	public void setObservationDateStr(String observationDateStr) {
+		this.observationDateStr = observationDateStr;
+	}
+	
 	
 
 }

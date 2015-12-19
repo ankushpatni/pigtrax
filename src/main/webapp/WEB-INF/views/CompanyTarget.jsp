@@ -48,9 +48,8 @@
                     </div>
                     
                     <div class="form-group"> 
-                      <label><spring:message code='label.companytargetform.completiondate'  text='Start Date'/><span style='color: red'>*</span></label>
-                      <input rsmdatedropdowns ng-model="companyTarget.completionDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>
-                     
+                      <label><spring:message code='label.companytargetform.completiondate'  text='Start Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                     
+                      <input type="text" class="form-control" ng-model="companyTarget.completionDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(companyTarget.completionDateStr, 'completionDate')"/>
                         <label ng-show="completionDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.completionDateRequiredMessage' text='Completion date is required' /></label> 
                     </div>
 					

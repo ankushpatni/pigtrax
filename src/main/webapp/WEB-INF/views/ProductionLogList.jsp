@@ -180,8 +180,9 @@
                     </div>
                     
                     <div class="form-group">
-                      <label><spring:message code='label.productionlogform.observationDate'  text='Date'/><span style='color: red'>*</span></label>                      
-                      <input  rsmdatedropdowns ng-model="productionLog.observationDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+                      <label><spring:message code='label.productionlogform.observationDate'  text='Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                     
+                      
+                      <input type="text" class="form-control" ng-model="productionLog.observationDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(productionLog.observationDateStr, 'observationDate')"/>                    
                       <label ng-show="observationDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.productionlogform.observationDate.requiredMessage' text='Date is required' /></label>
                     </div>
                     

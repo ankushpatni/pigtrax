@@ -16,6 +16,9 @@ public class FeedEventDetail {
 	private Date lastUpdated;
 	private String userUpdated;
 	private String groupEventGroupId;
+	private String feedEventDateStr;
+	private String feedMill;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,6 +84,18 @@ public class FeedEventDetail {
 	}
 	public void setGroupEventGroupId(String groupEventGroupId) {
 		this.groupEventGroupId = groupEventGroupId;
+	}
+	public String getFeedEventDateStr() {
+		return feedEventDateStr;
+	}
+	public void setFeedEventDateStr(String feedEventDateStr) {
+		this.feedEventDateStr = feedEventDateStr;
+	}
+	public String getFeedMill() {
+		return feedMill;
+	}
+	public void setFeedMill(String feedMill) {
+		this.feedMill = feedMill;
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.pigtrax.pigevents.dao.interfaces.CompanyTargetDao;
 import com.pigtrax.pigevents.dto.CompanyTargetBuilder;
 import com.pigtrax.pigevents.dto.CompanyTargetDto;
 import com.pigtrax.pigevents.service.interfaces.CompanyTargetService;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 public class CompanyTargetServiceImpl implements CompanyTargetService{
@@ -36,6 +38,12 @@ public class CompanyTargetServiceImpl implements CompanyTargetService{
 				for(CompanyTargetDto dto : companyTargetDtoList)
 				{
 					dto.setTargetName(refDataCache.getTargetTypeMap(companyTargetDto.getLanguage()).get(dto.getTargetId()));
+					
+					try {
+						dto.setCompletionDateStr(DateUtil.convertToFormatString(dto.getCompletionDate(), "MM/dd/yyyy"));
+					} catch (ParseException e) {
+						dto.setCompletionDateStr(null);
+					}
 				}
 			}
 			return companyTargetDtoList;

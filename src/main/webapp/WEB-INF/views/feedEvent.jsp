@@ -89,8 +89,8 @@
                          ng-options="k as v for (k, v) in rationType"> </select>
                    </div>
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime'  text='Initial Feed Entry Date'/><span style='color: red'>*</span></label>
-                      <input rsmdatedropdowns ng-model="feedEvent.initialFeedEntryDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
+                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime'  text='Initial Feed Entry Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
+                      <input type="text" class="form-control" ng-model="feedEvent.feedDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(feedEvent.feedDateStr, 'feedDate')"/>                    
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="initialFeedEntryDateTimerequired" ><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime.requiredMessage' text='Initial Feed Entry Date Time is required' /></label>
@@ -153,6 +153,7 @@
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.groupEventId" text="Group Event" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /></th>
+						<th style="width:10%"><spring:message code="label.feedEventDetail.feedMill" text="Feed Mill" /></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>												
 						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
@@ -165,6 +166,7 @@
 					<td style="width:10%">{{$index+1}}</td>
 					<td style="width:10%">{{row.groupEventGroupId}}</td>
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.feedEventDate)}}</td>
+					<td style="width:25%">{{row.feedMill}}</td>
 					<td style="width:25%">{{feedEventType[row.feedEventTypeId]}}</td>
 					<td style="width:10%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{siloList[row.siloId]}}</td>

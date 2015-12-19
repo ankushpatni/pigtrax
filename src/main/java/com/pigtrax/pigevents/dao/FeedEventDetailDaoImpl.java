@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pigtrax.pigevents.beans.FeedEventDetail;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDetailDao;
+import com.pigtrax.util.DateUtil;
 import com.pigtrax.util.UserUtil;
 
 @Repository
@@ -36,7 +38,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	public FeedEventDetail getFeedEventDetailById(final int id)
 			throws SQLException {
 		String qry = "select FED.\"id\", FED.\"feedEventDate\", FED.\"weightInKgs\", FED.\"remarks\", FED.\"id_FeedEvent\", "
-		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\" "+
+		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\",FED.\"feedMill\" "+
 		   		"from pigtrax.\"FeedEventDetails\" FED LEFT JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" where FED.\"id\" = ? ";
 			
 			List<FeedEventDetail> feedEventDetailList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -55,7 +57,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	public List<FeedEventDetail> getFeedEventDetailByFeedEventId(final int feedEventid)
 			throws SQLException {
 		String qry = "select FED.\"id\", FED.\"feedEventDate\", FED.\"weightInKgs\", FED.\"remarks\", FED.\"id_FeedEvent\", "
-		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\" "+
+		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\",FED.\"feedMill\" "+
 		   		"from pigtrax.\"FeedEventDetails\" FED LEFT JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" where FED.\"id_FeedEvent\" = ? ";
 			
 			List<FeedEventDetail> feedEventDetailList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -74,8 +76,8 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	public int addFeedEventDetail(final FeedEventDetail feedEventDetail)
 			throws SQLException {
 		final String Qry = "insert into pigtrax.\"FeedEventDetails\"(\"feedEventDate\", \"weightInKgs\", \"remarks\", \"id_FeedEvent\", "
-		   		+ "\"id_Silo\", \"id_GroupEvent\", \"id_FeedEventType\",\"lastUpdated\", \"userUpdated\") "
-				+ "values(?,?,?,?,?,?,?,current_timestamp,?)";	
+		   		+ "\"id_Silo\", \"id_GroupEvent\", \"id_FeedEventType\",\"lastUpdated\", \"userUpdated\",\"feedMill\") "
+				+ "values(?,?,?,?,?,?,?,current_timestamp,?,?)";	
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -113,7 +115,8 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 					ps.setNull(6, java.sql.Types.INTEGER);
 				}
 				ps.setInt(7, feedEventDetail.getFeedEventTypeId());
-				ps.setString(8, UserUtil.getLoggedInUser());				
+				ps.setString(8, UserUtil.getLoggedInUser());
+				ps.setString(9,  feedEventDetail.getFeedMill());
 				return ps;
 			}
 		}, holder);
@@ -127,7 +130,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			throws SQLException {
 		String query = "update pigtrax.\"FeedEventDetails\" SET \"feedEventDate\"=?, \"weightInKgs\"=?, \"remarks\"=?,"
 				+" \"id_Silo\"=? ,\"id_GroupEvent\" =? , \"id_FeedEventType\" = ?, \"lastUpdated\"=current_timestamp,"+
-				" \"userUpdated\"=?  where \"id\" = ? ";
+				" \"userUpdated\"=?,\"feedMill\"=?  where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
@@ -161,7 +164,8 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 					}
 					ps.setInt(6, feedEventDetail.getFeedEventTypeId());
 					ps.setString(7, UserUtil.getLoggedInUser());
-					ps.setInt(8, feedEventDetail.getId());
+					ps.setString(8, feedEventDetail.getFeedMill());
+					ps.setInt(9, feedEventDetail.getId());
 				}
 			});	
 	}
@@ -171,6 +175,11 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			FeedEventDetail feedEventDetail = new FeedEventDetail();
 			feedEventDetail.setId(rs.getInt("id"));
 			feedEventDetail.setFeedEventDate(rs.getDate("feedEventDate"));
+			try {
+				feedEventDetail.setFeedEventDateStr(DateUtil.convertToFormatString(feedEventDetail.getFeedEventDate(), "MM/dd/yyyy"));
+			} catch (ParseException e) {
+				feedEventDetail.setFeedEventDateStr(null);
+			}
 			feedEventDetail.setWeightInKgs(rs.getBigDecimal("weightInKgs"));
 			feedEventDetail.setRemarks(rs.getString("remarks"));
 			feedEventDetail.setFeedEventId(rs.getInt("id_FeedEvent"));
@@ -180,6 +189,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			feedEventDetail.setLastUpdated(rs.getDate("lastUpdated"));
 			feedEventDetail.setUserUpdated(rs.getString("userUpdated"));
 			feedEventDetail.setGroupEventGroupId(rs.getString("groupId"));
+			feedEventDetail.setFeedMill(rs.getString("feedMill"));
 			return feedEventDetail;
 		}	
 	}

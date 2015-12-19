@@ -13,6 +13,7 @@ public class CompanyTargetDto {
 	private String userUpdated;
 	private String language;
 	private String targetName;
+	private String completionDateStr;
 
 	
 	public Integer getId() {
@@ -93,6 +94,14 @@ public class CompanyTargetDto {
 
 	public void setTargetName(String targetName) {
 		this.targetName = targetName;
+	}
+
+	public String getCompletionDateStr() {
+		return completionDateStr;
+	}
+
+	public void setCompletionDateStr(String completionDateStr) {
+		this.completionDateStr = completionDateStr;
 	}
 	
 	

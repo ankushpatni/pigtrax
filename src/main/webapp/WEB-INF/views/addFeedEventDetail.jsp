@@ -14,11 +14,11 @@
                   </div>
 				   <div class="alert alert-danger alert-white rounded"  ng-show="groupStartDateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform.submit.groupDateError.message' text='Feed Event Date can not be less than Group Event Start Date'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.feedEventform.submit.groupDateError.message' text='Feed Event Date can not be less than Group Event Start Date'/>
                   </div>
 				<div class="alert alert-danger alert-white rounded"  ng-show="groupEndDateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.feedEventform.submit.groupDateError.message' text='Feed Event Date can not be more than Group Event End Date'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.feedEventform.submit.groupDateError.message' text='Feed Event Date can not be more than Group Event End Date'/>
                   </div>				  
 					<input type=hidden name="id" ng-model="feedEventDetail.id"/>
     				<div class="form-group">
@@ -34,13 +34,19 @@
 					</div>
 					 
 					<div class="form-group">
-						<label ><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /><span style='color: red'>*</span></label>
-						<input  rsmdatedropdowns ng-model="feedEventDetail.feedEventDate" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                    
-						
+						<label ><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>						                    
+						<input type="text" class="form-control" ng-model="feedEventDetail.feedEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(feedEventDetail.feedEventDateStr, 'feedEventDate')"/>
 					</div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="feedEventDateFlag" ><spring:message code='label.feedEventDetail.feedEventDate.required' text='Feed Event Date is required' /></label>
 					</div>
+					
+					
+					<div class="form-group">
+                      <label><spring:message code='label.feedEventDetail.feedmill'  text='Feed Mill'/></label>
+                       <input type="text" class="form-control" ng-model="feedEventDetail.feedMill" maxlength = "30" placeholder="<spring:message code='label.feedEventDetail.feedmill.placeHolder'  text='Enter feed mill'/>"/>
+                    </div>
+					
 					<div class="form-group">
                       <label><spring:message code='label.feedEventDetail.feedEventTypeId'  text='Feed Event Type'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="feedEventTypeId" id="feedEventTypeId" ng-model="feedEventDetail.feedEventTypeId"  required required-message="'<spring:message code='label.feedEventDetail.feedEventTypeId.required' text='Feed Event Type is required' />'"  

@@ -1,4 +1,4 @@
-pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http, $window,restServices,$modalInstance,feedEventDetailData) {
+pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http, $window,restServices,$modalInstance,feedEventDetailData, DateUtils) {
 	
 	$scope.siloList=feedEventDetailData.siloList;
 	$scope.feedEventType=feedEventDetailData.feedEventType;
@@ -40,6 +40,45 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 		
 	}
 	
+	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "feedEventDate")
+				{
+					   $scope.feedEventDateFlag = true;
+					   $scope.feedEventDetail["feedEventDate"]= null;
+				}			  
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "feedEventDate")
+				{
+				   $scope.feedEventDateFlag = false;
+				   $scope.feedEventDetail["feedEventDate"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}			  
+			}
+		}
+		else
+		{
+			if(fieldName == "feedEventDate")
+			{
+				$scope.feedEventDateFlag = true;
+				$scope.feedEventDetail["feedEventDate"]= null;
+			}
+		}
+	  }
+	}
+	
+	
 	$scope.gotoFeedEvent = function()
 	{
 
@@ -50,6 +89,14 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 	}
 	
 	$scope.addFeedEventDetail = function() {
+		
+		if($scope.feedEventDetail["feedEventDate"] == null || $scope.feedEventDetail["feedEventDate"] == undefined || $scope.feedEventDetail["feedEventDate"] == ""  )
+		{
+			$scope.feedEventDateFlag = true;
+		}
+		else
+			$scope.feedEventDateFlag = false;
+		
 		if($scope.feedEventDetailAddForm.$valid)
 			{
 				
@@ -61,12 +108,12 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 					
 					console.log(groupStartDate);
 					console.log(groupEndDate);
-					  if($scope.feedEventDetail.feedEventDate<groupStartDate)
+					  if(new Date($scope.feedEventDetail.feedEventDate)<new Date(groupStartDate))
 					  {
 						$scope.groupStartDateErrorMessage = true;
 						return;
 					  }
-					  if(groupEndDate && $scope.feedEventDetail.feedEventDate>groupEndDate)
+					  if(groupEndDate && new Date($scope.feedEventDetail.feedEventDate>groupEndDate))
 					  {
 						$scope.groupEndDateErrorMessage = true;
 						return;

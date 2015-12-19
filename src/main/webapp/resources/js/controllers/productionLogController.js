@@ -50,6 +50,46 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		});
 	}
 	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "observationDate")
+				{
+					   $scope.observationDateRequired = true;
+					   $scope.productionLog["observationDate"] = null;
+				}
+			   
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "observationDate")
+				{
+				   $scope.observationDateRequired = false;
+				   $scope.productionLog["observationDate"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			  
+			}
+		}
+		else
+		{
+			if(fieldName == "observationDate")
+			{
+				   $scope.observationDateRequired = true;
+				   $scope.productionLog["observationDate"] = null;
+			}		 
+		}
+	  }
+	}
+	
+	
 	$scope.getLogEventTypes = function()
 	{
 		restServices.getLogEventTypes(function(data){
@@ -114,7 +154,7 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 	
 	$scope.saveProductionLog = function()
 	{	
-		if($scope.productionLog["observationDate"] == null)
+		if($scope.productionLog["observationDate"] == null || $scope.productionLog["observationDate"] == undefined)
 		{
 			$scope.observationDateRequired = true;
 		}
@@ -155,13 +195,16 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 		$scope.productionLog["roomId"] = selectedLog["roomId"];
 		$scope.productionLog["eventId"] = selectedLog["eventId"];
 		$scope.productionLog["groupId"] = selectedLog["groupId"];
-		$scope.productionLog["observationDate"] = selectedLog["observationDate"];		
+		$scope.productionLog["observationDate"] = selectedLog["observationDate"];
+		$scope.productionLog["observationDateStr"] = selectedLog["observationDateStr"];	
+		$scope.productionLog["premiseId"] = selectedLog["premiseId"];
+		$scope.getRooms();
 	}
 	
 	
 	$scope.deleteProductionLog = function(id)
 	{
-		restServices.deleteProductionLog(id, function(data){
+		restServices.deleteProductionLog(id, function(data){	
 			if(!data.error)
 			{
 			 

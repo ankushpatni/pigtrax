@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.pigevents.beans.FeedEvent;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDao;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 @Transactional
@@ -207,6 +209,11 @@ public class FeedEventDaoImpl implements FeedEventDao
 			feedEvent.setTicketNumber(rs.getString("ticketNumber"));
 			feedEvent.setFeedContentId(rs.getString("feedContentId"));
 			feedEvent.setInitialFeedEntryDateTime(rs.getDate("initialFeedEntryDateTime"));
+			try {
+				feedEvent.setFeedDateStr(DateUtil.convertToFormatString(feedEvent.getInitialFeedEntryDateTime(), "MM/dd/yyyy"));
+			} catch (ParseException e) {
+				feedEvent.setFeedDateStr(null);
+			}
 			feedEvent.setRationId(rs.getInt("batchId"));
 			feedEvent.setInitialFeedQuantityKgs(rs.getDouble("initialFeedQuantityKgs"));
 			feedEvent.setFeedCost(rs.getBigDecimal("feedCost"));

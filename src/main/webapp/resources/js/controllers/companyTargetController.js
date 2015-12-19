@@ -77,6 +77,45 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	
 	
 	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "completionDate")
+				{
+					   $scope.completionDateRequired = true;
+					   $scope.companyTarget["completionDate"] = null;
+				}
+			   
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "completionDate")
+				{
+				   $scope.completionDateRequired = false;
+				   $scope.companyTarget["completionDate"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			   
+			}
+		}
+		else
+		{
+			if(fieldName == "completionDate")
+			{
+				   $scope.completionDateRequired = true;
+				   $scope.companyTarget["completionDate"] = null;
+			}		  
+		}
+	  }
+	}
+	
+	
 	$scope.saveCompanyTarget = function()
 	{
 		valid = true;
@@ -185,6 +224,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$scope.companyTarget["targetName"] = selectedObject["targetName"];
 		$scope.companyTarget["targetValue"] = selectedObject["targetValue"];
 		$scope.companyTarget["completionDate"] = selectedObject["completionDate"];
+		$scope.companyTarget["completionDateStr"] = selectedObject["completionDateStr"];
 		$scope.companyTarget["remarks"] = selectedObject["remarks"];
 		$window.scrollTo(0, 0);
 		

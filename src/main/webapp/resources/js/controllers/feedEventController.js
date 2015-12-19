@@ -25,6 +25,44 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		});	
 	}
 	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "feedDate")
+				{
+					   $scope.initialFeedEntryDateTimerequired = true;
+					   $scope.feedEvent["initialFeedEntryDateTime"] = null;
+				}			  
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "feedDate")
+				{
+				   $scope.initialFeedEntryDateTimerequired = false;
+				   $scope.feedEvent["initialFeedEntryDateTime"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}			  
+			}
+		}
+		else
+		{
+			if(fieldName == "feedDate")
+			{
+				   $scope.initialFeedEntryDateTimerequired = true;
+				   $scope.feedEvent["initialFeedEntryDateTime"] = null;
+			}		   
+		}
+	  }
+	}
+	
+	
 	$scope.setCompanyId = function(companyId,ticketNumber)
 	{
 		$scope.companyId = companyId;
@@ -80,6 +118,12 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 	
 	$scope.addFeedEvent = function() 
 	{
+		if($scope.feedEvent["initialFeedEntryDateTime"] == null || $scope.feedEvent["initialFeedEntryDateTime"] == undefined || $scope.feedEvent["initialFeedEntryDateTime"] == ""  )
+		{
+			$scope.initialFeedEntryDateTimerequired = true;
+		}
+		else
+			$scope.initialFeedEntryDateTimerequired = false;
 		if($scope.feedEventForm.$valid)
 			{
 				if($scope.feedEvent["initialFeedEntryDateTime"] != "")

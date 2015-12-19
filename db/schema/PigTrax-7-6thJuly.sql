@@ -1905,6 +1905,7 @@ CREATE TABLE pigtrax."FeedEventDetails"(
 	"id_FeedEventType" integer,
 	"userUpdated" varchar(20) NOT NULL,
 	"lastUpdated" timestamp NOT NULL,
+	"feedMill" varchar(50),
 	CONSTRAINT "FEEDEVENTDETAILS_PK" PRIMARY KEY (id)
 
 );
