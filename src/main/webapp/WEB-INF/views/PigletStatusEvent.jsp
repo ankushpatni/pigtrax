@@ -318,7 +318,7 @@
           </div>
 		  
 		  <!-- - Breeding Service Id search Modal -->
-		  <div id="searchFarrowEvents" class="modal colored-header custom-width">
+		  <div id="searchFarrowEvents" class="modal colored-header warning custom-width">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.piginfo.pigletstatuseventform.farrowsearchresults.heading'  text='Farrow Events'/> </h3>
@@ -358,7 +358,7 @@
             </div>
             
 		  <!-- - foster search Modal -->
-		  <div id="searchFosters" class="modal colored-header custom-width">
+		  <div id="searchFosters" class="modal colored-header warning custom-width">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.piginfo.pigletstatuseventform.fostersearchresults.heading'  text='Transfer Pigs'/> </h3>

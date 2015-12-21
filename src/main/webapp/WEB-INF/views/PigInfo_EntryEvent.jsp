@@ -208,7 +208,7 @@
             </div>
             
             <!-- - Breeding Service Id search Modal -->
-		  <div id="selectAvailablePigId" class="modal colored-header custom-width">
+		  <div id="selectAvailablePigId" class="modal colored-header warning custom-width">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.piginfo.entryEventForm.availablePigIds.heading'  text='Available PigIds'/> </h3>
@@ -242,7 +242,7 @@
 			
 			
 			<!-- What is available Pig Id -->			 
-		  <div id="whatIsAvailablePigIdModal" class="modal colored-header custom-width">
+		  <div id="whatIsAvailablePigIdModal" class="modal colored-header warning custom-width">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.piginfo.entryEventForm.availablePigIds.heading'  text='Available PigIds'/> </h3>

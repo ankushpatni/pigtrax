@@ -1,5 +1,5 @@
  <!-- - Add Production Log modal-->
-		  <div id="addProductionLogModal" class="modal colored-header custom-width">
+		  <div id="addProductionLogModal" class="modal colored-header warning custom-width">
 		   <form name="productionlogform">
                     <div class="md-content">
                       <div class="modal-header">

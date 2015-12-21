@@ -272,7 +272,7 @@
 		  <!-- - Search Breeding Service -->
 		  
 		  <!-- - Breeding Service Id search Modal -->
-		  <div id="searchBreedingService" class="modal colored-header custom-width">
+		  <div id="searchBreedingService" class="modal colored-header warning custom-width">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.piginfo.breedingeventform.searchresults.heading'  text='Breeding Events'/> </h3>
@@ -315,7 +315,7 @@
 		  
 		  
 		  <!-- - Breeding Service Id search Modal -->
-		  <div id="searchPregnancyService" class="modal colored-header custom-width">
+		  <div id="searchPregnancyService" class="modal colored-header warning custom-width">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.piginfo.pregnancyeventform.searchresults.heading'  text='Pregnancy Events'/> </h3>
@@ -354,7 +354,7 @@
             </div>
 		  
 		  <!-- -- Employee Group Modal -->
-		  <div id="selectEmployeeGroupModal" class="modal colored-header custom-width" ng-controller="EmployeeGroupController" ng-init="getEmployeeGroups()">
+		  <div id="selectEmployeeGroupModal" class="modal colored-header warning custom-width" ng-controller="EmployeeGroupController" ng-init="getEmployeeGroups()">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.employeegroup.heading'  text='Employee Groups'/> </h3>

@@ -377,7 +377,7 @@
            <!-- -- MAting details -->
           
 		  
-		  <div id="selectEmployeeGroupModal" class="modal colored-header custom-width" ng-controller="EmployeeGroupController" ng-init="getEmployeeGroups()">
+		  <div id="selectEmployeeGroupModal" class="modal colored-header warning custom-width" ng-controller="EmployeeGroupController" ng-init="getEmployeeGroups()">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.employeegroup.heading'  text='Employee Groups'/> </h3>
