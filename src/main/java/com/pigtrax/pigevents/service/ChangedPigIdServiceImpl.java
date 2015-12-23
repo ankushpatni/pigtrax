@@ -29,7 +29,8 @@ public class ChangedPigIdServiceImpl implements ChangePigIdService {
 				changedPigIdObj.setChangedSowId(pigInfoDto.getNewPigId());
 				changedPigIdObj.setChangeDateTime(pigInfoDto.getChangePigIdDate());
 				changedPigIdObj.setUserUpdated(pigInfoDto.getUserUpdated());
-				changedPigIdObj.setCompanyId(pigInfoDto.getCompanyId());					
+				changedPigIdObj.setCompanyId(pigInfoDto.getCompanyId());	
+				changedPigIdObj.setPremiseId(pigInfoDto.getSelectedPremise());
 				return changedPigIdDao.storeChangedPigId(changedPigIdObj);				
 			}
 		 }catch(SQLException e)

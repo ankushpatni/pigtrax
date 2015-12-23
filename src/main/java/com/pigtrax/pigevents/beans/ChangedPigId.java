@@ -10,8 +10,9 @@ public class ChangedPigId {
 	private String changedSowId;
 	private Date changeDateTime;
 	private Integer companyId;
+	private Integer premiseId;
 	private Date lastUpdated;
-	private String userUpdated;
+	private String userUpdated;	
 	
 	public Integer getId() {
 		return id;
@@ -61,6 +62,12 @@ public class ChangedPigId {
 	}
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	
 	

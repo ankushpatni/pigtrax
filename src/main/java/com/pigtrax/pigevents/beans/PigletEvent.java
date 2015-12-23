@@ -20,6 +20,7 @@ public class PigletEvent {
 	private Double weight4;
 	private Double weight5;
 	private Double weight6;
+	private String pigId;
 	
 	public Integer getId() {
 		return id;
@@ -116,6 +117,12 @@ public class PigletEvent {
 	}
 	public void setWeight6(Double weight6) {
 		this.weight6 = weight6;
+	}
+	public String getPigId() {
+		return pigId;
+	}
+	public void setPigId(String pigId) {
+		this.pigId = pigId;
 	}
 	
 	

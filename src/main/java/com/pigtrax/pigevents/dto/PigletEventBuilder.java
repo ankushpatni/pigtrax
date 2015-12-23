@@ -37,6 +37,7 @@ public class PigletEventBuilder {
 			   info.setWeight4(dto.getWeight4());
 			   info.setWeight5(dto.getWeight5());
 			   info.setWeight6(dto.getWeight6());
+			   info.setPigId(dto.getPigId());
 			   
 		   }
 		   return info;
@@ -68,6 +69,7 @@ public class PigletEventBuilder {
 			   dto.setWeight4(info.getWeight4());
 			   dto.setWeight5(info.getWeight5());
 			   dto.setWeight6(info.getWeight6());
+			   dto.setPigId(info.getPigId());
 		   }
 		   return dto;
 	   }

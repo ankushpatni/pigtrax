@@ -33,8 +33,8 @@ private static final Logger logger = Logger.getLogger(BreedingEventDaoImpl.class
 	@Override
 	public int storeChangedPigId(final ChangedPigId changedPigId) throws SQLException {
 		final String Qry = "insert into pigtrax.\"ChangedPigId\"(\"oldSowId\", \"changedSowId\", "
-				+ "\"id_Company\", \"changeDateTime\", \"lastUpdated\", \"userUpdated\",\"id_PigInfo\") "
-				+ "values(?,?,?,?,current_timestamp,?,?)";
+				+ "\"id_Company\", \"changeDateTime\", \"lastUpdated\", \"userUpdated\",\"id_PigInfo\", \"id_Premise\") "
+				+ "values(?,?,?,?,current_timestamp,?,?, ?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -55,6 +55,7 @@ private static final Logger logger = Logger.getLogger(BreedingEventDaoImpl.class
 	    				ps.setObject(4, changedPigId.getChangeDateTime(), java.sql.Types.DATE); 	
 	    				ps.setString(5, changedPigId.getUserUpdated()); 
 	    				ps.setInt(6, changedPigId.getPigInfoId()); 
+	    				ps.setInt(7, changedPigId.getPremiseId()); 
 	    	            return ps;
 	    	        }
 	    	    },

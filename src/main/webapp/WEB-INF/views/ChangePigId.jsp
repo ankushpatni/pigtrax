@@ -18,9 +18,15 @@
  		     <h3> <spring:message code='label.changeidform.search.heading'  text='Search for a Pig to change Id'/></h3>
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.entryeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
-			
-            <input type="text" name="search"  ng-enter="getPigInformationForChangeId()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
- 		    
+			<div  class="form-group">
+             <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+			<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+              	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+               </select>
+			</div>
+			<div  class="form-group">	
+            	<input type="text" name="search"  ng-enter="getPigInformationForChangeId()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.entryeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
+ 		    </div>
             <div class="options">
 			 <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary active" ng-click="getPigInformationForChangeId()"><i class="fa fa-search"></i></button>
@@ -72,14 +78,16 @@
 						class="form-control" ng-blur="checkNewPigIdStatus()">
 						
                     </div>
+                    <div>
                     <label ng-show="newPigIdActiveError"  style='color:red' class='control-label has-error validationMessage'><spring:message code='label.changeidform.newPigIdActiveError'  text='Entered Pig Id is active in the system. Please choose another Pig Id'/> </label>
+                    </div>                    
                     <div class="form-group">
-                      <label><spring:message code='label.changepigidform.changedate'  text='Change Date'/><span style='color: red'>*</span></label>
-                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7" id="changeDateDiv" >
-                          <input size="16" type="date" id="changeDate" name="changeDate" ng-model="pigInfo.changePigIdDate" readonly="" class="form-control"   format-date><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-                        </div> 
-                        <label ng-show="changeDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.changepigidform.changeDate.requiredmessage' text='Change Date is required' /></label>
+                      <label><spring:message code='label.changepigidform.changedate'  text='Change Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      	<input type="text" class="form-control" ng-model="pigInfo.changePigIdDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.changePigIdDateStr, 'changePigIdDate')"/>                      	
                     </div>
+					<div>
+					<label ng-show="changeDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.changepigidform.changeDate.requiredmessage' text='Change Date is required' /></label>
+					</div>                    
                     <button class="btn btn-success" ng-disabled="!pigInfo.active || newPigIdActiveError" ng-click="changePigId()" type="submit"><spring:message code='label.piginfo.entryeventform.submit'  text='Submit'/></button>
                     <button class="btn btn-warning" ng-click="resetForm()" type="button"><spring:message code='label.piginfo.entryeventform.cancel'  text='Clear Form'/></button>                   
                   </form>

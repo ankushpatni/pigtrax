@@ -82,7 +82,7 @@
                                       </li>
                                </ul>
                             </li>           
-                            <li><a href="massupload"><i class="glyphicon glyphicon-cog"></i><span>Mass Upload</span></a></li>    
+                            <li><a href="massupload"><i class="fa fa-upload"></i><span>Mass Upload</span></a></li>    
                             <%} %>
                               </ul>
                   </div>

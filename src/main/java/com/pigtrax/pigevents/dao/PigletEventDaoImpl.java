@@ -39,8 +39,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
 	public int addPigletEventDetails(final PigletEvent pigletEvent)
 			throws SQLException, DuplicateKeyException{
 		final String Qry = "insert into pigtrax.\"IndividualPigletStatus\"(\"tattooId\", \"weightAtBirth\", \"weightAtWeaning\", \"lastUpdated\","
-				+ " \"userUpdated\", \"id_FarrowEvent\",\"id_Premise\",\"litterId\",\"id_PigInfo\",\"weight1\",\"weight2\",\"weight3\",\"weight4\",\"weight5\",\"weight6\") "
-				+ "values(?,?,?,current_timestamp,?,?,?,?,?,?,?,?,?,?,?)";
+				+ " \"userUpdated\", \"id_FarrowEvent\",\"id_Premise\",\"litterId\",\"id_PigInfo\",\"weight1\",\"weight2\",\"weight3\",\"weight4\",\"weight5\",\"weight6\", \"pigId\") "
+				+ "values(?,?,?,current_timestamp,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -63,6 +63,7 @@ public class PigletEventDaoImpl implements PigletEventDao {
 	    				ps.setObject(12, pigletEvent.getWeight4(), java.sql.Types.DOUBLE);
 	    				ps.setObject(13, pigletEvent.getWeight5(), java.sql.Types.DOUBLE);
 	    				ps.setObject(14, pigletEvent.getWeight6(), java.sql.Types.DOUBLE);
+	    				ps.setObject(15, pigletEvent.getPigId(), java.sql.Types.VARCHAR);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -111,7 +112,7 @@ public class PigletEventDaoImpl implements PigletEventDao {
   private List<PigletEvent> getPigletEventsByPigId(final String pigId, final Integer companyId) throws SQLException{
 	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
 	   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
-			+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\" "
+			+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",\"pigId\" "
 	   		+ "  from pigtrax.\"IndividualPigletStatus\" IPS "	   		
 	   		+ "JOIN pigtrax.\"PigInfo\" PI on IPS.\"id_PigInfo\" = PI.\"id\" "
 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
@@ -133,17 +134,15 @@ public class PigletEventDaoImpl implements PigletEventDao {
    private List<PigletEvent> getPigletEventsByPigId(final String pigId, final Integer companyId, final Integer premiseId) throws SQLException{
  	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
  	   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
- 	   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\" "
- 	   		+ "  from pigtrax.\"IndividualPigletStatus\" IPS "
- 	   		+ "JOIN pigtrax.\"PigInfo\" PI on IPS.\"id_PigInfo\" = PI.\"id\" "
- 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ? ";
+ 	   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",\"pigId\" "
+ 	   		+ "  from pigtrax.\"IndividualPigletStatus\" IPS " 	   		
+ 	   		+ " WHERE IPS.\"pigId\" = ?  and IPS.\"id_Premise\" = ? ";
  		
  		List<PigletEvent> pigletEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setString(1, pigId);
- 				ps.setInt(2, companyId);
- 				ps.setInt(3, premiseId);
+ 				ps.setInt(2, premiseId);
  			}}, new PigletEventMapper());
 
  		return pigletEventList; 
@@ -156,7 +155,7 @@ public class PigletEventDaoImpl implements PigletEventDao {
    private List<PigletEvent> getPigletEventsByPigletTattooId(final String tattoo, final Integer companyId) throws SQLException{
 	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
 		   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
-		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\" "
+		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",IPS.\"pigId\" "
 		   		+ "  from pigtrax.\"IndividualPigletStatus\" IPS "		   		
 		   		+ "JOIN pigtrax.\"PigInfo\" PI on IPS.\"id_PigInfo\" = PI.\"id\" "
 		   		+ " WHERE PI.\"tattooId\" = ? and PI.\"id_Company\" = ? ";
@@ -178,17 +177,15 @@ public class PigletEventDaoImpl implements PigletEventDao {
   private List<PigletEvent> getPigletEventsByPigletTattooId(final String tattoo, final Integer companyId, final Integer premiseId) throws SQLException{
 	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
 		   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
-		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\" "
-		   		+ " from pigtrax.\"IndividualPigletStatus\" IPS "		   		
-		   		+ "JOIN pigtrax.\"PigInfo\" PI on IPS.\"id_PigInfo\" = PI.\"id\" "
-		   		+ " WHERE PI.\"tattooId\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ?";
+		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",IPS.\"pigId\" "
+		   		+ " from pigtrax.\"IndividualPigletStatus\" IPS "
+		   		+ " WHERE IPS.\"tattooId\" = ?  and IPS.\"id_Premise\" = ?";
 		
 		List<PigletEvent> pigletEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, tattoo);
-				ps.setInt(2, companyId);
-				ps.setInt(3, premiseId);
+				ps.setInt(2, premiseId);
 			}}, new PigletEventMapper());
 
 		return pigletEventList;
@@ -200,7 +197,7 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			throws SQLException, DuplicateKeyException {
 		String Qry = "update pigtrax.\"IndividualPigletStatus\" set \"tattooId\" = ?, \"weightAtBirth\" = ?, \"weightAtWeaning\" = ?, \"lastUpdated\" = current_timestamp, "
 				+ "\"userUpdated\" = ?, \"id_FarrowEvent\" = ?,\"id_Premise\"=?, \"id_PigInfo\" = ?, \"weight1\"= ? "
-				+" , \"weight2\"= ? , \"weight3\"= ?, \"weight4\"= ?, \"weight5\"= ?, \"weight6\"= ? "
+				+" , \"weight2\"= ? , \"weight3\"= ?, \"weight4\"= ?, \"weight5\"= ?, \"weight6\"= ?, \"pigId\" = ?, \"litterId\" = ? "
 				+ "where \"id\" = ? ";
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
@@ -220,8 +217,9 @@ public class PigletEventDaoImpl implements PigletEventDao {
 				ps.setObject(11, pigletEvent.getWeight4(), java.sql.Types.DOUBLE);
 				ps.setObject(12, pigletEvent.getWeight5(), java.sql.Types.DOUBLE);
 				ps.setObject(13, pigletEvent.getWeight6(), java.sql.Types.DOUBLE);
-				
-				ps.setInt(14, pigletEvent.getId());
+				ps.setObject(14, pigletEvent.getPigId(), java.sql.Types.VARCHAR);
+				ps.setObject(15, pigletEvent.getLitterId(), java.sql.Types.DOUBLE);
+				ps.setInt(16, pigletEvent.getId());
 			}
 		});
 	}
@@ -238,7 +236,7 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			pigletEvent.setLastUpdated(rs.getDate("lastUpdated"));
 			pigletEvent.setUserUpdated(rs.getString("userUpdated"));
 			pigletEvent.setPremiseId(rs.getInt("id_Premise"));
-			pigletEvent.setLitterId(rs.getInt("litterId"));
+			pigletEvent.setLitterId((rs.getObject("litterId") != null)?rs.getInt("litterId"):null);
 			pigletEvent.setPigInfoId(rs.getInt("id_PigInfo"));
 			pigletEvent.setWeight1(rs.getDouble("weight1"));
 			pigletEvent.setWeight2(rs.getDouble("weight2"));
@@ -246,6 +244,7 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			pigletEvent.setWeight4(rs.getDouble("weight4"));
 			pigletEvent.setWeight5(rs.getDouble("weight5"));
 			pigletEvent.setWeight6(rs.getDouble("weight6"));
+			pigletEvent.setPigId(rs.getString("pigId"));
 			return pigletEvent;
 		}
 	}

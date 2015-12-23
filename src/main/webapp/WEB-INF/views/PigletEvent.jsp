@@ -115,7 +115,7 @@
                      <input ng-show="!(pigletEvent.pigletId != null && pigletEvent.pigletId > 0)" type="text" ng-model="pigletEvent.pigId" id="pigId" name="pigId" required  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.pigId.placeholder'  text='Enter Pig Id'/>" 
                       required-message="'<spring:message code='label.piginfo.pigleteventform.pigId.requiredmessage' text='Pig Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.pigleteventform.pigId.invalidmessage' text='Only Alpha numeric values are allowed' />'" ng-blur="searchFarrowEvent(pigletEvent.pigId.pigId, pigletEvent.companyId)"/>
+						invalid-message="'<spring:message code='label.piginfo.pigleteventform.pigId.invalidmessage' text='Only Alpha numeric values are allowed' />'" />
 					
                     </div>
                     <div>
@@ -126,10 +126,7 @@
 					</div>
 					<div class="form-group"> 
                       <label><spring:message code='label.piginfo.pigleteventform.litterId'  text='Litter Id'/></label>
-                      
-                      <label ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0">{{pigletEvent.litterId}}</label> 
-                      
-                     <input type="number" min="0" ng-value="0" maxlength="10"  step="1" size="10"   ng-show="pigletEvent.pigletId == null || pigletEvent.pigletId == 0" ng-model="pigletEvent.litterId" id="litterId" name="litterId"  class="form-control"
+                     <input type="number" min="0" ng-value="0" maxlength="10"  step="1" size="10"   ng-model="pigletEvent.litterId" id="litterId" name="litterId"  class="form-control"
                        placeholder="<spring:message code='label.piginfo.pigleteventform.litterId.placeholder'  text='Enter Litter Id of the piglet'/>" 
                       required-message="'<spring:message code='label.piginfo.pigleteventform.litterId.requiredmessage' text='Litter Id is required' />'"						
 						invalid-message="'<spring:message code='label.numeric.errormessage' text='Only Aplha numeric values are allowed' />'"  />

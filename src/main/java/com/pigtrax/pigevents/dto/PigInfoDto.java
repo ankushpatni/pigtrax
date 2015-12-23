@@ -35,6 +35,7 @@ public class PigInfoDto {
 	private Integer selectedPremise;
 	private String entryDateStr;
 	private String birthDateStr;
+	private String changePigIdDateStr;
 	
 	
 	public Integer getFarrowEventId() {
@@ -311,6 +312,15 @@ public class PigInfoDto {
 
 	public void setBirthDateStr(String birthDateStr) {
 		this.birthDateStr = birthDateStr;
+	}
+
+	
+	public String getChangePigIdDateStr() {
+		return changePigIdDateStr;
+	}
+
+	public void setChangePigIdDateStr(String changePigIdDateStr) {
+		this.changePigIdDateStr = changePigIdDateStr;
 	}
 
 	@Override

@@ -58,10 +58,10 @@ public class PigletEventServiceImpl implements PigletEventService {
 	public int savePigletEventInformation(PigletEventDto pigletEventDto)
 			throws PigTraxException {
 		try{
-			PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId(), pigletEventDto.getPremiseId());
-			if(pigInfo != null)
-			{
-				pigletEventDto.setPigInfoId(pigInfo.getId());
+			//PigInfo pigInfo = pigInfoDao.getPigInformationByPigId(pigletEventDto.getPigId(), pigletEventDto.getCompanyId(), pigletEventDto.getPremiseId());
+			//if(pigInfo != null)
+			//{
+				//pigletEventDto.setPigInfoId(pigInfo.getId());
 				/*if(pigletEventDto.getLitterId() != null)
 				{
 					FarrowEvent farrowEvent = farrowInfoDao.getFarrowEventIdByLitterId(pigInfo.getId(), pigletEventDto.getLitterId());
@@ -77,7 +77,7 @@ public class PigletEventServiceImpl implements PigletEventService {
 				{
 					return pigletEventDao.updatePigletEventDetails(pigletEvent)   ;
 				}
-			}
+			//}
 		}catch(SQLException sqlEx)
 		{
 			if("23505".equals(sqlEx.getSQLState()))
@@ -91,8 +91,7 @@ public class PigletEventServiceImpl implements PigletEventService {
 		{
 			  logger.info("DuplicateKeyException : "+sqlEx.getRootCause()+"/"+sqlEx.getCause());
 				throw new PigTraxException("Duplicate Key Exception occured. Please check Service Id", "", true);
-		}
-		return -1;
+		}		
 	}
 	
 	
@@ -105,17 +104,6 @@ public class PigletEventServiceImpl implements PigletEventService {
 			pigletEvents = pigletEventDao.getPigletEvents(pigletEventDto.getSearchText(), pigletEventDto.getSearchOption(), pigletEventDto.getCompanyId(), pigletEventDto.getSelectedPremise());
 			pigletEventDtoList =  builder.convertToDtos(pigletEvents);
 			
-			for(PigletEventDto dto : pigletEventDtoList)
-			{	
-				//FarrowEventDto farrowEventDto = farrowEventService.getFarrowEventDetails(dto.getFarrowEventId());
-				
-				//dto.setFarrowEventDto(farrowEventDto);
-				
-				PigInfo pigInfo = pigInfoDao.getPigInformationById(dto.getPigInfoId());
-				
-				dto.setPigId(pigInfo.getPigId());
-				
-			}
 			return pigletEventDtoList;
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());

@@ -909,6 +909,7 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"weight4" numeric(20,2),
 	"weight5" numeric(20,2),
 	"weight6" numeric(20,2),
+	"pigId" varchar(30) not null,
 	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId","id_Premise")
 
@@ -2285,6 +2286,7 @@ CREATE TABLE pigtrax."ChangedPigId"(
 	"changedSowId" varchar(30) NOT NULL,
 	"changeDateTime" timestamp not null,
 	"id_Company" int not null,
+	"id_Premise" int not null,
 	"lastUpdated" timestamp not null,
 	"userUpdated" varchar(30) not null,
 	CONSTRAINT "CHANGEDPIGID_PK" PRIMARY KEY (id)
@@ -2299,6 +2301,14 @@ ALTER TABLE pigtrax."ChangedPigId" OWNER TO pitraxadmin;
 ALTER TABLE pigtrax."ChangedPigId" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_Company")
 REFERENCES pigtrax."Company" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."ChangedPigId" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."ChangedPigId" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+
 -- ddl-end --
 
 

@@ -15,9 +15,62 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 	$scope.clearAllMessages();
 	$scope.searchOption = "";
 	$scope.pigInfo = {};
+	
+	
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.setCompanyId = function(companyId){
 	$rootScope.companyId = companyId;
+	$scope.loadPremises();
 	};
+	
+	
+	$scope.dateCheck = function(dateVal, fieldName)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			   if(fieldName == "changePigIdDate")
+				{
+					   $scope.changeDateRequired = true;
+					   $scope.pigInfo["changePigIdDate"] = null;
+				}			  
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			   if(fieldName == "changePigIdDate")
+				{
+				   $scope.changeDateRequired = false;
+				   $scope.pigInfo["changePigIdDate"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}			   
+			}
+		}
+		else
+		{
+			if(fieldName == "changePigIdDate")
+			{
+				   $scope.changeDateRequired = true;
+				   $scope.pigInfo["changePigIdDate"] = null;
+			}		   
+		}
+	  }
+	}
+	
+	
 	
 		$scope.getPigInformationForChangeId = function()
 		{
@@ -28,7 +81,7 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 			 else if(document.getElementById("rad2").checked)
 				 option = document.getElementById("rad2").value;
 			 
-			if($scope.searchText == undefined || option == "")
+			if($scope.searchText == undefined || option == "" || $scope.selectedPremise == undefined || $scope.selectedPremise == "")
 			{
 				   $scope.clearAllMessages();
 				   $scope.searchErrorMessage = true;
@@ -39,7 +92,8 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 					var searchPigInfo = {
 							searchText : $scope.searchText,
 							searchOption : option,
-							companyId : $rootScope.companyId
+							companyId : $rootScope.companyId,
+							selectedPremise : $scope.selectedPremise
 					};
 					restServices.getPigInformation(searchPigInfo, function(data)
 					{
@@ -88,9 +142,7 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 		
 		
 		$scope.changePigId = function()
-		{
-			var changeDate = document.getElementById("changeDate").value;
-			$scope.pigInfo["changePigIdDate"] = changeDate;
+		{	
 			
 			if($scope.pigInfo["changePigIdDate"] == undefined || $scope.pigInfo["changePigIdDate"] == null)
 			{
@@ -98,7 +150,8 @@ pigTrax.controller('ChangePigIdController', function($scope, $rootScope, $http,$
 			}
 			else if($scope.changeIdEventForm.$valid && !$scope.changeDateRequired)
 			{
-				$scope.pigInfo["changePigIdDate"] = changeDate;
+				$scope.pigInfo["selectedPremise"] = $scope.selectedPremise;
+				
 				restServices.changePigId($scope.pigInfo, function(data)
 				{
 					if(!data.error)
