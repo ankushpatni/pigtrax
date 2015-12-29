@@ -57,7 +57,9 @@
                 </div>
                 <div class="content">
                   <form name="feedEventForm" novalidate angular-validator my-reset>
+                   <input class="form-control" type="hidden" name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" ng-value="0"/>
                   <input type=hidden name="id" ng-model="feedEvent.id"/>
+                  <input type="hidden" class="form-control" ng-model="feedEvent.feedDateStr" />
 				  <!-- <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.feedContentId'  text='Feed Content Id'/></label>
                       <label ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage">{{feedEvent.feedContentId}}</label>
@@ -87,27 +89,7 @@
 					   <select class="form-control" ng-model="feedEvent.rationId" id="rationId" name="rationId"  class="form-control" laceholder="<spring:message code='label.piginfo.feedEventForm.rationId.placeholder'  text='Enter Ration Id'/>" 
                        required required-message="'<spring:message code='label.piginfo.feedEventForm.rationId.requiredMessage' text='Ration Id is required' />'"  
                          ng-options="k as v for (k, v) in rationType"> </select>
-                   </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime'  text='Initial Feed Entry Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
-                      <input type="text" class="form-control" ng-model="feedEvent.feedDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(feedEvent.feedDateStr, 'feedDate')"/>                    
-                    </div>
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="initialFeedEntryDateTimerequired" ><spring:message code='label.piginfo.feedEventForm.initialFeedEntryDateTime.requiredMessage' text='Initial Feed Entry Date Time is required' /></label>
-					</div>	
-	 				
-                   <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs'  text='Feed Quantity (In Kgs)'/><span style='color: red'>*</span></label>
-                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.placeHolder' text='Enter Feed Quantity (In Kgs)' />" 
-                     	name="initialFeedQuantityKgs" ng-model="feedEvent.initialFeedQuantityKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.feedEventForm.initialFeedQuantityKgs.requiredMessage' text='Feed Quantity required' />'" 
-                     	 ng-pattern="/^[-]?[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
-                   </div>
-                   <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/></label>
-                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.feedCost.placeHolder' text='Enter Feed Cost' />" 
-                     	name="feedCost" ng-model="feedEvent.feedCost" maxlength="20" required-message="'<spring:message code='label.piginfo.feedCost.feedCost.requiredMessage' text='Feed Cost required' />'" 
-                     	 ng-pattern="/^[-]?[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
-                   </div>
+                   </div>  
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.feedMedication'  text='Feed Medication'/></label>
                       <input type="text" ng-model="feedEvent.feedMedication" id="feedMedication" name="feedMedication"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.feedMedication.placeholder'  text='Enter Feed Medication'/>" 
@@ -156,6 +138,7 @@
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedMill" text="Feed Mill" /></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>												
+						<th style="width:10%"><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>						
 						<th style="width:10%"><spring:message code="label.feedEventDetail.edit" text="Edit" /></th>
@@ -169,6 +152,7 @@
 					<td style="width:25%">{{row.feedMill}}</td>
 					<td style="width:25%">{{feedEventType[row.feedEventTypeId]}}</td>
 					<td style="width:10%">{{row.weightInKgs}}</td>
+					<td style="width:10%">{{row.feedCost}}</td>
 					<td style="width:25%">{{siloList[row.siloId]}}</td>
 					<td style="width:25%">{{row.remarks}}</td>
 					<td style="width: 8%">

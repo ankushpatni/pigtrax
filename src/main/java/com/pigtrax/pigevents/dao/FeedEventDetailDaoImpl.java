@@ -38,7 +38,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	public FeedEventDetail getFeedEventDetailById(final int id)
 			throws SQLException {
 		String qry = "select FED.\"id\", FED.\"feedEventDate\", FED.\"weightInKgs\", FED.\"remarks\", FED.\"id_FeedEvent\", "
-		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\",FED.\"feedMill\" "+
+		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\",FED.\"feedMill\", FED.\"feedCost\" "+
 		   		"from pigtrax.\"FeedEventDetails\" FED LEFT JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" where FED.\"id\" = ? ";
 			
 			List<FeedEventDetail> feedEventDetailList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -57,7 +57,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	public List<FeedEventDetail> getFeedEventDetailByFeedEventId(final int feedEventid)
 			throws SQLException {
 		String qry = "select FED.\"id\", FED.\"feedEventDate\", FED.\"weightInKgs\", FED.\"remarks\", FED.\"id_FeedEvent\", "
-		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\",FED.\"feedMill\" "+
+		   		+ "FED.\"id_Silo\", FED.\"id_GroupEvent\", FED.\"id_FeedEventType\",FED.\"lastUpdated\", FED.\"userUpdated\",GE.\"groupId\",FED.\"feedMill\", FED.\"feedCost\" "+
 		   		"from pigtrax.\"FeedEventDetails\" FED LEFT JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" where FED.\"id_FeedEvent\" = ? ";
 			
 			List<FeedEventDetail> feedEventDetailList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -76,8 +76,8 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	public int addFeedEventDetail(final FeedEventDetail feedEventDetail)
 			throws SQLException {
 		final String Qry = "insert into pigtrax.\"FeedEventDetails\"(\"feedEventDate\", \"weightInKgs\", \"remarks\", \"id_FeedEvent\", "
-		   		+ "\"id_Silo\", \"id_GroupEvent\", \"id_FeedEventType\",\"lastUpdated\", \"userUpdated\",\"feedMill\") "
-				+ "values(?,?,?,?,?,?,?,current_timestamp,?,?)";	
+		   		+ "\"id_Silo\", \"id_GroupEvent\", \"id_FeedEventType\",\"lastUpdated\", \"userUpdated\",\"feedMill\",\"feedCost\") "
+				+ "values(?,?,?,?,?,?,?,current_timestamp,?,?,?)";	
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -115,8 +115,9 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 					ps.setNull(6, java.sql.Types.INTEGER);
 				}
 				ps.setInt(7, feedEventDetail.getFeedEventTypeId());
-				ps.setString(8, UserUtil.getLoggedInUser());
+				ps.setString(8, feedEventDetail.getUserUpdated());
 				ps.setString(9,  feedEventDetail.getFeedMill());
+				ps.setObject(10, feedEventDetail.getFeedCost(), java.sql.Types.DOUBLE);
 				return ps;
 			}
 		}, holder);
@@ -130,7 +131,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			throws SQLException {
 		String query = "update pigtrax.\"FeedEventDetails\" SET \"feedEventDate\"=?, \"weightInKgs\"=?, \"remarks\"=?,"
 				+" \"id_Silo\"=? ,\"id_GroupEvent\" =? , \"id_FeedEventType\" = ?, \"lastUpdated\"=current_timestamp,"+
-				" \"userUpdated\"=?,\"feedMill\"=?  where \"id\" = ? ";
+				" \"userUpdated\"=?,\"feedMill\"=?,\"feedCost\" = ?  where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
@@ -163,9 +164,10 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 						ps.setNull(5, java.sql.Types.INTEGER);
 					}
 					ps.setInt(6, feedEventDetail.getFeedEventTypeId());
-					ps.setString(7, UserUtil.getLoggedInUser());
+					ps.setString(7, feedEventDetail.getUserUpdated());
 					ps.setString(8, feedEventDetail.getFeedMill());
-					ps.setInt(9, feedEventDetail.getId());
+					ps.setObject(9, feedEventDetail.getFeedCost(), java.sql.Types.DOUBLE);
+					ps.setInt(10, feedEventDetail.getId());
 				}
 			});	
 	}
@@ -190,6 +192,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			feedEventDetail.setUserUpdated(rs.getString("userUpdated"));
 			feedEventDetail.setGroupEventGroupId(rs.getString("groupId"));
 			feedEventDetail.setFeedMill(rs.getString("feedMill"));
+			feedEventDetail.setFeedCost(rs.getBigDecimal("feedCost"));
 			return feedEventDetail;
 		}	
 	}

@@ -247,8 +247,8 @@
                     </div> -->
                     
                      <div class="form-group">
-                      <label><spring:message code='label.piginfo.farroweventform.teats'  text='Teats'/><span style='color: red'>*</span></label>                      
-                      <select class="form-control" name="teats" ng-model="farrowEvent.teats" required required-message="'<spring:message code='label.piginfo.farroweventform.teats.requiredmessage' text='Teats is required'/>'">
+                      <label><spring:message code='label.piginfo.farroweventform.teats'  text='Teats'/></label>                      
+                      <select class="form-control" name="teats" ng-model="farrowEvent.teats" >
                             <option ng-repeat="i in 30 | teatsrange" ng-value="i+1">{{i+1}}</option>                            
                         </select>
                     </div>

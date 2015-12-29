@@ -107,7 +107,7 @@ public class BarnDaoImpl implements BarnDao {
 				ps.setInt(7, barn.getWaterAccessCount());
 				ps.setBoolean(8, barn.isActive());
 				ps.setDate(9, new java.sql.Date(System.currentTimeMillis()));
-				ps.setString(10, UserUtil.getLoggedInUser());
+				ps.setString(10, barn.getUserUpdated());
 				if(barn.getVentilationTypeId() != 0)
 				{
 					ps.setInt(11, barn.getVentilationTypeId());
@@ -181,7 +181,7 @@ public class BarnDaoImpl implements BarnDao {
 				ps.setInt(4, barn.getFeederCount());
 				ps.setInt(5, barn.getWaterAccessCount());
 				ps.setDate(6, new java.sql.Date(System.currentTimeMillis()));
-				ps.setString(7, UserUtil.getLoggedInUser());
+				ps.setString(7, barn.getUserUpdated());
 				
 				if(barn.getVentilationTypeId() != 0)
 				{

@@ -130,8 +130,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 				PreparedStatement ps = con.prepareStatement(Qry,new String[] { "id" });
 				ps.setString(1, feedEvent.getTicketNumber());
 				ps.setString(2, feedEvent.getFeedContentId());
-				ps.setDate(3, new java.sql.Date(feedEvent
-						.getInitialFeedEntryDateTime().getTime()));
+				ps.setNull(3, java.sql.Types.DATE);
 				ps.setInt(4, feedEvent.getRationId());
 				ps.setObject(5, feedEvent.getInitialFeedQuantityKgs(), java.sql.Types.DOUBLE);
 				ps.setObject(6, feedEvent.getFeedCost(), java.sql.Types.DECIMAL);
@@ -162,17 +161,8 @@ public class FeedEventDaoImpl implements FeedEventDao
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
-					ps.setString(1, feedEvent.getTicketNumber());
-					if(null!=feedEvent
-							.getInitialFeedEntryDateTime())
-					{
-					ps.setDate(2, new java.sql.Date(feedEvent
-							.getInitialFeedEntryDateTime().getTime()));
-					}
-					else
-					{
-						ps.setNull(2, java.sql.Types.DATE);
-					}
+					ps.setString(1, feedEvent.getTicketNumber());		
+					ps.setNull(2, java.sql.Types.DATE);		
 					ps.setInt(3, feedEvent.getRationId());
 					
 					if(feedEvent.getInitialFeedQuantityKgs() != null )

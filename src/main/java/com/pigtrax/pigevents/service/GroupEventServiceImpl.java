@@ -97,7 +97,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 		try {
 			int generatedId = groupEventDao.addGroupEvent(groupEvent);
 			PigTraxEventMaster master = new PigTraxEventMaster();
-			master.setUserUpdated(UserUtil.getLoggedInUser());
+			master.setUserUpdated(groupEvent.getUserUpdated());
 			master.setEventTime(groupEvent.getGroupStartDateTime());
 			master.setGroupEventId(generatedId);
 			master.setLastUpdated( new java.sql.Date(System.currentTimeMillis()));

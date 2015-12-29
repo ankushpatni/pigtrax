@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import com.pigtrax.master.dto.Barn;
 import com.pigtrax.master.dto.Room;
 import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -80,9 +82,11 @@ public class BarnRestController {
 		logger.debug("Inside insertBarnRecord()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		int updatedRecord = 0;
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try 
 		{
 		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
+			barn.setUserUpdated(activeUser.getUsername());
 			if( 0 == barn.getId() )
 			{
 				updatedRecord = barnService.insertBarnRecord(barn);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pigtrax.master.dto.Silo;
 import com.pigtrax.master.service.interfaces.SiloService;
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -75,8 +77,10 @@ public class SiloRestController {
 		logger.debug("Inside insertSiloRecord()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		int updatedRecord = 0;
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try 
 		{
+			silo.setUserUpdated(activeUser.getUsername());
 		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
 			if( 0 == silo.getId() )
 			{

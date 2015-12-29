@@ -18,6 +18,7 @@ public class FeedEventDetail {
 	private String groupEventGroupId;
 	private String feedEventDateStr;
 	private String feedMill;
+	private BigDecimal feedCost;
 	
 	public Integer getId() {
 		return id;
@@ -96,6 +97,12 @@ public class FeedEventDetail {
 	}
 	public void setFeedMill(String feedMill) {
 		this.feedMill = feedMill;
+	}
+	public BigDecimal getFeedCost() {
+		return feedCost;
+	}
+	public void setFeedCost(BigDecimal feedCost) {
+		this.feedCost = feedCost;
 	}
 	
 	

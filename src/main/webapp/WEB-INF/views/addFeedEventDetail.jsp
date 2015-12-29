@@ -60,6 +60,13 @@
 					</div>
 					
 					<div class="form-group">
+                      <label><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/></label>
+                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.feedEventForm.feedCost.placeHolder' text='Enter Feed Cost' />" 
+                     	name="feedCost" ng-model="feedEventDetail.feedCost" maxlength="20" required-message="'<spring:message code='label.piginfo.feedCost.feedCost.requiredMessage' text='Feed Cost required' />'" 
+                     	 ng-pattern="/^[-]?[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
+                   </div>
+					
+					<div class="form-group">
                       <label><spring:message code='label.feedEventDetail.siloId'  text='Silo'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="siloId" id="siloId" ng-model="feedEventDetail.siloId" required required-message="'<spring:message code='label.feedEventDetail.siloId.required' text='Silo is required' />'" 
                          ng-options="k as v for (k, v) in siloList">

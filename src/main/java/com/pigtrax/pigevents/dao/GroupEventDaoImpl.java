@@ -104,7 +104,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 				
 				ps.setBoolean(4, true);
 				ps.setString(5, groupEvent.getRemarks());
-				ps.setString(6, UserUtil.getLoggedInUser());
+				ps.setString(6, groupEvent.getUserUpdated());
 				ps.setInt(7, groupEvent.getCompanyId());
 				if(null != groupEvent.getCurrentInventory())
 				{
@@ -163,7 +163,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 					ps.setBoolean(3, groupEvent.isActive());
 					ps.setString(4, groupEvent.getRemarks());
 					ps.setDate(5, new java.sql.Date(System.currentTimeMillis()));
-					ps.setString(6, UserUtil.getLoggedInUser());
+					ps.setString(6, groupEvent.getUserUpdated());
 					
 					if(null != groupEvent.getCurrentInventory())
 					{

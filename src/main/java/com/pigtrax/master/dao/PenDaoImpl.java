@@ -81,7 +81,7 @@ public class PenDaoImpl implements PenDao {
 				ps.setString(3, pen.getLocation());
 				ps.setBoolean(4, pen.isActive());
 				ps.setDate(5, new java.sql.Date(System.currentTimeMillis()));
-				ps.setString(6, UserUtil.getLoggedInUser());
+				ps.setString(6, pen.getUserUpdated());
 			}
 		});
 	}
@@ -96,7 +96,7 @@ public class PenDaoImpl implements PenDao {
 
 				ps.setString(1, pen.getLocation());
 				ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
-				ps.setString(3, UserUtil.getLoggedInUser());
+				ps.setString(3, pen.getUserUpdated());
 				ps.setString(4, pen.getPenId());
 
 			}

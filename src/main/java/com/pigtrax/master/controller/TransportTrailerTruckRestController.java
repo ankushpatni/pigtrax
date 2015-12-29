@@ -71,8 +71,10 @@ public class TransportTrailerTruckRestController {
 		logger.debug("Inside insertTransportTruckRecord()" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		int updatedRecord = 0;
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try 
 		{
+			transportTruck.setUserUpdated(activeUser.getUsername());
 		//	Company checkCompany = companyService.findByCompanyID(company.getCompanyId());
 			if( 0 == transportTruck.getId() )
 			{

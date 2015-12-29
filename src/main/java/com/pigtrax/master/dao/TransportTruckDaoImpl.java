@@ -80,7 +80,7 @@ public class TransportTruckDaoImpl implements TransportTruckDao{
 				ps.setString(1, transportTruck.getTransportTruckId().toUpperCase());
 				ps.setInt(2, transportTruck.getCompanyId());
 				ps.setDate(3, new java.sql.Date(System.currentTimeMillis()));
-				ps.setString(4, UserUtil.getLoggedInUser());
+				ps.setString(4, transportTruck.getUserUpdated());
 				ps.setInt(5, transportTruck.getPurchaseYear());
 				ps.setString(6, transportTruck.getMake());
 			}

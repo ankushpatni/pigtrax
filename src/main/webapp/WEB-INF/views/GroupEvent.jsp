@@ -81,6 +81,16 @@
                          ng-options="k as v for (k, v) in phaseOfProductionType"> </select>
                          <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       
                     </div>
+                    
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.groupEventForm.previousGroupId'  text='Previous Group'/></label>
+                     <%--  <input type="text" ng-model="groupEvent.previousGroupId" id="previousGroupId" name="previousGroupId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
+                       ng-focus="clearMessages()"/> --%>                      
+					   <input type="text" ng-model="groupEvent.previousGroupId" id="previousGroupId" name="previousGroupId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.groupEventForm.prevgroupId.placeholder'  text='Enter previous Group Id'/>"
+                      	ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Alpha Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
+                   </div>
+                    
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
                       <input type="text" ng-model="groupEvent.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
@@ -93,13 +103,7 @@
                        ng-focus="clearMessages()"/> --%>
 					   <label ng-hide="(groupEvent.currentInventory >= 0)"> : 0</label>
                    </div>
-                   <div class="form-group">
-                      <label><spring:message code='label.piginfo.groupEventForm.previousGroupId'  text='Previous Group'/></label>
-                     <%--  <input type="text" ng-model="groupEvent.previousGroupId" id="previousGroupId" name="previousGroupId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
-                       ng-focus="clearMessages()"/> --%>
-                       <label ng-show="(groupEvent.previousGroupId != null)"> : {{groupEvent.previousGroupId}}</label>
-					   <label ng-hide="(groupEvent.previousGroupId != null)"> -- </label>
-                   </div>
+                   
 				    <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.groupEventDerived'  text='Group Event Derived'/></label>
                         <label> : {{followedGroupIdString}}</label>

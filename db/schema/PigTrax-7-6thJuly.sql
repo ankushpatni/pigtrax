@@ -104,7 +104,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."Barn" CASCADE;
 CREATE TABLE pigtrax."Barn"(
 	id serial NOT NULL,
-	"barnId" varchar(10) NOT NULL,
+	"barnId" varchar(15) NOT NULL,
 	"id_Premise" integer,
 	"id_PhaseType" integer,
 	location varchar(30),
@@ -476,9 +476,9 @@ CREATE TABLE pigtrax."FeedEvent"(
 	id serial NOT NULL,
 	"ticketNumber" varchar(30) NOT NULL,
 	"feedContentId" varchar(30),
-	"initialFeedEntryDateTime" timestamp NOT NULL,
+	"initialFeedEntryDateTime" timestamp ,
 	"batchId" integer,
-	"initialFeedQuantityKgs" numeric(20,2) NOT NULL,
+	"initialFeedQuantityKgs" numeric(20,2) ,
 	"feedCost" numeric(20,2),
 	"feedMedication" varchar(255),
 	"id_TransportJourney" integer,
@@ -1907,6 +1907,7 @@ CREATE TABLE pigtrax."FeedEventDetails"(
 	"userUpdated" varchar(20) NOT NULL,
 	"lastUpdated" timestamp NOT NULL,
 	"feedMill" varchar(50),
+	"feedCost" numeric(20,2),
 	CONSTRAINT "FEEDEVENTDETAILS_PK" PRIMARY KEY (id)
 
 );
