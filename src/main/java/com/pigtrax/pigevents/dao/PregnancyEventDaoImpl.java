@@ -173,8 +173,8 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
  	   String qry = "select PE.\"id\", PE.\"id_PigInfo\", PE.\"id_EmployeeGroup\", PE.\"id_PregnancyEventType\", "
  	   		+ "PE.\"id_PregnancyExamResultType\", PE.\"examDate\", PE.\"resultDate\", PE.\"sowCondition\", "
  	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\",PE.\"id_Premise\" "
- 	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" and PE.\"id_Premise\" = ?"
- 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
+ 	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" "
+ 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ?";
  		
  		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
@@ -215,8 +215,8 @@ public class PregnancyEventDaoImpl implements PregnancyEventDao {
 	   String qry = "select PE.\"id\", PE.\"id_PigInfo\", PE.\"id_EmployeeGroup\", PE.\"id_PregnancyEventType\", "
 	   		+ "PE.\"id_PregnancyExamResultType\", PE.\"examDate\", PE.\"resultDate\", PE.\"sowCondition\", "
 	   		+ "PE.\"lastUpdated\", PE.\"userUpdated\", PE.\"id_BreedingEvent\",\"id_Premise\" "
-	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" and PE.\"id_Premise\" = ?"
-	   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? ";
+	   		+ "from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" "
+	   		+ " WHERE PI.\"tattoo\" = ? and PI.\"id_Company\" = ? and PE.\"id_Premise\" = ?";
 		
 		List<PregnancyEvent> pregnancyEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override

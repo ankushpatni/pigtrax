@@ -43,6 +43,7 @@
 							<option value="GROUPEVENT" <%=eventType.equals("GROUP")?"selected":"" %>>GROUP</option>
 							<option value="GROUPEVENTDETAILEVENT" <%=eventType.equals("GROUP DETAIL")?"selected":"" %>>GROUP DETAIL</option>
 							<option value="FEEDEVENT" <%=eventType.equals("FEED")?"selected":"" %>>FEED</option>
+							<option value="FEEDDETAILEVENT" <%=eventType.equals("FEED DETAIL")?"selected":"" %>>FEED DETAIL</option>
 							<option value="REMOVALEVENTEXCEPTSALESEVENT" <%=eventType.equals("REMOVALEVENTEXCEPTSALESEVENT")?"selected":"" %>>REMOVALEVENTEXCEPTSALESEVENT</option>
 							<option value="SALESEVENTDETAILS" <%=eventType.equals("SALESEVENTDETAILS")?"selected":"" %>>SALESEVENTDETAILS</option>
 													

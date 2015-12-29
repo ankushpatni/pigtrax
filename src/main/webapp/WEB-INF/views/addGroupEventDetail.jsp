@@ -21,7 +21,7 @@
 					 
 					 <div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="groupEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-change="getRooms()" ng-model="groupEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
                        	<option ng-repeat="farm in farmList" value="{{farm.id}}" ng-value="farm.id" ng-selected="groupEvent.premiseId == farm.id">{{farm.name}}</option>
                         </select>
                     </div>	

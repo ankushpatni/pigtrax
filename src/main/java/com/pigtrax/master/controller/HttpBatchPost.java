@@ -12,7 +12,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 
 @Component
 public class HttpBatchPost {
@@ -26,6 +29,9 @@ public class HttpBatchPost {
 
 	private void doPost(final String eventType, final String header, final String seperator, final String fileType, final String userName, final String filePath) {
 		try {
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost postRequest = new HttpPost(env.getProperty("batch.process.url"));
 			List<BasicNameValuePair> urlParameters = new ArrayList<BasicNameValuePair>();
@@ -33,7 +39,7 @@ public class HttpBatchPost {
 			urlParameters.add(new BasicNameValuePair("header", header));
 			urlParameters.add(new BasicNameValuePair("seperator", seperator));
 			urlParameters.add(new BasicNameValuePair("fileType", fileType));
-			urlParameters.add(new BasicNameValuePair("userName", userName));
+			urlParameters.add(new BasicNameValuePair("userName", activeUser.getUsername()));
 			urlParameters.add(new BasicNameValuePair("data", filePath));
 			postRequest.setEntity(new UrlEncodedFormEntity(urlParameters));
 			HttpResponse response = httpClient.execute(postRequest);

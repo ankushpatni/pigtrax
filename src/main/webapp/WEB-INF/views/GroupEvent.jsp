@@ -162,7 +162,6 @@
 						<th style="width:10%"><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>
-						<th style="width:7%"><spring:message code="label.groupEventDetail.inventoryAdjustment" text="Inventory Adjustment" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.roomId" text="Room" /></th>
 						<th style="width:35%"><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></th>
 						<th style="width:5%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
@@ -175,7 +174,6 @@
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.dateOfEntry)}}</td>
 					<td style="width:7%">{{row.numberOfPigs}}</td>
 					<td style="width:7%">{{row.weightInKgs}}</td>
-					<td style="width:7%">{{row.inventoryAdjustment}}</td>
 					<td style="width:7%">{{roomList[row.roomId]}}</td>
 					<td style="width:35%">{{row.remarks}}</td>
 					<td style="width: 5%">
