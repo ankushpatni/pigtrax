@@ -28,7 +28,7 @@
 					
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
-                       <select class="form-control" ng-change="getRooms()"  name="roomId" id="roomId" ng-model="groupEvent.roomId"  required required-message="'<spring:message code='label.groupEventDetail.room.required' text='Room is required' />'" 
+                       <select class="form-control" name="roomId" id="roomId" ng-model="groupEvent.roomId"  required required-message="'<spring:message code='label.groupEventDetail.room.required' text='Room is required' />'" 
                          ng-options="k as v for (k, v) in roomType" ng-change="getBarnDetailsByRoom()">
                         </select>
                     </div>

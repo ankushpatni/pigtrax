@@ -168,7 +168,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."Room" CASCADE;
 CREATE TABLE pigtrax."Room"(
 	id serial NOT NULL,
-	"roomId" varchar(14) NOT NULL,
+	"roomId" varchar(20) NOT NULL,
 	location varchar(30),
 	"isActive" bool,
 	"lastUpdated" timestamp NOT NULL,
