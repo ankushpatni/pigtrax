@@ -17,4 +17,5 @@ public interface GroupEventDetailsDao {
 	 
 	void deleteGroupEventDetailsByGroupId(final Integer id) throws SQLException;
 	
+	void deleteGroupEventDetailsByPigletEvent(final Integer pigletStatusEventId) throws SQLException;
 }

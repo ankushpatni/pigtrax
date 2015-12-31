@@ -359,7 +359,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		String qry = "select BE.* from pigtrax.\"BreedingEvent\" BE where BE.\"serviceStartDate\" "
 				+ "	is not NULL and BE.\"id\" not in (select PE.\"id_BreedingEvent\" from pigtrax.\"PregnancyEvent\" PE "
 				+ " JOIN pigtrax.\"BreedingEvent\" BE on PE.\"id_BreedingEvent\" = BE.\"id\" JOIN pigtrax.\"PigInfo\" PI "
-				+ " on BE.\"id_PigInfo\" = PI.\"id\" where PI.\"id\" = ?) and  BE.\"id_PigInfo\" = ? order by BE.\"id\" desc";
+				+ " on BE.\"id_PigInfo\" = PI.\"id\" where PI.\"id\" = ?) and  BE.\"id_PigInfo\" = ? and BE.\"serviceStartDate\" is not NULL order by BE.\"id\" desc";
 		
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -370,6 +370,26 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 		
 		return breedingEventList;
 	}
+	
+	
+	@Override
+	public List<BreedingEvent> getPendingFarrowServiceRecords(final Integer pigInfoId) {
+		String qry = "select BE.* from pigtrax.\"BreedingEvent\" BE where BE.\"serviceStartDate\" "
+				+ "	is not NULL and BE.\"id\" not in (select FE.\"id_BreedingEvent\" from pigtrax.\"FarrowEvent\" FE "
+				+ " JOIN pigtrax.\"BreedingEvent\" BE on FE.\"id_BreedingEvent\" = BE.\"id\"  JOIN pigtrax.\"PigInfo\" PI "
+				+ " on BE.\"id_PigInfo\" = PI.\"id\" where PI.\"id\" = ?) and  BE.\"id_PigInfo\" = ? and BE.\"serviceStartDate\" is not NULL order by BE.\"id\" desc";
+		
+		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, pigInfoId);
+				ps.setInt(2, pigInfoId);
+			}}, new BreedingEventMapper());
+		
+		return breedingEventList;
+	}
+	
+	
 	
 	@Override
 	public Date getServiceStartDate(final Integer breedingEventId){

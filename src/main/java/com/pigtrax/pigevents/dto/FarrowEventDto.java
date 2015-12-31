@@ -42,6 +42,7 @@ public class FarrowEventDto {
 	private Integer premiseId;
 	private Integer selectedPremise;
 	private String farrowDateStr;
+	private Integer breedingEventId;
 	
 	public Integer getId() {
 		return id;
@@ -258,6 +259,12 @@ public class FarrowEventDto {
 	}
 	public void setFarrowDateStr(String farrowDateStr) {
 		this.farrowDateStr = farrowDateStr;
+	}
+	public Integer getBreedingEventId() {
+		return breedingEventId;
+	}
+	public void setBreedingEventId(Integer breedingEventId) {
+		this.breedingEventId = breedingEventId;
 	}
 
 	

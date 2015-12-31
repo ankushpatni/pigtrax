@@ -186,5 +186,17 @@ public class PenDaoImpl implements PenDao {
 
 			  return penList;
 	}
+	
+	@Override
+	public Pen findPenByGeneratedId(final Integer penId) throws SQLException {
+		String Qry = "Select \"id\", \"penId\", \"id_Room\", \"location\", \"isActive\" from pigtrax.\"Pen\" where  \"isActive\" is true and \"id\"=?";		  		
+		  List<Pen> penList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, penId);
+				}}, new PenMapper()); 
+		  if(penList != null && 0 < penList.size())
+			  return penList.get(0);
+		  return null;
+	}
 
 }

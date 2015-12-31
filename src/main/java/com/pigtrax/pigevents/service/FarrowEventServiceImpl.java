@@ -16,6 +16,7 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dto.EmployeeGroupDto;
 import com.pigtrax.master.service.interfaces.EmployeeGroupService;
+import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.FarrowEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
@@ -85,7 +86,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 			{
 				farrowEventDto.setPigInfoId(pigInfo.getId());
 				
-				boolean check = setPregnancyEventId(farrowEventDto);
+				boolean check = setBreedingEventId(farrowEventDto);
 				if(check)
 				{
 					FarrowEvent farrowEvent = builder.convertToBean(farrowEventDto);
@@ -101,7 +102,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 				}
 				else
 				{
-					throw new PigTraxException("INVALID-PREGNANCY-RECORD");
+					throw new PigTraxException("INVALID-SERVICE-RECORD");
 				}
 			}
 		}catch(SQLException sqlEx)
@@ -123,29 +124,30 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	
 	
 	
-	private boolean setPregnancyEventId(FarrowEventDto farrowEventDto)
+	private boolean setBreedingEventId(FarrowEventDto farrowEventDto)
 	{
 		if(farrowEventDto.getPigInfoId() != null && farrowEventDto.getFarrowDateTime() != null)
 		{
 			List<PregnancyEvent> pregnancyList = pregnancyEventDao.getOpenPregnancyRecords(farrowEventDto.getPigInfoId());
-			if(pregnancyList != null && 0 <pregnancyList.size())
+			List<BreedingEvent> breedingEventList = breedingEventDao.getPendingFarrowServiceRecords(farrowEventDto.getPigInfoId());
+			if(breedingEventList != null && 0 <breedingEventList.size())
 			{
-				for(PregnancyEvent pregnancyInfo :  pregnancyList)
+				for(BreedingEvent breedingEventDetails :  breedingEventList)
 				{
-					if(pregnancyInfo != null) 
+					if(breedingEventDetails != null) 
 					{
-						DateTime serviceDate = new DateTime(breedingEventDao.getServiceStartDate(pregnancyInfo.getBreedingEventId()));
+						DateTime serviceDate = new DateTime(breedingEventDetails.getServiceStartDate());
 						DateTime farrowDate = new DateTime(farrowEventDto.getFarrowDateTime());
 						int duration = Days.daysBetween(serviceDate, farrowDate).getDays();
 						if(duration >= 105 && duration <= 130)
 						{
-							farrowEventDto.setPregnancyEventId(pregnancyInfo.getId());
+							farrowEventDto.setBreedingEventId(breedingEventDetails.getId());
 							break;
 						}
 					}
 				}
 			}
-			if(farrowEventDto.getPregnancyEventId() != null && farrowEventDto.getPregnancyEventId() != 0)
+			if(farrowEventDto.getBreedingEventId() != null && farrowEventDto.getBreedingEventId() != 0)
 				return true;
 			else
 				return false;
@@ -215,7 +217,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 			for(FarrowEventDto dto : farrowEventDtoList)
 			{
 				//Get pregnancyEvent details
-				dto.setPregnancyEventDto(pregnancyEventService.getPregnancyEventInformation(dto.getPregnancyEventId(), farrowEventDto.getLanguage()));  
+				//dto.setPregnancyEventDto(pregnancyEventService.getPregnancyEventInformation(dto.getPregnancyEventId(), farrowEventDto.getLanguage()));  
 				 
 				//Get the employee group details
 				EmployeeGroupDto empGrpDto = employeeGroupService.getEmployeeGroup(dto.getEmployeeGroupId());
@@ -245,9 +247,9 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 			PigInfo info;
 			try {
 				
-				PregnancyEventDto pregEventDto = pregnancyEventService.getPregnancyEventInformation(dto.getPregnancyEventId(), "en");
-				if(pregEventDto != null)
-					dto.setPregnancyEventDto(pregEventDto);
+				//PregnancyEventDto pregEventDto = pregnancyEventService.getPregnancyEventInformation(dto.getPregnancyEventId(), "en");
+				//if(pregEventDto != null)
+				//	dto.setPregnancyEventDto(pregEventDto);
 				
 				info = pigInfoDao.getPigInformationById(dto.getPigInfoId());
 			} catch (SQLException e) {

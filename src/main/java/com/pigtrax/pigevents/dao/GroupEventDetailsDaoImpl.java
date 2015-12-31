@@ -135,8 +135,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	public int addGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException {
 		final String Qry = "insert into pigtrax.\"GroupEventDetails\"(\"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", \"id_EmployeeGroup\", \"numberOfPigs\","
 					+"\"weightInKgs\", \"indeventoryAdjustment\", \"remarks\", \"lastUpdated\", \"userUpdated\", "
-					+ "\"id_TransportDestination\", \"id_SowSource\",\"id_Premise\") "
-				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?,?)";
+					+ "\"id_TransportDestination\", \"id_SowSource\",\"id_Premise\", \"id_PigletStatusEvent\") "
+				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -186,6 +186,10 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	     	            	ps.setInt(13, groupEventDetails.getPremiseId());
 	     	            else
 	     	            	ps.setNull(13, java.sql.Types.INTEGER);
+	    	            if(groupEventDetails.getPigletStatusEventId() != null && groupEventDetails.getPigletStatusEventId() != 0)
+	     	            	ps.setInt(14, groupEventDetails.getPigletStatusEventId());
+	     	            else
+	     	            	ps.setNull(14, java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -208,6 +212,20 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 			});
 		
 	}
+	
+		@Override
+		public void deleteGroupEventDetailsByPigletEvent(final Integer pigletStatusEventId)
+				throws SQLException {
+			final String qry = "delete from pigtrax.\"GroupEventDetails\" where \"id_PigletStatusEvent\" = ?";
+			
+			this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, pigletStatusEventId);
+				}
+			});
+			
+		}
 	
 	
 	 private static final class GroupEventDetailsMapper implements RowMapper<GroupEventDetails> {

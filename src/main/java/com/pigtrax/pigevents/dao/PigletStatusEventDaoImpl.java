@@ -105,7 +105,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			final Integer pigletStatusEventId) {
 		String qry = "select PSE.\"id\", PSE.\"id_PigInfo\", PSE.\"fosterFrom\", "
 		   		+ "PSE.\"fosterTo\", PSE.\"id_PigletStatusEventType\", PSE.\"eventDateTime\", PSE.\"numberOfPigs\""
-		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\""
+		   		+ ", PSE.\"weightInKgs\", PSE.\"eventReason\", PSE.\"remarks\", PSE.\"sowCondition\", PSE.\"weanGroupId\", "
 		   		+ " PSE.\"lastUpdated\",PSE.\"userUpdated\", PSE.\"id_FarrowEvent\", PSE.\"id_fosterFarrowEvent\", "
 		   		+ "PSE.\"id_GroupEvent\", PSE.\"id_MortalityReasonType\", PSE.\"id_Pen\",\"id_Premise\" "
 		   		+ " from pigtrax.\"PigletStatus\" PSE where PSE.\"id\" = ? ";

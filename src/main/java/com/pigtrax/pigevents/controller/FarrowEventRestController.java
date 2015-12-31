@@ -96,8 +96,8 @@ public class FarrowEventRestController {
 				dto.setDuplicateRecord(true);
 				dto.setStatusMessage("ERROR : "+e.getMessage());
 			}
-			else if(e.getMessage().equalsIgnoreCase("INVALID-PREGNANCY-RECORD"))
-				dto.setStatusMessage("ERR:INVALID-PREGNANCY-RECORD");
+			else if(e.getMessage().equalsIgnoreCase("INVALID-SERVICE-RECORD"))
+				dto.setStatusMessage("ERR:INVALID-SERVICE-RECORD");
 			else
 				dto.setStatusMessage("ERROR : "+e.getMessage());
 			

@@ -152,28 +152,124 @@
                     </div>	
                     
                     <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weight1'  text='Weight (1st month)'/></label>
-                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight1" id="weight1" name="weight1"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight1.placeholder'  text='Enter weight at 1st month'/>"/>
+					 <table class="no-border">
+					 	<tbody class="no-border-x no-border-y">
+					 	<tr>
+					 		<td>
+                      			<label><spring:message code='label.piginfo.pigleteventform.weight1'  text='Weight (1st month)'/></label>
+					  		</td>
+					  		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight1" id="weight1" name="weight1"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight1.placeholder'  text='Enter weight at 1st month'/>"/>
+					 		</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr1" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr1, 'date1')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
                     </div>	
                     <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weight2'  text='Weight (2nd month)'/></label>
-                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight2" id="weight2" name="weight2"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight2.placeholder'  text='Enter weight at 2nd month'/>"/>
+					 <table class="no-border">
+					 	<tbody class="no-border-x no-border-y">
+					 	<tr>
+                    		<td> 
+                      			<label><spring:message code='label.piginfo.pigleteventform.weight2'  text='Weight (2nd month)'/></label>
+                      		</td>
+                      		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight2" id="weight2" name="weight2"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight2.placeholder'  text='Enter weight at 2nd month'/>"/>
+                    		</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr2" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr2, 'date2')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
                     </div>	
                     <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weight3'  text='Weight (3rd month)'/></label>
-                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight3" id="weight3" name="weight3"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight3.placeholder'  text='Enter weight at 3rd month'/>"/>
+                     <table class="no-border">
+					 	<tbody class="no-border-x no-border-y">
+					 	<tr>
+                    		<td> 
+                      			<label><spring:message code='label.piginfo.pigleteventform.weight3'  text='Weight (3rd month)'/></label>
+                      		</td>
+                      		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight3" id="weight3" name="weight3"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight3.placeholder'  text='Enter weight at 3rd month'/>"/>
+							</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr3" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr3, 'date3')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
+                    </div>	
+                    <div class="form-group">
+                    <table class="no-border">
+					 	<tbody class="no-border-x no-border-y">
+					 	<tr>
+                    		<td> 
+                      			<label><spring:message code='label.piginfo.pigleteventform.weight4'  text='Weight (4th month)'/></label>
+                      		</td>
+                      		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight4" id="weight4" name="weight4"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight4.placeholder'  text='Enter weight at 4th month'/>"/>
+                     		</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr4" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr4, 'date4')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
+                    </div>	
+                    <div class="form-group">
+                    <table class="no-border">
+					  <tbody class="no-border-x no-border-y">
+					 	<tr>
+                    		<td> 
+                      			<label><spring:message code='label.piginfo.pigleteventform.weight5'  text='Weight (5th month)'/></label>
+                      		</td>
+                      		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight5" id="weight5" name="weight5"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight5.placeholder'  text='Enter weight at 5th month'/>"/>
+                    		</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr5" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr5, 'date5')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
                     </div>	
                     <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weight4'  text='Weight (4th month)'/></label>
-                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight4" id="weight4" name="weight4"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight4.placeholder'  text='Enter weight at 4th month'/>"/>
-                    </div>	
-                    <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weight5'  text='Weight (5th month)'/></label>
-                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight5" id="weight5" name="weight5"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight5.placeholder'  text='Enter weight at 5th month'/>"/>
-                    </div>	
-                    <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weight6'  text='Weight (6th month)'/></label>
-                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight6" id="weight6" name="weight6"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight6.placeholder'  text='Enter weight at 6th month'/>"/>
+                     <table class="no-border">
+					  <tbody class="no-border-x no-border-y">
+					 	<tr>
+                    		<td>
+                       			 <label><spring:message code='label.piginfo.pigleteventform.weight6'  text='Weight (6th month)'/></label>
+                       		</td>
+                       		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight6" id="weight6" name="weight6"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight6.placeholder'  text='Enter weight at 6th month'/>"/>
+                     		</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr6" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr6, 'date6')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
                     </div>	
                     					
                     <button class="btn btn-success" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>

@@ -334,6 +334,7 @@ CREATE TABLE pigtrax."FarrowEvent"(
 	"id_PigletCondition" smallint,
 	"weakBorns" smallint,
 	"id_Premise" int,
+	"id_BreedingEvent" integer,
  	CONSTRAINT "FAROW_PK" PRIMARY KEY (id)
 
 );
@@ -377,13 +378,6 @@ CREATE TABLE pigtrax."PregnancyEvent"(
 );
 -- ddl-end --
 ALTER TABLE pigtrax."PregnancyEvent" OWNER TO pitraxadmin;
--- ddl-end --
-
--- object: "PregnancyEvent_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."FarrowEvent" DROP CONSTRAINT IF EXISTS "PregnancyEvent_fk" CASCADE;
-ALTER TABLE pigtrax."FarrowEvent" ADD CONSTRAINT "PregnancyEvent_fk" FOREIGN KEY ("id_PregnancyEvent")
-REFERENCES pigtrax."PregnancyEvent" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE; 
 -- ddl-end --
 
 -- object: pigtrax."PigletStatus" | type: TABLE --
@@ -910,6 +904,12 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"weight5" numeric(20,2),
 	"weight6" numeric(20,2),
 	"pigId" varchar(30) not null,
+	"date1" timestamp,
+	"date2" timestamp,
+	"date3" timestamp,
+	"date4" timestamp,
+	"date5" timestamp,
+	"date6" timestamp,
 	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id),
 	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId","id_Premise")
 
@@ -1828,6 +1828,7 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 	"id_TransportDestination" integer,
 	"id_SowSource" integer,
 	"id_Premise" integer,
+	"id_PigletStatusEvent" integer,
 	CONSTRAINT "GROUPDEVENTDETAIL_PK" PRIMARY KEY (id)
 
 );

@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.dto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.pigtrax.pigevents.beans.PigletEvent;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
+import com.pigtrax.util.DateUtil;
 
 @Component
 public class PigletEventBuilder {
@@ -38,6 +40,12 @@ public class PigletEventBuilder {
 			   info.setWeight5(dto.getWeight5());
 			   info.setWeight6(dto.getWeight6());
 			   info.setPigId(dto.getPigId());
+			   info.setDate1(dto.getDate1());
+			   info.setDate2(dto.getDate2());
+			   info.setDate3(dto.getDate3());
+			   info.setDate4(dto.getDate4());
+			   info.setDate5(dto.getDate5());
+			   info.setDate6(dto.getDate6());
 			   
 		   }
 		   return info;
@@ -70,6 +78,45 @@ public class PigletEventBuilder {
 			   dto.setWeight5(info.getWeight5());
 			   dto.setWeight6(info.getWeight6());
 			   dto.setPigId(info.getPigId());
+			   dto.setPigId(info.getPigId());
+			   dto.setDate1(info.getDate1());
+			   dto.setDate2(info.getDate2());
+			   dto.setDate3(info.getDate3());
+			   dto.setDate4(info.getDate4());
+			   dto.setDate5(info.getDate5());
+			   dto.setDate6(info.getDate6());
+			   try {
+				   dto.setDateStr1(DateUtil.convertToFormatString(dto.getDate1(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStr2(DateUtil.convertToFormatString(dto.getDate2(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStr3(DateUtil.convertToFormatString(dto.getDate3(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStr4(DateUtil.convertToFormatString(dto.getDate4(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStr5(DateUtil.convertToFormatString(dto.getDate5(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStr6(DateUtil.convertToFormatString(dto.getDate6(), "MM/dd/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   
+			   
 		   }
 		   return dto;
 	   }

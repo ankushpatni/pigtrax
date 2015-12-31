@@ -27,6 +27,7 @@ public class FarrowEvent {
 	private Integer weakBorns;
 	private Integer litterId;
 	private Integer premiseId;
+	private Integer breedingEventId;
 	
 	public Integer getId() {
 		return id;
@@ -165,6 +166,12 @@ public class FarrowEvent {
 	}
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
+	}
+	public Integer getBreedingEventId() {
+		return breedingEventId;
+	}
+	public void setBreedingEventId(Integer breedingEventId) {
+		this.breedingEventId = breedingEventId;
 	}
 	
 	

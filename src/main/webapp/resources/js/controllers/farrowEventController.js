@@ -97,7 +97,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 				  {
 				    $scope.clearAllMessages();
 				    $scope.farrowEvent = data.payload;
-				    $scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
+				   // $scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
 				  }
 			 });
 		}
@@ -349,7 +349,7 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 										$scope.clearAllMessages();
 										if(data.duplicateRecord)
 											$scope.entryEventDuplicateErrorMessage = true;
-										else if(data.statusMessage == "ERR:INVALID-PREGNANCY-RECORD")
+										else if(data.statusMessage == "ERR:INVALID-SERVICE-RECORD")
 											$scope.invalidPregnancyRecord = true;
 										else
 											$scope.entryEventErrorMessage = true;
@@ -422,7 +422,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	{
 		//alert("came here : "+JSON.stringify(pregnancyEventObj));
 		$scope.farrowEvent = farrowEventObj;
-		$scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
+		$scope.getPenList();	
+		//$scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
 		if($scope.farrowEvent["inducedBirth"])
 			$('#birthType1').iCheck('check');
 		else if($scope.farrowEvent["assistedBirth"])
@@ -564,8 +565,8 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	
 	$scope.selectPergnancyEventService = function()
 	{
-		$scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
-		$scope.farrowEvent.pregnancyEventId = $scope.farrowEvent.pregnancyEventDto.id;
+		//$scope.farrowEvent.pregnancyEventType = $scope.farrowEvent.pregnancyEventDto.pregnancyEventType + " ["+$scope.farrowEvent.pregnancyEventDto.resultDate+"]";
+		//$scope.farrowEvent.pregnancyEventId = $scope.farrowEvent.pregnancyEventDto.id;
 		$('#searchPregnancyService').modal('hide');
 	}
 	

@@ -29,6 +29,21 @@ public class PigletEventDto {
 	private Double weight5;
 	private Double weight6;
 	
+	private String dateStr1;
+	private String dateStr2;
+	private String dateStr3;
+	private String dateStr4;
+	private String dateStr5;
+	private String dateStr6;
+	
+	private Date date1;
+	private Date date2;
+	private Date date3;
+	private Date date4;
+	private Date date5;
+	private Date date6;
+	
+	
 	public String getTattooId() {
 		return tattooId;
 	}
@@ -172,6 +187,78 @@ public class PigletEventDto {
 	}
 	public void setWeight6(Double weight6) {
 		this.weight6 = weight6;
+	}
+	public String getDateStr1() {
+		return dateStr1;
+	}
+	public void setDateStr1(String dateStr1) {
+		this.dateStr1 = dateStr1;
+	}
+	public String getDateStr2() {
+		return dateStr2;
+	}
+	public void setDateStr2(String dateStr2) {
+		this.dateStr2 = dateStr2;
+	}
+	public String getDateStr3() {
+		return dateStr3;
+	}
+	public void setDateStr3(String dateStr3) {
+		this.dateStr3 = dateStr3;
+	}
+	public String getDateStr4() {
+		return dateStr4;
+	}
+	public void setDateStr4(String dateStr4) {
+		this.dateStr4 = dateStr4;
+	}
+	public String getDateStr5() {
+		return dateStr5;
+	}
+	public void setDateStr5(String dateStr5) {
+		this.dateStr5 = dateStr5;
+	}
+	public String getDateStr6() {
+		return dateStr6;
+	}
+	public void setDateStr6(String dateStr6) {
+		this.dateStr6 = dateStr6;
+	}
+	public Date getDate1() {
+		return date1;
+	}
+	public void setDate1(Date date1) {
+		this.date1 = date1;
+	}
+	public Date getDate2() {
+		return date2;
+	}
+	public void setDate2(Date date2) {
+		this.date2 = date2;
+	}
+	public Date getDate3() {
+		return date3;
+	}
+	public void setDate3(Date date3) {
+		this.date3 = date3;
+	}
+	public Date getDate4() {
+		return date4;
+	}
+	public void setDate4(Date date4) {
+		this.date4 = date4;
+	}
+	public Date getDate5() {
+		return date5;
+	}
+	public void setDate5(Date date5) {
+		this.date5 = date5;
+	}
+	public Date getDate6() {
+		return date6;
+	}
+	public void setDate6(Date date6) {
+		this.date6 = date6;
 	}
 	
 	
