@@ -38,6 +38,7 @@ public class GroupEventBuilder {
 				groupEventDetails.setTransportDestination(dto.getTransportDestination());
 				groupEventDetails.setPremiseId(dto.getPremiseId());
 				groupEventDetails.setSowSourceId(dto.getSowSourceId());
+				
 		   }
 		   return groupEventDetails;
 	   }

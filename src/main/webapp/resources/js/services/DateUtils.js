@@ -33,4 +33,14 @@ pigTrax.service("DateUtils", function($resource, $filter, $cookieStore) {
     			  return $filter('date')(date,'MM/dd/YYYY');
     	  }
       };
+      
+      this.getFormatedDateTime = function(date)
+      {
+    	  if (date) {
+    		  if($cookieStore.get('PT_DATEFORMAT') != null && $cookieStore.get('PT_DATEFORMAT') != undefined)
+    			  return $filter('date')(date,$cookieStore.get('PT_DATEFORMAT'+' HH:mm:ss'));
+    		  else
+    			  return $filter('date')(date,'MM/dd/YYYY HH:mm:ss');
+    	  }
+      };
 });

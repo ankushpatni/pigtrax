@@ -221,7 +221,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 		
 		try 
 		{
-			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId( groupId, companyId);
+			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId( groupId, companyId, 0);
 
 			if (null != groupEvent) 
 			{

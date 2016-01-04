@@ -73,7 +73,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	}
 	
 	
-	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId,groupStartDateTime)
+	$scope.setCompanyId = function( companyId,groupId,groupDetailId,groupGeneratedId,groupStartDateTime, searchPremiseId)
 	{
 		$scope.groupAlphaId = groupId;
 		$scope.companyId = companyId;
@@ -81,6 +81,7 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 		$scope.groupEvent.groupId = groupGeneratedId;
 		$scope.groupStartDateTime = groupStartDateTime;
 		$scope.groupEvent.companyId = companyId;
+		$scope.searchPremiseId = searchPremiseId;
 		console.log(groupGeneratedId);
 		
 		var res1 = $http.get('rest/transportJourney/getTransportJourneyMasterData?generatedCompanyId='+$scope.companyId);
@@ -202,7 +203,8 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
     $scope.gotoGroupEvent = function()
     {
     	document.getElementById("searchedGroupid").value = $scope.groupAlphaId;	
-		document.getElementById("selectedCompany").value = $scope.companyId;		
+		document.getElementById("selectedCompany").value = $scope.companyId;	
+		document.getElementById("searchPremiseId").value  = $scope.searchPremiseId;
 		document.forms['groupEventDetailAddForm'].action = 'groupEvent';
 		document.forms['groupEventDetailAddForm'].submit();
     }	

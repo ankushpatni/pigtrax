@@ -9,7 +9,7 @@ import com.pigtrax.pigevents.beans.GroupEvent;
 
 public interface GroupEventService {
 	
-GroupEvent getGroupEventByGroupId(final String groupId, final int companyId) throws PigTraxException;
+	GroupEvent getGroupEventByGroupId(final String groupId, final int companyId, Integer premiseId) throws PigTraxException;
 	
 	int addGroupEvent(final GroupEvent groupEvent) throws PigTraxException;
 	
@@ -17,7 +17,7 @@ GroupEvent getGroupEventByGroupId(final String groupId, final int companyId) thr
 	
 	int updateGroupEventStatus( final GroupEvent groupEvent ) throws PigTraxException;
 	
-	List<Map<Integer,String>> getGroupEventAndDetailByGroupId(String groupId, int companyId)
+	List<Map<Integer,String>> getGroupEventAndDetailByGroupId(String groupId, int companyId, Integer premiseId, Integer phaseOfProductionTypeId)
 			throws PigTraxException;
 	
 	public int updateGroupEventCurrentInventory(final GroupEvent groupEvent) throws PigTraxException;

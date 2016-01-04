@@ -271,7 +271,9 @@
 					 </tbody>
 					 </table>
                     </div>	
-                    					
+                    <div class="form-group"> 
+                    <span style='color: red'>*</span><span style='color: red'>*</span><label><spring:message code='label.piginfo.pigleteventform.dateformat.messsage'  text='All dates to be entered in mm/dd/yyyy format'/></label>
+                    </div>					
                     <button class="btn btn-success" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
                     <button class="btn btn-warning" type="button" ng-click="pigleteventform.reset()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>
                     <button type="button" class="btn btn-danger pull-right" ng-click="deletePigletEvent()" ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0" ng-confirm-click="<spring:message code='label.piginfo.pigleteventformform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>"><spring:message code='label.piginfo.pigleteventform.delete'  text='Delete'/></button>

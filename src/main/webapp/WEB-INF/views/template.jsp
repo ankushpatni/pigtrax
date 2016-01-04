@@ -27,8 +27,7 @@
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/bootstrap.daterangepicker/daterangepicker-bs3.css">
     <link rel="stylesheet" type="text/css" href="resources/assets/lib/jquery.icheck/skins/square/blue.css">
     <link href="resources/assets/css/polyglot-language-switcher-2.css" rel="stylesheet">
-    <link href="resources/assets/css/style.css" rel="stylesheet">
-      
+    <link href="resources/assets/css/style.css" rel="stylesheet">    
 	
 	
 	<script src="resources/assets/lib/jquery/jquery.min.js"></script>
@@ -39,6 +38,8 @@
 	<script src="resources/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="resources/assets/lib/bootstrap.switch/js/bootstrap-switch.js"></script>
 	<script src="resources/lib/angular-ui/0.11.2/ui-bootstrap-tpls-0.11.2.min.js"></script>
+	<script type="text/javascript" src="resources/lib/angular-dropdown-multiselect/angularjs-dropdown-multiselect.min.js"></script>
+	<script type="text/javascript" src="resources/lib/angular-dropdown-multiselect/underscore-min.js"></script>
 	<script src="resources/js/app.js"></script>
 	<script src="resources/js/directive.js"></script>
 	<script src="resources/js/services/ngMask.min.js"></script>

@@ -5,7 +5,7 @@
 			<h3 ng-show="edit"><spring:message code="label.groupEventDetail.edit.detail" text="Edit Group Event Detail" /></h3>
 </div>
 		 
- <div class="cl-mcont" ng-controller="AddGroupEventDetailController" ng-init="setCompanyId('${companyId}','${groupId}','${groupEventId}','${groupGeneratedId}','${groupStartDateTime}')">
+ <div class="cl-mcont" ng-controller="AddGroupEventDetailController" ng-init="setCompanyId('${companyId}','${groupId}','${groupEventId}','${groupGeneratedId}','${groupStartDateTime}', '${searchPremiseId}')">
  
         <div class="row" >
 		  <div class="col-sm-3 col-md-3"></div>
@@ -17,27 +17,8 @@
                 	 <div class="form-group">
 						<label><spring:message code="label.piginfo.groupEventForm.groupId" text="Group ID" /></label>
 						<label>{{groupAlphaId}}</label>
-					 </div>	
-					 
-					 <div class="form-group">
-                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="premiseId" id="premiseId" ng-change="getRooms()" ng-model="groupEvent.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
-                       	<option ng-repeat="farm in farmList" value="{{farm.id}}" ng-value="farm.id" ng-selected="groupEvent.premiseId == farm.id">{{farm.name}}</option>
-                        </select>
-                    </div>	
-					
-					<div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
-                       <select class="form-control" name="roomId" id="roomId" ng-model="groupEvent.roomId"  required required-message="'<spring:message code='label.groupEventDetail.room.required' text='Room is required' />'" 
-                         ng-options="k as v for (k, v) in roomType" ng-change="getBarnDetailsByRoom()">
-                        </select>
-                    </div>
-                    <div class="form-group">
-						<label ><spring:message code="label.groupEventDetail.barn" text="Barn" /></label>
-						<!-- <input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.barn' text='Origin' />" name="area" ng-model="groupEvent.origin" maxlength="20" />-->
-						<label ng-show="groupEvent.barnId != null">{{groupEvent.barnIdValue}}</label>
-						<input type="hidden"  name="barnId" id="barnId" ng-model="groupEvent.barnId"/>
-					</div>
+					 </div>
+                   
 					<div class="form-group">
                       <label><spring:message code='label.groupEventDetail.source'  text='Sow Source'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="source" id="source" ng-model="groupEvent.sowSourceId" required required-message="'<spring:message code='label.groupEventDetail.source.requiredMessage'  text='Sow Source is required'/>'">
@@ -87,6 +68,7 @@
             <button class="btn btn-warning btn-flat md-close"  ng-click="gotoGroupEvent()"><spring:message code="label.premise.cancel" text="Cancel" /></button>
 			<input type="hidden" name="searchedGroupid" id="searchedGroupid"/>
 			<input type="hidden" name="selectedCompany" id="selectedCompany"/>
+			<input type="text" name="searchPremiseId" id="searchPremiseId"/>
                   </form>
                 </div>
               </div>

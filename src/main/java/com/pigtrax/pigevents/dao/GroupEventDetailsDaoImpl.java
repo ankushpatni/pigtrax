@@ -164,8 +164,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	    	            else
 	    	            	ps.setNull(5, java.sql.Types.INTEGER);
 	    	            
-	    	            ps.setInt(6, groupEventDetails.getNumberOfPigs());
-	    	            ps.setDouble(7, groupEventDetails.getWeightInKgs());
+	    	            ps.setObject(6, groupEventDetails.getNumberOfPigs(), java.sql.Types.INTEGER);
+	    	            ps.setObject(7, groupEventDetails.getWeightInKgs(), java.sql.Types.DOUBLE );
 	    	            
 	    	            if(groupEventDetails.getInventoryAdjustment() != null && groupEventDetails.getInventoryAdjustment() != 0)
 	    	            	ps.setInt(8, groupEventDetails.getInventoryAdjustment());

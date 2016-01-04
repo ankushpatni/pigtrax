@@ -511,8 +511,9 @@ CREATE TABLE pigtrax."GroupEvent"(
 	"currentInventory" smallint,
 	"previousGroupId" varchar(20),
 	"id_PhaseOfProductionType" integer,
+	"id_Premise" integer NOT NULL,
 	CONSTRAINT "PIGEVENT_PK" PRIMARY KEY (id),
-	CONSTRAINT "PIGEVENT_GI_U" UNIQUE ("groupId","id_Company")
+	CONSTRAINT "PIGEVENT_GI_U" UNIQUE ("groupId","id_Premise")
 
 );
 -- ddl-end --
@@ -520,9 +521,17 @@ ALTER TABLE pigtrax."GroupEvent" OWNER TO pitraxadmin;
 -- ddl-end --
 
 -- object: "Company_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."Premise" DROP CONSTRAINT IF EXISTS "Company_fk" CASCADE;
+-- ALTER TABLE pigtrax."Company" DROP CONSTRAINT IF EXISTS "Company_fk" CASCADE;
 ALTER TABLE pigtrax."GroupEvent" ADD CONSTRAINT "Company_fk" FOREIGN KEY ("id_Company")
 REFERENCES pigtrax."Company" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Premise" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEvent" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -540,7 +549,6 @@ ALTER TABLE pigtrax."Room" ADD CONSTRAINT "Barn_fk" FOREIGN KEY ("id_Barn")
 REFERENCES pigtrax."Barn" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
-
 
 
 -- object: pigtrax."Genetics" | type: TABLE --
@@ -1033,6 +1041,7 @@ CREATE TABLE pigtraxrefdata."PhaseOfProductionType"(
 -- ddl-end --
 ALTER TABLE pigtraxrefdata."PhaseOfProductionType" OWNER TO pitraxadmin;
 -- ddl-end --
+
 
 -- object: pigtraxrefdata."BreedingServiceType" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtraxrefdata."BreedingServiceType" CASCADE;
@@ -3212,6 +3221,65 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 
 
 
+-- object: pigtrax."GroupEventPhaseChange" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."GroupEventPhaseChange" CASCADE;
+CREATE TABLE pigtrax."GroupEventPhaseChange"(
+	id serial NOT NULL,
+	"id_GroupEvent" integer NOT NULL,
+	"id_PhaseOfProductionType" integer NOT NULL,
+	"phaseStartDate" timestamp with time zone NOT NULL,
+	"phaseEndDate" timestamp with time zone,
+	"id_Premise" integer NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	CONSTRAINT "GroupEventPhaseChange_PK" PRIMARY KEY (id)
+	
+);
+
+
+-- object: "GroupEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventPhaseChange" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventPhaseChange" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
+REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- ALTER TABLE pigtrax."GroupEventPhaseChange" DROP CONSTRAINT "PhaseOfProductionType_fk";
+ALTER TABLE pigtrax."GroupEventPhaseChange"  ADD CONSTRAINT "PhaseOfProductionType_fk" FOREIGN KEY ("id_PhaseOfProductionType")     
+REFERENCES pigtraxrefdata."PhaseOfProductionType" (id) MATCH FULL 
+ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."Premise" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventPhaseChange" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: pigtrax."GroupEventRoom" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."GroupEventRoom" CASCADE;
+CREATE TABLE pigtrax."GroupEventRoom"(
+	"id" serial NOT NULL,
+	"id_GroupEvent" integer NOT NULL,
+	"id_Room" integer NOT NULL,
+	CONSTRAINT "GroupEventRoom_PK" PRIMARY KEY (id)	
+);
+
+-- object: "GroupEvent_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventRoom" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventRoom" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
+REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "Room_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventRoom" DROP CONSTRAINT IF EXISTS "Room_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventRoom" ADD CONSTRAINT "Room_fk" FOREIGN KEY ("id_Room")
+REFERENCES pigtrax."Room" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
 
 
 --Views

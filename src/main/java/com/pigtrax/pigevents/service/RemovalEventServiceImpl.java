@@ -193,7 +193,7 @@ public class RemovalEventServiceImpl implements RemovalEventService{
 			
 				if(null != removalEvent && removalEvent.getGroupId()!=null)
 				{
-					GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId());
+					GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId(), 1);
 					
 					if(null != groupEvent)
 					{

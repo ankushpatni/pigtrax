@@ -1,6 +1,10 @@
 package com.pigtrax.pigevents.beans;
 
 import java.util.Date;
+import java.util.List;
+
+import com.pigtrax.master.dto.Room;
+import com.pigtrax.master.dto.RoomPK;
 
 public class GroupEvent {
 	
@@ -21,6 +25,15 @@ public class GroupEvent {
 	private Integer inventoryAdjustment;
 	private String groupStartDateStr;
 	private String groupCloseDateStr;
+	private Integer premiseId;
+	private List<RoomPK> roomIds;
+	private Integer transferredPigNum;
+	private Double transferredPigWt;
+	private Integer transferredFromGroupId;
+	private Integer transferredToGroupId;
+	
+	private List<GroupEventPhaseChange> phaseChangeList;
+	
 	
 	public Integer getCompanyId() {
 		return companyId;
@@ -123,6 +136,48 @@ public class GroupEvent {
 	}
 	public void setGroupCloseDateStr(String groupCloseDateStr) {
 		this.groupCloseDateStr = groupCloseDateStr;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
+	}
+	public List<RoomPK> getRoomIds() {
+		return roomIds;
+	}
+	public void setRoomIds(List<RoomPK> roomIds) {
+		this.roomIds = roomIds;
+	}
+	public List<GroupEventPhaseChange> getPhaseChangeList() {
+		return phaseChangeList;
+	}
+	public void setPhaseChangeList(List<GroupEventPhaseChange> phaseChangeList) {
+		this.phaseChangeList = phaseChangeList;
+	}
+	public Integer getTransferredPigNum() {
+		return transferredPigNum;
+	}
+	public void setTransferredPigNum(Integer transferredPigNum) {
+		this.transferredPigNum = transferredPigNum;
+	}
+	public Integer getTransferredFromGroupId() {
+		return transferredFromGroupId;
+	}
+	public void setTransferredFromGroupId(Integer transferredFromGroupId) {
+		this.transferredFromGroupId = transferredFromGroupId;
+	}
+	public Integer getTransferredToGroupId() {
+		return transferredToGroupId;
+	}
+	public void setTransferredToGroupId(Integer transferredToGroupId) {
+		this.transferredToGroupId = transferredToGroupId;
+	}
+	public Double getTransferredPigWt() {
+		return transferredPigWt;
+	}
+	public void setTransferredPigWt(Double transferredPigWt) {
+		this.transferredPigWt = transferredPigWt;
 	}
 	
 	

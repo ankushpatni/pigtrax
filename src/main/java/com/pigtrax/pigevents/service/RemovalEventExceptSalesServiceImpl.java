@@ -215,7 +215,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 		try 
 		{
 			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(
-					groupId, companyId);
+					groupId, companyId, 1);
 
 			if (null != groupEvent) 
 			{

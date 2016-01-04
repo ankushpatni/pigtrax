@@ -1,5 +1,6 @@
 package com.pigtrax.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -109,10 +110,24 @@ public class DateUtil {
     	return monthMap;
 	}
 	
+	 public  static String getTimePart(Date dateVal)
+	 {
+		 String retVal = "";
+		 DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a");
+		 if(dateVal != null)
+		 {
+			 retVal=dateFormat.format(dateVal);
+		 }
+		 return retVal;
+	 }
+	
 	
 	public static void main(String[] args) {
 		String hashed = BCrypt.hashpw("Textbookvalet#123", BCrypt.gensalt());
 		System.out.println("hashed : "+hashed);
 		//$10$CTS7fdvFGYq55db3fWDJ5u7U1hLcupkA42tc4Qx5kRnl9q09reJcK
 	}
+	
+	
+	
 }

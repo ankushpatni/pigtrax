@@ -1,4 +1,4 @@
-var groupEventController = pigTrax.controller('GroupEventController', function($scope,$rootScope, $http,$window,$modal,restServices, DateUtils) {
+var groupEventController = pigTrax.controller('GroupEventController', function($scope,$rootScope, $http,$window,restServices, DateUtils,$modalInstance) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -17,9 +17,25 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.entryEventStatusChangeSuccessMessage = false;
 	$scope.editGroupEventInventory = false;
 	$scope.DateUtils = DateUtils;
-		
+	$scope.roomValues = [];		
+	$scope.groupEvent["roomIds"] = [];
+	$scope.promoteToFinishMessage = false;
+	$scope.transferToGroupSearchError = false;
+	$scope.transferToGroupSearchDataError = false;
+	$scope.transferGroupEventData = {};
 	
-	$scope.setCompanyId = function(companyId,searchedGroupid)
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.farmList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
+	$scope.setCompanyId = function(companyId,searchedGroupid, searchPremiseId)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
@@ -47,7 +63,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		if( searchedGroupid)
 		{
 			$scope.searchText = searchedGroupid
-			$scope.getGroupEventInformation(searchedGroupid,true);
+			$scope.selectedPremise = searchPremiseId;
+			$scope.getGroupEventInformation(searchedGroupid,searchPremiseId, true);
 			$scope.entryEventSuccessMessage = true;
 		}
 		
@@ -62,8 +79,40 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			res1.error(function(data, status, headers, config) {
 				console.log( "failure message: " + {data: data});
 			});
+			
+			$scope.loadPremises();
 		
 	};
+	
+	
+	$scope.getRooms = function(isOnChange)
+	{	
+	
+		if(isOnChange)
+			$scope.groupEvent["roomIds"] = [];
+		restServices.getRoomsForPremise($scope.groupEvent["premiseId"], function(data){
+			if(!data.error){
+				$scope.roomType = data.payload;
+				$scope.roomValues = [];
+				angular.forEach($scope.roomType, function(key, value){					
+                   var itemObj = {"id" : value, "label":key}  
+				   $scope.roomValues.push(itemObj);
+               })			   
+			}
+		});
+	}
+	
+	$scope.getBarnDetailsByRoom = function()
+	{
+		restServices.getBarnDetailsByRoom($scope.groupEvent.roomId, function(data){
+			if(!data.error){
+				var barn = data.payload;
+				$scope.groupEvent["barnId"] = barn.id;
+				$scope.groupEvent["barnIdValue"] = barn.barnId;
+			}
+		});
+	}
+	
 	
 	
 	
@@ -171,7 +220,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		modalInstance.result.then( function(res) {   
 			if(res.statusMessage==="Success")
 			{
-				$scope.getGroupEventInformation($scope.groupEvent.groupId,false,true);
+				$scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId,false,true);
 			}
 		});
 	}
@@ -192,7 +241,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		}
 		if($scope.groupEventForm.$valid)
 		{
-		
+			
 			var postParam = {
 			
 					"groupId" : $scope.groupEvent.groupId,
@@ -205,6 +254,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"previousGroupId" : $scope.groupEvent.previousGroupId,
 					"currentInventory" : $scope.groupEvent.currentInventory,
 					"inventoryAdjustment" : $scope.groupEvent.inventoryAdjustment,
+					"premiseId" : $scope.groupEvent.premiseId,
+					"roomIds" : $scope.groupEvent.roomIds
 					
 				};
 				if($scope.groupEvent.id != undefined && $scope.groupEvent.id >0)
@@ -221,7 +272,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 						$scope.groupEvent.active = true;
 						//$scope.groupEvent = postParam;
 						$scope.editGroupEventInventory = false;
-						$scope.getGroupEventInformation($scope.groupEvent.groupId,true);
+						$scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId,true);
 					}
 				else
 					{
@@ -300,13 +351,14 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		
 	}
 	
-	$scope.getGroupEventInformation = function (searchGroupEvent,flag,flag1)
+	$scope.getGroupEventInformation = function (searchGroupEvent,selectedPremise, flag,flag1)
 	{
-		console.log('Group ID is '+ $scope.searchText);
+		console.log('Group ID is '+ $scope.searchText+"/"+selectedPremise);
 		var postParam = {
 				
 				"groupId" : searchGroupEvent,
 				"companyId" : $scope.companyId,
+				"premiseId" : selectedPremise
 			};
 		
 		restServices.getGroupEventInformation(postParam, function(data){
@@ -317,12 +369,13 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					$scope.editGroupEventInventory = false;
 					$scope.groupEvent = data.payload[0];
 					$scope.groupEventDetailList	= data.payload[1];	
-					$scope.followedGroupIdString = data.payload[2];						
+					$scope.followedGroupIdString = data.payload[2];		
+					$scope.getRooms(false);
 					$window.scrollTo(0,550);
 					if(flag)					
 						$scope.entryEventSuccessMessage = true;		
 					if(flag1)	
-						$scope.moveEntryEventSuccessMessage = true;					
+						$scope.moveEntryEventSuccessMessage = true;
 				}
 			else
 				{
@@ -341,10 +394,48 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		});
 	}
 	
+	
+	$scope.getTransferToGroupEventInformation = function (transferToGroupEvent,transferToPremise)
+	{
+		
+		if($scope.groupEvent.premiseId == transferToPremise && $scope.groupEvent. groupId == transferToGroupEvent)
+		{
+			$scope.transferToGroupSearchError = true;
+		}
+		else
+		{
+			console.log('Group ID is '+ transferToGroupEvent+"/"+transferToPremise);
+			var postParam = {
+					
+					"groupId" : transferToGroupEvent,
+					"companyId" : $scope.companyId,
+					"premiseId" : transferToPremise,
+					"phaseOfProductionTypeId" : $scope.groupEvent.phaseOfProductionTypeId
+					
+				};
+			
+			restServices.getGroupEventInformationForTransfer(postParam, function(data){
+				console.log(data);
+				if(!data.error)
+					{	
+						$scope.transferGroupEventData = data.payload[0];
+					}
+				else
+					{
+						$scope.transferGroupEventData = {};						
+						$scope.transferToGroupSearchDataError = true;
+					}
+			});
+		}
+	}
+	
+	
+	
 	$scope.addGroupEventDetailData = function(groupEventId)
 	{
 		document.getElementById("searchedGroupid").value = $scope.groupEvent.groupId;
 		document.getElementById("groupEventId").value = groupEventId;
+		document.getElementById("searchPremiseId").value  = $scope.groupEvent.premiseId;
 		document.getElementById("groupGeneratedIdSeq").value = $scope.groupEvent.id;
 		document.getElementById("companyId").value = $scope.companyId;
 		document.getElementById("groupStartDateTimeAdd").value = $scope.groupEvent.groupStartDateTime;
@@ -356,6 +447,53 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.editGroupEventInventoryAmount = function()
 	{
 		$scope.editGroupEventInventory = true;
+	}
+	
+	
+	$scope.promoteToFinish = function()
+	{
+		$scope.groupEvent.phaseOfProductionTypeId = 2;
+		restServices.promoteToFinish($scope.groupEvent, function(data) {
+			if(!data.error)
+			{
+				$scope.promoteToFinishMessage = true;
+				$scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId, true);
+			}
+		});
+	}
+	
+	$scope.moveBackToNursery = function()
+	{
+		$scope.groupEvent.phaseOfProductionTypeId = 1;
+		restServices.moveBackToNursery($scope.groupEvent, function(data) {
+			if(!data.error)
+			{
+				$scope.promoteToFinishMessage = true;
+				$scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId, true);
+			}
+		});
+	}
+	
+	$scope.transferToGroup = function()
+	{
+		var maxNum = $scope.groupEvent.currentInventory
+		$scope.invalidTransferPigNum = false;
+		if($scope.transferGroupEventData.transferredPigNum == 0 || $scope.transferGroupEventData.transferredPigNum > maxNum)
+			$scope.invalidTransferPigNum = true;
+		else
+		{
+			$scope.groupEvent.transferredToGroupId = $scope.transferGroupEventData.id;
+			$scope.groupEvent.transferredPigNum = $scope.transferGroupEventData.transferredPigNum;
+			$scope.groupEvent.transferredPigWt = $scope.transferGroupEventData.transferredPigWt;
+			
+			restServices.transferToGroup($scope.groupEvent, function(data) {
+				if(!data.error)
+				{
+					$scope.promoteToFinishMessage = true;					
+					$scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId, true);
+				}
+			});
+		}
 	}
 
 });

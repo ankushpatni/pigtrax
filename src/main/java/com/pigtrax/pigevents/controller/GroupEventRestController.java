@@ -97,7 +97,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 					companyId = activeUser.getCompanyId();
 			   }
 			
-			List groupEventAndDetail = groupEventService.getGroupEventAndDetailByGroupId(groupEvent.getGroupId().toUpperCase(), companyId);
+			List groupEventAndDetail = groupEventService.getGroupEventAndDetailByGroupId(groupEvent.getGroupId().toUpperCase(), companyId, groupEvent.getPremiseId(), null);
 			if(groupEventAndDetail != null && groupEventAndDetail.size()>0 )
 			{
 				dto.setPayload(groupEventAndDetail);
@@ -218,5 +218,142 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		return dto; 
 	}
 	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/promoteToFinish", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto promoteToFinish(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside promoteToFinish method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent.setUserUpdated(activeUser.getUsername());
+			if( null != groupEvent && groupEvent.getId() !=0)
+			{
+				int rowsInserted = groupEventService.updateGroupEvent(groupEvent);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
+	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/moveBackToNursery", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto moveBackToNursery(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside moveBackToNursery method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent.setUserUpdated(activeUser.getUsername());
+			if( null != groupEvent && groupEvent.getId() !=0)
+			{
+				int rowsInserted = groupEventService.updateGroupEvent(groupEvent);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
+	
+	
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getGroupEventInformationForTransfer", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getGroupEventInformationForTransfer(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside getGroupEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			int companyId;
+			if( groupEvent.getCompanyId() != null ) 
+			   {
+				   companyId = groupEvent.getCompanyId();
+			   }
+			 else
+			   {
+				   PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					companyId = activeUser.getCompanyId();
+			   }
+			
+			List groupEventAndDetail = groupEventService.getGroupEventAndDetailByGroupId(groupEvent.getGroupId().toUpperCase(), companyId, groupEvent.getPremiseId(), groupEvent.getPhaseOfProductionTypeId());
+			if(groupEventAndDetail != null && groupEventAndDetail.size()>0 )
+			{
+				dto.setPayload(groupEventAndDetail);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
+	
+	/**
+	 * Service to save the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/transferToGroup", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto transferToGroup(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside transferToGroup method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent.setUserUpdated(activeUser.getUsername());
+			if( null != groupEvent && groupEvent.getId() !=0)
+			{	
+				groupEvent.setFromMove(true);
+				int rowsInserted = groupEventService.updateGroupEvent(groupEvent);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
 
 }

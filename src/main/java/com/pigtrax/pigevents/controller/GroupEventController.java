@@ -54,6 +54,10 @@ public class GroupEventController {
 			   {
 				   model.addAttribute("searchedGroupid", request.getParameter("searchedGroupid"));
 			   }
+			   if(request.getParameter("searchPremiseId") != null) 
+			   {
+				   model.addAttribute("searchPremiseId", request.getParameter("searchPremiseId"));
+			   }
 		   }catch(Exception ex)
 		   {
 			   
@@ -69,6 +73,7 @@ public class GroupEventController {
 			model.addAttribute("groupId",request.getParameter("searchedGroupid"));
 			model.addAttribute("companyId",request.getParameter("companyId"));
 			model.addAttribute("groupEventId",request.getParameter("groupEventId"));
+			model.addAttribute("searchPremiseId", request.getParameter("searchPremiseId"));
 			
 			
 			 
@@ -82,7 +87,7 @@ public class GroupEventController {
 			 {
 				 try 
 				 {
-					GroupEvent groupEvent =  groupEventService.getGroupEventByGroupId(request.getParameter("searchedGroupid"),Integer.parseInt(request.getParameter("companyId")));
+					GroupEvent groupEvent =  groupEventService.getGroupEventByGroupId(request.getParameter("searchedGroupid"),Integer.parseInt(request.getParameter("companyId")), Integer.parseInt(request.getParameter("searchPremiseId")));
 					if(null != groupEvent)
 					{
 						model.addAttribute("groupGeneratedId",groupEvent.getId());

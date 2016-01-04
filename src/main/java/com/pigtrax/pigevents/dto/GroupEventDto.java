@@ -27,6 +27,7 @@ public class GroupEventDto {
 	private Integer sowSourceId;
 	
 	
+	
 	//groupevent fields	
 	
 	public Integer getId() {

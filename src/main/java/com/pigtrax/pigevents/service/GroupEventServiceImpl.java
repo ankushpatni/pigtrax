@@ -15,15 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.cache.RefDataCache;
-import com.pigtrax.master.dto.Silo;
+import com.pigtrax.master.dto.RoomPK;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
+import com.pigtrax.pigevents.beans.GroupEventPhaseChange;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventPhaseChangeDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
-import com.pigtrax.util.UserUtil;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 public class GroupEventServiceImpl implements GroupEventService{
@@ -42,13 +45,18 @@ public class GroupEventServiceImpl implements GroupEventService{
 	@Autowired 
 	GroupEventDetailsDao groupEventDetailsDao;
 	
+	@Autowired
+	GroupEventPhaseChangeDao groupEventPhaseChangeDao;
+	
+	@Autowired
+	GroupEventRoomDao groupEventRoomDao;
 
 	@Override
-	public GroupEvent getGroupEventByGroupId(String groupId, int companyId)
+	public GroupEvent getGroupEventByGroupId(String groupId, int companyId, Integer premiseId)
 			throws PigTraxException {
 		try 
 		{
-			return groupEventDao.getGroupEventByGroupId(groupId,companyId);
+			return groupEventDao.getGroupEventByGroupId(groupId,companyId, premiseId);
 		}
 		catch (SQLException e)
 		{
@@ -62,23 +70,41 @@ public class GroupEventServiceImpl implements GroupEventService{
 	}
 	
 	@Override
-	public List getGroupEventAndDetailByGroupId(String groupId, int companyId)
+	public List getGroupEventAndDetailByGroupId(String groupId, int companyId, Integer premiseId, Integer phaseOfTypeId)
 			throws PigTraxException {
-		try 
+		try  
 		{
 			List phaseType = new ArrayList();
-			GroupEvent groupEvent =  groupEventDao.getGroupEventByGroupId(groupId,companyId);
-			if(null != groupEvent)
+			GroupEvent groupEvent =  null;
+			
+			if(phaseOfTypeId == null)
+				 groupEvent = groupEventDao.getGroupEventByGroupId(groupId,companyId, premiseId);
+			else
+				groupEvent = groupEventDao.getGroupEventByGroupId(groupId,companyId, premiseId, phaseOfTypeId);
+			
+			if(groupEvent != null)
 			{
-				phaseType.add(groupEvent);
-				List<GroupEventDetails> groupEventDetailsList = groupEventDetailsDao.groupEventDetailsListByGroupId(groupEvent.getId());
-				if(null != groupEventDetailsList)
-				{
-					phaseType.add(groupEventDetailsList);
-				}
+				//Pull the phase change details
+				
+				List<GroupEventPhaseChange> phaseChangeList = groupEventPhaseChangeDao.getPhaseChangeDetails(groupEvent.getId());
+				groupEvent.setPhaseChangeList(phaseChangeList);
+				
+				List<RoomPK> roomIds = groupEventRoomDao.getGroupEventRooms(groupEvent.getId());
+				groupEvent.setRoomIds(roomIds);
+				
+				
 				if(null != groupEvent)
 				{
-					phaseType.add(groupEventDao.getListoFFollowerId(groupEvent.getGroupId()));
+					phaseType.add(groupEvent);
+					List<GroupEventDetails> groupEventDetailsList = groupEventDetailsDao.groupEventDetailsListByGroupId(groupEvent.getId());
+					if(null != groupEventDetailsList)
+					{
+						phaseType.add(groupEventDetailsList);
+					}
+					if(null != groupEvent)
+					{
+						phaseType.add(groupEventDao.getListoFFollowerId(groupEvent.getGroupId()));
+					}
 				}
 			}
 			return phaseType;
@@ -96,6 +122,18 @@ public class GroupEventServiceImpl implements GroupEventService{
 	public int addGroupEvent(GroupEvent groupEvent) throws PigTraxException {
 		try {
 			int generatedId = groupEventDao.addGroupEvent(groupEvent);
+			groupEvent.setId(generatedId);
+			
+			GroupEventPhaseChange groupEventPhaseChange = new GroupEventPhaseChange();
+			groupEventPhaseChange.setGroupEventId(generatedId);
+			groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
+			groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
+			groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());
+			
+			groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
+			
+			groupEventRoomDao.addGroupEventRooms(groupEvent);
+			
 			PigTraxEventMaster master = new PigTraxEventMaster();
 			master.setUserUpdated(groupEvent.getUserUpdated());
 			master.setEventTime(groupEvent.getGroupStartDateTime());
@@ -106,7 +144,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 			
 			if(groupEvent.isFromMove())
 			{
-				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGroupId(groupEvent.getPreviousGroupId(), groupEvent.getCompanyId());
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGroupId(groupEvent.getPreviousGroupId(), groupEvent.getCompanyId(), groupEvent.getPremiseId());
 				if(null != groupEventUpdate )
 				{
 					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - groupEvent.getCurrentInventory());
@@ -151,21 +189,25 @@ public class GroupEventServiceImpl implements GroupEventService{
 			int generatedId =0;
 			if(null!=groupEvent && groupEvent.isFromMove())
 			{
-				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGroupId(groupEvent.getPreviousGroupId(), groupEvent.getCompanyId());
-				if(null != groupEventUpdate )
+				//Update the current group Inventory
+				GroupEvent currentGroup = groupEventDao.getGroupEventByGroupId(groupEvent.getGroupId(), groupEvent.getCompanyId(), groupEvent.getPremiseId());
+				if(null != currentGroup )
 				{
-					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - groupEvent.getCurrentInventory());
-					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
-				}
-				GroupEventDetails groupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
-				if(null!=groupEventDetails)
-				{
-					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+					currentGroup.setCurrentInventory(currentGroup.getCurrentInventory() - groupEvent.getTransferredPigNum());
+					groupEventDao.updateGroupEventCurrentInventory(currentGroup);
 				}
 				
-				GroupEvent groupCurrentEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(groupEvent.getId(), groupEvent.getCompanyId());
-				groupEvent.setCurrentInventory(groupEvent.getCurrentInventory()+groupCurrentEventUpdate.getCurrentInventory());
-				generatedId = groupEventDao.updateGroupEventCurrentInventory(groupEvent);
+				
+				//Add new entries to the transferred group
+				GroupEventDetails newGroupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				if(null!=newGroupEventDetails)
+				{
+					groupEventDetailsDao.addGroupEventDetails(newGroupEventDetails);
+				}
+				
+				GroupEvent newGroupEvent = groupEventDao.getGroupEventByGeneratedGroupId(groupEvent.getTransferredToGroupId(), groupEvent.getCompanyId());
+				newGroupEvent.setCurrentInventory(groupEvent.getTransferredPigNum()+newGroupEvent.getCurrentInventory());
+				generatedId = groupEventDao.updateGroupEventCurrentInventory(newGroupEvent);
 				
 			}
 			else
@@ -175,6 +217,24 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEvent.setCurrentInventory(groupEvent.getCurrentInventory()-groupEvent.getInventoryAdjustment());
 				}
 				generatedId = groupEventDao.updateGroupEvent(groupEvent);
+				
+				groupEventRoomDao.deleteGroupEventRooms(groupEvent.getId());
+				groupEventRoomDao.addGroupEventRooms(groupEvent);
+				
+				Integer currentPhaseId = groupEventPhaseChangeDao.getCurrentPhase(groupEvent.getId());
+				if(currentPhaseId != groupEvent.getPhaseOfProductionTypeId())
+				{
+					groupEventPhaseChangeDao.endDateGroupEventPhase(groupEvent.getId());
+					
+					GroupEventPhaseChange groupEventPhaseChange = new GroupEventPhaseChange();
+					groupEventPhaseChange.setGroupEventId(groupEvent.getId());
+					groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
+					groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
+					groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());
+					
+					groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
+				}
+				
 			}
 			return generatedId;
 		} 
@@ -223,11 +283,12 @@ public class GroupEventServiceImpl implements GroupEventService{
 	public GroupEventDetails getGroupeventDetailsFromgroupEvent(GroupEvent groupEvent)
 	{
 		GroupEventDetails groupEventDetails = new GroupEventDetails();
-		groupEventDetails.setGroupId(groupEvent.getId());
-		groupEventDetails.setNumberOfPigs(groupEvent.getCurrentInventory());
-		groupEventDetails.setDateOfEntry(groupEvent.getGroupStartDateTime());
-		groupEventDetails.setWeightInKgs(groupEvent.getWeightInKgs());
+		groupEventDetails.setGroupId(groupEvent.getTransferredToGroupId());
+		groupEventDetails.setNumberOfPigs(groupEvent.getTransferredPigNum());
+		groupEventDetails.setDateOfEntry(DateUtil.getToday());
+		groupEventDetails.setWeightInKgs(groupEvent.getTransferredPigWt());
 		groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
+		groupEventDetails.setFromGroupId(groupEvent.getId());
 		return groupEventDetails;
 	}
 	
