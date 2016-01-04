@@ -1,4 +1,4 @@
-var groupEventController = pigTrax.controller('GroupEventController', function($scope,$rootScope, $http,$window,restServices, DateUtils,$modalInstance) {
+var groupEventController = pigTrax.controller('GroupEventController', function($scope,$rootScope, $modal, $http,$window,restServices, DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
