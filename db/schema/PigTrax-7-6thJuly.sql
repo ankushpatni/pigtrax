@@ -1838,6 +1838,7 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 	"id_SowSource" integer,
 	"id_Premise" integer,
 	"id_PigletStatusEvent" integer,
+	"id_FromGroup" integer,
 	CONSTRAINT "GROUPDEVENTDETAIL_PK" PRIMARY KEY (id)
 
 );

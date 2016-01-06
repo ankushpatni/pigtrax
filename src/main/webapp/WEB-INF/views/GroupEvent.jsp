@@ -32,8 +32,8 @@
 	  </div>			
  		
           <div class="row" >
-		  <div class="col-sm-3 col-md-3"></div>
-            <div class="col-sm-6 col-md-6">
+		  <div class="col-sm-2 col-md-2"></div>
+            <div class="col-sm-8 col-md-8">
               <div class="block-flat">
                 <div class="header">
                   <h3><spring:message code='label.piginfo.groupEventForm.groupEvent'  text='Group Event'/></h3>
@@ -123,10 +123,10 @@
 						<i class="glyphicon glyphicon-plus">
 						</i> <spring:message code="label.groupEventDetail.addAddPigstoGroup" text="Add Pigs to Group" />
 					</button>
-					<button class="btn btn-success" ng-click="promoteToFinish()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.promoteToFinish.confirmmessage'  text='Are you sure you want to promote this group to finish phase?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 1) "><spring:message code='label.piginfo.groupEventform.promoteToFinish'  text='Promote to Finish'/></button>
-					<button class="btn btn-success" ng-click="moveBackToNursery()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.moveToNursery.confirmmessage'  text='Are you sure you want to move this group back to to nursery phase?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2) "><spring:message code='label.piginfo.groupEventform.moveToNursery'  text='Move back to Nursery'/></button>
-					<button class="btn btn-success" data-toggle="modal" data-target="#transferToGroupModal"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToNursery.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 1) "><spring:message code='label.piginfo.groupEventform.transferToNursery'  text='Transfer to Nursery'/></button>
-					<button class="btn btn-success" ng-click="transferToFinish()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToFinish.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2) "><spring:message code='label.piginfo.groupEventform.transferToFinish'  text='Transfer to Finish'/></button>
+					<button class="btn btn-success" ng-click="promoteToFinish()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.promoteToFinish.confirmmessage'  text='Are you sure you want to promote this group to finish phase?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 1 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.promoteToFinish'  text='Promote to Finish'/></button>
+					<button class="btn btn-success" ng-click="moveBackToNursery()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.moveToNursery.confirmmessage'  text='Are you sure you want to move this group back to to nursery phase?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.moveToNursery'  text='Move back to Nursery'/></button>
+					<button class="btn btn-success" data-toggle="modal" ng-click="transferToGroupInit()" data-target="#transferToGroupModal"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToNursery.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 1 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.transferToNursery'  text='Transfer to Nursery'/></button>
+					<button class="btn btn-success" ng-click="transferToFinish()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToFinish.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.transferToFinish'  text='Transfer to Finish'/></button>
 					<!-- <button class="btn btn-success" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button> -->
 					<!-- <button class="btn btn-success" ng-click="editGroupEventInventoryAmount()" type="button" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0 && groupEvent.active"><spring:message code='label.piginfo.groupEventform.adjustInventory'  text='Adjust Inventory'/></button> -->
                     <button class="btn btn-warning" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button> 
@@ -138,7 +138,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-3 col-md-3">        
+            <div class="col-sm-2 col-md-2">        
             </div>
           </div>
 		  
@@ -156,6 +156,7 @@
 						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.roomId" text="Room" /></th>
 						<th style="width:35%"><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></th>
+						<th style="width:35%"><spring:message code="label.groupEventDetail.transferredFromGroup" text="From Group" /></th>
 						<th style="width:5%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
 					</tr>
 	 			</thead>
@@ -168,6 +169,7 @@
 					<td style="width:7%">{{row.weightInKgs}}</td>
 					<td style="width:7%">{{roomList[row.roomId]}}</td>
 					<td style="width:35%">{{row.remarks}}</td>
+					<td style="width:35%">{{row.fromGroupIdStr}}</td>
 					<td style="width: 5%">
 						<button type="button" class="btn btn-edit btn-xs" ng-click="addGroupEventDetailData(row.id)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
@@ -226,7 +228,7 @@
 	
 	
 	
-	 <div id="transferToGroupModal" class="modal colored-header warning custom-width" >
+	 <div id="transferToGroupModal" class="modal colored-header warning custom-width" ng-init="transferToGroupInit()">
                     <div class="md-content">
                       <div class="modal-header">
                         <h3><spring:message code='label.groupEvent.transferToGroup.heading'  text='Transfer to Group'/> </h3>
@@ -236,7 +238,14 @@
                       <div class="modal-body form" >
                       	 <p class="color-danger" ng-show="transferToGroupSearchDataError"><spring:message code='label.groupEvent.search.data.errormessage' text='Group event information not found for the search criteria'/></p>
                          <p class="color-danger" ng-show="transferToGroupSearchError"><spring:message code='label.groupEvent.transferToGroupSearchError.message' text='Not possible to transfer to the same group'/></p>
+                         <p class="color-danger" ng-show="invalidTransferPigNum"><spring:message code='label.groupEvent.invalidTransferPigNum.message' text='Number of pigs can not be more than the inventory count'/></p>
                          <h4> <spring:message code='label.groupEvent.transferToGroup.searchtext'  text='Search a group to transfer'/></h4>
+                         
+                         <div  class="form-group">
+			             <label><spring:message code='label.groupEventDetail.phaseOfProductionTypeId'  text='Phase Of Production'/></label>
+			             <label>{{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>
+			             </div>
+                         
                          <div  class="form-group">
 			              <select  class="form-control"  name="transferToPremise" id="transferToPremise" ng-model="transferToPremise"  >
 						  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
@@ -277,7 +286,7 @@
                        </form>
                       </div>
                       <div class="modal-footer">
-						<button type="button" class="btn btn-success btn-flat" data-dismiss="modal" ng-click="transferToGroup()"><spring:message code='label.groupEvent.transferToGroup.Transfer'  text='Transfer'/></button>
+						<button type="button" class="btn btn-success btn-flat" data-dismiss="modal" ng-click="transferToGroup()" ng-if="transferGroupEventData != null && transferGroupEventData.id > 0"><spring:message code='label.groupEvent.transferToGroup.Transfer'  text='Transfer'/></button>
 						
                         <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>                        
                       </div>

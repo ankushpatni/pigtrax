@@ -397,6 +397,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.getTransferToGroupEventInformation = function (transferToGroupEvent,transferToPremise)
 	{
+		$scope.transferToGroupSearchError = false;
+		$scope.transferToGroupSearchDataError = false;
 		
 		if($scope.groupEvent.premiseId == transferToPremise && $scope.groupEvent. groupId == transferToGroupEvent)
 		{
@@ -494,6 +496,14 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 				}
 			});
 		}
+	}
+	
+	$scope.transferToGroupInit = function()
+	{
+		$scope.transferGroupEventData = {};
+		$scope.transferPhase = $scope.phaseOfProductionType[$scope.groupEvent.phaseOfProductionTypeId];
+		$scope.transferToPremise = null;
+		$scope.transferToGroupTxt = "";
 	}
 
 });

@@ -195,6 +195,13 @@ public class GroupEventServiceImpl implements GroupEventService{
 				{
 					currentGroup.setCurrentInventory(currentGroup.getCurrentInventory() - groupEvent.getTransferredPigNum());
 					groupEventDao.updateGroupEventCurrentInventory(currentGroup);
+					
+					if(currentGroup.getCurrentInventory() == 0)
+					{
+						currentGroup.setActive(false);
+						currentGroup.setGroupCloseDateTime(DateUtil.getToday());
+						groupEventDao.updateGroupEventStatusWithCloseDate(currentGroup);
+					}
 				}
 				
 				

@@ -36,10 +36,10 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	@Override
 	public List<GroupEventDetails> groupEventDetailsListByGroupId(final int groupId) {
 		
-		 String qry = "select \"id\", \"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", "
-			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
-			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_TransportDestination\",\"id_SowSource\",\"id_Premise\" "
-			   		+ "from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = ?";
+		 String qry = "select GED.\"id\", GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", "
+			   		+ "GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", "
+			   		+ "GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\",GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\", GE.\"groupId\" "
+			   		+ "from pigtrax.\"GroupEventDetails\" GED LEFT JOIN  pigtrax.\"GroupEvent\" GE ON GED.\"id_FromGroup\" = GE.\"id\" where GED.\"id_GroupEvent\" = ?";
 		 
 				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 					@Override
@@ -56,10 +56,10 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 
 	@Override
 	public GroupEventDetails groupEventDetailsListById(final Integer id) {
-		 String qry = "select \"id\", \"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", "
-			   		+ "\"id_EmployeeGroup\", \"numberOfPigs\", \"weightInKgs\", \"indeventoryAdjustment\", "
-			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\", \"id_TransportDestination\", \"id_SowSource\",\"id_Premise\" "
-			   		+ "  from pigtrax.\"GroupEventDetails\" where \"id\" = ?";
+		 String qry = "select GED.\"id\", GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", "
+			   		+ "GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", "
+			   		+ "GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\", GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\", GE.\"groupId\" "
+			   		+ "  from pigtrax.\"GroupEventDetails\" GED  LEFT JOIN  pigtrax.\"GroupEvent\" GE ON GED.\"id_FromGroup\" = GE.\"id\" where GED.\"id\" = ?";
 				
 				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 					@Override
@@ -135,8 +135,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	public int addGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException {
 		final String Qry = "insert into pigtrax.\"GroupEventDetails\"(\"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", \"id_EmployeeGroup\", \"numberOfPigs\","
 					+"\"weightInKgs\", \"indeventoryAdjustment\", \"remarks\", \"lastUpdated\", \"userUpdated\", "
-					+ "\"id_TransportDestination\", \"id_SowSource\",\"id_Premise\", \"id_PigletStatusEvent\") "
-				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?,?,?)";
+					+ "\"id_TransportDestination\", \"id_SowSource\",\"id_Premise\", \"id_PigletStatusEvent\", \"id_FromGroup\") "
+				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?,?,?, ?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -190,6 +190,10 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	     	            	ps.setInt(14, groupEventDetails.getPigletStatusEventId());
 	     	            else
 	     	            	ps.setNull(14, java.sql.Types.INTEGER);
+	    	            if(groupEventDetails.getFromGroupId() != null && groupEventDetails.getFromGroupId() != 0)
+	     	            	ps.setInt(15, groupEventDetails.getFromGroupId());
+	     	            else
+	     	            	ps.setNull(15, java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -246,6 +250,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				groupEventDetails.setTransportDestination(rs.getInt("id_TransportDestination"));
 				groupEventDetails.setSowSourceId(rs.getInt("id_SowSource"));
 				groupEventDetails.setPremiseId(rs.getInt("id_Premise"));
+				groupEventDetails.setFromGroupId(rs.getObject("id_FromGroup") != null ? rs.getInt("id_FromGroup") : null);
+				groupEventDetails.setFromGroupIdStr(rs.getString("groupId"));
 				return groupEventDetails;
 			}
 		}
