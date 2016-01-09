@@ -3282,6 +3282,41 @@ REFERENCES pigtrax."Room" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: pigtrax."MatingDetails" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtrax."SowMovement" CASCADE;
+CREATE TABLE pigtrax."SowMovement"(
+	id serial NOT NULL,
+	"id_PigInfo" integer NOT NULL,
+	"id_Room" integer NOT NULL,
+	"id_Premise" integer NOT NULL,
+	"movementDate" timestamp NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "SOW_MOVEMENT_PK" PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE pigtrax."SowMovement" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "Room_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."SowMovement" DROP CONSTRAINT IF EXISTS "Room_fk" CASCADE;
+ALTER TABLE pigtrax."SowMovement" ADD CONSTRAINT "Room_fk" FOREIGN KEY ("id_Room")
+REFERENCES pigtrax."Room" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- ALTER TABLE pigtrax."SowMovement" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."SowMovement" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- object: "PigInfo_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."SowMovement" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;
+ALTER TABLE pigtrax."SowMovement" ADD CONSTRAINT "PigInfo_fk" FOREIGN KEY ("id_PigInfo")
+REFERENCES pigtrax."PigInfo" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
