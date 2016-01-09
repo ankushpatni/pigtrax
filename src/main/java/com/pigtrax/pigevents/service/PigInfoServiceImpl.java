@@ -17,9 +17,11 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
+import com.pigtrax.pigevents.beans.SowMovement;
 import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
+import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
 import com.pigtrax.pigevents.dto.PigInfoBuilder;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
@@ -40,6 +42,9 @@ public class PigInfoServiceImpl implements PigInfoService {
 	@Autowired
 	BreedingEventDao breedingEventDao;
 	
+	@Autowired 
+	SowMovementDao sowMovementDao;
+	
 	
 	public int savePigInformation(PigInfoDto dto) throws Exception {
 		
@@ -51,7 +56,17 @@ public class PigInfoServiceImpl implements PigInfoService {
 			try{
 				if(dto.getId() == null)
 				{
-				   return addPigInformation(pigInfo);
+					
+				   int returnValue =  addPigInformation(pigInfo);
+				   
+				   SowMovement sowMovement = new SowMovement();
+				   sowMovement.setPigInfoId(returnValue);
+				   sowMovement.setPremiseId(pigInfo.getPremiseId());
+				   sowMovement.setRoomId(pigInfo.getPenId());
+				   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
+				   sowMovementDao.addSowMovement(sowMovement);
+				   
+				   return returnValue;
 				}
 				else
 				{
