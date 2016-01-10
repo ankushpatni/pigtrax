@@ -214,7 +214,10 @@ pigTrax.controller('CompanyController', function($scope, $http, $window,$modal, 
 		{
 			document.getElementById("companyForm").action="loadProductionLogList";		 
 		}
-
+		else if(eventName == "SowMovementEvent")
+		{
+			document.getElementById("companyForm").action="sowMomentEvent";		 
+		}
 		
 		document.getElementById("selectedCompany").value= companyId;
 		document.getElementById("companyForm").submit();

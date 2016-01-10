@@ -122,6 +122,7 @@
 													<li><a href="#" ng-click="goToPigEvent('FeedEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></a></li>													
 													<li><a href="#" ng-click="goToPigEvent('ChangePigId',row.id)"><spring:message code="label.leftmenu.managepigevents.changeid.link"  text="Change Id"/></a></li>
 													<li><a href="#" ng-click="goToPigEvent('PigletEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>													
+													<li><a href="#" ng-click="goToPigEvent('SowMovementEvent',row.id)"><spring:message code="label.leftmenu.managepigevents.sowMomentEvent.link"  text="Sow Movement Event"/></a></li>													
 												  </ul>
 												  
 												</div>
