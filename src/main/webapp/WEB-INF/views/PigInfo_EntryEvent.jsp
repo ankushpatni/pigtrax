@@ -78,16 +78,14 @@
                    
                    	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigInfo.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'" ng-change="getPenList()">
-                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigInfo.premiseId == premise.id">{{premise.name}}</option>
+                       <select class="form-control"  name="premiseId" id="premiseId" ng-model="pigInfo.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'" ng-change="getRooms()">
+                       	<option  ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="pigInfo.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>
 				  
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.entryeventform.pen'  text='Pen'/></label>
-                     <select class="form-control" ng-model="pigInfo.penId">
-                          <option ng-repeat="pen in penInfo" value="{{pen.id}}">{{pen.penId}}</option>
-                        </select>
+                      <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/></label>
+                      <select class="form-control" name="roomId" ng-model="pigInfo.roomId"  ng-options="k as v for (k, v) in roomMap"></select>
                     </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.entryeventform.pigid'  text='Pig Id'/><span style='color: red'>*</span></label>

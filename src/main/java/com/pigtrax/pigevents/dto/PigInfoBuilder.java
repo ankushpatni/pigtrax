@@ -30,7 +30,7 @@ public class PigInfoBuilder {
 		   info.setRemarks(dto.getRemarks()); 
 		   info.setUserUpdated(dto.getUserUpdated());
 		   info.setCompanyId(dto.getCompanyId());
-		   info.setPenId(dto.getPenId());
+		   info.setRoomId(dto.getRoomId());
 		   info.setBarnId(dto.getBarnId());
 		   info.setSexTypeId(dto.getSexTypeId());
 		   info.setActive(dto.isActive());
@@ -63,7 +63,7 @@ public class PigInfoBuilder {
 		   dto.setRemarks(info.getRemarks());
 		   dto.setUserUpdated(info.getUserUpdated());
 		   dto.setCompanyId(info.getCompanyId());
-		   dto.setPenId(info.getPenId());
+		   dto.setRoomId(info.getRoomId());
 		   dto.setBarnId(info.getBarnId());
 		   dto.setSexTypeId(info.getSexTypeId());
 		   dto.setCurrentFarrowEventDate(info.getCurrentFarrowEventDate());

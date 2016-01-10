@@ -16,7 +16,7 @@ public class PigInfo {
 	private String alternateTattoo;
 	private String remarks;
 	private Integer companyId;
-	private Integer penId;
+	private Integer roomId;
 	private Integer barnId;
 	private Integer sexTypeId;
 	private String userUpdated;
@@ -141,12 +141,13 @@ public class PigInfo {
 		this.companyId = companyId;
 	}
 
-	public Integer getPenId() {
-		return penId;
+	
+	public Integer getRoomId() {
+		return roomId;
 	}
 
-	public void setPenId(Integer penId) {
-		this.penId = penId;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
 	public Integer getBarnId() {
@@ -248,7 +249,7 @@ public class PigInfo {
 		buffer.append(", "+"alternateTattoo : "+this.alternateTattoo);
 		buffer.append(", "+"remarks : "+this.remarks);
 		buffer.append(", "+"companyId : "+this.companyId);
-		buffer.append(", "+"penId : "+this.penId);
+		buffer.append(", "+"penId : "+this.roomId);
 		buffer.append(", "+"barnId : "+this.barnId);
 		buffer.append(", "+"sexTypeId"+this.sexTypeId);
 		buffer.append(", "+"currentFarrowEventDate"+this.currentFarrowEventDate);

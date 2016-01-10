@@ -62,7 +62,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 				   SowMovement sowMovement = new SowMovement();
 				   sowMovement.setPigInfoId(returnValue);
 				   sowMovement.setPremiseId(pigInfo.getPremiseId());
-				   sowMovement.setRoomId(pigInfo.getPenId());
+				   sowMovement.setRoomId(pigInfo.getRoomId());
 				   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
 				   sowMovementDao.addSowMovement(sowMovement);
 				   

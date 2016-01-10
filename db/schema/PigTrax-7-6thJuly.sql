@@ -755,7 +755,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Company" integer NOT NULL,
-	"id_Pen" integer,
+	"id_Room" integer,
 	"id_Barn" integer,
 	"id_SexType" integer,
 	"parity" integer default 0,
@@ -827,9 +827,9 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: "Pen_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "Pen_fk" CASCADE;
-ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "Pen_fk" FOREIGN KEY ("id_Pen")
-REFERENCES pigtrax."Pen" (id) MATCH FULL
+-- ALTER TABLE pigtrax."PigInfo" DROP CONSTRAINT IF EXISTS "Room_fk" CASCADE;
+ALTER TABLE pigtrax."PigInfo" ADD CONSTRAINT "Room_fk" FOREIGN KEY ("id_Room")
+REFERENCES pigtrax."Room" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

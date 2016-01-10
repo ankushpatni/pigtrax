@@ -167,6 +167,15 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			});
 		};
 		
+		$scope.getRooms = function()
+		{
+			restServices.getRoomsForPremise($scope.pigInfo.premiseId, function(data){
+				if(!data.error){
+					
+					$scope.roomMap = data.payload;					
+				}
+			});
+		}
 		
 		$scope.addEntryEvent = function(){
 			
@@ -275,6 +284,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 						if(!data.error){
 							$scope.clearAllMessages();
 							$scope.pigInfo = data.payload;
+							$scope.getRooms();
 						}
 						else
 						{

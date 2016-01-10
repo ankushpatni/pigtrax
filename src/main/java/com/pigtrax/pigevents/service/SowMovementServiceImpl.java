@@ -105,6 +105,8 @@ private static final Logger logger = Logger.getLogger(FeedEventServiceImpl.class
 	 * To delete the given information
 	 */
 
+	@Override
+	@Transactional("ptxJTransactionManager")
 	public int deleteSawMoment(Integer id) throws Exception {
 		if(id != null)
 		{
@@ -117,6 +119,8 @@ private static final Logger logger = Logger.getLogger(FeedEventServiceImpl.class
 	/**
 	 * Get app 
 	 */
+	@Override
+	@Transactional("ptxJTransactionManager")
 	public List<SowMovement> getSowMomwntsListByCompany(int companyId) throws Exception {
 		
 		return  sowMovementDao.getSowMovementListByCompanyId(companyId);
