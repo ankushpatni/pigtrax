@@ -54,10 +54,11 @@ public class PigInfoServiceImpl implements PigInfoService {
 		logger.info("company id in service = "+pigInfo.getCompanyId());
 		
 			try{
+				int returnValue;
 				if(dto.getId() == null)
 				{
 					
-				   int returnValue =  addPigInformation(pigInfo);
+				   returnValue =  addPigInformation(pigInfo);
 				   
 				   SowMovement sowMovement = new SowMovement();
 				   sowMovement.setPigInfoId(returnValue);
@@ -65,13 +66,24 @@ public class PigInfoServiceImpl implements PigInfoService {
 				   sowMovement.setRoomId(pigInfo.getRoomId());
 				   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
 				   sowMovementDao.addSowMovement(sowMovement);
-				   
-				   return returnValue;
 				}
 				else
 				{
-					return pigInfoDao.updatePigInformation(pigInfo);
+					PigInfo pigInfoExist = pigInfoDao.getPigInformationById(pigInfo.getId());
+					if(!(pigInfoExist.getPremiseId() == pigInfo.getPremiseId() && 
+							pigInfoExist.getRoomId() == pigInfo.getRoomId()))
+					{
+							SowMovement sowMovement = new SowMovement();
+						   sowMovement.setPigInfoId(pigInfo.getId());
+						   sowMovement.setPremiseId(pigInfo.getPremiseId());
+						   sowMovement.setRoomId(pigInfo.getRoomId());
+						   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
+						   sowMovementDao.addSowMovement(sowMovement);
+					}
+					returnValue = pigInfoDao.updatePigInformation(pigInfo);
 				}
+				
+				return returnValue;
 			}catch(SQLException sqlEx)
 			{
 				
@@ -224,6 +236,16 @@ public class PigInfoServiceImpl implements PigInfoService {
 			} 
 		}
 		return builder.convertToDto(info);
+	}
+	
+	/**
+	 * Get app 
+	 */
+	@Override
+	@Transactional("ptxJTransactionManager")
+	public Integer updatePigInfoRecordForSowMovement(PigInfoDto pigInfoDto) throws Exception {
+		
+		return  pigInfoDao.updatePigInformation(builder.convertToBean(pigInfoDto));
 	}
 	
 }

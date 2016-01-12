@@ -82,7 +82,7 @@ private static final Logger logger = Logger.getLogger(SowMovementDaoImpl.class);
 	@Override
 	public int updateSowMovement(final SowMovement sowMovement) throws SQLException {
 		final String Qry = "update pigtrax.\"SowMovement\" set  \"id_Room\"=?, \"id_Premise\"=?, "
-				+ "  \"lastUpdated\"=? ,\"userUpdated\"=?  where \"id\" = ?  ";	
+				+ "  \"lastUpdated\"= current_timestamp ,\"userUpdated\"=?  where \"id\" = ? ";	
 		
 		logger.info("Updating moment in dao impl = "+sowMovement.getPigInfoId());
 		
@@ -93,6 +93,7 @@ private static final Logger logger = Logger.getLogger(SowMovementDaoImpl.class);
 				ps.setInt(1, sowMovement.getRoomId());
 				ps.setInt(2, sowMovement.getPremiseId());
 				ps.setString(3, sowMovement.getUserUpdated());
+				ps.setInt(4, sowMovement.getId());
 			}
 		});
 	}
@@ -102,12 +103,31 @@ private static final Logger logger = Logger.getLogger(SowMovementDaoImpl.class);
 	 */
 	@Override
 	public List<SowMovement> getSowMovementListByCompanyId( final Integer companyId) throws SQLException {
-		String qry = "\"id_PigInfo\", \"id_Room\", \"id_Premise\", \"movementDate\" "
-				+ "from pigtrax.\"SowMovement\" where \"id_PigInfo\" in ( Select \"id\" from pigtrax.\"PigInfo\" where \"id_Company\" = ?) ";
+		String qry = "Select \"id_PigInfo\", \"id_Room\", \"id_Premise\", \"movementDate\" "
+				+ "from pigtrax.\"SowMovement\" where \"id_PigInfo\" in ( Select \"id\" from pigtrax.\"PigInfo\" where \"id_Company\" = ?) order by \"lastUpdated\" desc";
 		List<SowMovement> sowMovementList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			
 			public void setValues(PreparedStatement ps) throws SQLException {				
 				ps.setInt(1, companyId);
+			}}, new SowMovementMapper());
+
+		if(sowMovementList != null && sowMovementList.size() > 0){
+			return sowMovementList;
+		}
+		return null;
+	}
+	
+	/**
+	 * Get the pig information based on pigInfoId
+	 */
+	@Override
+	public List<SowMovement> getSowMovementListByPigInfoId( final String pigInfoId) throws SQLException {
+		String qry = "Select \"id\", \"id_PigInfo\", \"id_Room\", \"id_Premise\", \"movementDate\" "
+				+ "from pigtrax.\"SowMovement\" where \"id_PigInfo\" in ( Select \"id\" from pigtrax.\"PigInfo\" where \"pigId\" = ?) order by \"lastUpdated\" desc";
+		List<SowMovement> sowMovementList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			
+			public void setValues(PreparedStatement ps) throws SQLException {				
+				ps.setString(1, pigInfoId);
 			}}, new SowMovementMapper());
 
 		if(sowMovementList != null && sowMovementList.size() > 0){

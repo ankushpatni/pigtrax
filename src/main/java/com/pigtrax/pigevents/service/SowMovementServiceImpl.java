@@ -126,5 +126,14 @@ private static final Logger logger = Logger.getLogger(FeedEventServiceImpl.class
 		return  sowMovementDao.getSowMovementListByCompanyId(companyId);
 	}
 
+	/**
+	 * Get app 
+	 */
+	@Override
+	@Transactional("ptxJTransactionManager")
+	public List<SowMovement> getSowMovementListByPigInfoId(String pigInfoId) throws Exception {
+		
+		return  sowMovementDao.getSowMovementListByPigInfoId(pigInfoId);
+	}
 
 }

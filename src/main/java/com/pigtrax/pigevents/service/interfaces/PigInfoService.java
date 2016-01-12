@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 
 public interface PigInfoService {
@@ -25,4 +26,7 @@ public interface PigInfoService {
     List<String> getAvailablePigIds(Integer companyId);
     
     PigInfoDto getPigInformationById(final Integer pigInfoId) throws PigTraxException, ParseException;
+
+	Integer updatePigInfoRecordForSowMovement(PigInfoDto pigInfoDto)
+			throws Exception;
 }  

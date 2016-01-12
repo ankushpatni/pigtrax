@@ -16,4 +16,7 @@ public interface SowMovementService {
 	List<SowMovement> getSowMomwntsListByCompany(int companyId)
 			throws Exception;
 
+	List<SowMovement> getSowMovementListByPigInfoId(String pigInfoId)
+			throws Exception;
+
 }

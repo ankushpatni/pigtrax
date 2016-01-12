@@ -87,5 +87,12 @@ public class SowMovementController {
 		   return "template";
 	   }
 	 
+	 @RequestMapping(value = "/editSowMovement")
+		public String editSowMovement(Model model)
+		{
+			model.addAttribute("contentUrl","editSowMovement.jsp"); 
+			return "editSowMovement";
+		}
+	 
 		
 }
