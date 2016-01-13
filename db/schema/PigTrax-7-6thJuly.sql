@@ -3287,7 +3287,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 CREATE TABLE pigtrax."SowMovement"(
 	id serial NOT NULL,
 	"id_PigInfo" integer NOT NULL,
-	"id_Room" integer NOT NULL,
+	"id_Room" integer,
 	"id_Premise" integer NOT NULL,
 	"movementDate" timestamp NOT NULL,
 	"lastUpdated" timestamp NOT NULL,

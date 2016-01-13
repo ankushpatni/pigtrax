@@ -13,7 +13,7 @@
 				 <select class="form-control" name="roomId" ng-model="premiseId"  ng-options="k as v for (k, v) in premisesMap" ng-change="getRooms()"></select>
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.sowMovementForm.Room" text="Room" /><span style='color: red'>*</span></label>				
+				<label><spring:message code="label.sowMovementForm.Room" text="Room" /></label>				
 				 <select class="form-control" name="roomId" ng-model="roomId"  ng-options="k as v for (k, v) in roomMap"></select>
 			</div>
 			
