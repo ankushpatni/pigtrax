@@ -65,6 +65,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 				   sowMovement.setPremiseId(pigInfo.getPremiseId());
 				   sowMovement.setRoomId(pigInfo.getRoomId());
 				   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
+				   sowMovement.setCompanyId(pigInfo.getCompanyId());
 				   sowMovementDao.addSowMovement(sowMovement);
 				}
 				else
@@ -78,6 +79,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 						   sowMovement.setPremiseId(pigInfo.getPremiseId());
 						   sowMovement.setRoomId(pigInfo.getRoomId());
 						   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
+						   sowMovement.setCompanyId(pigInfo.getCompanyId());
 						   sowMovementDao.addSowMovement(sowMovement);
 					}
 					returnValue = pigInfoDao.updatePigInformation(pigInfo);

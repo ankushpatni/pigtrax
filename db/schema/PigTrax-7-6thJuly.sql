@@ -3292,6 +3292,7 @@ CREATE TABLE pigtrax."SowMovement"(
 	"movementDate" timestamp NOT NULL,
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
+	"id_Company" integer,
 	CONSTRAINT "SOW_MOVEMENT_PK" PRIMARY KEY (id)
 
 );

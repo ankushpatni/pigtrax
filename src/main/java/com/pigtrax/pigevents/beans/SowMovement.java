@@ -11,6 +11,7 @@ public class SowMovement {
     private Date movementDate;
     private Date lastUpdated;
     private String userUpdated;
+    private Integer companyId;
 	public Integer getId() {
 		return id;
 	}
@@ -53,5 +54,11 @@ public class SowMovement {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
-
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+	
 }

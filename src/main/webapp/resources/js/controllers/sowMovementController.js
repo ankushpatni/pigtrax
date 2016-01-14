@@ -50,7 +50,8 @@
 		var postParam = {
 				
 				"pigInfo" : $scope.searchText,
-				"companyId" : $scope.companyId
+				"companyId" : $scope.companyId,
+				"premiseId" : $scope.premiseId
 			};
 		
 		restServices.getSowMovement(postParam, function(data){

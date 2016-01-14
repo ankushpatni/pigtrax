@@ -61,6 +61,7 @@ public class SowMovementRestController {
 				 pigInfoDto.setPremiseId(sowMovement.getPremiseId());
 				 pigInfoDto.setRoomId(sowMovement.getRoomId());
 				 pigInfoDto.setUserUpdated(activeUser.getUsername());
+				 pigInfoDto.setCompanyId(sowMovement.getCompanyId());
 				 pigInfoService.updatePigInfoRecordForSowMovement(pigInfoDto);
 				
 				dto.setStatusMessage("Success");
@@ -127,7 +128,7 @@ public class SowMovementRestController {
 			ServiceResponseDto dto = new ServiceResponseDto();
 			   
 			try {
-				List<SowMovement> SowMomentList = sowMovementService.getSowMovementListByPigInfoId(params.get("pigInfo"));
+				List<SowMovement> SowMomentList = sowMovementService.getSowMovementListByPigInfoId(params.get("pigInfo"), Integer.parseInt(params.get("companyId")), Integer.parseInt(params.get("premiseId")));
 				dto.setPayload(SowMomentList);
 			} catch (PigTraxException e) {
 				e.printStackTrace();

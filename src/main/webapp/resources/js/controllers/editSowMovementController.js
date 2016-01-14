@@ -32,7 +32,8 @@ pigTrax.controller('editSowMovementCtrl', function($scope, $http, $window, $moda
 					postParam = {
 							"roomId" : $scope.roomId,
 							"premiseId" : $scope.premiseId,
-							"pigInfoId" : $scope.sowMovementDataEdit.pigInfo
+							"pigInfoId" : $scope.sowMovementDataEdit.pigInfoId,
+							"companyId" : $scope.companyId
 				};
 				console.log(postParam);
 				var res = $http.post('rest/sowMomentEvent/addSowEvent', postParam);
