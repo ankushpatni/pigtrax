@@ -39,7 +39,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	GroupEventDetailsService groupEventDetailsService;
 	
 	/**
-	 * Service to save the pig information
+	 * Service to save the group event information
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/addGroupEvent", method=RequestMethod.POST, produces="application/json")
@@ -76,7 +76,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	}
 	
 	/**
-	 * Service to save the pig information
+	 * Service to get the group event information
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getGroupEventInformation", method=RequestMethod.POST, produces="application/json")
@@ -116,7 +116,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	}
 	
 	/**
-	 * Service to save the pig information
+	 * Service to save the group event details
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/addGroupEventDetail", method=RequestMethod.POST, produces="application/json")
@@ -154,7 +154,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	}
 	
 	/**
-	 * Service to save the pig information
+	 * Service to get the group event details
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getGroupEventDetail", method=RequestMethod.POST, produces="application/json")
@@ -183,6 +183,11 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		return dto;
 	}
 	
+	
+	/**
+	 * Service to update the group event details
+	 * @return ServiceResponseDto
+	 */
 	@RequestMapping(value = "/updateGroupEventInformation", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	public ServiceResponseDto updateGroupEventInformation(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
@@ -220,7 +225,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	
 	
 	/**
-	 * Service to save the pig information
+	 * Service to update the group event from Nursery to Finish
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/promoteToFinish", method=RequestMethod.POST, produces="application/json")
@@ -252,7 +257,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	
 	
 	/**
-	 * Service to save the pig information
+	 * Service to revert the group event change from Nursery to Finish
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/moveBackToNursery", method=RequestMethod.POST, produces="application/json")
@@ -285,7 +290,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	
 	
 	/**
-	 * Service to save the pig information
+	 * Service to get the group event details for tranfer
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getGroupEventInformationForTransfer", method=RequestMethod.POST, produces="application/json")
@@ -325,7 +330,7 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 	}
 	
 	/**
-	 * Service to save the pig information
+	 * Service to Transfer piglets from Nursery to Nursery or Finish to finish
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/transferToGroup", method=RequestMethod.POST, produces="application/json")
@@ -355,5 +360,70 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		}		
 		return dto; 
 	}
+	
+	
+	/**
+	 * Service to perform wean To Finish 2
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/weanToFinishPhase2", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto weanToFinishPhase2(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside weanToFinishPhase2 method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent.setUserUpdated(activeUser.getUsername());
+			if( null != groupEvent && groupEvent.getId() !=0)
+			{
+				int rowsInserted = groupEventService.updateGroupEvent(groupEvent);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
+	
+	
+	/**
+	 * Service to undo wean To Finish 2
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/undoWeanToFinishPhase2", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto undoPhase2Movement(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside undoWeanToFinishPhase2 method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent.setUserUpdated(activeUser.getUsername());
+			if( null != groupEvent && groupEvent.getId() !=0)
+			{
+				int rowsInserted = groupEventService.undoWeanToFinishPhase2(groupEvent);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
+	
 
 }

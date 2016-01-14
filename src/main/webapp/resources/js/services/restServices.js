@@ -129,6 +129,9 @@ pigTrax.factory("restServices", function($resource) {
 		"promoteToFinish" : {method:"POST", url:"rest/groupEvent/promoteToFinish"},
 		"transferToGroup" : {method:"POST", url:"rest/groupEvent/transferToGroup"},
 		"getSowMovement" : {method:"POST", url:"rest/sowMomentEvent/getSowMomentList"},
-		"deleteSowMovement" : {method:"POST", url:"rest/sowMomentEvent/deleteSowMovement"}
+		"deleteSowMovement" : {method:"POST", url:"rest/sowMomentEvent/deleteSowMovement"},
+		"weanToFinishPhase2" : {method:"POST", url:"rest/groupEvent/weanToFinishPhase2"},
+		"undoWeanToFinishPhase2" : {method:"POST", url:"rest/groupEvent/undoWeanToFinishPhase2"}
+		
     });
 });

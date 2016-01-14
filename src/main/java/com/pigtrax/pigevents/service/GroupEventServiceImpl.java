@@ -89,7 +89,9 @@ public class GroupEventServiceImpl implements GroupEventService{
 				List<GroupEventPhaseChange> phaseChangeList = groupEventPhaseChangeDao.getPhaseChangeDetails(groupEvent.getId());
 				groupEvent.setPhaseChangeList(phaseChangeList);
 				
-				List<RoomPK> roomIds = groupEventRoomDao.getGroupEventRooms(groupEvent.getId());
+				Integer currentPhaseRecordId = groupEventPhaseChangeDao.getCurrentPhaseRecordId(groupEvent.getId());
+				
+				List<RoomPK> roomIds = groupEventRoomDao.getGroupEventRooms(currentPhaseRecordId);
 				groupEvent.setRoomIds(roomIds);
 				
 				
@@ -129,10 +131,12 @@ public class GroupEventServiceImpl implements GroupEventService{
 			groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
 			groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
 			groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());
+			groupEventPhaseChange.setRoomIds(groupEvent.getRoomIds()); 
 			
-			groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
+			Integer groupEventPhaseChangeId = groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
 			
-			groupEventRoomDao.addGroupEventRooms(groupEvent);
+			groupEventPhaseChange.setId(groupEventPhaseChangeId);
+			groupEventRoomDao.addGroupEventRooms(groupEventPhaseChange);
 			
 			PigTraxEventMaster master = new PigTraxEventMaster();
 			master.setUserUpdated(groupEvent.getUserUpdated());
@@ -203,8 +207,6 @@ public class GroupEventServiceImpl implements GroupEventService{
 						groupEventDao.updateGroupEventStatusWithCloseDate(currentGroup);
 					}
 				}
-				
-				
 				//Add new entries to the transferred group
 				GroupEventDetails newGroupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
 				if(null!=newGroupEventDetails)
@@ -225,11 +227,8 @@ public class GroupEventServiceImpl implements GroupEventService{
 				}
 				generatedId = groupEventDao.updateGroupEvent(groupEvent);
 				
-				groupEventRoomDao.deleteGroupEventRooms(groupEvent.getId());
-				groupEventRoomDao.addGroupEventRooms(groupEvent);
-				
-				Integer currentPhaseId = groupEventPhaseChangeDao.getCurrentPhase(groupEvent.getId());
-				if(currentPhaseId != groupEvent.getPhaseOfProductionTypeId())
+				GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEvent.getId());
+				if(currentPhase.getPhaseOfProductionTypeId() != groupEvent.getPhaseOfProductionTypeId())
 				{
 					groupEventPhaseChangeDao.endDateGroupEventPhase(groupEvent.getId());
 					
@@ -237,9 +236,22 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEventPhaseChange.setGroupEventId(groupEvent.getId());
 					groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
 					groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
-					groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());
-					
-					groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
+					groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());				
+					groupEventPhaseChange.setRoomIds(groupEvent.getRoomIds());
+					Integer phaseChangeId = groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
+					groupEventPhaseChange.setId(phaseChangeId);
+					groupEventRoomDao.addGroupEventRooms(groupEventPhaseChange);
+				}
+				else
+				{	
+					currentPhase.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
+					currentPhase.setUserUpdated(groupEvent.getUserUpdated());
+					currentPhase.setPremiseId(groupEvent.getPremiseId());	
+					currentPhase.setPhaseStartDate(groupEvent.getGroupStartDateTime());
+					currentPhase.setRoomIds(groupEvent.getRoomIds());
+					groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);
+					groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
+					groupEventRoomDao.addGroupEventRooms(currentPhase);
 				}
 				
 			}
@@ -331,6 +343,34 @@ public class GroupEventServiceImpl implements GroupEventService{
 					+ sqlEx.getCause());			
 		} 
 		return groupIdMap;
+	}
+	
+	
+	
+	@Override
+	public int undoWeanToFinishPhase2(GroupEvent groupEvent)
+			throws PigTraxException {
+		
+		try{
+		
+			groupEvent.setPhaseOfProductionTypeId(3);
+			Integer generatedId = groupEventDao.updateGroupEvent(groupEvent);
+			
+			GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEvent.getId());
+			if(currentPhase.getPhaseOfProductionTypeId() == 4)
+			{
+				groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
+				
+				groupEventPhaseChangeDao.deleteCurrentPhase(currentPhase.getId());		
+				
+				groupEventPhaseChangeDao.activatePhase(groupEvent.getId(), groupEvent.getPhaseOfProductionTypeId());
+			}
+			
+		}catch(SQLException sqlEx)
+		{
+			throw new PigTraxException(sqlEx.getMessage());
+		}
+		return 0;
 	}
 
 	

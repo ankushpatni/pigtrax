@@ -3,7 +3,6 @@ package com.pigtrax.pigevents.beans;
 import java.util.Date;
 import java.util.List;
 
-import com.pigtrax.master.dto.Room;
 import com.pigtrax.master.dto.RoomPK;
 
 public class GroupEvent {

@@ -13,5 +13,14 @@ public interface GroupEventPhaseChangeDao {
    
    List<GroupEventPhaseChange> getPhaseChangeDetails(final Integer groupEventId) throws SQLException;
    
-   Integer getCurrentPhase(Integer groupEventId);
+   GroupEventPhaseChange getCurrentPhase(Integer groupEventId)  throws SQLException;
+   
+   Integer getCurrentPhaseRecordId(Integer groupEventId);
+   
+   void updatePhaseDetails(GroupEventPhaseChange currentPhase);
+   
+   void deleteCurrentPhase(Integer groupEventPhaseId);
+   
+   void activatePhase(Integer groupEventId, Integer phaseOfProductionTypeId);
+   
 }

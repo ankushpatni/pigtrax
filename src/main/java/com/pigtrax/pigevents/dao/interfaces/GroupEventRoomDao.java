@@ -4,12 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.pigtrax.master.dto.RoomPK;
-import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.GroupEventPhaseChange;
 
 public interface GroupEventRoomDao {
-     void addGroupEventRooms(GroupEvent event);
+     void addGroupEventRooms(GroupEventPhaseChange groupEventPhaseChange);
      
      void deleteGroupEventRooms(Integer groupEventId);
      
-     List<RoomPK> getGroupEventRooms(final Integer groupEventId)	throws SQLException;
+     List<RoomPK> getGroupEventRooms(final Integer groupEventPhaseChangeId)	throws SQLException;
 }

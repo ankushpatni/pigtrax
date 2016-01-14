@@ -17,12 +17,15 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.entryEventStatusChangeSuccessMessage = false;
 	$scope.editGroupEventInventory = false;
 	$scope.DateUtils = DateUtils;
-	$scope.roomValues = [];		
+	$scope.roomValues = [];	
+	$scope.updatedRooms = [];
+	$scope.allRoomValues = [];
 	$scope.groupEvent["roomIds"] = [];
 	$scope.promoteToFinishMessage = false;
 	$scope.transferToGroupSearchError = false;
 	$scope.transferToGroupSearchDataError = false;
 	$scope.transferGroupEventData = {};
+	$scope.invalidRoomSelection = false;
 	
 	$scope.loadPremises = function()
 	{
@@ -504,6 +507,62 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.transferPhase = $scope.phaseOfProductionType[$scope.groupEvent.phaseOfProductionTypeId];
 		$scope.transferToPremise = null;
 		$scope.transferToGroupTxt = "";
+	}
+	
+	$scope.promoteToPhase2 = function()
+	{
+		restServices.getRoomsForPremise($scope.groupEvent["premiseId"], function(data){
+			if(!data.error){
+				$scope.roomType = data.payload;
+				$scope.allRoomValues = [];
+				angular.forEach($scope.roomType, function(key, value){					
+                   var itemObj = {"id" : value, "label":key}  
+				   $scope.allRoomValues.push(itemObj);
+               })			   
+			}
+		});
+	}
+	
+	$scope.confirmPromoteToPhase2 = function()
+	{
+		$scope.invalidRoomSelection = false;
+		$scope.confirmPromoteToPhase2Status = true;
+		if($scope.updatedRooms != null && 0 < $scope.updatedRooms.length)
+		{
+		  $scope.invalidRoomSelection = false;
+		  $scope.groupEvent.roomIds = $scope.updatedRooms;
+		  $scope.groupEvent.phaseOfProductionTypeId = 4;
+		  restServices.weanToFinishPhase2($scope.groupEvent, function(data)
+		  {
+			  if(!data.error)
+			  {
+				  $('#phase2GroupModal').modal('hide');
+				  $('body').removeClass('modal-open');
+				  $('.modal-backdrop').remove();
+				  $scope.confirmPromoteToPhase2Status = true;
+				  $scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId, true);
+			  }
+			  else
+			 {
+			 	  $scope.confirmPromoteToPhase2Status = false;
+			  }
+		  });
+		}
+		else
+		{
+		  $scope.invalidRoomSelection = true;
+		}
+	}
+	
+	
+	$scope.undoWeanToFinishPhase2 = function()
+	{
+		restServices.undoWeanToFinishPhase2($scope.groupEvent, function(data){
+			if(!data.error)
+			{
+				$scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId, true);
+			}
+		});
 	}
 
 });
