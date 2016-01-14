@@ -127,8 +127,10 @@
 					<button class="btn btn-success" ng-click="moveBackToNursery()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.moveToNursery.confirmmessage'  text='Are you sure you want to move this group back to to nursery phase?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.moveToNursery'  text='Move back to Nursery'/></button>
 					<button class="btn btn-success" data-toggle="modal" ng-click="transferToGroupInit()" data-target="#transferToGroupModal"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToNursery.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 1 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.transferToNursery'  text='Transfer to Nursery'/></button>
 					<button class="btn btn-success" ng-click="transferToFinish()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToFinish.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.transferToFinish'  text='Transfer to Finish'/></button>
-					<!-- <button class="btn btn-success" ng-click="moveToAnotherGroup()" type="submit" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0"><spring:message code='label.piginfo.groupEventform.moveToAnotherGroup'  text='Move To Another Group'/></button> -->
-					<!-- <button class="btn btn-success" ng-click="editGroupEventInventoryAmount()" type="button" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory != 0 && groupEvent.active"><spring:message code='label.piginfo.groupEventform.adjustInventory'  text='Adjust Inventory'/></button> -->
+					<button class="btn btn-success" ng-click= "promoteToPhase2()" data-target="#phase2GroupModal" data-toggle="modal"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.promoteToPhase2.confirmmessage'  text='Are you sure you want to promote this group to phase 2?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 3 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.promoteToPhase2'  text='Promote to Phase 2'/></button>
+					<button class="btn btn-success" ng-click= "undoWeanToFinishPhase2()"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.undoPhase2Movement.confirmmessage'  text='Are you sure you want undo the Phase 2 promotion?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 4 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.undoPhase2Movement'  text='Undo Phase2 Promotion'/></button>
+					
+					
                     <button class="btn btn-warning" type="button" ng-click="resetForm()" data-toggle="modal" data-target="#transportJourneyModal"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button> 
 					
                     <button type="button" class="btn btn-danger pull-right" ng-click="changeGroupEventStatus(false)" ng-show="groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory==0 && groupEvent.active" ><spring:message code='label.piginfo.groupEventform.deActivate'  text='De-Activate'/></button>
@@ -150,7 +152,6 @@
 				<thead style="background-color: #f7b781">
 					<tr>
 						<th style="width:5%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
-						<th style="width:7%"><spring:message code="label.groupEventDetail.barn" text="Barn" /></th>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>
@@ -163,7 +164,6 @@
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:5%">{{$index+1}}</td>
-					<td style="width:7%">{{barnList[row.barnId]}}</td>
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.dateOfEntry)}}</td>
 					<td style="width:7%">{{row.numberOfPigs}}</td>
 					<td style="width:7%">{{row.weightInKgs}}</td>
@@ -195,6 +195,7 @@
 						<th ><spring:message code="label.groupPhaseChange.PhaseOfProductionType" text="Phase of Production Type" /></th>
 						<th ><spring:message code="label.groupPhaseChange.phaseStartDate" text="Phase Start Date" /></th>
 						<th ><spring:message code="label.groupPhaseChange.phaseEndDate" text="Phase End Date" /></th>
+						<th ><spring:message code="label.groupPhaseChange.rooms" text="Room(s)" /></th>
 						<th ><spring:message code="label.groupPhaseChange.premiseId" text="Premise Id" /></th>
 					</tr>
 	 			</thead>
@@ -203,6 +204,7 @@
 					<td>{{phaseOfProductionType[row.phaseOfProductionTypeId]}}</td>
 					<td>{{DateUtils.getFormatedDate(row.phaseStartDate)}}&nbsp;{{row.phaseStartTimeStr}}</td>
 					<td>{{DateUtils.getFormatedDate(row.phaseEndDate)}}&nbsp;{{row.phaseEndTimeStr}}</td>
+					<td><p ng-repeat="room in row.rooms">{{room}}</p></td>
 					<td>{{row.premise}}</td>
 				</tr>
 				</tbody>		
@@ -227,7 +229,7 @@
 	</form>
 	
 	
-	
+	<!-- -- Transfer to group modal -->
 	 <div id="transferToGroupModal" class="modal colored-header warning custom-width" ng-init="transferToGroupInit()">
                     <div class="md-content">
                       <div class="modal-header">
@@ -292,6 +294,38 @@
                       </div>
                     </div>
                   </div>
+	<!-- -- End of Transfer to group modal -->
+	
+	
+	
+	<!-- -- Transfer to group modal -->
+	 <div id="phase2GroupModal" class="modal colored-header warning custom-width" style="{height:300px}">
+                    <div class="md-content">
+                      <div class="modal-header">
+                        <h3><spring:message code='label.groupEvent.promoteToPhase2.heading'  text='Wean to Finish Phase 2'/> </h3>
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close">×</button>
+                      </div>
+                      
+                      <div class="modal-body form" >
+                        
+                        <table >
+                         <tr><td>
+	                      <label><spring:message code='label.groupEvent.promoteToPhase2.selectRooms'  text='Select Rooms'/><span style='color: red'>*</span></label>
+	                      </td>
+	                      <td>
+	                      <div ng-dropdown-multiselect="" options="allRoomValues" selected-model="updatedRooms" ></div>
+	                      </td>
+	                      </tr>	
+                       </table>
+                      </div>
+                      <div class="modal-footer">
+						<button class="btn btn-success" ng-click="confirmPromoteToPhase2()" type="submit" ><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
+						
+                        <button type="button" data-dismiss="modal" class="btn btn-warning btn-flat md-close"><spring:message code='label.employeegroup.button.cancel'  text='Cancel'/></button>                        
+                      </div>
+                    </div>
+                  </div>
+	<!-- -- End of Transfer to group modal -->
 	
 	
 	

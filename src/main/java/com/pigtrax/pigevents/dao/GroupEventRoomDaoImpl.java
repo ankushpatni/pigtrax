@@ -15,9 +15,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pigtrax.master.dto.Room;
 import com.pigtrax.master.dto.RoomPK;
-import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.GroupEventPhaseChange;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 
 @Repository
@@ -34,9 +33,9 @@ public class GroupEventRoomDaoImpl implements GroupEventRoomDao {
 	}
 	
 	@Override
-	public void addGroupEventRooms(final GroupEvent event) {
+	public void addGroupEventRooms(final GroupEventPhaseChange event) {
 		
-		final String sql = "Insert into pigtrax.\"GroupEventRoom\"(\"id_GroupEvent\", \"id_Room\") values (?,?)";
+		final String sql = "Insert into pigtrax.\"GroupEventRoom\"(\"id_GroupEventPhaseChange\", \"id_Room\") values (?,?)";
 		if(event != null && event.getRoomIds() != null)
 		{
 			List<RoomPK> rooms = event.getRoomIds();
@@ -58,7 +57,7 @@ public class GroupEventRoomDaoImpl implements GroupEventRoomDao {
 	
 	@Override
 	public void deleteGroupEventRooms(final Integer groupEventId) {
-		final String qry = "delete from pigtrax.\"GroupEventRoom\" where \"id_GroupEvent\" = ?";
+		final String qry = "delete from pigtrax.\"GroupEventRoom\" where \"id_GroupEventPhaseChange\" = ?";
 		
 		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
 			@Override
@@ -70,15 +69,15 @@ public class GroupEventRoomDaoImpl implements GroupEventRoomDao {
 	
 	
 	@Override
-	public List<RoomPK> getGroupEventRooms(final Integer groupEventId)
+	public List<RoomPK> getGroupEventRooms(final Integer groupEventPhaseId)
 			throws SQLException {
 		
-		String qry = "select \"id_Room\" FROM pigtrax.\"GroupEventRoom\" where \"id_GroupEvent\" = ?";
+		String qry = "select \"id_Room\" FROM pigtrax.\"GroupEventRoom\" where \"id_GroupEventPhaseChange\" = ?";
 			
 		List<RoomPK> roomIds = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, groupEventId);
+				ps.setInt(1, groupEventPhaseId);
 			}}, new GroupEventRoomMapper());
 
 		return roomIds;

@@ -3263,15 +3263,15 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."GroupEventRoom" CASCADE;
 CREATE TABLE pigtrax."GroupEventRoom"(
 	"id" serial NOT NULL,
-	"id_GroupEvent" integer NOT NULL,
+	"id_GroupEventPhaseChange" integer NOT NULL,
 	"id_Room" integer NOT NULL,
 	CONSTRAINT "GroupEventRoom_PK" PRIMARY KEY (id)	
 );
 
--- object: "GroupEvent_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."GroupEventRoom" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
-ALTER TABLE pigtrax."GroupEventRoom" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
-REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+-- object: "GroupEventPhaseChange_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventRoom" DROP CONSTRAINT IF EXISTS "GroupEventPhaseChange_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventRoom" ADD CONSTRAINT "GroupEventPhaseChange_fk" FOREIGN KEY ("id_GroupEventPhaseChange")
+REFERENCES pigtrax."GroupEventPhaseChange" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

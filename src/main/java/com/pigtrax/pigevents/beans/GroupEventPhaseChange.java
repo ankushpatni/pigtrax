@@ -1,6 +1,9 @@
 package com.pigtrax.pigevents.beans;
 
 import java.util.Date;
+import java.util.List;
+
+import com.pigtrax.master.dto.RoomPK;
 
 public class GroupEventPhaseChange {
     private Integer id;
@@ -11,11 +14,14 @@ public class GroupEventPhaseChange {
     private Date phaseEndDate;
     private String phaseEndTimeStr;
     private Integer premiseId;
-    private Integer roomId;
     private String userUpdated;
     private Date lastUpdated; 
     private String premise;
-    
+
+	private List<RoomPK> roomIds;
+	
+	private List<String> rooms;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -52,12 +58,7 @@ public class GroupEventPhaseChange {
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
 	}
-	public Integer getRoomId() {
-		return roomId;
-	}
-	public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
-	}
+	
 	public String getUserUpdated() {
 		return userUpdated;
 	}
@@ -87,6 +88,18 @@ public class GroupEventPhaseChange {
 	}
 	public void setPhaseEndTimeStr(String phaseEndTimeStr) {
 		this.phaseEndTimeStr = phaseEndTimeStr;
+	}
+	public List<RoomPK> getRoomIds() {
+		return roomIds;
+	}
+	public void setRoomIds(List<RoomPK> roomIds) {
+		this.roomIds = roomIds;
+	}
+	public List<String> getRooms() {
+		return rooms;
+	}
+	public void setRooms(List<String> rooms) {
+		this.rooms = rooms;
 	}
 	
 	

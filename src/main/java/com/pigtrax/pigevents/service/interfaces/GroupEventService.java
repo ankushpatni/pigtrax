@@ -27,6 +27,8 @@ public interface GroupEventService {
 	 public String getListoFFollowerId(final String groupId) throws PigTraxException ;
 	 
 	 Map<Integer,GroupEvent> getGroupEventByCompanyId( int companyId);
+	 
+	 int undoWeanToFinishPhase2(final GroupEvent groupEvent) throws PigTraxException;
 		
 
 }
