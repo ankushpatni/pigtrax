@@ -467,6 +467,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		});
 	}
 	
+	
+	
 	$scope.moveBackToNursery = function()
 	{
 		$scope.groupEvent.phaseOfProductionTypeId = 1;

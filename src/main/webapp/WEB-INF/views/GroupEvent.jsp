@@ -126,7 +126,7 @@
 					<button class="btn btn-success" ng-click="promoteToFinish()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.promoteToFinish.confirmmessage'  text='Are you sure you want to promote this group to finish phase?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 1 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.promoteToFinish'  text='Promote to Finish'/></button>
 					<button class="btn btn-success" ng-click="moveBackToNursery()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.moveToNursery.confirmmessage'  text='Are you sure you want to move this group back to to nursery phase?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.moveToNursery'  text='Move back to Nursery'/></button>
 					<button class="btn btn-success" data-toggle="modal" ng-click="transferToGroupInit()" data-target="#transferToGroupModal"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToNursery.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 1 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.transferToNursery'  text='Transfer to Nursery'/></button>
-					<button class="btn btn-success" ng-click="transferToFinish()" type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToFinish.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.transferToFinish'  text='Transfer to Finish'/></button>
+					<button class="btn btn-success" data-toggle="modal" ng-click="transferToGroupInit()" data-target="#transferToGroupModal"   type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.transferToFinish.confirmmessage'  text='Are you sure you want to transfer?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 2 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.transferToFinish'  text='Transfer to Finish'/></button>
 					<button class="btn btn-success" ng-click= "promoteToPhase2()" data-target="#phase2GroupModal" data-toggle="modal"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.promoteToPhase2.confirmmessage'  text='Are you sure you want to promote this group to phase 2?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 3 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.promoteToPhase2'  text='Promote to Phase 2'/></button>
 					<button class="btn btn-success" ng-click= "undoWeanToFinishPhase2()"  type="submit" ng-confirm-click="<spring:message code='label.piginfo.groupEventform.undoPhase2Movement.confirmmessage'  text='Are you sure you want undo the Phase 2 promotion?'/>" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.phaseOfProductionTypeId == 4 && groupEvent.active) "><spring:message code='label.piginfo.groupEventform.undoPhase2Movement'  text='Undo Phase2 Promotion'/></button>
 					
@@ -155,7 +155,6 @@
 						<th style="width:10%"><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>
-						<th style="width:7%"><spring:message code="label.groupEventDetail.roomId" text="Room" /></th>
 						<th style="width:35%"><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></th>
 						<th style="width:35%"><spring:message code="label.groupEventDetail.transferredFromGroup" text="From Group" /></th>
 						<th style="width:5%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
@@ -167,7 +166,6 @@
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.dateOfEntry)}}</td>
 					<td style="width:7%">{{row.numberOfPigs}}</td>
 					<td style="width:7%">{{row.weightInKgs}}</td>
-					<td style="width:7%">{{roomList[row.roomId]}}</td>
 					<td style="width:35%">{{row.remarks}}</td>
 					<td style="width:35%">{{row.fromGroupIdStr}}</td>
 					<td style="width: 5%">

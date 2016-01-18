@@ -48,6 +48,7 @@ public class FarrowEventBuilder {
 			   info.setWeakBorns(dto.getWeakBorns());
 			   info.setLitterId(dto.getLitterId());
 			   info.setPremiseId(dto.getPremiseId());
+			   info.setBreedingEventId(dto.getBreedingEventId());
 		   }
 		   return info;
 	   }
@@ -93,6 +94,7 @@ public class FarrowEventBuilder {
 			   dto.setWeakBorns(info.getWeakBorns());
 			   dto.setLitterId(info.getLitterId());
 			   dto.setPremiseId(info.getPremiseId());
+			   dto.setBreedingEventId(info.getBreedingEventId());
 		   }
 		   return dto;
 	   }

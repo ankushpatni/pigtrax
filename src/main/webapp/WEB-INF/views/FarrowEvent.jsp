@@ -413,7 +413,7 @@
 						 <input type="hidden" ng-model="employeeGrp.id"/>
                           <div class="form-group">
 	                          <label><spring:message code='label.employeegroup.add.groupId'  text='Group Id'/></label>
-	                          <input type="text" placeholder="Enter Group Id" class="form-control" ng-model="employeeGrp.groupId" ng-readonly="employeeGrp.id > 0">
+	                          <input type="text" placeholder="<spring:message code='label.employeegroup.add.groupId.placeholder'  text='Enter Group Id'/>" class="form-control" ng-model="employeeGrp.groupId" ng-readonly="employeeGrp.id > 0">
 	                          <p class="color-danger" ng-show="employeeGrpGroupIdInvalid"><spring:message code='label.employeegroup.message.groupid.invalid'  text='Group Id is required'/></p>
 	                        </div>
 	                        <div class="form-group">

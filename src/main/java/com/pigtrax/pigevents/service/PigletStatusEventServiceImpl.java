@@ -110,6 +110,14 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				
 				if(pigletStatusEventDto.getWeanPigNum() != null && pigletStatusEventDto.getWeanPigNum() > 0)
 				{
+					if(pigletStatusEventDto.getGroupId() != null && 0 <pigletStatusEventDto.getGroupId().length())
+					{
+						GroupEvent groupRecord = groupEventDao.getGroupEventByGroupId(pigletStatusEventDto.getGroupId(), pigletStatusEventDto.getCompanyId(), pigletStatusEventDto.getPremiseId());
+						if(groupRecord != null)
+							pigletStatusEventDto.setGroupEventId(groupRecord.getId());
+					}
+					
+					
 					//event.setFarrowEventId(pigletStatusEventDto.getFarrowEventId());
 					event.setPigletStatusEventTypeId(PigletStatusEventType.Wean.getTypeCode());
 					event.setNumberOfPigs(pigletStatusEventDto.getWeanPigNum());
@@ -124,7 +132,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					event.setPremiseId(pigletStatusEventDto.getPremiseId());
 					eventId = addPigletStatusEvent(event);
 					
-					if(pigletStatusEventDto.getGroupEventId() != null)
+					if(pigletStatusEventDto.getGroupEventId() != null && pigletStatusEventDto.getGroupEventId() != 0)
 					{
 						
 						//Update group event details
@@ -320,14 +328,20 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				if(pigletStatusEventDto.getId() != null && pigletStatusEventDto.getPigletStatusEventTypeId() == PigletStatusEventType.Wean.getTypeCode())
 				{
 					PigletStatusEvent statusEvent = pigletStatusEventDao.getPigletStatusEventInformation(pigletStatusEventDto.getId());
-					if(statusEvent != null && statusEvent.getGroupEventId() != null)
+					if(statusEvent != null)
 					{
-						GroupEvent groupEvent = groupEventDao.getGroupEventByGeneratedGroupId(statusEvent.getGroupEventId(), pigletStatusEventDto.getCompanyId());
-						Integer newInvValue = groupEvent.getCurrentInventory() - statusEvent.getNumberOfPigs();
-						groupEvent.setCurrentInventory(newInvValue);
-						groupEventDao.updateGroupEventCurrentInventory(groupEvent);
-						
 						groupEventDetailsDao.deleteGroupEventDetailsByPigletEvent(statusEvent.getId());
+						if(statusEvent.getGroupEventId() != null)
+						{
+							GroupEvent groupEvent = groupEventDao.getGroupEventByGeneratedGroupId(statusEvent.getGroupEventId(), pigletStatusEventDto.getCompanyId());
+							if(groupEvent != null)
+							{
+								Integer newInvValue = groupEvent.getCurrentInventory() - statusEvent.getNumberOfPigs();
+								groupEvent.setCurrentInventory(newInvValue);
+								groupEventDao.updateGroupEventCurrentInventory(groupEvent);
+							}
+						
+						}
 					}
 				}
 				
