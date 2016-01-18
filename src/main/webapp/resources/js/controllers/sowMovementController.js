@@ -15,6 +15,17 @@
 		});	
 	}
 	
+	$scope.loadPremisesList = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.getRooms = function()
 		{
 			var postParam = {
@@ -33,6 +44,7 @@
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
+		$scope.loadPremisesList();
 		$scope.loadPremises();
 		$scope.getRooms();
 	};

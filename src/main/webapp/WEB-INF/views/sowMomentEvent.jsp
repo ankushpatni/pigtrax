@@ -14,7 +14,11 @@
 			            	<h3> <spring:message code='label.piginfo.sowMovementForm.search.heading'  text='Search Sow Movement'/></h3>
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.sowMovementForm.search.data.errormessage' text='Sow Movement information not found for the search criteria'/></p>
 			               <div  class="form-group">
-		             			<select class="form-control" name="premiseId" ng-model="premiseId"  ng-options="k as v for (k, v) in farmMap"></select>
+		             			<!-- <select class="form-control" name="premiseId" ng-model="premiseId"  ng-options="k as v for (k, v) in farmMap"></select>-->
+		             			 <select  class="form-control"  name="premiseId" id="premiseId" ng-model="premiseId"  >
+						<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+                        </select>
 							</div>
            					<div  class="form-group">  	
 					   		 <input type="text" name="search"  ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
