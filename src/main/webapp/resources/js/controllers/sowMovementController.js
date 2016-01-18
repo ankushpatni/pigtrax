@@ -2,7 +2,8 @@
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
 	$scope.roomList={};
-	$scope.sowMovementList = {};
+	$scope.sowMovementList = {};	
+	$scope.DateUtils = DateUtils;
 	
 	$scope.loadPremises = function()
 	{

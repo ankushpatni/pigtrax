@@ -51,7 +51,7 @@
 					<td style="width:5%">{{$index+1}}</td>
 					<td style="width:7%">{{farmMap[row.premiseId]}}</td>
 					<td style="width:7%">{{roomMap[row.roomId]}}</td>
-					<td style="width:10%">{{DateUtils.getFormatedDate(row.dateOfEntry)}}</td>
+					<td style="width:10%">{{DateUtils.getFormatedDate(row.movementDate)}}</td>
 					<td style="width: 5%">
 						<button ng-show="$index==0" type="button" class="btn btn-edit btn-xs" ng-click="editSowMovement(row)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.sowMovementForm.edit" text="Edit" /></a></button>					
