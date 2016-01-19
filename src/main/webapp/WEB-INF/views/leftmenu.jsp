@@ -17,35 +17,35 @@
                     			<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
                               		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue())) {%>                    			
                     		
-                    			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Selection"/></a>
+                    			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="Master data lists"/></a>
                     			  <ul class="sub-menu">
+								  <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
                     			  <li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee"/></a></li>
-                    			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Genetic Origin"/></a></li>
-                    			   <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
-                    			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
-                    			   <li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Parameters"/></a></li>
-                    			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
+								  <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Genetic Origin"/></a></li>
+                    			  <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>                    			   
+                    			    <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
+									  <li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Parameters"/></a></li>
                     			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.truckandtrailer.link"  text="Truck & Trailer"/></a></li>
                     			  </ul>
                     			  </li>
                     			  
                     			  
                     			  <%}else if(request.isUserInRole(RoleType.DataManager.getRoleValue())){%>
-                    			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="List Selection"/></a>
+                    			  <li><a href="#"><i class="glyphicon glyphicon-tasks"></i><spring:message code="label.leftmenu.managemasterdata.listoptions.link"  text="Master data lists"/></a>
                     			  <ul class="sub-menu">
+								  <li><a href="transportDestination"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
                     			   <li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee"/></a></li>
                     			   <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Genetic Origin"/></a></li>
-                    			   <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
-                    			   <li><a href="loadPremises"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
                     			   <li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Parameters"/></a></li>
-                    			   <li><a href="transportDestination"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
+                    			   <li><a href="loadPremises"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>
+                    			   <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
                     			   <li><a href="transportTrailerAndTruck"><spring:message code="label.leftmenu.managemasterdata.truckandtrailer.link"  text="Truck & Trailer"/></a></li>
                     			  </ul> 
                     			  </li>                    			 
                     			  <%} %>
                             	<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
                               		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue()) || request.isUserInRole(RoleType.DataManager.getRoleValue())) {%>		  
-                            	<li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span></span><spring:message code="label.leftmenu.managepigevents.link"  text="Manage Pig Events"/></span></a>
+                            	<li><a href="#"><i class="glyphicon glyphicon-tasks"></i><span></span><spring:message code="label.leftmenu.managepigevents.link"  text="Pig Events"/></span></a>
                                       	<ul class="sub-menu">
                                          	<li><a href="pigEntryEvent"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></li>
 											<li><a href="pigBreedingEvent"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></li>
@@ -62,9 +62,16 @@
                                          </ul>
                                       </li>
                                       <%}%>
-                             <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Performance Reports"/></span></a>
+                             <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytical reports"/></span></a>
                              	<ul class="sub-menu">
                                          	<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.link"  text="Ferrow Report"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.reports.managementLists"  text="Management Lists"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.reports.trackingReports"  text="Tracking Reports"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.reports.performanceMonitoring"  text="Performance Monitoring"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.reports.dataExtraction"  text="Data Extraction"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.reports.statisticalReports"  text="Statistical Reports"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.reports.sowCards"  text="Sow Cards"/></a></li>
+  
                                 </ul>
                               </li>
                               
@@ -79,7 +86,7 @@
                                       <%} else {%>
                                       <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
                                       <%}  %>
-                                      <li><a href="#">Date Format :<br> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-success"  ng-click="toggle()">dd/MM/yyyy</button></a>
+                                      <li><a href="#">Preference :<br> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-success"  ng-click="toggle()">dd/MM/yyyy</button></a>
                                       </li>
                                </ul>
                             </li>           
