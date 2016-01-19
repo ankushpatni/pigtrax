@@ -30,7 +30,18 @@
 				 </div>
 	          </div>
 	 		  <div class="col-sm-3 col-md-3"></div>
-	  </div>			
+	  </div>	
+
+ <div class="row">
+		  <div class="col-sm-3 col-md-3"></div>
+            <div class="col-sm-6 col-md-6">
+                <div class="header">
+				<div class="alert alert-danger alert-white rounded"  ng-show="changedPremisesId">
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.sowMovement.PremisesChange.message' text='Premises has been changed please search with new Premises/Farm Name.'/>
+             </div>	
+			 </div>
+			</div>	
+</div>			
  		
  	<form name="groupEventFormAdd" method="post">	
 		<div class="content" ng-show="sowMovementSuccessMessage">
@@ -57,7 +68,8 @@
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.sowMovementForm.edit" text="Edit" /></a></button>					
 					</td>
 					<td style="width: 5%">
-						<button ng-hide="$index==0" type="button" class="btn btn-edit btn-xs" ng-click="deleteSowMovement(row.id)">
+						<button ng-hide="$index==0" type="button" class="btn btn-edit btn-xs" ng-click="deleteSowMovement(row.id)" 
+								ng-confirm-click="Would you like to delete this entry?">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.sowMovementForm.delete" text="Delete" /></a></button>					
 					</td>					
 				</tr>

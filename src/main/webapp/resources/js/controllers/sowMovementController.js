@@ -56,6 +56,7 @@
 	{
 		$scope.searchDataErrorMessage = false;	
 		$scope.sowMovementSuccessMessage = false;
+		$scope.changedPremisesId = false;
 	};
 	
 	$scope.getSowMovement = function ()
@@ -74,7 +75,16 @@
 					$scope.clearAllMessages();
 					$window.scrollTo(0,550);
 					$scope.sowMovementList = data.payload;
-					$scope.sowMovementSuccessMessage = true;
+					if($scope.sowMovementList == null)
+					{
+						$scope.sowMovementSuccessMessage = false;
+						$scope.searchDataErrorMessage = true;
+					}
+					else
+					{							
+						$scope.sowMovementSuccessMessage = true;
+						$scope.searchDataErrorMessage = false;
+					}
 				}
 			else
 				{
@@ -96,6 +106,7 @@
     				sowMovementData.premisesMap = $scope.farmMap;
     				sowMovementData.roomMap = $scope.roomMap;
 					sowMovementData.pigInfo = $scope.searchText;
+					sowMovementData.premiseList = $scope.premiseList;
 					return sowMovementData;
 					}
     			}
@@ -103,7 +114,15 @@
     		modalInstance.result.then( function(res) {
 				if(res.statusMessage==="Success")
 				{
-					$scope.getSowMovement();				
+					if(res.changedPremisesId!=$scope.premiseId)
+					{
+						$scope.changedPremisesId = true;
+						$scope.sowMovementSuccessMessage = false;
+					}
+					else
+					{
+						$scope.getSowMovement();	
+					}					
 				}
 			});
 		

@@ -41,7 +41,8 @@ pigTrax.controller('editSowMovementCtrl', function($scope, $http, $window, $moda
 					console.log(data);
 					if(data.statusMessage==="Success")
 					{
-						$modalInstance.close(data);					
+						$modalInstance.close(data);	
+						data.changedPremisesId = $scope.premiseId;					
 						return data;
 					}
 					else
