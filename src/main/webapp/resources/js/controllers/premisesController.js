@@ -102,7 +102,7 @@ pigTrax.controller('PremisesController', function($scope, $http, $window,$modal,
 	console.log("companyId--->"+companyId)
 	$scope.companyId = companyId;
 	$scope.generatedCompanyId = generatedCompanyId;
-	var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+generatedCompanyId);
+	var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+generatedCompanyId+'&premisesType=null');
 		res.success(function(data, status, headers, config) {
 			$scope.rowCollection = data.payload;
 			$scope.totalPages = Math.ceil($scope.rowCollection.length/10);

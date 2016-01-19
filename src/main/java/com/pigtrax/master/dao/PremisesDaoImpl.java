@@ -1,5 +1,6 @@
 package com.pigtrax.master.dao;
 
+import java.awt.datatransfer.StringSelection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.pigtrax.master.dao.interfaces.PremisesDao;
 import com.pigtrax.master.dto.Premises;
@@ -32,10 +34,37 @@ public class PremisesDaoImpl implements PremisesDao{
 	}
 	
 	@Override
-	public List<Premises> getPremisesList(final int generatedCompanyId) {
+	public List<Premises> getPremisesList(final int generatedCompanyId, String premisesType) {
 		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\",\"gpsLatittude\",\"gpsLongitude\","
 				+ "\"id_PremiseType\",\"sowSource\",\"otherCity\" "
-				+ "from pigtrax.\"Premise\" where \"id_Company\" = ? order by \"id\" desc ";
+				+ "from pigtrax.\"Premise\" where \"id_Company\" = ? " ;
+				if(!StringUtils.isEmpty(premisesType) && !premisesType.equalsIgnoreCase("null"))
+				{
+					query = query + " and \"id_PremiseType\" in ("+premisesType+")";
+				}
+				
+				query = query + "order by \"id\" desc ";
+		
+		List<Premises> premisesList = jdbcTemplate.query(query, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, generatedCompanyId);
+			}}, new PremisesMapper());
+		
+		return premisesList;
+	}
+	
+	@Override
+	public List<Premises> getPremisesListNotInFilterPremisesType(final int generatedCompanyId, String premisesType) {
+		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\",\"gpsLatittude\",\"gpsLongitude\","
+				+ "\"id_PremiseType\",\"sowSource\",\"otherCity\" "
+				+ "from pigtrax.\"Premise\" where \"id_Company\" = ? " ;
+				if(!StringUtils.isEmpty(premisesType) && !premisesType.equalsIgnoreCase("null"))
+				{
+					query = query + " and \"id_PremiseType\" not in ("+premisesType+")";
+				}
+				
+				query = query + "order by \"id\" desc ";
 		
 		List<Premises> premisesList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			@Override

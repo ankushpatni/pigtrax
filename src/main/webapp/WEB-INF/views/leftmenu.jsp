@@ -75,6 +75,15 @@
                                 </ul>
                               </li>
                               
+                              <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.Charts"  text="Charts"/></span></a>
+                             	<ul class="sub-menu">
+                                         	<li><a href="reportGeneration"><spring:message code="label.leftmenu.Charts.inventoryStats"  text="Inventory Stats"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.Charts.performanceMonitor"  text="Performance Monitor"/></a></li>
+											<li><a href=""><spring:message code="label.leftmenu.Charts.simpleStats"  text="Simple Stats"/></a></li>
+											
+                                </ul>
+                              </li>
+                              
                                 <% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()) || 
                               		  request.isUserInRole(RoleType.PigTraxDataConfigMgr.getRoleValue()) || request.isUserInRole(RoleType.DataManager.getRoleValue())) {%> 
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i><span><spring:message code="label.leftmenu.settings.link"  text="Settings"/></span></a>

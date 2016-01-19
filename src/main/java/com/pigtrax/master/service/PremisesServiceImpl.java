@@ -30,7 +30,7 @@ public class PremisesServiceImpl implements PremisesService{
 
 	@Override
 	public List<Premises> getPremisesList(int generatedCompanyId) {
-		return premisesDao.getPremisesList( generatedCompanyId );
+		return premisesDao.getPremisesList( generatedCompanyId, null );
 	}
 	
 	@Override
@@ -39,8 +39,8 @@ public class PremisesServiceImpl implements PremisesService{
 	}
 	
 	@Override
-	public List<Premises> getPremisesList(int generatedCompanyId, String language) { 
-		List<Premises> premiseList =  premisesDao.getPremisesList( generatedCompanyId);
+	public List<Premises> getPremisesList(int generatedCompanyId, String language, String premisesType) { 
+		List<Premises> premiseList =  premisesDao.getPremisesList( generatedCompanyId, premisesType);
 		for(Premises premise : premiseList)
 		{
 			premise.setPremiseType(refDataCache.getPremiseTypeMap(language).get(premise.getPremiseTypeId()));
@@ -119,6 +119,17 @@ public class PremisesServiceImpl implements PremisesService{
 			rowsDeleted = premisesDao.deletePremiseData(premiseId);
 		
 		return rowsDeleted;
+	}
+
+	@Override
+	public List<Premises> getPremisesListPremisisTypeNotInFilter(
+			int generatedCompanyId, String language, String premisesType) {
+		List<Premises> premiseList =  premisesDao.getPremisesListNotInFilterPremisesType( generatedCompanyId, premisesType);
+		for(Premises premise : premiseList)
+		{
+			premise.setPremiseType(refDataCache.getPremiseTypeMap(language).get(premise.getPremiseTypeId()));
+		}
+		return premiseList;
 	}
 
 }

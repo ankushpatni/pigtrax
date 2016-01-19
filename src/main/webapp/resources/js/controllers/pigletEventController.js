@@ -28,7 +28,7 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 	
 	$scope.loadPremises = function()
 	{
-		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId+'&premisesType=null');
 		res.success(function(data, status, headers, config) {
 			$scope.premiseList = data.payload;
 		});

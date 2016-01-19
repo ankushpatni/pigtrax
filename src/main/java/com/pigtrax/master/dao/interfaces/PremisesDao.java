@@ -13,7 +13,7 @@ public interface PremisesDao {
 	 * To get the list of Premises
 	 * @return List<Company>
 	 */
-	public List<Premises> getPremisesList( int generatedCompanyId );
+	public List<Premises> getPremisesList( int generatedCompanyId, String premisesType );
 	
 	/**
 	 * To get the list of Premises
@@ -64,5 +64,8 @@ public interface PremisesDao {
 	 * To delete premise data based on generated premise id
 	 */
 	int deletePremiseData(int generatedPremisesId);
+
+	public List<Premises> getPremisesListNotInFilterPremisesType(
+			int generatedCompanyId, String premisesType);
 
 }

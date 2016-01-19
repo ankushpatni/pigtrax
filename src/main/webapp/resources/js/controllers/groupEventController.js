@@ -29,7 +29,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.loadPremises = function()
 	{
-		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		var res = $http.get('rest/premises/getPremisesListNotIn?generatedCompanyId='+$rootScope.companyId+'&premisesType=1');
 		res.success(function(data, status, headers, config) {
 			$scope.farmList = data.payload;
 		});

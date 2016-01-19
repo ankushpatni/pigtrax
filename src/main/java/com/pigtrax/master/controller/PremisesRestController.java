@@ -36,13 +36,30 @@ public class PremisesRestController {
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getPremisesList", method=RequestMethod.GET, produces="application/json")
-	public ServiceResponseDto getPremisesList(HttpServletRequest request, @RequestParam int generatedCompanyId)
+	public ServiceResponseDto getPremisesList(HttpServletRequest request, @RequestParam int generatedCompanyId, @RequestParam String premisesType)
 	{
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		logger.info("Inside getPremisesList" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		List<Premises> premisesList  = premisesService.getPremisesList(generatedCompanyId, language);
+		List<Premises> premisesList  = premisesService.getPremisesList(generatedCompanyId, language, premisesType);
+		dto.setPayload(premisesList);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
+	/**
+	 * Service to retrive the list of employees
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPremisesListNotIn", method=RequestMethod.GET, produces="application/json")
+	public ServiceResponseDto getPremisesListNotIn(HttpServletRequest request, @RequestParam int generatedCompanyId, @RequestParam String premisesType)
+	{
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		logger.info("Inside getPremisesList" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		List<Premises> premisesList  = premisesService.getPremisesListPremisisTypeNotInFilter(generatedCompanyId, language, premisesType);
 		dto.setPayload(premisesList);
 		dto.setStatusMessage("Success");
 		return dto;

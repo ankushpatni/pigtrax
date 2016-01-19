@@ -25,10 +25,10 @@ public interface PremisesService {
 	/**
 	 * To get the list of Premises
 	 * @return List<Premises>
-	 */
+	 *//*
 	public List<Premises> getPremisesList( int generatedCompanyId, String language );
 	
-	/**
+*/	/**
 	 * To update Premises Status
 	 * @return 
 	 */
@@ -71,6 +71,14 @@ public interface PremisesService {
 	 * @param premiseId
 	 * @return
 	 */
-	int deletePremise(int premiseId);	
+	int deletePremise(int premiseId);
+
+
+	List<Premises> getPremisesList(int generatedCompanyId, String language,
+			String premisesType);
+
+
+	public List<Premises> getPremisesListPremisisTypeNotInFilter(
+			int generatedCompanyId, String language, String premisesType);	
 	
 }
