@@ -47,5 +47,7 @@ public interface SiloDao {
 	
 	public List<Silo> getSiloListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException;
 	
+	public List<Silo> getSiloListBasedOnPremiseId( Integer premiseId ) throws SQLException;
+	
 
 }

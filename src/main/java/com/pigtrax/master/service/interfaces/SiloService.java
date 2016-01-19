@@ -46,4 +46,6 @@ public interface SiloService {
 	
 	public Map<Integer,String> getSiloListBasedOnCompanyId( int generatedCompanyId );
 	
+	public Map<Integer,String> getSiloListBasedOnPremiseId( Integer premiseId );
+	
 }

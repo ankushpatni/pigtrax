@@ -25,6 +25,8 @@ public interface GroupEventDao {
 	
 	public List<GroupEvent> getGroupEventByCompanyId( final int companyId) throws SQLException;
 	
+	public List<GroupEvent> getGroupEventByPremise( final int premiseId) throws SQLException;
+	
 	public int updateGroupEventStatusWithCloseDate(final GroupEvent groupEvent)
 			throws SQLException;
 	

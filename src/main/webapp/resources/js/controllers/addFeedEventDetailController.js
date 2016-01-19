@@ -8,16 +8,33 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 	$scope.ticketNumber = feedEventDetailData.ticketNumber;
 	$scope.companyId = feedEventDetailData.companyId;
 	$scope.groupEvent = [];
+	$scope.premiseId = feedEventDetailData.premiseId;
+	
 	console.log(feedEventDetailData);
 	
-	$scope.groupEventOriginalList = feedEventDetailData.groupEvent;
-	for( var x in $scope.groupEventOriginalList)
+	$scope.getActiveGroupsInPremise = function()
 	{
-		if( $scope.groupEventOriginalList[x].active )
-			{		
-				$scope.groupEvent[x] = $scope.groupEventOriginalList[x];
-			}
+		restServices.getActiveGroupEventsInPremise($scope.premiseId, function(data){
+			if(!data.error)
+				{
+					$scope.groupEvent = data.payload;
+				}
+		})
 	}
+	$scope.getActiveGroupsInPremise();
+	
+	
+	$scope.getSiloListForPremise = function()
+	{
+		restServices.getSiloListForPremise($scope.premiseId, function(data){
+			if(!data.error)
+				{
+					$scope.siloList = data.payload;
+				}
+		})
+	}
+	$scope.getSiloListForPremise();
+	
 	
 	
 	if(feedEventDetailData.id)

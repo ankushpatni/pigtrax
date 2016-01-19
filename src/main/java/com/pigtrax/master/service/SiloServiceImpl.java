@@ -71,6 +71,28 @@ public class SiloServiceImpl implements SiloService{
 		}
 		return siloIdMap;
 	}
+	
+	
+	public Map<Integer,String> getSiloListBasedOnPremiseId( Integer premiseId )
+	{
+		Map<Integer,String> siloIdMap = new LinkedHashMap<Integer,String>();
+		try
+		{
+		List<Silo> siloList =  siloDao.getSiloListBasedOnPremiseId(premiseId);
+			if(null != siloList && siloList.size()>0)
+			{
+				for(Silo silo : siloList)
+				{
+					siloIdMap.put(silo.getId(),silo.getSiloId());
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return siloIdMap;
+	}
 
 
 }

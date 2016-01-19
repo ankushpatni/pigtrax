@@ -131,7 +131,8 @@ pigTrax.factory("restServices", function($resource) {
 		"getSowMovement" : {method:"POST", url:"rest/sowMomentEvent/getSowMomentList"},
 		"deleteSowMovement" : {method:"POST", url:"rest/sowMomentEvent/deleteSowMovement"},
 		"weanToFinishPhase2" : {method:"POST", url:"rest/groupEvent/weanToFinishPhase2"},
-		"undoWeanToFinishPhase2" : {method:"POST", url:"rest/groupEvent/undoWeanToFinishPhase2"}
-		
+		"undoWeanToFinishPhase2" : {method:"POST", url:"rest/groupEvent/undoWeanToFinishPhase2"},
+		"getActiveGroupEventsInPremise" : {method:"POST", url:"rest/groupEvent/getActiveGroupEventsInPremise"},
+		"getSiloListForPremise" : {method:"POST", url:"rest/silo/getSiloListForPremise"}
     });
 });

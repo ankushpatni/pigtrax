@@ -28,6 +28,8 @@ public interface GroupEventService {
 	 
 	 Map<Integer,GroupEvent> getGroupEventByCompanyId( int companyId);
 	 
+	 Map<Integer,GroupEvent> getGroupEventByPremise( int premiseId) throws PigTraxException;
+	 
 	 int undoWeanToFinishPhase2(final GroupEvent groupEvent) throws PigTraxException;
 		
 

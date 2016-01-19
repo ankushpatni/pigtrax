@@ -2,6 +2,7 @@ package com.pigtrax.master.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,22 @@ public class SiloRestController {
 		dto.setStatusMessage("Success");
 		return dto;
 	}
+	
+	/**
+	 * Service to retrive the list of Silo
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getSiloListForPremise", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto getSiloListForPremise(@RequestBody Integer premiseId)
+	{
+		logger.info("Inside getSiloListForPremise" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		Map<Integer, String> siloMap  = siloService.getSiloListBasedOnPremiseId(premiseId);
+		dto.setPayload(siloMap);
+		dto.setStatusMessage("Success");
+		return dto;
+	}
+	
 	
 	/**String siloId, Boolean siloStatus
 	 * Service to update silo

@@ -250,6 +250,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 					feedEventDetailData.feedId = $scope.feedEvent.id;
 					feedEventDetailData.id = id;
 					feedEventDetailData.groupEvent = $scope.groupEvent;
+					feedEventDetailData.premiseId = $scope.feedEvent.premiseId;
 					return feedEventDetailData;
 				}
 			}

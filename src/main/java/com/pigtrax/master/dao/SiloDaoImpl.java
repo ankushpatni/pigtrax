@@ -153,6 +153,26 @@ public class SiloDaoImpl implements SiloDao {
 		}
 		return null;
 	}
+	
+	
+	public List<Silo> getSiloListBasedOnPremiseId( final Integer premiseId ) throws SQLException
+	{
+		String query = "SELECT \"siloserrialid\" as \"id\",\"siloId\" from pigtrax.\"CompPremBarnSiloVw\" where \"siloId\" != '' and premiseserialid = ?";
+	//CompPremBarnRoomPenVw
+		List<Silo> siloList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, premiseId);
+					}
+				}, new SiloMapperList());
+	
+		if (siloList != null && siloList.size() > 0) {
+			return  siloList;
+		}
+		return null;
+	}
 
 	private static final class SiloMapper implements RowMapper<Silo> {
 		public Silo mapRow(ResultSet rs, int rowNum) throws SQLException {

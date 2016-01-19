@@ -91,9 +91,11 @@ public class GroupEventServiceImpl implements GroupEventService{
 				
 				Integer currentPhaseRecordId = groupEventPhaseChangeDao.getCurrentPhaseRecordId(groupEvent.getId());
 				
-				List<RoomPK> roomIds = groupEventRoomDao.getGroupEventRooms(currentPhaseRecordId);
-				groupEvent.setRoomIds(roomIds);
-				
+				if(currentPhaseRecordId != null)
+				{
+					List<RoomPK> roomIds = groupEventRoomDao.getGroupEventRooms(currentPhaseRecordId);
+					groupEvent.setRoomIds(roomIds);
+				}
 				
 				if(null != groupEvent)
 				{
@@ -132,6 +134,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 			groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
 			groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());
 			groupEventPhaseChange.setRoomIds(groupEvent.getRoomIds()); 
+			groupEventPhaseChange.setPhaseStartDate(groupEvent.getGroupStartDateTime());
 			
 			Integer groupEventPhaseChangeId = groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
 			
@@ -202,6 +205,9 @@ public class GroupEventServiceImpl implements GroupEventService{
 					
 					if(currentGroup.getCurrentInventory() == 0)
 					{
+						
+						groupEventPhaseChangeDao.endDateGroupEventPhase(currentGroup.getId());
+						
 						currentGroup.setActive(false);
 						currentGroup.setGroupCloseDateTime(DateUtil.getToday());
 						groupEventDao.updateGroupEventStatusWithCloseDate(currentGroup);
@@ -341,6 +347,28 @@ public class GroupEventServiceImpl implements GroupEventService{
 		{
 			logger.info("No GroupEvent found for given company is : " + companyId + "/"
 					+ sqlEx.getCause());			
+		} 
+		return groupIdMap;
+	}
+	
+	public Map<Integer, GroupEvent> getGroupEventByPremise( 
+			int premiseId)  throws PigTraxException  {
+		Map<Integer, GroupEvent> groupIdMap = new LinkedHashMap<Integer, GroupEvent>();
+		try
+		{
+			List<GroupEvent> groupEventList = groupEventDao.getGroupEventByPremise(premiseId);
+			if (null != groupEventList && groupEventList.size() > 0) 
+			{
+				for (GroupEvent groupEvent : groupEventList) {
+					groupIdMap.put(groupEvent.getId(), groupEvent);
+				}
+			}
+		} 
+		catch (SQLException sqlEx)
+		{
+			logger.info("No GroupEvent found for given premise is : " + premiseId + "/"
+					+ sqlEx.getCause());
+			throw new PigTraxException(sqlEx.getMessage());
 		} 
 		return groupIdMap;
 	}

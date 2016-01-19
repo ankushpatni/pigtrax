@@ -59,7 +59,7 @@ public class GroupEventPhaseChangeDaoImpl implements GroupEventPhaseChangeDao {
 		
 		 final String Qry = "insert into pigtrax.\"GroupEventPhaseChange\"(\"id_GroupEvent\", \"id_PhaseOfProductionType\", \"phaseStartDate\", "
 					+ "\"phaseEndDate\", \"id_Premise\", \"userUpdated\",\"lastUpdated\" ) "
-					+ "values(?,?,current_timestamp,NULL,?,?,current_timestamp )";
+					+ "values(?,?,?,NULL,?,?,current_timestamp )";
 			
 			KeyHolder holder = new GeneratedKeyHolder();
 
@@ -70,8 +70,12 @@ public class GroupEventPhaseChangeDaoImpl implements GroupEventPhaseChangeDao {
 		    	                con.prepareStatement(Qry, new String[] {"id"});
 		    	            ps.setObject(1, groupEventPhaseChange.getGroupEventId(), java.sql.Types.INTEGER);
 		    	            ps.setObject(2, groupEventPhaseChange.getPhaseOfProductionTypeId(), java.sql.Types.INTEGER);
-		    	            ps.setObject(3, groupEventPhaseChange.getPremiseId(), java.sql.Types.INTEGER);
-		    	            ps.setString(4, groupEventPhaseChange.getUserUpdated());
+		    	            if(groupEventPhaseChange.getPhaseStartDate() != null)
+		    	            	ps.setObject(3, new java.sql.Date(groupEventPhaseChange.getPhaseStartDate().getTime()), java.sql.Types.DATE);
+		    	            else
+		    	            	ps.setNull(3, java.sql.Types.DATE);
+		    	            ps.setObject(4, groupEventPhaseChange.getPremiseId(), java.sql.Types.INTEGER);
+		    	            ps.setString(5, groupEventPhaseChange.getUserUpdated());
 		    	            return ps;
 		    	        }
 		    	    },
@@ -88,7 +92,7 @@ public class GroupEventPhaseChangeDaoImpl implements GroupEventPhaseChangeDao {
 	 @Override
 	public void endDateGroupEventPhase(final Integer groupEventId)
 			throws SQLException {
-		 final String Qry = "Update pigtrax.\"GroupEventPhaseChange\" set  \"phaseEndDate\" = current_timestamp where \"id_GroupEvent\" = ?";
+		 final String Qry = "Update pigtrax.\"GroupEventPhaseChange\" set  \"phaseEndDate\" = current_timestamp where \"id_GroupEvent\" = ? and \"phaseEndDate\" is NULL";
 			jdbcTemplate.update(
 	    	    new PreparedStatementCreator() {
 	    	        public PreparedStatement createPreparedStatement(Connection con) throws SQLException {

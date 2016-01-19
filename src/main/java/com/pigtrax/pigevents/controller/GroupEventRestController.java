@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEvent;
-import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dto.GroupEventDto;
 import com.pigtrax.pigevents.service.interfaces.GroupEventDetailsService;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
-import com.pigtrax.usermanagement.beans.Company;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
@@ -425,5 +422,37 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		return dto; 
 	}
 	
+	
+	
+	/**
+	 * Service to get the group event details for tranfer
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getActiveGroupEventsInPremise", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getActiveGroupEventsInPremise(HttpServletRequest request, @RequestBody Integer premiseId)
+	{
+		logger.info("Inside getActiveGroupEventsInPremise method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			
+			Map<Integer, GroupEvent> groupEventMap = groupEventService.getGroupEventByPremise(premiseId);
+			
+			if(groupEventMap != null && groupEventMap.size()>0 )
+			{
+				dto.setPayload(groupEventMap);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
 
 }
