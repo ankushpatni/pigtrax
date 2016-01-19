@@ -143,7 +143,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."Silo" CASCADE;
 CREATE TABLE pigtrax."Silo"(
 	id serial NOT NULL,
-	"siloId" varchar(14) NOT NULL,
+	"siloId" varchar(20) NOT NULL,
 	"id_Barn" integer,
 	location varchar(30),
 	"lastUpdated" timestamp NOT NULL,
