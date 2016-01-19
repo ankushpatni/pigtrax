@@ -71,5 +71,51 @@
               </div>
             </div>
           </div>
+          
+          
+          <div class="row dash-cols">
+            <div class="col-sm-6 col-md-6 col-lg-4">
+              <div class="widget-block">
+                <div class="white-box padding">
+                  <div class="row info">
+                    <div>
+                      <h3>Your Goals</h3>
+                    </div>
+                    <div>
+                      <div id="com_stats" style="height:98px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4">
+              <div class="widget-block">
+                <div class="white-box padding">
+                  <div class="row info text-shadow">
+                    <div class="col-xs-12">
+                      <h3>Comments</h3>
+                    </div>
+                    <div class="col-xs-12">
+                      <div id="com2_stats" style="height:98px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4">
+              <div class="widget-block">
+                <div class="white-box">
+                  <div class="fact-data">
+                    <div data-bar-color="#FD9C35" data-track-color="#EFEFEF" data-percent="45" class="epie-chart"><span>0%</span></div>
+                  </div>
+                  <div class="fact-data no-padding text-shadow">
+                    <h3>Users sales</h3>
+                    <h2>4,522</h2>
+                    <p>Monthly sales from users.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
          
         </div>

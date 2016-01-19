@@ -302,54 +302,54 @@ var App = (function () {
                       "Theta"
                   ];
             
-//        var plot_statistics = $.plot($("#com_stats"), [{
-//          data: data_com, showLabels: true, labels: data_com, labelPlacement: "below", canvasRender: true, cColor: "#FFFFFF" 
-//        }
-//        ], {
-//          series: {
-//            lines: {
-//              show: true,
-//              lineWidth: 2, 
-//              fill: true,
-//              fillColor: {
-//                colors: [{
-//                  opacity: 0.25
-//                }, {
-//                  opacity: 0.25
-//                }
-//                ]
-//              } 
-//            },
-//            points: {
-//              show: true
-//            },
-//            shadowSize: 2
-//          },
-//          legend:{
-//            show: false
-//          },
-//          grid: {
-//            show:false,
-//            margin: 5,
-//            labelMargin: 10,
-//             axisMargin: 10,
-//            hoverable: true,
-//            clickable: true,
-//            tickColor: "rgba(255,255,255,0.22)",
-//            borderWidth: 0
-//          },
-//          colors: ["#50ACFE"],
-//          xaxis: {
-//            autoscaleMargin: 0.04,
-//            ticks: 11,
-//            tickDecimals: 0
-//          },
-//          yaxis: {
-//            autoscaleMargin: 0.2,
-//            ticks: 5,
-//            tickDecimals: 0
-//          }
-//        });
+        var plot_statistics = $.plot($("#com_stats"), [{
+          data: data_com, showLabels: true, labels: data_com, labelPlacement: "below", canvasRender: true, cColor: "#FFFFFF" 
+        }
+        ], {
+          series: {
+            lines: {
+              show: true,
+              lineWidth: 2, 
+              fill: true,
+              fillColor: {
+                colors: [{
+                  opacity: 0.25
+                }, {
+                  opacity: 0.25
+                }
+                ]
+              } 
+            },
+            points: {
+              show: true
+            },
+            shadowSize: 2
+          },
+          legend:{
+            show: false
+          },
+          grid: {
+            show:false,
+            margin: 5,
+            labelMargin: 10,
+             axisMargin: 10,
+            hoverable: true,
+            clickable: true,
+            tickColor: "rgba(255,255,255,0.22)",
+            borderWidth: 0
+          },
+          colors: ["#50ACFE"],
+          xaxis: {
+            autoscaleMargin: 0.04,
+            ticks: 11,
+            tickDecimals: 0
+          },
+          yaxis: {
+            autoscaleMargin: 0.2,
+            ticks: 5,
+            tickDecimals: 0
+          }
+        });
         
         /*Bar charts widget*/
           var data3 = [
@@ -371,64 +371,64 @@ var App = (function () {
           [16, 75 + randValue()]
           ];
 
-//        var plot_statistics2 = $.plot($("#com2_stats"), [{
-//          data: data3,
-//          label: "Unique Visits"
-//        }
-//        ], {
-//          series: {
-//            bars: {
-//              show: true,
-//              barWidth: 0.7,
-//              lineWidth: 0,
-//              fill: true,
-//              fillColor: {
-//                colors: [{
-//                  opacity: 0.8
-//                }, {
-//                  opacity: 0.8
-//                }
-//                ]
-//              },
-//              hoverable: true
-//            },
-//            shadowSize: 2
-//          },
-//          legend:{
-//            show: false
-//          },
-//          grid: {
-//            show: true,
-//            labelMargin: 10,
-//             axisMargin: 500,
-//            hoverable: true,
-//            clickable: true,
-//            tickColor: "rgba(0,0,0,0.1)",
-//            borderWidth: 0,
-//            margin: {
-//              left: -20
-//            }
-//          },
-//          colors: ["#FD6A5E", "#FFFFFF", "#52e136"],
-//          xaxis: {
-//            font:{
-//              color: "rgba(0,0,0,0.6)",
-//              lineHeight: '0',
-//              size: '5px'
-//            },
-//            ticks: 11,
-//            tickDecimals: 0
-//          },
-//          yaxis: {
-//            font:{
-//              lineHeight: '0',
-//              size: '5px',
-//              color: "rgba(255,255,255,0)"
-//            },
-//            ticks: 6,
-//            tickDecimals: 0
-//          }
-//        });
+        var plot_statistics2 = $.plot($("#com2_stats"), [{
+          data: data3,
+          label: "Unique Visits"
+        }
+        ], {
+          series: {
+            bars: {
+              show: true,
+              barWidth: 0.7,
+              lineWidth: 0,
+              fill: true,
+              fillColor: {
+                colors: [{
+                  opacity: 0.8
+                }, {
+                  opacity: 0.8
+                }
+                ]
+              },
+              hoverable: true
+            },
+            shadowSize: 2
+          },
+          legend:{
+            show: false
+          },
+          grid: {
+            show: true,
+            labelMargin: 10,
+             axisMargin: 500,
+            hoverable: true,
+            clickable: true,
+            tickColor: "rgba(0,0,0,0.1)",
+            borderWidth: 0,
+            margin: {
+              left: -20
+            }
+          },
+          colors: ["#FD6A5E", "#FFFFFF", "#52e136"],
+          xaxis: {
+            font:{
+              color: "rgba(0,0,0,0.6)",
+              lineHeight: '0',
+              size: '5px'
+            },
+            ticks: 11,
+            tickDecimals: 0
+          },
+          yaxis: {
+            font:{
+              lineHeight: '0',
+              size: '5px',
+              color: "rgba(255,255,255,0)"
+            },
+            ticks: 6,
+            tickDecimals: 0
+          }
+        });
         
         
         var previousPoint = null;
