@@ -1,13 +1,17 @@
 package com.pigtrax.master.controller;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +35,7 @@ public class BatchUploadController {
 	private Environment env;
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public ModelAndView uploadFileHandler(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+	public ModelAndView uploadFileHandler(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile file) {
 		if (!file.isEmpty()) {
 			try {
 				String eventType = request.getParameter("eventType");
@@ -54,6 +58,27 @@ public class BatchUploadController {
 				session.setAttribute("REPORT_FILE", reportFileName);
 				session.setAttribute("eventType", eventType);
 				session.setAttribute("header", header);
+				
+				
+				String tempPath = (null == env.getProperty("upload.file.path")) ? "." : env.getProperty("upload.file.path");
+			    String fullFilename = tempPath + "/" + reportFileName;
+		    	response.setContentType("text/plain");
+				response.setHeader("Content-disposition", "attachment;filename="+reportFileName);
+				BufferedReader  fileReader = new BufferedReader(new FileReader(fullFilename));
+				ServletOutputStream out = response.getOutputStream();
+				String newLine = "\r\n";
+				
+				String line = "";
+				while((line = fileReader.readLine()) != null)
+				{
+					out.write(line.getBytes(), 0, line.getBytes().length);
+					out.write(newLine.getBytes(), 0, newLine.getBytes().length);
+				}
+
+				fileReader.close();
+				out.flush();
+				out.close();
+				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
