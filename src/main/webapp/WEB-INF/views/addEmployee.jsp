@@ -70,7 +70,7 @@
 				<div class="form-group">
 					<label ><spring:message
 							code="label.employee.role"
-							text="Role" /><span style='color: red'>*</span></label>
+							text="User role" /><span style='color: red'>*</span></label>
 						<select class="form-control" id="userRoles"  name="userRoleId" ng-model="add.userRoleId"  required required-message="'<spring:message code='label.employee.roleRequired' text='Role is required' />'">
                         <option ng-repeat="key in roleTypeKeys" ng-value="key" ng-selected="add.userRoleId==key">{{roleTypes[key]}}</option>
                         </select>
