@@ -36,7 +36,7 @@ public class PremisesRestController {
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getPremisesList", method=RequestMethod.GET, produces="application/json")
-	public ServiceResponseDto getPremisesList(HttpServletRequest request, @RequestParam int generatedCompanyId, @RequestParam String premisesType)
+	public ServiceResponseDto getPremisesList(HttpServletRequest request, @RequestParam int generatedCompanyId, @RequestParam(required=false) String premisesType)
 	{
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
