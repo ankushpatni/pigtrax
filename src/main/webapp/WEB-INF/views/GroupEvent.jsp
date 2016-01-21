@@ -67,7 +67,7 @@
                   
                   <div class="form-group">
                       <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
-                      <div ng-dropdown-multiselect="" options="roomValues" selected-model="groupEvent.roomIds" ></div>			
+                      <div ng-dropdown-multiselect="" options="roomValues" selected-model="groupEvent.roomIds"  extra-settings="multiselectdropdownsettings"></div>			
                     </div>
                   
 				  <div class="form-group">
