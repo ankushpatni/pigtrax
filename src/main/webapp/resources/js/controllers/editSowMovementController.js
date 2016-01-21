@@ -5,6 +5,7 @@ pigTrax.controller('editSowMovementCtrl', function($scope, $http, $window, $moda
 	
 	$scope.premiseId = sowMovementData.premiseId;
 	$scope.roomId = sowMovementData.roomId;
+	$scope.premiseList = sowMovementData.premiseList;
 	console.log(sowMovementData);
 		
 	$scope.getRooms = function()

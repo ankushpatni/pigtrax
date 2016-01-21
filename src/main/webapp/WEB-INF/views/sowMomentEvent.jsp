@@ -60,7 +60,7 @@
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
 					<td style="width:5%">{{$index+1}}</td>
-					<td style="width:7%">{{farmMap[row.premiseId]}}</td>
+					<td style="width:7%">{{premisesMap[row.premiseId]}}</td>
 					<td style="width:7%">{{roomMap[row.roomId]}}</td>
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.movementDate)}}</td>
 					<td style="width: 5%">
