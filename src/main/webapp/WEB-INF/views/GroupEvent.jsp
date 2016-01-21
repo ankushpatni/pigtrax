@@ -67,7 +67,7 @@
                   
                   <div class="form-group">
                       <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
-                      <div ng-dropdown-multiselect="" options="roomValues" selected-model="groupEvent.roomIds" ></div>			
+                      <div ng-dropdown-multiselect="" options="roomValues" selected-model="groupEvent.roomIds"  extra-settings="multiselectdropdownsettings"></div>			
                     </div>
                   
 				  <div class="form-group">
@@ -307,14 +307,19 @@
                       
                       <div class="modal-body form" >
                         
-                        <table >
+                        <table  class="no-border no-strip information">
+                        <tbody class="no-border-x no-border-y">
                          <tr><td>
 	                      <label><spring:message code='label.groupEvent.promoteToPhase2.selectRooms'  text='Select Rooms'/><span style='color: red'>*</span></label>
 	                      </td>
 	                      <td>
-	                      <div ng-dropdown-multiselect="" options="allRoomValues" selected-model="updatedRooms" ></div>
+	                      <div ng-dropdown-multiselect="" options="allRoomValues" selected-model="updatedRooms" extra-settings="multiselectdropdownsettings" ></div>
 	                      </td>
-	                      </tr>	
+	                      </tr>
+						  <tr><td colspan="2">&nbsp;</td></tr>
+						  <tr><td colspan="2">&nbsp;</td></tr>
+						  
+	                      </tbody>	
                        </table>
                       </div>
                       <div class="modal-footer">

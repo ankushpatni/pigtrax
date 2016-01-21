@@ -21,6 +21,9 @@ public interface GroupEventPhaseChangeDao {
    
    void deleteCurrentPhase(Integer groupEventPhaseId);
    
-   void activatePhase(Integer groupEventId, Integer phaseOfProductionTypeId);
+   void activatePhase(Integer groupEventId, Integer phaseOfProductionTypeId);   
+   
+   Integer getLastPhaseRecordId(Integer groupEventId);
    
 }
+

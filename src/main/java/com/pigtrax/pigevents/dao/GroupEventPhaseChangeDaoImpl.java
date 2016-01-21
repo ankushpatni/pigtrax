@@ -286,4 +286,30 @@ public class GroupEventPhaseChangeDaoImpl implements GroupEventPhaseChangeDao {
 			});
 	}
 	 
+	
+	
+	 
+	 @Override
+	public Integer getLastPhaseRecordId(final Integer groupEventId) {
+	 String qry = "select \"id\" FROM pigtrax.\"GroupEventPhaseChange\" where \"id_GroupEvent\" = ? order by \"id\" desc";
+			
+	Long phaseId = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+		@Override
+		public void setValues(PreparedStatement ps) throws SQLException {
+			ps.setInt(1, groupEventId);
+		}}, new ResultSetExtractor<Long>() {
+			public Long extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				if (resultSet.next()) {
+					return resultSet.getLong(1);
+				}
+				return null;
+			}
+		});
+		logger.debug("current Phase is :" + phaseId);
+		if (phaseId != null) {
+			return Integer.decode(phaseId.toString());
+		}
+		return null;
+  }
+	 
 }
