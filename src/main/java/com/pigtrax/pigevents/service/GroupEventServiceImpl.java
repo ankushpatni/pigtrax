@@ -89,13 +89,19 @@ public class GroupEventServiceImpl implements GroupEventService{
 				List<GroupEventPhaseChange> phaseChangeList = groupEventPhaseChangeDao.getPhaseChangeDetails(groupEvent.getId());
 				groupEvent.setPhaseChangeList(phaseChangeList);
 				
-				Integer currentPhaseRecordId = groupEventPhaseChangeDao.getCurrentPhaseRecordId(groupEvent.getId());
+				Integer currentPhaseRecordId = null;
+				
+				if(groupEvent.isActive())				
+					currentPhaseRecordId = groupEventPhaseChangeDao.getCurrentPhaseRecordId(groupEvent.getId());
+				else
+					currentPhaseRecordId = groupEventPhaseChangeDao.getLastPhaseRecordId(groupEvent.getId());
 				
 				if(currentPhaseRecordId != null)
 				{
 					List<RoomPK> roomIds = groupEventRoomDao.getGroupEventRooms(currentPhaseRecordId);
 					groupEvent.setRoomIds(roomIds);
 				}
+				
 				
 				if(null != groupEvent)
 				{
@@ -211,6 +217,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 						currentGroup.setActive(false);
 						currentGroup.setGroupCloseDateTime(DateUtil.getToday());
 						groupEventDao.updateGroupEventStatusWithCloseDate(currentGroup);
+						groupEvent.setActive(false);
 					}
 				}
 				//Add new entries to the transferred group
@@ -242,6 +249,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEventPhaseChange.setGroupEventId(groupEvent.getId());
 					groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
 					groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
+					groupEventPhaseChange.setPhaseStartDate(DateUtil.getToday());
 					groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());				
 					groupEventPhaseChange.setRoomIds(groupEvent.getRoomIds());
 					Integer phaseChangeId = groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);

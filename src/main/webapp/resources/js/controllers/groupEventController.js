@@ -26,6 +26,12 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.transferToGroupSearchDataError = false;
 	$scope.transferGroupEventData = {};
 	$scope.invalidRoomSelection = false;
+	$scope.updatedRooms = [];
+	
+	$scope.multiselectdropdownsettings = {
+    scrollableHeight: '200px',
+    scrollable: true
+};
 	
 	$scope.loadPremises = function()
 	{
@@ -513,6 +519,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	$scope.promoteToPhase2 = function()
 	{
+		$scope.updatedRooms = [];
 		restServices.getRoomsForPremise($scope.groupEvent["premiseId"], function(data){
 			if(!data.error){
 				$scope.roomType = data.payload;
