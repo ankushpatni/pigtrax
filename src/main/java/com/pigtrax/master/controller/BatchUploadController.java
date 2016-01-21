@@ -42,6 +42,8 @@ public class BatchUploadController {
 				String header = request.getParameter("header");
 				if (header == null)
 					header = "false";
+				String companyId = request.getParameter("companyId");
+				String premiseId = request.getParameter("premiseId");
 				System.out.println("eventType = " + eventType);
 				byte[] bytes = file.getBytes();
 				String fileName = String.valueOf(new Random().nextInt(99999)) + "_" + file.getOriginalFilename();
@@ -51,7 +53,7 @@ public class BatchUploadController {
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
-				httpBatchPost.execute(eventType, header, UserUtil.getLoggedInUser(), path);
+				httpBatchPost.execute(eventType, header, UserUtil.getLoggedInUser(), path, companyId, premiseId);
 				
 				HttpSession session = request.getSession(true);
 				String reportFileName = fileName.toLowerCase().replaceAll(".csv", "_report.txt");

@@ -58,6 +58,53 @@ public class ReportDownloadController {
 		}
         return null;
 	}
+	
+	
+	private enum ValidTemplates {
+        EntryEvent,
+        BreedingEvent,
+        MatingDetails,
+        PregnancyEvent,
+        FarrowEvent,
+        PigletStatusEvent,
+        GroupEvent,
+        GroupEventDetails,
+        FeedEvent,
+        FeedEventDetails,
+        IndividualPigletEvent
+    }
+	
+	@RequestMapping(value = "/downloadTemplate", method = RequestMethod.GET)
+	public String downloadTemplate(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("type") ValidTemplates templateType) {
+	
+		try{
+			
+			
+			String filePath = env.getProperty("upload.template.path") + File.separator;
+		    String fullFilename = filePath + "/" + templateType+".csv";
+	    	response.setContentType("text/plain");
+			response.setHeader("Content-disposition", "attachment;filename="+templateType+".csv");
+			BufferedReader  fileReader = new BufferedReader(new FileReader(fullFilename));
+			ServletOutputStream out = response.getOutputStream();
+			String newLine = "\r\n";
+			
+			String line = "";
+			while((line = fileReader.readLine()) != null)
+			{
+				out.write(line.getBytes(), 0, line.getBytes().length);
+				out.write(newLine.getBytes(), 0, newLine.getBytes().length);
+			}
+	
+			fileReader.close();
+			out.flush();
+			out.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+        return null;
+	}
 
 	
 }

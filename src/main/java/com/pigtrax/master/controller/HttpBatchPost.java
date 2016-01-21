@@ -23,11 +23,11 @@ public class HttpBatchPost {
 	@Autowired
 	private Environment env;
 
-	public void execute(final String eventType, String header, final String userName, final String filePath) {
-		doPost(eventType, header, ",", "csv", userName, filePath);
+	public void execute(final String eventType, String header, final String userName, final String filePath, String companyId, String premiseId) {
+		doPost(eventType, header, ",", "csv", userName, filePath, companyId, premiseId);
 	}
 
-	private void doPost(final String eventType, final String header, final String seperator, final String fileType, final String userName, final String filePath) {
+	private void doPost(final String eventType, final String header, final String seperator, final String fileType, final String userName, final String filePath, final String companyId, final String premiseId) {
 		try {
 			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -41,6 +41,8 @@ public class HttpBatchPost {
 			urlParameters.add(new BasicNameValuePair("fileType", fileType));
 			urlParameters.add(new BasicNameValuePair("userName", activeUser.getUsername()));
 			urlParameters.add(new BasicNameValuePair("data", filePath));
+			urlParameters.add(new BasicNameValuePair("companyId", companyId));
+			urlParameters.add(new BasicNameValuePair("premiseId", premiseId));
 			postRequest.setEntity(new UrlEncodedFormEntity(urlParameters));
 			HttpResponse response = httpClient.execute(postRequest);
 			System.out.println("Response code " + response.getStatusLine().getStatusCode());
