@@ -14,6 +14,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.salesEventFlag = false;
 	$scope.salesEventList={};
 	$scope.DateUtils = DateUtils;
+	$scope.premiseNameMap={};
 	
 	
 	$scope.setCompanyId = function(companyId,removalId,fromExcept)
@@ -31,7 +32,8 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			//$scope.removalEventType = data.payload[0];
 			$scope.pigInfoList = data.payload[1];
 			$scope.premiseList = data.payload[2];
-			$scope.groupEventList = data.payload[3]
+			$scope.groupEventList = data.payload[3];
+			$scope.premiseNameMap = data.payload[5];
 		});
 		res2.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
@@ -246,6 +248,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			var postParam = {
 					"groupId" : $scope.searchText,
 					"companyId" : $rootScope.companyId,
+					"premisesId" : $scope.premiseId
 				};
 			$scope.getSearchRemovalEvent(postParam);
 		}			
@@ -255,6 +258,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			var postParam = {
 					"pigId" : $scope.searchText,
 					"companyId" : $rootScope.companyId,
+					"premisesId" : $scope.premiseId
 			};
 			$scope.getSearchRemovalEvent(postParam);
 		}			

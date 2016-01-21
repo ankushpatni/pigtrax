@@ -234,14 +234,14 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 	}
 	
 	@Override
-	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId( final String pigInfoIdId, final int companyId) throws PigTraxException
+	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId( final String pigInfoIdId, final int companyId, Integer premiseId) throws PigTraxException
 	{
 		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetails = null;
 		
 		try
 		{
 			PigInfo pigInfo = pigInfoDao.getInactivePigInformationByPigId(pigInfoIdId,
-					companyId);
+					companyId, premiseId);
 
 			if (null != pigInfo)
 			{

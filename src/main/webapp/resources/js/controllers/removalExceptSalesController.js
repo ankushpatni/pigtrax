@@ -1,4 +1,4 @@
-var feedEventController = pigTrax.controller('RemovalExceptSalesController', function($scope,$rootScope,$modal,$http,$window,restServices) {
+var feedEventController = pigTrax.controller('RemovalExceptSalesController', function($scope,$rootScope,$modal,$http,$window,restServices,DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -54,6 +54,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			var mortalityReasonKeyValueMap = data.payload[4];
 			$scope.mortalityReasonKeys = mortalityReasonKeyValueMap['MortalityReasonKey'];
 			$scope.mortalityReasonType = mortalityReasonKeyValueMap['MortalityReasonValue'];
+			$scope.premisesMap = data.payload[5];
 			
 			//$scope.mortalityReasonType = data.payload[4];
 			
@@ -254,14 +255,15 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	
 	$scope.getPremise = function()
 	{
-		$scope.premiseObj = null;
-		restServices.getRemovalPremise($scope.removalExceptSales, function(data){
-			if(!data.error)
+		console.log($scope.removalExceptSales.pigInfoId);
+		
+		for( var x in $scope.pigInfoList)
 			{
-			   $scope.premiseObj = data.payload;	
-			   $scope.removalExceptSales["premiseId"] = $scope.premiseObj["id"];
+				if( $scope.pigInfoList[x].id=$scope.removalExceptSales.pigInfoId )
+					{		
+						$scope.removalExceptSales["premiseId"] = $scope.pigInfoList[x].premiseId;
+					}
 			}
-		});
 	}
 	
 	 $scope.gotoRemovalEvent = function()
@@ -271,6 +273,33 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 			document.forms['removalExceptFormSales'].action = 'removalEvent';
 			document.forms['removalExceptFormSales'].submit();
 	    }
+		
+	$scope.dateCheck = function(dateVal)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			  	   $scope.removalExceptSales["removalDateTime"] = "";
+				   $scope.birthDateRequired = true;
+			}
+		   else
+			{
+			   $scope.dateError = false;
+			    $scope.birthDateRequired = false;	 
+				$scope.removalExceptSales.removalDateTime = DateUtils.convertLocaleDateToServer(dateObj);
+			}
+		}
+		else
+		{
+			   $scope.removalExceptSales["removalDateTime"] = "";
+			   $scope.birthDateRequired = true;	
+		}
+	  }
+	}
 	 
 	 
 	 

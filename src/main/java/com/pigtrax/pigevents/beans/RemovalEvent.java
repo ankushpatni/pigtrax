@@ -15,6 +15,7 @@ public class RemovalEvent {
 	private String groupId;
 	private String pigId;
 	private int companyId;
+	private int premisesId;
 	
 	public Integer getId() {
 		return id;
@@ -76,5 +77,12 @@ public class RemovalEvent {
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
+	public int getPremisesId() {
+		return premisesId;
+	}
+	public void setPremisesId(int premisesId) {
+		this.premisesId = premisesId;
+	}
+	
 		
 }

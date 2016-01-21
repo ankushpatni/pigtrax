@@ -23,7 +23,9 @@
 				            <h3> <spring:message code='label.piginfo.removalExceptSales.search.heading'  text='Search Removal Events'/></h3>
 				            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.errormessage' text='Please enter Group Id/Pig Id/Removal Event Id  and select the corresponding option'/></p>
 				            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.data.errormessage' text='Removal/Sales information not found for the search criteria'/></p>
-							
+							<div  class="form-group">
+		             			<select class="form-control" name="premiseId" ng-model="premiseId"  ng-options="k as v for (k, v) in premiseNameMap"></select>		             			
+							</div>
 				            <input type="text" name="search" ng-model="searchText"  ng-enter="searchRemovalEvent(searchText)" placeholder="<spring:message code='label.piginfo.removalExceptSales.search.placeholder'  text='Search by Group Id/Pig Id/Removal Event Id ...'/>" class="form-control">
 				 
 							 <div class="options">
@@ -192,7 +194,7 @@
 					<td style="width:25%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{pigInfoList[row.pigInfoId].pigId}}</td>
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
-					<td style="width:10%">{{premiseList[row.premiseId]}}</td>
+					<td style="width:10%">{{premiseNameMap[row.premiseId]}}</td>
 					<td style="width:25%">{{row.remarks}}</td>
 					<td style="width: 8%">
 						<button type="button" ng-show="row.pigInfoId==0" class="btn btn-edit btn-xs" ng-click="deleteRemovalExceptSalesData(row,'<spring:message code="label.piginfo.removalExceptSales.delete.groupEvent" text="GroupDelete" />')">

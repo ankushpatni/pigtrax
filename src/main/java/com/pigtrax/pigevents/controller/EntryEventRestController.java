@@ -282,7 +282,7 @@ public class EntryEventRestController {
 				pigInformation = pigInfoService.getInactivePigInformation(pigInformation); 
 				if(pigInformation != null)
 				{
-					List<RemovalEventExceptSalesDetails> removalEvents = removalEventService.getRemovalEventExceptSalesDetailsByPigInfoId(pigInformation.getPigId(), pigInformation.getCompanyId());
+					List<RemovalEventExceptSalesDetails> removalEvents = removalEventService.getRemovalEventExceptSalesDetailsByPigInfoId(pigInformation.getPigId(), pigInformation.getCompanyId(), pigInformation.getPremiseId());
 					if(removalEvents != null && 0 < removalEvents.size())
 					{
 						for(RemovalEventExceptSalesDetails event : removalEvents)

@@ -79,6 +79,10 @@ public interface PremisesService {
 
 
 	public List<Premises> getPremisesListPremisisTypeNotInFilter(
-			int generatedCompanyId, String language, String premisesType);	
+			int generatedCompanyId, String language, String premisesType);
+
+
+	Map<Integer, String> getPremisesNameMapBasedOnCompanyId(
+			int generatedCompanyId) throws SQLException;	
 	
 }

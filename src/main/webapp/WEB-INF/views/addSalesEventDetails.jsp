@@ -137,7 +137,8 @@
 					</div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/><span style='color: red'>*</span></label>
-                      <input rsmdatedropdowns ng-model="removalExceptSales.salesDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>                      
+                      <!--<input rsmdatedropdowns ng-model="removalExceptSales.salesDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>-->                      
+					  <input type="text" class="form-control" ng-model="entryDateStr" mask="19/39/2999" ng-blur="dateCheck(entryDateStr)"/>
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.requiredMessage' text='Sales Date Time is required' /></label>

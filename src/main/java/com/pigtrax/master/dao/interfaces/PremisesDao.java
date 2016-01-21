@@ -68,4 +68,7 @@ public interface PremisesDao {
 	public List<Premises> getPremisesListNotInFilterPremisesType(
 			int generatedCompanyId, String premisesType);
 
+	List<Premises> getPremisesListBasedOnCompanyIdFromView(
+			int generatedCompanyId) throws SQLException;
+
 }

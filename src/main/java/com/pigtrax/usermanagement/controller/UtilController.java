@@ -241,6 +241,7 @@ public class UtilController {
 		try {
 			outDataList.add(pigInfoService.getPigInformationByCompany(companyId));
 			outDataList.add(premisesService.getPremisesListBasedOnCompanyId(companyId));
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -256,6 +257,12 @@ public class UtilController {
 		mortalityRefDataKeyValueMap.put("MortalityReasonKey", mortalityKeySet);
 		mortalityRefDataKeyValueMap.put("MortalityReasonValue", mortalityRefDataMap);
 		outDataList.add(mortalityRefDataKeyValueMap);
+		try {
+		outDataList.add(premisesService.getPremisesNameMapBasedOnCompanyId(companyId));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//outDataList.add(refDataCache.getMortalityReasonTypeMap(language));
 		dto.setPayload(outDataList);

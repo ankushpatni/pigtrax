@@ -95,6 +95,27 @@ public class PremisesServiceImpl implements PremisesService{
 		return premisesIdMap;
 	}
 	
+	@Override
+	public Map<Integer,String> getPremisesNameMapBasedOnCompanyId(int generatedCompanyId)
+			throws SQLException {
+		Map<Integer,String> premisesIdMap = new LinkedHashMap<Integer,String>();
+		try
+		{
+		List<Premises> premisesList =  premisesDao.getPremisesListBasedOnCompanyIdFromView(generatedCompanyId);
+			if(null != premisesList && premisesList.size()>0)
+			{
+				for(Premises premises : premisesList)
+				{
+					premisesIdMap.put(premises.getId(),premises.getName());
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return premisesIdMap;
+	}
 	
 	@Override 
 	public int deletePremise(int premiseId) {

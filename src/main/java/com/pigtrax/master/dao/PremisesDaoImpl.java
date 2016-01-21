@@ -242,6 +242,31 @@ public class PremisesDaoImpl implements PremisesDao{
 		return null;
 	}
 	
+	
+	@Override
+	public List<Premises> getPremisesListBasedOnCompanyIdFromView( final int generatedCompanyId ) throws SQLException
+	{
+	//CompPremBarnRoomPenVw
+		
+		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\",\"gpsLatittude\","
+				+ "\"gpsLongitude\",\"id_PremiseType\",\"sowSource\",\"otherCity\" "+
+						" from pigtrax.\"Premise\" where \"id\" in ( SELECT \"premiseserialid\" from pigtrax.\"CompPremBarnSiloVw\" where \"permiseId\" != '' and companyserialid = ? ) ";
+
+		List<Premises> premisesList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, generatedCompanyId);
+					}
+				}, new PremisesMapper());
+	
+		if (premisesList != null && premisesList.size() > 0) {
+			return  premisesList;
+		}
+		return null;
+	}	
+	
 	private static final class PremisesMapperList implements RowMapper<Premises> {
 		public Premises mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Premises premises = new Premises();

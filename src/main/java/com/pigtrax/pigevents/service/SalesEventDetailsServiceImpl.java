@@ -266,8 +266,26 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 			public List<SalesEventDetails> getSalesEventDetailsListByPigId(
 					String pigInfoIdId, int companyId, Integer premiseId)
 					throws PigTraxException {
-				// TODO Auto-generated method stub
-				return null;
+			List<SalesEventDetails> salesEventDetailsDetailsList = null;
+			
+			try
+			{
+				PigInfo pigInfo = pigInfoDao.getInactivePigInformationByPigId(pigInfoIdId,
+						companyId, premiseId);
+
+				if (null != pigInfo)
+				{
+					salesEventDetailsDetailsList = salesEventDetailsDao.getSalesEventDetailsListByPigId(pigInfo.getId());
+				}
+			} 
+			catch (SQLException sqlEx)
+			{
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());
+			}
+			
+			
+			return salesEventDetailsDetailsList;
 			}	
 
 }

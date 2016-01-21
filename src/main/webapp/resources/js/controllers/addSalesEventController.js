@@ -1,4 +1,4 @@
-var feedEventController = pigTrax.controller('SalesEventController', function($scope,$rootScope,$modal,$http,$window,restServices) {
+var feedEventController = pigTrax.controller('SalesEventController', function($scope,$rootScope,$modal,$http,$window,restServices,DateUtils) {
 	
 	$scope.companyId = ""; 
 	$rootScope.companyId = "";
@@ -286,5 +286,29 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 			document.forms['salesEventForm'].action = 'removalEvent';
 			document.forms['salesEventForm'].submit();
 	    }	
+		
+		$scope.dateCheck = function(dateVal)
+	{			
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+		   var  dateObj = Date.parse(dateVal);		   
+		   if(dateObj == null)
+			{
+			  	   $scope.removalExceptSales["salesDateTime"] = "";
+			}
+		   else
+			{
+			   $scope.dateError = false;	 
+				$scope.removalExceptSales.salesDateTime = DateUtils.convertLocaleDateToServer(dateObj);
+			}
+		}
+		else
+		{
+			   $scope.removalExceptSales["salesDateTime"] = "";
+		}
+	  }
+	}
 	
 });	

@@ -255,8 +255,8 @@ public class RemovalEventRestController
 			
 			else if(null!= removalEvent && removalEvent.getPigId()!=null)
 			{
-				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByPigInfoId(removalEvent.getPigId(), removalEvent.getCompanyId()));
-				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByPigId(removalEvent.getPigId(), removalEvent.getCompanyId())); 
+				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByPigInfoId(removalEvent.getPigId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
+				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByPigId(removalEvent.getPigId(), removalEvent.getCompanyId(), removalEvent.getPremisesId())); 
 			}
 			
 			if(removalEventList != null && removalEventList.size()>0 )
