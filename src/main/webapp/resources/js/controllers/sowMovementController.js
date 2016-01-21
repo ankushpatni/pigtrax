@@ -4,6 +4,7 @@
 	$scope.roomList={};
 	$scope.sowMovementList = {};	
 	$scope.DateUtils = DateUtils;
+	$scope.premisesMap = [];
 	
 	$scope.loadPremises = function()
 	{
@@ -21,10 +22,16 @@
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId+'&premisesType=null');
 		res.success(function(data, status, headers, config) {
 			$scope.premiseList = data.payload;
+			for( var x in $scope.premiseList) {
+					var obje = $scope.premiseList[x];
+					$scope.premisesMap[obje.id] = obje.name;
+				}
+				
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
-		});	
+		});
+		
 	}
 	
 	$scope.getRooms = function()
@@ -103,7 +110,7 @@
 				windowClass : 'cp-model-window',
     			resolve:{
     				sowMovementData : function(){ 
-    				sowMovementData.premisesMap = $scope.farmMap;
+    				sowMovementData.premisesMap = $scope.premisesMap;
     				sowMovementData.roomMap = $scope.roomMap;
 					sowMovementData.pigInfo = $scope.searchText;
 					sowMovementData.premiseList = $scope.premiseList;
