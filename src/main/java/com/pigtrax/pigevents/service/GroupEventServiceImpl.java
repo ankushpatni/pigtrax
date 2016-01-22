@@ -206,6 +206,18 @@ public class GroupEventServiceImpl implements GroupEventService{
 				GroupEvent currentGroup = groupEventDao.getGroupEventByGroupId(groupEvent.getGroupId(), groupEvent.getCompanyId(), groupEvent.getPremiseId());
 				if(null != currentGroup )
 				{
+					
+					//Add a negative transaction for transfer
+					GroupEventDetails groupEventDetails = new GroupEventDetails();
+					groupEventDetails.setGroupId(currentGroup.getId());
+					groupEventDetails.setDateOfEntry(DateUtil.getToday());
+					groupEventDetails.setNumberOfPigs(-1*groupEvent.getTransferredPigNum());
+					groupEventDetails.setWeightInKgs(groupEvent.getTransferredPigWt());
+					groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
+					groupEventDetails.setFromGroupId(groupEvent.getTransferredToGroupId());
+					groupEventDetails.setRemarks("Transferred");
+					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+					
 					currentGroup.setCurrentInventory(currentGroup.getCurrentInventory() - groupEvent.getTransferredPigNum());
 					groupEventDao.updateGroupEventCurrentInventory(currentGroup);
 					
@@ -322,6 +334,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 		groupEventDetails.setWeightInKgs(groupEvent.getTransferredPigWt());
 		groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
 		groupEventDetails.setFromGroupId(groupEvent.getId());
+		groupEventDetails.setRemarks("Received");
 		return groupEventDetails;
 	}
 	

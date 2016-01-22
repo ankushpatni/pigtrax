@@ -10,15 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.beans.PigInfo;
-import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.SalesEventDetails;
 import com.pigtrax.pigevents.beans.TransportJourney;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.SalesEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
 import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
@@ -35,6 +37,9 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 	
 	@Autowired
 	PigInfoDao pigInfoDao;
+	
+	@Autowired
+	GroupEventDetailsDao groupEventDetailsDao;	
 	
 	
 	@Override
@@ -89,6 +94,17 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(salesEventDetails.getGroupEventId(), salesEventDetails.getCompanyId());
 				if(null != groupEventUpdate )
 				{
+					//Add a negative transaction in the group event details
+					GroupEventDetails groupEventDetails = new GroupEventDetails();
+					groupEventDetails.setGroupId(groupEventUpdate.getId());
+					groupEventDetails.setDateOfEntry(DateUtil.getToday());
+					groupEventDetails.setNumberOfPigs(-1*salesEventDetails.getNumberOfPigs());
+					groupEventDetails.setWeightInKgs(salesEventDetails.getWeightInKgs().doubleValue());
+					groupEventDetails.setUserUpdated(salesEventDetails.getUserUpdated());
+					groupEventDetails.setRemarks("Sold through Pig Movement");
+					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);	
+					
+					
 					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - salesEventDetails.getNumberOfPigs());
 					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
 				}
