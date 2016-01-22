@@ -12,10 +12,12 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
+import com.pigtrax.pigevents.beans.SowMovement;
 import com.pigtrax.pigevents.beans.TransportJourney;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
+import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
 
@@ -33,6 +35,9 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 	
 	@Autowired
 	PigInfoDao pigInfoDao;
+	
+	@Autowired
+	SowMovementDao sowMovementDao;
 	
 	@Override
 	public RemovalEventExceptSalesDetails getRemovalEventExceptSalesDetailsById(int removalId) throws PigTraxException {
@@ -96,7 +101,21 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				PigInfo pigInfo = pigInfoDao.getPigInformationById(removalEventExceptSalesDetails.getPigInfoId());
 				if(null != pigInfo)
 				{
-					pigInfoDao.updatePigInfoStatus(removalEventExceptSalesDetails.getPigInfoId(), false);
+					//No need to change the pig status on transfer
+					//pigInfoDao.updatePigInfoStatus(removalEventExceptSalesDetails.getPigInfoId(), false);
+					//update the pig premise and room details.
+					pigInfo.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
+					pigInfo.setRoomId(null);					
+					pigInfoDao.updatePigInformation(pigInfo);
+					
+				   SowMovement sowMovement = new SowMovement();
+				   sowMovement.setPigInfoId(pigInfo.getId());
+				   sowMovement.setPremiseId(pigInfo.getPremiseId());
+				   sowMovement.setRoomId(pigInfo.getRoomId());
+				   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
+				   sowMovement.setCompanyId(pigInfo.getCompanyId());
+				   sowMovementDao.addSowMovement(sowMovement);
+					
 				}
 			}
 			returnValue = removalEventExceptSalesDetailsDao.addRemovalEventExceptSalesDetails(removalEventExceptSalesDetails);
@@ -189,7 +208,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 			}
 			
 			if(null != removalEventExceptSalesDetails.getPigInfoId() && removalEventExceptSalesDetails.getPigInfoId() !=0)
-			{
+			{	
 				PigInfo pigInfo = pigInfoDao.getPigInformationById(removalEventExceptSalesDetails.getPigInfoId());
 				if(null != pigInfo)
 				{
@@ -248,6 +267,11 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				removalEventExceptSalesDetails = removalEventExceptSalesDetailsDao
 						.getRemovalEventExceptSalesDetailsByPigInfoId(pigInfo
 								.getId());
+			}
+			else
+			{
+				pigInfo = pigInfoDao.getPigInformationByPigId(pigInfoIdId,companyId, premiseId);
+				removalEventExceptSalesDetails = removalEventExceptSalesDetailsDao.getRemovalEventExceptSalesDetailsByPigInfoId(pigInfo.getId());
 			}
 		} 
 		catch (SQLException sqlEx)

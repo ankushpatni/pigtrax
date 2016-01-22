@@ -195,7 +195,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					ps.setNull(7, java.sql.Types.INTEGER);
 				}				
 				
-				ps.setString(8, UserUtil.getLoggedInUser());	
+				ps.setString(8, removalEventExceptSalesDetails.getUserUpdated());	
 				
 
 				if(removalEventExceptSalesDetails.getTransportJourneyId() != null && removalEventExceptSalesDetails.getTransportJourneyId()!=0)

@@ -48,7 +48,7 @@ private static final Logger logger = Logger.getLogger(SowMovementDaoImpl.class);
 					throws SQLException {
 				PreparedStatement ps = con.prepareStatement(Qry,new String[] { "id" });
 				ps.setInt(1, sowMovement.getPigInfoId());
-				ps.setInt(2, sowMovement.getRoomId());
+				ps.setObject(2, sowMovement.getRoomId(), java.sql.Types.INTEGER);
 				ps.setInt(3, sowMovement.getPremiseId());
 				ps.setString(4, sowMovement.getUserUpdated());
 				ps.setInt(5, sowMovement.getCompanyId());
