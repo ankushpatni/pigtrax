@@ -225,7 +225,7 @@ public class PremisesDaoImpl implements PremisesDao{
 	
 	public List<Premises> getPremisesListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
 	{
-		String query = "SELECT \"premiseserialid\" as \"id\",\"permiseId\" from pigtrax.\"CompPremBarnSiloVw\" where \"permiseId\" != '' and companyserialid = ?";
+		String query = "SELECT \"id\",\"permiseId\",\"name\" from pigtrax.\"Premise\" where \"id_Company\" = ?";
 	//CompPremBarnRoomPenVw
 		List<Premises> premisesList = jdbcTemplate.query(query,
 				new PreparedStatementSetter() {
@@ -272,6 +272,7 @@ public class PremisesDaoImpl implements PremisesDao{
 			Premises premises = new Premises();
 			premises.setId(rs.getInt("id"));
 			premises.setPermiseId(rs.getString("permiseId"));
+			premises.setName(rs.getString("name"));
 			return premises;
 		}
 	}

@@ -84,7 +84,7 @@ public class PremisesServiceImpl implements PremisesService{
 			{
 				for(Premises premises : premisesList)
 				{
-					premisesIdMap.put(premises.getId(),premises.getPermiseId());
+					premisesIdMap.put(premises.getId(),premises.getName());
 				}
 			}
 		}
