@@ -170,7 +170,7 @@
 					<td style="width:35%">{{row.remarks}}</td>
 					<td style="width:35%">{{row.fromGroupIdStr}}</td>
 					<td style="width: 5%">
-						<button type="button" class="btn btn-edit btn-xs" ng-click="addGroupEventDetailData(row.id)">
+						<button type="button" class="btn btn-edit btn-xs" ng-click="addGroupEventDetailData(row.id)" ng-show="row.numberOfPigs >= 0">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 					</td>				
 				</tr>
