@@ -2,8 +2,7 @@
 <!-- ======== @Region: #content ======== -->
 
 <div class="page-head">
-          <h3 ng-hide="edit"><spring:message code="label.removalExceptSales.add.detail" text="Add Removal Except Sales" /></h3>
-     		<h3 ng-show="edit"><spring:message code="label.removalExceptSales.edit.detail" text="Edit Removal Except Sales" /></h3>
+          
 </div>		 
  <div class="cl-mcont" ng-controller="SalesEventController" ng-init="setCompanyId('${companyId}','${removalTypeId}')">
         <div class="row" >
@@ -11,6 +10,9 @@
             <div class="col-sm-6 col-md-6">
               <div class="block-flat">
                 <div class="header">
+                	
+                	<h3><spring:message code="label.removalExceptSales.add.salesdetail" text="Sales Details" /></h3>
+                
                    <div class="alert alert-danger alert-white rounded" ng-show="eventErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.piginfo.removalExceptSales.submit.error.message' text='An exception occurred. Please check the values entered'/>
