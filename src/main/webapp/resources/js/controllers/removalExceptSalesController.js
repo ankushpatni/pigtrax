@@ -254,9 +254,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	}
 	
 	$scope.getPremise = function()
-	{
-		alert($scope.removalExceptSales.pigInfoId);
-		
+	{	
 		restServices.getPigInformationById($scope.removalExceptSales.pigInfoId, function(data){
 			if(!data.error){
 				var pigInfo = data.payload;
