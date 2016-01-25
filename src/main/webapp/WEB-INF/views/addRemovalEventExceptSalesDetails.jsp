@@ -117,7 +117,7 @@
                       <label ng-hide="removalExceptSales.removalEventId==9"><spring:message code='label.piginfo.removalExceptSales.premiseId'  text='Premise'/></label>
                       <label ng-show="removalExceptSales.removalEventId==9"><spring:message code='label.piginfo.removalExceptSales.premiseIdFrom'  text='From Premise'/></label>
                       
-                      <label ng-show="selectGroup=='pigInfo'">: {{premiseList[removalExceptSales.premiseId]}}</label>
+                      <label ng-show="selectGroup=='pigInfo'">:{{premiseList[removalExceptSales.premiseId]}}</label>
                       
                         <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage || selectGroup=='pigInfo'" class="form-control" name="premiseId" id="premiseId" ng-model="removalExceptSales.premiseId"   
                          ng-options="k as v for (k, v) in premiseList"> </select>

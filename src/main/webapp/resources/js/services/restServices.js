@@ -133,6 +133,7 @@ pigTrax.factory("restServices", function($resource) {
 		"weanToFinishPhase2" : {method:"POST", url:"rest/groupEvent/weanToFinishPhase2"},
 		"undoWeanToFinishPhase2" : {method:"POST", url:"rest/groupEvent/undoWeanToFinishPhase2"},
 		"getActiveGroupEventsInPremise" : {method:"POST", url:"rest/groupEvent/getActiveGroupEventsInPremise"},
-		"getSiloListForPremise" : {method:"POST", url:"rest/silo/getSiloListForPremise"}
+		"getSiloListForPremise" : {method:"POST", url:"rest/silo/getSiloListForPremise"},
+		"getPigInformationById" : {method:"POST", url:"rest/entryEvent/getPigInformationById"},
     });
 });

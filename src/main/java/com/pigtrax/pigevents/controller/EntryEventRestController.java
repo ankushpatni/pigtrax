@@ -26,6 +26,7 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dto.Pen;
 import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
+import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.dto.BarnDto;
 import com.pigtrax.pigevents.dto.PigInfoDto;
@@ -326,6 +327,32 @@ public class EntryEventRestController {
     	List<String> availablePigIds = pigInfoService.getAvailablePigIds(companyId); 
     	rc.setPayload(availablePigIds);
     	return rc;
-    }	
+    }
+	
+	
+	/**
+	 * Service to search the pig information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPigInformationById", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPigInformationById(HttpServletRequest request, @RequestBody Integer pigInfoId)
+	{
+		logger.info("Inside getPigInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			PigInfoDto pigInformation = pigInfoService.getPigInformationById(pigInfoId);
+			dto.setPayload(pigInformation);
+			if(pigInformation != null && pigInformation.getId() != null)
+				dto.setStatusMessage("Success");
+			else
+				dto.setStatusMessage("ERROR : Pig Information not found");
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
 	
 }

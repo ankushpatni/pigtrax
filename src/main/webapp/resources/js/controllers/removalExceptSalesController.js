@@ -255,15 +255,14 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	
 	$scope.getPremise = function()
 	{
-		console.log($scope.removalExceptSales.pigInfoId);
+		alert($scope.removalExceptSales.pigInfoId);
 		
-		for( var x in $scope.pigInfoList)
-			{
-				if( $scope.pigInfoList[x].id=$scope.removalExceptSales.pigInfoId )
-					{		
-						$scope.removalExceptSales["premiseId"] = $scope.pigInfoList[x].premiseId;
-					}
+		restServices.getPigInformationById($scope.removalExceptSales.pigInfoId, function(data){
+			if(!data.error){
+				var pigInfo = data.payload;
+				$scope.removalExceptSales["premiseId"] = pigInfo["premiseId"];
 			}
+		});
 	}
 	
 	 $scope.gotoRemovalEvent = function()
