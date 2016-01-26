@@ -22,6 +22,7 @@ import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
+import com.pigtrax.usermanagement.enums.RemovalEventType;
 import com.pigtrax.util.DateUtil;
 
 @Repository
@@ -97,18 +98,26 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getCompanyId());
 				if(null != groupEventUpdate )
 				{
-					//Add a negative transaction in the group event details
-					GroupEventDetails groupEventDetails = new GroupEventDetails();
-					groupEventDetails.setGroupId(groupEventUpdate.getId());
-					groupEventDetails.setDateOfEntry(DateUtil.getToday());
-					groupEventDetails.setNumberOfPigs(-1*removalEventExceptSalesDetails.getNumberOfPigs());
-					groupEventDetails.setWeightInKgs(removalEventExceptSalesDetails.getWeightInKgs().doubleValue());
-					groupEventDetails.setUserUpdated(removalEventExceptSalesDetails.getUserUpdated());
-					groupEventDetails.setRemarks("Removed through Pig Movement");
-					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
-					
-					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - removalEventExceptSalesDetails.getNumberOfPigs());
-					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode())
+					{
+						groupEventUpdate.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
+						groupEventDao.updateGroupEvent(groupEventUpdate);
+					}
+					else
+					{
+						//Add a negative transaction in the group event details
+						GroupEventDetails groupEventDetails = new GroupEventDetails();
+						groupEventDetails.setGroupId(groupEventUpdate.getId());
+						groupEventDetails.setDateOfEntry(DateUtil.getToday());
+						groupEventDetails.setNumberOfPigs(-1*removalEventExceptSalesDetails.getNumberOfPigs());
+						groupEventDetails.setWeightInKgs(removalEventExceptSalesDetails.getWeightInKgs().doubleValue());
+						groupEventDetails.setUserUpdated(removalEventExceptSalesDetails.getUserUpdated());
+						groupEventDetails.setRemarks("Removed through Pig Movement");
+						groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+						
+						groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - removalEventExceptSalesDetails.getNumberOfPigs());
+						groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+					}
 				}
 			}
 			

@@ -454,5 +454,36 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		} 
 		return dto;
 	}
+	
+	/**
+	 * Service to get the group event information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getGroupEventInformationById", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getGroupEventInformationById(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside getGroupEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent = groupEventService.getGroupEventByGeneratedGroupId(groupEvent.getId(), groupEvent.getCompanyId());
+			
+			if(groupEvent != null)
+			{
+				dto.setPayload(groupEvent);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
+	
 
 }

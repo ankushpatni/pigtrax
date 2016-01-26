@@ -255,12 +255,32 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	
 	$scope.getPremise = function()
 	{	
-		restServices.getPigInformationById($scope.removalExceptSales.pigInfoId, function(data){
-			if(!data.error){
-				var pigInfo = data.payload;
-				$scope.removalExceptSales["premiseId"] = pigInfo["premiseId"];
+		if($scope.selectGroup=='pigInfo')
+		{
+			restServices.getPigInformationById($scope.removalExceptSales.pigInfoId, function(data){
+				if(!data.error){
+					var pigInfo = data.payload;
+					$scope.removalExceptSales["premiseId"] = pigInfo["premiseId"];
+				}
+			});
+		}
+		else
+		{		
+			var grpEvent = {
+					"id" : $scope.removalExceptSales.groupEventId,
+					"companyId" : $rootScope.companyId
 			}
-		});
+			restServices.getGroupEventInformationById(grpEvent, function(data){
+				if(!data.error)
+					{
+					  var groupInfo = data.payload;
+					  $scope.removalExceptSales["premiseId"] = groupInfo["premiseId"];
+					  $scope.removalExceptSales["numberOfPigs"] = groupInfo.currentInventory;
+					  $scope.removalExceptSales["weightInKgs"]=0;
+					}
+			});
+		}
+		
 	}
 	
 	 $scope.gotoRemovalEvent = function()

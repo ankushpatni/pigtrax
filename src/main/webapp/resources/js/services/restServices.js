@@ -135,5 +135,6 @@ pigTrax.factory("restServices", function($resource) {
 		"getActiveGroupEventsInPremise" : {method:"POST", url:"rest/groupEvent/getActiveGroupEventsInPremise"},
 		"getSiloListForPremise" : {method:"POST", url:"rest/silo/getSiloListForPremise"},
 		"getPigInformationById" : {method:"POST", url:"rest/entryEvent/getPigInformationById"},
+		"getGroupEventInformationById" : {method:"POST", url:"rest/groupEvent/getGroupEventInformationById"},
     });
 });
