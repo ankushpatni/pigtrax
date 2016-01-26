@@ -98,7 +98,7 @@
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PigletStatusEvent"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEvent"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEventDetails">Group Event Details</a><br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=IndividualPiglet"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=IndividualPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEvent"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEventDetails">Feed Event Details</a></br>
 						</div>
