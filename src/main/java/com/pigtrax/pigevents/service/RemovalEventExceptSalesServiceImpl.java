@@ -11,12 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
+import com.pigtrax.pigevents.beans.GroupEventPhaseChange;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.SowMovement;
 import com.pigtrax.pigevents.beans.TransportJourney;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventPhaseChangeDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
@@ -45,6 +48,12 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 	
 	@Autowired
 	GroupEventDetailsDao groupEventDetailsDao;
+	
+	@Autowired
+	GroupEventPhaseChangeDao groupEventPhaseChangeDao;
+	
+	@Autowired
+	GroupEventRoomDao groupEventRoomDao;
 	
 	@Override
 	public RemovalEventExceptSalesDetails getRemovalEventExceptSalesDetailsById(int removalId) throws PigTraxException {
@@ -102,6 +111,12 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					{
 						groupEventUpdate.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
 						groupEventDao.updateGroupEvent(groupEventUpdate);
+						
+						GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEventUpdate.getId());
+						currentPhase.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());						
+						groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);						
+						groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
+						
 					}
 					else
 					{
