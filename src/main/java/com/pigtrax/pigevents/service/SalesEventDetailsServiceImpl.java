@@ -231,13 +231,13 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 	}
 	
 	@Override
-	public List<SalesEventDetails> getSalesEventDetailsListByGroupId(final String groupId, final int companyId) throws PigTraxException
+	public List<SalesEventDetails> getSalesEventDetailsListByGroupId(final String groupId, final int companyId, final int premisesId) throws PigTraxException
 	{
 		List<SalesEventDetails> salesEventDetailsDetailsList = null;
 		
 		try 
 		{
-			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId( groupId, companyId, 0);
+			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId( groupId, companyId, premisesId);
 
 			if (null != groupEvent) 
 			{

@@ -1975,6 +1975,7 @@ CREATE TABLE pigtrax."RemovalEventExceptSalesDetails"(
 	"id_MortalityReason" integer,
 	remarks varchar(255),
 	"revenueUsd" numeric(20,2),
+	"id_Room" integer,
 	CONSTRAINT "REMOVALEVENTXSALESDETAILS_PK" PRIMARY KEY (id)
 
 );

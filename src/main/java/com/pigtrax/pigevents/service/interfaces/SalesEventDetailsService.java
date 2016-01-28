@@ -23,7 +23,7 @@ public interface SalesEventDetailsService {
 			throws PigTraxException;
 
 	List<SalesEventDetails> getSalesEventDetailsListByGroupId(String groupId,
-			int companyId) throws PigTraxException;
+			int companyId, final int premisesId) throws PigTraxException;
 
 	List<SalesEventDetails> getSalesEventDetailsListByPigId(String pigInfoIdId,
 			int companyId, Integer premiseId) throws PigTraxException;

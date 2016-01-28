@@ -248,8 +248,8 @@ public class RemovalEventRestController
 			List removalEventList = new LinkedList();
 			if(null!= removalEvent && removalEvent.getGroupId()!=null)
 			{
-				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId()));
-				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId()));
+				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
+				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
 				
 			}
 			

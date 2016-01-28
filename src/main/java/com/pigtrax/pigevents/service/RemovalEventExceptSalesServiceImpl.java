@@ -116,6 +116,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 						currentPhase.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());						
 						groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);						
 						groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
+						groupEventRoomDao.addSingleGroupEventRooms(currentPhase.getId(), removalEventExceptSalesDetails.getRoomId());
 						
 					}
 					else
@@ -145,7 +146,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					//pigInfoDao.updatePigInfoStatus(removalEventExceptSalesDetails.getPigInfoId(), false);
 					//update the pig premise and room details.
 					pigInfo.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
-					pigInfo.setRoomId(null);					
+					pigInfo.setRoomId(removalEventExceptSalesDetails.getRoomId());					
 					pigInfoDao.updatePigInformation(pigInfo);
 					
 				   SowMovement sowMovement = new SowMovement();
@@ -252,8 +253,37 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				PigInfo pigInfo = pigInfoDao.getPigInformationById(removalEventExceptSalesDetails.getPigInfoId());
 				if(null != pigInfo)
 				{
-					pigInfoDao.updatePigInfoStatus(removalEventExceptSalesDetails.getPigInfoId(), true);
+					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode() && 
+							removalEventExceptSalesDetails.getDestPremiseId().intValue() == pigInfo.getPremiseId().intValue())
+					{
+						SowMovement sowMovement = new SowMovement();
+						sowMovement.setPigInfoId(pigInfo.getId());
+						
+						List<SowMovement> sowMovementList = sowMovementDao.getSowMovementListByPigInfoId(pigInfo.getPigId(), pigInfo.getCompanyId(), pigInfo.getPremiseId());
+						if(sowMovementList != null && !sowMovementList.isEmpty() && sowMovementList.size() == 1)
+						{
+							pigInfo.setPremiseId(removalEventExceptSalesDetails.getPremiseId());
+							pigInfo.setRoomId(removalEventExceptSalesDetails.getRoomId());
+							
+							sowMovement.setPremiseId(removalEventExceptSalesDetails.getPremiseId());
+							sowMovement.setRoomId(removalEventExceptSalesDetails.getRoomId());
+						}
+						else if(sowMovementList != null && !sowMovementList.isEmpty() && sowMovementList.size() > 0)
+						{
+							pigInfo.setPremiseId(sowMovementList.get(1).getPremiseId());
+							pigInfo.setRoomId(sowMovementList.get(1).getRoomId());
+							
+							sowMovement.setPremiseId(sowMovementList.get(1).getPremiseId());
+							sowMovement.setRoomId(sowMovementList.get(1).getRoomId());
+						}
+						sowMovement.setUserUpdated(pigInfo.getUserUpdated());
+						sowMovement.setCompanyId(pigInfo.getCompanyId());
+						sowMovementDao.addSowMovement(sowMovement);
+					}
+					pigInfo.setActive(true);
+					pigInfoDao.updatePigInformation(pigInfo);
 				}
+				
 			}
 			removalEventExceptSalesDetailsDao.deleteRemovalEventExceptSalesDetails(removalEventExceptSalesDetails.getId());
 			
@@ -267,14 +297,14 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 	}
 	
 	@Override
-	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByGroupId( final String groupId, final int companyId) throws PigTraxException
+	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByGroupId( final String groupId, final int companyId, final int premisesId) throws PigTraxException
 	{
 		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetails = null;
 		
 		try 
 		{
 			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(
-					groupId, companyId, 1);
+					groupId, companyId, premisesId);
 
 			if (null != groupEvent) 
 			{
@@ -311,7 +341,10 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 			else
 			{
 				pigInfo = pigInfoDao.getPigInformationByPigId(pigInfoIdId,companyId, premiseId);
-				removalEventExceptSalesDetails = removalEventExceptSalesDetailsDao.getRemovalEventExceptSalesDetailsByPigInfoId(pigInfo.getId());
+				if(pigInfo != null)
+				{
+					removalEventExceptSalesDetails = removalEventExceptSalesDetailsDao.getRemovalEventExceptSalesDetailsByPigInfoId(pigInfo.getId());
+				}
 			}
 		} 
 		catch (SQLException sqlEx)

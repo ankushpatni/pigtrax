@@ -54,6 +54,24 @@ public class GroupEventRoomDaoImpl implements GroupEventRoomDao {
 		}
 	}
 	
+	@Override
+	public void addSingleGroupEventRooms(final Integer eventPhaseChnageId, final Integer roomId) {
+		
+		final String sql = "Insert into pigtrax.\"GroupEventRoom\"(\"id_GroupEventPhaseChange\", \"id_Room\") values (?,?)";
+		if(eventPhaseChnageId != null && roomId != null)
+		{
+				jdbcTemplate.update(new PreparedStatementCreator() {
+					public PreparedStatement createPreparedStatement(Connection con)
+							throws SQLException {
+						PreparedStatement ps = con.prepareStatement(sql);
+						ps.setInt(1, eventPhaseChnageId);
+						ps.setInt(2, roomId);
+						return ps;
+					}
+				});				
+		}
+	}
+	
 	
 	@Override
 	public void deleteGroupEventRooms(final Integer groupEventId) {

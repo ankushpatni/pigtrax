@@ -23,6 +23,7 @@ public class RemovalEventExceptSalesDetails {
 	private TransportJourney transportJourney;
 	private Integer companyId;
 	private BigDecimal revenueUsd;
+	private Integer roomId;
 	
 	public Integer getId() {
 		return id;
@@ -125,7 +126,12 @@ public class RemovalEventExceptSalesDetails {
 	}
 	public void setRevenueUsd(BigDecimal revenueUsd) {
 		this.revenueUsd = revenueUsd;
-	}	
-	
+	}
+	public Integer getRoomId() {
+		return roomId;
+	}
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
 	
 }

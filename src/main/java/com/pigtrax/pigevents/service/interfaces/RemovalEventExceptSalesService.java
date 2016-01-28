@@ -22,7 +22,7 @@ public interface RemovalEventExceptSalesService {
 			throws PigTraxException;
 
 	List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByGroupId(
-			String groupId, int companyId) throws PigTraxException;
+			String groupId, int companyId, final int premisesId) throws PigTraxException;
 
 	List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId(
 			String pigInfoIdId, int companyId, Integer premiseId)

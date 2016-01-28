@@ -53,8 +53,8 @@
 						<th style="width:7%"><spring:message code="label.sowMovementForm.Premises" text="Premises" /></th>
 						<th style="width:7%"><spring:message code="label.sowMovementForm.Room" text="Room" /></th>
 						<th style="width:10%"><spring:message code="label.sowMovementForm.dateOfMovement" text="Date Of Movement" /></th>
-						<th style="width:5%"><spring:message code="label.sowMovementForm.edit" text="Edit" /></th>
-						<th style="width:5%"><spring:message code="label.sowMovementForm.delete" text="Delete" /></th>
+						<!--  <th style="width:5%"><spring:message code="label.sowMovementForm.edit" text="Edit" /></th>-->
+						<!--  <th style="width:5%"><spring:message code="label.sowMovementForm.delete" text="Delete" /></th>-->
 					</tr>
 	 			</thead>
 				<tbody>
@@ -63,15 +63,15 @@
 					<td style="width:7%">{{premisesMap[row.premiseId]}}</td>
 					<td style="width:7%">{{roomMap[row.roomId]}}</td>
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.movementDate)}}</td>
-					<td style="width: 5%">
+					<!--  <td style="width: 5%">
 						<button ng-show="$index==0" type="button" class="btn btn-edit btn-xs" ng-click="editSowMovement(row)">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.sowMovementForm.edit" text="Edit" /></a></button>					
-					</td>
-					<td style="width: 5%">
+					</td>-->
+					<!-- <td style="width: 5%">
 						<button ng-hide="$index==0" type="button" class="btn btn-edit btn-xs" ng-click="deleteSowMovement(row.id)" 
 								ng-confirm-click="Would you like to delete this entry?">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.sowMovementForm.delete" text="Delete" /></a></button>					
-					</td>					
+					</td>	-->				
 				</tr>
 				</tbody>		
 				<tr style="background-color: #f7b781">

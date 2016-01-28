@@ -124,13 +124,25 @@
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{premiseList[removalExceptSales.premiseId]}}</label> -->                       
                     </div>
                     <div class="form-group" ng-show="removalExceptSales.removalEventId==9">
-                      <label><spring:message code='label.piginfo.removalExceptSales.premiseIdTo'  text='To Premise'/></label>                      
+                      <label><spring:message code='label.piginfo.removalExceptSales.premiseIdTo'  text='To Premise'/><span style='color: red'>*</span></label>                      
                        <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control" name="destPremiseId" id="destPremiseId" ng-model="removalExceptSales.destPremiseId"   
-                         ng-options="k as v for (k, v) in premiseList"> </select>
+                         ng-options="k as v for (k, v) in premiseList" ng-change="getRooms()"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{premiseList[removalExceptSales.destPremiseId]}}</label>                       
                     </div>
                     <div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="sourceAndDestinationPremisesSameError" ><spring:message code='label.piginfo.removalExceptSales.sourceAndDestinationPremisesSameError.errorMessage' text='Source and Destination Premises can not be same' /></label>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="destinationPremisesSameError" ><spring:message code='label.piginfo.removalExceptSales.destinationPremisesSameError.errorMessage' text='Please Provide Destination Premises' /></label>
+					</div>
+					
+					<div class="form-group" ng-show="removalExceptSales.removalEventId==9">
+                      <label><spring:message code='label.piginfo.removalExceptSales.roomId'  text='To Room'/><span ng-show="selectGroup==='group'" style='color: red'>*</span></label>                       
+                       <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control" name="roomId" id="roomId" ng-model="removalExceptSales.roomId"   
+                         ng-options="k as v for (k, v) in roomMap"> </select>
+                    </div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="roomSelectionForGroupTransferError" ><spring:message code='label.piginfo.removalExceptSales.roomSelectionForGroupTransferError.errorMessage' text='Please Provide Destination Room' /></label>
 					</div>
 					
 					<div class="form-group">

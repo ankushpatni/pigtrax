@@ -125,6 +125,8 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		$scope.noOfPigsrequired  = false;
 		$scope.noOfPigWrongCount = false;
 		$scope.errorRemovalDateTime = false;
+		$scope.destinationPremisesSameError = false;
+		$scope.roomSelectionForGroupTransferError = false;
 	};
 	
 	$scope.$watch("removalExceptSales.destPremiseId", function(newValue, oldValue) {
@@ -187,7 +189,20 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 		{
 			return false;
 		}
-		
+		console.log($scope.removalExceptSales.removalEventId);
+		console.log($scope.removalExceptSales.destPremiseId);
+		if($scope.removalExceptSales.removalEventId==9 &&  
+		$scope.removalExceptSales.destPremiseId === undefined)
+		{
+			$scope.destinationPremisesSameError = true;
+			return false;
+		}
+		if ($scope.removalExceptSales.removalEventId==9 &&  
+		$scope.removalExceptSales.roomId === undefined && $scope.selectGroup==='group')
+		{
+			$scope.roomSelectionForGroupTransferError = true;
+			return false;
+		}
 		if($scope.removalExceptSales.id === 'undefined' )
 		{
 			$scope.removalExceptSales.id = 0;
@@ -348,6 +363,16 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 				if(res.statusMessage==="Success")
 				{
 					$scope.getGroupEventInformation(groupEventObj.groupId,false,true);
+				}
+			});
+		}
+		
+		$scope.getRooms = function()
+		{
+			restServices.getRoomsForPremise($scope.removalExceptSales.destPremiseId, function(data){
+				if(!data.error){
+					
+					$scope.roomMap = data.payload;					
 				}
 			});
 		}
