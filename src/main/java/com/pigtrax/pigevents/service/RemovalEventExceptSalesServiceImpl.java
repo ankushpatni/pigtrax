@@ -145,6 +145,15 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					//No need to change the pig status on transfer
 					//pigInfoDao.updatePigInfoStatus(removalEventExceptSalesDetails.getPigInfoId(), false);
 					//update the pig premise and room details.
+					
+					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode())
+					{
+						pigInfo.setActive(true);
+					}
+					else
+					{
+						pigInfo.setActive(false);
+					}
 					pigInfo.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
 					pigInfo.setRoomId(removalEventExceptSalesDetails.getRoomId());					
 					pigInfoDao.updatePigInformation(pigInfo);
