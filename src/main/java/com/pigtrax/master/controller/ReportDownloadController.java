@@ -71,7 +71,9 @@ public class ReportDownloadController {
         GroupEventDetails,
         FeedEvent,
         FeedEventDetails,
-        IndividualPigletEvent
+        IndividualPigletEvent,
+        RemovalEventExceptSalesEventGroup,
+        RemovalEventExceptSalesEventPig
     }
 	
 	@RequestMapping(value = "/downloadTemplate", method = RequestMethod.GET)
