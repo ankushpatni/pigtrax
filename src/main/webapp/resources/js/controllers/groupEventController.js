@@ -27,6 +27,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.transferGroupEventData = {};
 	$scope.invalidRoomSelection = false;
 	$scope.updatedRooms = [];
+	$scope.transferPhase = null;
+	$scope.transferPhaseId = null;
 	
 	$scope.multiselectdropdownsettings = {
     scrollableHeight: '200px',
@@ -421,7 +423,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"groupId" : transferToGroupEvent,
 					"companyId" : $scope.companyId,
 					"premiseId" : transferToPremise,
-					"phaseOfProductionTypeId" : $scope.groupEvent.phaseOfProductionTypeId
+					"phaseOfProductionTypeId" : $scope.transferPhaseId
 					
 				};
 			
@@ -509,10 +511,11 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		}
 	}
 	
-	$scope.transferToGroupInit = function()
+	$scope.transferToGroupInit = function(phaseOfProductionTypeId)
 	{
 		$scope.transferGroupEventData = {};
-		$scope.transferPhase = $scope.phaseOfProductionType[$scope.groupEvent.phaseOfProductionTypeId];
+		$scope.transferPhaseId = phaseOfProductionTypeId;
+		$scope.transferPhase = $scope.phaseOfProductionType[phaseOfProductionTypeId];
 		$scope.transferToPremise = null;
 		$scope.transferToGroupTxt = "";
 	}
@@ -572,6 +575,13 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 				$scope.getGroupEventInformation($scope.groupEvent.groupId,$scope.groupEvent.premiseId, true);
 			}
 		});
+	}
+	
+	$scope.transferToFarm = function()
+	{
+		document.getElementById("fromGroup").value=$scope.groupEvent.groupId;
+		document.getElementById("fromGroupId").value=$scope.groupEvent.id;
+		document.getElementById("transferToEntry").submit();
 	}
 
 });

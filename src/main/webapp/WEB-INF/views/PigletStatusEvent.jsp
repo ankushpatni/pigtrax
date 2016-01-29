@@ -206,7 +206,7 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="eventDateTimerequired" ><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime.requiredMessage' text='Event Date is required' /></label>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidPigletNumbers" ><spring:message code='label.piginfo.pigletstatuseventform.invalidPigletNumbers' text='Piglet count should be in whole numeric values' /></label>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="pigletNumbersRequired" ><spring:message code='label.piginfo.pigletstatuseventform.pigletNumbersRequired' text='Please enter wean/transfer/piglet mortality information' /></label>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidGroupEventId" ><spring:message code='label.piginfo.pigletstatuseventform.invalidGroupEventId' text='Invalid Group Event Id' /></label>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidGroupEventId" ><spring:message code='label.piginfo.pigletstatuseventform.invalidGroupEventId' text='Invalid Group Id' /></label>
 					</div>	
 										
 					
