@@ -149,22 +149,26 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode())
 					{
 						pigInfo.setActive(true);
+						pigInfo.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
+						pigInfo.setRoomId(removalEventExceptSalesDetails.getRoomId());
 					}
 					else
 					{
 						pigInfo.setActive(false);
 					}
-					pigInfo.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
-					pigInfo.setRoomId(removalEventExceptSalesDetails.getRoomId());					
+										
 					pigInfoDao.updatePigInformation(pigInfo);
 					
-				   SowMovement sowMovement = new SowMovement();
-				   sowMovement.setPigInfoId(pigInfo.getId());
-				   sowMovement.setPremiseId(pigInfo.getPremiseId());
-				   sowMovement.setRoomId(pigInfo.getRoomId());
-				   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
-				   sowMovement.setCompanyId(pigInfo.getCompanyId());
-				   sowMovementDao.addSowMovement(sowMovement);
+					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode())
+					{
+					   SowMovement sowMovement = new SowMovement();
+					   sowMovement.setPigInfoId(pigInfo.getId());
+					   sowMovement.setPremiseId(pigInfo.getPremiseId());
+					   sowMovement.setRoomId(pigInfo.getRoomId());
+					   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
+					   sowMovement.setCompanyId(pigInfo.getCompanyId());
+					   sowMovementDao.addSowMovement(sowMovement);
+					}
 					
 				}
 			}
