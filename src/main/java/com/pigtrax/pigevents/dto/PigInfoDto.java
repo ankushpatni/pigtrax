@@ -36,6 +36,8 @@ public class PigInfoDto {
 	private String entryDateStr;
 	private String birthDateStr;
 	private String changePigIdDateStr;
+	private String transferFromGroup;
+	private Integer transferFromGroupId;
 	
 	
 	public Integer getFarrowEventId() {
@@ -323,6 +325,22 @@ public class PigInfoDto {
 
 	public void setChangePigIdDateStr(String changePigIdDateStr) {
 		this.changePigIdDateStr = changePigIdDateStr;
+	}
+
+	public String getTransferFromGroup() {
+		return transferFromGroup;
+	}
+
+	public void setTransferFromGroup(String transferFromGroup) {
+		this.transferFromGroup = transferFromGroup;
+	}
+	
+	public Integer getTransferFromGroupId() {
+		return transferFromGroupId;
+	}
+
+	public void setTransferFromGroupId(Integer transferFromGroupId) {
+		this.transferFromGroupId = transferFromGroupId;
 	}
 
 	@Override

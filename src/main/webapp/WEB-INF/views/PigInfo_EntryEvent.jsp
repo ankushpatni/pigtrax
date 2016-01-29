@@ -3,7 +3,7 @@
 <div class="page-head">
           <h2>${CompanyName}</h2>
 </div>
- <div class="cl-mcont" ng-controller="EntryEventController" ng-init="populateBarns(${CompanyId})"  id="EntryEventControllerId">
+ <div class="cl-mcont" ng-controller="EntryEventController" ng-init="populateBarns(${CompanyId}, '${From_Group}', '${From_Group_Id}')"  id="EntryEventControllerId">
  <div class="row">
  		  <div class="col-sm-3 col-md-3"></div>
  		  <div class="col-sm-6 col-md-6">
@@ -75,6 +75,13 @@
                   <form name="entryEventForm" novalidate angular-validator my-reset>
                   <input type=hidden name="companyId" ng-model="pigInfo.companyId" value="${CompanyId}"/>
                   <input type=hidden name="id" ng-model="pigInfo.id"/>
+                   
+                   
+                     <div class="form-group" ng-show="fromGroup != null && fromGroup.length > 0">
+                      <label><spring:message code='label.piginfo.entryeventform.FromGroup'  text='Transfer from Group'/> : </label>
+                      <label>{{fromGroup}}</label>
+                    </div>
+                   
                    
                    	<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>

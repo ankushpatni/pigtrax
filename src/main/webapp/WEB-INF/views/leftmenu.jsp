@@ -95,7 +95,7 @@
                                       <%} else {%>
                                       <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
                                       <%}  %>
-                                      <li><a href="#">Preference :<br> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-success"  ng-click="toggle()">dd/MM/yyyy</button></a>
+                                      <li><a href="#">Preference :<br> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-warning"  ng-click="toggle()">dd/MM/yyyy</button></a>
                                       </li>
                                </ul>
                             </li>           

@@ -94,6 +94,16 @@
 				  </div> 
 				  
 				  
+				   <div class="form-group">
+					<label ><spring:message
+							code="label.employee.jobFunctionRole"
+							text="Job Function" /><span style='color: red'>*</span></label>
+						<select class="form-control" id="jobFunctionRoleId"  name="jobFunctionRoleId" ng-model="add.jobFunctionRoleId"  required 
+						required-message="'<spring:message code='label.employee.jobFunctionRoleIdRequired' text='Job function is required' />'">
+                        <option ng-repeat="key in jobFunctionRoleKeys" ng-value="key" ng-selected="add.jobFunctionRoleId==key">{{jobFunctionRoleKeyValues[key]}}</option>
+                        </select>
+				</div>
+				  
 				  <div class="form-group">
 					<label ><spring:message
 							code="label.employee.functionType"
@@ -104,15 +114,7 @@
                         </select>
 				</div>
 				
-				 <div class="form-group">
-					<label ><spring:message
-							code="label.employee.jobFunctionRole"
-							text="Job Function" /><span style='color: red'>*</span></label>
-						<select class="form-control" id="jobFunctionRoleId"  name="jobFunctionRoleId" ng-model="add.jobFunctionRoleId"  required 
-						required-message="'<spring:message code='label.employee.jobFunctionRoleIdRequired' text='Job function is required' />'">
-                        <option ng-repeat="key in jobFunctionRoleKeys" ng-value="key" ng-selected="add.jobFunctionRoleId==key">{{jobFunctionRoleKeyValues[key]}}</option>
-                        </select>
-				</div>
+				
 
 				<div class="modal-footer">
 

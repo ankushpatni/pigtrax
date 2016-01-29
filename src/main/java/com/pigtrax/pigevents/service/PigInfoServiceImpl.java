@@ -15,16 +15,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.BreedingEvent;
+import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.SowMovement;
 import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
 import com.pigtrax.pigevents.dto.PigInfoBuilder;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 public class PigInfoServiceImpl implements PigInfoService {
@@ -44,6 +49,12 @@ public class PigInfoServiceImpl implements PigInfoService {
 	
 	@Autowired 
 	SowMovementDao sowMovementDao;
+		
+	@Autowired
+	GroupEventDao groupEventDao;
+	
+	@Autowired
+	GroupEventDetailsDao groupEventDetailsDao;
 	
 	
 	public int savePigInformation(PigInfoDto dto) throws Exception {
@@ -67,6 +78,27 @@ public class PigInfoServiceImpl implements PigInfoService {
 				   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
 				   sowMovement.setCompanyId(pigInfo.getCompanyId());
 				   sowMovementDao.addSowMovement(sowMovement);
+				   
+				   if(dto.getTransferFromGroup() != null && dto.getTransferFromGroup().trim().length() > 0 && dto.getTransferFromGroupId() != null)
+				   {
+					   GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(dto.getTransferFromGroupId(), dto.getCompanyId());
+					   if(groupEventUpdate != null)
+					   {
+						   //Add a negative transaction in the group event details
+							GroupEventDetails groupEventDetails = new GroupEventDetails();
+							groupEventDetails.setGroupId(groupEventUpdate.getId());
+							groupEventDetails.setDateOfEntry(DateUtil.getToday());
+							groupEventDetails.setNumberOfPigs(-1);
+							groupEventDetails.setWeightInKgs(0D);
+							groupEventDetails.setUserUpdated(dto.getUserUpdated());
+							groupEventDetails.setRemarks("Transferred to farm");
+							groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+							
+							groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - 1);
+							groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+					   }
+				   }
+				   
 				}
 				else
 				{

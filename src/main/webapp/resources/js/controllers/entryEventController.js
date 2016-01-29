@@ -3,6 +3,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	$rootScope.companyId = "";
 	$scope.object = {};
 	$scope.Date = Date;	
+	$scope.fromGroup = null;
+	$scope.fromGroupId = null;
 	
 	 $scope.testData = {
 		      blankDate: null,
@@ -40,7 +42,13 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	$scope.clearAllMessages();
 	$scope.searchOption = "";
 	$scope.pigInfo = {};
-	$scope.populateBarns = function(companyId){
+	$scope.populateBarns = function(companyId, fromGroup, fromGroupId){
+		if(fromGroup != null)
+			$scope.fromGroup = fromGroup;
+		
+		if(fromGroupId != null && fromGroupId.length > 0)
+			$scope.fromGroupId = parseInt(fromGroupId);
+		
 		$scope.pigInfo.companyId = companyId;
 		$rootScope.companyId = companyId;
 		$scope.companyId  = companyId;
@@ -201,7 +209,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			if($scope.entryEventForm.$valid && !$scope.entryDateRequired && !$scope.birthDateRequired)
 			{
 				$scope.clearAllMessages();
-				
+				$scope.pigInfo["transferFromGroup"] = $scope.fromGroup;
+				$scope.pigInfo["transferFromGroupId"] = $scope.fromGroupId;
 				//var birthDate = document.getElementById("birthDate").value;
 				
 				var birthDate = new Date($scope.pigInfo.birthDate);			
@@ -327,6 +336,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 			$scope.clearAllMessages();
 			$scope.pigInfo = {};
 			$scope.changeText();
+			$scope.fromGroup = null;
+			$scope.fromGroupId = null;
 		}
 		
 		

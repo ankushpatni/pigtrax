@@ -83,14 +83,6 @@
 					</div>
 				  </div> 
 				
-				  <div class="form-group">
-					<label ><spring:message
-							code="label.employee.functionType"
-							text="Function Type" /><span style='color: red'>*</span></label>
-						<select class="form-control" id="functionTypeId"  name="functionTypeId" ng-model="add.functionTypeId"  required >
-                        <option ng-repeat="key in functionTypeKeys" ng-value="key" ng-selected="add.functionTypeId==key">{{functionTypeKeyValues[key]}}</option>
-                        </select>
-				</div>
 				
 				 <div class="form-group">
 					<label ><spring:message
@@ -100,6 +92,16 @@
                         <option ng-repeat="key in jobFunctionRoleKeys" ng-value="key" ng-selected="add.jobFunctionRoleId==key">{{jobFunctionRoleKeyValues[key]}}</option>
                         </select>
 				</div>
+				
+				<div class="form-group">
+					<label ><spring:message
+							code="label.employee.functionType"
+							text="Function Type" /><span style='color: red'>*</span></label>
+						<select class="form-control" id="functionTypeId"  name="functionTypeId" ng-model="add.functionTypeId"  required >
+                        <option ng-repeat="key in functionTypeKeys" ng-value="key" ng-selected="add.functionTypeId==key">{{functionTypeKeyValues[key]}}</option>
+                        </select>
+				</div>
+				
 				 <div class="form-group">
 					<label ><a href="" ng-click="getPreviousRoles(add.id)"><spring:message
 							code="label.employee.previousRoles"
