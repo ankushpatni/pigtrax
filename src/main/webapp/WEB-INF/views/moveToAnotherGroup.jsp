@@ -28,7 +28,10 @@
 					<div class="col-sm-12 col-md-12" ng-show="groupEvent.searchExisting">
 					 <div style="margin-bottom: 30px;">
 						<div class="head">
-								<h4> <spring:message code='label.piginfo.pregnancyeventform.search.heading'  text='Search'/></h4>
+								<h5> <spring:message code='label.piginfo.groupEventForm.groupId.search'  text='Search Existing Group'/></h5>
+								<div  class="form-group">
+									<select class="form-control" name="premiseId" ng-model="premiseId"  ng-options="k as v for (k, v) in premisesMap"></select>		             			
+								</div>
 								<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.groupEventForm.search.data.errormessage' text='Group event information not found for the search criteria'/></p>
 								 <input type="text" name="search" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
 							invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.groupEventForm.search.placeholder'  text='Search by Group Id ...'/>" class="form-control" style="width:90%;display:inline">
