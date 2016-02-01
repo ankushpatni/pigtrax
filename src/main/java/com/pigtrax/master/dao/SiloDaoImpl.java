@@ -194,5 +194,20 @@ public class SiloDaoImpl implements SiloDao {
 			return silo;
 		}
 	}
+	
+	@Override
+	public Integer deleteSilo(final Integer siloId) {
+		
+		final String qry = "delete from pigtrax.\"Silo\" where \"id\" = ?";
+			
+		int rowsDeleted = this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, siloId);
+				}
+			});
+		
+		return rowsDeleted;
+	}
 
 }

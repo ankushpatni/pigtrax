@@ -1,11 +1,13 @@
 package com.pigtrax.master.service;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.master.dao.interfaces.SiloDao;
@@ -94,5 +96,8 @@ public class SiloServiceImpl implements SiloService{
 		return siloIdMap;
 	}
 
-
+	@Override
+	public Integer deleteSilo(Integer siloId) {
+		return siloDao.deleteSilo(siloId);
+	}
 }
