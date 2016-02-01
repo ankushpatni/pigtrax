@@ -8,7 +8,9 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 	$scope.add.premisesId = barnData.premisesId;
 	$scope.generatedPremisesId = barnData.generatedPremisesId;
 	$scope.phaseType = barnData.phaseType;
+	$scope.phaseTypeKeys = barnData.phaseTypeKeys;
 	$scope.validationType = barnData.validationType;
+	$scope.validationTypeKeys = barnData.validationTypeKeys;
 	
 	var currDate = new Date();
 	var currentYear = currDate.getFullYear();

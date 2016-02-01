@@ -6545,10 +6545,9 @@ INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpda
 INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'GDU',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'Farrow',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'Gestation',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Unknown',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'Breeding',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'AI Stud',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'Extra Pigs',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Breeding',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'AI Stud',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."PhaseType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'Extra Pigs',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Nursery','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Finishing','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -6556,10 +6555,9 @@ INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('GDU','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Farrow','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Gestation','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Unknown','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Breeding','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('AI Stud','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Extra Pigs','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Breeding','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('AI Stud','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Extra Pigs','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Nursery_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Finishing_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -6567,10 +6565,9 @@ INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('GDU_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Farrow_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Gestation_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Unknown_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Breeding_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('AI Stud_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Extra Pigs_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Breeding_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('AI Stud_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Extra Pigs_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Nursery_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Finishing_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -6578,10 +6575,9 @@ INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('GDU_ES_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Farrow_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Gestation_Pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Unknown_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Breeding_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('AI Stud_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Extra Pigs_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Breeding_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('AI Stud_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."PhaseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseType") VALUES ('Extra Pigs_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 
 --VentilatoinType
 INSERT INTO pigtraxrefdata."VentilationType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Power', CURRENT_TIMESTAMP,'pigtraxadmin');
@@ -8167,8 +8163,7 @@ INSERT INTO pigtraxrefdata."RationType" ("fieldCode","fieldDescription","lastUpd
 INSERT INTO pigtraxrefdata."RationType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (6,'Lactation', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."RationType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (7,'Boar', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."RationType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (8,'Breeding', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."RationType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'Farrowing', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."RationType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'GDU', CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."RationType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (9,'GDU', CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Piglet','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -8179,8 +8174,7 @@ INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Lactation','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Boar','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Breeding','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Farrowing','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('GDU','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('GDU','en',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Piglet_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Nursery_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -8190,8 +8184,7 @@ INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Lactation_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Boar_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Breeding_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Farrowing_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('GDU_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('GDU_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 
 
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Piglet_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -8202,8 +8195,7 @@ INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Lactation_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Boar_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
 INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Breeding_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('Farrowing_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('GDU_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."RationTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_RationType") VALUES ('GDU_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 
 --------------------------------------------------------------------------------------------
 

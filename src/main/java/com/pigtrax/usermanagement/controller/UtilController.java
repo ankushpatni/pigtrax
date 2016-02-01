@@ -101,11 +101,25 @@ public class UtilController {
 	{
 		logger.info("Inside getPhaseType" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		List<Map<Integer,String>> phaseType = new ArrayList<Map<Integer,String>>();
+		List<Object> phaseType = new ArrayList<Object>();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		phaseType.add(refDataCache.getPhaseTypeMap(language));
-		phaseType.add(refDataCache.getVentilationTypeMap(language));
+		Map<Integer, String> phaseTypeMap  =  refDataCache.getPhaseTypeMap(language);
+		Set<Integer> phaseTypeKeySet = null;
+		if(phaseTypeMap != null)
+			phaseTypeKeySet  = phaseTypeMap.keySet();
+		
+		phaseType.add(phaseTypeMap);
+		phaseType.add(phaseTypeKeySet);
+		
+		Map<Integer, String> ventilationTypeMap  =  refDataCache.getVentilationTypeMap(language);
+		Set<Integer> ventilationTypeKeySet = null;
+		if(ventilationTypeMap != null)
+			ventilationTypeKeySet  = ventilationTypeMap.keySet();
+		
+		phaseType.add(ventilationTypeMap);
+		phaseType.add(ventilationTypeKeySet);
+		
 		dto.setPayload(phaseType);
 		dto.setStatusMessage("Success");
 		return dto;

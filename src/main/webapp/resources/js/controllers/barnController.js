@@ -122,7 +122,9 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
 						barnData.premisesId= $scope.premisesId;
 						barnData.generatedPremisesId = $scope.generatedPremisesId;
 						barnData.phaseType = $scope.phaseType;
+						barnData.phaseTypeKeys = $scope.phaseTypeKeys;
 						barnData.validationType = $scope.validationType;	
+						barnData.validationTypeKeys = $scope.validationTypeKeys;
     					return barnData;
     				}
     			}
@@ -168,7 +170,11 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
 			 var res1 = $http.get('rest/util/getPhaseType');
       			res1.success(function(data, status, headers, config) {
 					$scope.phaseType = data.payload[0];		
-					$scope.validationType = data.payload[1];	
+					$scope.phaseTypeKeys = data.payload[1];
+					
+					$scope.validationType = data.payload[2];
+					$scope.validationTypeKeys = data.payload[3];
+					
 					console.log($scope.phaseType);
       			});
       			res1.error(function(data, status, headers, config) {
