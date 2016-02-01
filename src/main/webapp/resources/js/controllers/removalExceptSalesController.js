@@ -354,6 +354,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 						moveToAnotherGroup.previousGroupId = groupEventObj.groupId;
 						moveToAnotherGroup.pigCount = groupEventObj.currentInventory;
 						moveToAnotherGroup.groupStartDateTime = groupEventObj.groupStartDateTime;
+						moveToAnotherGroup.premisesMap = $scope.premisesMap;
 						return moveToAnotherGroup;
 					}
 				}

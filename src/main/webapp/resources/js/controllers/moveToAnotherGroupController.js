@@ -6,6 +6,8 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	$scope.previousGroupId = moveToAnotherGroup.previousGroupId;
 	$scope.groupDateError = false;
 	$scope.groupdaterequiredMove = false;
+	$scope.premisesMap = moveToAnotherGroup.premisesMap;
+	$scope.phaseOfProductionTypeForNewAdd = [];
 	
 	$scope.init = function(){
 	var res2 = $http.get('rest/util/getPhaseOfProductionType?companyId='+$scope.companyId);
@@ -133,6 +135,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 				
 				"groupId" : searchGroupEvent,
 				"companyId" : $scope.companyId,
+				"premiseId" : $scope.premiseId
 			};
 		
 		restServices.getGroupEventInformation(postParam, function(data){
@@ -141,11 +144,12 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 				{
 					//$scope.clearAllMessages();
 					$scope.moveGroupevent = data.payload[0];
-					$scope.moveGroupevent.groupStartDateTimeAnother = $scope.moveGroupevent.groupStartDateTime;
+					$scope.moveGroupevent.groupStartDateTimeAnother = $scope.moveGroupevent.groupStartDateStr;
 					$scope.moveGroupevent.currentInventory	= 0;	
 					$scope.moveGroupevent.weightInKgs = 0;						
 					$scope.moveGroupevent.remarks = '';
 					$scope.closeGroupParentError = !$scope.moveGroupevent.active;
+					$scope.searchDataErrorMessage = false;
 				}
 			else
 				{
