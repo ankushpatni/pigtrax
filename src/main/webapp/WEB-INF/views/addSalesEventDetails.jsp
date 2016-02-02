@@ -60,6 +60,34 @@
 					<div ng-show="selectGroup==='group'">
 						<label style="margin-top: -15px;" class="control-label" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigsInGroup' text='Group Inventory :' />{{groupEventList[removalExceptSales.groupEventId].currentInventory}}</label>
 					</div>
+					
+					<div class="form-group">
+                      <label><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      <!--<input rsmdatedropdowns ng-model="removalExceptSales.salesDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>-->                      
+					  <input type="text" class="form-control" ng-model="entryDateStr" mask="19/39/2999" ng-blur="dateCheck(entryDateStr)"/>
+                    </div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.requiredMessage' text='Sales Date Time is required' /></label>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="errorRemovalDateTime" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.wrongDateMessage' text='Sales Date Time is can not be less than Event Start Date' /></label>
+					</div>	
+					
+					<div class="form-group">
+                      <label><spring:message code='label.piginfo.removalEventform.salesType'  text='Sales Type'/></label>                      
+ 						<select  multiple="" size=4 class="form-control"    name="salesType" id="salesType" ng-model="removalExceptSales.salesTypes" >
+                      	<option ng-repeat="key in saleTypeKeys" ng-value="key" >{{saleTypeKeyValues[key]}}</option>        
+                        </select>
+                        
+                    </div>
+                     <div class="form-group" ng-show="selectGroup==='pigInfo'">
+                      <label><spring:message code='label.piginfo.removalEventform.salesReason'  text='Sales Reason'/></label>                      
+ 						<select  multiple="" size=4 class="form-control"    name="salesReason" id="salesReason" ng-model="removalExceptSales.salesReasons" >
+                      	<option ng-repeat="key in saleReasonKeys" ng-value="key" >{{saleReasonKeyValues[key]}}</option>        
+                        </select>
+                        
+                    </div>
+					
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.removalExceptSales.numberOfPigs'  text='Number Of Pigs'/></label>
                       <label ng-show="selectGroup==='pigInfo'">1</label>
@@ -68,40 +96,35 @@
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
                    </div>
+                   
+                   <div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="noOfPigsrequired" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigs.requiredMessage' text='No. Of pigs are required.' /></label>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="noOfPigWrongCount" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigs.wrongCount' text='No. Of pigs can nto be greater than Group event Pigs.' /></label>
+					</div>
+					
                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>                      
- 						<select  ng-show="removalTypeId != 3" class="form-control"    name="removalEventId" id="removalEventId" ng-model="removalExceptSales.removalEventId" >
-                      	<option ng-repeat="key in removalEventTypeKeys" ng-value="key" ng-selected="removalExceptSales.removalEventId==key" ng-hide="key==3 || key ==9">{{removalEventType[key]}}</option>        
-                        </select>                      
-                         <label ng-show="removalTypeId == 3"> :  {{removalEventType[removalTypeId]}}</label> 
-                        
-                    </div>
+                      <label><spring:message code='label.piginfo.removalExceptSales.weightInKgs'  text='Weight'/><span style='color: red'>*</span></label>
+                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.weightInKgs.placeHolder' text='Enter Weight' />" 
+                     	name="weightInKgs" ng-model="removalExceptSales.weightInKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.weightInKgs.requiredMessage' text='Weight is required' />'" 
+                     	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
+                   </div>
+                   
+                   <div class="form-group">
+                      <label><spring:message code='label.piginfo.removalExceptSales.revenueUsd'  text='Revenue($)'/></label>
+                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.revenueUsd.placeHolder' text='Enter Revenue($)' />" 
+                     	name="revenueUsd" ng-model="removalExceptSales.revenueUsd" maxlength="23" required-message="'<spring:message code='label.piginfo.removalExceptSales.revenueUsd.requiredMessage' text='Revenue required' />'" 
+                     	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
+                   </div>
+                   
+                     <div class="form-group">
+                      <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
+                      <input type="text" ng-model="removalExceptSales.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
+                       ng-focus="clearMessages()"/>
+                   </div>
                     
                     <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalEventform.salesType'  text='Sales Type'/></label>                      
- 						<select  multiple="" size=4 class="form-control"    name="salesType" id="salesType" ng-model="removalExceptSales.salesTypes" >
-                      	<option ng-repeat="key in saleTypeKeys" ng-value="key" >{{saleTypeKeyValues[key]}}</option>        
-                        </select>
-                        
-                    </div>
-                    
-                    <div class="form-group" ng-show="selectGroup==='pigInfo'">
-                      <label><spring:message code='label.piginfo.removalEventform.salesReason'  text='Sales Reason'/></label>                      
- 						<select  multiple="" size=4 class="form-control"    name="salesReason" id="salesReason" ng-model="removalExceptSales.salesReasons" >
-                      	<option ng-repeat="key in saleReasonKeys" ng-value="key" >{{saleReasonKeyValues[key]}}</option>        
-                        </select>
-                        
-                    </div>
-                    
-                    
-                   <!-- <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalEventform.removalId'  text='Removal Id'/><span style='color: red'>*</span></label>
-                      <input type="text" ng-hide="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage" ng-model="removalExceptSales.removalEventId" id="removalEventId" name="removalEventId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.removalEventform.removalId.placeholder'  text='Enter Removal Id'/>" required
-                      required-message="'<spring:message code='label.piginfo.removalEventform.removalId.requiredMessage' text='Removal Id is required' />'"
-						ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.removalEventform.removalId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
-                   </div>-->
-					<div class="form-group">
                       <label><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.ticketNumber.placeHolder' text='Enter Ticket  Number' />" 
                      	name="ticketNumber" ng-model="removalExceptSales.ticketNumber" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.ticketNumber.requiredMessage' text='Ticket Number Required' />'" 
@@ -112,13 +135,17 @@
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.invoiceId.placeHolder' text='Enter Invoice Number' />" 
                      	name="invoiceId" ng-model="removalExceptSales.invoiceId" maxlength="20" required-message="'<spring:message code='label.piginfo.removalExceptSales.invoiceId.requiredMessage' text='Invoice Number Required' />'" 
                      	 />
-                   </div>
-					<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.revenueUsd'  text='Revenue($)'/></label>
-                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.revenueUsd.placeHolder' text='Enter Revenue($)' />" 
-                     	name="revenueUsd" ng-model="removalExceptSales.revenueUsd" maxlength="23" required-message="'<spring:message code='label.piginfo.removalExceptSales.revenueUsd.requiredMessage' text='Revenue required' />'" 
-                     	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
-                   </div>
+                   </div>  
+                    
+                   <!-- <div class="form-group">
+                      <label><spring:message code='label.piginfo.removalEventform.removalId'  text='Removal Id'/><span style='color: red'>*</span></label>
+                      <input type="text" ng-hide="(removalEvent.id != null && removalEvent.id > 0) || entryEventSuccessMessage" ng-model="removalExceptSales.removalEventId" id="removalEventId" name="removalEventId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.removalEventform.removalId.placeholder'  text='Enter Removal Id'/>" required
+                      required-message="'<spring:message code='label.piginfo.removalEventform.removalId.requiredMessage' text='Removal Id is required' />'"
+						ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.piginfo.removalEventform.removalId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
+                   </div>-->
+					
+					
                    <div class="form-group" ng-hide="selectGroup==='group'">
                       <label><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.soldTo.placeHolder' text='Enter Sold To' />" 
@@ -131,29 +158,9 @@
                        <option ng-repeat="destination in destinationList" ng-value="destination.name">{{destination.name}}</option>
                      </select>
                    </div>
-                   <div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="noOfPigsrequired" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigs.requiredMessage' text='No. Of pigs are required.' /></label>
-					</div>
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="noOfPigWrongCount" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigs.wrongCount' text='No. Of pigs can nto be greater than Group event Pigs.' /></label>
-					</div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      <!--<input rsmdatedropdowns ng-model="removalExceptSales.salesDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>-->                      
-					  <input type="text" class="form-control" ng-model="entryDateStr" mask="19/39/2999" ng-blur="dateCheck(entryDateStr)"/>
-                    </div>
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.requiredMessage' text='Sales Date Time is required' /></label>
-					</div>
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="errorRemovalDateTime" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.wrongDateMessage' text='Sales Date Time is can not be less than Event Start Date' /></label>
-					</div>	
-	 				<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.weightInKgs'  text='Weight'/><span style='color: red'>*</span></label>
-                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.weightInKgs.placeHolder' text='Enter Weight' />" 
-                     	name="weightInKgs" ng-model="removalExceptSales.weightInKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.weightInKgs.requiredMessage' text='Weight is required' />'" 
-                     	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
-                   </div>
+                   
+                    
+	 				
                  
                   <%--   <div class="form-group">
                       <label><spring:message code='label.piginfo.removalExceptSales.premiseId'  text='Premise'/></label>
@@ -184,12 +191,7 @@
                       </div>
                     </div>
                      -->
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
-                      <input type="text" ng-model="removalExceptSales.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
-                       ng-focus="clearMessages()"/>
-                   </div>
-                    					
+                  		
                   	<button class="btn btn-success" ng-click="addSalesEventDetails()" type="submit"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pregnancyeventform.cancel'  text='Clear Form'/></button>
 					
