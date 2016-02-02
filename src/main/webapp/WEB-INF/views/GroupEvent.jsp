@@ -157,7 +157,7 @@
 						<th style="width:5%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
-						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /></th>						
+						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight" /></th>						
 						<th style="width:35%"><spring:message code="label.groupEventDetail.transferredFromGroup" text="From Group" /></th>
 						<th style="width:35%"><spring:message code="label.groupEventDetail.remarks" text="Remarks" /></th>
 						<th style="width:5%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
@@ -279,10 +279,10 @@
 	                        </div>
 	                        
 	                        <div class="form-group">	
-	                        	<label><spring:message code='label.piginfo.groupEventForm.transferPigWt.message'  text='Weight of Pigs (kg)'/><span style='color: red'>*</span></label>
-	                        	 <input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.weightInKgs'  text='Weight In Kgs'/>"
+	                        	<label><spring:message code='label.piginfo.groupEventForm.transferPigWt.message'  text='Weight of Pigs'/><span style='color: red'>*</span></label>
+	                        	 <input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.weightInKgs'  text='Weight'/>"
 	                        	 name="transferredPigWt" ng-model="transferGroupEventData.transferredPigWt" maxlength="8"  required 
-	                        	 required-message="'<spring:message code='label.groupEventDetail.weightInKgs.required' text='Weight In Kgs is required' />'" 
+	                        	 required-message="'<spring:message code='label.groupEventDetail.weightInKgs.required' text='Weight is required' />'" 
 	                        	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
 	                        </div>
 	                     </div>

@@ -82,8 +82,8 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="noOfPigsCanBeTransfered" ><spring:message code='label.piginfo.groupEventForm.numberOfPigsToBeMoved.errorMessage' text='No. Of Pigs transfer can not be more than no.of Pigs available in parent Group Event' /></label>
 					</div>
                    <div class="form-group">
-						<label><spring:message code="label.groupEventDetail.weightInKgs" text="Weight In Kgs" /><span style='color: red'>*</span></label>
-						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.weightInKgs'  text='Weight In Kgs'/>" name="weightInKgs" ng-model="moveGroupevent.weightInKgs" required required-message="'<spring:message code='label.groupEventDetail.weightInKgs.required' text='Weight In Kgs is required' />'" ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>	
+						<label><spring:message code="label.groupEventDetail.weightInKgs" text="Weight" /><span style='color: red'>*</span></label>
+						<input class="form-control" type="text" placeholder="<spring:message code='label.groupEventDetail.weightInKgs'  text='Weight'/>" name="weightInKgs" ng-model="moveGroupevent.weightInKgs" required required-message="'<spring:message code='label.groupEventDetail.weightInKgs.required' text='Weight is required' />'" ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>	
 					</div>
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>

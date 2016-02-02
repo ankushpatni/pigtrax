@@ -95,8 +95,11 @@
                                       <%} else {%>
                                       <li><a href="companyDetail"><spring:message code="label.leftmenu.managemasterdata.companydetail.link"  text="Company Detail"/></a></li>
                                       <%}  %>
-                                      <li><a href="#">Preference :<br> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-warning"  ng-click="toggle()">dd/MM/yyyy</button></a>
-                                      </li>
+                                      <li><a href="#"><spring:message code="label.leftmenu.settings.dateformat"  text="Date Format"/> :<br/> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-warning"  ng-click="toggle()">dd/MM/yyyy</button></a>
+                                      </li> 
+                                       <li><a href="#"><spring:message code="label.leftmenu.settings.weightunits"  text="Weight Units : Kg"/></a>
+                                      </li>                                     
+                                     
                                </ul>
                             </li>           
                             <li><a href="massupload"><i class="fa fa-upload"></i><span>Mass Upload</span></a></li>    

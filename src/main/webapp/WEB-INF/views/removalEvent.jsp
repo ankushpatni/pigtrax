@@ -178,7 +178,7 @@
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.removalDateTime" text="Removal Date" /></th>
-						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight In Kgs" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
 						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.search.option.premisesId" text="Premises" /></th>
@@ -234,7 +234,7 @@
 						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/></th>
-						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight In Kgs" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
 						<th style="width:25%"><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></th>						

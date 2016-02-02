@@ -137,7 +137,7 @@
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedMill" text="Feed Mill" /></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>												
+						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight" /></th>												
 						<th style="width:10%"><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>						

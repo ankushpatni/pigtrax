@@ -201,7 +201,7 @@
                     
                     <div class="form-group">
                     
-                    <label><spring:message code='label.piginfo.farroweventform.weightInKgs'  text='Litter Weight(kgs)'/></label>
+                    <label><spring:message code='label.piginfo.farroweventform.weightInKgs'  text='Litter Weight'/></label>
                     <input type="number" name="weightInKgs" ng-model="farrowEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
                     </div>
                     <div class="form-group">

@@ -174,7 +174,7 @@
                     </div>
                     
                      <div class="form-group">                    
-                    	<label><spring:message code='label.piginfo.breedingeventform.weightInKgs'  text='Weight(kgs)'/></label>
+                    	<label><spring:message code='label.piginfo.breedingeventform.weightInKgs'  text='Weight'/></label>
                     	<input type="number" name="weightInKgs" min="0" step="0.01" ng-model="breedingEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
                     </div>
                     
