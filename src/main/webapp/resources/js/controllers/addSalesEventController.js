@@ -204,7 +204,9 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	{
 				
 		$scope.clearAllMessages();
-		if($scope.removalExceptSales["salesDateTime"] === "")
+		
+		if($scope.removalExceptSales["salesDateTime"] === ""  || 
+		$scope.removalExceptSales["salesDateTime"] === undefined)
 		{
 			$scope.removalDateTimerequired = true;
 			return;
@@ -221,8 +223,10 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		
 		if(document.getElementById("rad1").checked)
 		{
+			console.log($scope.removalExceptSales.numberOfPigs);
 			$scope.removalExceptSales.pigInfoId = 0;
-			if($scope.removalExceptSales.numberOfPigs ==0)
+			if($scope.removalExceptSales.numberOfPigs ==0 || $scope.removalExceptSales.numberOfPigs === undefined || 
+			$scope.removalExceptSales.numberOfPigs === '')
 			{
 				$scope.noOfPigsrequired = true;	
 				return false;
@@ -233,7 +237,6 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 				$scope.noOfPigWrongCount  = true;
 				return false;
 			}			
-			console.log(groupevent.groupStartDateTime);
 			if($scope.removalExceptSales.salesDateTime < groupevent.groupStartDateTime)
 			{
 				$scope.errorRemovalDateTime = true;
@@ -248,8 +251,6 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		
 		
 		if($scope.salesEventForm.$valid)
-			
-			
 			
 			{
 				$scope.clearAllMessages();
@@ -287,12 +288,13 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 			document.forms['salesEventForm'].submit();
 	    }	
 		
-		$scope.dateCheck = function(dateVal)
-	{			
+	$scope.dateCheck = function(dateVal)
+	{	
 	  if(dateVal != null && dateVal.length > 0) 
 	  {
 		if(dateVal.length == 10)
 		{
+			$scope.removalDateTimerequired = false;			   
 		   var  dateObj = Date.parse(dateVal);		   
 		   if(dateObj == null)
 			{
@@ -300,7 +302,8 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 			}
 		   else
 			{
-			   $scope.dateError = false;	 
+			   $scope.dateError = false;
+				
 				$scope.removalExceptSales.salesDateTime = DateUtils.convertLocaleDateToServer(dateObj);
 			}
 		}

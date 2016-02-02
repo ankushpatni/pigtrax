@@ -101,8 +101,10 @@
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=IndividualPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEvent"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEventDetails">Feed Event Details</a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventGroup"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventGroup.link"  text="Transfer/Removal- Group"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventPig"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventPig.link"  text="Transfer/Removal- Pig"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventGroup"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventGroup.link"  text="Removal & Transfer - Group"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventPig"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventPig.link"  text="Removal & Transfer- Pig"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventGroup"><spring:message code="label.leftmenu.managepigevents.SalesEventGroup.link"  text="Sales- Group"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventPig"><spring:message code="label.leftmenu.managepigevents.SalesEventPig.link"  text="Sales- Pig"/></a></br>
 						</div>
 						
 					</div>					
