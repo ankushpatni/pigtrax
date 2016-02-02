@@ -136,5 +136,6 @@ pigTrax.factory("restServices", function($resource) {
 		"getSiloListForPremise" : {method:"POST", url:"rest/silo/getSiloListForPremise"},
 		"getPigInformationById" : {method:"POST", url:"rest/entryEvent/getPigInformationById"},
 		"getGroupEventInformationById" : {method:"POST", url:"rest/groupEvent/getGroupEventInformationById"},
+		"deleteSilo" : {method:"POST", url:"rest/silo/deleteSilo"},
     });
 });

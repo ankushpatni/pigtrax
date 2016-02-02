@@ -17,8 +17,12 @@
 				<input ng-hide="edit" class="form-control" type="text" placeholder="<spring:message code='label.barn.barnID' text='Barn ID' />" name="barnId" ng-model="add.barnId" maxlength="4" required required-message="'<spring:message code='label.barn.barnIDRequired' text='Barn Id is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.barn.barnIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >
 			</div>
 			<div class="form-group">
-				<label><spring:message code="label.barn.phaseTypeId" text="Phase Type ID" /><span style='color: red'>*</span></label>
-				<select class="form-control" type="text" placeholder="<spring:message code='label.barn.phaseTypeId'  text='Phase Type ID'/>" name="phaseTypId" ng-model="add.phaseTypeId" required required-message="'<spring:message code='label.barn.phaseTypeIdRequired' text='Phase Type is required' />'" ng-options="k as v for (k, v) in phaseType"/>	
+				<label><spring:message code="label.barn.phaseTypeId" text="Phase Type ID" /><span style='color: red'>*</span></label>				
+				<select class="form-control"   placeholder="<spring:message code='label.barn.phaseTypeId'  text='Phase Type ID'/>" name="phaseTypId" ng-model="add.phaseTypeId"  required 
+                    required required-message="'<spring:message code='label.barn.phaseTypeIdRequired' text='Phase Type is required' />'">
+                     <option ng-repeat="key in phaseTypeKeys" ng-value="key" ng-selected="add.phaseTypeId==key">{{phaseType[key]}}</option>
+                     </select>
+					
 			</div>
 			<div class="form-group">
                  <label><spring:message code='label.barn.year'  text='Year'/></label>                      
@@ -78,7 +82,10 @@
              
 			<div class="form-group">
 				<label><spring:message code="label.barn.ventilationTypeId" text="Ventilation Type ID" /></label>
-				<select class="form-control" type="text" placeholder="<spring:message code='label.barn.ventilationTypeId'  text='Ventilation Type ID'/>" name="ventilationTypeId" ng-model="add.ventilationTypeId" required-message="'<spring:message code='label.barn.ventilationTypeIdRequired' text='Ventilation Type is required' />'" ng-options="k as v for (k, v) in validationType"/>	
+				<select class="form-control"   placeholder="<spring:message code='label.barn.ventilationTypeId'  text='Ventilation Type ID'/>" name="ventilationTypeId" ng-model="add.ventilationTypeId"   
+                   required-message="'<spring:message code='label.barn.ventilationTypeIdRequired' text='Ventilation Type is required' />'">
+                    <option ng-repeat="key in validationTypeKeys" ng-value="key" ng-selected="add.ventilationTypeId==key">{{validationType[key]}}</option>
+                    </select>	
 			</div>	
 			
 		

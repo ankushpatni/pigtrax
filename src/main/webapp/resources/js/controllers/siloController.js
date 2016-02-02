@@ -113,4 +113,22 @@ pigTrax.controller('SiloController', function($scope, $http, $window,$modal, res
 				console.log( "failure message: " + {data: data});
 			});			
 	};
+	
+	
+	
+	$scope.deleteSilo = function(siloObj)
+	{
+		restServices.deleteSilo(siloObj.id, function(data) {
+			if(!data.error)
+			{
+				$scope.siloDeleteErrorMessage = false;
+				$scope.getSiloList($scope.barnId,$scope.generatedBarnId);				
+			}
+			else
+				{
+				  $scope.siloDeleteErrorMessage = true;
+				}
+		});
+	}
+	
 });

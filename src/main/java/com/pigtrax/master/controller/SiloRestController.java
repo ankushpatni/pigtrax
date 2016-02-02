@@ -133,6 +133,37 @@ public class SiloRestController {
 		return dto;
 	}
 
+	
+	/**String premisesID, Boolean premisesStatus
+	 * Service to update employees
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/deleteSilo", method=RequestMethod.POST, produces="application/json")
+	public ServiceResponseDto deleteSilo( @RequestBody Integer siloId)
+	{
+		logger.info("Inside deleteSilo()" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		Integer deletedRecords;
+		try 
+		{
+			deletedRecords = siloService.deleteSilo(siloId);
+			if(deletedRecords != null && deletedRecords > 0)
+			{
+				dto.setPayload(deletedRecords);
+				dto.setStatusMessage("SUCCESS");
+			}
+			else
+			dto.setStatusMessage("ERROR");
+		} 
+		catch (Exception e) {
+			deletedRecords = 0;
+			dto.setStatusMessage("ERROR");
+		}
+		dto.setPayload(deletedRecords);		
+		return dto;
+	}
+
+
 
 
 }

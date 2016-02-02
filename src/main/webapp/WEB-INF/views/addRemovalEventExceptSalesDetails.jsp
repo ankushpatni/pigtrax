@@ -107,9 +107,9 @@
 					</div>
                     
 	 				<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.weightInKgs'  text='Weight In Kgs'/><span style='color: red'>*</span></label>
-                     <input class="form-control" type="text"  ng-readonly="selectGroup != 'pigInfo'"  placeholder="<spring:message code='label.piginfo.removalExceptSales.weightInKgs.placeHolder' text='Enter Weight In Kgs' />" 
-                     	name="weightInKgs" ng-model="removalExceptSales.weightInKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.weightInKgs.requiredMessage' text='Weight In Kgs required' />'" 
+                      <label><spring:message code='label.piginfo.removalExceptSales.weightInKgs'  text='Weight'/><span style='color: red'>*</span></label>
+                     <input class="form-control" type="text"  ng-readonly="selectGroup != 'pigInfo'"  placeholder="<spring:message code='label.piginfo.removalExceptSales.weightInKgs.placeHolder' text='Enter Weight' />" 
+                     	name="weightInKgs" ng-model="removalExceptSales.weightInKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.weightInKgs.requiredMessage' text='Weight is required' />'" 
                      	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
                  

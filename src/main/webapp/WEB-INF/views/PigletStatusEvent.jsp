@@ -172,7 +172,7 @@
 		                  <tr>
 		                   <th><spring:message code='label.piginfo.pigletstatuseventform.fosterFrom' text='Transfer From' /></th>
 		                   <th><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Piglets' /></th>
-		                   <th><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /></th>
+		                   <th><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight' /></th>
 		                   </tr>
 		                  </thead>
 		                  <tbody>
@@ -215,7 +215,7 @@
                       <input type="number" min="0" step="1" ng-value="0" name="deathPigNum" ng-model="pigletStatusEvent.deathPigNum"  maxlength="3"  size="3" class="form-control">
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /></label>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight' /></label>
                       <input type="number" min="0" ng-value="0" name="deathPigWt" ng-model="pigletStatusEvent.deathPigWt"  maxlength="10"  step="0.01" size="10" class="form-control"> 
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
@@ -237,7 +237,7 @@
                       <input type="number" min="0" step="1" ng-value="0" name="fosterPigNum" ng-model="pigletStatusEvent.fosterPigNum"  maxlength="3"  size="3" class="input-sm  form-control"> 
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /></label>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight' /></label>
                       <input type="number" min="0" ng-value="0" name="fosterPigWt" ng-model="pigletStatusEvent.fosterPigWt"  maxlength="8"   step="0.01" size="8" class="input-sm  form-control">  
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
@@ -260,7 +260,7 @@
                       <input type="number" min="0" step="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control" ng-blur="checkOnEraseOfWean()">
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight (Kg)' /></label>
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.weightInKg' text='Weight' /></label>
                       <input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> 
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">

@@ -95,17 +95,19 @@
                       <input type="text" ng-model="feedEvent.feedMedication" id="feedMedication" name="feedMedication"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.feedMedication.placeholder'  text='Enter Feed Medication'/>" 
                        required-message="'<spring:message code='label.piginfo.feedEventForm.feedMedication.requiredMessage' text='Feed Medication is required' />'" ng-focus="clearMessages()"/>
                    </div>
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
-                      <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
-					  <span ng-hide="(feedEvent.transportJourney.id != null && feedEvent.transportJourney.trailerFunction != 0)" class="btn btn-success" ng-click="addTransportJourney()"><span class="glyphicon glyphicon-user"></span></span>	
-                      <input type="hidden" ng-model="feedEvent.transportJourneyId" id="transportJourneyId" name="transportJourneyId"/>
-					  <div ng-show="feedEvent.transportJourney != null">							
-							<p><spring:message code='label.transportJourney.transportTruckId'  text='Transport Truck'/> : <small>{{transportTruck[feedEvent.transportJourney.transportTruckId]}}</small></p>
-							<p><spring:message code='label.transportJourney.transportTrailerId'  text='Transport Trailer'/> : <small>{{transportTrailer[feedEvent.transportJourney.transportTrailerId]}}</small></p>
-						</div>
-                      </div>
-                    </div>
+                   
+                   <div class="form-group">
+		              <label><spring:message code='label.transportJourney.transportTruckId'  text='Transport Truck'/></label>
+		               <select class="form-control"  name="transportTruckId" id="transportTruckId" ng-model="feedEvent.transportJourney.transportTruckId"   
+		                 ng-options="k as v for (k, v) in transportTruck">
+		                </select>
+		            </div>
+		            <div class="form-group">
+		              <label><spring:message code='label.transportJourney.transportTrailerId'  text='Transport Trailer'/></label>
+		               <select class="form-control"  name="transportTrailerId" id="transportTrailerId" ng-model="feedEvent.transportJourney.transportTrailerId"   
+		                 ng-options="k as v for (k, v) in transportTrailer">
+		                </select>
+		            </div>
                     					
                   	<button class="btn btn-success" ng-click="addFeedEvent()" type="submit" ng-hide="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.add'  text='Add'/></button>
 					<button class="btn btn-success" ng-click="addFeedEvent()" type="submit" ng-show="(feedEvent.id != null && feedEvent.id > 0) || entryEventSuccessMessage"><spring:message code='label.piginfo.groupEventform.edit'  text='Edit'/></button>
@@ -137,7 +139,7 @@
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.feedMill" text="Feed Mill" /></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.feedEventTypeId" text="Feed Event Type" /></th>
-						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight In Kgs" /></th>												
+						<th style="width:10%"><spring:message code="label.feedEventDetail.weightInKgs" text="Weight" /></th>												
 						<th style="width:10%"><spring:message code='label.piginfo.feedEventForm.feedCost'  text='Feed Cost'/></th>
 						<th style="width:25%"><spring:message code="label.feedEventDetail.siloId" text="Silo" /></th>
 						<th style="width:10%"><spring:message code="label.feedEventDetail.remarks" text="Remarks" /></th>						

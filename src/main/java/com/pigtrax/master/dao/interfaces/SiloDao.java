@@ -49,5 +49,7 @@ public interface SiloDao {
 	
 	public List<Silo> getSiloListBasedOnPremiseId( Integer premiseId ) throws SQLException;
 	
+	Integer deleteSilo(Integer siloId);	
+	
 
 }

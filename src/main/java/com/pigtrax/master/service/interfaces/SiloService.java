@@ -48,4 +48,6 @@ public interface SiloService {
 	
 	public Map<Integer,String> getSiloListBasedOnPremiseId( Integer premiseId );
 	
+	Integer deleteSilo(Integer siloId);
+	
 }

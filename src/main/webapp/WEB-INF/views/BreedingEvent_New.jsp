@@ -118,7 +118,7 @@
                 <div class="content">
                   <form name="breedingeventform" novalidate angular-validator my-reset>
                   <input type=hidden name="id" ng-model="breedingEvent.id"/>
-                   
+                  <input type=hidden name="id" ng-model="breedingEvent.penId"/> 
                     <!--  <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.employeegroup'  text='Employee Group'/></label>
                       <div data-min-view="2"  class="input-group col-md-5 col-xs-7"  >
@@ -160,15 +160,7 @@
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.breedinggroupId'  text='Service Group Id'/></label>
                       <input type="text" ng-model="breedingEvent.breedingGroupId" id="breedingGroupId" name="breedingGroupId"  class="form-control"  placeholder="<spring:message code='label.piginfo.breedingeventform.breedinggroupId.placeholder'  text='Enter Breeding group Id'/>"/>
-                    </div>
-                   
-                   <div class="form-group">
-                      <label><spring:message code='label.piginfo.breedingeventform.pen'  text='Pen'/></label>
-                     <select class="form-control" ng-model="breedingEvent.penId">
-                          <option ng-repeat="pen in penInfo" value="{{pen.id}}">{{pen.penId}}</option>
-                        </select>
-                    </div>
-                   
+                    </div>  
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.breedingeventform.sowcondition'  text='Sow Condition'/></label>
                       <i>[1:  <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/> - 5:<spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/>]</i>
@@ -182,7 +174,7 @@
                     </div>
                     
                      <div class="form-group">                    
-                    	<label><spring:message code='label.piginfo.breedingeventform.weightInKgs'  text='Weight(kgs)'/></label>
+                    	<label><spring:message code='label.piginfo.breedingeventform.weightInKgs'  text='Weight'/></label>
                     	<input type="number" name="weightInKgs" min="0" step="0.01" ng-model="breedingEvent.weightInKgs"  maxlength="5"  size="3" class="form-control">
                     </div>
                     

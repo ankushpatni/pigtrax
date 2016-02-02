@@ -178,7 +178,7 @@
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.removalDateTime" text="Removal Date" /></th>
-						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight In Kgs" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
 						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.search.option.premisesId" text="Premises" /></th>
@@ -226,34 +226,36 @@
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection1" st-safe-src="salesEventList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #f7b781">
-					<tr>
+					<tr>						
 						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
-						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number' /></th>
-						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.invoiceId'  text='Invoice Number'/></th>
-						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.revenueUsd'  text='Revenue($)'/></th>
-						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/></th>
-						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
-						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/></th>
-						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight In Kgs" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
-						<th style="width:25%"><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></th>						
+						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight" /></th>
+						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.revenueUsd'  text='Revenue($)'/></th>
+						<th style="width:25%"><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></th>	
+						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number' /></th>
+						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.invoiceId'  text='Invoice Number'/></th>
+						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.soldTo'  text='Sold To'/></th>					
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.delete" text="Delete" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection1 track by $index">
 					<td style="width:10%">{{$index+1}}</td>
-					<td style="width:10%">{{row.ticketNumber}}</td>
-					<td style="width:10%">{{row.invoiceId}}</td>
-					<td style="width:25%">{{row.revenueUsd}}</td>
-					<td style="width:25%">{{row.soldTo}}</td>
-					<td style="width:10%">{{row.numberOfPigs}}</td>
-					<td style="width:10%">{{DateUtils.getFormatedDate(row.salesDateTime)}}</td>
-					<td style="width:25%">{{row.weightInKgs}}</td>
 					<td style="width:25%">{{pigInfoList[row.pigInfoId].pigId}}</td>
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
+					<td style="width:10%">{{DateUtils.getFormatedDate(row.salesDateTime)}}</td>
+					<td style="width:10%">{{row.numberOfPigs}}</td>
+					<td style="width:25%">{{row.weightInKgs}}</td>
+					<td style="width:25%">{{row.revenueUsd}}</td>
 					<td style="width:25%">{{row.remarks}}</td>
+					<td style="width:10%">{{row.ticketNumber}}</td>
+					<td style="width:10%">{{row.invoiceId}}</td>					
+					<td style="width:25%">{{row.soldTo}}</td>
+					
+
 					<td style="width: 8%">
 						<button type="button" ng-show="row.pigInfoId==0" class="btn btn-edit btn-xs" ng-click="deleteSalesEventDetailsData(row,'<spring:message code="label.piginfo.removalExceptSales.delete.groupEvent" text="GroupDelete" />')">
 							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.piginfo.removalExceptSales.delete" text="Delete" /></a></button>

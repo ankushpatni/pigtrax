@@ -38,13 +38,13 @@ public class RefDataDaoImpl implements RefDataDao {
 	
 	@Override
 	public List<RefDataTranslationDto> getPhaseTypeData() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PhaseType\" FROM pigtraxrefdata.\"PhaseTypeTranslation\" order by \"fieldLanguage\", \"id_PhaseType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_PhaseType\" FROM pigtraxrefdata.\"PhaseTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
 	@Override
 	public List<RefDataTranslationDto> getVentilationTypeData() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_VentilationType\" FROM pigtraxrefdata.\"VentilationTypeTranslation\" order by \"fieldLanguage\", \"id_VentilationType\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_VentilationType\" FROM pigtraxrefdata.\"VentilationTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
