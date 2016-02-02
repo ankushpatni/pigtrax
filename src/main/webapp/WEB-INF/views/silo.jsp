@@ -22,9 +22,7 @@
 				<th st-sort="location" style="width:30%"><spring:message code="label.silo.feedline" text="Feed Line" /></th>
 				<th st-sort="location" style="width:30%"><spring:message code="label.silo.siloTypeId" text="Silo Type" /></th>
 				<th style="width:20%"><spring:message code="label.premise.edit" text="Edit" /></th>
-				<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) {%>
 				<th style="width:8%"><spring:message code="label.premise.delete" text="Delete" /></th>
-				<%} %>
 			</tr>
 		 	<tr>
 				<th colspan="5"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
@@ -43,14 +41,14 @@
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editSiloData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
 				</td>		
-				<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) {%>
+				
 				<td style="width: 8%">
 				  <button type="button" class="btn btn-edit btn-xs"
 												ng-click="deleteSilo(row)" ng-confirm-click="<spring:message code='label.employeegroup.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>">
 									<span class="glyphicon glyphicon-remove"></span>												
 					</button>
 				</td>
-				<%} %>		
+						
 			</tr>
 			</tbody>		
 			<tr style="background-color: #f7b781">
