@@ -151,6 +151,19 @@
                      	name="revenueUsd" ng-model="removalExceptSales.revenueUsd" maxlength="23" required-message="'<spring:message code='label.piginfo.removalExceptSales.revenueUsd.requiredMessage' text='Revenue required' />'" 
                      	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
                    </div>
+                   
+                   <div class="form-group" ng-show="removalExceptSales.removalEventId==9">
+		              <label><spring:message code='label.transportJourney.transportTruckId'  text='Transport Truck'/></label>
+		               <select class="form-control"  name="transportTruckId" id="transportTruckId" ng-model="removalExceptSales.transportJourney.transportTruckId"   
+		                 ng-options="k as v for (k, v) in transportTruck">
+		                </select>
+		            </div>
+		            <div class="form-group" ng-show="removalExceptSales.removalEventId==9">
+		              <label><spring:message code='label.transportJourney.transportTrailerId'  text='Transport Trailer'/></label>
+		               <select class="form-control"  name="transportTrailerId" id="transportTrailerId" ng-model="removalExceptSales.transportJourney.transportTrailerId"   
+		                 ng-options="k as v for (k, v) in transportTrailer">
+		                </select>
+		            </div>
 					
                    <!--  <div class="form-group">
                       <label><spring:message code='label.piginfo.feedEventForm.transportJourneyId'  text='Transport Journey'/></label>
