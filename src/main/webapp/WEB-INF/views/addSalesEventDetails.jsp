@@ -188,6 +188,18 @@
                       </div>
                     </div>
                      -->
+                     <div class="form-group">
+		              <label><spring:message code='label.transportJourney.transportTruckId'  text='Transport Truck'/></label>
+		               <select class="form-control"  name="transportTruckId" id="transportTruckId" ng-model="removalExceptSales.transportJourney.transportTruckId"   
+		                 ng-options="k as v for (k, v) in transportTruck">
+		                </select>
+		            </div>
+		            <div class="form-group">
+		              <label><spring:message code='label.transportJourney.transportTrailerId'  text='Transport Trailer'/></label>
+		               <select class="form-control"  name="transportTrailerId" id="transportTrailerId" ng-model="removalExceptSales.transportJourney.transportTrailerId"   
+		                 ng-options="k as v for (k, v) in transportTrailer">
+		                </select>
+		            </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></label>
                       <input type="text" ng-model="removalExceptSales.remarks" id="remarks" name="remarks"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.groupEventForm.remark.placeholder'  text='Enter Remark'/>" 
