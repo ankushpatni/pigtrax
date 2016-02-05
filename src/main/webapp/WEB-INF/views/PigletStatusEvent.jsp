@@ -269,7 +269,7 @@
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
-                      <input type="text" name="weanGroupEventId" ng-model="pigletStatusEvent.groupId"  maxlength="8"  size="8"  class="input-sm form-control" ng-blur="checkGroupEventId()" 
+                      <input type="text" name="weanGroupEventId" ng-model="pigletStatusEvent.groupId"  maxlength="30"  size="8"  class="input-sm form-control" ng-blur="checkGroupEventId()" 
                          placeholder="'<spring:message code='label.piginfo.pigletstatuseventform.groupeventId' text='Group Id' /> '">
                     </div>
 					

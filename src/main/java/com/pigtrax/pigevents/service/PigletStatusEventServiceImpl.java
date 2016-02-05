@@ -228,6 +228,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				groupEventDetails.setWeightInKgs(pigletStatusEventDto.getWeanPigWt());
 				groupEventDetails.setGroupId(pigletStatusEventDto.getGroupEventId());
 				groupEventDetails.setUserUpdated(pigletStatusEventDto.getUserUpdated());
+				groupEventDetails.setRemarks("From piglet wean");
 				groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 				
 				groupEventDao.updateGroupEventCurrentInventory(groupEvent);
