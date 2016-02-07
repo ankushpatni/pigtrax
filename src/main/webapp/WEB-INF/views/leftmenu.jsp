@@ -21,9 +21,10 @@
                     			  <ul class="sub-menu">
 								  <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.destination.link"  text="Destination"/></a></li>
                     			  <li><a href="employee"><spring:message code="label.leftmenu.managemasterdata.employeedata.link"  text="Employee"/></a></li>
+                    			  <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
 								  <li><a href="origin"><spring:message code="label.leftmenu.managemasterdata.origin.link"  text="Genetic Origin"/></a></li>
                     			  <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.premisedata.link"  text="Premise Data"/></a></li>                    			   
-                    			    <li><a href="ration"><spring:message code="label.leftmenu.managemasterdata.rartion.link"  text="Ration Id"/></a></li>
+                    			    
 									  <li><a href="goToCompanyTarget"><spring:message code="label.leftmenu.managepigevents.targets.link"  text="Parameters"/></a></li>
                     			   <li><a href="company"><spring:message code="label.leftmenu.managemasterdata.truckandtrailer.link"  text="Truck & Trailer"/></a></li>
                     			  </ul>
@@ -64,7 +65,6 @@
                                       <%}%>
                              <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytical reports"/></span></a>
                              	<ul class="sub-menu">
-                                         	<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.link"  text="Ferrow Report"/></a></li>
 											<li><a href=""><spring:message code="label.leftmenu.reports.managementLists"  text="Management Lists"/></a></li>
 											<li><a href=""><spring:message code="label.leftmenu.reports.trackingReports"  text="Tracking Reports"/></a></li>
 											<li><a href=""><spring:message code="label.leftmenu.reports.performanceMonitoring"  text="Performance Monitoring"/></a></li>
@@ -98,7 +98,9 @@
                                       <li><a href="#"><spring:message code="label.leftmenu.settings.dateformat"  text="Date Format"/> :<br/> <a href="#"><button id="format-btn"  ng-model="myDateFormat" label="dd/MM/yyyy" ng-value="false" class="btn btn-warning"  ng-click="toggle()">dd/MM/yyyy</button></a>
                                       </li> 
                                        <li><a href="#"><spring:message code="label.leftmenu.settings.weightunits"  text="Weight Units : Kg"/></a>
-                                      </li>                                     
+                                      </li> 
+                                      <li><a href="#"><spring:message code="label.leftmenu.settings.mandatoryfields"  text="Mandatory fields : *"/></a>
+                                      </li>                                    
                                      
                                </ul>
                             </li>           
