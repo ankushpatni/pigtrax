@@ -14,6 +14,7 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 	$scope.removalExceptSales={};
 	$scope.sourceAndDestinationPremisesSameError = false;
 	$scope.mortalityReasonType={};
+$scope.removalEventTypeKeysValues = {};
 	
 	
 	$scope.setCompanyId = function(companyId,removalIdEntered,removalGeneratedId,removalExceptSalesId,removalTypeId)
@@ -79,6 +80,14 @@ var feedEventController = pigTrax.controller('RemovalExceptSalesController', fun
 						$scope.removalEventType[x] = $scope.removalEventTypeOriginal[x];
 					}
 			}
+			for( var x in $scope.removalEventTypeKeys)
+			{				
+				if($scope.removalEventTypeKeys[x] == 2 || $scope.removalEventTypeKeys[x] == 7 || $scope.removalEventTypeKeys[x] == 8)
+					{
+						$scope.removalEventTypeKeysValues[x] = $scope.removalEventTypeKeys[x];
+					}
+			}
+
 		});
 		res2.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});

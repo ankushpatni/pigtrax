@@ -72,6 +72,39 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		return dto; 
 	}
 	
+	@RequestMapping(value = "/addGroupEventFromTransfer", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto addGroupEventFromTransfer(HttpServletRequest request, @RequestBody GroupEvent groupEvent)
+	{
+		logger.info("Inside addGroupEvent method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			groupEvent.setUserUpdated(activeUser.getUsername());
+			int rowsInserted = 0;
+			if(null != groupEvent && (groupEvent.getId() == null || groupEvent.getId() == 0) )
+			{
+				rowsInserted = groupEventService.addGroupEventFromTransfer(groupEvent);
+				dto.setRecordAdded(true);
+			}
+			else if( null != groupEvent && groupEvent.getId() !=0)
+			{
+				rowsInserted = groupEventService.updateGroupEventFromTransfer(groupEvent);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
+	
 	/**
 	 * Service to get the group event information
 	 * @return ServiceResponseDto

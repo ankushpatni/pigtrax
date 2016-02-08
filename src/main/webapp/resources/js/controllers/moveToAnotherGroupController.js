@@ -1,4 +1,4 @@
-pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $modalInstance,moveToAnotherGroup,restServices) {	
+pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $modalInstance,moveToAnotherGroup,restServices, DateUtils) {	
 	$scope.moveToAnotherGroup = moveToAnotherGroup;
 	$scope.phaseOfProductionType = moveToAnotherGroup.phaseOfProductionType;
 	$scope.dateFormat = 'yyyy-mm-dd';
@@ -8,6 +8,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	$scope.groupdaterequiredMove = false;
 	$scope.premisesMap = moveToAnotherGroup.premisesMap;
 	$scope.phaseOfProductionTypeForNewAdd = [];
+	$scope.DateUtils = DateUtils;
 	
 	$scope.init = function(){
 	var res2 = $http.get('rest/util/getPhaseOfProductionType?companyId='+$scope.companyId);
@@ -49,7 +50,9 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	
 	$scope.addMoveGroupEvent = function() {
 	
-		var groupStartDateTimeAnother = document.getElementById("groupStartDateTimeAnother").value;
+		var groupStartDateTimeAnother = $scope.moveGroupevent.groupStartDateTime;
+		console.log($scope.moveToAnotherGroup.groupStartDateTime);
+		console.log(groupStartDateTimeAnother);
 		console.log(groupStartDateTimeAnother);
 		
 		if($scope.groupIdMatches == true)
@@ -74,7 +77,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 			{
 				$scope.groupdaterequiredMove = false;
 			}
-			if( groupStartDateTimeAnother < $scope.moveToAnotherGroup.groupStartDateTime)
+			if( $scope.moveGroupevent.id == 0 && groupStartDateTimeAnother < $scope.moveToAnotherGroup.groupStartDateTime)
 			{
 				$scope.groupDateError = true;
 				console.log($scope.groupdaterequiredMove);
@@ -94,7 +97,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 			
 					"groupId" : $scope.moveGroupevent.groupId,
 					"companyId" : $scope.companyId,
-					"groupStartDateTime" : document.getElementById("groupStartDateTimeAnother").value,
+					"groupStartDateTime" : $scope.moveGroupevent.groupStartDateTime,
 					"currentInventory" : $scope.moveGroupevent.currentInventory,					
 					"remarks" : $scope.moveGroupevent.remarks,
 					"phaseOfProductionTypeId" : $scope.moveGroupevent.phaseOfProductionTypeId,
@@ -102,10 +105,17 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 					"previousGroupId" : $scope.moveToAnotherGroup.previousGroupId,
 					"weightInKgs" : $scope.moveGroupevent.weightInKgs,
 					"id" : $scope.moveGroupevent.id,
+					"premiseId" : $scope.moveGroupevent.premiseId,
+					"transferredPigNum" : $scope.moveGroupevent.currentInventory,
+					"transferredPigWt" : $scope.moveGroupevent.weightInKgs,
+					"transferredFromGroupId" : $scope.moveToAnotherGroup.groupGeneratedIdSeq,
+					"transferredToGroupId" : $scope.moveGroupevent.id,
+					
 					
 				};				
 			
-			restServices.saveGroupEventInformation(postParam, function(data){
+			restServices.addGroupEventFromTransfer(postParam, function(data){
+				console.log(data);
 				if(!data.error)
 					{
 					$modalInstance.close(data);		
@@ -144,7 +154,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 				{
 					//$scope.clearAllMessages();
 					$scope.moveGroupevent = data.payload[0];
-					$scope.moveGroupevent.groupStartDateTimeAnother = $scope.moveGroupevent.groupStartDateStr;
+					//$scope.moveGroupevent.groupStartDateTimeAnother = $scope.moveGroupevent.groupStartDateTimeAnother;
 					$scope.moveGroupevent.currentInventory	= 0;	
 					$scope.moveGroupevent.weightInKgs = 0;						
 					$scope.moveGroupevent.remarks = '';
@@ -180,5 +190,36 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 	
 	$scope.cancel = function(){
 		$modalInstance.dismiss('add');
+	}
+	
+	$scope.dateCheck = function(dateVal)
+	{	
+	console.log(dateVal);
+	  if(dateVal != null && dateVal.length > 0) 
+	  {
+		if(dateVal.length == 10)
+		{
+			$scope.groupdaterequiredMove = false;			   
+		   var  dateObj = Date.parse(dateVal);	
+		   console.log(dateObj);
+		   if(dateObj == null || dateObj === 'null')
+			{
+			  	   $scope.moveGroupevent.groupStartDateTime = "";
+				   $scope.entryDateStr = "";
+				    console.log('1');
+			}
+		   else
+			{
+			   $scope.dateError = false;
+				 console.log('2');
+				$scope.moveGroupevent.groupStartDateTime = DateUtils.convertLocaleDateToServer(dateObj);
+			}
+		}
+		else
+		{
+			   $scope.moveGroupevent.groupStartDateTime = "";
+			   $scope.entryDateStr = "";
+		}
+	  }
 	}
 });

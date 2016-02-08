@@ -47,19 +47,18 @@
 						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
 						<label ng-show="(moveGroupevent.id != null && moveGroupevent.id > 0)"> :  {{moveGroupevent.groupId}}</label>
                    </div>
+				   
+				   <div ng-hide="(moveGroupevent.id != null && moveGroupevent.id > 0)" class="form-group">
+								<label><spring:message code="label.sowMovementForm.Premises" text="Premises" /><span style='color: red'>*</span></label>
+								<select class="form-control" name="premiseId" ng-model="moveGroupevent.premiseId"  ng-options="k as v for (k, v) in premisesMap"></select>		             			
+					</div>
 				   <div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupIdMatches" ><spring:message code='label.piginfo.groupEventForm.groupIdMatches' text='Moved to group can not be parent group' /></label>
 					</div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.groupStartDateTime'  text='Group Start Date'/><span style='color: red'>*</span></label>
-                      <div ng-hide="(moveGroupevent.id != null && moveGroupevent.id > 0)" data-min-view="2" data-date-format="yyyy-MM-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-                         <!-- <input size="16" type="date" id="groupStartDateTime" name="groupStartDateTime" ng-model="moveGroupevent.groupStartDateTime" readonly="" class="form-control" format-date required-message="'<spring:message code='label.piginfo.groupEventForm.groupStartDateTime.requiredMessage' text='Group Start Date is required' />'"/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>-->
-						 <input type="text" datepicker-popup="yyyy-MM-dd" class="form-control" datepicker-popup="shortDate" id="groupStartDateTimeAnother" name="groupStartDateTimeAnother" ng-model="moveGroupevent.groupStartDateTimeAnother" is-open="opened" required-message="'<spring:message code='label.piginfo.groupEventForm.groupStartDateTime.requiredMessage' text='Group Start Date is required' />'" />
-							<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-						</span>
-						</div>
-						<label ng-show="(moveGroupevent.id != null && moveGroupevent.id > 0)"> :{{ DateUtils.getFormatedDate(moveGroupevent.groupStartDateTimeAnother)}}</label>	
+                       <input ng-hide="(moveGroupevent.id != null && moveGroupevent.id > 0)" type="text" class="form-control" ng-model="entryDateStr" mask="19/39/2999" ng-blur="dateCheck(entryDateStr)"/>
+					 <label ng-show="(moveGroupevent.id != null && moveGroupevent.id > 0)"> :{{ DateUtils.getFormatedDate(moveGroupevent.groupStartDateStr)}}</label>	
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupdaterequiredMove" ><spring:message code='label.piginfo.groupEventForm.groupStartDate.requiredMessage' text='Group Start Date is required' /></label>

@@ -31,6 +31,12 @@ public interface GroupEventService {
 	 Map<Integer,GroupEvent> getGroupEventByPremise( int premiseId) throws PigTraxException;
 	 
 	 int undoWeanToFinishPhase2(final GroupEvent groupEvent) throws PigTraxException;
+
+	int updateGroupEventFromTransfer(GroupEvent groupEvent)
+			throws PigTraxException;
+
+	int addGroupEventFromTransfer(GroupEvent groupEvent)
+			throws PigTraxException;
 		
 
 }

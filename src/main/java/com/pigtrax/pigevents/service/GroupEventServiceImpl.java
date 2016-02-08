@@ -194,6 +194,75 @@ public class GroupEventServiceImpl implements GroupEventService{
 					"", true);
 		}
 	}
+	
+	@Override
+	@Transactional("ptxJTransactionManager")
+	public int addGroupEventFromTransfer(GroupEvent groupEvent) throws PigTraxException {
+		try {
+			int generatedId = groupEventDao.addGroupEvent(groupEvent);
+			groupEvent.setId(generatedId);
+			
+			GroupEventPhaseChange groupEventPhaseChange = new GroupEventPhaseChange();
+			groupEventPhaseChange.setGroupEventId(generatedId);
+			groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
+			groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
+			groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());
+			groupEventPhaseChange.setRoomIds(groupEvent.getRoomIds()); 
+			groupEventPhaseChange.setPhaseStartDate(groupEvent.getGroupStartDateTime());
+			
+			Integer groupEventPhaseChangeId = groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
+			
+			groupEventPhaseChange.setId(groupEventPhaseChangeId);
+			groupEventRoomDao.addGroupEventRooms(groupEventPhaseChange);
+			
+			PigTraxEventMaster master = new PigTraxEventMaster();
+			master.setUserUpdated(groupEvent.getUserUpdated());
+			master.setEventTime(groupEvent.getGroupStartDateTime());
+			master.setGroupEventId(generatedId);
+			master.setLastUpdated( new java.sql.Date(System.currentTimeMillis()));
+			eventMasterDao.insertEntryEventDetails(master);
+			groupEvent.setTransferredToGroupId(generatedId);
+			
+			if(groupEvent.isFromMove())
+			{
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(groupEvent.getTransferredFromGroupId(), groupEvent.getCompanyId());
+				if(null != groupEventUpdate )
+				{
+					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - groupEvent.getCurrentInventory());
+					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+				}
+				GroupEventDetails groupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				if(null!=groupEventDetails)
+				{
+					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+				}
+				
+			}
+			
+			return generatedId;
+		} 
+		catch (SQLException sqlEx) {
+			if ("23505".equals(sqlEx.getSQLState()))
+			{
+				throw new PigTraxException("GroupId already exists",
+						sqlEx.getSQLState(), true);
+			} 
+			else
+			{
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());
+			}
+		} 
+		catch (DuplicateKeyException sqlEx)
+		{
+			logger.info("DuplicateKeyException : " + sqlEx.getRootCause() + "/"
+					+ sqlEx.getCause());
+			throw new PigTraxException(
+					"Group Id already Exist. Please check Group Id",
+					"", true);
+		}
+	}
+
 
 	@Override
 	public int updateGroupEvent(GroupEvent groupEvent) throws PigTraxException {
@@ -204,6 +273,102 @@ public class GroupEventServiceImpl implements GroupEventService{
 			{
 				//Update the current group Inventory
 				GroupEvent currentGroup = groupEventDao.getGroupEventByGroupId(groupEvent.getGroupId(), groupEvent.getCompanyId(), groupEvent.getPremiseId());
+				if(null != currentGroup )
+				{
+					
+					//Add a negative transaction for transfer
+					GroupEventDetails groupEventDetails = new GroupEventDetails();
+					groupEventDetails.setGroupId(currentGroup.getId());
+					groupEventDetails.setDateOfEntry(DateUtil.getToday());
+					groupEventDetails.setNumberOfPigs(-1*groupEvent.getTransferredPigNum());
+					groupEventDetails.setWeightInKgs(groupEvent.getTransferredPigWt());
+					groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
+					groupEventDetails.setFromGroupId(groupEvent.getTransferredToGroupId());
+					groupEventDetails.setRemarks("Transferred");
+					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+					
+					currentGroup.setCurrentInventory(currentGroup.getCurrentInventory() - groupEvent.getTransferredPigNum());
+					groupEventDao.updateGroupEventCurrentInventory(currentGroup);
+					
+					if(currentGroup.getCurrentInventory() == 0)
+					{
+						
+						groupEventPhaseChangeDao.endDateGroupEventPhase(currentGroup.getId());
+						
+						currentGroup.setActive(false);
+						currentGroup.setGroupCloseDateTime(DateUtil.getToday());
+						groupEventDao.updateGroupEventStatusWithCloseDate(currentGroup);
+						groupEvent.setActive(false);
+					}
+				}
+				//Add new entries to the transferred group
+				GroupEventDetails newGroupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				if(null!=newGroupEventDetails)
+				{
+					groupEventDetailsDao.addGroupEventDetails(newGroupEventDetails);
+				}
+				
+				GroupEvent newGroupEvent = groupEventDao.getGroupEventByGeneratedGroupId(groupEvent.getTransferredToGroupId(), groupEvent.getCompanyId());
+				newGroupEvent.setCurrentInventory(groupEvent.getTransferredPigNum()+newGroupEvent.getCurrentInventory());
+				generatedId = groupEventDao.updateGroupEventCurrentInventory(newGroupEvent);
+				
+			}
+			else
+			{
+				if( null != groupEvent.getInventoryAdjustment() && groupEvent.getInventoryAdjustment() >0)
+				{
+					groupEvent.setCurrentInventory(groupEvent.getCurrentInventory()-groupEvent.getInventoryAdjustment());
+				}
+				generatedId = groupEventDao.updateGroupEvent(groupEvent);
+				
+				GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEvent.getId());
+				if(currentPhase.getPhaseOfProductionTypeId() != groupEvent.getPhaseOfProductionTypeId())
+				{
+					groupEventPhaseChangeDao.endDateGroupEventPhase(groupEvent.getId());
+					
+					GroupEventPhaseChange groupEventPhaseChange = new GroupEventPhaseChange();
+					groupEventPhaseChange.setGroupEventId(groupEvent.getId());
+					groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
+					groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
+					groupEventPhaseChange.setPhaseStartDate(DateUtil.getToday());
+					groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());				
+					groupEventPhaseChange.setRoomIds(groupEvent.getRoomIds());
+					Integer phaseChangeId = groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);
+					groupEventPhaseChange.setId(phaseChangeId);
+					groupEventRoomDao.addGroupEventRooms(groupEventPhaseChange);
+				}
+				else
+				{	
+					currentPhase.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
+					currentPhase.setUserUpdated(groupEvent.getUserUpdated());
+					currentPhase.setPremiseId(groupEvent.getPremiseId());	
+					currentPhase.setPhaseStartDate(groupEvent.getGroupStartDateTime());
+					currentPhase.setRoomIds(groupEvent.getRoomIds());
+					groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);
+					groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
+					groupEventRoomDao.addGroupEventRooms(currentPhase);
+				}
+				
+			}
+			return generatedId;
+		} 
+		catch (SQLException sqlEx) {
+			
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());			
+		} 
+	}
+
+	
+	@Override
+	public int updateGroupEventFromTransfer(GroupEvent groupEvent) throws PigTraxException {
+		
+		try {
+			int generatedId =0;
+			if(null!=groupEvent && groupEvent.isFromMove())
+			{
+				//Update the current group Inventory
+				GroupEvent currentGroup = groupEventDao.getGroupEventByGeneratedGroupId(groupEvent.getTransferredFromGroupId(), groupEvent.getCompanyId());
 				if(null != currentGroup )
 				{
 					
