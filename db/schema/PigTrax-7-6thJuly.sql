@@ -898,7 +898,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtrax."IndividualPigletStatus" CASCADE;
 CREATE TABLE pigtrax."IndividualPigletStatus"(
 	id serial NOT NULL,
-	"tattooId" varchar(30) NOT NULL,
+	"tattooId" varchar(30) ,
 	"weightAtBirth" numeric(20,2),
 	"weightAtWeaning" numeric(20,2),
 	"lastUpdated" timestamp NOT NULL,
@@ -920,13 +920,16 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"date4" timestamp,
 	"date5" timestamp,
 	"date6" timestamp,
-	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id),
-	CONSTRAINT "INDIPIGSTATUS_U_TA" UNIQUE ("tattooId","id_Premise")
-
+	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id)
 );
 -- ddl-end --
 ALTER TABLE pigtrax."IndividualPigletStatus" OWNER TO pitraxadmin;
 -- ddl-end --
+
+-- Index: pigtrax."INDIVIDUALSTATUS_U_TA"
+-- DROP INDEX pigtrax."INDIVIDUALSTATUS_U_TA";
+CREATE UNIQUE INDEX "INDIVIDUALSTATUS_U_TA"  ON pigtrax."IndividualPigletStatus"  USING btree  (tattooId COLLATE pg_catalog."default")  WHERE "tattooId" IS NOT NULL and "tattooId" <> '';
+
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."IndividualPigletStatus" DROP CONSTRAINT IF EXISTS "PigInfo_fk" CASCADE;

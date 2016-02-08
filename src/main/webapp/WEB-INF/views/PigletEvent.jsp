@@ -133,10 +133,9 @@
                     </div>	
                     <label ng-show="invalidLitterId" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.breedingeventform.pigInfoId.server.invalidLitterId' text='Invalid litter Id for the selected pig' /></label>		
 					 <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.tattooId'  text='Tattoo Id'/><span style='color: red'>*</span></label>
-                     <input type="text" required ng-model="pigletEvent.tattooId" id="tattooId" name="tattooId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.tattooId.placeholder'  text='Enter Tattoo Id of the piglet'/>" 
-                      required-message="'<spring:message code='label.piginfo.pigleteventform.tattooId.requiredmessage' text='Tattoo Id is required' />'"
-						ng-pattern="/^[a-z0-9]+$/i"
+                      <label><spring:message code='label.piginfo.pigleteventform.tattooId'  text='Tattoo Id'/></label>
+                     <input type="text" ng-model="pigletEvent.tattooId" id="tattooId" name="tattooId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.tattooId.placeholder'  text='Enter Tattoo Id of the piglet'/>"
+                      	ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.numeric.errormessage' text='Only Aplha numeric values are allowed' />'" ng-blur="checkForTattooId()" />
                     </div>					
 					<div class="form-group"> 
