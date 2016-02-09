@@ -3324,6 +3324,19 @@ REFERENCES pigtrax."PigInfo" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+--report table---
+-- DROP TABLE IF EXISTS pigtrax."PigInfoParityLog" CASCADE;
+CREATE TABLE pigtrax."PigInfoParityLog"
+(
+  id serial NOT NULL,
+ "id_PigInfo" integer NOT NULL,
+  "parity" integer DEFAULT 0,
+  "farrowDateTime" timestamp without time zone NOT NULL,
+  "id_Premise" integer not null,
+  "lastUpdated" timestamp without time zone NOT NULL,
+  "userUpdated" character varying(20) NOT NULL
+)
+;
 
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
