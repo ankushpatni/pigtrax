@@ -37,7 +37,7 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 	@Override
 	public List<MatingDetails> getMatingDetails(final Integer breedingEventId) {
 		String qry = "select \"id\", \"id_BreedingEvent\", \"semenId\", \"matingDate\", \"matingQuality\", "
-				+ "\"id_EmployeeGroup\", \"lastUpdated\", \"userUpdated\",\"semenDate\" from pigtrax.\"MatingDetails\" where \"id_BreedingEvent\" = ?";
+				+ "\"id_EmployeeGroup\", \"lastUpdated\", \"userUpdated\",\"semenDate\" from pigtrax.\"MatingDetails\" where \"id_BreedingEvent\" = ? order by \"matingDate\"";
 		
 		List<MatingDetails> matingDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -117,7 +117,10 @@ public class MatingDetailsDaoImpl implements MatingDetailsDao {
 	    				ps.setDate(1, new java.sql.Date(matingDetails.getMatingDate().getTime()));
 	    				ps.setObject(2, matingDetails.getSemenId());
 	    				ps.setObject(3, matingDetails.getMatingQuality(), java.sql.Types.INTEGER);
-	    				ps.setObject(4, matingDetails.getEmployeeGroupId(), java.sql.Types.INTEGER);
+	    				if(matingDetails.getEmployeeGroupId() != null && matingDetails.getEmployeeGroupId() > 0)
+	    					ps.setObject(4, matingDetails.getEmployeeGroupId(), java.sql.Types.INTEGER);
+	    				else
+	    					ps.setNull(4,  java.sql.Types.INTEGER);
 	    				ps.setString(5, matingDetails.getUserUpdated());
 	    				if(matingDetails.getSemenDate() != null)
 	    					ps.setDate(6, new java.sql.Date(matingDetails.getSemenDate().getTime()));
