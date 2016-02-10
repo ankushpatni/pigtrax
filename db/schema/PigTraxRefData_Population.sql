@@ -8092,7 +8092,7 @@ INSERT INTO pigtraxrefdata."TrailerFunction" ("fieldCode","fieldDescription","la
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Cull market','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Dedicated movement','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed vaccum','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed return vacuum','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Internal movement','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Market','en',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Quarantine movement','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
@@ -8101,7 +8101,7 @@ INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Cull market_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Dedicated movement_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed vaccum_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed return vacuum_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Internal movement_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Market_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Quarantine movement_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
@@ -8110,7 +8110,7 @@ INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLang
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Cull market_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Dedicated movement_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed vaccum_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Feed return vacuum_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Internal movement_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Market_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
 INSERT INTO pigtraxrefdata."TrailerFunctionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TrailerFunction") VALUES ('Quarantine movement_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
