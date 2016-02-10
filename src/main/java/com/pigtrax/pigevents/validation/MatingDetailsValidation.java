@@ -166,7 +166,7 @@ public class MatingDetailsValidation {
 		  {
 			  DateTime serviceDate = new DateTime(matingDto.getMatingDate());
 			  
-			  if(currentMatingDate.toLocalDate().equals(serviceDate.toLocalDate()))
+			  if(currentMatingDate.toLocalDate().equals(serviceDate.toLocalDate()) && matingDetailsDto.getMatingDetailId() != matingDto.getMatingDetailId())
 				  return ERR_CODE_DUPLICATE_DATE;
 		  }
 	  }

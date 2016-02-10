@@ -48,8 +48,13 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 	   {
 		   int matingDetailId = matingDetailsDao.addMatingDetails(matingDetails);
 		   matingDetailsDto.setMatingDetailId(matingDetailId);
-		   
-		   try {
+	   }
+	   else
+	   {
+		   matingDetailsDao.updateMatingDetails(matingDetails); 
+	   }
+	   
+	   try {
 			BreedingEvent breedingEvent = breedingEventDao.getBreedingEventInformation(matingDetailsDto.getBreedingEventId());
 			   //update serviceStartdate
 			if(breedingEvent.getServiceStartDate() == null)
@@ -66,10 +71,7 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
-		   
-		  	   
-		   
-	   }
+	   
 		return matingDetailsDto;
 	}
    

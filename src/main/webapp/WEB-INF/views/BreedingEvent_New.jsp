@@ -337,6 +337,7 @@
 						<th style="width:20%"><spring:message code="label.matingdetailsform.semenId" text="Semen Id" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.semendate" text="Semen Date" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.matingQuality" text="Mating Quality" /></th>
+						<th style="width:5%"><spring:message code="label.groupEventDetail.edit" text="Edit" /></th>
 						<th style="width:20%"><spring:message code="label.piginfo.breedingeventform.delete" text="Delete" /></th>
 					</tr>
 	 			</thead>
@@ -346,7 +347,16 @@
 					<td style="width:20%">{{row.employeeGroup.groupId}}</td>					
 					<td style="width:20%">{{row.semenId}}</td>
 					<td style="width:20%">{{DateUtils.getFormatedDate(row.semenDate)}}</td>
-					<td style="width:20%">{{row.matingQuality}}</td>
+					<td style="width:20%">
+					<p ng-show="row.matingQuality == 1"><spring:message code='label.piginfo.breedingeventform.mateQuality.good'  text='Good'/></p>
+                    <p ng-show="row.matingQuality == 2"><spring:message code='label.piginfo.breedingeventform.mateQuality.ok'  text='OK'/></p>
+                    <p ng-show="row.matingQuality == 3"><spring:message code='label.piginfo.breedingeventform.mateQuality.poor'  text='Poor'/></p>
+                    &nbsp;
+					</td>
+					<td style="width: 5%">
+						<button type="button" class="btn btn-edit btn-xs" ng-click="editMatingDetails(row)">
+							<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					
+					</td>	
 					<td style="width:20%">
 						<button type="button" class="btn btn-danger btn-xs" ng-click="deleteMatingDetails(row)" ng-confirm-click="<spring:message code='label.matingdetailsform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>">
 							<spring:message code="label.piginfo.breedingeventform.delete" text="Delete" /></a></button>	
