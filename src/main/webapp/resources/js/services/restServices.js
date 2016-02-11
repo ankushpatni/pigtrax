@@ -138,5 +138,6 @@ pigTrax.factory("restServices", function($resource) {
 		"getGroupEventInformationById" : {method:"POST", url:"rest/groupEvent/getGroupEventInformationById"},
 		"deleteSilo" : {method:"POST", url:"rest/silo/deleteSilo"},
 		"addGroupEventFromTransfer" : {method:"POST", url:"rest/groupEvent/addGroupEventFromTransfer"},
+		"getPigInformationWithOutStatus" : {method:"POST", url:"rest/entryEvent/getPigInformationWithOutStatus"},
     });
 });

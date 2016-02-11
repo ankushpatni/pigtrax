@@ -29,4 +29,6 @@ public interface PigInfoService {
 
 	Integer updatePigInfoRecordForSowMovement(PigInfoDto pigInfoDto)
 			throws Exception;
+
+	PigInfoDto getPigInformationWithOutStatus(PigInfoDto dto) throws Exception;
 }  
