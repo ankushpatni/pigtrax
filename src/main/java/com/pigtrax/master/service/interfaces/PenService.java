@@ -2,6 +2,7 @@ package com.pigtrax.master.service.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.master.dto.Pen;
@@ -47,6 +48,10 @@ public interface PenService {
 	 * @throws SQLException
 	 */
 	List<Pen> getPenListByCompanyId(Integer companyId) throws PigTraxException;
+
+
+	Map<Integer, String> getPenIdMapByCompanyId(Integer companyId)
+			throws PigTraxException;
 
 
 }

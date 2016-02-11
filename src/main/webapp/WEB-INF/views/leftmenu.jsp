@@ -74,6 +74,7 @@
 											<li><a href=""><spring:message code="label.leftmenu.reports.dataExtraction"  text="Data Extraction"/></a></li>
 											<li><a href=""><spring:message code="label.leftmenu.reports.statisticalReports"  text="Statistical Reports"/></a></li>
 											<li><a href=""><spring:message code="label.leftmenu.reports.sowCards"  text="Sow Cards"/></a></li>
+											<li><a href="reportGenerationSow"><spring:message code="label.leftmenu.Charts.sowReport"  text="Sow Report"/></a></li>
   
                                 </ul>
                               </li>

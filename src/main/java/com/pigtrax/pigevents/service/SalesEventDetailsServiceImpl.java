@@ -12,11 +12,13 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.beans.PigInfo;
+import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.SalesEventDetails;
 import com.pigtrax.pigevents.beans.TransportJourney;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
+import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.SalesEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
 import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
@@ -40,6 +42,9 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 	
 	@Autowired
 	GroupEventDetailsDao groupEventDetailsDao;	
+	
+	@Autowired 
+	PigTraxEventMasterDao eventMasterDao;
 	
 	
 	@Override
@@ -119,6 +124,16 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 				}
 			}
 			returnValue = salesEventDetailsDao.addSalesEventDetails(salesEventDetails);
+			
+			PigTraxEventMaster master = new PigTraxEventMaster();
+			if(salesEventDetails.getPigInfoId() !=null && salesEventDetails.getPigInfoId()!=0)
+				master.setPigInfoId(salesEventDetails.getPigInfoId());
+			if(salesEventDetails.getGroupEventId() !=null && salesEventDetails.getGroupEventId()!=0)
+				master.setGroupEventId(salesEventDetails.getGroupEventId());
+			master.setUserUpdated(salesEventDetails.getUserUpdated());
+			master.setEventTime(salesEventDetails.getSalesDateTime());
+			master.setRemovalEventExceptSalesDetails(returnValue);
+			eventMasterDao.insertEntryEventDetails(master);
 			
 		} 
 		catch (SQLException sqlEx)
@@ -210,6 +225,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 				}
 			}
 			salesEventDetailsDao.deleteSalesEventDetails(salesEventDetails.getId());
+			eventMasterDao.deleteSalesEvent(salesEventDetails.getId());
 			
 		} 
 		catch (SQLException sqlEx)

@@ -62,5 +62,11 @@ public interface BarnDao {
 	 */
 	
 	public List<Barn> getBarnListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException;
+
+
+	public Barn getBarnBasedOnPenId(int penId) throws SQLException;
+
+
+	Barn getBarnBasedOnRoomId(int roomId) throws SQLException;
 	
 }

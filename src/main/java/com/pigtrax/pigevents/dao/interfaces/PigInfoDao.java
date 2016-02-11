@@ -44,4 +44,7 @@ public interface PigInfoDao {
    PigInfo getInactivePigInformationByTattoo(String tattoo, Integer companyId, Integer premiseId) throws SQLException;
    
    List<String> getAvailablePigIds(Integer companyId);
+
+PigInfo getPigInformationByPigIdWithOutStatus(String pigId, Integer companyId,
+		Integer premiseId) throws SQLException;
 }

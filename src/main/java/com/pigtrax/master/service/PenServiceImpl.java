@@ -1,7 +1,9 @@
 package com.pigtrax.master.service;
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.master.dao.interfaces.PenDao;
 import com.pigtrax.master.dto.Pen;
+import com.pigtrax.master.dto.Room;
 import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.pigevents.dto.PenBuilder;
 
@@ -73,6 +76,28 @@ public class PenServiceImpl implements PenService {
 		{
 			throw new PigTraxException(sqlEx.getMessage());
 		}		
+		
+	}
+	
+	@Override
+	public Map<Integer,String>  getPenIdMapByCompanyId(Integer companyId)
+			throws PigTraxException {
+		List<Pen> penList;
+		Map<Integer,String> penIdMap = new LinkedHashMap<Integer,String>();
+		
+		try {
+			penList = penDao.getPenListByCompanyId(companyId);
+			if(null != penList && penList.size()>0)
+			{
+				for(Pen pen : penList)
+				{
+					penIdMap.put(pen.getId(),pen.getPenId());
+				}
+			}
+		} catch (SQLException e) {
+			throw new PigTraxException(e.getMessage(), e.getSQLState());
+		}
+		return penIdMap;
 		
 	}
 

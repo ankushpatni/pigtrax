@@ -319,6 +319,48 @@ public class BarnDaoImpl implements BarnDao {
 		return null;
 	}
 	
+	@Override
+	public Barn getBarnBasedOnPenId( final int penId ) throws SQLException
+	{
+		String query = "SELECT \"barnserialid\" as \"id\",\"barnId\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"barnId\" != '' and penserialid = ?";
+		
+	//CompPremBarnRoomPenVw
+		List<Barn> barnList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, penId);
+					}
+				}, new BarnMapperList());
+	
+		if (barnList != null && barnList.size() > 0) {
+			return  barnList.get(0);
+		}
+		return null;
+	}
+	
+	
+	@Override
+	public Barn getBarnBasedOnRoomId( final int roomId ) throws SQLException
+	{
+		String query = "SELECT \"barnserialid\" as \"id\",\"barnId\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"barnId\" != '' and roomserrialid = ?";
+		
+	//CompPremBarnRoomPenVw
+		List<Barn> barnList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, roomId);
+					}
+				}, new BarnMapperList());
+	
+		if (barnList != null && barnList.size() > 0) {
+			return  barnList.get(0);
+		}
+		return null;
+	}
 	private static final class BarnMapperList implements RowMapper<Barn> {
 		public Barn mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Barn barn = new Barn();

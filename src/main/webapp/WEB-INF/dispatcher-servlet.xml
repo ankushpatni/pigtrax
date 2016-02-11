@@ -27,6 +27,8 @@
 	<context:component-scan base-package="com.pigtrax.pigevents.service" />
 	<context:component-scan base-package="com.pigtrax.pigevents.validation" />
 	<context:component-scan base-package="com.pigtrax.notification" />
+	<context:component-scan base-package="com.pigtrax.report.service" />
+	<context:component-scan base-package="com.pigtrax.report.dao" />
 	
 	
  

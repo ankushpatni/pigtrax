@@ -310,4 +310,30 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 		return rowsDeleted;
 	}
 	
+	 @Override
+		public void deleteRemovalingEvent(final Integer removalEventId)
+				throws SQLException {
+			   final String qry = "delete from pigtrax.\"PigTraxEventMaster\" where \"id_RemovalEventExceptSalesDetails\" = ?";
+				
+				this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, removalEventId);
+					}
+				});
+		}
+	 
+	 @Override
+		public void deleteSalesEvent(final Integer removalSalesId)
+				throws SQLException {
+			   final String qry = "delete from pigtrax.\"PigTraxEventMaster\" where \"id_SalesEventDetails\" = ?";
+				
+				this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, removalSalesId);
+					}
+				});
+		}
+	
 }

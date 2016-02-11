@@ -13,6 +13,7 @@ import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.beans.GroupEventPhaseChange;
 import com.pigtrax.pigevents.beans.PigInfo;
+import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.SowMovement;
 import com.pigtrax.pigevents.beans.TransportJourney;
@@ -21,6 +22,7 @@ import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventPhaseChangeDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
+import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
@@ -54,6 +56,9 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 	
 	@Autowired
 	GroupEventRoomDao groupEventRoomDao;
+	
+	@Autowired 
+	PigTraxEventMasterDao eventMasterDao;
 	
 	@Override
 	public RemovalEventExceptSalesDetails getRemovalEventExceptSalesDetailsById(int removalId) throws PigTraxException {
@@ -168,11 +173,21 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					   sowMovement.setUserUpdated(pigInfo.getUserUpdated());
 					   sowMovement.setCompanyId(pigInfo.getCompanyId());
 					   sowMovementDao.addSowMovement(sowMovement);
-					}
+					}	
 					
 				}
 			}
+						
 			returnValue = removalEventExceptSalesDetailsDao.addRemovalEventExceptSalesDetails(removalEventExceptSalesDetails);
+			PigTraxEventMaster master = new PigTraxEventMaster();
+			if(removalEventExceptSalesDetails.getPigInfoId() != null && removalEventExceptSalesDetails.getPigInfoId()!=0)
+				master.setPigInfoId(removalEventExceptSalesDetails.getPigInfoId());
+			if(removalEventExceptSalesDetails.getGroupEventId() != null && removalEventExceptSalesDetails.getGroupEventId()!=0)
+				master.setGroupEventId(removalEventExceptSalesDetails.getGroupEventId());
+			master.setUserUpdated(removalEventExceptSalesDetails.getUserUpdated());
+			master.setEventTime(removalEventExceptSalesDetails.getRemovalDateTime());
+			master.setSaleEventId(returnValue);
+			eventMasterDao.insertEntryEventDetails(master);
 			
 		} 
 		catch (SQLException sqlEx)
@@ -299,6 +314,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				
 			}
 			removalEventExceptSalesDetailsDao.deleteRemovalEventExceptSalesDetails(removalEventExceptSalesDetails.getId());
+			eventMasterDao.deleteRemovalingEvent(removalEventExceptSalesDetails.getId());
 			
 		} 
 		catch (SQLException sqlEx)

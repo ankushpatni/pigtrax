@@ -1,6 +1,7 @@
 package com.pigtrax.master.controller;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pigtrax.master.service.interfaces.ReportService;
+import com.pigtrax.pigevents.beans.PigInfo;
+import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
+import com.pigtrax.report.service.SowReportService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 
 @RestController
@@ -34,6 +38,12 @@ public class ReportControlller {
 	
 	@Autowired
 	private ReportService reportService;
+	
+	@Autowired
+	PigInfoDao pigInfoDao;
+	
+	@Autowired
+	SowReportService sowReportService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -906,6 +916,74 @@ public class ReportControlller {
 		model.put("contentUrl", "reportGeneration.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 		return new ModelAndView("template", model);
+	}
+	
+	@RequestMapping(value = "/reportGenerationSow", method = RequestMethod.GET)
+	public ModelAndView reportGenerationSow(HttpServletRequest request) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("contentUrl", "reportGenerationSow.jsp");
+		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer companyId = activeUser.getCompanyId();
+		model.put("CompanyId", companyId+"");
+		return new ModelAndView("template", model);
+	}
+	
+	@RequestMapping(value = "/generateReportSow", method = RequestMethod.POST)
+	public void generateReportSow(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				String selectedPremise = request.getParameter("selectedPremise");
+				String search = request.getParameter("search");
+				
+				System.out.println("selectedPremise = " + selectedPremise);
+				System.out.println("search = " + search);
+				
+				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				Integer companyId = activeUser.getCompanyId();
+				System.out.println(companyId);
+				
+				response.setContentType("text/csv");
+				String reportName = "CSV_Sow.csv";
+				response.setHeader("Content-disposition", "attachment;filename="+reportName);
+		    
+				List<String> rows =new ArrayList<String>();
+						
+				try {
+					int premisesId = Integer.parseInt(selectedPremise);
+					PigInfo pigInformation = pigInfoDao.getPigInformationByPigIdWithOutStatus(search, companyId, premisesId);
+					if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
+					{
+						rows = sowReportService.getSowReport(search,pigInformation.getId(), companyId);
+						Iterator<String> iter = rows.iterator();
+						while (iter.hasNext()) {
+							String outputString = (String) iter.next();
+							response.getOutputStream().print(outputString);
+						}
+					}
+					else
+					{
+						rows.add("Can not find pig by given Id");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					rows.add("There is some error please contact Admin");
+				}
+				
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//return new ModelAndView("redirect:" + "reportGeneration?token=success");
+	}
+
+	private ArrayList<String> getSowReports(String selectedPremise,
+			String search, Integer companyId) {
+		
+		ArrayList<String> rows = new ArrayList<String>();
+		
+		return rows;
 	}
 
 }

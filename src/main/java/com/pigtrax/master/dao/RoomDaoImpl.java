@@ -163,6 +163,25 @@ public class RoomDaoImpl implements RoomDao {
 		}
 		return null;
 	}
+	@Override
+	public Room getRoomListBasedOnPen( final int penId ) throws SQLException
+	{
+		String query = "SELECT \"roomserrialid\" as \"id\",\"roomId\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"roomId\" != '' and penserialid = ?";
+	//CompPremBarnRoomPenVw
+		List<Room> roomList = jdbcTemplate.query(query,
+				new PreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, penId);
+					}
+				}, new RoomMapperList());
+	
+		if (roomList != null && roomList.size() > 0) {
+			return  roomList.get(0);
+		}
+		return null;
+	}
 
 	private static final class RoomMapper implements RowMapper<Room> {
 		public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
