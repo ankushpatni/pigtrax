@@ -223,8 +223,6 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 				   salesTypes.push(value["id"]);
 	        });
 			$scope.removalExceptSales.salesTypes = salesTypes;
-			alert(JSON.stringify(salesTypes));			
-			alert(JSON.stringify($scope.removalExceptSales.salesTypes));
 		}
 		
 		if($scope.removalExceptSales["salesDateTime"] === ""  || 
