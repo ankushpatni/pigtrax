@@ -19,4 +19,6 @@ public interface SowMovementDao {
 	List<SowMovement> getSowMovementListByPigInfoId(String pigInfoId,
 			Integer companyId, Integer premisesId) throws SQLException;
 
+	void deleteSowMovementByPigId(Integer pigInfoId) throws SQLException;
+	
 }

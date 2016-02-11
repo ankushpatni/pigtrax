@@ -91,7 +91,14 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 				}
 				else
 				{
-					return pregnancyEventDao.updatePregnancyEventDetails(pregnancyEvent);  
+					int rows = pregnancyEventDao.updatePregnancyEventDetails(pregnancyEvent);  
+					PigTraxEventMaster master = new PigTraxEventMaster();
+					master.setPigInfoId(pregnancyEvent.getPigInfoId());
+					master.setUserUpdated(pregnancyEvent.getUserUpdated());
+					master.setPregnancyEventId(pregnancyEvent.getId());
+					master.setEventTime(pregnancyEvent.getResultDate());
+					eventMasterDao.updatePregnancyEventMasterDetails(master);
+					return rows;
 				}
 			}
 			else

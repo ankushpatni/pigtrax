@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.MatingDetails;
+import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.beans.PregnancyEvent;
 import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
 import com.pigtrax.pigevents.dao.interfaces.MatingDetailsDao;
+import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
 import com.pigtrax.pigevents.dto.MatingDetailsBuilder;
@@ -39,6 +41,9 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 	@Autowired 
 	MatingDetailsBuilder builder;
 	
+	@Autowired
+	PigTraxEventMasterDao eventMasterDao;
+	
    @Override
 	public MatingDetailsDto saveMatingDetails(MatingDetailsDto matingDetailsDto) throws PigTraxException {
 
@@ -55,19 +60,64 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 	   }
 	   
 	   try {
+		   boolean eventMasterTag = false;
 			BreedingEvent breedingEvent = breedingEventDao.getBreedingEventInformation(matingDetailsDto.getBreedingEventId());
-			   //update serviceStartdate
-			if(breedingEvent.getServiceStartDate() == null)
-			   breedingEventDao.updateServiceStartDate(matingDetailsDto.getMatingDate(), matingDetailsDto.getBreedingEventId()); 	
-			else if(breedingEvent.getServiceStartDate() != null)
+			if(breedingEvent != null)
 			{
-				DateTime serviceStartDate = new DateTime(breedingEvent.getServiceStartDate());
-				DateTime matingDate = new DateTime(matingDetailsDto.getMatingDate());
-				
-				if(matingDate.isBefore(serviceStartDate))
-					breedingEventDao.updateServiceStartDate(matingDetailsDto.getMatingDate(), matingDetailsDto.getBreedingEventId()); 	
-				
+			   //update serviceStartdate
+				if(breedingEvent.getServiceStartDate() == null)
+				{
+				   breedingEventDao.updateServiceStartDate(matingDetailsDto.getMatingDate(), matingDetailsDto.getBreedingEventId());
+				   eventMasterTag = true;
+				   	PigTraxEventMaster master = new PigTraxEventMaster();
+					master.setPigInfoId(breedingEvent.getPigInfoId());
+					master.setUserUpdated(matingDetailsDto.getUserUpdated());
+					master.setBreedingEventId(matingDetailsDto.getBreedingEventId());
+					master.setEventTime(matingDetailsDto.getMatingDate());
+					eventMasterDao.insertEntryEventDetails(master);
+				}
+				else if(breedingEvent.getServiceStartDate() != null)
+				{
+					
+					List<MatingDetails> matingList = matingDetailsDao.getMatingDetails(breedingEvent.getId());
+					
+					DateTime serviceStartDate = new DateTime(breedingEvent.getServiceStartDate());
+					DateTime matingDate = new DateTime(matingDetailsDto.getMatingDate());
+					
+					if(matingDate.isBefore(serviceStartDate))
+					{
+						breedingEventDao.updateServiceStartDate(matingDetailsDto.getMatingDate(), matingDetailsDto.getBreedingEventId());
+						eventMasterTag = true;
+					}
+					else if(matingList != null)
+					{
+						MatingDetailsDto nextServiceMatingDetail = findServiceMateDetails(matingDetailsDto.getBreedingEventId());
+						if(!serviceStartDate.toLocalDate().equals(matingDate.toLocalDate()))
+						{
+							if(nextServiceMatingDetail != null && nextServiceMatingDetail.getMatingDetailId() > 0)
+								   breedingEventDao.updateServiceStartDate(nextServiceMatingDetail.getMatingDate(), matingDetailsDto.getBreedingEventId());
+							else
+								   breedingEventDao.updateServiceStartDate(null, matingDetailsDto.getBreedingEventId());
+							eventMasterTag = true;
+						}
+					}
+					
+					if(eventMasterTag)
+					{
+						PigTraxEventMaster master = new PigTraxEventMaster();
+						master.setPigInfoId(breedingEvent.getPigInfoId());
+						master.setUserUpdated(matingDetailsDto.getUserUpdated());
+						master.setBreedingEventId(matingDetailsDto.getBreedingEventId());
+						master.setEventTime(matingDetailsDto.getMatingDate());
+						eventMasterDao.updateBreedingEventMasterDetails(master);
+					}
+					
+				}
+					
 			}
+				
+			
+			
 		} catch (SQLException e) {
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}

@@ -97,7 +97,13 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 					}
 					else
 					{
-						return farrowEventDao.updateFarrowEventDetails(farrowEvent); 
+						int rows = farrowEventDao.updateFarrowEventDetails(farrowEvent);
+						PigTraxEventMaster master = new PigTraxEventMaster();
+						master.setPigInfoId(farrowEvent.getPigInfoId());
+						master.setUserUpdated(farrowEvent.getUserUpdated());
+						master.setFarrowEventId(farrowEvent.getId());
+						master.setEventTime(farrowEvent.getFarrowDateTime());
+						eventMasterDao.updateFarrowEventMasterDetails(master);
 					}
 				}
 				else

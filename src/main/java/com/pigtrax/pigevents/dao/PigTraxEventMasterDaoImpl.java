@@ -18,7 +18,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.PigTraxEventMaster;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 
@@ -26,7 +25,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 @Transactional
 public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
     
-	private static final Logger logger = Logger.getLogger(PigInfoDaoImpl.class);
+	private static final Logger logger = Logger.getLogger(PigTraxEventMasterDaoImpl.class);
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -103,19 +102,67 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int updateBreedingEventDetails(final BreedingEvent breedingEvent)
+	public int updateBreedingEventMasterDetails(final PigTraxEventMaster master)
 			throws SQLException {
-		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = current_timestamp, \"id_BreedingEvent\" = ?, \"lastUpdated\"=current_timestamp where \"id_PigInfo\" = ?";
+		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = ?, \"lastUpdated\"=current_timestamp where \"id_BreedingEvent\" = ? and \"id_PigInfo\" = ?";
 		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
 			
 			public void setValues(PreparedStatement ps) throws SQLException {
 				
-				ps.setInt(1, breedingEvent.getId());
-				ps.setInt(2, breedingEvent.getPigInfoId());
+				ps.setDate(1, new  java.sql.Date(master.getEventTime().getTime()));
+				ps.setInt(2, master.getBreedingEventId());
+				ps.setInt(3, master.getPigInfoId());
 			}
 		});
 	}
 	
+	@Override
+	public int updatePregnancyEventMasterDetails(final PigTraxEventMaster master)
+			throws SQLException {
+		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = ?, \"lastUpdated\"=current_timestamp where  \"id_PregnancyEvent\" = ? and \"id_PigInfo\" = ?";
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			
+			public void setValues(PreparedStatement ps) throws SQLException {
+				
+				ps.setDate(1, new  java.sql.Date(master.getEventTime().getTime()));
+				ps.setInt(2, master.getPregnancyEventId());
+				ps.setInt(3, master.getPigInfoId());
+			}
+		});
+	}
+	
+	
+	@Override
+	public int updateFarrowEventMasterDetails(final PigTraxEventMaster master)
+			throws SQLException {
+		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = ?, \"lastUpdated\"=current_timestamp where \"id_FarrowEvent\" = ? and \"id_PigInfo\" = ?";
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			
+			public void setValues(PreparedStatement ps) throws SQLException {
+				
+				ps.setDate(1, new  java.sql.Date(master.getEventTime().getTime()));
+				ps.setInt(2, master.getFarrowEventId());
+				ps.setInt(3, master.getPigInfoId());
+			}
+		});
+	}
+	
+	
+	@Override
+	public int updateEntryEventMasterDetails(final PigTraxEventMaster master)
+			throws SQLException {
+		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = ?, \"lastUpdated\"=current_timestamp where \"id_PigInfo\" = ? and \"id_BreedingEvent\" is NULL and "
+				+ "\"id_PregnancyEvent\" is NULL and \"id_FarrowEvent\" is NULL and \"id_PigletStatus\" is NULL and \"id_GroupEvent\" is NULL and \"id_FeedEvent\" is NULL"
+				+ " and \"id_RemovalEventExceptSalesDetails\" is NULL and \"id_SalesEventDetails\"is NULL ";
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			
+			public void setValues(PreparedStatement ps) throws SQLException {
+				
+				ps.setDate(1, new  java.sql.Date(master.getEventTime().getTime()));
+				ps.setInt(2, master.getPigInfoId());
+			}
+		});
+	}
 	
 	public List<PigTraxEventMaster> getEventMasterRecords(final Integer pigInfoKey) throws Exception
 	{

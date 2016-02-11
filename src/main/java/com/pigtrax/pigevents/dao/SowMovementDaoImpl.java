@@ -80,6 +80,25 @@ private static final Logger logger = Logger.getLogger(SowMovementDaoImpl.class);
 		});
 	}
 	
+	/**
+	 * To delete the given information
+	 * @param id
+	 */
+	
+	@Override
+	public void deleteSowMovementByPigId(final Integer pigInfoId) throws SQLException {
+		
+		final String qry = "delete from pigtrax.\"SowMovement\" where \"id_PigInfo\" = ?";
+		
+		this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, pigInfoId);
+			}
+		});
+	}
+	
+	
 	@Override
 	public int updateSowMovement(final SowMovement sowMovement) throws SQLException {
 		final String Qry = "update pigtrax.\"SowMovement\" set  \"id_Room\"=?, \"id_Premise\"=?, "

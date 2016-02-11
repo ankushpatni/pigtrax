@@ -115,6 +115,12 @@ public class PigInfoServiceImpl implements PigInfoService {
 						   sowMovementDao.addSowMovement(sowMovement);
 					}
 					returnValue = pigInfoDao.updatePigInformation(pigInfo);
+					
+					PigTraxEventMaster master = new PigTraxEventMaster();
+					master.setPigInfoId(pigInfo.getId());
+					master.setUserUpdated(pigInfo.getUserUpdated());
+					master.setEventTime(pigInfo.getEntryDate());
+					eventMasterDao.updateEntryEventMasterDetails(master);
 				}
 				
 				return returnValue;
@@ -184,6 +190,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 				}
 				else
 				{
+					sowMovementDao.deleteSowMovementByPigId(id);
 					pigInfoDao.deletePigInfo(id);
 					return 1;
 				}

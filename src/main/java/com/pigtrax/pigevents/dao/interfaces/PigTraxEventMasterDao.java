@@ -28,12 +28,36 @@ public interface PigTraxEventMasterDao {
 	
 	
 	/**
-	 * update the breeding event details of a given pigInfoId
+	 * update the entry event master details of a given pigInfoId
 	 * @param breedingEvent
 	 * @return
 	 * @throws SQLException
 	 */
-	int updateBreedingEventDetails(BreedingEvent breedingEvent) throws SQLException;
+	int updateEntryEventMasterDetails(final PigTraxEventMaster master) throws SQLException;
+	
+	/**
+	 * update the breeding event master details of a given pigInfoId
+	 * @param breedingEvent
+	 * @return
+	 * @throws SQLException
+	 */
+	int updateBreedingEventMasterDetails(final PigTraxEventMaster master) throws SQLException;
+	
+	/**
+	 * update the pregnancy event master details of a given pigInfoId
+	 * @param breedingEvent
+	 * @return
+	 * @throws SQLException
+	 */
+	int updatePregnancyEventMasterDetails(final PigTraxEventMaster master) throws SQLException;
+	
+	/**
+	 * update the farrow event master details of a given pigInfoId
+	 * @param breedingEvent
+	 * @return
+	 * @throws SQLException
+	 */
+	int updateFarrowEventMasterDetails(final PigTraxEventMaster master) throws SQLException;
 	
 	/**
 	 * To fetch the PigTraxEventMaster record for a given pigInfo Key
