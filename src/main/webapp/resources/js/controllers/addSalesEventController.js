@@ -13,7 +13,13 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	$scope.pigInfoOriginalList={};
 	$scope.removalExceptSales={};
 	$scope.sourceAndDestinationPremisesSameError = false;
+	$scope.saleTypeValues = [];
+	$scope.selectedSalesTypes=[];
 	
+	$scope.multiselectdropdownsettings = {
+		    scrollableHeight: '200px',
+		    scrollable: true
+		};
 	
 	
 	$scope.getTransportDestinationList = function(){		
@@ -101,6 +107,11 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 				var responseList = data.payload;
 				$scope.saleTypeKeys = responseList[0];
 				$scope.saleTypeKeyValues =responseList[1];
+				$scope.saleTypeValues = [];
+				angular.forEach($scope.saleTypeKeys, function(key){					
+                   var itemObj = {"id" : key, "label":$scope.saleTypeKeyValues[key]}  
+				   $scope.saleTypeValues.push(itemObj);
+               })	
 			}
 		});
 	}
@@ -204,6 +215,17 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	{
 				
 		$scope.clearAllMessages();
+		
+		if($scope.selectedSalesTypes != null && $scope.selectedSalesTypes.length > 0)
+		{
+			var salesTypes = [];
+			angular.forEach($scope.selectedSalesTypes, function(value){	
+				   salesTypes.push(value["id"]);
+	        });
+			$scope.removalExceptSales.salesTypes = salesTypes;
+			alert(JSON.stringify(salesTypes));			
+			alert(JSON.stringify($scope.removalExceptSales.salesTypes));
+		}
 		
 		if($scope.removalExceptSales["salesDateTime"] === ""  || 
 		$scope.removalExceptSales["salesDateTime"] === undefined)

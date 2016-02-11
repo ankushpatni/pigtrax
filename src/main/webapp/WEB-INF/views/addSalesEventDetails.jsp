@@ -84,14 +84,11 @@
                         </select>                      
                          <label ng-show="removalTypeId == 3"> :  {{removalEventType[removalTypeId]}}</label> 
                         
-                    </div>
-                    
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalEventform.salesType'  text='Sales Type'/></label>                      
- 						<select  multiple="" size=4 class="form-control"    name="salesType" id="salesType" ng-model="removalExceptSales.salesTypes" >
-                      	<option ng-repeat="key in saleTypeKeys" ng-value="key" >{{saleTypeKeyValues[key]}}</option>        
-                        </select>
-                        
+                    </div>             
+                   
+                   <div class="form-group">
+                      <label><spring:message code='label.piginfo.removalEventform.salesType'  text='Sales Type'/></label>
+                      <div ng-dropdown-multiselect="" options="saleTypeValues" selected-model="selectedSalesTypes"  extra-settings="multiselectdropdownsettings"></div>			
                     </div>
                     
                     <div class="form-group" ng-show="selectGroup==='pigInfo'">
