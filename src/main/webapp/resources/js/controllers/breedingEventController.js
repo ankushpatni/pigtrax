@@ -665,6 +665,12 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 	}
 	
 	
+	$scope.editMatingDetails = function(matingDetailsObj)
+	{	
+		$scope.matingDetails = matingDetailsObj;		
+		$scope.AddMatingDetailsForm = true;
+	};  
+	
 }); 
 
 $(document).ready(function () { 

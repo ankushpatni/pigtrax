@@ -150,7 +150,7 @@ public class MatingDetailsValidation {
 		  {  
 				 return SUCCESS_CODE;
 		  }
-	  else if(currentMatingDate.toLocalDate().equals(currentBreedingEventDate.toLocalDate()))
+	  else if(currentMatingDate.toLocalDate().equals(currentBreedingEventDate.toLocalDate())  && matingDetailsDto.getMatingDetailId() == null)
 	  {
 		  return ERR_CODE_DUPLICATE_DATE;
 	  }
@@ -166,7 +166,7 @@ public class MatingDetailsValidation {
 		  {
 			  DateTime serviceDate = new DateTime(matingDto.getMatingDate());
 			  
-			  if(currentMatingDate.toLocalDate().equals(serviceDate.toLocalDate()))
+			  if(currentMatingDate.toLocalDate().equals(serviceDate.toLocalDate()) && matingDetailsDto.getMatingDetailId() != matingDto.getMatingDetailId())
 				  return ERR_CODE_DUPLICATE_DATE;
 		  }
 	  }
