@@ -355,4 +355,32 @@ public class EntryEventRestController {
 		return dto;
 	}
 	
+	/**
+	 * Service to search the pig information without status
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPigInformationWithOutStatus", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPigInformationWithOutStatus(HttpServletRequest request, @RequestBody PigInfoDto pigInformation)
+	{
+		logger.info("Inside getPigInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			pigInformation = pigInfoService.getPigInformationWithOutStatus(pigInformation);
+			dto.setPayload(pigInformation);
+			if(pigInformation != null && pigInformation.getId() != null)
+				dto.setStatusMessage("Success");
+			else
+				dto.setStatusMessage("ERROR : Pig Information not found");
+		} catch (PigTraxException e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} catch (Exception e) {
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+	
+	
+	
+	
 }

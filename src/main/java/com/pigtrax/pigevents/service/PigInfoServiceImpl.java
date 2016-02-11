@@ -282,4 +282,22 @@ public class PigInfoServiceImpl implements PigInfoService {
 		return  pigInfoDao.updatePigInformation(builder.convertToBean(pigInfoDto));
 	}
 	
+	/**
+	 * Get Pig Information based on pigId/tattoo
+	 */
+	@Override
+	public PigInfoDto getPigInformationWithOutStatus(PigInfoDto dto) throws Exception {
+		
+		PigInfo info = null;
+		if(dto != null && dto.getSearchOption().equals("pigId"))
+		{
+				info =  pigInfoDao.getPigInformationByPigIdWithOutStatus(dto.getSearchText(), dto.getCompanyId(), dto.getSelectedPremise());
+		}
+		else 
+		{
+			info =  pigInfoDao.getPigInformationByTattoo(dto.getSearchText(), dto.getCompanyId(), dto.getSelectedPremise());
+		}
+		return builder.convertToDto(info);
+	}
+	
 }

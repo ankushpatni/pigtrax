@@ -13,13 +13,7 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 		});	
 	}
 	
-    $scope.checkPigInfo = function()
-	{
-		document.getElementById("generatedSiloId").value = row.id;
-		document.forms['siloForm'].action = $scope.differentPages[index].value;
-		document.forms['siloForm'].submit();
-	}
-    
+        
     $scope.searchPigInfo = function()
     {
 			$scope.pigInfo = {};
@@ -29,17 +23,14 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 					companyId : $scope.companyId,
 					selectedPremise : $scope.selectedPremise
 			};
-			restServices.getPigInformation(searchPigInfo, function(data)
+			restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
 			{
 				if(!data.error){
-					$scope.clearAllMessages();
-					$scope.pigInfo = data.payload;
-					$scope.getRooms();
+					$scope.searchDataErrorMessage = false;					
+					document.forms['generateReportSow'].submit();
 				}
 				else
 				{
-					$scope.pigInfo = {};
-					$scope.clearAllMessages();
 					$scope.searchDataErrorMessage = true;
 					
 				}
