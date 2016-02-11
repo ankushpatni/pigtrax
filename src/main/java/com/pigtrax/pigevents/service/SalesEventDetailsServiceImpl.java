@@ -132,7 +132,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 				master.setGroupEventId(salesEventDetails.getGroupEventId());
 			master.setUserUpdated(salesEventDetails.getUserUpdated());
 			master.setEventTime(salesEventDetails.getSalesDateTime());
-			master.setRemovalEventExceptSalesDetails(returnValue);
+			master.setSaleEventId(returnValue);
 			eventMasterDao.insertEntryEventDetails(master);
 			
 		} 

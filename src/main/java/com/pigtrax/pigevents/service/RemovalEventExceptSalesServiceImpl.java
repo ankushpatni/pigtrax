@@ -186,7 +186,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				master.setGroupEventId(removalEventExceptSalesDetails.getGroupEventId());
 			master.setUserUpdated(removalEventExceptSalesDetails.getUserUpdated());
 			master.setEventTime(removalEventExceptSalesDetails.getRemovalDateTime());
-			master.setSaleEventId(returnValue);
+			master.setRemovalEventExceptSalesDetails(returnValue);
 			eventMasterDao.insertEntryEventDetails(master);
 			
 		} 
