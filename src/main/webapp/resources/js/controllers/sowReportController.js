@@ -1,16 +1,26 @@
 pigTrax.controller('sowReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
+
 	
 	$scope.loadPremises = function(comapnyId)
 	{
-		$scope.companyId = comapnyId
-		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$scope.companyId+'&premisesType=null');
+		var localCompany ;
+		if(comapnyId === undefined )
+		{
+			localCompany = $scope.selectedCompany;
+		}
+		else
+		{
+			localCompany  = comapnyId;
+		}
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=null');
 		res.success(function(data, status, headers, config) {
 			$scope.premiseList = data.payload;
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+		$scope.companyId = localCompany;
 	}
 	
         
@@ -26,7 +36,8 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 			restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
 			{
 				if(!data.error){
-					$scope.searchDataErrorMessage = false;					
+					$scope.searchDataErrorMessage = false;
+					document.getElementById("companyId1").value	= $scope.companyId;		
 					document.forms['generateReportSow'].submit();
 				}
 				else
@@ -36,6 +47,18 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 				}
 			});
     }
-	
+    
+    $scope.getCompanyList = function(){
+    	
+    		restServices.getCompanyList(function(data){
+console.log(data);
+    			 if(!data.error)
+    			 {
+    				$scope.companyMapList = data.payload;
+    			 }
+    		});
+    	};
+    	
+	$scope.getCompanyList();
 	
 });

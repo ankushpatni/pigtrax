@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.BarnDao;
 import com.pigtrax.master.dao.interfaces.RoomDao;
 import com.pigtrax.master.dto.Barn;
@@ -15,7 +16,16 @@ import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
+import com.pigtrax.pigevents.beans.SalesEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
+import com.pigtrax.pigevents.dto.FarrowEventDto;
+import com.pigtrax.pigevents.dto.PregnancyEventDto;
+import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
+import com.pigtrax.pigevents.service.interfaces.PigletStatusEventService;
+import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
+import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
+import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
 import com.pigtrax.report.bean.SowReportBean;
 import com.pigtrax.report.dao.SowReportDao;
 
@@ -50,9 +60,27 @@ public class SowReportService {
 	@Autowired
 	BarnDao barnDao;
 	
+	@Autowired
+	PigletStatusEventService pigletStatusEventService; 
+	
+	@Autowired
+	FarrowEventService farrowEventService;
+	
+	@Autowired
+	PregnancyEventService pregnancyEventService;
+	
+	@Autowired
+	RemovalEventExceptSalesService  removalEventExceptSalesService;
+	
+	@Autowired
+	SalesEventDetailsService salesEventDetailsService;
+	
+	@Autowired
+	RefDataCache refDataCache;
+	
 	private static final String seprater = ",";
 
-	public ArrayList<String> getSowReport(String pidId, int sowId, int companyId)
+	public ArrayList<String> getSowReport(String pidId, int sowId, int companyId, String language)
 	{
 		ArrayList<String> returnRows = new ArrayList<String>();
 		try {
@@ -64,6 +92,9 @@ public class SowReportService {
 				Map<Integer,String> barnIdMap  = barnService.getBarnListBasedOnCompanyId(companyId);
 				Map<Integer,String> roomIdMap = roomService.getRoomListBasedOnCompanyId(companyId);
 				Map<Integer,String> penIdMap = penService.getPenIdMapByCompanyId(companyId);
+				Map<Integer, String> removalEventTypeMap = refDataCache.getRemovalEventTypeMap(language);
+				Map<Integer, String> mortalityReasonTypeMap = refDataCache.getMortalityReasonTypeMap(language);
+				Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
 				
 				StringBuffer rowBuffer = null;
 				returnRows.add("Sow ID, Event Date, Event Name, Barn, Room, Pen, Parity, Event Data");
@@ -111,6 +142,8 @@ public class SowReportService {
 								rowBuffer.append(seprater);
 								rowBuffer.append(seprater);
 								rowBuffer.append(parityInt+seprater); // no remark for Pregnancy
+								PregnancyEventDto pregnancyEventInformation = pregnancyEventService.getPregnancyEventInformation(SowReportBean.getPregnancyEventId(), language);
+								rowBuffer.append("Pregnancy Event Type : "+pregnancyEventInformation.getPregnancyEventType()+" :: Result : " +pregnancyEventInformation.getResultDateStr());
 							}
 							else if(SowReportBean.getFarrowEventId() != null  && SowReportBean.getFarrowEventId() !=0)
 							{
@@ -140,7 +173,10 @@ public class SowReportService {
 								}
 								rowBuffer.append(penIdMap.get(SowReportBean.getFarrowEventPenId())+seprater);
 								rowBuffer.append(parityInt+seprater);
-								rowBuffer.append(SowReportBean.getFarrowEventRemarks() !=null?SowReportBean.getFarrowEventRemarks():"");
+								
+								FarrowEventDto farrowEventDetails = farrowEventService.getFarrowEventDetails(SowReportBean.getFarrowEventId());
+								rowBuffer.append("No. Of Lives Born : "+farrowEventDetails.getLiveBorns() + " :: No. of Still Born : "+farrowEventDetails.getStillBorns() 
+										+" :: No of Mummies : "+farrowEventDetails.getMummies());
 								
 							}
 							else if(SowReportBean.getPigletStatusId()!= null  && SowReportBean.getPigletStatusId()!=0)
@@ -170,12 +206,19 @@ public class SowReportService {
 								}
 								rowBuffer.append(penIdMap.get(SowReportBean.getPigletStatusPenId())+seprater);	
 								rowBuffer.append(parityInt+seprater);
+							//	pigletStatusEventService.getPigletStatusEvents(pigletEventStatusDto)
 								rowBuffer.append(SowReportBean.getPigletStatusRemarks()!=null?SowReportBean.getPigletStatusRemarks():"");
 							}
 							
 							else if(SowReportBean.getRemovalEventExceptSalesDetailsId()!= null && SowReportBean.getRemovalEventExceptSalesDetailsId()!=0 )
 							{
-								rowBuffer.append("Removal"+seprater);
+								RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsRoomId());
+								if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
+								{
+									rowBuffer.append("Removal"+seprater);
+								}
+								else
+									rowBuffer.append("Transfer"+seprater);
 								
 								if(SowReportBean.getRemovalEventExceptSalesDetailsRoomId() != null && SowReportBean.getRemovalEventExceptSalesDetailsRoomId()!=0)
 								{
@@ -199,7 +242,17 @@ public class SowReportService {
 								}
 								rowBuffer.append(seprater);	
 								rowBuffer.append(parityInt+seprater);
-								rowBuffer.append(SowReportBean.getRemovalRemarks()!=null?SowReportBean.getRemovalRemarks():"");
+								//RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsRoomId());
+								if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
+								{
+									rowBuffer.append("Removal Type : "+removalEventTypeMap.get(removalEventExceptSalesDetailsById.getRemovalEventId()) + " :: Mortality Reason : "+mortalityReasonTypeMap.get(removalEventExceptSalesDetailsById.getMortalityReasonId()));
+								}
+								else
+								{
+									rowBuffer.append("To premises : "+premisesNameMap.get(removalEventExceptSalesDetailsById.getDestPremiseId()));
+								}
+								
+								
 							}
 							
 							else if(SowReportBean.getSalesEventDetailsId() != null  && SowReportBean.getSalesEventDetailsId() !=0)
@@ -210,7 +263,17 @@ public class SowReportService {
 								rowBuffer.append(seprater);
 								rowBuffer.append(seprater);
 								rowBuffer.append(parityInt+seprater);
-								rowBuffer.append(SowReportBean.getSalesRemarks()!=null?SowReportBean.getSalesRemarks():"");
+								SalesEventDetails salesEventDetailsById = salesEventDetailsService.getSalesEventDetailsById(SowReportBean.getSalesEventDetailsId());
+								StringBuffer salesTypeStr = new StringBuffer();
+								if(salesEventDetailsById.getSalesTypes() != null)
+								{
+									Integer [] salesType = salesEventDetailsById.getSalesTypes();
+									for(Integer i : salesType)
+									{
+										salesTypeStr.append(saleTypesMap.get(i) +":");
+									}
+								}
+								rowBuffer.append("Sales Type : "+salesTypeStr+" :: Invoice Id : "+salesEventDetailsById.getInvoiceId());
 								
 							}
 							else

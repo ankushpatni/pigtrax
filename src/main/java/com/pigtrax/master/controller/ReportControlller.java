@@ -16,10 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.master.service.interfaces.ReportService;
 import com.pigtrax.pigevents.beans.PigInfo;
@@ -935,12 +938,24 @@ public class ReportControlller {
 			try {
 				String selectedPremise = request.getParameter("selectedPremise");
 				String search = request.getParameter("search");
+				String companyString = request.getParameter("companyId1");
+				Integer companyId ;
 				
 				System.out.println("selectedPremise = " + selectedPremise);
 				System.out.println("search = " + search);
 				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
+				
 				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-				Integer companyId = activeUser.getCompanyId();
+				if(companyString != null && !StringUtils.isEmpty(companyString))
+				{
+					companyId = Integer.parseInt(companyString);
+				}
+				else
+				{
+					companyId = activeUser.getCompanyId();
+				}
 				System.out.println(companyId);
 				
 				response.setContentType("text/csv");
@@ -954,7 +969,7 @@ public class ReportControlller {
 					PigInfo pigInformation = pigInfoDao.getPigInformationByPigIdWithOutStatus(search, companyId, premisesId);
 					if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
 					{
-						rows = sowReportService.getSowReport(search,pigInformation.getId(), companyId);
+						rows = sowReportService.getSowReport(search,pigInformation.getId(), companyId, language);
 						Iterator<String> iter = rows.iterator();
 						while (iter.hasNext()) {
 							String outputString = (String) iter.next();
