@@ -25,8 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.pigtrax.master.service.interfaces.ReportService;
+import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
+import com.pigtrax.pigevents.service.interfaces.GroupEventService;
+import com.pigtrax.report.service.GroupReportService;
 import com.pigtrax.report.service.SowReportService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 
@@ -47,6 +50,12 @@ public class ReportControlller {
 	
 	@Autowired
 	SowReportService sowReportService;
+	
+	@Autowired
+	GroupReportService groupReportService;
+	
+	@Autowired
+	GroupEventService groupEventService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -933,6 +942,18 @@ public class ReportControlller {
 		return new ModelAndView("template", model);
 	}
 	
+	@RequestMapping(value = "/reportGenerationGroup", method = RequestMethod.GET)
+	public ModelAndView reportGenerationGroup(HttpServletRequest request) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("contentUrl", "reportGenerationGroup.jsp");
+		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer companyId = activeUser.getCompanyId();
+		model.put("CompanyId", companyId+"");
+		return new ModelAndView("template", model);
+	}
+	
 	@RequestMapping(value = "/generateReportSow", method = RequestMethod.POST)
 	public void generateReportSow(HttpServletRequest request, HttpServletResponse response) {
 			try {
@@ -993,12 +1014,65 @@ public class ReportControlller {
 			//return new ModelAndView("redirect:" + "reportGeneration?token=success");
 	}
 
-	private ArrayList<String> getSowReports(String selectedPremise,
-			String search, Integer companyId) {
-		
-		ArrayList<String> rows = new ArrayList<String>();
-		
-		return rows;
+	@RequestMapping(value = "/generateReportGroup", method = RequestMethod.POST)
+	public void generateReportGroup(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				String selectedPremise = request.getParameter("selectedPremise");
+				String search = request.getParameter("search");
+				String companyString = request.getParameter("companyId1");
+				Integer companyId ;
+				
+				System.out.println("selectedPremise = " + selectedPremise);
+				System.out.println("search = " + search);
+				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
+				
+				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				if(companyString != null && !StringUtils.isEmpty(companyString))
+				{
+					companyId = Integer.parseInt(companyString);
+				}
+				else
+				{
+					companyId = activeUser.getCompanyId();
+				}
+				System.out.println(companyId);
+				
+				response.setContentType("text/csv");
+				String reportName = "CSV_Report_"+search+".csv";
+				response.setHeader("Content-disposition", "attachment;filename="+reportName);
+		    
+				List<String> rows =new ArrayList<String>();
+						
+				try {
+					int premisesId = Integer.parseInt(selectedPremise);
+					GroupEvent groupEventByGroupId = groupEventService.getGroupEventByGroupId(search, companyId, premisesId);
+					if(null != groupEventByGroupId && groupEventByGroupId.getId() != null && groupEventByGroupId.getId() != 0)
+					{
+						rows = groupReportService.getSowReport(search,groupEventByGroupId.getId(), companyId, language);
+						Iterator<String> iter = rows.iterator();
+						while (iter.hasNext()) {
+							String outputString = (String) iter.next();
+							response.getOutputStream().print(outputString);
+						}
+					}
+					else
+					{
+						rows.add("Can not find Group by given Id");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					rows.add("There is some error please contact Admin");
+				}
+				
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//return new ModelAndView("redirect:" + "reportGeneration?token=success");
 	}
+
 
 }
