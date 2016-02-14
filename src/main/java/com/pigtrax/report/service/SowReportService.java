@@ -16,9 +16,11 @@ import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.pigevents.beans.PigletStatusEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.SalesEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
+import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
@@ -64,6 +66,9 @@ public class SowReportService {
 	PigletStatusEventService pigletStatusEventService; 
 	
 	@Autowired
+	PigletStatusEventDao pigletStatusEventdao; 
+	
+	@Autowired
 	FarrowEventService farrowEventService;
 	
 	@Autowired
@@ -77,6 +82,7 @@ public class SowReportService {
 	
 	@Autowired
 	RefDataCache refDataCache;
+	
 	
 	private static final String seprater = ",";
 
@@ -95,6 +101,8 @@ public class SowReportService {
 				Map<Integer, String> removalEventTypeMap = refDataCache.getRemovalEventTypeMap(language);
 				Map<Integer, String> mortalityReasonTypeMap = refDataCache.getMortalityReasonTypeMap(language);
 				Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
+				Map<Integer, String> pregenancyExamResultTypesMap = refDataCache.getPregnancyExamResultTypeMap(language);
+				Map<Integer, String> pigletStatusEventType = refDataCache.getPigletStatusEventType(language);
 				
 				StringBuffer rowBuffer = null;
 				returnRows.add("Sow ID, Event Date, Event Name, Barn, Room, Pen, Parity, Event Data");
@@ -108,33 +116,29 @@ public class SowReportService {
 							rowBuffer.append(SowReportBean.getEventDate() + seprater);
 							if(SowReportBean.getBreedingEventId() != null && SowReportBean.getBreedingEventId()!=0 )
 							{
-								rowBuffer.append("Breading,");
+								rowBuffer.append("Breeding"+seprater);
 								
 								if(SowReportBean.getBreedingEventPenId() != null && SowReportBean.getBreedingEventPenId() !=0)
 								{
 									Barn barn = barnDao.getBarnBasedOnPenId(SowReportBean.getBreedingEventPenId());
 									rowBuffer.append(barn.getBarnId() + seprater);
+								
+									Room room = roomDao.getRoomListBasedOnPen(SowReportBean.getBreedingEventPenId());
+									rowBuffer.append(room.getRoomId() + seprater);
+									
+									rowBuffer.append(penIdMap.get(SowReportBean.getBreedingEventPenId())+seprater);
 								}
 								else
 									
 								{
+									rowBuffer.append(seprater);
+									rowBuffer.append(seprater);
 									rowBuffer.append(seprater);
 								}
 								
-								if(SowReportBean.getBreedingEventPenId() != null && SowReportBean.getBreedingEventPenId()!=0)
-								{
-									Room room = roomDao.getRoomListBasedOnPen(SowReportBean.getBreedingEventPenId());
-									rowBuffer.append(room.getRoomId() + seprater);
-								}
-								else
-									
-								{
-									rowBuffer.append(seprater);
-								}
-								rowBuffer.append(penIdMap.get(SowReportBean.getBreedingEventPenId())+seprater);
 								rowBuffer.append(parityInt+seprater); // no remark for Brredingevent
 							}
-							if(SowReportBean.getPregnancyEventId() != null  && SowReportBean.getPregnancyEventId() !=0)
+							else if(SowReportBean.getPregnancyEventId() != null  && SowReportBean.getPregnancyEventId() !=0)
 							{
 								rowBuffer.append("Pregnancy"+seprater);
 								
@@ -143,7 +147,40 @@ public class SowReportService {
 								rowBuffer.append(seprater);
 								rowBuffer.append(parityInt+seprater); // no remark for Pregnancy
 								PregnancyEventDto pregnancyEventInformation = pregnancyEventService.getPregnancyEventInformation(SowReportBean.getPregnancyEventId(), language);
-								rowBuffer.append("Pregnancy Event Type : "+pregnancyEventInformation.getPregnancyEventType()+" :: Result : " +pregnancyEventInformation.getResultDateStr());
+								rowBuffer.append("Pregnancy Event Type : "+pregnancyEventInformation.getPregnancyEventType()+" :: Result : " +pregenancyExamResultTypesMap.get(pregnancyEventInformation.getPregnancyExamResultTypeId()));
+							}
+							
+							else if(SowReportBean.getPigletStatusId()!= null  && SowReportBean.getPigletStatusId()!=0)
+							{
+								
+								PigletStatusEvent pigletStatusEventInformation = pigletStatusEventdao.getPigletStatusEventInformation(SowReportBean.getPigletStatusId());
+								
+								rowBuffer.append(pigletStatusEventType.get(pigletStatusEventInformation.getPigletStatusEventTypeId())+seprater);
+								
+								if(SowReportBean.getPigletStatusPenId() != null && SowReportBean.getPigletStatusPenId()!=0)
+								{
+									Barn barn = barnDao.getBarnBasedOnPenId(SowReportBean.getPigletStatusPenId());
+									rowBuffer.append(barn.getBarnId() + seprater);
+									
+									Room room = roomDao.getRoomListBasedOnPen(SowReportBean.getPigletStatusPenId());
+									rowBuffer.append(room.getRoomId() + seprater);
+									
+									rowBuffer.append(penIdMap.get(SowReportBean.getPigletStatusPenId())+seprater);
+								}
+								else
+									
+								{
+									rowBuffer.append(seprater);
+									rowBuffer.append(seprater);
+									rowBuffer.append(seprater);
+								}
+									
+								rowBuffer.append(parityInt+seprater);
+								String info="";
+								if(pigletStatusEventInformation.getMortalityReasonTypeId() != null && pigletStatusEventInformation.getMortalityReasonTypeId() != 0)
+									info = mortalityReasonTypeMap.get(pigletStatusEventInformation.getMortalityReasonTypeId());
+								//else if(pigletStatusEventInformation.getP)
+								rowBuffer.append("Number of Pigs "+pigletStatusEventInformation.getNumberOfPigs() + " :: Info "+ info);
 							}
 							else if(SowReportBean.getFarrowEventId() != null  && SowReportBean.getFarrowEventId() !=0)
 							{
@@ -179,36 +216,7 @@ public class SowReportService {
 										+" :: No of Mummies : "+farrowEventDetails.getMummies());
 								
 							}
-							else if(SowReportBean.getPigletStatusId()!= null  && SowReportBean.getPigletStatusId()!=0)
-							{
-								rowBuffer.append("Piglet Status"+seprater);
-								
-								if(SowReportBean.getPigletStatusPenId() != null && SowReportBean.getPigletStatusPenId()!=0)
-								{
-									Barn barn = barnDao.getBarnBasedOnPenId(SowReportBean.getPigletStatusPenId());
-									rowBuffer.append(barn.getBarnId() + seprater);
-								}
-								else
-									
-								{
-									rowBuffer.append(seprater);
-								}
-								
-								if(SowReportBean.getPigletStatusPenId() != null && SowReportBean.getPigletStatusPenId()!=0)
-									{
-									Room room = roomDao.getRoomListBasedOnPen(SowReportBean.getPigletStatusPenId());
-									rowBuffer.append(room.getRoomId() + seprater);
-								}
-								else
-									
-								{
-									rowBuffer.append(seprater);
-								}
-								rowBuffer.append(penIdMap.get(SowReportBean.getPigletStatusPenId())+seprater);	
-								rowBuffer.append(parityInt+seprater);
-							//	pigletStatusEventService.getPigletStatusEvents(pigletEventStatusDto)
-								rowBuffer.append(SowReportBean.getPigletStatusRemarks()!=null?SowReportBean.getPigletStatusRemarks():"");
-							}
+							
 							
 							else if(SowReportBean.getRemovalEventExceptSalesDetailsId()!= null && SowReportBean.getRemovalEventExceptSalesDetailsId()!=0 )
 							{

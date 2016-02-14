@@ -980,7 +980,7 @@ public class ReportControlller {
 				System.out.println(companyId);
 				
 				response.setContentType("text/csv");
-				String reportName = "CSV_Sow.csv";
+				String reportName = "CSV_Sow_"+search+".csv";
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
 		    
 				List<String> rows =new ArrayList<String>();
