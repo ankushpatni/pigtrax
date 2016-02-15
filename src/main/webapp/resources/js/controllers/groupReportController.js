@@ -1,4 +1,4 @@
-pigTrax.controller('sowReportController', function($scope, $http, $window,$modal, restServices) {	
+pigTrax.controller('groupReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
 
 	
@@ -24,21 +24,20 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 	}
 	
         
-    $scope.searchPigInfo = function()
+    $scope.searchGroupInfo = function()
     {
 			$scope.pigInfo = {};
 			var searchPigInfo = {
-					searchText : $scope.searchText,
-					searchOption : 'pigId',
+					groupId : $scope.searchText,
 					companyId : $scope.companyId,
-					selectedPremise : $scope.selectedPremise
+					premiseId : $scope.selectedPremise
 			};
-			restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
+			restServices.getGroupEventInformation(searchPigInfo, function(data)
 			{
 				if(!data.error){
 					$scope.searchDataErrorMessage = false;
 					document.getElementById("companyId1").value	= $scope.companyId;		
-					document.forms['generateReportSow'].submit();
+					document.forms['generateReportGroup'].submit();
 				}
 				else
 				{
@@ -51,7 +50,6 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
     $scope.getCompanyList = function(){
     	
     		restServices.getCompanyList(function(data){
-console.log(data);
     			 if(!data.error)
     			 {
     				$scope.companyMapList = data.payload;

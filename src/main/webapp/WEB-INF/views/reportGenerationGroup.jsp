@@ -2,23 +2,23 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-	<h2><spring:message	code='label.piginfo.generateReport.heading'
-								text='Generate Report' /></h2>
+	<h2><spring:message	code='label.groupReport.generateReport.heading'
+								text='Generate Group Report' /></h2>
 </div>
-<div class="cl-mcont" id="sowReposrtGeneraterControllerId" ng-controller="sowReportController" ng-init="loadPremises('${CompanyId}')" class="container-fluid">
+<div class="cl-mcont" id="groupReposrtGeneraterControllerId" ng-controller="groupReportController" ng-init="loadPremises('${CompanyId}')" class="container-fluid">
 <div class="row">
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">
 			<div class="block-flat">
-				<form method="POST" novalidate angular-validator  action="generateReportSow" name="generateReportSow">
+				<form method="POST" novalidate angular-validator  action="generateReportGroup" name="generateReportGroup">
 					<div class="head">
 						<h3 style="color:green">${token}</h3>
 						<h3>
 							<spring:message
-								code='label.piginfo.generateReport.heading'
-								text='Generate Report' />
+								code='label.groupReport.generateReport.heading'
+								text='Generate Group Report' />
 						</h3>
-						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
+						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
 						
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>
@@ -36,10 +36,10 @@
                       		  </select>
 						</div>
 						<div  class="form-group">			
- 		   				 <input type="text" name="search" id="search" ng-enter="getPigInformation()" required required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.sowReport.search.pig'  text='Search by Pig Id ...'/>"/>
+ 		   				 <input type="text" name="search" id="search" required required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>
 						</div>
                     	
-						<button type="button" value="report" ng-click="searchPigInfo()">
+						<button type="button" value="report" ng-click="searchGroupInfo()">
 							<spring:message code='label.piginfo.generateReport.button'
 								text='Generate Report' />
 						</button>
