@@ -137,11 +137,11 @@ public class MatingDetailsValidation {
 		}
 	 
 		
-		 if(pigBirthDate != null && currentMatingDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) != 1) 
+		 if(pigBirthDate != null && currentMatingDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) < 0) 
 		  {
 			  return ERR_CODE_BIRTH_DATE;
 		  }
-		  else if(pigEntryDate != null && currentMatingDate.toLocalDate().compareTo(pigEntryDate.toLocalDate()) != 1)
+		  else if(pigEntryDate != null && currentMatingDate.toLocalDate().compareTo(pigEntryDate.toLocalDate()) < 0)
 		  {
 			  return ERR_CODE_ENTRY_DATE;
 		  }	  
@@ -154,7 +154,7 @@ public class MatingDetailsValidation {
 	  {
 		  return ERR_CODE_DUPLICATE_DATE;
 	  }
-	  else if(currentMatingDate.toLocalDate().isBefore(currentBreedingEventDate.toLocalDate()) && events != null)
+	  else if(currentMatingDate.toLocalDate().isBefore(currentBreedingEventDate.toLocalDate()) && events != null && events.size() > 0)
 	  {
 		  return ERR_CODE_PREG_CHECK_ADDED;
 	  }	 

@@ -122,11 +122,11 @@ public class BreedingEventValidation {
 	 
 		
 		
-	  if(pigBirthDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) != 1) 
+	  if(pigBirthDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigBirthDate.toLocalDate()) < 0) 
 	  {
 		  return ERR_CODE_BIRTH_DATE;
 	  }
-	  if(pigEntryDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigEntryDate.toLocalDate()) != 1)
+	  if(pigEntryDate != null && currentBreedingEventDate.toLocalDate().compareTo(pigEntryDate.toLocalDate()) < 0)
 	  {
 		  return ERR_CODE_ENTRY_DATE;
 	  }
