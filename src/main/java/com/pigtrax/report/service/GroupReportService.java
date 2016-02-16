@@ -120,7 +120,7 @@ public class GroupReportService {
 								if(groupReportBean.getRemovalEventExceptSalesDetailsRoomId() != null && groupReportBean.getRemovalEventExceptSalesDetailsRoomId()!=0)
 								{
 									Barn barn = barnDao.getBarnBasedOnRoomId(groupReportBean.getRemovalEventExceptSalesDetailsRoomId());
-									rowBuffer.append(barn.getBarnId() + seprater);
+									rowBuffer.append(barnIdMap.get(barn.getBarnId()) + seprater);
 								}
 								else
 									
@@ -139,9 +139,9 @@ public class GroupReportService {
 								}
 								//NumPigs: 50 Weight: 1350.0000 Value:  :  Reason: 02 Remark: 
 								
-									rowBuffer.append("NumPigs : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: Weight : "+removalEventExceptSalesDetailsById.getWeightInKgs()
+									/*rowBuffer.append("NumPigs : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: Weight : "+removalEventExceptSalesDetailsById.getWeightInKgs()
 											+ " :: Remark : "+removalEventExceptSalesDetailsById.getRemarks());
-									
+								*/	
 									if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
 									{
 										rowBuffer.append("Removal Type : "+removalEventTypeMap.get(removalEventExceptSalesDetailsById.getRemovalEventId()) +
