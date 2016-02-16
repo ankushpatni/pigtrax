@@ -6667,28 +6667,24 @@ INSERT INTO pigtraxrefdata."SiloTypeTranslation" ("fieldValue","fieldLanguage","
 
 INSERT INTO pigtraxrefdata."PhaseOfProductionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Nursery', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."PhaseOfProductionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Finishing',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."PhaseOfProductionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Wean To Finish Phase 1',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."PhaseOfProductionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Wean To Finish Phase 2',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."PhaseOfProductionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (5,'GDU',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."PhaseOfProductionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Wean To Finish',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."PhaseOfProductionType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'GDU',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Nursery','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Finishing','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish Phase 1','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish Phase 2','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('GDU','en',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('GDU','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 
 INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Nursery_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Finishing_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish Phase 1_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish Phase 2_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('GDU_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('GDU_es','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Nursery_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Finishing_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish Phase 1_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish Phase 2_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
-INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('GDU_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('Wean To Finish_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PhaseOfProductionTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PhaseOfProductionType") VALUES ('GDU_pr','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
 ------PigletstatuevebntType
 INSERT INTO pigtraxrefdata."PigletStatusEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Foster In', CURRENT_TIMESTAMP,'pigtraxadmin');
