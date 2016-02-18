@@ -29,6 +29,7 @@ import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
+import com.pigtrax.report.service.ActionListReportService;
 import com.pigtrax.report.service.GroupReportService;
 import com.pigtrax.report.service.SowReportService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
@@ -56,6 +57,9 @@ public class ReportControlller {
 	
 	@Autowired
 	GroupEventService groupEventService;
+	
+	@Autowired
+	ActionListReportService actionListReportService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -1073,6 +1077,65 @@ public class ReportControlller {
 				e.printStackTrace();
 			}
 			//return new ModelAndView("redirect:" + "reportGeneration?token=success");
+	}
+	
+	
+	
+	@RequestMapping(value = "/generateActionListReport", method = RequestMethod.POST)
+	public void generateActionListReport(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				String selectedPremise = request.getParameter("selectedPremise");
+				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
+				
+				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+				response.setContentType("text/csv");
+				String reportName = "CSV_Report_ActionListReport_"+selectedPremise+".csv";
+				response.setHeader("Content-disposition", "attachment;filename="+reportName);
+		    
+				List<String> rows =new ArrayList<String>();
+						
+				try {
+					Integer premiseId = Integer.parseInt(selectedPremise);
+					
+					if(premiseId > 0)
+					{
+						//rows = groupReportService.getSowReport(search,groupEventByGroupId.getId(), companyId, language);
+						rows = actionListReportService.getActionList(premiseId);
+						Iterator<String> iter = rows.iterator();
+						while (iter.hasNext()) {
+							String outputString = (String) iter.next();
+							response.getOutputStream().print(outputString);
+						}
+					}
+					else
+					{
+						rows.add("Can not find Group by given Id");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					rows.add("There is some error please contact Admin");
+				}
+				
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
+	@RequestMapping(value = "/reportGenerationActionList", method = RequestMethod.GET)
+	public ModelAndView reportGenerationActionList(HttpServletRequest request) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("contentUrl", "reportGenerationActionList.jsp");
+		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer companyId = activeUser.getCompanyId();
+		model.put("CompanyId", companyId+"");
+		return new ModelAndView("template", model);
 	}
 
 

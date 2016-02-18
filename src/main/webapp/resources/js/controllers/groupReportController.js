@@ -47,6 +47,16 @@ pigTrax.controller('groupReportController', function($scope, $http, $window,$mod
 			});
     }
     
+    
+    $scope.generateActionListReport = function()
+    {
+		document.getElementById("companyId1").value	= $scope.companyId;		
+		document.getElementById("selectedPremise").value	= $scope.selectedPremise;		
+		document.forms['generateReportActionList'].submit();
+			
+    }
+    
+    
     $scope.getCompanyList = function(){
     	
     		restServices.getCompanyList(function(data){
