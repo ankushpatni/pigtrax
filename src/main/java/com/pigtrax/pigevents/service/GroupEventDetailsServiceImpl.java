@@ -124,7 +124,9 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsServiceIm
 		int inventoryUpdatevalue=0;
 		try
 		{
-			returnValue =  groupEventDetailsDao.addGroupEventDetails(GroupEventBuilder.convertToBean(groupEventDto));
+			GroupEventDetails groupEventDetails = GroupEventBuilder.convertToBean(groupEventDto);
+			groupEventDetails.setRemarks("Pigs Added");
+			returnValue =  groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 			GroupEvent groupEvent = groupEventService.getGroupEventByGeneratedGroupId(groupEventDto.getGroupId(),groupEventDto.getCompanyId());
 			if(null != groupEventDto && groupEventDto.getNumberOfPigs() !=0)
 			{

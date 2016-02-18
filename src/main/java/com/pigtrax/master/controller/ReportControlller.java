@@ -1050,7 +1050,8 @@ public class ReportControlller {
 					GroupEvent groupEventByGroupId = groupEventService.getGroupEventByGroupId(search, companyId, premisesId);
 					if(null != groupEventByGroupId && groupEventByGroupId.getId() != null && groupEventByGroupId.getId() != 0)
 					{
-						rows = groupReportService.getSowReport(search,groupEventByGroupId.getId(), companyId, language);
+						//rows = groupReportService.getSowReport(search,groupEventByGroupId.getId(), companyId, language);
+						rows = groupReportService.getGroupReportNew(search,groupEventByGroupId, companyId, language);
 						Iterator<String> iter = rows.iterator();
 						while (iter.hasNext()) {
 							String outputString = (String) iter.next();

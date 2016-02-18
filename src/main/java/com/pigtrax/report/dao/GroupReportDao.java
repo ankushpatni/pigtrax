@@ -67,5 +67,47 @@ public class GroupReportDao {
 			return groupReportBean;
 		}
 	}
+	
+	
+	public List<GroupReportBean> getNewGroupList(final int groupId) {
+		
+		String query = " select GED.\"dateOfEntry\", GED.\"numberOfPigs\", GED.\"weightInKgs\", GED.\"remarks\", RES.\"id_MortalityReason\",SE.\"id\" as salesId, "
+				+" SE.\"ticketNumber\", SE.\"salesTypes\", SE.\"salesReasons\",RES.\"id\" as removalId, RES.\"id_RemovalEvent\",GE.\"groupStartDateTime\" "
+				+" from pigtrax.\"GroupEventDetails\" GED  "
+				+" left join pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GED.\"id_RemovalEventExceptSalesDetails\" = RES.\"id\" "
+				+" left join pigtrax.\"SalesEventDetails\" SE ON GED.\"id_SalesEventDetails\" = SE.\"id\" "
+				+" left join pigtrax.\"GroupEvent\" GE  ON GED.\"id_GroupEvent\" = GE.\"id\"  "
+				+" where GED.\"id_GroupEvent\" = ? order by GED.\"dateOfEntry\" desc ";
+
+
+		List<GroupReportBean> groupReportGroupList = jdbcTemplate.query(query, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, groupId);
+			}}, new GroupReportMapperNew());
+		
+		return groupReportGroupList;
+	}
+	
+	private static final class GroupReportMapperNew implements RowMapper<GroupReportBean> {
+		public GroupReportBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			GroupReportBean groupReportBean = new GroupReportBean();
+			//groupReportBean.setMasterEventId(rs.getInt("id"));
+			groupReportBean.setDateOfEntry(rs.getDate("dateOfEntry"));
+			groupReportBean.setNumberOfPigs(rs.getInt("numberOfPigs"));
+			groupReportBean.setWeightInKgs(rs.getDouble("weightInKgs"));
+			groupReportBean.setRemarks(rs.getString("remarks"));
+			groupReportBean.setMortalityReasonId(rs.getInt("id_MortalityReason"));
+			groupReportBean.setSalesId(rs.getInt("salesId"));
+			groupReportBean.setTicketNumber(rs.getString("ticketNumber"));
+			groupReportBean.setSalesTypes(rs.getString("salesTypes"));
+			groupReportBean.setSalesReasons(rs.getString("salesReasons"));
+			groupReportBean.setGroupStartDateTime(rs.getDate("groupStartDateTime"));
+			groupReportBean.setRemovalId(rs.getInt("removalId"));
+			groupReportBean.setRemovalTypeId(rs.getInt("id_RemovalEvent"));
+			return groupReportBean;
+		}
+	}
+	
 
 }

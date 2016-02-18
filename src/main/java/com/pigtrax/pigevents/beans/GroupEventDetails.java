@@ -23,6 +23,9 @@ public class GroupEventDetails {
 	private Integer fromGroupId;
 	private String fromGroupIdStr;
 	
+	private Integer removalId;
+	private Integer salesId;
+	
 	public Date getDateOfEntry() {
 		return dateOfEntry;
 	}
@@ -132,6 +135,16 @@ public class GroupEventDetails {
 	public void setFromGroupIdStr(String fromGroupIdStr) {
 		this.fromGroupIdStr = fromGroupIdStr;
 	}
-	
-	
+	public Integer getRemovalId() {
+		return removalId;
+	}
+	public void setRemovalId(Integer removalId) {
+		this.removalId = removalId;
+	}
+	public Integer getSalesId() {
+		return salesId;
+	}
+	public void setSalesId(Integer salesId) {
+		this.salesId = salesId;
+	}	
 }

@@ -11,23 +11,20 @@ import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.BarnDao;
 import com.pigtrax.master.dao.interfaces.RoomDao;
 import com.pigtrax.master.dto.Barn;
-import com.pigtrax.master.dto.Room;
 import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.SalesEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
-import com.pigtrax.pigevents.dto.FarrowEventDto;
-import com.pigtrax.pigevents.dto.PregnancyEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletStatusEventService;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
 import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
 import com.pigtrax.report.bean.GroupReportBean;
-import com.pigtrax.report.bean.SowReportBean;
 import com.pigtrax.report.dao.GroupReportDao;
 
 /**
@@ -81,7 +78,7 @@ public class GroupReportService {
 	
 	private static final String seprater = ",";
 	
-	public ArrayList<String> getSowReport(String groupIdStr, int groupId, int companyId, String language)
+	public ArrayList<String> getGroupReport(String groupIdStr, int groupId, int companyId, String language)
 	{
 		ArrayList<String> returnRows = new ArrayList<String>();
 		try {
@@ -203,5 +200,147 @@ public class GroupReportService {
 		return returnRows;
 	}
 
+	public ArrayList<String> getGroupReportNew(String groupIdStr, GroupEvent groupEvent, int companyId, String language)
+	{
+		ArrayList<String> returnRows = new ArrayList<String>();
+		try {
+			List<GroupReportBean> groupList = groupReportDao.getNewGroupList(groupEvent.getId());
+
+			if (groupList != null && groupList.size() > 0) {
+				
+				Map<Integer, String> premisesNameMap = premisesService.getPremisesNameMapBasedOnCompanyId(companyId);
+				Map<Integer,String> barnIdMap  = barnService.getBarnListBasedOnCompanyId(companyId);
+				Map<Integer,String> roomIdMap = roomService.getRoomListBasedOnCompanyId(companyId);
+				Map<Integer, String> removalEventTypeMap = refDataCache.getRemovalEventTypeMap(language);
+				Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
+				Map<Integer, String> mortalityReasonTypeMap = refDataCache.getMortalityReasonTypeMap(language);
+				
+				
+				StringBuffer rowBuffer = new StringBuffer();
+				returnRows.add("Group ID, Event Date, Event Name, Barn, Room, Data");
+				returnRows.add("\n");				
+				rowBuffer.append(groupIdStr).append(seprater).append(groupEvent.getGroupStartDateTime()).append(seprater).append("Group Start").append(seprater).append(seprater).append(seprater);
+				returnRows.add(rowBuffer.toString());
+				returnRows.add("\n");
+				
+				for (GroupReportBean groupReportBean : groupList) {
+					rowBuffer = new StringBuffer();
+						//if(groupReportBean.getGroupEventId() != null)
+						{
+							rowBuffer.append(groupIdStr + seprater);
+							rowBuffer.append(groupReportBean.getDateOfEntry() + seprater);
+							rowBuffer.append(groupReportBean.getRemarks());
+							rowBuffer.append(seprater).append(seprater).append(seprater);
+							if(groupReportBean.getRemovalId() != null && groupReportBean.getRemovalId()!=0 )
+							{
+								/*RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(groupReportBean.getRemovalEventExceptSalesDetailsRoomId());
+								
+								if(groupReportBean.getRemovalEventExceptSalesDetailsRoomId() != null && groupReportBean.getRemovalEventExceptSalesDetailsRoomId()!=0)
+								{
+									Barn barn = barnDao.getBarnBasedOnRoomId(groupReportBean.getRemovalEventExceptSalesDetailsRoomId());
+									rowBuffer.append(barnIdMap.get(barn.getBarnId()) + seprater);
+								}
+								else
+									
+								{
+									rowBuffer.append(seprater);
+								}
+								
+								if(groupReportBean.getRemovalEventExceptSalesDetailsRoomId() != null && groupReportBean.getRemovalEventExceptSalesDetailsRoomId()!=0)
+								{
+									rowBuffer.append(roomIdMap.get(groupReportBean.getRemovalEventExceptSalesDetailsRoomId()) + seprater);
+								}
+								else
+									
+								{
+									rowBuffer.append(seprater);
+								}*/
+								//NumPigs: 50 Weight: 1350.0000 Value:  :  Reason: 02 Remark: 
+								
+									/*rowBuffer.append("NumPigs : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: Weight : "+removalEventExceptSalesDetailsById.getWeightInKgs()
+											+ " :: Remark : "+removalEventExceptSalesDetailsById.getRemarks());
+								*/	
+									if(groupReportBean.getRemovalTypeId() !=9)
+									{
+										rowBuffer.append("NumPigs : "+groupReportBean.getNumberOfPigs() +
+												" :: Removal Type : "+removalEventTypeMap.get(groupReportBean.getRemovalTypeId()) + " :: Weight : "+groupReportBean.getWeightInKgs()+
+												" :: Mortality Reason : "+mortalityReasonTypeMap.get(groupReportBean.getMortalityReasonId()));
+									}
+									/*else
+									{
+										rowBuffer.append("NumPigs : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: To premises : "+premisesNameMap.get(removalEventExceptSalesDetailsById.getDestPremiseId()) +
+												" :: To Room : "+roomIdMap.get(removalEventExceptSalesDetailsById.getRoomId()));
+									}*/
+								
+							}
+							
+							else if(groupReportBean.getSalesId() != null  && groupReportBean.getSalesId() !=0)
+							{
+								SalesEventDetails salesEventDetailsById = salesEventDetailsService.getSalesEventDetailsById(groupReportBean.getSalesId());
+								StringBuffer salesTypeStr = new StringBuffer();
+								if(salesEventDetailsById.getSalesTypes() != null)
+								{
+									Integer [] salesType = getSalesTypesAsString(groupReportBean.getSalesTypes());
+									for(Integer i : salesType)
+									{
+										salesTypeStr.append(saleTypesMap.get(i) +":");
+									}
+								}
+								rowBuffer.append("NumPigs : "+groupReportBean.getNumberOfPigs() + " :: Weight : "+groupReportBean.getWeightInKgs() + " :: Sales Type : "+salesTypeStr+" :: Ticket Number : "+groupReportBean.getTicketNumber());
+								
+							}
+							else
+							{
+								rowBuffer.append("NumPigs : "+groupReportBean.getNumberOfPigs() +" :: Weight : "+groupReportBean.getWeightInKgs() );
+							}
+							returnRows.add(rowBuffer.toString()+"\n");
+								
+							}
+						
+						/* else {
+								returnRows.add("Can not find pig by given Id");
+							}*/
+						
+						}						
+				}
+			if(groupEvent.getGroupCloseDateTime() != null)
+			{
+				StringBuffer rowBuffer = new StringBuffer();
+				rowBuffer.append(groupIdStr).append(seprater).append(groupEvent.getGroupStartDateTime()).append(seprater).append("Group Start").append(seprater).append(seprater).append(seprater);
+				returnRows.add(rowBuffer.toString());
+			}
+			
+			}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			returnRows.add("Error occured please coontact admin.");
+		}
+		
+		return returnRows;
+	}
+	
+	public Integer[] getSalesTypesAsString(String salesTypesAsString) {
+		Integer[] salesTypes = null;
+		if(salesTypesAsString != null)
+		{
+			String[] types = salesTypesAsString.split(",");
+			if(types != null && 0<types.length)
+				salesTypes = new Integer[types.length];
+			int i = 0;
+			for(String s : types)
+			{
+				try{
+					salesTypes[i] = Integer.parseInt(s);
+				}catch(Exception e)
+				{
+					
+				}
+				i++;
+			}
+		}
+		return salesTypes;
+		
+	}
 
 }

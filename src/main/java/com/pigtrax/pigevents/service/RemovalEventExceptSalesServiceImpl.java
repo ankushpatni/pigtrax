@@ -86,6 +86,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 			throws PigTraxException 
 	{
 		int returnValue = 0;
+		GroupEventDetails groupEventDetails = null;
 		try
 		{
 			if (null != removalEventExceptSalesDetails.getTransportJourney())
@@ -127,14 +128,13 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					else
 					{
 						//Add a negative transaction in the group event details
-						GroupEventDetails groupEventDetails = new GroupEventDetails();
+						groupEventDetails = new GroupEventDetails();
 						groupEventDetails.setGroupId(groupEventUpdate.getId());
-						groupEventDetails.setDateOfEntry(DateUtil.getToday());
+						groupEventDetails.setDateOfEntry(removalEventExceptSalesDetails.getRemovalDateTime());
 						groupEventDetails.setNumberOfPigs(-1*removalEventExceptSalesDetails.getNumberOfPigs());
 						groupEventDetails.setWeightInKgs(removalEventExceptSalesDetails.getWeightInKgs().doubleValue());
 						groupEventDetails.setUserUpdated(removalEventExceptSalesDetails.getUserUpdated());
 						groupEventDetails.setRemarks("Removed through Pig Movement");
-						groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 						
 						groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - removalEventExceptSalesDetails.getNumberOfPigs());
 						groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
@@ -179,6 +179,13 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 			}
 						
 			returnValue = removalEventExceptSalesDetailsDao.addRemovalEventExceptSalesDetails(removalEventExceptSalesDetails);
+			
+			if(groupEventDetails!= null)
+			{
+				groupEventDetails.setRemovalId(returnValue);
+				groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+			}
+			
 			PigTraxEventMaster master = new PigTraxEventMaster();
 			if(removalEventExceptSalesDetails.getPigInfoId() != null && removalEventExceptSalesDetails.getPigInfoId()!=0)
 				master.setPigInfoId(removalEventExceptSalesDetails.getPigInfoId());

@@ -73,6 +73,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 			throws PigTraxException 
 	{
 		int returnValue = 0;
+		GroupEventDetails groupEventDetails = null;
 		try
 		{
 			if (null != salesEventDetails.getTransportJourney())
@@ -100,15 +101,13 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 				if(null != groupEventUpdate )
 				{
 					//Add a negative transaction in the group event details
-					GroupEventDetails groupEventDetails = new GroupEventDetails();
+					groupEventDetails = new GroupEventDetails();
 					groupEventDetails.setGroupId(groupEventUpdate.getId());
-					groupEventDetails.setDateOfEntry(DateUtil.getToday());
+					groupEventDetails.setDateOfEntry(salesEventDetails.getSalesDateTime());
 					groupEventDetails.setNumberOfPigs(-1*salesEventDetails.getNumberOfPigs());
 					groupEventDetails.setWeightInKgs(salesEventDetails.getWeightInKgs().doubleValue());
 					groupEventDetails.setUserUpdated(salesEventDetails.getUserUpdated());
 					groupEventDetails.setRemarks("Sold through Pig Movement");
-					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);	
-					
 					
 					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - salesEventDetails.getNumberOfPigs());
 					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
@@ -124,7 +123,11 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 				}
 			}
 			returnValue = salesEventDetailsDao.addSalesEventDetails(salesEventDetails);
-			
+			if(groupEventDetails != null)
+			{
+				groupEventDetails.setSalesId(returnValue);
+				groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+			}
 			PigTraxEventMaster master = new PigTraxEventMaster();
 			if(salesEventDetails.getPigInfoId() !=null && salesEventDetails.getPigInfoId()!=0)
 				master.setPigInfoId(salesEventDetails.getPigInfoId());
