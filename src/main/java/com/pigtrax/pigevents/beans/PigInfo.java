@@ -27,6 +27,7 @@ public class PigInfo {
 	private Integer gfunctionTypeId;
 	private Integer originId;
 	private Integer premiseId;
+	private Integer lastGestationLength;
 
 	public Integer getFarrowId() {
 		return farrowId;
@@ -230,6 +231,13 @@ public class PigInfo {
 
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
+	}
+	public Integer getLastGestationLength() {
+		return lastGestationLength;
+	}
+
+	public void setLastGestationLength(Integer lastGestationLength) {
+		this.lastGestationLength = lastGestationLength;
 	}
 
 	@Override

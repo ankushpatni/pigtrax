@@ -414,13 +414,14 @@ public class PigInfoDaoImpl implements PigInfoDao {
 	}
 	
 	@Override 
-	public int increaseParity(final Integer pigInfoId) {
-		String query = "update pigtrax.\"PigInfo\" SET \"parity\"=\"parity\"+1  WHERE \"id\" = ?";
+	public int increaseParity(final Integer pigInfoId, final Integer gestationLength) {
+		String query = "update pigtrax.\"PigInfo\" SET \"parity\"=\"parity\"+1, \"lastGestationLength\" = ?  WHERE \"id\" = ?";
 
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, pigInfoId);
+				ps.setObject(1, gestationLength, java.sql.Types.INTEGER);
+				ps.setInt(2, pigInfoId);
 			}
 		});
 	}

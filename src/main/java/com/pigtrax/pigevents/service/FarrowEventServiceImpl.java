@@ -93,7 +93,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 					 
 					if(farrowEventDto.getId() == null)
 					{			   
-					   return addFarrowEventInformation(farrowEvent, farrowEventDto.getCompanyId());
+					   return addFarrowEventInformation(farrowEvent, farrowEventDto.getCompanyId(), farrowEventDto.getLastGestationLength());
 					}
 					else
 					{
@@ -148,6 +148,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 						if(duration >= 105 && duration <= 130)
 						{
 							farrowEventDto.setBreedingEventId(breedingEventDetails.getId());
+							farrowEventDto.setLastGestationLength(duration);
 							break;
 						}
 					}
@@ -163,11 +164,11 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	
 	
 	@Transactional("ptxJTransactionManager")
-	private int addFarrowEventInformation(FarrowEvent farrowEvent, Integer companyId) throws SQLException
+	private int addFarrowEventInformation(FarrowEvent farrowEvent, Integer companyId, Integer gestationLength) throws SQLException
 	{		
 		int farrowEventId = farrowEventDao.addFarrowEventDetails(farrowEvent);
 		
-		pigInfoDao.increaseParity(farrowEvent.getPigInfoId());
+		pigInfoDao.increaseParity(farrowEvent.getPigInfoId(), gestationLength);
 		
 		farrowEventDao.updateLitterId(farrowEventId, companyId);
 		

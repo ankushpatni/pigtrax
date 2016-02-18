@@ -763,6 +763,7 @@ CREATE TABLE pigtrax."PigInfo"(
 	"isActive" boolean,
 	"id_Origin" smallint,
 	"id_Premise" integer,
+	"lastGestationLength" integer default 0,
 	CONSTRAINT "PIGINFO_PK" PRIMARY KEY (id)
 );
 -- ddl-end --

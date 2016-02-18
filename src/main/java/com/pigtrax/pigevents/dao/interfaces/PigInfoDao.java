@@ -31,7 +31,7 @@ public interface PigInfoDao {
    
    public int updatePigInfoStatus(final Integer id, final Boolean pigStatus);
    
-   int increaseParity(Integer pigInfoId); 
+   int increaseParity(Integer pigInfoId, Integer gestationLength); 
    
    int decreaseParity(Integer pigInfoId);
    

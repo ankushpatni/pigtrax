@@ -43,6 +43,7 @@ public class FarrowEventDto {
 	private Integer selectedPremise;
 	private String farrowDateStr;
 	private Integer breedingEventId;
+	private Integer lastGestationLength;
 	
 	public Integer getId() {
 		return id;
@@ -265,6 +266,12 @@ public class FarrowEventDto {
 	}
 	public void setBreedingEventId(Integer breedingEventId) {
 		this.breedingEventId = breedingEventId;
+	}
+	public Integer getLastGestationLength() {
+		return lastGestationLength;
+	}
+	public void setLastGestationLength(Integer lastGestationLength) {
+		this.lastGestationLength = lastGestationLength;
 	}
 
 	
