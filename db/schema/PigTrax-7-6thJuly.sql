@@ -1844,11 +1844,27 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 	"id_Premise" integer,
 	"id_PigletStatusEvent" integer,
 	"id_FromGroup" integer,
+    "id_RemovalEventExceptSalesDetails" integer,
+    "id_SalesEventDetails" integer,
 	CONSTRAINT "GROUPDEVENTDETAIL_PK" PRIMARY KEY (id)
 
 );
 -- ddl-end --
 ALTER TABLE pigtrax."GroupEventDetails" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "RemovalEventExceptSalesDetails_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "Room_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "RemovalEventExceptSalesDetails_fk" FOREIGN KEY ("id_RemovalEventExceptSalesDetails")
+REFERENCES pigtrax."RemovalEventExceptSalesDetails" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: "SalesEventDetails_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."SalesEventDetails" DROP CONSTRAINT IF EXISTS "Room_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "SalesEventDetails_fk" FOREIGN KEY ("id_SalesEventDetails")
+REFERENCES pigtrax."SalesEventDetails" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: "Room_fk" | type: CONSTRAINT --
