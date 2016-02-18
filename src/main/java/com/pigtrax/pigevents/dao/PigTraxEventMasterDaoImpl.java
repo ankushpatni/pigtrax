@@ -135,7 +135,7 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	@Override
 	public int updateFarrowEventMasterDetails(final PigTraxEventMaster master)
 			throws SQLException {
-		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = ?, \"lastUpdated\"=current_timestamp where \"id_FarrowEvent\" = ? and \"id_PigInfo\" = ?";
+		String qry = "update pigtrax.\"PigTraxEventMaster\" set \"eventTime\" = ?, \"lastUpdated\"=current_timestamp where \"id_FarrowEvent\" = ? and \"id_PigInfo\" = ? and \"id_PigletStatus\" is Null  ";
 		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
 			
 			public void setValues(PreparedStatement ps) throws SQLException {
