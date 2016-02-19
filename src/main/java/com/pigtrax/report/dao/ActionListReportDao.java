@@ -37,6 +37,7 @@ public class ActionListReportDao {
 				+" T.\"pigId\" as \"Sow Id\", " 
 				+" T.\"parity\", " 
 				+" T.\"Age\", " 
+				+" T.\"serviceGroupId\" as \"Service Group\",  "
 				+" T.\"Sow Phase Date\", " 
 				+" T.\"Sow Phase\", " 
 				+" T.\"roomId\", " 
@@ -53,13 +54,15 @@ public class ActionListReportDao {
 				+" ELSE NULL " 
 				+" END as \"Due Date Anticipated\", "	 
 				+" T.\"farrowDateTime\" as \"Farrow Date\", "
+				+" current_date-T.\"Sow Phase Date\"::date as \"OverDue\", "
 				+" T.\"Avg Gestlength\", "
 				+" T.\"Lactating days\" "
 				+" FROM " 
 				+" (SELECT " 
 				+" PEM.\"id_PigInfo\", "
 				+" PI.\"pigId\", " 
-				+" PI.\"parity\",current_date-(CASE WHEN \"birthDate\"<> NULL THEN \"birthDate\" ELSE \"entryDate\" END)::date as \"Age\", "  
+				+" PI.\"parity\",current_date-(CASE WHEN \"birthDate\"<> NULL THEN \"birthDate\" ELSE \"entryDate\" END)::date as \"Age\", "
+				+" BE.\"serviceGroupId\" , "
 				+" PEM.\"eventTime\" as \"Sow Phase Date\", "	
 				+" CASE WHEN PEM.\"id_FarrowEvent\" > 0 THEN 'Farrow' " 
 				+" ELSE  CASE WHEN PEM.\"id_PregnancyEvent\" > 0 THEN 'PregnancyEvent' "
@@ -121,6 +124,8 @@ public class ActionListReportDao {
 			actionListReportBean.setDueDateAnticipated(rs.getDate("Due Date Anticipated"));
 			actionListReportBean.setGestationLength(rs.getInt("Avg Gestlength"));
 			actionListReportBean.setLactatingDays(rs.getInt("Lactating days"));
+			actionListReportBean.setOverDue(rs.getInt("OverDue"));
+			actionListReportBean.setServiceGroupId(rs.getString("Service Group"));
 			return actionListReportBean;
 		}
 	}

@@ -18,6 +18,7 @@ public class ActionListReportBean {
 	private Integer gestationLength;
 	private Integer lactatingDays;
 	private Integer overDue;
+	private String serviceGroupId;
 
 	public String getPigId() {
 		return pigId;
@@ -142,7 +143,17 @@ public class ActionListReportBean {
 	}
 
 	public void setOverDue(Integer overDue) {
+		if(overDue == null) overDue = 0;
 		this.overDue = overDue;
+	}
+
+	public String getServiceGroupId() {
+		return serviceGroupId;
+	}
+
+	public void setServiceGroupId(String serviceGroupId) {
+		if(serviceGroupId == null) serviceGroupId = "";
+		this.serviceGroupId = serviceGroupId;
 	}
 	
 	
