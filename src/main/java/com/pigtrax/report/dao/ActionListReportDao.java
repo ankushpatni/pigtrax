@@ -37,13 +37,15 @@ public class ActionListReportDao {
 				+" T.\"pigId\" as \"Sow Id\", " 
 				+" T.\"parity\", " 
 				+" T.\"Age\", " 
+				+" T.\"serviceGroupId\" as \"Service Group\",  "
 				+" T.\"Sow Phase Date\", " 
 				+" T.\"Sow Phase\", " 
 				+" T.\"roomId\", " 
 				+" T.\"penId\", " 
 				+" T.\"currentServiceDate\" as \"Current Service Date\", " 
 				+" T.\"fieldDescription\" as \"Pregnancy Event Type\", " 
-				+" T.\"resultDate\" as \"Pregnancy Event Date\", " 	
+				+" T.\"resultDate\" as \"Pregnancy Event Date\", "
+				+" CASE WHEN (t.\"Sow Phase\" <> 'BreedingEvent' AND t.\"Sow Phase\" <> 'EntryEvent' AND t.\"Sow Phase\" <> 'PrengancyEvent') THEN T.\"ServNo\" ELSE 0 END as \"ServNo\", "
 				+" CASE WHEN t.\"Sow Phase\" = 'BreedingEvent' OR t.\"Sow Phase\" = 'PregnancyEvent' " 
 				+" THEN " 
 				+" (CASE WHEN t.\"parity\" = 0 "  
@@ -53,18 +55,25 @@ public class ActionListReportDao {
 				+" ELSE NULL " 
 				+" END as \"Due Date Anticipated\", "	 
 				+" T.\"farrowDateTime\" as \"Farrow Date\", "
+				+" current_date-T.\"Sow Phase Date\"::date as \"OverDue\", "
 				+" T.\"Avg Gestlength\", "
 				+" T.\"Lactating days\" "
 				+" FROM " 
 				+" (SELECT " 
 				+" PEM.\"id_PigInfo\", "
 				+" PI.\"pigId\", " 
-				+" PI.\"parity\",current_date-(CASE WHEN \"birthDate\"<> NULL THEN \"birthDate\" ELSE \"entryDate\" END)::date as \"Age\", "  
+				+" PI.\"parity\",current_date-(CASE WHEN \"birthDate\"<> NULL THEN \"birthDate\" ELSE \"entryDate\" END)::date as \"Age\", "
+				+" BE.\"serviceGroupId\" , "
 				+" PEM.\"eventTime\" as \"Sow Phase Date\", "	
+				+" CASE WHEN PEM.\"id_SalesEventDetails\" > 0 THEN 'SalesEvent' ELSE "
+			    +" CASE WHEN PEM.\"id_RemovalEventExceptSalesDetails\" > 0 THEN 'RemovalEvent' "
+			    +" ELSE "
+			    +" CASE WHEN PEM.\"id_PigletStatus\" > 0 THEN 'PigletStatusEvent' "
+			    +" ELSE "
 				+" CASE WHEN PEM.\"id_FarrowEvent\" > 0 THEN 'Farrow' " 
 				+" ELSE  CASE WHEN PEM.\"id_PregnancyEvent\" > 0 THEN 'PregnancyEvent' "
 				+" ELSE CASE WHEN PEM.\"id_BreedingEvent\" > 0 THEN 'BreedingEvent' " 
-				+" ELSE 'EntryEvent' END END END AS \"Sow Phase\", "
+				+" ELSE 'EntryEvent' END END END END END END AS \"Sow Phase\", "
 				+" R.\"roomId\", " 
 				+" PI.\"id_Room\", " 
 				+" PEN.\"penId\", "
@@ -75,7 +84,8 @@ public class ActionListReportDao {
 				+" SUB_BE.\"serviceStartDate\"as \"farrowServiceDate\", "
 				+" CASE WHEN PI.\"lastGestationLength\" IS NOT NULL AND PI.\"lastGestationLength\" > 0 THEN  PI.\"lastGestationLength\" ELSE 115 END as \"lastGestationLength\", "
 				+" CASE WHEN PEM.\"id_FarrowEvent\">0 THEN (FE.\"farrowDateTime\":: date - SUB_BE.\"serviceStartDate\" ::date) ELSE 0 END as \"Avg Gestlength\", "
-				+" CASE WHEN PEM.\"id_FarrowEvent\">0 THEN (current_date - FE.\"farrowDateTime\" ::date) ELSE 0 END as \"Lactating days\" "
+				+" CASE WHEN PEM.\"id_FarrowEvent\">0 THEN (current_date - FE.\"farrowDateTime\" ::date) ELSE 0 END as \"Lactating days\", "
+				+" BE_PAR.\"ServNo\" "	
 				+" FROM " 
 				+" pigtrax.\"PigTraxEventMaster\" PEM  "
 				+" JOIN pigtrax.\"PigInfo\" PI ON PEM.\"id_PigInfo\" = PI.\"id\" "
@@ -87,6 +97,8 @@ public class ActionListReportDao {
 				+" LEFT JOIN pigtrax.\"BreedingEvent\" BE on PEM.\"id_BreedingEvent\" = BE.\"id\" "
 				+" LEFT JOIN (SELECT \"id\", \"serviceStartDate\" from pigtrax.\"BreedingEvent\" where \"id\" in (select max(\"id\") from pigtrax.\"BreedingEvent\" group by \"id_PigInfo\")) SUB_BE on FE.\"id_BreedingEvent\" = SUB_BE.\"id\" "
 				+" LEFT JOIN (SELECT \"id\", \"serviceStartDate\" from pigtrax.\"BreedingEvent\" where \"id\" in (select max(\"id\") from pigtrax.\"BreedingEvent\" group by \"id_PigInfo\")) SUB_BE1 on PE.\"id_BreedingEvent\" = SUB_BE1.\"id\" "
+				+" LEFT JOIN (select \"id_PigInfo\", \"currentParity\", count(\"currentParity\") as \"ServNo\" "
+				+ "		FROM pigtrax.\"BreedingEvent\" where \"serviceStartDate\" IS NOT NULL group by \"id_PigInfo\",\"currentParity\") BE_PAR ON PEM.\"id_PigInfo\" = BE_PAR.\"id_PigInfo\" and PI.\"parity\" = BE_PAR.\"currentParity\" "    
 				+" WHERE "
 				+" PEM.\"id\" in " 
 				+" (SELECT max(PEM1.\"id\") " 
@@ -121,6 +133,9 @@ public class ActionListReportDao {
 			actionListReportBean.setDueDateAnticipated(rs.getDate("Due Date Anticipated"));
 			actionListReportBean.setGestationLength(rs.getInt("Avg Gestlength"));
 			actionListReportBean.setLactatingDays(rs.getInt("Lactating days"));
+			actionListReportBean.setOverDue(rs.getInt("OverDue"));
+			actionListReportBean.setServiceGroupId(rs.getString("Service Group"));
+			actionListReportBean.setServNum(rs.getInt("ServNo"));
 			return actionListReportBean;
 		}
 	}

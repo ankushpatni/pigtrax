@@ -28,6 +28,7 @@ public class PigInfo {
 	private Integer originId;
 	private Integer premiseId;
 	private Integer lastGestationLength;
+	private Integer serveNum;
 
 	public Integer getFarrowId() {
 		return farrowId;
@@ -238,6 +239,14 @@ public class PigInfo {
 
 	public void setLastGestationLength(Integer lastGestationLength) {
 		this.lastGestationLength = lastGestationLength;
+	}
+
+	public Integer getServeNum() {
+		return serveNum;
+	}
+
+	public void setServeNum(Integer serveNum) {
+		this.serveNum = serveNum;
 	}
 
 	@Override

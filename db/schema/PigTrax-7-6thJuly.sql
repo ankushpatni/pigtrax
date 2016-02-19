@@ -302,6 +302,7 @@ CREATE TABLE pigtrax."BreedingEvent"(
 	"lastUpdated" timestamp NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Premise" integer,
+	"currentParity" integer default 0,
 	CONSTRAINT "BREEDING_PK" PRIMARY KEY (id)
 );
 ALTER TABLE pigtrax."BreedingEvent" OWNER TO pitraxadmin;

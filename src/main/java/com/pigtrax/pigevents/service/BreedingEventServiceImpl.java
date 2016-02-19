@@ -89,6 +89,7 @@ public class BreedingEventServiceImpl implements BreedingEventService {
 						if(check)
 						{
 							logger.info("Breeding Event Dtoo : "+dto.toString());
+							breedingEvent.setCurrentParity(pigInfo.getParity()+1);
 							breedingEventId =  addBreedingEventInformation(breedingEvent);
 						}
 						else

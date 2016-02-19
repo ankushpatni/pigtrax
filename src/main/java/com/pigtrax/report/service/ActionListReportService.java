@@ -35,7 +35,7 @@ public class ActionListReportService {
 
 			StringBuffer rowBuffer = null;
 			returnRows
-					.add("Sow Id, Parity, Age, Service Group, Sow Phase Date, Sow Phase, Room, Pen, Pregnancy Event Type, Pregnancy Event Date, Serv No, Due Date Anticipated, Overdue, Average Gestation Length, Lactating Days");
+					.add("Sow Id, Parity, Age, Service Group, Sow Phase Date(mm/dd/yyyy), Sow Phase, Room, Pen, Pregnancy Event Type, Pregnancy Event Date(mm/dd/yyyy), Serv No, Due Date Anticipated(mm/dd/yyyy), Overdue, Average Gestation Length, Lactating Days");
 			returnRows.add("\n");
 			int parityInt = 0;
 			for (ActionListReportBean actionBean : actionList) {
@@ -44,7 +44,7 @@ public class ActionListReportService {
 					rowBuffer.append(actionBean.getPigId() + seprater);
 					rowBuffer.append(actionBean.getParity() + seprater);
 					rowBuffer.append(actionBean.getAge() + seprater);
-					rowBuffer.append(" "+seprater);
+					rowBuffer.append(actionBean.getServiceGroupId()+seprater);
 					try {
 						dateStr = DateUtil.convertToFormatString(actionBean.getSowPhaseDate(), "MM/dd/yyyy");
 						if(dateStr != null)
@@ -67,7 +67,7 @@ public class ActionListReportService {
 					} catch (ParseException e) {
 						rowBuffer.append(" "+seprater);
 					}
-					rowBuffer.append(" "+seprater);
+					rowBuffer.append(actionBean.getServNum()+seprater);
 					try {
 						dateStr = DateUtil.convertToFormatString(actionBean.getDueDateAnticipated(), "MM/dd/yyyy");
 						if(dateStr != null)
@@ -77,7 +77,7 @@ public class ActionListReportService {
 					} catch (ParseException e) {
 						rowBuffer.append(" "+seprater);
 					}
-					rowBuffer.append(" "+seprater);
+					rowBuffer.append(actionBean.getOverDue()+seprater);
 					rowBuffer.append(actionBean.getGestationLength()+seprater);
 					rowBuffer.append(actionBean.getLactatingDays());
 					returnRows.add(rowBuffer.toString()+"\n");
