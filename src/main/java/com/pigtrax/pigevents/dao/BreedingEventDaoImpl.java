@@ -40,8 +40,8 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	public int addBreedingEventInformation(final BreedingEvent breedingEvent)
 			throws SQLException, DuplicateKeyException {
 		final String Qry = "insert into pigtrax.\"BreedingEvent\"(\"id_PigInfo\", \"id_BreedingServiceType\", "
-				+ "\"serviceGroupId\", \"id_Pen\", \"sowCondition\",  \"weightInKgs\",\"lastUpdated\", \"userUpdated\",\"id_Premise\") "
-				+ "values(?,?,?,?,?,?,current_timestamp,?,?)";
+				+ "\"serviceGroupId\", \"id_Pen\", \"sowCondition\",  \"weightInKgs\",\"lastUpdated\", \"userUpdated\",\"id_Premise\",\"currentParity\") "
+				+ "values(?,?,?,?,?,?,current_timestamp,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -82,6 +82,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	    				else{
 	    					ps.setNull(8, java.sql.Types.INTEGER);
 	    				}
+	    				ps.setObject(9, breedingEvent.getCurrentParity(), java.sql.Types.INTEGER);
 	    			
 	    	            return ps;
 	    	        }

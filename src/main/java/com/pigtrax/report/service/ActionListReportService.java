@@ -67,7 +67,7 @@ public class ActionListReportService {
 					} catch (ParseException e) {
 						rowBuffer.append(" "+seprater);
 					}
-					rowBuffer.append(" "+seprater);
+					rowBuffer.append(actionBean.getServNum()+seprater);
 					try {
 						dateStr = DateUtil.convertToFormatString(actionBean.getDueDateAnticipated(), "MM/dd/yyyy");
 						if(dateStr != null)

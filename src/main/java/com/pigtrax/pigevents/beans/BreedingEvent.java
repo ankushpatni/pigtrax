@@ -15,6 +15,7 @@ public class BreedingEvent {
     private Double weightInKgs;
     private Date serviceStartDate;
     private Integer premiseId;
+    private Integer currentParity;
     
 	public Integer getId() {
 		return id;
@@ -90,6 +91,12 @@ public class BreedingEvent {
 	}
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
+	}
+	public Integer getCurrentParity() {
+		return currentParity;
+	}
+	public void setCurrentParity(Integer currentParity) {
+		this.currentParity = currentParity;
 	}
 	
 	

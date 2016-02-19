@@ -19,6 +19,7 @@ public class ActionListReportBean {
 	private Integer lactatingDays;
 	private Integer overDue;
 	private String serviceGroupId;
+	private Integer servNum;
 
 	public String getPigId() {
 		return pigId;
@@ -154,6 +155,15 @@ public class ActionListReportBean {
 	public void setServiceGroupId(String serviceGroupId) {
 		if(serviceGroupId == null) serviceGroupId = "";
 		this.serviceGroupId = serviceGroupId;
+	}
+
+	public Integer getServNum() {
+		return servNum;
+	}
+
+	public void setServNum(Integer servNum) {
+		if(servNum == null) servNum = 0;
+		this.servNum = servNum;
 	}
 	
 	
