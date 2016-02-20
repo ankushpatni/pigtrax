@@ -101,8 +101,8 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 							eventMasterTag = true;
 						}
 					}
-					
-					if(eventMasterTag)
+					// commented for not update breeding date as First service Date is required and same is shown on website.
+					/*if(eventMasterTag)
 					{
 						PigTraxEventMaster master = new PigTraxEventMaster();
 						master.setPigInfoId(breedingEvent.getPigInfoId());
@@ -110,7 +110,7 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 						master.setBreedingEventId(matingDetailsDto.getBreedingEventId());
 						master.setEventTime(matingDetailsDto.getMatingDate());
 						eventMasterDao.updateBreedingEventMasterDetails(master);
-					}
+					}*/
 					
 				}
 					
