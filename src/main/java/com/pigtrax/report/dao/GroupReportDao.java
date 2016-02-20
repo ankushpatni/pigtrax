@@ -77,7 +77,7 @@ public class GroupReportDao {
 				+" left join pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GED.\"id_RemovalEventExceptSalesDetails\" = RES.\"id\" "
 				+" left join pigtrax.\"SalesEventDetails\" SE ON GED.\"id_SalesEventDetails\" = SE.\"id\" "
 				+" left join pigtrax.\"GroupEvent\" GE  ON GED.\"id_GroupEvent\" = GE.\"id\"  "
-				+" where GED.\"id_GroupEvent\" = ? order by GED.\"dateOfEntry\" desc ";
+				+" where GED.\"id_GroupEvent\" = ? order by GED.\"dateOfEntry\" asc ";
 
 
 		List<GroupReportBean> groupReportGroupList = jdbcTemplate.query(query, new PreparedStatementSetter(){
