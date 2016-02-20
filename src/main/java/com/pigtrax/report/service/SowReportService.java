@@ -220,7 +220,7 @@ public class SowReportService {
 							
 							else if(SowReportBean.getRemovalEventExceptSalesDetailsId()!= null && SowReportBean.getRemovalEventExceptSalesDetailsId()!=0 )
 							{
-								RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsRoomId());
+								RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsId());
 								if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
 								{
 									rowBuffer.append("Removal"+seprater);

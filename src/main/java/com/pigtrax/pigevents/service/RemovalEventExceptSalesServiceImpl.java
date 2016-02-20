@@ -320,8 +320,8 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				}
 				
 			}
-			removalEventExceptSalesDetailsDao.deleteRemovalEventExceptSalesDetails(removalEventExceptSalesDetails.getId());
 			eventMasterDao.deleteRemovalingEvent(removalEventExceptSalesDetails.getId());
+			removalEventExceptSalesDetailsDao.deleteRemovalEventExceptSalesDetails(removalEventExceptSalesDetails.getId());			
 			
 		} 
 		catch (SQLException sqlEx)
