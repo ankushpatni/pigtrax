@@ -1048,8 +1048,8 @@ public class ReportControlller {
 				
 				response.setContentType("text/csv");
 				String date = DateUtil.convertToFormatString(new java.util.Date(System.currentTimeMillis()),"mm-dd-yyyy");
-				String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+date+".csv";
-				//String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+date.getMonth()+"_"+date.getDate()+"_"+date.getYear()+".csv";
+				//String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+date+".csv";
+				String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+(new java.util.Date(System.currentTimeMillis())).toString()+".csv";
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
 		    
 				List<String> rows =new ArrayList<String>();
