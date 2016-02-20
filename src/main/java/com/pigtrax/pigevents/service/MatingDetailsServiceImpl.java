@@ -88,29 +88,41 @@ public class MatingDetailsServiceImpl implements MatingDetailsService {
 					{
 						breedingEventDao.updateServiceStartDate(matingDetailsDto.getMatingDate(), matingDetailsDto.getBreedingEventId());
 						eventMasterTag = true;
-					}
-					else if(matingList != null)
-					{
-						MatingDetailsDto nextServiceMatingDetail = findServiceMateDetails(matingDetailsDto.getBreedingEventId());
-						if(!serviceStartDate.toLocalDate().equals(matingDate.toLocalDate()))
-						{
-							if(nextServiceMatingDetail != null && nextServiceMatingDetail.getMatingDetailId() > 0)
-								   breedingEventDao.updateServiceStartDate(nextServiceMatingDetail.getMatingDate(), matingDetailsDto.getBreedingEventId());
-							else
-								   breedingEventDao.updateServiceStartDate(null, matingDetailsDto.getBreedingEventId());
-							eventMasterTag = true;
-						}
-					}
-					// commented for not update breeding date as First service Date is required and same is shown on website.
-					/*if(eventMasterTag)
-					{
+						
 						PigTraxEventMaster master = new PigTraxEventMaster();
 						master.setPigInfoId(breedingEvent.getPigInfoId());
 						master.setUserUpdated(matingDetailsDto.getUserUpdated());
 						master.setBreedingEventId(matingDetailsDto.getBreedingEventId());
 						master.setEventTime(matingDetailsDto.getMatingDate());
 						eventMasterDao.updateBreedingEventMasterDetails(master);
-					}*/
+						
+					}
+					else if(matingList != null)
+					{
+						MatingDetailsDto nextServiceMatingDetail = findServiceMateDetails(matingDetailsDto.getBreedingEventId());
+						
+						if(nextServiceMatingDetail != null && nextServiceMatingDetail.getMatingDetailId() > 0)
+						{
+							   breedingEventDao.updateServiceStartDate(nextServiceMatingDetail.getMatingDate(), matingDetailsDto.getBreedingEventId());
+							   PigTraxEventMaster master = new PigTraxEventMaster();
+								master.setPigInfoId(breedingEvent.getPigInfoId());
+								master.setUserUpdated(matingDetailsDto.getUserUpdated());
+								master.setBreedingEventId(nextServiceMatingDetail.getBreedingEventId());
+								master.setEventTime(nextServiceMatingDetail.getMatingDate());
+								eventMasterDao.updateBreedingEventMasterDetails(master);
+						}
+						else
+						{
+							   breedingEventDao.updateServiceStartDate(null, matingDetailsDto.getBreedingEventId());
+								eventMasterTag = true;
+								PigTraxEventMaster master = new PigTraxEventMaster();
+								master.setPigInfoId(breedingEvent.getPigInfoId());
+								master.setUserUpdated(matingDetailsDto.getUserUpdated());
+								master.setBreedingEventId(nextServiceMatingDetail.getBreedingEventId());
+								master.setEventTime(null);
+								eventMasterDao.updateBreedingEventMasterDetails(master);
+						}
+					}
 					
 				}
 					
