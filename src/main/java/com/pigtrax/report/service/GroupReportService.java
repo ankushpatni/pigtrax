@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.master.dao.interfaces.BarnDao;
@@ -25,6 +26,7 @@ import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
 import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
 import com.pigtrax.report.bean.GroupReportBean;
+import com.pigtrax.report.bean.GroupReportBeanwithPhase;
 import com.pigtrax.report.dao.GroupReportDao;
 
 /**
@@ -77,6 +79,8 @@ public class GroupReportService {
 	RefDataCache refDataCache;
 	
 	private static final String seprater = ",";
+	
+	private static final String dataSeprater = "::";
 	
 	public ArrayList<String> getGroupReport(String groupIdStr, int groupId, int companyId, String language)
 	{
@@ -307,6 +311,83 @@ public class GroupReportService {
 			{
 				StringBuffer rowBuffer = new StringBuffer();
 				rowBuffer.append(groupIdStr).append(seprater).append(groupEvent.getGroupStartDateTime()).append(seprater).append("Group Start").append(seprater).append(seprater).append(seprater);
+				returnRows.add(rowBuffer.toString());
+			}
+			
+			}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			returnRows.add("Error occured please coontact admin.");
+		}
+		
+		return returnRows;
+	}
+	
+	public ArrayList<String> getGroupReportwithPhase(String groupIdStr, GroupEvent groupEvent, int companyId, String language)
+	{
+		ArrayList<String> returnRows = new ArrayList<String>();
+		try {
+			List<GroupReportBeanwithPhase> groupList = groupReportDao.getGroupListWithPhaseDetails(groupEvent.getId());
+
+			if (groupList != null && groupList.size() > 0) {
+				
+				Map<Integer, String> premisesNameMap = premisesService.getPremisesNameMapBasedOnCompanyId(companyId);
+				Map<Integer,String> barnIdMap  = barnService.getBarnListBasedOnCompanyId(companyId);
+				Map<Integer,String> roomIdMap = roomService.getRoomListBasedOnCompanyId(companyId);
+				Map<Integer, String> removalEventTypeMap = refDataCache.getRemovalEventTypeMap(language);
+				Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
+				Map<Integer, String> mortalityReasonTypeMap = refDataCache.getMortalityReasonTypeMap(language);
+				
+				
+				StringBuffer rowBuffer = new StringBuffer();
+				returnRows.add("Group ID, Event Date, Event Name, Data");
+				returnRows.add("\n");				
+					
+				for (GroupReportBeanwithPhase groupReportBeanwithPhase : groupList) {
+					rowBuffer = new StringBuffer();
+					rowBuffer.append(groupReportBeanwithPhase.getGroupEventId()+seprater);
+					rowBuffer.append(groupReportBeanwithPhase.getEventDate()+seprater);
+					rowBuffer.append(groupReportBeanwithPhase.getEventName()+seprater);
+					if(groupReportBeanwithPhase.getData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getData()))
+					{
+						rowBuffer.append(groupReportBeanwithPhase.getData()+dataSeprater);
+					}
+					
+					if(groupReportBeanwithPhase.getRemovalType() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getRemovalType()))
+					{
+						rowBuffer.append("Removal Type : ").append(groupReportBeanwithPhase.getRemovalType()+dataSeprater);
+					}
+					
+					if(groupReportBeanwithPhase.getMortalityReason() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getMortalityReason()))
+					{
+						rowBuffer.append("Mortality Reason : ").append(groupReportBeanwithPhase.getMortalityReason()+dataSeprater);
+					}
+					if(groupReportBeanwithPhase.getTicketnumber() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getTicketnumber()))
+					{
+						rowBuffer.append("Ticket Number : ").append(groupReportBeanwithPhase.getTicketnumber()+dataSeprater);
+					}
+					if(groupReportBeanwithPhase.getSalesTypes() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getSalesTypes()))
+					{
+						Integer [] salesType = getSalesTypesAsString(groupReportBeanwithPhase.getSalesTypes());
+						rowBuffer.append("Sales Type : ");
+						for(Integer i : salesType)
+						{
+							rowBuffer.append(saleTypesMap.get(i) +":");
+						}
+					}	
+					if(groupReportBeanwithPhase.getPhaseChange() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getPhaseChange()))
+					{
+						rowBuffer.append("Phase Change : ").append(groupReportBeanwithPhase.getPhaseChange());
+					}
+					returnRows.add(rowBuffer.toString()+"\n");
+						
+					}						
+				}
+			if(groupEvent.getGroupCloseDateTime() != null)
+			{
+				StringBuffer rowBuffer = new StringBuffer();
+				rowBuffer.append(groupIdStr).append(seprater).append(groupEvent.getGroupStartDateTime()).append(seprater).append("Group close").append(seprater);
 				returnRows.add(rowBuffer.toString());
 			}
 			

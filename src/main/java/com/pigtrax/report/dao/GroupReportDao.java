@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.report.bean.GroupReportBean;
+import com.pigtrax.report.bean.GroupReportBeanwithPhase;
 
 
 @Repository
@@ -106,6 +107,64 @@ public class GroupReportDao {
 			groupReportBean.setRemovalId(rs.getInt("removalId"));
 			groupReportBean.setRemovalTypeId(rs.getInt("id_RemovalEvent"));
 			return groupReportBean;
+		}
+	}
+	
+	public List<GroupReportBeanwithPhase> getGroupListWithPhaseDetails(final int groupId) {
+	
+	String query = "Select T.\"groupId\", T.\"Event Date\", T.\"Event Name\", T.\"Data\",T.\"RemovalType\",T.\"mortalityReason\", T.\"Ticketnumber\",T.\"salesTypes\",T.\"phaseChange\" from ( "
+			+"(SELECT GE.\"groupId\" as \"groupId\", GE.\"groupStartDateTime\" as \"Event Date\", 'Begin Group' as \"Event Name\", 'Created' as \"Data\" "
+			+", '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\" from pigtrax.\"GroupEvent\" GE where GE.\"id\"= ?) "
+			+" UNION "
+			+"(SELECT GE.\"groupId\", GED.\"dateOfEntry\" as \"Event Date\",GED.\"remarks\" as \"Event Name\",  "
+			+"'Number of Pigs : '|| GED.\"numberOfPigs\" || ' :: Weight :' || GED.\"weightInKgs\" as \"Data\", "
+			+"case when( RES.\"id_RemovalEvent\" is not null ) THEN  RT.\"fieldDescription\" else '' END as \"RemovalType\", "
+			+"case when( RES.\"id_MortalityReason\" is not null ) THEN  MR.\"fieldDescription\" else '' END as \"mortalityReason\", "
+			+"case when( SED.\"ticketNumber\" is not null ) THEN  SED.\"ticketNumber\" else '' END as \"Ticketnumber\", "
+			+"case when( SED.\"salesTypes\" is not null ) THEN  SED.\"salesTypes\" else '' END as \"salesTypes\", "
+			+"'' as \"phaseChange\"  "
+			+"from pigtrax.\"GroupEvent\" GE  "
+			+" JOIN pigtrax.\"GroupEventDetails\" GED ON GE.\"id\" = GED.\"id_GroupEvent\"  "
+			+" left join pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GED.\"id_RemovalEventExceptSalesDetails\" = RES.\"id\"  "
+			+" left join pigtraxrefdata.\"RemovalType\" RT  ON RES.\"id_RemovalEvent\" = RT.\"id\"  "
+			+" left join pigtraxrefdata.\"MortalityReasonType\" MR ON RES.\"id_MortalityReason\" = MR.\"id\"  "
+			+" left join pigtrax.\"SalesEventDetails\" SED ON GED.\"id_SalesEventDetails\" = SED.\"id\"  "
+			+" where GE.\"id\" = ?) "
+			+" UNION  "
+			+"(SELECT GE.\"groupId\", GEPC.\"phaseStartDate\" as \"Event Date\",'Phase Change' as \"Event Name\",  " 
+			+" '' as \"Data\", '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",  "
+			+" (select PPT.\"fieldDescription\" from pigtraxrefdata.\"PhaseOfProductionType\" PPT where GEPC.\"id_PhaseOfProductionType\" = PPT.\"id\") as \"phaseChange\"  "
+			+" from pigtrax.\"GroupEvent\" GE  "
+			+" JOIN pigtrax.\"GroupEventPhaseChange\" GEPC ON GE.\"id\" = GEPC.\"id_GroupEvent\"  "
+			+" and GEPC.\"phaseEndDate\" is NOT NULL "
+			+"  and GE.\"id\" = ?)) T order by T.\"Event Date\"::date asc ";
+	
+	List<GroupReportBeanwithPhase> groupReportGroupList = jdbcTemplate.query(query, new PreparedStatementSetter(){
+		@Override
+		public void setValues(PreparedStatement ps) throws SQLException {
+			ps.setInt(1, groupId);
+			ps.setInt(2, groupId);
+			ps.setInt(3, groupId);
+		}}, new GroupReportBeanwithPhaseMapper());
+	
+	return groupReportGroupList;
+	
+	}
+	
+	private static final class GroupReportBeanwithPhaseMapper implements RowMapper<GroupReportBeanwithPhase> {
+		public GroupReportBeanwithPhase mapRow(ResultSet rs, int rowNum) throws SQLException {
+			GroupReportBeanwithPhase groupReportBeanwithPhase = new GroupReportBeanwithPhase();
+			groupReportBeanwithPhase.setGroupEventId(rs.getString("groupId"));
+			groupReportBeanwithPhase.setEventDate(rs.getDate("Event Date"));
+			groupReportBeanwithPhase.setEventName(rs.getString("Event Name"));
+			groupReportBeanwithPhase.setData(rs.getString("Data"));
+			groupReportBeanwithPhase.setRemovalType(rs.getString("RemovalType"));
+			groupReportBeanwithPhase.setMortalityReason(rs.getString("mortalityReason"));
+			groupReportBeanwithPhase.setTicketnumber(rs.getString("Ticketnumber"));
+			groupReportBeanwithPhase.setSalesTypes(rs.getString("salesTypes"));
+			groupReportBeanwithPhase.setPhaseChange(rs.getString("phaseChange"));
+			
+			return groupReportBeanwithPhase;
 		}
 	}
 	
