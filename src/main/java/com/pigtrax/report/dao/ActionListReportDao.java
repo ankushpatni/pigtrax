@@ -62,7 +62,7 @@ public class ActionListReportDao {
 				+" (SELECT " 
 				+" PEM.\"id_PigInfo\", "
 				+" PI.\"pigId\", " 
-				+" PI.\"parity\",current_date-(CASE WHEN \"birthDate\"<> NULL THEN \"birthDate\" ELSE \"entryDate\" END)::date as \"Age\", "
+				+" PI.\"parity\",current_date-(CASE WHEN \"birthDate\"IS NOT NULL THEN \"birthDate\" ELSE \"entryDate\" END)::date as \"Age\", "
 				+" BE.\"serviceGroupId\" , "
 				+" PEM.\"eventTime\" as \"Sow Phase Date\", "	
 				+" CASE WHEN PEM.\"id_SalesEventDetails\" > 0 THEN 'SalesEvent' ELSE "
