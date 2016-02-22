@@ -300,9 +300,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 						groupEventDetailsDao.deleteGroupEventDetailsByGroupId(groupEventDetails.getId());
 					
 					}
-					
-					GroupEventDetails groupEventDetails = groupEventDetailsDao.groupEventDetailsListByIdAndRemovalId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getId());
-					groupEventDetailsDao.updateGroupEventDetails(groupEventDetails);
+				
 				}
 			}
 			
