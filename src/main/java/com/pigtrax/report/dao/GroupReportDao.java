@@ -137,7 +137,17 @@ public class GroupReportDao {
 			+" from pigtrax.\"GroupEvent\" GE  "
 			+" JOIN pigtrax.\"GroupEventPhaseChange\" GEPC ON GE.\"id\" = GEPC.\"id_GroupEvent\"  "
 			+" and GEPC.\"phaseEndDate\" is NOT NULL "
-			+"  and GE.\"id\" = ?)) T order by T.\"Event Date\"::date asc ";
+			+"  and GE.\"id\" = ?)"
+			+" UNION "
+			+ "( select GE.\"groupId\",  RES.\"removalDateTime\" as \"Event Date\", 'Transfer through Pig Movement' as \"Event Name\", "
+			+"   'Number of Pigs : '|| RES.\"numberOfPigs\" || ' :: Weight :' || RES.\"weightInKgs\" || ' :: From Premises : ' || p.\"name\" || ' :: To Premises : ' || p1.\"name\" || ' :: To Room : ' || R.\"roomId\" as \"Data\", "
+			+"   '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\" "
+			+"  from pigtrax.\"GroupEvent\" GE JOIN pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GE.\"id\" = RES.\"id_GroupEvent\" and  "
+			+"  GE.\"id\" = 24 and RES.\"id_RemovalEvent\" = 9 "
+			+"  left join pigtrax.\"Premise\" P  ON RES.\"id_Premise\" = P.\"id\" "
+			+"  left join pigtrax.\"Premise\" P1  ON RES.\"id_DestPremise\" = P1.\"id\" "
+			+"  left join pigtrax.\"Room\" R ON RES.\"id_Room\" = R.\"id\" )"
+			+ ") T order by T.\"Event Date\"::date asc ";
 	
 	List<GroupReportBeanwithPhase> groupReportGroupList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 		@Override

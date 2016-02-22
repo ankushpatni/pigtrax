@@ -108,7 +108,7 @@
 						invalid-message="'<spring:message code='label.piginfo.removalEventform.removalId.invalidMessage' text='Only Numeric values are allowed' />'"  ng-focus="clearMessages()"/>
                    </div>-->
 					<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number'/></label>
+                      <label><spring:message code='label.piginfo.removalExceptSales.ticketNumber'  text='Ticket Number'/><span style='color: red'>*</span></label>
                      <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.ticketNumber.placeHolder' text='Enter Ticket  Number' />" 
                      	name="ticketNumber" ng-model="removalExceptSales.ticketNumber" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.ticketNumber.requiredMessage' text='Ticket Number Required' />'" 
                      	 />

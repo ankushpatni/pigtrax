@@ -72,13 +72,60 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				}
 				return null;
 	}
+	
+	@Override
+	public GroupEventDetails groupEventDetailsListByIdAndSalesId(final Integer id, final Integer salesId) {
+		/* String qry = "select GED.\"id\", GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", "
+			   		+ "GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", "
+			   		+ "GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\", GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\",GED.\"id_RemovalEventExceptSalesDetails\",GED.\"id_SalesEventDetails\", GE.\"groupId\" "
+			   		+ "  from pigtrax.\"GroupEventDetails\" GED  LEFT JOIN  pigtrax.\"GroupEvent\" GE ON GED.\"id_FromGroup\" = GE.\"id\" where GED.\"id\" = ? and GED.\"id_SalesEventDetails\" = ?";
+	*/			
+		 String qry = " select  GED.\"id\" , GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", "
+		 +" GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\", GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\",GED.\"id_RemovalEventExceptSalesDetails\",GED.\"id_SalesEventDetails\", '' as \"groupId\" " 
+		 +" from pigtrax.\"GroupEventDetails\" GED  where GED.\"id_GroupEvent\" = ? and GED.\"id_SalesEventDetails\" = ? ";
+				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+					@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, id);
+						ps.setInt(2, salesId);
+					}}, new GroupEventDetailsMapper());
+
+				if(groupEventDetailsList != null && groupEventDetailsList.size() > 0){
+					return groupEventDetailsList.get(0);
+				}
+				return null;
+	}
+	
+	@Override
+	public GroupEventDetails groupEventDetailsListByIdAndRemovalId(final Integer id, final Integer removalId) {
+		/* String qry = "select GED.\"id\", GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", "
+			   		+ "GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", "
+			   		+ "GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\", GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\",GED.\"id_RemovalEventExceptSalesDetails\",GED.\"id_SalesEventDetails\", GE.\"groupId\" "
+			   		+ "  from pigtrax.\"GroupEventDetails\" GED  LEFT JOIN  pigtrax.\"GroupEvent\" GE ON GED.\"id_FromGroup\" = GE.\"id\" where GED.\"id\" = ? and GED.\"id_RemovalEventExceptSalesDetails\" = ?";
+				
+	*/	 String qry = " select  GED.\"id\" , GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", "
+				 +" GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\", GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\",GED.\"id_RemovalEventExceptSalesDetails\",GED.\"id_SalesEventDetails\", '' as \"groupId\" " 
+				 +" from pigtrax.\"GroupEventDetails\" GED  where GED.\"id_GroupEvent\" = ? and GED.\"id_RemovalEventExceptSalesDetails\" = ? ";
+				
+				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+					@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, id);
+						ps.setInt(2, removalId);
+					}}, new GroupEventDetailsMapper());
+
+				if(groupEventDetailsList != null && groupEventDetailsList.size() > 0){
+					return groupEventDetailsList.get(0);
+				}
+				return null;
+	}
 
 	@Override
 	public int updateGroupEventDetails(final GroupEventDetails groupEventDetails)
 			throws SQLException {
 		final String Qry = "update pigtrax.\"GroupEventDetails\" set \"id_Barn\" = ?, \"dateOfEntry\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?," +
 			"\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"indeventoryAdjustment\" = ?, \"remarks\" = ?,  "
-			+ "\"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_TransportDestination\" = ?,\"id_SowSource\"=?,\"id_Premise\" = ? where \"id\" = ? ";
+			+ "\"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_TransportDestination\" = ?,\"id_SowSource\"=?,\"id_Premise\" = ?,\"id_RemovalEventExceptSalesDetails\",\"id_SalesEventDetails\" where \"id\" = ? ";
 
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
@@ -126,6 +173,16 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
  	            	ps.setNull(12, java.sql.Types.INTEGER);
 				
 				ps.setInt(13, groupEventDetails.getId());
+				
+				if(groupEventDetails.getRemovalId() != null && groupEventDetails.getRemovalId() != 0)
+ 	            	ps.setInt(14, groupEventDetails.getRemovalId());
+ 	            else
+ 	            	ps.setNull(14, java.sql.Types.INTEGER);
+				
+				if(groupEventDetails.getSalesId() != null && groupEventDetails.getSalesId() != 0)
+ 	            	ps.setInt(15, groupEventDetails.getSalesId());
+ 	            else
+ 	            	ps.setNull(15, java.sql.Types.INTEGER);
 			}
 		});
 

@@ -180,6 +180,8 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 					salesEventDetails.setTransportJourneyId(transportJourneyId);					
 				}
 			}
+			
+			
 			returnValue = salesEventDetailsDao.updateSalesEventDetails(salesEventDetails);
 		} 
 		catch (SQLException e)
@@ -216,6 +218,10 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 					}
 					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() + salesEventDetails.getNumberOfPigs());
 					groupEventDao.updateGroupEventCurrentInventorywithStatus(groupEventUpdate);
+					
+					GroupEventDetails groupEventDetails = groupEventDetailsDao.groupEventDetailsListByIdAndSalesId(salesEventDetails.getGroupEventId(), salesEventDetails.getId());
+					groupEventDetailsDao.deleteGroupEventDetailsByGroupId(groupEventDetails.getId());
+				
 				}
 			}
 			
@@ -227,8 +233,10 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 					pigInfoDao.updatePigInfoStatus(salesEventDetails.getPigInfoId(), true);
 				}
 			}
-			salesEventDetailsDao.deleteSalesEventDetails(salesEventDetails.getId());
+			
+			
 			eventMasterDao.deleteSalesEvent(salesEventDetails.getId());
+			salesEventDetailsDao.deleteSalesEventDetails(salesEventDetails.getId());			
 			
 		} 
 		catch (SQLException sqlEx)
