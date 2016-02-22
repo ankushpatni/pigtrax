@@ -143,7 +143,7 @@ public class GroupReportDao {
 			+"   'Number of Pigs : '|| RES.\"numberOfPigs\" || ' :: Weight :' || RES.\"weightInKgs\" || ' :: From Premises : ' || p.\"name\" || ' :: To Premises : ' || p1.\"name\" || ' :: To Room : ' || R.\"roomId\" as \"Data\", "
 			+"   '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\" "
 			+"  from pigtrax.\"GroupEvent\" GE JOIN pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GE.\"id\" = RES.\"id_GroupEvent\" and  "
-			+"  GE.\"id\" = 24 and RES.\"id_RemovalEvent\" = 9 "
+			+"  GE.\"id\" = ? and RES.\"id_RemovalEvent\" = 9 "
 			+"  left join pigtrax.\"Premise\" P  ON RES.\"id_Premise\" = P.\"id\" "
 			+"  left join pigtrax.\"Premise\" P1  ON RES.\"id_DestPremise\" = P1.\"id\" "
 			+"  left join pigtrax.\"Room\" R ON RES.\"id_Room\" = R.\"id\" )"
@@ -155,6 +155,7 @@ public class GroupReportDao {
 			ps.setInt(1, groupId);
 			ps.setInt(2, groupId);
 			ps.setInt(3, groupId);
+			ps.setInt(4, groupId);
 		}}, new GroupReportBeanwithPhaseMapper());
 	
 	return groupReportGroupList;
