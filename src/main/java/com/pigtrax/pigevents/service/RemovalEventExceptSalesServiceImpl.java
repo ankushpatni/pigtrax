@@ -280,6 +280,29 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					}
 					groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() + removalEventExceptSalesDetails.getNumberOfPigs());
 					groupEventDao.updateGroupEventCurrentInventorywithStatus(groupEventUpdate);
+					
+					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode())
+					{
+						groupEventUpdate.setPremiseId(removalEventExceptSalesDetails.getPremiseId());
+						groupEventDao.updateGroupEvent(groupEventUpdate);
+						
+						GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEventUpdate.getId());
+						currentPhase.setPremiseId(removalEventExceptSalesDetails.getPremiseId());						
+						groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);						
+						/*groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
+						groupEventRoomDao.addSingleGroupEventRooms(currentPhase.getId(), removalEventExceptSalesDetails.getRoomId());
+						*/
+					}
+					else
+					{
+						//Add a negative transaction in the group event details
+						GroupEventDetails groupEventDetails = groupEventDetailsDao.groupEventDetailsListByIdAndRemovalId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getId());
+						groupEventDetailsDao.deleteGroupEventDetailsByGroupId(groupEventDetails.getId());
+					
+					}
+					
+					GroupEventDetails groupEventDetails = groupEventDetailsDao.groupEventDetailsListByIdAndRemovalId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getId());
+					groupEventDetailsDao.updateGroupEventDetails(groupEventDetails);
 				}
 			}
 			
@@ -320,6 +343,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				}
 				
 			}
+			
 			eventMasterDao.deleteRemovalingEvent(removalEventExceptSalesDetails.getId());
 			removalEventExceptSalesDetailsDao.deleteRemovalEventExceptSalesDetails(removalEventExceptSalesDetails.getId());			
 			

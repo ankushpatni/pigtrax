@@ -18,4 +18,10 @@ public interface GroupEventDetailsDao {
 	void deleteGroupEventDetailsByGroupId(final Integer id) throws SQLException;
 	
 	void deleteGroupEventDetailsByPigletEvent(final Integer pigletStatusEventId) throws SQLException;
+
+	GroupEventDetails groupEventDetailsListByIdAndSalesId(Integer id,
+			Integer salesId);
+
+	GroupEventDetails groupEventDetailsListByIdAndRemovalId(Integer id,
+			Integer removalId);
 }
