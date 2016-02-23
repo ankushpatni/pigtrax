@@ -125,7 +125,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 			throws SQLException {
 		final String Qry = "update pigtrax.\"GroupEventDetails\" set \"id_Barn\" = ?, \"dateOfEntry\" = ?, \"id_Room\" = ?, \"id_EmployeeGroup\"= ?," +
 			"\"numberOfPigs\"= ?, \"weightInKgs\" = ?, \"indeventoryAdjustment\" = ?, \"remarks\" = ?,  "
-			+ "\"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_TransportDestination\" = ?,\"id_SowSource\"=?,\"id_Premise\" = ?,\"id_RemovalEventExceptSalesDetails\",\"id_SalesEventDetails\" where \"id\" = ? ";
+			+ "\"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_TransportDestination\" = ?,\"id_SowSource\"=?,\"id_Premise\" = ?,\"id_RemovalEventExceptSalesDetails\" = ?,\"id_SalesEventDetails\" = ? where \"id\" = ? ";
 
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
 			@Override
@@ -170,19 +170,19 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				if(groupEventDetails.getPremiseId() != null && groupEventDetails.getPremiseId() != 0)
  	            	ps.setInt(12, groupEventDetails.getPremiseId());
  	            else
- 	            	ps.setNull(12, java.sql.Types.INTEGER);
-				
-				ps.setInt(13, groupEventDetails.getId());
+ 	            	ps.setNull(12, java.sql.Types.INTEGER);			
 				
 				if(groupEventDetails.getRemovalId() != null && groupEventDetails.getRemovalId() != 0)
- 	            	ps.setInt(14, groupEventDetails.getRemovalId());
+ 	            	ps.setInt(13, groupEventDetails.getRemovalId());
+ 	            else
+ 	            	ps.setNull(13, java.sql.Types.INTEGER);
+				
+				if(groupEventDetails.getSalesId() != null && groupEventDetails.getSalesId() != 0)
+ 	            	ps.setInt(14, groupEventDetails.getSalesId());
  	            else
  	            	ps.setNull(14, java.sql.Types.INTEGER);
 				
-				if(groupEventDetails.getSalesId() != null && groupEventDetails.getSalesId() != 0)
- 	            	ps.setInt(15, groupEventDetails.getSalesId());
- 	            else
- 	            	ps.setNull(15, java.sql.Types.INTEGER);
+				ps.setInt(15, groupEventDetails.getId());
 			}
 		});
 
