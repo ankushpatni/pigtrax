@@ -16,6 +16,8 @@ import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.pigevents.beans.GroupEvent;
+import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.SalesEventDetails;
@@ -24,6 +26,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
 import com.pigtrax.pigevents.dto.PregnancyEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
+import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletStatusEventService;
 import com.pigtrax.pigevents.service.interfaces.PregnancyEventService;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
@@ -83,6 +86,8 @@ public class SowReportService {
 	@Autowired
 	RefDataCache refDataCache;
 	
+	@Autowired
+	GroupEventService groupEventService;
 	
 	private static final String seprater = ",";
 
@@ -103,6 +108,7 @@ public class SowReportService {
 				Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
 				Map<Integer, String> pregenancyExamResultTypesMap = refDataCache.getPregnancyExamResultTypeMap(language);
 				Map<Integer, String> pigletStatusEventType = refDataCache.getPigletStatusEventType(language);
+				Map<Integer, GroupEvent> groupEventMap=  groupEventService.getGroupEventByCompanyId(companyId);
 				
 				StringBuffer rowBuffer = null;
 				returnRows.add("Sow ID, Event Date, Event Name, Barn, Room, Pen, Parity, Event Data");
@@ -178,7 +184,18 @@ public class SowReportService {
 								rowBuffer.append(parityInt+seprater);
 								String info="";
 								if(pigletStatusEventInformation.getMortalityReasonTypeId() != null && pigletStatusEventInformation.getMortalityReasonTypeId() != 0)
+								{
 									info = mortalityReasonTypeMap.get(pigletStatusEventInformation.getMortalityReasonTypeId());
+								}
+								if(pigletStatusEventInformation.getGroupEventId() != null && pigletStatusEventInformation.getGroupEventId() !=0)
+								{
+									info = groupEventMap.get(pigletStatusEventInformation.getGroupEventId()).getGroupId();
+								}
+								if(pigletStatusEventInformation.getFosterTo() != null && pigletStatusEventInformation.getFosterTo() !=0)
+								{
+									PigInfo pigInformationById = pigInfoDao.getPigInformationById(pigletStatusEventInformation.getFosterTo());
+									info = pigInformationById.getPigId();
+								}
 								//else if(pigletStatusEventInformation.getP)
 								rowBuffer.append("Number of Pigs "+pigletStatusEventInformation.getNumberOfPigs() + " :: Info "+ info);
 							}
