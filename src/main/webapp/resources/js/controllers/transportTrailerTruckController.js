@@ -7,7 +7,8 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 	$scope.totalPagesTrailer;
 	$scope.truckData;
 	$scope.trailerData;
-	$scope.transportTrailerType;
+	$scope.transportTrailerType;	       
+	$scope.transportTrailerTypeKeySet;
 		
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
@@ -77,6 +78,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 						truckData.generatedCompanyId =  $scope.generatedCompanyId;
 						truckData.truck = true;
 						truckData.transportTrailerType = $scope.transportTrailerType;
+						truckData.transportTrailerTypeKeySet = $scope.transportTrailerTypeKeySet;
     					return truckData;
     				}
     			}
@@ -128,6 +130,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 					trailorData.generatedCompanyId =  $scope.generatedCompanyId;
 					trailorData.truck = false;
 					trailorData.transportTrailerType = $scope.transportTrailerType;
+					trailorData.transportTrailerTypeKeySet = $scope.transportTrailerTypeKeySet;
 					return trailorData;
 				}
 			}
@@ -150,6 +153,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 				$scope.rowCollectionTruck = data.payload[0];
 				$scope.rowCollectionTrailer = data.payload[1];
 				$scope.transportTrailerType = data.payload[2];
+				$scope.transportTrailerTypeKeySet = data.payload[3];
 				$scope.totalPagesTruck = Math.ceil($scope.rowCollectionTruck.length/10);
 				$scope.totalPagesTrailer = Math.ceil($scope.rowCollectionTrailer.length/10);
 			});

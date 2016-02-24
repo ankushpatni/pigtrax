@@ -2,6 +2,8 @@ package com.pigtrax.master.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,7 +57,14 @@ public class TransportTrailerTruckRestController {
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		phaseType.add(transportTruckServiceImpl.getTransportTruckList(generatedCompanyId));
 		phaseType.add(transportTrailerServiceImpl.getTransportTrailerList(generatedCompanyId, language));
-		phaseType.add(refDataCache.transportTrailerType(language));
+		
+		Map<Integer, String> trailerTypeMap =  refDataCache.transportTrailerType(language);		
+		phaseType.add(trailerTypeMap);
+		Set<Integer> trailerTypeKeySet = null;
+		if(trailerTypeMap != null)
+			trailerTypeKeySet  = trailerTypeMap.keySet();
+		phaseType.add(trailerTypeKeySet);
+		
 		dto.setPayload(phaseType);
 		dto.setStatusMessage("Success");
 		return dto;

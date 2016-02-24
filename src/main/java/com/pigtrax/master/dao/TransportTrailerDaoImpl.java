@@ -95,7 +95,10 @@ public class TransportTrailerDaoImpl implements TransportTrailerDao{
 				ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
 				ps.setString(3, transportTrailer.getUserUpdated());
 				ps.setInt(4, transportTrailer.getCompanyId());
-				ps.setInt(5, transportTrailer.getTrailerTypeId());
+				if(transportTrailer.getTrailerTypeId() > 0)
+					ps.setInt(5, transportTrailer.getTrailerTypeId());
+				else
+					ps.setNull(5,  java.sql.Types.INTEGER);
 				if(transportTrailer.getTrailerFunctionId() != null && transportTrailer.getTrailerFunctionId() != 0)
 					ps.setInt(6,  transportTrailer.getTrailerFunctionId());
 				else

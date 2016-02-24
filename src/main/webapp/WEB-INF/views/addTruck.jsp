@@ -45,7 +45,9 @@
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.transportTrailer.trailerTypeId" text="Trailer Type" /></label>
-						<select class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.trailerTypeId'  text='Trailer Type'/>" name="trailerTypeId" ng-model="add.trailerTypeId"  ng-options="k as v for (k, v) in transportTrailerType"/>	
+						<select class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.trailerTypeId'  text='Trailer Type'/>" name="trailerTypeId" ng-model="add.trailerTypeId">
+							<option ng-repeat="key in transportTrailerTypeKeySet" ng-value="key" ng-selected="add.trailerTypeId==key">{{transportTrailerType[key]}}</option>
+						</select>							
 					</div>
 					<div class="form-group">
 						<label><spring:message code="label.transportTrailer.trailerFunction" text="Trailer Function" /></label>

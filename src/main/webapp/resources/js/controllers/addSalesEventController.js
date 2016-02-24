@@ -15,6 +15,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	$scope.sourceAndDestinationPremisesSameError = false;
 	$scope.saleTypeValues = [];
 	$scope.selectedSalesTypes=[];
+	$scope.selectedSalesReason;
 	
 	$scope.multiselectdropdownsettings = {
 		    scrollableHeight: '200px',
@@ -218,12 +219,18 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		
 		if($scope.selectedSalesTypes != null && $scope.selectedSalesTypes.length > 0)
 		{
-			var salesTypes = [];
-			angular.forEach($scope.selectedSalesTypes, function(value){	
-				   salesTypes.push(value["id"]);
-	        });
+			var salesTypes =[];
+			salesTypes.push(parseInt($scope.selectedSalesTypes));
 			$scope.removalExceptSales.salesTypes = salesTypes;
 		}
+		
+		if($scope.selectedSalesReason != null && $scope.selectedSalesReason.length > 0)
+			{
+			   var salesReason = [];
+			   salesReason.push(parseInt($scope.selectedSalesReason));
+			   $scope.removalExceptSales.salesReasons = salesReason;
+			}
+		
 		
 		if($scope.removalExceptSales["salesDateTime"] === ""  || 
 		$scope.removalExceptSales["salesDateTime"] === undefined)
