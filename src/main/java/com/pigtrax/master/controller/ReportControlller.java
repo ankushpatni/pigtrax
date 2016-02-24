@@ -31,6 +31,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.report.service.ActionListReportService;
 import com.pigtrax.report.service.GroupReportService;
+import com.pigtrax.report.service.InventoryStatusReportService;
 import com.pigtrax.report.service.SowReportService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.util.DateUtil;
@@ -61,6 +62,9 @@ public class ReportControlller {
 	
 	@Autowired
 	ActionListReportService actionListReportService;
+	
+	@Autowired
+	InventoryStatusReportService inventoryStatusReportService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -1143,5 +1147,62 @@ public class ReportControlller {
 		return new ModelAndView("template", model);
 	}
 
+	@RequestMapping(value = "/reportInventoryStatus", method = RequestMethod.GET)
+	public ModelAndView reportInventoryStatus(HttpServletRequest request) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("contentUrl", "reportInventoryStatus.jsp");
+		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer companyId = activeUser.getCompanyId();
+		model.put("CompanyId", companyId+"");
+		return new ModelAndView("template", model);
+	}
 
+	
+	@RequestMapping(value = "/generateInventoryStatusReport", method = RequestMethod.POST)
+	public void generateInventoryStatusReport(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				String selectedPremise = request.getParameter("selectedPremise");
+				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
+				
+				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+				response.setContentType("text/csv");
+				String reportName = "CSV_Report_InventoryStatusReport_"+DateUtil.getToday().getTime()+"_"+selectedPremise+".csv";
+				response.setHeader("Content-disposition", "attachment;filename="+reportName);
+		    
+				List<String> rows =new ArrayList<String>();
+						
+				try {
+					Integer premiseId = Integer.parseInt(selectedPremise);
+					
+					if(premiseId > 0)
+					{
+						rows = inventoryStatusReportService.getInventoryStatusList(premiseId);
+						Iterator<String> iter = rows.iterator();
+						while (iter.hasNext()) {
+							String outputString = (String) iter.next();
+							response.getOutputStream().print(outputString);
+						}
+					}
+					else
+					{
+						rows.add("Can not find Group by given Id");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					rows.add("There is some error please contact Admin");
+				}
+				
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
+	
 }

@@ -95,6 +95,7 @@
 	<script src="resources/js/controllers/editSowMovementController.js"></script>	
 	<script src="resources/js/controllers/sowReportController.js"></script>
 	<script src="resources/js/controllers/groupReportController.js"></script>
+	<script src="resources/js/controllers/inventoryStatusReportController.js"></script>
 	
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
