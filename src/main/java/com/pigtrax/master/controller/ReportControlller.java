@@ -196,137 +196,206 @@ public class ReportControlller {
 			String key = (calWeek).toString();
 			dateList.add(key);
 			Map valueMap = (Map)map.get(calWeek);
-			int totalFerrow = (Integer)valueMap.get("totalFerrow");
-			List valueList = (List)valueMap.get("valueList");
-			int totalBorn = (Integer)valueList.get(0);
-			int totalLiveBorn = (Integer)valueList.get(1);
-			int totalDeath = (Integer)valueList.get(2);
-			int totalStillBorn = (Integer)valueList.get(3);
-			int totalMummies = (Integer)valueList.get(4);
-			float totalBirthWeight = (Float)valueList.get(5);
-			int litterWithAgeLessSeven = (Integer)valueList.get(6);
-			int littersWeaned = (Integer)valueList.get(7);
-			int littersWeanedWithMoreThanTwalePigs = (Integer)valueList.get(8);
-			int sowsWeaningZeroPig = totalFerrow - littersWeaned ;
-			int totalPigsWeavened = (Integer)valueList.get(9);
-			int totalLitterSWeanedFosterInOut = (Integer)valueList.get(10);
-			int totalPigsMortal = (Integer)valueList.get(11);
-			int littersWithWeaingWeight = (Integer)valueList.get(12);
-			int pigletsWithWeainngWeight = (Integer)valueList.get(13);
-			int weainngWeight = (Integer)valueList.get(14);
-			int littersWeanedLessThan17Days = (Integer)valueList.get(15);
-			int countPifIngoIdFromFarrowWithParityOneInPigInfo = (Integer)valueList.get(16);
-			int countParityOfPigIngoIdFromFarrow = (Integer)valueList.get(17);
-			int sumOfDiffOfFerrowAndBreedingDate = (Integer)valueList.get(18);
-			int piGIdFromFerrow = (Integer)valueList.get(19);
-			int piGIdFromBreeding = (Integer)valueList.get(20);
-			int firstServiceCount = (Integer)valueList.get(21);
-			int repeateServiceCount = (Integer)valueList.get(22);
-			int breedingEventWithMatingMoreThanOne = (Integer)valueList.get(23);
-			int countOfMating = (Integer)valueList.get(24);
-			int countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding = (Integer)valueList.get(25);
-			int pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig = (Integer)valueList.get(26);
-			int numberOfDaysBetweenWeanAndServiceDate = (Integer)valueList.get(27);
-			int pairtyOfServedFemals = (Integer)valueList.get(28);
-			int countPifIngoIdWithParityOneInPigInfo = (Integer)valueList.get(29);
-			int arrivalTo1stServInterval = (Integer)valueList.get(30);
-			
-			totalBornList.add(totalBorn);
-			totalLiveBornList.add(totalLiveBorn);
-			totalDeathList.add(totalDeath);
-			totalStillBornList.add(totalStillBorn);
-			totalMummiesList.add(totalMummies);
-			totalBirthWeightList.add(totalBirthWeight);
-			litterWithAgeLessSevenList.add(litterWithAgeLessSeven);
-			totalPigsWeavnedList.add(totalPigsWeavened);
-			totalServicesList.add(piGIdFromBreeding);
-			firstServiceList.add(firstServiceCount);
-			repeateServiceList.add(repeateServiceCount);
-			
-			float averageTotalBorn = (float)(totalBorn)/totalFerrow;
-			float averageLiveBorn = (float)(totalLiveBorn)/totalFerrow;
-			
-			float averageDeadBorn = (float)(totalDeath)/totalFerrow;
-			float percentageDeadBorn = ((float)(totalDeath)/totalBorn)*100;
-			
-			float averageStillBorn = (float)(totalStillBorn)/totalFerrow;
-			float percentageStillBorn = ((float)(totalStillBorn)/totalBorn)*100;
-			
-			float averageMummies = (float)(totalMummies)/totalFerrow;
-			float percentageMummies = ((float)(totalMummies)/totalBorn)*100;
-			
-			float averageBirthWeight = (float)(totalBirthWeight)/totalBorn;
-			float averageLiveBirthWeight = ((float)(totalBirthWeight)/totalLiveBorn)*100;
-			
-			float percentageLitterWithAgeLessSeven = ((float)(litterWithAgeLessSeven)/totalLiveBorn)*100;
-			
-			float ferrowCapacity = (float)(totalFerrow)/totalActivePenAvailable;
-			
-			float percentageLittersWeanedWithMoreThanTwalePigs = ((float)(littersWeanedWithMoreThanTwalePigs)/litterWithAgeLessSeven)*100;
-			float percentageSowsWeaningZeroPig  = ((float)(sowsWeaningZeroPig)/totalFerrow)*100;
-			
-			float pigsWeaningDivideLitterWeaned = (float)(totalPigsWeavened)/littersWeaned;
-			float pigsWeaningDivideSowWeaned = (float)(totalPigsWeavened)/totalLitterSWeanedFosterInOut;
-			
-			float percentagePingsWeanedDivideByTotalPigs = ((float)(totalPigsWeavened)/totalBorn)*100;
-			
-			int netFoster = totalLiveBorn -totalPigsMortal- totalPigsWeavened;
-			
-			float percentagePreWeaningMortality = ((float)(totalPigsMortal)/totalLiveBorn)*100;
-			
-			float weaningWeightWithLitter = (float)(weainngWeight)/littersWeaned;
-			float weaningWeightWithPiglets = (float)(weainngWeight)/totalPigsWeavened;
-			
-			float percentageLittersWeanedLessThan17Days = ((float)(littersWeanedLessThan17Days)/littersWeaned)*100;
-			
-			averageTotalBornList.add(averageTotalBorn);
-			averageLiveBornList.add(averageLiveBorn);
-			averageDeadBornList.add(averageDeadBorn);
-			percentageDeadBornList.add(percentageDeadBorn);
-			averageStillBornList.add(averageStillBorn);
-			percentageStillBornList.add(percentageStillBorn);
-			averageMummiesList.add(averageMummies);
-			percentageMummiesList.add(percentageMummies);
-			averageBirthWeightList.add(averageBirthWeight);
-			averageLiveBirthWeightList.add(averageLiveBirthWeight);
-			percentageLitterWithAgeLessSevenList.add(percentageLitterWithAgeLessSeven);
-			ferrowCapacityList.add(ferrowCapacity);
-			littersWeanedList.add(littersWeaned);
-			littersWeanedWithMoreThanTwalePigsList.add(littersWeanedWithMoreThanTwalePigs);
-			percentageLittersWeanedWithMoreThanTwalePigsList.add(percentageLittersWeanedWithMoreThanTwalePigs);
-			sowsWeaningZeroPigList.add(sowsWeaningZeroPig);
-			percentageSowsWeaningZeroPigList.add(percentageSowsWeaningZeroPig);
-			pigsWeaningDivideLitterWeanedList.add(pigsWeaningDivideLitterWeaned);
-			pigsWeaningDivideSowWeanedList.add(pigsWeaningDivideSowWeaned);
-			percentagePingsWeanedDivideByTotalPigsList.add(percentagePingsWeanedDivideByTotalPigs);
-			netFosterList.add(netFoster);
-			percentagePreWeaningMortalityList.add(percentagePreWeaningMortality);
-			littersWithWeaingWeightList.add(littersWithWeaingWeight);
-			pigletsWithWeainngWeightList.add(pigletsWithWeainngWeight);
-			weainngWeightList.add(weainngWeight);
-			weaningWeightWithLitterList.add(weaningWeightWithLitter);
-			weaningWeightWithPigletsList.add(weaningWeightWithPiglets);
-			littersWeanedLessThan17DaysList.add(littersWeanedLessThan17Days);
-			percentageLittersWeanedLessThan17DaysList.add(percentageLittersWeanedLessThan17Days);
-			
-			littersFarrowedList.add(piGIdFromFerrow);
-			avgParityList.add((float)countParityOfPigIngoIdFromFarrow/piGIdFromFerrow);	
-			avgGestlenList.add((float)sumOfDiffOfFerrowAndBreedingDate/piGIdFromFerrow);
-			giltsFarrowedList.add(countPifIngoIdFromFarrowWithParityOneInPigInfo);
-			farrowingRateList.add((float)piGIdFromFerrow/piGIdFromBreeding);
-			
-			percentageFirstServiceList.add(((float)firstServiceCount/piGIdFromBreeding)*100);
-			percentageRepeateServiceList.add(((float)repeateServiceCount/piGIdFromBreeding)*100);
-			breedingEventWithMatingMoreThanOneList.add(breedingEventWithMatingMoreThanOne);
-			percentageBreedingEventWithMatingMoreThanOneList.add(((float)breedingEventWithMatingMoreThanOne/piGIdFromBreeding)*100);
-			countOfMatingPerServiceList.add((float)countOfMating/piGIdFromBreeding);
-			
-			weanSowsBredBy7DaysList.add(countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding);
-			percentageWeanSowsBredBy7DaysList.add((float)countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding/pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig);
-			weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/countPifIngoIdWithParityOneInPigInfo);
-			avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/piGIdFromBreeding);
-			serviceCapacityList.add((float)piGIdFromBreeding/totalActivePenAvailable);
-			arrivalTo1stServIntervalList.add(arrivalTo1stServInterval);
+			if(valueMap != null && !valueMap.isEmpty())
+			{
+				int totalFerrow = (Integer)valueMap.get("totalFerrow");
+				List valueList = (List)valueMap.get("valueList");
+				int totalBorn = (Integer)valueList.get(0);
+				int totalLiveBorn = (Integer)valueList.get(1);
+				int totalDeath = (Integer)valueList.get(2);
+				int totalStillBorn = (Integer)valueList.get(3);
+				int totalMummies = (Integer)valueList.get(4);
+				float totalBirthWeight = (Float)valueList.get(5);
+				int litterWithAgeLessSeven = (Integer)valueList.get(6);
+				int littersWeaned = (Integer)valueList.get(7);
+				int littersWeanedWithMoreThanTwalePigs = (Integer)valueList.get(8);
+				int sowsWeaningZeroPig = totalFerrow - littersWeaned ;
+				int totalPigsWeavened = (Integer)valueList.get(9);
+				int totalLitterSWeanedFosterInOut = (Integer)valueList.get(10);
+				int totalPigsMortal = (Integer)valueList.get(11);
+				int littersWithWeaingWeight = (Integer)valueList.get(12);
+				int pigletsWithWeainngWeight = (Integer)valueList.get(13);
+				int weainngWeight = (Integer)valueList.get(14);
+				int littersWeanedLessThan17Days = (Integer)valueList.get(15);
+				int countPifIngoIdFromFarrowWithParityOneInPigInfo = (Integer)valueList.get(16);
+				int countParityOfPigIngoIdFromFarrow = (Integer)valueList.get(17);
+				int sumOfDiffOfFerrowAndBreedingDate = (Integer)valueList.get(18);
+				int piGIdFromFerrow = (Integer)valueList.get(19);
+				int piGIdFromBreeding = (Integer)valueList.get(20);
+				int firstServiceCount = (Integer)valueList.get(21);
+				int repeateServiceCount = (Integer)valueList.get(22);
+				int breedingEventWithMatingMoreThanOne = (Integer)valueList.get(23);
+				int countOfMating = (Integer)valueList.get(24);
+				int countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding = (Integer)valueList.get(25);
+				int pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig = (Integer)valueList.get(26);
+				int numberOfDaysBetweenWeanAndServiceDate = (Integer)valueList.get(27);
+				int pairtyOfServedFemals = (Integer)valueList.get(28);
+				int countPifIngoIdWithParityOneInPigInfo = (Integer)valueList.get(29);
+				int arrivalTo1stServInterval = (Integer)valueList.get(30);
+				
+				totalBornList.add(totalBorn);
+				totalLiveBornList.add(totalLiveBorn);
+				totalDeathList.add(totalDeath);
+				totalStillBornList.add(totalStillBorn);
+				totalMummiesList.add(totalMummies);
+				totalBirthWeightList.add(totalBirthWeight);
+				litterWithAgeLessSevenList.add(litterWithAgeLessSeven);
+				totalPigsWeavnedList.add(totalPigsWeavened);
+				totalServicesList.add(piGIdFromBreeding);
+				firstServiceList.add(firstServiceCount);
+				repeateServiceList.add(repeateServiceCount);
+				
+				float averageTotalBorn = (float)(totalBorn)/totalFerrow;
+				float averageLiveBorn = (float)(totalLiveBorn)/totalFerrow;
+				
+				float averageDeadBorn = (float)(totalDeath)/totalFerrow;
+				float percentageDeadBorn = ((float)(totalDeath)/totalBorn)*100;
+				
+				float averageStillBorn = (float)(totalStillBorn)/totalFerrow;
+				float percentageStillBorn = ((float)(totalStillBorn)/totalBorn)*100;
+				
+				float averageMummies = (float)(totalMummies)/totalFerrow;
+				float percentageMummies = ((float)(totalMummies)/totalBorn)*100;
+				
+				float averageBirthWeight = (float)(totalBirthWeight)/totalBorn;
+				float averageLiveBirthWeight = ((float)(totalBirthWeight)/totalLiveBorn)*100;
+				
+				float percentageLitterWithAgeLessSeven = ((float)(litterWithAgeLessSeven)/totalLiveBorn)*100;
+				
+				float ferrowCapacity = (float)(totalFerrow)/totalActivePenAvailable;
+				
+				float percentageLittersWeanedWithMoreThanTwalePigs = ((float)(littersWeanedWithMoreThanTwalePigs)/litterWithAgeLessSeven)*100;
+				float percentageSowsWeaningZeroPig  = ((float)(sowsWeaningZeroPig)/totalFerrow)*100;
+				
+				float pigsWeaningDivideLitterWeaned = (float)(totalPigsWeavened)/littersWeaned;
+				float pigsWeaningDivideSowWeaned = (float)(totalPigsWeavened)/totalLitterSWeanedFosterInOut;
+				
+				float percentagePingsWeanedDivideByTotalPigs = ((float)(totalPigsWeavened)/totalBorn)*100;
+				
+				int netFoster = totalLiveBorn -totalPigsMortal- totalPigsWeavened;
+				
+				float percentagePreWeaningMortality = ((float)(totalPigsMortal)/totalLiveBorn)*100;
+				
+				float weaningWeightWithLitter = (float)(weainngWeight)/littersWeaned;
+				float weaningWeightWithPiglets = (float)(weainngWeight)/totalPigsWeavened;
+				
+				float percentageLittersWeanedLessThan17Days = ((float)(littersWeanedLessThan17Days)/littersWeaned)*100;
+				
+				averageTotalBornList.add(averageTotalBorn);
+				averageLiveBornList.add(averageLiveBorn);
+				averageDeadBornList.add(averageDeadBorn);
+				percentageDeadBornList.add(percentageDeadBorn);
+				averageStillBornList.add(averageStillBorn);
+				percentageStillBornList.add(percentageStillBorn);
+				averageMummiesList.add(averageMummies);
+				percentageMummiesList.add(percentageMummies);
+				averageBirthWeightList.add(averageBirthWeight);
+				averageLiveBirthWeightList.add(averageLiveBirthWeight);
+				percentageLitterWithAgeLessSevenList.add(percentageLitterWithAgeLessSeven);
+				ferrowCapacityList.add(ferrowCapacity);
+				littersWeanedList.add(littersWeaned);
+				littersWeanedWithMoreThanTwalePigsList.add(littersWeanedWithMoreThanTwalePigs);
+				percentageLittersWeanedWithMoreThanTwalePigsList.add(percentageLittersWeanedWithMoreThanTwalePigs);
+				sowsWeaningZeroPigList.add(sowsWeaningZeroPig);
+				percentageSowsWeaningZeroPigList.add(percentageSowsWeaningZeroPig);
+				pigsWeaningDivideLitterWeanedList.add(pigsWeaningDivideLitterWeaned);
+				pigsWeaningDivideSowWeanedList.add(pigsWeaningDivideSowWeaned);
+				percentagePingsWeanedDivideByTotalPigsList.add(percentagePingsWeanedDivideByTotalPigs);
+				netFosterList.add(netFoster);
+				percentagePreWeaningMortalityList.add(percentagePreWeaningMortality);
+				littersWithWeaingWeightList.add(littersWithWeaingWeight);
+				pigletsWithWeainngWeightList.add(pigletsWithWeainngWeight);
+				weainngWeightList.add(weainngWeight);
+				weaningWeightWithLitterList.add(weaningWeightWithLitter);
+				weaningWeightWithPigletsList.add(weaningWeightWithPiglets);
+				littersWeanedLessThan17DaysList.add(littersWeanedLessThan17Days);
+				percentageLittersWeanedLessThan17DaysList.add(percentageLittersWeanedLessThan17Days);
+				
+				littersFarrowedList.add(piGIdFromFerrow);
+				avgParityList.add((float)countParityOfPigIngoIdFromFarrow/piGIdFromFerrow);	
+				avgGestlenList.add((float)sumOfDiffOfFerrowAndBreedingDate/piGIdFromFerrow);
+				giltsFarrowedList.add(countPifIngoIdFromFarrowWithParityOneInPigInfo);
+				farrowingRateList.add((float)piGIdFromFerrow/piGIdFromBreeding);
+				
+				percentageFirstServiceList.add(((float)firstServiceCount/piGIdFromBreeding)*100);
+				percentageRepeateServiceList.add(((float)repeateServiceCount/piGIdFromBreeding)*100);
+				breedingEventWithMatingMoreThanOneList.add(breedingEventWithMatingMoreThanOne);
+				percentageBreedingEventWithMatingMoreThanOneList.add(((float)breedingEventWithMatingMoreThanOne/piGIdFromBreeding)*100);
+				countOfMatingPerServiceList.add((float)countOfMating/piGIdFromBreeding);
+				
+				weanSowsBredBy7DaysList.add(countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding);
+				percentageWeanSowsBredBy7DaysList.add((float)countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding/pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig);
+				weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/countPifIngoIdWithParityOneInPigInfo);
+				avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/piGIdFromBreeding);
+				serviceCapacityList.add((float)piGIdFromBreeding/totalActivePenAvailable);
+				arrivalTo1stServIntervalList.add(arrivalTo1stServInterval);
+			}
+			else
+			{
+				
+				
+				totalBornList.add(0);
+				totalLiveBornList.add(0);
+				totalDeathList.add(0);
+				totalStillBornList.add(0);
+				totalMummiesList.add(0);
+				totalBirthWeightList.add(0f);
+				litterWithAgeLessSevenList.add(0);
+				totalPigsWeavnedList.add(0);
+				totalServicesList.add(0);
+				firstServiceList.add(0);
+				repeateServiceList.add(0);
+				
+				
+				averageTotalBornList.add(0f);
+				averageLiveBornList.add(0f);
+				averageDeadBornList.add(0f);
+				percentageDeadBornList.add(0f);
+				averageStillBornList.add(0f);
+				percentageStillBornList.add(0f);
+				averageMummiesList.add(0f);
+				percentageMummiesList.add(0f);
+				averageBirthWeightList.add(0f);
+				averageLiveBirthWeightList.add(0f);
+				percentageLitterWithAgeLessSevenList.add(0f);
+				ferrowCapacityList.add(0f);
+				littersWeanedList.add(0);
+				littersWeanedWithMoreThanTwalePigsList.add(0);
+				percentageLittersWeanedWithMoreThanTwalePigsList.add(0f);
+				sowsWeaningZeroPigList.add(0);
+				percentageSowsWeaningZeroPigList.add(0f);
+				pigsWeaningDivideLitterWeanedList.add(0f);
+				pigsWeaningDivideSowWeanedList.add(0f);
+				percentagePingsWeanedDivideByTotalPigsList.add(0f);
+				netFosterList.add(0);
+				percentagePreWeaningMortalityList.add(0f);
+				littersWithWeaingWeightList.add(0);
+				pigletsWithWeainngWeightList.add(0);
+				weainngWeightList.add(0);
+				weaningWeightWithLitterList.add(0f);
+				weaningWeightWithPigletsList.add(0f);
+				littersWeanedLessThan17DaysList.add(0);
+				percentageLittersWeanedLessThan17DaysList.add(0f);
+				
+				littersFarrowedList.add(0);
+				avgParityList.add(0f);	
+				avgGestlenList.add(0f);
+				giltsFarrowedList.add(0);
+				farrowingRateList.add(0f);
+				
+				percentageFirstServiceList.add(0f);
+				percentageRepeateServiceList.add(0f);
+				breedingEventWithMatingMoreThanOneList.add(0);
+				percentageBreedingEventWithMatingMoreThanOneList.add(0f);
+				countOfMatingPerServiceList.add(0f);
+				
+				weanSowsBredBy7DaysList.add(0);
+				percentageWeanSowsBredBy7DaysList.add(0f);
+				weanTo1stServiceIntervalList.add(0f);
+				avgParityOfServedFemalesList.add(0f);
+				serviceCapacityList.add(0f);
+				arrivalTo1stServIntervalList.add(0);
+			}
 			
 		}
 		

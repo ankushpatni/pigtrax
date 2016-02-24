@@ -75,7 +75,7 @@ public class ReportServiceImpl implements ReportService{
 	    	int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 	    	if(dayOfWeek-1 ==1)
 	    	{
-	    		cal.add(Calendar.WEEK_OF_YEAR, 1);
+	    		cal.add(Calendar.DAY_OF_YEAR, 6);
 	    	}
 	    	else
 	    	{
@@ -133,6 +133,10 @@ public class ReportServiceImpl implements ReportService{
 				dateMapDate.put(start, mapOfValues);
 				
 			}
+	        else
+	        {
+	        	dateMapDate.put(start, null);
+	        }
 	        c++;
 	    }
 	    return c - 1;
