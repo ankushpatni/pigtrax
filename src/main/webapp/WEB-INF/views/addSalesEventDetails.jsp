@@ -88,12 +88,16 @@
                    
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.removalEventform.salesType'  text='Sales Type'/></label>
-                      <div ng-dropdown-multiselect="" options="saleTypeValues" selected-model="selectedSalesTypes"  extra-settings="multiselectdropdownsettings"></div>			
+                     <!--  <div ng-dropdown-multiselect="" options="saleTypeValues" selected-model="selectedSalesTypes"  extra-settings="multiselectdropdownsettings"></div> -->                      
+                      <select  class="form-control"    name="salesReason" id="salesReason" ng-model="selectedSalesTypes" >
+                      	<option ng-repeat="key in saleTypeKeys" ng-value="key" >{{saleTypeKeyValues[key]}}</option>        
+                        </select>
+                      			
                     </div>
                     
                     <div class="form-group" ng-show="selectGroup==='pigInfo'">
                       <label><spring:message code='label.piginfo.removalEventform.salesReason'  text='Sales Reason'/></label>                      
- 						<select  multiple="" size=4 class="form-control"    name="salesReason" id="salesReason" ng-model="removalExceptSales.salesReasons" >
+ 						<select  class="form-control"    name="salesReason" id="salesReason" ng-model="selectedSalesReason" >
                       	<option ng-repeat="key in saleReasonKeys" ng-value="key" >{{saleReasonKeyValues[key]}}</option>        
                         </select>
                         

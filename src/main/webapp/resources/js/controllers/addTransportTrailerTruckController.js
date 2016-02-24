@@ -4,6 +4,7 @@ pigTrax.controller('addTruckTrailorCtrl', function($scope, $http, $window, $moda
 	$scope.alertMessage;
 	$scope.generatedCompanyId = truckTrailorData.generatedCompanyId;
 	$scope.transportTrailerType = truckTrailorData.transportTrailerType;
+	$scope.transportTrailerTypeKeySet = truckTrailorData.transportTrailerTypeKeySet;
 	$scope.truck = truckTrailorData.truck;
 
 	var currDate = new Date();

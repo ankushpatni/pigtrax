@@ -34,10 +34,11 @@ public class InventoryStatusDao {
 		List<InventoryStatusBean> inventoryStatusList = new ArrayList<InventoryStatusBean>();
 		
 		String qry="(SELECT P.\"permiseId\" as \"Sow Source\", BN.\"barnId\" , " 
+				+" CASE WHEN PEM.\"id_RemovalEventExceptSalesDetails\" > 0 THEN 'Transfer' ELSE "
 				+" CASE WHEN PEM.\"id_FarrowEvent\" > 0 THEN 'Farrow' " 
 				+" ELSE  CASE WHEN PEM.\"id_PregnancyEvent\" > 0 THEN 'PregnancyEvent' "
 				+" ELSE CASE WHEN PEM.\"id_BreedingEvent\" > 0 THEN 'BreedingEvent' " 
-				+" ELSE 'EntryEvent' END END END AS \"Phase Type\", '' as \"Group Id\", "
+				+" ELSE 'EntryEvent' END END END END AS \"Phase Type\", '' as \"Group Id\", "
 				+" CASE WHEN PI.\"id_SexType\" = 2 THEN 'Sow' ELSE 'Boar' END as \"Animal Type\", count(1) as \"Head\", null as \"DOF\"	  "   
 				+" FROM "
 				+" pigtrax.\"PigTraxEventMaster\" PEM " 
