@@ -2,8 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-	<h2><spring:message	code='label.generateActionListReport.heading'
-								text='Generate Action List Report' /></h2>
+	<h2><spring:message	code='label.generateInventoryStatusReport.heading'
+								text='Generate Inventory Status Report' /></h2>
 </div>
 <div class="cl-mcont" id="InventoryStatusReportControllerId" ng-controller="InventoryStatusReportController" ng-init="loadPremises('${CompanyId}')" class="container-fluid">
 <div class="row">
@@ -15,8 +15,8 @@
 						<h3 style="color:green">${token}</h3>
 						<h3>
 							<spring:message
-								code='label.groupReport.generateReport.heading'
-								text='Generate Group Report' />
+								code='label.generateInventoryStatusReport.heading'
+								text='Generate Inventory Status Report' />
 						</h3>
 						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
 						

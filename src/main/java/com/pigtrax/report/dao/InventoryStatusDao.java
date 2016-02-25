@@ -33,7 +33,9 @@ public class InventoryStatusDao {
 	{
 		List<InventoryStatusBean> inventoryStatusList = new ArrayList<InventoryStatusBean>();
 		
-		String qry="(SELECT P.\"permiseId\" as \"Sow Source\", BN.\"barnId\" , " 
+		String qry="SELECT T.\"Sow Source\", T.\"barnId\", T.\"Phase Type\", T.\"Group Id\", T.\"Animal Type\", T.\"Head\", T.\"DOF\" "
+				+" FROM "
+				+" (SELECT P.\"permiseId\" as \"Sow Source\", BN.\"barnId\" , " 
 				+" CASE WHEN PEM.\"id_RemovalEventExceptSalesDetails\" > 0 THEN 'Transfer' ELSE "
 				+" CASE WHEN PEM.\"id_FarrowEvent\" > 0 THEN 'Farrow' " 
 				+" ELSE  CASE WHEN PEM.\"id_PregnancyEvent\" > 0 THEN 'PregnancyEvent' "
@@ -58,7 +60,7 @@ public class InventoryStatusDao {
 				+" GROUP BY PI.\"id_SexType\",  \"Sow Source\", \"Phase Type\", BN.\"barnId\" "
 				+" UNION "
 				+" SELECT PR.\"permiseId\" as \"Sow Source\",  BN.\"barnId\" , PPT.\"fieldDescription\"  as \"Phase Type\", GE.\"groupId\" as \"Group Id\", "
-					+ "'Pig' as \"Animal Type\", SUM(GED.\"numberOfPigs\") as \"Head\", FED.\"feedEventDate\" as \"DOF\" "
+					+ "'Pig' as \"Animal Type\", SUM(GED.\"numberOfPigs\") as \"Head\", FED.\"DOF\" as \"DOF\" "
 				+" FROM pigtrax.\"GroupEvent\" GE "
 				+" JOIN pigtrax.\"GroupEventPhaseChange\" GEPC ON GE.\"id\" = GEPC.\"id_GroupEvent\" and GEPC.\"phaseEndDate\" is NULL "
 				+" JOIN pigtraxrefdata.\"PhaseOfProductionType\" PPT ON GEPC.\"id_PhaseOfProductionType\" = PPT.\"id\" "
@@ -67,10 +69,10 @@ public class InventoryStatusDao {
 				+" LEFT JOIN pigtrax.\"Room\" R ON GER.\"id_Room\" = R.\"id\" "
 				+" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\"	 "
 				+" LEFT JOIN pigtrax.\"Premise\" PR ON GED.\"id_SowSource\" = PR.\"id\" "	
-				+" LEFT JOIN pigtrax.\"FeedEventDetails\" FED ON FED.\"id_GroupEvent\" = GE.\"id\" "
+				+" LEFT JOIN (select FED.\"id_GroupEvent\", min(FED.\"feedEventDate\") as \"DOF\" from pigtrax.\"FeedEventDetails\" FED group by FED.\"id_GroupEvent\") FED ON FED.\"id_GroupEvent\" = GE.\"id\" "				
 				+" WHERE " 
 				+" GEPC.\"id_Premise\" = ? "
-				+" GROUP BY PR.\"permiseId\", \"Phase Type\", GED.\"id_SowSource\", GE.\"groupId\", BN.\"barnId\" ,\"DOF\") ";
+				+" GROUP BY PR.\"permiseId\", \"Phase Type\", GED.\"id_SowSource\", GE.\"groupId\", BN.\"barnId\" ,\"DOF\") T ORDER BY T.\"Sow Source\", T.\"Animal Type\", T.\"Group Id\" ";
 
 		 inventoryStatusList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
