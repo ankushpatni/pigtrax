@@ -129,6 +129,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					{
 						//Add a negative transaction in the group event details
 						groupEventDetails = new GroupEventDetails();
+						groupEventDetails.setSowSourceId(removalEventExceptSalesDetails.getDestPremiseId());
 						groupEventDetails.setGroupId(groupEventUpdate.getId());
 						groupEventDetails.setDateOfEntry(removalEventExceptSalesDetails.getRemovalDateTime());
 						groupEventDetails.setNumberOfPigs(-1*removalEventExceptSalesDetails.getNumberOfPigs());

@@ -49,7 +49,6 @@ public class InventoryStatusReportService {
 					} catch (ParseException e) {
 						rowBuffer.append(" ");
 					}
-					
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}

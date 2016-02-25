@@ -102,6 +102,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 				{
 					//Add a negative transaction in the group event details
 					groupEventDetails = new GroupEventDetails();
+					groupEventDetails.setSowSourceId(groupEventUpdate.getPremiseId());
 					groupEventDetails.setGroupId(groupEventUpdate.getId());
 					groupEventDetails.setDateOfEntry(salesEventDetails.getSalesDateTime());
 					groupEventDetails.setNumberOfPigs(-1*salesEventDetails.getNumberOfPigs());
