@@ -20,7 +20,7 @@ import com.pigtrax.report.bean.InventoryStatusBean;
 @Transactional
 public class InventoryStatusDao {
 
-	private static final Logger logger = Logger.getLogger(ActionListReportDao.class);
+	private static final Logger logger = Logger.getLogger(InventoryStatusDao.class);
 
 	private JdbcTemplate jdbcTemplate;
 
