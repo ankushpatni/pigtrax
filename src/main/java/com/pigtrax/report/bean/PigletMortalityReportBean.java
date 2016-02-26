@@ -12,6 +12,7 @@ public class PigletMortalityReportBean {
 	private Integer lactationDays;
 	private Integer numberOfDeaths;
 	private String mortalityReason;
+	private Integer inventoryCount;
 	public String getPremise() {
 		return premise;
 	}
@@ -50,6 +51,12 @@ public class PigletMortalityReportBean {
 	public void setMortalityReason(String mortalityReason) {
 		if(mortalityReason == null) mortalityReason = "";
 		this.mortalityReason = mortalityReason;
+	}
+	public Integer getInventoryCount() {
+		return inventoryCount;
+	}
+	public void setInventoryCount(Integer inventoryCount) {
+		this.inventoryCount = inventoryCount;
 	}
 	
 

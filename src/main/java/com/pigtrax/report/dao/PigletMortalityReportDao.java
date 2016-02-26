@@ -35,7 +35,7 @@ public class PigletMortalityReportDao {
 	{
 		List<PigletMortalityReportBean> pigletMortalityList = new ArrayList<PigletMortalityReportBean>();
 		
-		String qry=" SELECT BN.\"barnId\", R.\"roomId\", current_date-FE.\"farrowDateTime\":: date as \"lactationDays\", "
+		String qry=" SELECT BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",current_date-FE.\"farrowDateTime\":: date as \"lactationDays\", "
 				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\", MRT.\"fieldDescription\",PS.\"id_Pen\" " 
 				 +" FROM pigtrax.\"FarrowEvent\" FE "
 				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS On PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 4"
@@ -67,6 +67,7 @@ public class PigletMortalityReportDao {
 			pigletMortalityReportBean.setLactationDays(rs.getInt("lactationDays"));
 			pigletMortalityReportBean.setNumberOfDeaths(rs.getInt("Number of Deaths"));
 			pigletMortalityReportBean.setMortalityReason(rs.getString("fieldDescription"));
+			pigletMortalityReportBean.setInventoryCount(rs.getInt("inventoryCount"));
 			
 			return pigletMortalityReportBean;
 		}

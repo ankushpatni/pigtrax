@@ -36,7 +36,7 @@ public class PigletMortalityReportService {
 					rowBuffer.append(pigletMortalityReportBean.getBarnId() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getRoomId() + seprater);
 					rowBuffer.append(" " + seprater);
-					rowBuffer.append(" " + seprater);
+					rowBuffer.append(pigletMortalityReportBean.getInventoryCount() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getLactationDays() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getNumberOfDeaths() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getMortalityReason() + seprater);
