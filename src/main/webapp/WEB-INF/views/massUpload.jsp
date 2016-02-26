@@ -62,8 +62,8 @@
 							<option value="INDIVIDUALPIGLETSTATUS" <%=eventType.equals("INDIVIDUALPIGLETSTATUS")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></option>	
 							<option value="FEEDEVENT" <%=eventType.equals("FEEDEVENT")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></option>
 							<option value="FEEDDETAILEVENT" <%=eventType.equals("FEEDDETAILEVENT")?"selected":"" %>>Feed Event Details</option>
-							<option value="REMOVALEVENTEXCEPTSALESEVENT" <%=eventType.equals("REMOVALEVENTEXCEPTSALESEVENT")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.removalevent.link"  text="Pig Movement"/> - <spring:message code='label.piginfo.removalExceptSales.removalExceptSales.option'  text='Removal Except Sales'/></option>
-							<option value="SALESEVENTDETAILS" <%=eventType.equals("SALESEVENTDETAILS")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.removalevent.link"  text="Pig Movement"/> - <spring:message code='label.piginfo.removalExceptSales.sales.option'  text='Removal Event Id'/> </option>
+							<option value="REMOVALEVENTEXCEPTSALESEVENT" <%=eventType.equals("REMOVALEVENTEXCEPTSALESEVENT")?"selected":"" %>><spring:message code='label.piginfo.removalExceptSales.removalExceptSales.option'  text='Removal Except Sales'/></option>
+							<option value="SALESEVENTDETAILS" <%=eventType.equals("SALESEVENTDETAILS")?"selected":"" %>><spring:message code='label.piginfo.removalExceptSales.sales.option'  text='Removal Event Id'/> </option>
 													
 						</select> 
 						</div>
