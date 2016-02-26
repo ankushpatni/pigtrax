@@ -79,6 +79,7 @@
 											<li><a href="reportGenerationActionList"><spring:message code="label.leftmenu.Charts.actionListReport"  text="Action List Report"/></a></li>
 											<li><a href="reportInventoryStatus"><spring:message code="label.leftmenu.Charts.inventoryStatusReport"  text="Inventory Status Report"/></a></li>
 											<li><a href="reportLactationLength"><spring:message code="label.leftmenu.Charts.lactationLengthReport"  text="Lactation Length Report"/></a></li>
+											<li><a href="reportPigletMortality"><spring:message code="label.leftmenu.Charts.pigletMortalityReport"  text="Piglet Mortality Report"/></a></li>
   
                                 </ul>
                               </li>
