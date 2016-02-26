@@ -36,14 +36,14 @@ public class PigletMortalityReportDao {
 		List<PigletMortalityReportBean> pigletMortalityList = new ArrayList<PigletMortalityReportBean>();
 		
 		String qry=" SELECT BN.\"barnId\", R.\"roomId\", current_date-FE.\"farrowDateTime\":: date as \"lactationDays\", "
-				 +"	SUM(PS.\"numberOfPigs\") as \"Number of Deaths\", MRT.\"fieldDescription\",PS.\"id_Pen\" " 
-				 +" FROM pigtrax.\"PigletStatus\" PS "
-				 +" JOIN pigtrax.\"FarrowEvent\" FE On PS.\"id_FarrowEvent\" = FE.\"id\" "
+				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\", MRT.\"fieldDescription\",PS.\"id_Pen\" " 
+				 +" FROM pigtrax.\"FarrowEvent\" FE "
+				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS On PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 4"
 				 +" LEFT JOIN pigtrax.\"Pen\" PEN ON PS.\"id_Pen\" = PEN.\"id\" "
 				 +" LEFT JOIN pigtrax.\"Room\" R ON PEN.\"id_Room\" = R.\"id\" "
 				 +" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\" "				 
 				 +" LEFT JOIN pigtraxrefdata.\"MortalityReasonType\" MRT ON PS.\"id_MortalityReasonType\" = MRT.\"id\" "
-				 +" WHERE PS.\"id_PigletStatusEventType\" = 4 and PS.\"id_Premise\" = ? "
+				 +" WHERE  FE.\"id_Premise\" = ? "
 				 +" AND FE.\"farrowDateTime\"::date between ? and ? "
 				 +" GROUP BY PS.\"id_Pen\" , MRT.\"fieldDescription\", \"lactationDays\", R.\"roomId\",BN.\"barnId\" ORDER BY \"lactationDays\" ";
 
