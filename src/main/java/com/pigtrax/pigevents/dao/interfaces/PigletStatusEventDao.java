@@ -95,5 +95,13 @@ public interface PigletStatusEventDao {
 	
 	void deletePigletStatusEventsByFarrowId(final Integer pigInfoId, final Integer farrowEventId, final Integer pigletStatusEventType)
 			throws SQLException;
+
+	Integer getTotalWeekBornPiglet(Date start, Date end, Integer companyId);
+
+	Integer getLittersWithWeightOfLiveBorn(Date startDate, Date endDate,
+			Integer companyId) ;
+
+	int getConceptionRateAtPresumedPregnant(Date startDate, Date endDate,
+			Integer companyId, Integer difference);
 	
 }

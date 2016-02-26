@@ -190,9 +190,12 @@ public class ReportControlller {
 		List<Float> avgParityOfServedFemalesList = new LinkedList<Float>();
 		List<Integer> serviceToFalloutIntervalList = new LinkedList<Integer>();
 		List<Float> serviceCapacityList = new LinkedList<Float>();
-		List<Integer> arrivalTo1stServIntervalList = new LinkedList<Integer>();
+		List<Float> arrivalTo1stServIntervalList = new LinkedList<Float>();
 		
+		List<Integer> totalViablebornList = new LinkedList<Integer>();
+		List<Float> averageViablebornList = new LinkedList<Float>();
 		
+		List<Integer> littersWithBirthWeightList = new LinkedList<Integer>();
 				
 		while(itr.hasNext())
 		{
@@ -236,6 +239,10 @@ public class ReportControlller {
 				int pairtyOfServedFemals = (Integer)valueList.get(28);
 				int countPifIngoIdWithParityOneInPigInfo = (Integer)valueList.get(29);
 				int arrivalTo1stServInterval = (Integer)valueList.get(30);
+				int totalWeakBorn = (Integer)valueList.get(31);
+				int litterWithWeight = (Integer)valueList.get(32);
+				int getConceptionRateAtPresumedPregnantFor30 = (Integer)valueList.get(33);
+				int getConceptionRateAtPresumedPregnantFor42 = (Integer)valueList.get(34);
 				
 				totalBornList.add(totalBorn);
 				totalLiveBornList.add(totalLiveBorn);
@@ -248,6 +255,7 @@ public class ReportControlller {
 				totalServicesList.add(piGIdFromBreeding);
 				firstServiceList.add(firstServiceCount);
 				repeateServiceList.add(repeateServiceCount);
+				
 				
 				float averageTotalBorn = (float)(totalBorn)/totalFerrow;
 				float averageLiveBorn = (float)(totalLiveBorn)/totalFerrow;
@@ -264,11 +272,11 @@ public class ReportControlller {
 				float averageBirthWeight = (float)(totalBirthWeight)/totalBorn;
 				float averageLiveBirthWeight = ((float)(totalBirthWeight)/totalLiveBorn)*100;
 				
-				float percentageLitterWithAgeLessSeven = ((float)(litterWithAgeLessSeven)/totalLiveBorn)*100;
+				float percentageLitterWithAgeLessSeven = ((float)(litterWithAgeLessSeven)/littersWeaned)*100;
 				
 				float ferrowCapacity = (float)(totalFerrow)/totalActivePenAvailable;
 				
-				float percentageLittersWeanedWithMoreThanTwalePigs = ((float)(littersWeanedWithMoreThanTwalePigs)/litterWithAgeLessSeven)*100;
+				float percentageLittersWeanedWithMoreThanTwalePigs = ((float)(littersWeanedWithMoreThanTwalePigs)/totalPigsWeavened)*100;
 				float percentageSowsWeaningZeroPig  = ((float)(sowsWeaningZeroPig)/totalFerrow)*100;
 				
 				float pigsWeaningDivideLitterWeaned = (float)(totalPigsWeavened)/littersWeaned;
@@ -332,11 +340,18 @@ public class ReportControlller {
 				weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/countPifIngoIdWithParityOneInPigInfo);
 				avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/piGIdFromBreeding);
 				serviceCapacityList.add((float)piGIdFromBreeding/totalActivePenAvailable);
-				arrivalTo1stServIntervalList.add(arrivalTo1stServInterval);
+				arrivalTo1stServIntervalList.add((float)arrivalTo1stServInterval/piGIdFromBreeding);
+				
+				totalViablebornList.add(totalLiveBorn-totalWeakBorn);
+				averageViablebornList.add((float)(totalLiveBorn-totalWeakBorn)/totalFerrow);
+				littersWithBirthWeightList.add(litterWithWeight);
+				
+				conceptionRateAt30dPresumedPregnantList.add((float)getConceptionRateAtPresumedPregnantFor30/totalFerrow);
+				conceptionRateAtDay42List.add((float)getConceptionRateAtPresumedPregnantFor42/totalFerrow);
+				
 			}
 			else
 			{
-				
 				
 				totalBornList.add(0);
 				totalLiveBornList.add(0);
@@ -398,7 +413,15 @@ public class ReportControlller {
 				weanTo1stServiceIntervalList.add(0f);
 				avgParityOfServedFemalesList.add(0f);
 				serviceCapacityList.add(0f);
-				arrivalTo1stServIntervalList.add(0);
+				arrivalTo1stServIntervalList.add(0f);
+				
+				totalViablebornList.add(0);
+				averageViablebornList.add(0f);
+				littersWithBirthWeightList.add(0);
+				conceptionRateAt30dPresumedPregnantList.add(0f);
+				conceptionRateAtDay42List.add(0f);
+				
+				
 			}
 			
 		}
@@ -410,7 +433,7 @@ public class ReportControlller {
 		dateBuffer.append("Calander Week,");
 		for(int i=0;i<size;i++)
 		{
-			dateBuffer.append(dateList.get(i)+",");
+			dateBuffer.append(dateList.get(i)).append(",");
 		}
 		
 		rows.add(dateBuffer.toString());
@@ -425,7 +448,7 @@ public class ReportControlller {
 		totalServicesBuffer.append("Total services,");
 		for(int i=0;i<size;i++)
 		{
-			totalServicesBuffer.append(totalServicesList.get(i)+",");
+			totalServicesBuffer.append(totalServicesList.get(i)).append(",");
 		}
 		
 		rows.add(totalServicesBuffer.toString());
@@ -440,7 +463,7 @@ public class ReportControlller {
 		firstServiceBuffer.append("First services,");
 		for(int i=0;i<size;i++)
 		{
-			firstServiceBuffer.append(firstServiceList.get(i)+",");
+			firstServiceBuffer.append(firstServiceList.get(i)).append(",");
 		}
 		
 		rows.add(firstServiceBuffer.toString());
@@ -450,7 +473,7 @@ public class ReportControlller {
 		repeateServiceBuffer.append("Repeat services,");
 		for(int i=0;i<size;i++)
 		{
-			repeateServiceBuffer.append(repeateServiceList.get(i)+",");
+			repeateServiceBuffer.append(repeateServiceList.get(i)).append(",");
 		}
 		
 		rows.add(repeateServiceBuffer.toString());
@@ -460,7 +483,7 @@ public class ReportControlller {
 		percentageFirstServiceBuffer.append("% First services,");
 		for(int i=0;i<size;i++)
 		{
-			percentageFirstServiceBuffer.append(percentageFirstServiceList.get(i)+",");
+			percentageFirstServiceBuffer.append(percentageFirstServiceList.get(i)).append(",");
 		}
 		
 		rows.add(percentageFirstServiceBuffer.toString());
@@ -488,7 +511,7 @@ public class ReportControlller {
 		percentageRepeateServiceBuffer.append("% Repeat services,");
 		for(int i=0;i<size;i++)
 		{
-			percentageRepeateServiceBuffer.append(percentageRepeateServiceList.get(i)+",");
+			percentageRepeateServiceBuffer.append(percentageRepeateServiceList.get(i)).append(",");
 		}		
 		rows.add(percentageRepeateServiceBuffer.toString());
 		rows.add("\n");
@@ -497,7 +520,7 @@ public class ReportControlller {
 		breedingEventWithMatingMoreThanOneBuffer.append("Services with >1 matings,");
 		for(int i=0;i<size;i++)
 		{
-			breedingEventWithMatingMoreThanOneBuffer.append(breedingEventWithMatingMoreThanOneList.get(i)+",");
+			breedingEventWithMatingMoreThanOneBuffer.append(breedingEventWithMatingMoreThanOneList.get(i)).append(",");
 		}		
 		rows.add(breedingEventWithMatingMoreThanOneBuffer.toString());
 		rows.add("\n");
@@ -507,7 +530,7 @@ public class ReportControlller {
 		percentageBreedingEventWithMatingMoreThanOneBuffer.append("% Services with 1+ matings,");
 		for(int i=0;i<size;i++)
 		{
-			percentageBreedingEventWithMatingMoreThanOneBuffer.append(percentageBreedingEventWithMatingMoreThanOneList.get(i)+",");
+			percentageBreedingEventWithMatingMoreThanOneBuffer.append(percentageBreedingEventWithMatingMoreThanOneList.get(i)).append(",");
 		}		
 		rows.add(percentageBreedingEventWithMatingMoreThanOneBuffer.toString());
 		rows.add("\n");
@@ -516,7 +539,7 @@ public class ReportControlller {
 		countOfMatingPerServiceListBuffer.append("Matings per Service,");
 		for(int i=0;i<size;i++)
 		{
-			countOfMatingPerServiceListBuffer.append(countOfMatingPerServiceList.get(i)+",");
+			countOfMatingPerServiceListBuffer.append(countOfMatingPerServiceList.get(i)).append(",");
 		}		
 		rows.add(countOfMatingPerServiceListBuffer.toString());
 		rows.add("\n");
@@ -529,7 +552,7 @@ public class ReportControlller {
 		arrivalTo1stServIntervalListBuffer.append("Arrival to 1st serv interval,");
 		for(int i=0;i<size;i++)
 		{
-			arrivalTo1stServIntervalListBuffer.append(arrivalTo1stServIntervalList.get(i)+",");
+			arrivalTo1stServIntervalListBuffer.append(arrivalTo1stServIntervalList.get(i)).append(",");
 		}		
 		rows.add(arrivalTo1stServIntervalListBuffer.toString());
 		rows.add("\n");
@@ -542,7 +565,7 @@ public class ReportControlller {
 		weanSowsBredBy7DaysListBuffer.append("Wean sows bred by 7 days,");
 		for(int i=0;i<size;i++)
 		{
-			weanSowsBredBy7DaysListBuffer.append(weanSowsBredBy7DaysList.get(i)+",");
+			weanSowsBredBy7DaysListBuffer.append(weanSowsBredBy7DaysList.get(i)).append(",");
 		}		
 		rows.add(weanSowsBredBy7DaysListBuffer.toString());
 		rows.add("\n");
@@ -551,7 +574,7 @@ public class ReportControlller {
 		percentageWeanSowsBredBy7DaysListBuffer.append("% Wean sows bred by 7 days,");
 		for(int i=0;i<size;i++)
 		{
-			percentageWeanSowsBredBy7DaysListBuffer.append(percentageWeanSowsBredBy7DaysList.get(i)+",");
+			percentageWeanSowsBredBy7DaysListBuffer.append(percentageWeanSowsBredBy7DaysList.get(i)).append(",");
 		}		
 		rows.add(percentageWeanSowsBredBy7DaysListBuffer.toString());
 		rows.add("\n");
@@ -562,7 +585,7 @@ public class ReportControlller {
 		weanTo1stServiceIntervalListBuffer.append("Wean to 1st service interval,");
 		for(int i=0;i<size;i++)
 		{
-			weanTo1stServiceIntervalListBuffer.append(weanTo1stServiceIntervalList.get(i)+",");
+			weanTo1stServiceIntervalListBuffer.append(weanTo1stServiceIntervalList.get(i)).append(",");
 		}		
 		rows.add(weanTo1stServiceIntervalListBuffer.toString());
 		rows.add("\n");
@@ -571,7 +594,7 @@ public class ReportControlller {
 		conceptionRateAt30dPresumedPregnantListBuffer.append("Conception rate at 30d Presumed Pregnant,");
 		for(int i=0;i<size;i++)
 		{
-			conceptionRateAt30dPresumedPregnantListBuffer.append(",");
+			conceptionRateAt30dPresumedPregnantListBuffer.append(conceptionRateAt30dPresumedPregnantList.get(i)).append(",");
 		}		
 		rows.add(conceptionRateAt30dPresumedPregnantListBuffer.toString());
 		rows.add("\n");
@@ -580,16 +603,16 @@ public class ReportControlller {
 		conceptionRateAtDay42ListBuffer.append("Conception rate at day42,");
 		for(int i=0;i<size;i++)
 		{
-			conceptionRateAtDay42ListBuffer.append(",");
+			conceptionRateAtDay42ListBuffer.append(conceptionRateAtDay42List.get(i)).append(",");
 		}		
 		rows.add(conceptionRateAtDay42ListBuffer.toString());
 		rows.add("\n");
 		
 		StringBuffer avgParityOfServedFemalesListBuffer = new StringBuffer(); // no calculation
-		avgParityOfServedFemalesListBuffer.append("Avg parity of served females,");
+		avgParityOfServedFemalesListBuffer.append("Avg parity of served females").append(",");
 		for(int i=0;i<size;i++)
 		{
-			avgParityOfServedFemalesListBuffer.append(avgParityOfServedFemalesList.get(i)+",");
+			avgParityOfServedFemalesListBuffer.append(avgParityOfServedFemalesList.get(i)).append(",");
 		}		
 		rows.add(avgParityOfServedFemalesListBuffer.toString());
 		rows.add("\n");
@@ -599,7 +622,7 @@ public class ReportControlller {
 		for(int i=0;i<size;i++)
 		{
 			if(!serviceToFalloutIntervalList.isEmpty())
-				serviceToFalloutIntervalListBuffer.append(serviceToFalloutIntervalList.get(i)+",");
+				serviceToFalloutIntervalListBuffer.append(serviceToFalloutIntervalList.get(i)).append(",");
 			else
 				serviceToFalloutIntervalListBuffer.append(",");
 		}		
@@ -610,7 +633,7 @@ public class ReportControlller {
 		serviceCapacityListBuffer.append("Service Capacity (Services/crate/year),");
 		for(int i=0;i<size;i++)
 		{
-			serviceCapacityListBuffer.append(serviceCapacityList.get(i)+",");
+			serviceCapacityListBuffer.append(serviceCapacityList.get(i)).append(",");
 		}		
 		rows.add(serviceCapacityListBuffer.toString());
 		rows.add("\n");
@@ -625,9 +648,8 @@ public class ReportControlller {
 		littersFarrowedBuffer.append("Litters farrowed,");
 		for(int i=0;i<size;i++)
 		{
-			littersFarrowedBuffer.append(littersFarrowedList.get(i)+",");
+			littersFarrowedBuffer.append(littersFarrowedList.get(i)).append(",");
 		}
-		
 		rows.add(littersFarrowedBuffer.toString());
 		rows.add("\n");
 		
@@ -635,7 +657,7 @@ public class ReportControlller {
 		avgParityBuffer.append("Avg parity,");
 		for(int i=0;i<size;i++)
 		{
-			avgParityBuffer.append(avgParityList.get(i)+",");
+			avgParityBuffer.append(avgParityList.get(i)).append(",");
 		}
 		
 		rows.add(avgParityBuffer.toString());
@@ -645,7 +667,7 @@ public class ReportControlller {
 		avgGestlenBuffer.append("Avg gestlen,");
 		for(int i=0;i<size;i++)
 		{
-			avgGestlenBuffer.append(avgGestlenList.get(i)+",");
+			avgGestlenBuffer.append(avgGestlenList.get(i)).append(",");
 		}
 		
 		rows.add(avgGestlenBuffer.toString());
@@ -655,7 +677,7 @@ public class ReportControlller {
 		giltsFarrowedBuffer.append("Gilts farrowed,");
 		for(int i=0;i<size;i++)
 		{
-			giltsFarrowedBuffer.append(giltsFarrowedList.get(i)+",");
+			giltsFarrowedBuffer.append(giltsFarrowedList.get(i)).append(",");
 		}
 		
 		rows.add(giltsFarrowedBuffer.toString());
@@ -665,7 +687,7 @@ public class ReportControlller {
 		farrowingRateBuffer.append("Farrowing rate,");
 		for(int i=0;i<size;i++)
 		{
-			farrowingRateBuffer.append(farrowingRateList.get(i)+",");
+			farrowingRateBuffer.append(farrowingRateList.get(i)).append(",");
 		}
 		
 		rows.add(farrowingRateBuffer.toString());
@@ -675,7 +697,7 @@ public class ReportControlller {
 		adjFarrowingRateListRateBuffer.append("Adj farrowing rate,");
 		for(int i=0;i<size;i++)
 		{
-			//adjFarrowingRateListRateBuffer.append(farrowingRateList.get(i)+",");
+			//adjFarrowingRateListRateBuffer.append(farrowingRateList.get(i)).append(",");
 			adjFarrowingRateListRateBuffer.append(",");
 		}
 		
@@ -689,7 +711,7 @@ public class ReportControlller {
 		StringBuffer totalBornBuffer = new StringBuffer();
 		totalBornBuffer.append("Total Born,");
 		for (int i = 0; i < size; i++) {
-			totalBornBuffer.append(totalBornList.get(i)+",");					
+			totalBornBuffer.append(totalBornList.get(i)).append(",");					
 		}
 		rows.add(totalBornBuffer.toString());
 		rows.add("\n");
@@ -697,16 +719,32 @@ public class ReportControlller {
 		StringBuffer averageTotalBornBuffer = new StringBuffer();
 		averageTotalBornBuffer.append("Average Total Born,");
 		for (int i = 0; i < size; i++) {
-			averageTotalBornBuffer.append(averageTotalBornList.get(i)+",");					
+			averageTotalBornBuffer.append(averageTotalBornList.get(i)).append(",");					
 		}
 		rows.add(averageTotalBornBuffer.toString());
-		rows.add("\n");				
+		rows.add("\n");	
 		
+		
+		StringBuffer totalViablebornBuffer = new StringBuffer();
+		totalViablebornBuffer.append("Total Viable Born,");
+		for (int i = 0; i < size; i++) {
+			totalViablebornBuffer.append(totalViablebornList.get(i)).append(",");					
+		}
+		rows.add(totalViablebornBuffer.toString());
+		rows.add("\n");	
+		
+		StringBuffer averageViablebornBuffer = new StringBuffer();
+		averageViablebornBuffer.append("Average Viable Born,");
+		for (int i = 0; i < size; i++) {
+			averageViablebornBuffer.append(averageViablebornList.get(i)).append(",");					
+		}
+		rows.add(averageViablebornBuffer.toString());
+		rows.add("\n");	
 		
 		StringBuffer totalLiveBornBuffer = new StringBuffer();
 		totalLiveBornBuffer.append("Total Live Born,");
 		for (int i = 0; i < size; i++) {
-			totalLiveBornBuffer.append(totalLiveBornList.get(i)+",");					
+			totalLiveBornBuffer.append(totalLiveBornList.get(i)).append(",");					
 		}
 		rows.add(totalLiveBornBuffer.toString());
 		rows.add("\n");
@@ -714,7 +752,7 @@ public class ReportControlller {
 		StringBuffer averageLiveBornBuffer = new StringBuffer();
 		averageLiveBornBuffer.append("Average Live Born,");
 		for (int i = 0; i < size; i++) {
-			averageLiveBornBuffer.append(averageLiveBornList.get(i)+",");					
+			averageLiveBornBuffer.append(averageLiveBornList.get(i)).append(",");					
 		}
 		rows.add(averageLiveBornBuffer.toString());
 		rows.add("\n");	
@@ -722,7 +760,7 @@ public class ReportControlller {
 		StringBuffer totalDeathBuffer = new StringBuffer();
 		totalDeathBuffer.append("Total Death Born,");
 		for (int i = 0; i < size; i++) {
-			totalDeathBuffer.append(totalDeathList.get(i)+",");					
+			totalDeathBuffer.append(totalDeathList.get(i)).append(",");					
 		}
 		rows.add(totalDeathBuffer.toString());
 		rows.add("\n");
@@ -730,7 +768,7 @@ public class ReportControlller {
 		StringBuffer averageDeathBornBuffer = new StringBuffer();
 		averageDeathBornBuffer.append("Average Death Born,");
 		for (int i = 0; i < size; i++) {
-			averageDeathBornBuffer.append(averageDeadBornList.get(i)+",");					
+			averageDeathBornBuffer.append(averageDeadBornList.get(i)).append(",");					
 		}
 		rows.add(averageDeathBornBuffer.toString());
 		rows.add("\n");	
@@ -738,7 +776,7 @@ public class ReportControlller {
 		StringBuffer percentageDeathBornBuffer = new StringBuffer();
 		percentageDeathBornBuffer.append("Percentage Death Born,");
 		for (int i = 0; i < size; i++) {
-			percentageDeathBornBuffer.append(percentageDeadBornList.get(i)+",");					
+			percentageDeathBornBuffer.append(percentageDeadBornList.get(i)).append(",");					
 		}
 		rows.add(percentageDeathBornBuffer.toString());
 		rows.add("\n");				
@@ -746,7 +784,7 @@ public class ReportControlller {
 		StringBuffer totalStillBornBuffer = new StringBuffer();
 		totalStillBornBuffer.append("Total Still Born,");
 		for (int i = 0; i < size; i++) {
-			totalStillBornBuffer.append(totalStillBornList.get(i)+",");					
+			totalStillBornBuffer.append(totalStillBornList.get(i)).append(",");					
 		}
 		rows.add(totalStillBornBuffer.toString());
 		rows.add("\n");
@@ -754,7 +792,7 @@ public class ReportControlller {
 		StringBuffer averageStillBornBuffer = new StringBuffer();
 		averageStillBornBuffer.append("Average Still Born,");
 		for (int i = 0; i < size; i++) {
-			averageStillBornBuffer.append(averageStillBornList.get(i)+",");					
+			averageStillBornBuffer.append(averageStillBornList.get(i)).append(",");					
 		}
 		rows.add(averageStillBornBuffer.toString());
 		rows.add("\n");	
@@ -762,7 +800,7 @@ public class ReportControlller {
 		StringBuffer percentageStillBornBuffer = new StringBuffer();
 		percentageStillBornBuffer.append("Percentage Still Born,");
 		for (int i = 0; i < size; i++) {
-			percentageStillBornBuffer.append(percentageStillBornList.get(i)+",");					
+			percentageStillBornBuffer.append(percentageStillBornList.get(i)).append(",");					
 		}
 		rows.add(percentageStillBornBuffer.toString());
 		rows.add("\n");	
@@ -770,7 +808,7 @@ public class ReportControlller {
 		StringBuffer totalMummiesBuffer = new StringBuffer();
 		totalMummiesBuffer.append("Total Mummies Born,");
 		for (int i = 0; i < size; i++) {
-			totalMummiesBuffer.append(totalMummiesList.get(i)+",");					
+			totalMummiesBuffer.append(totalMummiesList.get(i)).append(",");					
 		}
 		rows.add(totalMummiesBuffer.toString());
 		rows.add("\n");
@@ -778,7 +816,7 @@ public class ReportControlller {
 		StringBuffer averageMummiesBornBuffer = new StringBuffer();
 		averageMummiesBornBuffer.append("Average Mummies Born,");
 		for (int i = 0; i < size; i++) {
-			averageMummiesBornBuffer.append(averageMummiesList.get(i)+",");					
+			averageMummiesBornBuffer.append(averageMummiesList.get(i)).append(",");					
 		}
 		rows.add(averageMummiesBornBuffer.toString());
 		rows.add("\n");	
@@ -786,7 +824,7 @@ public class ReportControlller {
 		StringBuffer percentageMummiesBornBuffer = new StringBuffer();
 		percentageMummiesBornBuffer.append("Percentage Mummies Born,");
 		for (int i = 0; i < size; i++) {
-			percentageMummiesBornBuffer.append(percentageMummiesList.get(i)+",");					
+			percentageMummiesBornBuffer.append(percentageMummiesList.get(i)).append(",");					
 		}
 		rows.add(percentageMummiesBornBuffer.toString());
 		rows.add("\n");	
@@ -794,7 +832,7 @@ public class ReportControlller {
 		StringBuffer litterWithAgeLessSevenBuffer = new StringBuffer();
 		litterWithAgeLessSevenBuffer.append("Litter with age less 7,");
 		for (int i = 0; i < size; i++) {
-			litterWithAgeLessSevenBuffer.append(litterWithAgeLessSevenList.get(i)+",");					
+			litterWithAgeLessSevenBuffer.append(litterWithAgeLessSevenList.get(i)).append(",");					
 		}
 		rows.add(litterWithAgeLessSevenBuffer.toString());
 		rows.add("\n");
@@ -802,7 +840,7 @@ public class ReportControlller {
 		StringBuffer percentageLitterWithAgeLessSevenBuffer = new StringBuffer();
 		percentageLitterWithAgeLessSevenBuffer.append("Percentage Litter with age less 7, ");
 		for (int i = 0; i < size; i++) {
-			percentageLitterWithAgeLessSevenBuffer.append(percentageLitterWithAgeLessSevenList.get(i)+",");					
+			percentageLitterWithAgeLessSevenBuffer.append(percentageLitterWithAgeLessSevenList.get(i)).append(",");					
 		}
 		rows.add(percentageLitterWithAgeLessSevenBuffer.toString());
 		rows.add("\n");	
@@ -810,15 +848,23 @@ public class ReportControlller {
 		StringBuffer totalBirthWeightBuffer = new StringBuffer();
 		totalBirthWeightBuffer.append("Birth weight,");
 		for (int i = 0; i < size; i++) {
-			totalBirthWeightBuffer.append(totalBirthWeightList.get(i)+",");					
+			totalBirthWeightBuffer.append(totalBirthWeightList.get(i)).append(",");					
 		}
 		rows.add(totalBirthWeightBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer littersWithBirthWeightBuffer = new StringBuffer();
+		littersWithBirthWeightBuffer.append("Litters with birth weight,");
+		for (int i = 0; i < size; i++) {
+			littersWithBirthWeightBuffer.append(littersWithBirthWeightList.get(i)).append(",");					
+		}
+		rows.add(littersWithBirthWeightBuffer.toString());
 		rows.add("\n");
  
 		StringBuffer averageBirthWeightBuffer = new StringBuffer();
 		averageBirthWeightBuffer.append("Average Birth weight,");
 		for (int i = 0; i < size; i++) {
-			averageBirthWeightBuffer.append(averageBirthWeightList.get(i)+",");					
+			averageBirthWeightBuffer.append(averageBirthWeightList.get(i)).append(",");					
 		}
 		rows.add(averageBirthWeightBuffer.toString());
 		rows.add("\n");
@@ -830,7 +876,7 @@ public class ReportControlller {
 		StringBuffer ferrowCapacityBuffer = new StringBuffer();
 		ferrowCapacityBuffer.append("Ferrow Capacity,");
 		for (int i = 0; i < size; i++) {
-			ferrowCapacityBuffer.append(ferrowCapacityList.get(i)+",");					
+			ferrowCapacityBuffer.append(ferrowCapacityList.get(i)).append(",");					
 		}
 		rows.add(ferrowCapacityBuffer.toString());
 		rows.add("\n");
@@ -844,7 +890,7 @@ public class ReportControlller {
 		StringBuffer littersWeanedBuffer = new StringBuffer();
 		littersWeanedBuffer.append("Litters weaned,");
 		for (int i = 0; i < size; i++) {
-			littersWeanedBuffer.append(littersWeanedList.get(i)+",");					
+			littersWeanedBuffer.append(littersWeanedList.get(i)).append(",");					
 		}
 		rows.add(littersWeanedBuffer.toString());
 		rows.add("\n");
@@ -852,7 +898,7 @@ public class ReportControlller {
 		StringBuffer littersWeanedWithMoreThanTwalePigsBuffer = new StringBuffer();
 		littersWeanedWithMoreThanTwalePigsBuffer.append("Litters weaning 12+,");
 		for (int i = 0; i < size; i++) {
-			littersWeanedWithMoreThanTwalePigsBuffer.append(littersWeanedWithMoreThanTwalePigsList.get(i)+",");					
+			littersWeanedWithMoreThanTwalePigsBuffer.append(littersWeanedWithMoreThanTwalePigsList.get(i)).append(",");					
 		}
 		rows.add(littersWeanedWithMoreThanTwalePigsBuffer.toString());
 		rows.add("\n");
@@ -860,7 +906,7 @@ public class ReportControlller {
 		StringBuffer percentageLittersWeanedWithMoreThanTwalePigsBuffer = new StringBuffer();
 		percentageLittersWeanedWithMoreThanTwalePigsBuffer.append("% Litters weaning 12+,");
 		for (int i = 0; i < size; i++) {
-			percentageLittersWeanedWithMoreThanTwalePigsBuffer.append(percentageLittersWeanedWithMoreThanTwalePigsList.get(i)+",");					
+			percentageLittersWeanedWithMoreThanTwalePigsBuffer.append(percentageLittersWeanedWithMoreThanTwalePigsList.get(i)).append(",");					
 		}
 		rows.add(percentageLittersWeanedWithMoreThanTwalePigsBuffer.toString());
 		rows.add("\n");
@@ -868,7 +914,7 @@ public class ReportControlller {
 		StringBuffer sowsWeaningZeroPigBuffer = new StringBuffer();
 		sowsWeaningZeroPigBuffer.append("Sows weaning 0 pig,");
 		for (int i = 0; i < size; i++) {
-			sowsWeaningZeroPigBuffer.append(sowsWeaningZeroPigList.get(i)+",");					
+			sowsWeaningZeroPigBuffer.append(sowsWeaningZeroPigList.get(i)).append(",");					
 		}
 		rows.add(sowsWeaningZeroPigBuffer.toString());
 		rows.add("\n");
@@ -876,7 +922,7 @@ public class ReportControlller {
 		StringBuffer percentageSowsWeaningZeroPigBuffer = new StringBuffer();
 		percentageSowsWeaningZeroPigBuffer.append("% Sows weaning 0 pigs,");
 		for (int i = 0; i < size; i++) {
-			percentageSowsWeaningZeroPigBuffer.append(percentageSowsWeaningZeroPigList.get(i)+",");					
+			percentageSowsWeaningZeroPigBuffer.append(percentageSowsWeaningZeroPigList.get(i)).append(",");					
 		}
 		rows.add(percentageSowsWeaningZeroPigBuffer.toString());
 		rows.add("\n");
@@ -884,7 +930,7 @@ public class ReportControlller {
 		StringBuffer pigsWeaningDivideLitterWeanedBuffer = new StringBuffer();
 		pigsWeaningDivideLitterWeanedBuffer.append("Pigs weaned/litter weaned,");
 		for (int i = 0; i < size; i++) {
-			pigsWeaningDivideLitterWeanedBuffer.append(pigsWeaningDivideLitterWeanedList.get(i)+",");					
+			pigsWeaningDivideLitterWeanedBuffer.append(pigsWeaningDivideLitterWeanedList.get(i)).append(",");					
 		}
 		rows.add(pigsWeaningDivideLitterWeanedBuffer.toString());
 		rows.add("\n");
@@ -892,7 +938,7 @@ public class ReportControlller {
 		StringBuffer totalPigsWeavnedBuffer = new StringBuffer();
 		totalPigsWeavnedBuffer.append("Total pigs weaned,");
 		for (int i = 0; i < size; i++) {
-			totalPigsWeavnedBuffer.append(totalPigsWeavnedList.get(i)+",");					
+			totalPigsWeavnedBuffer.append(totalPigsWeavnedList.get(i)).append(",");					
 		}
 		rows.add(totalPigsWeavnedBuffer.toString());
 		rows.add("\n");
@@ -901,7 +947,7 @@ public class ReportControlller {
 		StringBuffer pigsWeaningDivideSowWeanedBuffer = new StringBuffer();
 		pigsWeaningDivideSowWeanedBuffer.append("Pigs weaned/sow weaned,");
 		for (int i = 0; i < size; i++) {
-			pigsWeaningDivideSowWeanedBuffer.append(pigsWeaningDivideSowWeanedList.get(i)+",");					
+			pigsWeaningDivideSowWeanedBuffer.append(pigsWeaningDivideSowWeanedList.get(i)).append(",");					
 		}
 		rows.add(pigsWeaningDivideSowWeanedBuffer.toString());
 		rows.add("\n");
@@ -909,7 +955,7 @@ public class ReportControlller {
 		StringBuffer percentagePingsWeanedDivideByTotalPigsBuffer = new StringBuffer();
 		percentagePingsWeanedDivideByTotalPigsBuffer.append("Pigs weaned/totalborn(%),");
 		for (int i = 0; i < size; i++) {
-			percentagePingsWeanedDivideByTotalPigsBuffer.append(percentagePingsWeanedDivideByTotalPigsList.get(i)+",");					
+			percentagePingsWeanedDivideByTotalPigsBuffer.append(percentagePingsWeanedDivideByTotalPigsList.get(i)).append(",");					
 		}
 		rows.add(percentagePingsWeanedDivideByTotalPigsBuffer.toString());
 		rows.add("\n");
@@ -918,7 +964,7 @@ public class ReportControlller {
 		StringBuffer netFosterBuffer = new StringBuffer();
 		netFosterBuffer.append("Net foster,");
 		for (int i = 0; i < size; i++) {
-			netFosterBuffer.append(netFosterList.get(i)+",");					
+			netFosterBuffer.append(netFosterList.get(i)).append(",");					
 		}
 		rows.add(netFosterBuffer.toString());
 		rows.add("\n");
@@ -931,7 +977,7 @@ public class ReportControlller {
 		StringBuffer percentagePreWeaningMortalityBuffer = new StringBuffer();
 		percentagePreWeaningMortalityBuffer.append("PWM(%),");
 		for (int i = 0; i < size; i++) {
-			percentagePreWeaningMortalityBuffer.append(percentagePreWeaningMortalityList.get(i)+",");					
+			percentagePreWeaningMortalityBuffer.append(percentagePreWeaningMortalityList.get(i)).append(",");					
 		}
 		rows.add(percentagePreWeaningMortalityBuffer.toString());
 		rows.add("\n");
@@ -943,7 +989,7 @@ public class ReportControlller {
 		StringBuffer littersWithWeaingWeightBuffer = new StringBuffer();
 		littersWithWeaingWeightBuffer.append("Litters with weaning weight,");
 		for (int i = 0; i < size; i++) {
-			littersWithWeaingWeightBuffer.append(littersWithWeaingWeightList.get(i)+",");					
+			littersWithWeaingWeightBuffer.append(littersWithWeaingWeightList.get(i)).append(",");					
 		}
 		rows.add(littersWithWeaingWeightBuffer.toString());
 		rows.add("\n");
@@ -952,7 +998,7 @@ public class ReportControlller {
 		StringBuffer pigletsWithWeainngWeightBuffer = new StringBuffer();
 		pigletsWithWeainngWeightBuffer.append("Piglets with weaning weight,");
 		for (int i = 0; i < size; i++) {
-			pigletsWithWeainngWeightBuffer.append(pigletsWithWeainngWeightList.get(i)+",");					
+			pigletsWithWeainngWeightBuffer.append(pigletsWithWeainngWeightList.get(i)).append(",");					
 		}
 		rows.add(pigletsWithWeainngWeightBuffer.toString());
 		rows.add("\n");
@@ -961,7 +1007,7 @@ public class ReportControlller {
 		StringBuffer weainngWeightBuffer = new StringBuffer();
 		weainngWeightBuffer.append("Total weaning weight,");
 		for (int i = 0; i < size; i++) {
-			weainngWeightBuffer.append(weainngWeightList.get(i)+",");					
+			weainngWeightBuffer.append(weainngWeightList.get(i)).append(",");					
 		}
 		rows.add(weainngWeightBuffer.toString());
 		rows.add("\n");
@@ -969,7 +1015,7 @@ public class ReportControlller {
 		StringBuffer weaningWeightWithLitterBuffer = new StringBuffer();
 		weaningWeightWithLitterBuffer.append("Weaning weight/litter,");
 		for (int i = 0; i < size; i++) {
-			weaningWeightWithLitterBuffer.append(weaningWeightWithLitterList.get(i)+",");					
+			weaningWeightWithLitterBuffer.append(weaningWeightWithLitterList.get(i)).append(",");					
 		}
 		rows.add(weaningWeightWithLitterBuffer.toString());
 		rows.add("\n");
@@ -977,7 +1023,7 @@ public class ReportControlller {
 		StringBuffer weaningWeightWithPigletsBuffer = new StringBuffer();
 		weaningWeightWithPigletsBuffer.append("Weaning weight/piglet,");
 		for (int i = 0; i < size; i++) {
-			weaningWeightWithPigletsBuffer.append(weaningWeightWithPigletsList.get(i)+",");					
+			weaningWeightWithPigletsBuffer.append(weaningWeightWithPigletsList.get(i)).append(",");					
 		}
 		rows.add(weaningWeightWithPigletsBuffer.toString());
 		rows.add("\n");
@@ -985,15 +1031,15 @@ public class ReportControlller {
 		StringBuffer littersWeanedLessThan17DaysBuffer = new StringBuffer();
 		littersWeanedLessThan17DaysBuffer.append("Litters weaned less than 17 days,");
 		for (int i = 0; i < size; i++) {
-			littersWeanedLessThan17DaysBuffer.append(littersWeanedLessThan17DaysList.get(i)+",");					
+			littersWeanedLessThan17DaysBuffer.append(littersWeanedLessThan17DaysList.get(i)).append(",");					
 		}
 		rows.add(littersWeanedLessThan17DaysBuffer.toString());
 		rows.add("\n");
 		
 		StringBuffer percentageLittersWeanedLessThan17DaysBuffer = new StringBuffer();
-		percentageLittersWeanedLessThan17DaysBuffer.append("Litters weaned less than 17 days,");
+		percentageLittersWeanedLessThan17DaysBuffer.append("% Litters weaned less than 17 days,");
 		for (int i = 0; i < size; i++) {
-			percentageLittersWeanedLessThan17DaysBuffer.append(percentageLittersWeanedLessThan17DaysList.get(i)+",");					
+			percentageLittersWeanedLessThan17DaysBuffer.append(percentageLittersWeanedLessThan17DaysList.get(i)).append(",");					
 		}
 		rows.add(percentageLittersWeanedLessThan17DaysBuffer.toString());
 		rows.add("\n");		

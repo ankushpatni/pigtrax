@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -270,15 +271,16 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	   
 	@Override
 	public List<Integer> selectFerrowEvents(final Date startDate,
-			final Date endDate) throws SQLException {
-		String qry = "select \"id\" from pigtrax.\"FarrowEvent\" where \"farrowDateTime\" >= ? and \"farrowDateTime\" <= ?";
+			final Date endDate, final Integer companyId) throws SQLException {
+		String qry = "select FE.\"id\" from pigtrax.\"FarrowEvent\" FE  JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" where PI.\"id_Company\" = ? and FE.\"farrowDateTime\" >= ? and FE.\"farrowDateTime\" <= ?";
 
 		List<Integer> eventMasterList = jdbcTemplate.query(qry,
 				new PreparedStatementSetter() {
 					public void setValues(PreparedStatement ps)
 							throws SQLException {
-						ps.setDate(1, startDate);
-						ps.setDate(2, endDate);
+						ps.setDate(2, startDate);
+						ps.setDate(3, endDate);
+						ps.setInt(1, companyId);
 					}
 				}, new RowMapper<Integer>() {
 					public Integer mapRow(ResultSet rs, int rowNum)
@@ -291,10 +293,19 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	}
 	
 	@Override
-	public List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList){
+	public List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList, Integer companyId){
 		
-		String qry = "select sum(\"liveBorns\"+\"mummies\"+\"stillBorns\"), sum(\"liveBorns\"), sum(\"stillBorns\"+\"mummies\"), sum(\"stillBorns\"),sum(\"mummies\"),sum(\"weightInKgs\") from pigtrax.\"FarrowEvent\" where \"id\" in (:ids) ";
-		Map idsMap = Collections.singletonMap("ids", ferrowEventIdList);
+		String qry = "select sum(FE.\"liveBorns\"+FE.\"mummies\"+FE.\"stillBorns\"), sum(FE.\"liveBorns\"), sum(FE.\"stillBorns\"+FE.\"mummies\"), "+
+		" sum(FE.\"stillBorns\"),sum(FE.\"mummies\"),sum(FE.\"weightInKgs\") from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" "
+				+" where PI.\"id_Company\" = :companyId  and FE.\"id\" in (:ids)";
+		
+		/*from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
+   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ?"
+   		*/
+		Map<String,Object> idsMap = new HashMap<String,Object>();
+		idsMap.put("ids", ferrowEventIdList);
+		//Collections.singletonMap("ids", ferrowEventIdList);
+		idsMap.put("companyId", companyId);
 		
 		namedPrameterTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
 		
@@ -316,15 +327,20 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	}
 	
 	@Override
-	public int getLitterForGivenrange(final Date endDate)
+	public int getLitterForGivenrange(final Date startDate,  final Date endDate,final Integer companyId)
 	{
-		String qry ="select sum(\"liveBorns\") from pigtrax.\"FarrowEvent\" where DATE_PART('day', ?::timestamp - \"farrowDateTime\"::timestamp)<7 ";
+		//String qry ="select sum(\"liveBorns\") from pigtrax.\"FarrowEvent\" where DATE_PART('day', ?::timestamp - \"farrowDateTime\"::timestamp)<7 ";
+		
+		String qry = "select  count(FE.\"id\") from pigtrax.\"FarrowEvent\" FE  JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" where PI.\"id_Company\" = ? "
+				+" and FE.\"liveBorns\" <7 and FE.\"farrowDateTime\" >= ? and FE.\"farrowDateTime\" <= ?";
 		
 		List<Integer> eventMasterList = jdbcTemplate.query(qry,
 				new PreparedStatementSetter() {
 					public void setValues(PreparedStatement ps)
-							throws SQLException {						
-						ps.setDate(1, endDate);
+							throws SQLException {
+						ps.setInt(1, companyId);
+						ps.setDate(2, startDate);
+						ps.setDate(3, endDate);
 					}
 				}, new RowMapper<Integer>() {
 					public Integer mapRow(ResultSet rs, int rowNum)
@@ -335,7 +351,6 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 
 		return eventMasterList.get(0);
 	}
-	
 	
 	/**
 	 * Delete the piglet status event entries for a given farrow event id
@@ -382,5 +397,4 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 					}
 				});
 		}
-	
 }
