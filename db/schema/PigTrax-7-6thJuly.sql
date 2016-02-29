@@ -930,7 +930,7 @@ ALTER TABLE pigtrax."IndividualPigletStatus" OWNER TO pitraxadmin;
 
 -- Index: pigtrax."INDIVIDUALSTATUS_U_TA"
 -- DROP INDEX pigtrax."INDIVIDUALSTATUS_U_TA";
-CREATE UNIQUE INDEX "INDIVIDUALSTATUS_U_TA"  ON pigtrax."IndividualPigletStatus"  USING btree  (tattooId COLLATE pg_catalog."default")  WHERE "tattooId" IS NOT NULL and "tattooId" <> '';
+CREATE UNIQUE INDEX "INDIVIDUALSTATUS_U_TA"  ON pigtrax."IndividualPigletStatus"  USING btree  ("tattooId" COLLATE pg_catalog."default")  WHERE "tattooId" IS NOT NULL and "tattooId" <> '';
 
 
 -- object: "PigInfo_fk" | type: CONSTRAINT --
@@ -1855,19 +1855,6 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 ALTER TABLE pigtrax."GroupEventDetails" OWNER TO pitraxadmin;
 -- ddl-end --
 
--- object: "RemovalEventExceptSalesDetails_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "RemovalEventExceptSalesDetails_fk" CASCADE;
-ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "RemovalEventExceptSalesDetails_fk" FOREIGN KEY ("id_RemovalEventExceptSalesDetails")
-REFERENCES pigtrax."RemovalEventExceptSalesDetails" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
-
--- object: "SalesEventDetails_fk" | type: CONSTRAINT --
--- ALTER TABLE pigtrax."SalesEventDetails" DROP CONSTRAINT IF EXISTS "SalesEventDetails_fk" CASCADE;
-ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "SalesEventDetails_fk" FOREIGN KEY ("id_SalesEventDetails")
-REFERENCES pigtrax."SalesEventDetails" (id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: "Room_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "Room_fk" CASCADE;
@@ -2039,6 +2026,14 @@ REFERENCES pigtrax."Premise" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: "RemovalEventExceptSalesDetails_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupEventDetails" DROP CONSTRAINT IF EXISTS "RemovalEventExceptSalesDetails_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "RemovalEventExceptSalesDetails_fk" FOREIGN KEY ("id_RemovalEventExceptSalesDetails")
+REFERENCES pigtrax."RemovalEventExceptSalesDetails" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 
 -- object: pigtrax."SalesEventDetails" | type: TABLE --
 -- DROP TABLE IF EXISTS pigtrax."SalesEventDetails" CASCADE;
@@ -2085,6 +2080,14 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ALTER TABLE pigtrax."SalesEventDetails" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
 ALTER TABLE pigtrax."SalesEventDetails" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
 REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: "SalesEventDetails_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."SalesEventDetails" DROP CONSTRAINT IF EXISTS "SalesEventDetails_fk" CASCADE;
+ALTER TABLE pigtrax."GroupEventDetails" ADD CONSTRAINT "SalesEventDetails_fk" FOREIGN KEY ("id_SalesEventDetails")
+REFERENCES pigtrax."SalesEventDetails" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
