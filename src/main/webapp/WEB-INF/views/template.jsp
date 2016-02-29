@@ -98,7 +98,7 @@
 	<script src="resources/js/controllers/inventoryStatusReportController.js"></script>
 	<script src="resources/js/controllers/lactationLengthReportController.js"></script>
 	<script src="resources/js/controllers/pigletMortalityReportController.js"></script>
-	
+	<script src="resources/js/controllers/prodEventLogController.js"></script>
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
 	<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>
