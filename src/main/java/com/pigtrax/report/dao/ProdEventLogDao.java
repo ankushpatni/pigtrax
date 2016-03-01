@@ -65,7 +65,7 @@ public class ProdEventLogDao {
 			prodEventLogBean.setPremiseId(rs.getString("permiseId"));
 			prodEventLogBean.setBarnId(rs.getString("barnId"));
 			prodEventLogBean.setRoomId(rs.getString("roomId"));
-			prodEventLogBean.setGroupId(rs.getInt("groupId"));
+			prodEventLogBean.setGroupId(rs.getString("groupId"));
 			prodEventLogBean.setLogEventType(rs.getString("logEventType"));
 			prodEventLogBean.setEventDate(rs.getDate("eventDate"));
 			prodEventLogBean.setRemark(rs.getString("remark"));	

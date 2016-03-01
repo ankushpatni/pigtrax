@@ -7,7 +7,7 @@ public class ProdEventLogBean {
 	private String premiseId;
 	private String barnId;
 	private String roomId;
-	private Integer groupId;
+	private String groupId;
 	private Date eventDate;
 	private String logEventType;
 	private String remark;	
@@ -32,10 +32,10 @@ public class ProdEventLogBean {
 		if(roomId  == null) roomId = "";
 		this.roomId = roomId;
 	}
-	public Integer getGroupId() {
+	public String getGroupId() {
 		return groupId;
 	}
-	public void setGroupId(Integer groupId) {
+	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
 	public Date getEventDate() {
