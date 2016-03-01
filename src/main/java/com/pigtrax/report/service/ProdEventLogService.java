@@ -29,7 +29,7 @@ public class ProdEventLogService {
 
 			StringBuffer rowBuffer = null;
 			returnRows
-					.add("Premise, Barn, Room, Group ID, Date, LogEventType, Remark");
+					.add("Premise, Barn, Room, Group ID, Date (mm/dd/yyyy), Log Event Type, Remarks");
 			returnRows.add("\n");
 			for (ProdEventLogBean pigletMortalityReportBean : prodEventLogList) {
 				rowBuffer = new StringBuffer();
