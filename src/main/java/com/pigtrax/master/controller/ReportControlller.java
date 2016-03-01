@@ -209,6 +209,10 @@ public class ReportControlller {
 		List<Float> averageViablebornList = new LinkedList<Float>();
 		
 		List<Integer> littersWithBirthWeightList = new LinkedList<Integer>();
+		List<Float> averageWeaingAgeList = new LinkedList<Float>();
+		List<Float> pigsWeanedCrateYearList = new LinkedList<Float>();
+		List<Float> weaningCapacityList = new LinkedList<Float>();
+		
 				
 		while(itr.hasNext())
 		{
@@ -247,7 +251,7 @@ public class ReportControlller {
 				int breedingEventWithMatingMoreThanOne = (Integer)valueList.get(23);
 				int countOfMating = (Integer)valueList.get(24);
 				int countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding = (Integer)valueList.get(25);
-				int pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig = (Integer)valueList.get(26);
+				int countPigletWithEaventTypeWean = (Integer)valueList.get(26);
 				int numberOfDaysBetweenWeanAndServiceDate = (Integer)valueList.get(27);
 				int pairtyOfServedFemals = (Integer)valueList.get(28);
 				int countPifIngoIdWithParityOneInPigInfo = (Integer)valueList.get(29);
@@ -256,6 +260,7 @@ public class ReportControlller {
 				int litterWithWeight = (Integer)valueList.get(32);
 				int getConceptionRateAtPresumedPregnantFor30 = (Integer)valueList.get(33);
 				int getConceptionRateAtPresumedPregnantFor42 = (Integer)valueList.get(34);
+				int weaingAge = (Integer)valueList.get(35);
 				
 				totalBornList.add(totalBorn);
 				totalLiveBornList.add(totalLiveBorn);
@@ -349,7 +354,7 @@ public class ReportControlller {
 				countOfMatingPerServiceList.add((float)countOfMating/piGIdFromBreeding);
 				
 				weanSowsBredBy7DaysList.add(countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding);
-				percentageWeanSowsBredBy7DaysList.add((float)countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding/pigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig);
+				percentageWeanSowsBredBy7DaysList.add((float)countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding/countPigletWithEaventTypeWean);
 				weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/countPifIngoIdWithParityOneInPigInfo);
 				avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/piGIdFromBreeding);
 				serviceCapacityList.add((float)piGIdFromBreeding/totalActivePenAvailable);
@@ -361,6 +366,9 @@ public class ReportControlller {
 				
 				conceptionRateAt30dPresumedPregnantList.add((float)getConceptionRateAtPresumedPregnantFor30/totalFerrow);
 				conceptionRateAtDay42List.add((float)getConceptionRateAtPresumedPregnantFor42/totalFerrow);
+				averageWeaingAgeList.add((float)weaingAge/totalPigsWeavened);
+				pigsWeanedCrateYearList.add((float)totalPigsWeavened/totalActivePenAvailable);
+				weaningCapacityList.add((float)countPigletWithEaventTypeWean/totalActivePenAvailable);
 				
 			}
 			else
@@ -433,7 +441,9 @@ public class ReportControlller {
 				littersWithBirthWeightList.add(0);
 				conceptionRateAt30dPresumedPregnantList.add(0f);
 				conceptionRateAtDay42List.add(0f);
-				
+				averageWeaingAgeList.add(0f);
+				weaningCapacityList.add(0f);
+				pigsWeanedCrateYearList.add(0f);
 				
 			}
 			
@@ -1041,6 +1051,14 @@ public class ReportControlller {
 		rows.add(weaningWeightWithPigletsBuffer.toString());
 		rows.add("\n");
 		
+		StringBuffer averageWeaingAgeBuffer = new StringBuffer();
+		averageWeaingAgeBuffer.append("Avgerage weaning age,");
+		for (int i = 0; i < size; i++) {
+			averageWeaingAgeBuffer.append(averageWeaingAgeList.get(i)).append(",");					
+		}
+		rows.add(averageWeaingAgeBuffer.toString());
+		rows.add("\n");
+	    
 		StringBuffer littersWeanedLessThan17DaysBuffer = new StringBuffer();
 		littersWeanedLessThan17DaysBuffer.append("Litters weaned less than 17 days,");
 		for (int i = 0; i < size; i++) {
@@ -1055,7 +1073,25 @@ public class ReportControlller {
 			percentageLittersWeanedLessThan17DaysBuffer.append(percentageLittersWeanedLessThan17DaysList.get(i)).append(",");					
 		}
 		rows.add(percentageLittersWeanedLessThan17DaysBuffer.toString());
-		rows.add("\n");		
+		rows.add("\n");	
+		
+		StringBuffer pigsWeanedCrateYearBuffer = new StringBuffer();
+		pigsWeanedCrateYearBuffer.append("Pigs weaned/crate/year,");
+		for (int i = 0; i < size; i++) {
+			pigsWeanedCrateYearBuffer.append(pigsWeanedCrateYearList.get(i)).append(",");					
+		}
+		rows.add(pigsWeanedCrateYearBuffer.toString());
+		rows.add("\n");
+		
+		
+		StringBuffer weaningCapacityBuffer = new StringBuffer();
+		weaningCapacityBuffer.append("Weaning Capacity,");
+		for (int i = 0; i < size; i++) {
+			weaningCapacityBuffer.append(weaningCapacityList.get(i)).append(",");					
+		}
+		rows.add(weaningCapacityBuffer.toString());
+		rows.add("\n");
+
 		return rows;
 	}
 	

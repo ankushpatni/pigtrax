@@ -103,5 +103,8 @@ public interface PigletStatusEventDao {
 
 	int getConceptionRateAtPresumedPregnant(Date startDate, Date endDate,
 			Integer companyId, Integer difference);
+
+	Integer getSumOfDiffOfFerrowAndWeanDate(Date start, Date end,
+			Integer companyId);
 	
 }

@@ -129,6 +129,7 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(pigletStatusEventDao.getLittersWithWeightOfLiveBorn(start, end, companyId));//32
 				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,30));//33
 				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,42));//34
+				listValues.add(pigletStatusEventDao.getSumOfDiffOfFerrowAndWeanDate(start, end, companyId));//35
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);

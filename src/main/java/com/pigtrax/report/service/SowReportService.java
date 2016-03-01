@@ -185,19 +185,19 @@ public class SowReportService {
 								String info="";
 								if(pigletStatusEventInformation.getMortalityReasonTypeId() != null && pigletStatusEventInformation.getMortalityReasonTypeId() != 0)
 								{
-									info = mortalityReasonTypeMap.get(pigletStatusEventInformation.getMortalityReasonTypeId());
+									info = " Reason : "+mortalityReasonTypeMap.get(pigletStatusEventInformation.getMortalityReasonTypeId());
 								}
 								if(pigletStatusEventInformation.getGroupEventId() != null && pigletStatusEventInformation.getGroupEventId() !=0)
 								{
-									info = groupEventMap.get(pigletStatusEventInformation.getGroupEventId()).getGroupId();
+									info = " Transfered to group : " + groupEventMap.get(pigletStatusEventInformation.getGroupEventId()).getGroupId();
 								}
 								if(pigletStatusEventInformation.getFosterTo() != null && pigletStatusEventInformation.getFosterTo() !=0)
 								{
 									PigInfo pigInformationById = pigInfoDao.getPigInformationById(pigletStatusEventInformation.getFosterTo());
-									info = pigInformationById.getPigId();
+									info = " Transfered to pig ID : " + pigInformationById.getPigId();
 								}
 								//else if(pigletStatusEventInformation.getP)
-								rowBuffer.append("Number of Pigs "+pigletStatusEventInformation.getNumberOfPigs() + " :: Info "+ info);
+								rowBuffer.append("Number of Pigs "+pigletStatusEventInformation.getNumberOfPigs() + " :: "+ info);
 							}
 							else if(SowReportBean.getFarrowEventId() != null  && SowReportBean.getFarrowEventId() !=0)
 							{

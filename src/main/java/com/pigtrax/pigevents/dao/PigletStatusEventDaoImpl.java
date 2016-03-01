@@ -1191,6 +1191,35 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 
 			return eventMasterList.get(0);
 		}
+	 
+	 /**
+		 * To get the sum of parity of piginfo id from piginfo for ferrow
+		 */
+		@Override
+		public Integer getSumOfDiffOfFerrowAndWeanDate(final Date start,final Date end, final Integer companyId) {
+			
+			String qry =  "SELECT sum(DATE_PART('day',  PS.\"eventDateTime\"::timestamp - FE.\"farrowDateTime\"::timestamp )) FROM pigtrax.\"PigletStatus\" PS "
+					+ "	JOIN pigtrax.\"FarrowEvent\" FE  ON PS.\"id_PigInfo\" = FE.\"id_PigInfo\"  "
+					+ "	JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" "
+					+ "	where PS.\"eventDateTime\" >= ? and  PS.\"eventDateTime\" <= ? and PI.\"id_Company\" = ? and PS.\"id_PigletStatusEventType\" = ? ";
+			
+	 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+	 			@Override
+	 			public void setValues(PreparedStatement ps) throws SQLException {
+	 				ps.setDate(1, start);
+	 				ps.setDate(2, end);
+	 				ps.setInt(3, companyId);
+	 				ps.setInt(4, PigletStatusEventType.Wean.getTypeCode());
+	 				
+	 			}}, new RowMapper<Integer>() {
+					public Integer mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return rs.getInt(1);
+					}
+				});
+
+			return pigletStatusEventList.get(0);
+		}
 	
 	
 }
