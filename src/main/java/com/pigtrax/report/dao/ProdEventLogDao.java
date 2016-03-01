@@ -35,14 +35,17 @@ public class ProdEventLogDao {
 	{
 		List<ProdEventLogBean> prodEventLogList = new ArrayList<ProdEventLogBean>();
 		
-		String qry="select PRE.\"permiseId\",BN.\"barnId\", RM.\"roomId\",PL.\"groupId\","
-				 +"PL.\"observationDate\"::date as \"eventDate\",PL.\"id_LogEventType\" as \"logEventType\","
-				 +"PL.\"observation\" as \"remark\" from  pigtrax.\"ProductionLog\" PL "
-				 +"LEFT JOIN pigtrax.\"Room\" RM ON PL.\"id_Room\" = RM.\"id\" "
-				 +"LEFT JOIN pigtrax.\"Barn\" BN ON RM.\"id_Barn\" = BN.\"id\" "
-				 +"LEFT JOIN pigtrax.\"Premise\" PRE ON BN.\"id_Premise\" = BN.\"id\" "
-				 +"WHERE  BN.\"id_Premise\" = ? AND PL.\"observationDate\"::date between ? and ? "
-				 + "ORDER BY PRE.\"permiseId\",PL.\"observationDate\"";
+		String qry="select PRE.\"permiseId\",BN.\"barnId\", RM.\"roomId\",PL.\"groupId\",PL.\"observationDate\"::date as \"eventDate\","
+				+"LET.\"fieldDescription\" as \"logEventType\",PL.\"observation\" as \"remark\" "
+				+"from pigtrax.\"ProductionLog\" PL "
+				+"JOIN pigtrax.\"Premise\" PRE ON PL.\"id_Premise\" = PRE.\"id\" "
+				+"JOIN pigtrax.\"Room\" RM ON PL.\"id_Room\" = RM.\"id\" "
+				+"JOIN pigtrax.\"Barn\" BN ON RM.\"id_Barn\" = BN.\"id\" "
+				+"JOIN pigtraxrefdata.\"LogEventType\" LET ON PL.\"id_LogEventType\" = LET.\"id\" "
+				+"WHERE  "
+				+"PL.\"id_Premise\" = ? AND "
+				+"PL.\"observationDate\"::date between ? and ? "
+				+"ORDER BY PRE.\"permiseId\",PL.\"observationDate\" ";
 
 		prodEventLogList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -50,20 +53,20 @@ public class ProdEventLogDao {
 				ps.setInt(1, premiseId);
 				ps.setDate(2, new java.sql.Date(startDate.getTime()));
 				ps.setDate(3, new java.sql.Date(endDate.getTime()));
-			}}, new PigletMortalityReportMapper());
+			}}, new ProdEventLogMapper());
 		
 		return prodEventLogList;
 	}
 	
 	
-	private static final class PigletMortalityReportMapper implements RowMapper<ProdEventLogBean> {
+	private static final class ProdEventLogMapper implements RowMapper<ProdEventLogBean> {
 		public ProdEventLogBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 			ProdEventLogBean prodEventLogBean = new ProdEventLogBean();	
 			prodEventLogBean.setPremiseId(rs.getString("permiseId"));
 			prodEventLogBean.setBarnId(rs.getString("barnId"));
 			prodEventLogBean.setRoomId(rs.getString("roomId"));
 			prodEventLogBean.setGroupId(rs.getInt("groupId"));
-			prodEventLogBean.setLogEventType(rs.getInt("logEventType"));
+			prodEventLogBean.setLogEventType(rs.getString("logEventType"));
 			prodEventLogBean.setEventDate(rs.getDate("eventDate"));
 			prodEventLogBean.setRemark(rs.getString("remark"));	
 			return prodEventLogBean;

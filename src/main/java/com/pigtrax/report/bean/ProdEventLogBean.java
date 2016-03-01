@@ -9,7 +9,7 @@ public class ProdEventLogBean {
 	private String roomId;
 	private Integer groupId;
 	private Date eventDate;
-	private Integer logEventType;
+	private String logEventType;
 	private String remark;	
 	
 	public String getPremiseId() {
@@ -44,10 +44,10 @@ public class ProdEventLogBean {
 	public void setEventDate(Date eventDate) {
 		this.eventDate = eventDate;
 	}
-	public Integer getLogEventType() {
+	public String getLogEventType() {
 		return logEventType;
 	}
-	public void setLogEventType(Integer logEventType) {
+	public void setLogEventType(String logEventType) {
 		this.logEventType = logEventType;
 	}
 	public String getRemark() {
