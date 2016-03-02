@@ -39,6 +39,7 @@ import com.pigtrax.report.service.PigletMortalityReportService;
 import com.pigtrax.report.service.ProdEventLogService;
 import com.pigtrax.report.service.RemovalReportService;
 import com.pigtrax.report.service.SowReportService;
+import com.pigtrax.report.service.TargetReportService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.util.DateUtil;
 
@@ -86,6 +87,9 @@ public class ReportControlller {
 	
 	@Autowired
 	RemovalReportService removalReportService;
+	
+	@Autowired
+	TargetReportService targetReportService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -1177,6 +1181,48 @@ public class ReportControlller {
 		}
 	}	
 	//Production Event Log end
+	
+	//Target Report start
+	@RequestMapping(value = "/targetReport", method = RequestMethod.GET)
+	public ModelAndView goTotargetReport(HttpServletRequest request) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("contentUrl", "targetReport.jsp");
+		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer companyId = activeUser.getCompanyId();
+		model.put("CompanyId", companyId+"");
+		return new ModelAndView("template", model);
+	}	
+	
+	
+	@RequestMapping(value = "/generateTargetReport", method = RequestMethod.POST)
+	public void generateTargetReport(HttpServletRequest request, HttpServletResponse response) {
+		try {
+
+			String startDate = request.getParameter("startDate");   
+			List<String> rows =new ArrayList<String>();			
+			try {
+				Integer companyId = Integer.parseInt(request.getParameter("selectedCompany"));
+				response.setContentType("text/csv");
+				String reportName = "CSV_Report_Target_"+DateUtil.convertToFormatString(DateUtil.getToday(),"MM/dd/yyyy")+".csv";
+				response.setHeader("Content-disposition", "attachment;filename="+reportName);
+				rows = targetReportService.getTargetList(companyId,DateUtil.convertToFormat(startDate, "MM/dd/yyyy")); 
+				Iterator<String> iter = rows.iterator();
+				while (iter.hasNext()) {
+					String outputString = (String) iter.next();
+					response.getOutputStream().print(outputString);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				rows.add("There is some error please contact Admin");
+			}
+			response.getOutputStream().flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
+	//Target Report end	
 	
 	@RequestMapping(value = "/reportGenerationGroup", method = RequestMethod.GET)
 	public ModelAndView reportGenerationGroup(HttpServletRequest request) {
