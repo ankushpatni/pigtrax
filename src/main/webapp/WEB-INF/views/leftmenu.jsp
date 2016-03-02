@@ -78,6 +78,7 @@
 											<li><a href="prodEventLog"><spring:message code="label.leftmenu.reports.prodEventLog"  text="Production Event Log"/></a></li>
 											<li><a href="removalReport"><spring:message code="label.leftmenu.reports.removalReport"  text="Removal Report"/></a></li>
 											<li><a href="targetReport"><spring:message code="label.leftmenu.reports.targetReport"  text="Target Report"/></a></li>
+											<li><a href="litterBalance"><spring:message code="label.leftmenu.reports.litterBalance"  text="Litter Balance"/></a></li>
   
                                 </ul>
                               </li>
