@@ -56,7 +56,7 @@ public class LitterBalanceDao {
 					+" GROUP BY \"id_PigInfo\",\"eventDateTime\") weanData ON PS.\"id_PigInfo\" = weanData.\"id_PigInfo\" "
 					+" wHERE FE.\"id_Premise\" = ? AND weanData.\"eventDateTime\"::date between ? AND ? "
 					+" )T "
-					+" JOIN pigtrax.\"Pen\" PEN ON T.\"id_Pen\" = PEN.\"id\" "; 
+					+" JOIN pigtrax.\"Pen\" PEN ON T.\"id_Pen\" = PEN.\"id\" order by balance desc"; 
 
 		litterBalance = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
