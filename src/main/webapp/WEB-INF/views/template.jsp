@@ -99,6 +99,7 @@
 	<script src="resources/js/controllers/lactationLengthReportController.js"></script>
 	<script src="resources/js/controllers/pigletMortalityReportController.js"></script>
 	<script src="resources/js/controllers/prodEventLogController.js"></script>
+	<script src="resources/js/controllers/targetReportController.js"></script>
 	<script src="resources/js/controllers/removalReportController.js"></script>
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
