@@ -36,7 +36,8 @@ public class RemovalReportDao {
 				 +"  case when( RES.\"id_GroupEvent\" is not null ) THEN  DATE_PART('day', RES.\"removalDateTime\"::timestamp - GE.\"groupStartDateTime\"::timestamp) else DATE_PART('day', RES.\"removalDateTime\"::timestamp - PI.\"entryDate\"::timestamp) END as \"averageDOF\", "
 				 +"  case when( RES.\"id_GroupEvent\" is not null ) THEN  RES.\"weightInKgs\"/RES.\"numberOfPigs\" else RES.\"weightInKgs\" END as \"averageWeight\", "
 				 +"  case when( RES.\"id_PigInfo\" is not null ) THEN  PI.\"parity\" else 0 END as \"parity\", "
-				 +"  case when( RES.\"id_MortalityReason\" is not null ) THEN  MR.\"fieldDescription\" else '' END as \"mortalityReason\" "
+				 +"  case when( RES.\"id_MortalityReason\" is not null ) THEN  MR.\"fieldDescription\" else '' END as \"mortalityReason\", "
+				 +" CU_PH.\"Last Phase\", pen.\"penId\",BA.\"barnId\"  "
 				
 				 +"  from pigtrax.\"RemovalEventExceptSalesDetails\" RES  "
 				 +"  left JOIN pigtrax.\"GroupEvent\" GE ON RES.\"id_GroupEvent\" = GE.\"id\" "
@@ -45,6 +46,27 @@ public class RemovalReportDao {
 				 +"  left join pigtrax.\"Premise\" P1  ON RES.\"id_DestPremise\" = P1.\"id\" "
 				 +"  left join pigtrax.\"Room\" R ON RES.\"id_Room\" = R.\"id\" "
 				 +"  left join pigtraxrefdata.\"MortalityReasonType\" MR ON RES.\"id_MortalityReason\" = MR.\"id\" "
+				 +" left join (SELECT \"id_PigInfo\", CASE WHEN \"id_FarrowEvent\" IS NOT NULL THEN \"id_FarrowEvent\" else NULL END as \"id_FarrowEvent\", "
+				 +"    CASE WHEN "
+				 +"         \"id_FarrowEvent\" IS NOT NULL THEN 'Farrow' "
+				 +"        ELSE CASE WHEN \"id_PregnancyEvent\" IS NOT NULL THEN 'Pregnancy'  "
+				 +"        ELSE CASE WHEN \"id_BreedingEvent\" IS NOT NULL THEN 'Service'  "
+				 +"        ELSE 'Entry' "
+				 +"    END "
+				 +"    END "
+				 +"    END as \"Last Phase\" "
+				 +" FROM ( "
+				 +"   SELECT "
+				 +"     ROW_NUMBER() OVER (PARTITION BY \"id_PigInfo\" ORDER BY \"id\" desc) AS rowNum, "
+				 +"     PEM.* "
+				 +"   FROM "
+				 +"     pigtrax.\"PigTraxEventMaster\" PEM) events "
+				 +" WHERE "
+				 +"   events.rowNum = 2) CU_PH ON RES.\"id_PigInfo\" = CU_PH.\"id_PigInfo\" "
+				 +"   left join pigtrax.\"FarrowEvent\" FE ON CU_PH.\"id_FarrowEvent\" = FE.\"id\" "
+				 +"   left join pigtrax.\"Pen\" Pen ON FE.\"id_Pen\" = Pen.\"id\" "
+				 + " left join (SELECT \"barnserialid\" as \"id\", \"penserialid\" as \"id_Pen\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"barnId\" != '') BA_RN ON FE.\"id_Pen\" = BA_RN.\"id_Pen\" "
+				 + "  left join pigtrax.\"Barn\" BA ON BA_RN.\"id\" = BA.\"id\" "
 				 +"  where RES.\"id_RemovalEvent\" = 9 and RES.\"id_Premise\" = ? ";
 		if(pigId != 0)
 			query = query +"  and RES.\"id_PigInfo\" =  " +pigId ;
@@ -54,6 +76,8 @@ public class RemovalReportDao {
 			query = query +"  and RES.\"removalDateTime\" >  "+ start;
 		if(end != null)
 			query = query + " and RES.\"removalDateTime\" < "+ end;
+		
+		query = query + "order by RES.\"removalDateTime\" ";
 		
 		List<RemovalReportBean> sowReportBeanList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			
@@ -80,6 +104,9 @@ public class RemovalReportDao {
 			removalReportBean.setAveWeight(rs.getFloat("averageWeight"));
 			removalReportBean.setParity(rs.getInt("parity"));
 			removalReportBean.setMortalityReason(rs.getString("mortalityReason"));
+			removalReportBean.setpStatus(rs.getString("Last Phase"));
+			removalReportBean.setPenID(rs.getString("penId"));
+			removalReportBean.setBarnID(rs.getString("barnId"));
 			
 			
 			

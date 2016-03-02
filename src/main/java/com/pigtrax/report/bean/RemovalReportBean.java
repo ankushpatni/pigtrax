@@ -7,10 +7,10 @@ public class RemovalReportBean {
 	private String premise;
 	private String barnID;
 	private Integer roomID;
-	private Integer penID;
+	private String penID;
 	private String groupID;
 	private String pigID;
-	private Integer pStatus;
+	private String pStatus;
 	private Date removalDate;
 	private Integer numberPigsRemoved;
 	private float aveWeight;
@@ -37,10 +37,10 @@ public class RemovalReportBean {
 	public void setRoomID(Integer roomID) {
 		this.roomID = roomID;
 	}
-	public Integer getPenID() {
+	public String getPenID() {
 		return penID;
 	}
-	public void setPenID(Integer penID) {
+	public void setPenID(String penID) {
 		this.penID = penID;
 	}
 	public String getGroupID() {
@@ -55,10 +55,10 @@ public class RemovalReportBean {
 	public void setPigID(String pigID) {
 		this.pigID = pigID;
 	}
-	public Integer getpStatus() {
+	public String getpStatus() {
 		return pStatus;
 	}
-	public void setpStatus(Integer pStatus) {
+	public void setpStatus(String pStatus) {
 		this.pStatus = pStatus;
 	}
 	public Date getRemovalDate() {

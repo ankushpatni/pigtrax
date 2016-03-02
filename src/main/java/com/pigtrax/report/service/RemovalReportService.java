@@ -43,12 +43,37 @@ public class RemovalReportService {
 			for (RemovalReportBean removalReportBean : removalReportBeanList) {
 				rowBuffer = new StringBuffer();
 				rowBuffer.append(removalReportBean.getPremise()).append(seprater);
-				rowBuffer.append(removalReportBean.getBarnID()).append(seprater);
-				rowBuffer.append(removalReportBean.getRoomID()).append(seprater);
-				rowBuffer.append(removalReportBean.getPenID()).append(seprater);
-				rowBuffer.append(removalReportBean.getGroupID()).append(seprater);
-				rowBuffer.append(removalReportBean.getPigID()).append(seprater);
-				rowBuffer.append(removalReportBean.getpStatus()).append(seprater);
+				
+				if(removalReportBean.getBarnID() != null)
+					rowBuffer.append(removalReportBean.getBarnID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
+				
+				if(removalReportBean.getRoomID() != null)
+					rowBuffer.append(removalReportBean.getRoomID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
+				
+				if(removalReportBean.getPenID() != null)
+					rowBuffer.append(removalReportBean.getPenID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
+				
+				if(removalReportBean.getGroupID() != null)
+					rowBuffer.append(removalReportBean.getGroupID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
+				
+				if(removalReportBean.getPigID() != null)
+					rowBuffer.append(removalReportBean.getPigID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
+				
+				if(removalReportBean.getpStatus() != null)
+					rowBuffer.append(removalReportBean.getpStatus()).append(seprater);
+				else
+					rowBuffer.append(seprater);
+				
 				rowBuffer.append(removalReportBean.getRemovalDate()).append(seprater);
 				rowBuffer.append(removalReportBean.getNumberPigsRemoved()).append(seprater);
 				rowBuffer.append(removalReportBean.getAveWeight()).append(seprater);
