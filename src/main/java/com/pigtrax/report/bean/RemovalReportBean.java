@@ -6,7 +6,7 @@ public class RemovalReportBean {
 	
 	private String premise;
 	private String barnID;
-	private Integer roomID;
+	private String roomID;
 	private String penID;
 	private String groupID;
 	private String pigID;
@@ -31,10 +31,10 @@ public class RemovalReportBean {
 	public void setBarnID(String barnID) {
 		this.barnID = barnID;
 	}
-	public Integer getRoomID() {
+	public String getRoomID() {
 		return roomID;
 	}
-	public void setRoomID(Integer roomID) {
+	public void setRoomID(String roomID) {
 		this.roomID = roomID;
 	}
 	public String getPenID() {

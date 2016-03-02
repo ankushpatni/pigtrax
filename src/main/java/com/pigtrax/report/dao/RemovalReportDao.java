@@ -37,7 +37,7 @@ public class RemovalReportDao {
 				 +"  case when( RES.\"id_GroupEvent\" is not null ) THEN  RES.\"weightInKgs\"/RES.\"numberOfPigs\" else RES.\"weightInKgs\" END as \"averageWeight\", "
 				 +"  case when( RES.\"id_PigInfo\" is not null ) THEN  PI.\"parity\" else 0 END as \"parity\", "
 				 +"  case when( RES.\"id_MortalityReason\" is not null ) THEN  MR.\"fieldDescription\" else '' END as \"mortalityReason\", "
-				 +" CU_PH.\"Last Phase\", pen.\"penId\",BA.\"barnId\"  "
+				 +" CU_PH.\"Last Phase\", pen.\"penId\",BA.\"barnId\", RGR.\"roomId\"  "
 				
 				 +"  from pigtrax.\"RemovalEventExceptSalesDetails\" RES  "
 				 +"  left JOIN pigtrax.\"GroupEvent\" GE ON RES.\"id_GroupEvent\" = GE.\"id\" "
@@ -67,6 +67,10 @@ public class RemovalReportDao {
 				 +"   left join pigtrax.\"Pen\" Pen ON FE.\"id_Pen\" = Pen.\"id\" "
 				 + " left join (SELECT \"barnserialid\" as \"id\", \"penserialid\" as \"id_Pen\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"barnId\" != '') BA_RN ON FE.\"id_Pen\" = BA_RN.\"id_Pen\" "
 				 + "  left join pigtrax.\"Barn\" BA ON BA_RN.\"id\" = BA.\"id\" "
+				 +  " left join (select GEPC.\"id_GroupEvent\", GER.\"id_Room\" from pigtrax.\"GroupEventRoom\" GER  "
+				 +" left JOIN pigtrax.\"GroupEventPhaseChange\" GEPC ON GER.\"id_GroupEventPhaseChange\" = GEPC.\"id\" "
+				 +" where GEPC.\"phaseEndDate\" is null) GR_ROOM ON RES.\"id_GroupEvent\" = GR_ROOM.\"id_GroupEvent\"  "
+				 + "left join pigtrax.\"Room\" RGR ON GR_ROOM.\"id_Room\" =  RGR.\"id\" " 
 				 +"  where RES.\"id_RemovalEvent\" = 9 and RES.\"id_Premise\" = ? ";
 		if(pigId != 0)
 			query = query +"  and RES.\"id_PigInfo\" =  " +pigId ;
@@ -107,7 +111,7 @@ public class RemovalReportDao {
 			removalReportBean.setpStatus(rs.getString("Last Phase"));
 			removalReportBean.setPenID(rs.getString("penId"));
 			removalReportBean.setBarnID(rs.getString("barnId"));
-			
+			removalReportBean.setRoomID(rs.getString("roomId"));
 			
 			
 			return removalReportBean;
