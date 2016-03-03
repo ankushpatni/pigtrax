@@ -68,13 +68,7 @@
                                       <%}%>
                              <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytical reports"/></span></a>
                              	<ul class="sub-menu">
-											<li><a href=""><spring:message code="label.leftmenu.reports.managementLists"  text="Management Lists"/></a></li>
-											<li><a href=""><spring:message code="label.leftmenu.reports.trackingReports"  text="Tracking Reports"/></a></li>
-											<li><a href=""><spring:message code="label.leftmenu.reports.performanceMonitoring"  text="Performance Monitoring"/></a></li>
-											<li><a href=""><spring:message code="label.leftmenu.reports.dataExtraction"  text="Data Extraction"/></a></li>
-											<li><a href=""><spring:message code="label.leftmenu.reports.statisticalReports"  text="Statistical Reports"/></a></li>
-											<li><a href=""><spring:message code="label.leftmenu.reports.sowCards"  text="Sow Cards"/></a></li>
-											<li><a href="reportGeneration"><spring:message code="label.leftmenu.Charts.inventoryStats"  text="Inventory Stats"/></a></li>
+											<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.performanceMonitoring"  text="Performance Monitoring"/></a></li>																																	
 											<li><a href="reportGenerationSow"><spring:message code="label.leftmenu.Charts.sowReport"  text="Sow Report"/></a></li>
 											<li><a href="reportGenerationGroup"><spring:message code="label.leftmenu.Charts.groupReport"  text="Group Report"/></a></li>
 											<li><a href="reportGenerationActionList"><spring:message code="label.leftmenu.Charts.actionListReport"  text="Action List Report"/></a></li>
@@ -84,14 +78,14 @@
 											<li><a href="prodEventLog"><spring:message code="label.leftmenu.reports.prodEventLog"  text="Production Event Log"/></a></li>
 											<li><a href="removalReport"><spring:message code="label.leftmenu.reports.removalReport"  text="Removal Report"/></a></li>
 											<li><a href="targetReport"><spring:message code="label.leftmenu.reports.targetReport"  text="Target Report"/></a></li>
+											<li><a href="litterBalance"><spring:message code="label.leftmenu.reports.litterBalance"  text="Litter Balance"/></a></li>
   
                                 </ul>
                               </li>
                               
                               <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.Charts"  text="Charts"/></span></a>
                              	<ul class="sub-menu">
-                                         	
-											<li><a href=""><spring:message code="label.leftmenu.Charts.performanceMonitor"  text="Performance Monitor"/></a></li>
+											
 											<li><a href=""><spring:message code="label.leftmenu.Charts.simpleStats"  text="Simple Stats"/></a></li>
 											
                                 </ul>
