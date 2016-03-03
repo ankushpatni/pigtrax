@@ -64,12 +64,12 @@ public List<SaleReportBean> getSaleList(final int premisesId, final int barnId, 
 			query = query + " and RES.\"salesDateTime\" < "+ end;
 		
 		if(ticketNumber != null && !StringUtils.isEmpty(ticketNumber))
-			query = query +"  and RES.\"ticketNumber\" =  "+ticketNumber ;
+			query = query +"  and RES.\"ticketNumber\" =  '"+ticketNumber+"'" ;
 		
 		if(barnId != 0)
 			query = query +"  and BA.\"id\" =  "+barnId ;
 			
-		query = query + "order by GE.\"groupId\", RES.\"salesDateTime\" ";
+		query = query + " order by GE.\"groupId\", RES.\"salesDateTime\" ";
 		
 		List<SaleReportBean> saleReportBeanList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			
