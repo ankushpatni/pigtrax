@@ -57,15 +57,23 @@ public class SaleReportService {
 				
 				if(saleReportBean.getBarnID() != null)
 					rowBuffer.append(saleReportBean.getBarnID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getRoomID() != null)
 					rowBuffer.append(saleReportBean.getRoomID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getGroupID() != null)
 					rowBuffer.append(saleReportBean.getGroupID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getSalesEventDate() != null)
 					rowBuffer.append(saleReportBean.getSalesEventDate()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getSalesType() != null)
 				{
@@ -77,36 +85,56 @@ public class SaleReportService {
 						}					
 					rowBuffer.append(salesTypeStr).append(seprater);
 				}
+				else
+					rowBuffer.append(seprater);
 				
 				
 				if(saleReportBean.getNumberOfPigsSold() != null)
 					rowBuffer.append(saleReportBean.getNumberOfPigsSold()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getDestination() != null)
 					rowBuffer.append(saleReportBean.getDestination()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getTotalWeight() != null)
 					rowBuffer.append(saleReportBean.getTotalWeight()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				rowBuffer.append(saleReportBean.getWeightPerPig()).append(seprater);
 				
 				if(saleReportBean.getTicketNumber() != null)
 					rowBuffer.append(saleReportBean.getTicketNumber()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getInvoiceNumber() != null)
 					rowBuffer.append(saleReportBean.getInvoiceNumber()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getRevenue() != 0)
 					rowBuffer.append(saleReportBean.getRevenue()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getTruck() != null)
 					rowBuffer.append(saleReportBean.getTruck()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getTrailer() != null)
 					rowBuffer.append(saleReportBean.getTrailer()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getRemarks() != null)
-					rowBuffer.append(saleReportBean.getRemarks()).append(seprater);		
+					rowBuffer.append(saleReportBean.getRemarks()).append(seprater);
+				else
+					rowBuffer.append(seprater);
 				
 				returnRows.add(rowBuffer.toString()+"\n");
 				

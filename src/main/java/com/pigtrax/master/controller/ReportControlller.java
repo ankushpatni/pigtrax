@@ -35,12 +35,13 @@ import com.pigtrax.report.service.ActionListReportService;
 import com.pigtrax.report.service.GroupReportService;
 import com.pigtrax.report.service.InventoryStatusReportService;
 import com.pigtrax.report.service.LactationLengthReportService;
+import com.pigtrax.report.service.LitterBalanceService;
 import com.pigtrax.report.service.PigletMortalityReportService;
 import com.pigtrax.report.service.ProdEventLogService;
 import com.pigtrax.report.service.RemovalReportService;
+import com.pigtrax.report.service.SaleReportService;
 import com.pigtrax.report.service.SowReportService;
 import com.pigtrax.report.service.TargetReportService;
-import com.pigtrax.report.service.LitterBalanceService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.util.DateUtil;
 
@@ -94,6 +95,9 @@ public class ReportControlller {
 	
 	@Autowired
 	LitterBalanceService litterBalanceService;
+	
+	@Autowired
+	SaleReportService saleReportService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -1674,10 +1678,10 @@ public class ReportControlller {
 	}
 	
 	//Removal Report Starts
-		@RequestMapping(value = "/removalReport", method = RequestMethod.GET)
-		public ModelAndView RemovalReport(HttpServletRequest request) {
+		@RequestMapping(value = "/saleReport", method = RequestMethod.GET)
+		public ModelAndView SaleReport(HttpServletRequest request) {
 			Map<String, String> model = new HashMap<String, String>();
-			model.put("contentUrl", "reportGenerationRemoval.jsp");
+			model.put("contentUrl", "reportGenerationSale.jsp");
 			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -1686,14 +1690,15 @@ public class ReportControlller {
 			return new ModelAndView("template", model);
 		}
 		
-		@RequestMapping(value = "/generateRemovalReport", method = RequestMethod.POST)
-		public void generateRemovalReport(HttpServletRequest request, HttpServletResponse response) {
+		@RequestMapping(value = "/generateSaleReport", method = RequestMethod.POST)
+		public void generateSaleReport(HttpServletRequest request, HttpServletResponse response) {
 				try {
 					String selectedPremise = request.getParameter("selectedPremise");
 					String startDate = request.getParameter("startDate");
 					String endDate = request.getParameter("endDate");
 					String group = request.getParameter("groupId");
-					String pig = request.getParameter("pigId");
+					String barn = request.getParameter("selectedBarn");
+					String ticketNumber = request.getParameter("ticketNumber");
 					
 					String companyString = request.getParameter("companyId1");
 					Integer companyId ;
@@ -1729,26 +1734,22 @@ public class ReportControlller {
 							
 						}
 						
-						int pigId = 0;
-						if(pig != null && !StringUtils.isEmpty(pig))
+						int barnId = 0;
+						if(!StringUtils.isEmpty(barn))
 						{
-							PigInfo pigInformation = pigInfoDao.getPigInformationByPigIdWithOutStatus(pig, companyId, premiseId);
-							if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
-							{
-								pigId = pigInformation.getId();
-							}							
+							barnId = Integer.parseInt(barn);
 						}
 						
 						if(premise != null)
 						{
 							response.setContentType("text/csv");
-							String reportName = "CSV_Report_Removal_"+DateUtil.convertToFormatString(DateUtil.getToday(),"MM/dd/yyyy")+"_"+premise.getPermiseId()+".csv";
+							String reportName = "CSV_Report_Sale_"+DateUtil.convertToFormatString(DateUtil.getToday(),"MM/dd/yyyy")+"_"+premise.getPermiseId()+".csv";
 							response.setHeader("Content-disposition", "attachment;filename="+reportName);
 							
 							
 							if(premiseId > 0)
 							{ 
-								rows = removalReportService.getRemovalList(selectedPremise,premiseId, pigId, groupId, DateUtil.convertToFormat(startDate, "MM/dd/yyyy"), DateUtil.convertToFormat(endDate, "MM/dd/yyyy")); 
+								rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, DateUtil.convertToFormat(startDate, "MM/dd/yyyy"), DateUtil.convertToFormat(endDate, "MM/dd/yyyy"),barnId,ticketNumber, language); 
 								Iterator<String> iter = rows.iterator();
 								while (iter.hasNext()) {
 									String outputString = (String) iter.next();
@@ -1771,6 +1772,105 @@ public class ReportControlller {
 					e.printStackTrace();
 				}
 		}
+		
+		//Removal Report Starts
+				@RequestMapping(value = "/removalReport", method = RequestMethod.GET)
+				public ModelAndView RemovalReport(HttpServletRequest request) {
+					Map<String, String> model = new HashMap<String, String>();
+					model.put("contentUrl", "reportGenerationRemoval.jsp");
+					model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+					
+					PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					Integer companyId = activeUser.getCompanyId();
+					model.put("CompanyId", companyId+"");
+					return new ModelAndView("template", model);
+				}
+				
+				@RequestMapping(value = "/generateRemovalReport", method = RequestMethod.POST)
+				public void generateRemovalReport(HttpServletRequest request, HttpServletResponse response) {
+						try {
+							String selectedPremise = request.getParameter("selectedPremise");
+							String startDate = request.getParameter("startDate");
+							String endDate = request.getParameter("endDate");
+							String group = request.getParameter("groupId");
+							String pig = request.getParameter("pigId");
+							
+							String companyString = request.getParameter("companyId1");
+							Integer companyId ;
+							
+							
+							LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+							String language = localeResolver.resolveLocale(request).getLanguage();
+							
+							PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+							if(companyString != null && !StringUtils.isEmpty(companyString))
+							{
+								companyId = Integer.parseInt(companyString);
+							}
+							else
+							{
+								companyId = activeUser.getCompanyId();
+							}			
+						
+							List<String> rows =new ArrayList<String>();
+									
+							try {
+								Integer premiseId = Integer.parseInt(selectedPremise);
+								Premises premise = premiseDao.findByPremisesByAutoGeneratedId(premiseId);
+								
+								int groupId = 0;
+								if(group != null && !StringUtils.isEmpty(group))
+								{
+									GroupEvent groupEventByGroupId = groupEventService.getGroupEventByGroupId(group, companyId, premiseId);
+									if(null != groupEventByGroupId && groupEventByGroupId.getId() != null && groupEventByGroupId.getId() != 0)
+									{
+										groupId = groupEventByGroupId.getId();
+									}
+									
+								}
+								
+								int pigId = 0;
+								if(pig != null && !StringUtils.isEmpty(pig))
+								{
+									PigInfo pigInformation = pigInfoDao.getPigInformationByPigIdWithOutStatus(pig, companyId, premiseId);
+									if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
+									{
+										pigId = pigInformation.getId();
+									}							
+								}
+								
+								if(premise != null)
+								{
+									response.setContentType("text/csv");
+									String reportName = "CSV_Report_Removal_"+DateUtil.convertToFormatString(DateUtil.getToday(),"MM/dd/yyyy")+"_"+premise.getPermiseId()+".csv";
+									response.setHeader("Content-disposition", "attachment;filename="+reportName);
+									
+									
+									if(premiseId > 0)
+									{ 
+										rows = removalReportService.getRemovalList(selectedPremise,premiseId, pigId, groupId, DateUtil.convertToFormat(startDate, "MM/dd/yyyy"), DateUtil.convertToFormat(endDate, "MM/dd/yyyy")); 
+										Iterator<String> iter = rows.iterator();
+										while (iter.hasNext()) {
+											String outputString = (String) iter.next();
+											response.getOutputStream().print(outputString);
+										}
+									}
+									else
+									{
+										rows.add("Can not find premise by given Id");
+									}
+								}
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								rows.add("There is some error please contact Admin");
+							}
+							
+							response.getOutputStream().flush();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+				}
 	
 	
 }

@@ -51,7 +51,7 @@ public List<SaleReportBean> getSaleList(final int premisesId, final int barnId, 
 				 +" where GEPC.\"phaseEndDate\" is null) GR_ROOM ON RES.\"id_GroupEvent\" = GR_ROOM.\"id_GroupEvent\" "
 				 +" left join pigtrax.\"Room\" RGR ON GR_ROOM.\"id_Room\" =  RGR.\"id\" "
 				 +" left join (SELECT \"barnserialid\" as \"id\",\"roomserrialid\" as \"id_Room\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"barnId\" != '') BARN_ID ON  GR_ROOM.\"id_Room\" = BARN_ID.\"id_Room\" "
-				 +" left join pigtrax.\"Barn\" BA ON BARN_ID.\"id\" = BA.\"id\" ";		
+				 +" left join pigtrax.\"Barn\" BA ON BARN_ID.\"id\" = BA.\"id\" where  GE.\"id_Premise\" = ? ";		
 		
 		
 		if(groupId != 0)
@@ -67,7 +67,7 @@ public List<SaleReportBean> getSaleList(final int premisesId, final int barnId, 
 			query = query +"  and RES.\"ticketNumber\" =  "+ticketNumber ;
 		
 		if(barnId != 0)
-			query = query +"  and BA.\"id\" =  "+ticketNumber ;
+			query = query +"  and BA.\"id\" =  "+barnId ;
 			
 		query = query + "order by GE.\"groupId\", RES.\"salesDateTime\" ";
 		
