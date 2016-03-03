@@ -21,7 +21,7 @@ import com.pigtrax.report.bean.RemovalReportBean;
 @Transactional
 public class RemovalReportDao {
 	
-	private static final Logger logger = Logger.getLogger(BarnDaoImpl.class);
+	private static final Logger logger = Logger.getLogger(RemovalReportDao.class);
 
 	private JdbcTemplate jdbcTemplate;
 
