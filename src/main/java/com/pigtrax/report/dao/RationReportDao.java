@@ -63,7 +63,7 @@ public class RationReportDao {
 				+" JOIN pigtrax.\"Premise\" P ON P.\"id\" = FE.\"id_Premise\" "
 				+" LEFT JOIN ( "
 				+"  SELECT CT.\"id_Company\", CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"kg/day\", 'Kg/Day' as ind from pigtrax.\"CompanyTarget\"  CT "
-				+"  JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fiedDescription\" = 'Feed_kg/pig/day' "
+				+"  JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fieldDescription\" = 'Feed_kg/pig/day' "
 				+" ) kg  ON P.\"id_Company\" = kg.\"id_Company\" "		
 				+" LEFT JOIN ( "
 				+" select CT.\"id_Company\",  CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"tons\", 'tonsUsed' as ind from pigtrax.\"CompanyTarget\"  CT "
