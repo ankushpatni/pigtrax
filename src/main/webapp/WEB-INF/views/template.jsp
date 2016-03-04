@@ -103,6 +103,7 @@
 	<script src="resources/js/controllers/removalReportController.js"></script>
 	<script src="resources/js/controllers/litterBalanceController.js"></script>
 	<script src="resources/js/controllers/saleReportController.js"></script>
+	<script src="resources/js/controllers/rationReportController.js"></script>
 	
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
