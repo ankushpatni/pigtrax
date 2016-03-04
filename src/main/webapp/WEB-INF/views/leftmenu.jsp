@@ -80,7 +80,7 @@
 											<li><a href="targetReport"><spring:message code="label.leftmenu.reports.targetReport"  text="Target Report"/></a></li>
 											<li><a href="litterBalance"><spring:message code="label.leftmenu.reports.litterBalance"  text="Litter Balance"/></a></li>
 											<li><a href="saleReport"><spring:message code="label.leftmenu.reports.saleReport"  text="Sale Report"/></a></li>
-											<!-- <li><a href="rationReport"><spring:message code="label.leftmenu.reports.rationReport"  text="Ration Report"/></a></li> -->
+											<li><a href="rationReport"><spring:message code="label.leftmenu.reports.rationReport"  text="Ration Report"/></a></li>
   
                                 </ul>
                               </li>
