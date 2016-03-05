@@ -222,7 +222,7 @@ public class MatingDetailsValidation {
 			 else if(durationDays >= 1 && durationDays < BREEDING_EVENT_TIME_PERIOD1)
 			  {
 				  logger.info("Breeding happens within first 5 days");
-				  return WARN_CODE_01;
+				  return SUCCESS_CODE;
 			  }
 			 else
 				 return SUCCESS_CODE;

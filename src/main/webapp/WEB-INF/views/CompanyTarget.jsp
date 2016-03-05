@@ -30,10 +30,18 @@
                 <div class="content">
                   <form name="companytargetform">
                   <input type=hidden name="companyId" ng-model="companyTarget.companyId" value="${CompanyId}"/>
+                  
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+                       <select class="form-control"   ng-change="checkPremise()" name="premiseId" id="premiseId" ng-model="companyTarget.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'">
+                       	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="companyTarget.premiseId == premise.id">{{premise.name}}</option>
+                        </select>
+                    </div>	
+                  
                      <div class="form-group">
                       <label><spring:message code='label.companytargetform.targetname'  text='Target'/><span style='color: red'>*</span></label>                      
-                      <select class="form-control" id="targetId"  name="targetName" ng-model="companyTarget.targetId" ng-if="companyTarget.id == null" >
-                      <option ng-repeat="key in keys" ng-value="key">{{targetTypes[key]}}</option>                          
+                      <select class="form-control" id="targetId"  name="targetName" ng-model="companyTarget.targetId" ng-if="companyTarget.id == null" ng-change="checkTargetType()" >
+                      <option ng-repeat="key in usedTargetKeys" ng-value="key">{{targetTypes[key]}}</option>                          
                         </select>
                         <label ng-if="companyTarget.id != null && companyTarget.id > 0">{{companyTarget.targetName}}</label>
                         <label ng-show="targetIdRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.targetIdRequiredMessage' text='Target Id is required' /></label>
@@ -46,6 +54,17 @@
                       ></input>
                       <label ng-show="targetValueRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.companytargetform.targetValueRequiredMessage' text='Target value is required' /></label>
                     </div>
+                    
+                    
+                    <div class="form-group" ng-show="ShowRationOption">
+                      <label><spring:message code='label.piginfo.feedEventForm.rationId'  text='Ration Id'/><span style='color: red'>*</span></label>
+                     <!-- <input type="text" ng-model="feedEvent.rationId" id="rationId" name="rationId"  class="form-control" maxlength="255" placeholder="<spring:message code='label.piginfo.feedEventForm.batchId.placeholder'  text='Enter Batch Id'/>" 
+                       required required-message="'<spring:message code='label.piginfo.feedEventForm.batchId.requiredMessage' text='Batch Id is required' />'" ng-focus="clearMessages()"/>-->                        
+                        <select class="form-control" id="rationId" name="rationId" ng-model="companyTarget.rationId"  required required required-message="'<spring:message code='label.piginfo.feedEventForm.rationId.requiredMessage' text='Ration Id is required' />'">
+                      	<option ng-repeat="key in rationListKeys" ng-value="key" ng-selected="companyTarget.rationId==key">{{rationListKeyValues[key]}}</option>        
+                        </select> 
+                   </div>
+                    
                     
                     <div class="form-group"> 
                       <label><spring:message code='label.companytargetform.completiondate'  text='Start Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                     
@@ -83,8 +102,10 @@
 			<table st-table="displayedCollection" st-safe-src="companyTargets" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #f7b781">
 					<tr>
+						<th style="width:20%"><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.targetname" text="Target" /></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.targetvalue" text="Value" /></th>
+						<th style="width:20%"><spring:message code='label.piginfo.feedEventForm.rationId'  text='Ration Id'/></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.completiondate" text="Start Date" /></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.remarks" text="Remarks" /></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
@@ -92,8 +113,10 @@
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection track by $index">
+					<td style="width:20%">{{row.premise}}</td>
 					<td style="width:20%">{{row.targetName}}</td>
-					<td style="width:20%">{{row.targetValue}}</td>					
+					<td style="width:20%">{{row.targetValue}}</td>		
+					<td style="width:20%">{{row.ration}}</td>			
 					<td style="width:20%">{{DateUtils.getFormatedDate(row.completionDate)}}</td>
 					<td style="width:20%">{{row.remarks}}</td>
 					<td style="width:20%">

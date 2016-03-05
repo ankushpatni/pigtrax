@@ -23,6 +23,8 @@ public class CompanyTargetBuilder {
 			 info.setCompletionDate(dto.getCompletionDate());
 			 info.setLastUpdated(dto.getLastUpdated()); 
 			 info.setUserUpdated(dto.getUserUpdated());
+			 info.setPremiseId(dto.getPremiseId());
+			 info.setRationId(dto.getRationId());
 			 return info;
 		 }
 		 return null;
@@ -43,6 +45,8 @@ public class CompanyTargetBuilder {
 			 dto.setCompletionDate(info.getCompletionDate());
 			 dto.setLastUpdated(info.getLastUpdated()); 
 			 dto.setUserUpdated(info.getUserUpdated());
+			 dto.setPremiseId(info.getPremiseId());
+			 dto.setRationId(info.getRationId());
 			 return dto;
 		 } 
 		 return null;

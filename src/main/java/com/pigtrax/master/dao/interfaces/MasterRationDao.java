@@ -10,4 +10,5 @@ public interface MasterRationDao {
    Integer deleteRation(Integer id);
    List<MasterRationDto> getRationList();
    List<MasterRationDto> getRationList(String language);	
+   MasterRationDto findRationById(Integer rationId);
 }

@@ -7102,7 +7102,12 @@ INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpd
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (88,'Sow/Boar ratio',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (89,'Litters / mated female/year',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (90,'Pigs/weans/mated female/year',CURRENT_TIMESTAMP,'pigtraxadmin');
-
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (91,'Feed_tons used',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (92,'Feed_kg/pig/day',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (93,'Feed_Feed cost/pig',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (94,'Gestation feed/sow',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (95,'Lactation feed/sow',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (96,'Total sow feed/sow',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -7197,6 +7202,13 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Litters / mated female/year','en',CURRENT_TIMESTAMP,'pigtraxadmin',89);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs/weans/mated female/year','en',CURRENT_TIMESTAMP,'pigtraxadmin',90);
 
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_tons used','en',CURRENT_TIMESTAMP,'pigtraxadmin',91);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_kg/pig/day','en',CURRENT_TIMESTAMP,'pigtraxadmin',92);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_Feed cost/pig','en',CURRENT_TIMESTAMP,'pigtraxadmin',93);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Gestation feed/sow','en',CURRENT_TIMESTAMP,'pigtraxadmin',94);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lactation feed/sow','en',CURRENT_TIMESTAMP,'pigtraxadmin',95);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total sow feed/sow','en',CURRENT_TIMESTAMP,'pigtraxadmin',96);
+
 
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -7290,6 +7302,13 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Sow/Boar ratio_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',88);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Litters / mated female/year_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',89);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs/weans/mated female/year_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',90);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_tons used_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',91);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_kg/pig/day_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',92);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_Feed cost/pig_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',93);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Gestation feed/sow_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',94);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lactation feed/sow_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',95);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total sow feed/sow_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',96);
+
 
 
 
@@ -7384,6 +7403,12 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Sow/Boar ratio_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',88);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Litters / mated female/year_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',89);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs/weans/mated female/year_PR','en',CURRENT_TIMESTAMP,'pigtraxadmin',90);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_tons used_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',91);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_kg/pig/day_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',92);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_Feed cost/pig_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',93);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Gestation feed/sow_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',94);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lactation feed/sow_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',95);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total sow feed/sow_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',96);
 
 
 ---------

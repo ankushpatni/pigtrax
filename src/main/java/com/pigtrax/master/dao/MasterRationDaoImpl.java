@@ -130,5 +130,23 @@ public class MasterRationDaoImpl implements MasterRationDao {
 			return masterRationDto;
 		}
 	}
+	
+	@Override
+	public MasterRationDto findRationById(final Integer rationId) {
+		String query = "SELECT \"id\",\"rationValue\", \"id_FeedEventType\", \"lastUpdated\",\"userUpdated\",\"rationDescription\",\"id_RationType\" "
+				+ "from pigtrax.\"MasterRation\" where \"id\" = ?"
+				+ " order by \"rationValue\" ";
+		
+		   List<MasterRationDto> rationDtoList = jdbcTemplate.query(query, new PreparedStatementSetter(){
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, rationId);
+				}}, new MasterRationMapper());
+		   
+		   if(rationDtoList != null && 0<rationDtoList.size())
+		   {
+			   return rationDtoList.get(0);
+		   }
+		   return null;
+	}
   
 }

@@ -31,6 +31,9 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	$scope.companyId = "";
 	$scope.companyTarget = {};
 	$scope.DateUtils = DateUtils;
+	$scope.ShowRationOption = false;
+	$scope.usedTargetKeys = null;
+	$scope.limitedTargetKeys = null;
 	
 	
 	$scope.setCompanyId = function(companyId)
@@ -38,6 +41,8 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$rootScope.companyId = companyId;
 		$scope.getCompanyTargets();
 		$scope.getTargetTypes();
+		$scope.loadPremises();
+		$scope.getRationIdList();
 	};
 	
 	$scope.getTargetTypes = function()
@@ -48,9 +53,68 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 				  var responseList = data.payload;
 				  $scope.keys = responseList[0];
 				  $scope.targetTypes = responseList[1];
+				  $scope.usedTargetKeys =$scope.keys ;
+				  $scope.limitedTargetKeys = $scope.keys ;
 				}
 		});
 	}
+	
+	
+	$scope.loadPremises = function()
+	{
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId);
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
+	
+	$scope.getRationIdList = function()
+	{
+		restServices.getRationIdList(function(data) {
+			if(!data.error)
+				{
+					var responseList = data.payload;
+					$scope.rationListKeys = responseList[0];
+					$scope.rationListKeyValues =responseList[1];
+				
+				}
+		});
+	};
+	
+	$scope.checkTargetType = function()
+	{
+		if($scope.companyTarget.targetId == 91 || $scope.companyTarget.targetId == 92 || $scope.companyTarget.targetId == 93)
+	        $scope.ShowRationOption = true;
+		else
+			{
+			$scope.ShowRationOption = false;
+			$scope.companyTarget.rationId = null;
+			}
+	}
+	
+	
+	$scope.checkPremise = function()
+	{
+		var premiseId = $scope.companyTarget["premiseId"];
+		for(i =0 ; i<$scope.premiseList.length; i++)
+		{
+		  var premiseObj = $scope.premiseList[i];
+		  if(premiseObj["sowSource"] != "Yes")
+		  {
+			  $scope.usedTargetTypes = $scope.limitedTargetTypes;
+		  }
+		  else
+		  {
+			  $scope.usedTargetTypes = $scope.targetTypes;
+		  }			  
+		}
+	}
+	
+	
 	
 	
 	$scope.getCompanyTargets = function()
@@ -167,7 +231,8 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 				   $scope.clearAllMessages();
 				   $scope.companyTargetSaved = true;	
 				   var resultObj = data.payload;
-				   $scope.modifyArray(resultObj);
+				   //$scope.modifyArray(resultObj);
+				   $scope.getCompanyTargets();
 				   $scope.companyTarget = {};
 			   }
 		   });	
@@ -193,6 +258,8 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 				  $scope.companyTargets[i]["targetValue"] = companyTargetObj["targetValue"];
 				  $scope.companyTargets[i]["completionDate"] = companyTargetObj["completionDate"];
 				  $scope.companyTargets[i]["remarks"] = companyTargetObj["remarks"];
+				  $scope.companyTargets[i]["premiseId"] = companyTargetObj["premiseId"];
+				  $scope.companyTargets[i]["rationId"] = companyTargetObj["rationId"];
 				  exists = true;
 				  break;
 			  }
@@ -201,6 +268,9 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		if(!exists)
 			$scope.companyTargets.push(companyTargetObj);
 	}
+	
+	
+	
 	
 	
 	$scope.deleteTargetDetails = function(selectedObject)
@@ -226,6 +296,15 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$scope.companyTarget["completionDate"] = selectedObject["completionDate"];
 		$scope.companyTarget["completionDateStr"] = selectedObject["completionDateStr"];
 		$scope.companyTarget["remarks"] = selectedObject["remarks"];
+		$scope.companyTarget["premiseId"] = selectedObject["premiseId"];
+		$scope.companyTarget["rationId"] = selectedObject["rationId"];
+		if($scope.companyTarget["targetId"] == 91 || $scope.companyTarget["targetId"] == 92 || $scope.companyTarget["targetId"] == 93)
+	        $scope.ShowRationOption = true;
+		else
+		{
+			$scope.ShowRationOption = false;
+			$scope.companyTarget["rationId"] = null;
+		}
 		$window.scrollTo(0, 0);
 		
 	}
