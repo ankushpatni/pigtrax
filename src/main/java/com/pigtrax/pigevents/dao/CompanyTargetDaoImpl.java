@@ -60,7 +60,7 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 	    				ps.setString(5, companyTarget.getRemarks());
 	    				ps.setString(6, companyTarget.getUserUpdated()); 
 	    				ps.setInt(7, companyTarget.getPremiseId());
-	    				ps.setInt(8, companyTarget.getRationId());
+	    				ps.setObject(8, companyTarget.getRationId(), java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
