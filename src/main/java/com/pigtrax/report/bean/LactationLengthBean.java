@@ -10,25 +10,30 @@ public class LactationLengthBean {
 	private Integer lactationLength;
 	private Double percentage;
 	private Date eventTime;
+	private String dayLabel;
 	public Integer getNumberOfPigs() {
+		if(numberOfPigs == null) numberOfPigs = 0;
 		return numberOfPigs;
 	}
 	public void setNumberOfPigs(Integer numberOfPigs) {
 		this.numberOfPigs = numberOfPigs;
 	}
 	public Integer getTotalPigCount() {
+		if(totalPigCount == null) totalPigCount = 0;
 		return totalPigCount;
 	}
 	public void setTotalPigCount(Integer totalPigCount) {
 		this.totalPigCount = totalPigCount;
 	}
 	public Integer getLactationLength() {
+		if(lactationLength == null) lactationLength =0;
 		return lactationLength;
 	}
 	public void setLactationLength(Integer lactationLength) {
 		this.lactationLength = lactationLength;
 	}
 	public Double getPercentage() {
+		percentage = (double) ((numberOfPigs*100)/totalPigCount);
 		if(percentage != null)
 		{
 			 BigDecimal bd = new BigDecimal(percentage);
@@ -45,6 +50,12 @@ public class LactationLengthBean {
 	}
 	public void setEventTime(Date eventTime) {
 		this.eventTime = eventTime;
+	}
+	public String getDayLabel() {
+		return dayLabel;
+	}
+	public void setDayLabel(String dayLabel) {
+		this.dayLabel = dayLabel;
 	}
 	
 	
