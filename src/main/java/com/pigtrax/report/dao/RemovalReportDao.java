@@ -71,7 +71,7 @@ public class RemovalReportDao {
 				 +" left JOIN pigtrax.\"GroupEventPhaseChange\" GEPC ON GER.\"id_GroupEventPhaseChange\" = GEPC.\"id\" "
 				 +" where GEPC.\"phaseEndDate\" is null) GR_ROOM ON RES.\"id_GroupEvent\" = GR_ROOM.\"id_GroupEvent\"  "
 				 + "left join pigtrax.\"Room\" RGR ON GR_ROOM.\"id_Room\" =  RGR.\"id\" " 
-				 +"  where (RES.\"id_RemovalEvent\" = 8 || RES.\"id_RemovalEvent\" = 2 || RES.\"id_RemovalEvent\" = 7) and RES.\"id_Premise\" = ? ";
+				 +"  where (RES.\"id_RemovalEvent\" = 8 OR RES.\"id_RemovalEvent\" = 2 OR RES.\"id_RemovalEvent\" = 7) and RES.\"id_Premise\" = ? ";
 		if(pigId != 0)
 			query = query +"  and RES.\"id_PigInfo\" =  " +pigId ;
 		if(groupId != 0)
