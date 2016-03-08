@@ -8,6 +8,14 @@
 				<div class="header">
 					<h3><spring:message code="label.transportTruck.header" text="Truck Data" /></h3>
 				</div>
+				<div class="alert alert-success alert-white rounded"  ng-show="truckSuccessMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.transportTruck.success.message' text='Truck added successfully'/>
+                  </div>	
+				<div class="alert alert-success alert-white rounded"  ng-show="truckDeleteMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.transportTruck.delete.message' text='Truck deleted successfully'/>
+                  </div>                  			
 				<button type="button" ng-click="addTransportTruckData()" class="btn btn-sm btn btn-success">
 					<i class="glyphicon glyphicon-plus">
 					</i> <spring:message code="label.transportTruck.addTransportTruckData" text="Add New Truck" />
@@ -49,6 +57,14 @@
 				<div class="header">
 					<h3><spring:message code="label.transportTrailer.header" text="Trailer Data" /></h3>
 				</div>
+				<div class="alert alert-success alert-white rounded"  ng-show="trailerSuccessMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.transportTrailer.success.message' text='Trailer added successfully'/>
+                  </div>	
+				<div class="alert alert-success alert-white rounded"  ng-show="trailerDeleteMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.transportTrailer.delete.message' text='Trailer deleted successfully'/>
+                  </div>                  			
 				<button type="button" ng-click="addTransportTrailerData()" class="btn btn-sm btn btn-success">
 					<i class="glyphicon glyphicon-plus">
 					</i> <spring:message code="label.transportTrailer.addTransportTruckData" text="Add New Trailer" />
