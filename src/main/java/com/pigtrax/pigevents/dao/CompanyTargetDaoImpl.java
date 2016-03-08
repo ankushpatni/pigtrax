@@ -37,8 +37,8 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 	@Override
 	public int addCompanyTarget(final CompanyTarget companyTarget)  throws SQLException{
 		final String Qry = "insert into pigtrax.\"CompanyTarget\"(\"id_TargetType\", \"targetValue\", "
-				+ "\"id_Company\", \"completionDate\", \"remarks\", \"lastUpdated\", \"userUpdated\") "
-				+ "values(?,?,?,?,?,current_timestamp,?)";
+				+ "\"id_Company\", \"completionDate\", \"remarks\", \"lastUpdated\", \"userUpdated\",\"id_Premise\",\"id_Ration\") "
+				+ "values(?,?,?,?,?,current_timestamp,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -59,6 +59,8 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 	    				ps.setObject(4, companyTarget.getCompletionDate(), java.sql.Types.DATE); 	    				
 	    				ps.setString(5, companyTarget.getRemarks());
 	    				ps.setString(6, companyTarget.getUserUpdated()); 
+	    				ps.setInt(7, companyTarget.getPremiseId());
+	    				ps.setObject(8, companyTarget.getRationId(), java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
@@ -71,8 +73,8 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 	
 	@Override
 	public List<CompanyTarget> getCompanyTargets(final Integer companyId)  throws SQLException {
-		String sql = "select \"id\", \"id_TargetType\", \"targetValue\", \"completionDate\", \"remarks\", \"id_Company\" "
-				+ "from pigtrax.\"CompanyTarget\" where \"id_Company\" = ?";
+		String sql = "select \"id\", \"id_TargetType\", \"targetValue\", \"completionDate\", \"remarks\", \"id_Company\", \"id_Premise\",\"id_Ration\" "
+				+ "from pigtrax.\"CompanyTarget\" where \"id_Company\" = ? order by \"id_Premise\" ";
 		
 		List<CompanyTarget> companyTargetList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
 			@Override
@@ -92,6 +94,8 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 			companyTarget.setCompletionDate(rs.getDate("completionDate"));
 			companyTarget.setRemarks(rs.getString("remarks"));
 			companyTarget.setCompanyId(rs.getInt("id_Company"));
+			companyTarget.setPremiseId(rs.getInt("id_Premise"));
+			companyTarget.setRationId(rs.getInt("id_Ration"));
 			return companyTarget;
 		}
 	}
@@ -100,7 +104,7 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 	@Override
 	public int updateCompanyTarget(final CompanyTarget companyTarget)  throws SQLException {
 		final String Qry = "update pigtrax.\"CompanyTarget\" set \"targetValue\" = ?, "
-				+ " \"completionDate\" = ?, \"remarks\" = ?, \"lastUpdated\" = current_timestamp, \"userUpdated\" = ? "
+				+ " \"completionDate\" = ?, \"remarks\" = ?, \"lastUpdated\" = current_timestamp, \"userUpdated\" = ?, \"id_Premise\"=?,\"id_Ration\" = ? "
 				+ " where \"id\" = ?";
 		
 
@@ -111,7 +115,9 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 	    				ps.setObject(2, companyTarget.getCompletionDate(), java.sql.Types.DATE); 	    				
 	    				ps.setString(3, companyTarget.getRemarks());
 	    				ps.setString(4, companyTarget.getUserUpdated());
-	    				ps.setInt(5, companyTarget.getId());
+	    				ps.setInt(5, companyTarget.getPremiseId());
+	    				ps.setObject(6, companyTarget.getRationId(), java.sql.Types.INTEGER);
+	    				ps.setInt(7, companyTarget.getId());
 	    	        }
 	    	    });
 		

@@ -2261,11 +2261,21 @@ CREATE TABLE pigtrax."CompanyTarget"(
 	"id_Company" int not null,
 	"lastUpdated" timestamp not null,
 	"userUpdated" varchar(30) not null,
+	"id_Premise" int not null,
+	"id_Ration" int,
 	CONSTRAINT "COMPANY_TARGET_PK" PRIMARY KEY (id)
 
 );
 -- ddl-end --
 ALTER TABLE pigtrax."CompanyTarget" OWNER TO pitraxadmin;
+-- ddl-end --
+
+
+-- object: "Premise_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."CompanyTarget" DROP CONSTRAINT IF EXISTS "Premise_fk" CASCADE;
+ALTER TABLE pigtrax."CompanyTarget" ADD CONSTRAINT "Premise_fk" FOREIGN KEY ("id_Premise")
+REFERENCES pigtrax."Premise" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 

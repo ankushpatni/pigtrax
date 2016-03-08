@@ -9,7 +9,7 @@
 			<div class="modal-body form">
 				<div class="alert alert-danger alert-white rounded"  ng-show="duplicateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-                    <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.transportTruck.duplicate.error.message' text='Truck with same number plate already exist'/>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.transportTruck.duplicate.error.message' text='Truck with same number plate already exist'/>
                   </div>
 		        	<div class="form-group">
 						<label><spring:message code="label.transportTruck.transportTruckId" text="Truck Number Plate" /><span style='color: red'>*</span></label>
@@ -39,6 +39,10 @@
 		</div>
 		<form name="trailerAddForm" novalidate angular-validator>
 			<div class="modal-body form">
+				<div class="alert alert-danger alert-white rounded"  ng-show="duplicateErrorMessage">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <div class="icon"><i class="fa fa-times-circle"></i></div><spring:message code='label.transportTrailer.duplicate.error.message' text='Trailer with same number plate already exist'/>
+                  </div>			
 		        	<div class="form-group">
 						<label><spring:message code="label.transportTrailer.transportTrailerId" text="Trailer Number Plate" /><span style='color: red'>*</span></label>
 						<input class="form-control" type="text" placeholder="<spring:message code='label.transportTrailer.transportTrailerId' text='Trailer Number Plate' />" name="transportTrailerId" ng-model="add.transportTrailerId" maxlength="20" required required-message="'<spring:message code='label.transportTrailer.transportTrailerIdRequired' text='Trailer Number plate is required' />'" ng-pattern="/^[a-z0-9]+$/i" invalid-message="'<spring:message code='label.silo.siloIDInvalid' text='Only Alpha Numeric values are allowed' />'"/ >

@@ -41,6 +41,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 	}
 	
 	$scope.deleteTransportTruckData = function removeItem(row) {
+		$scope.clearAllMessages();
     	var postParam = {
 				"id" : row.id							
 			};
@@ -51,6 +52,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 				if(data.statusMessage==="SUCCESS")
 				{
 					$scope.getTransportTrailerTruck($scope.generatedCompanyId);
+					$scope.truckDeleteMessage = true;
 				}
 				else
 				{
@@ -67,6 +69,7 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
     }
 	
 	$scope.addTransportTruckData = function () {
+		$scope.clearAllMessages();
 			var modalInstance = $modal.open ({
     			templateUrl: 'addTruck',
     			controller: 'addTruckTrailorCtrl',
@@ -87,7 +90,8 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
     		modalInstance.result.then( function(res) {    			
     			if(res.statusMessage==="SUCCESS")
 				{
-    				$scope.getTransportTrailerTruck($scope.generatedCompanyId);				
+    				$scope.getTransportTrailerTruck($scope.generatedCompanyId);		
+    				$scope.truckSuccessMessage = true;
 				}
     		});
     }
@@ -96,13 +100,14 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
     	var postParam = {
 				"id" : row.id							
 			};
-	
+    		$scope.clearAllMessages();
 			console.log(postParam);
 			var res = $http.post('rest/transportTrailerTruck/insertTransportTrailorRecord', postParam);
 			res.success(function(data, status, headers, config) {
 				if(data.statusMessage==="SUCCESS")
 				{
 					$scope.getTransportTrailerTruck($scope.generatedCompanyId);
+					$scope.trailerDeleteMessage = true;
 				}
 				else
 				{
@@ -118,7 +123,16 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 			
     }
 	
+	$scope.clearAllMessages = function()
+	{ 
+		$scope.trailerDeleteMessage = false;
+		$scope.trailerSuccessMessage = false;
+		$scope.truckDeleteMessage = false;
+		$scope.truckSuccessMessage = false;
+	};	
+	
 	$scope.addTransportTrailerData = function () {
+		$scope.clearAllMessages();
 		var modalInstance = $modal.open ({
 			templateUrl: 'addTruck',
 			controller: 'addTruckTrailorCtrl',
@@ -139,7 +153,8 @@ pigTrax.controller('TransportTrailerTruckController', function($scope, $http, $w
 		modalInstance.result.then( function(res) {    			
 			if(res.statusMessage==="SUCCESS")
 			{
-				$scope.getTransportTrailerTruck($scope.generatedCompanyId);				
+				$scope.getTransportTrailerTruck($scope.generatedCompanyId);	
+				$scope.trailerSuccessMessage = true;
 			}
 		});
 }

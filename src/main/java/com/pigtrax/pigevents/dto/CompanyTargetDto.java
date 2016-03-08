@@ -14,6 +14,10 @@ public class CompanyTargetDto {
 	private String language;
 	private String targetName;
 	private String completionDateStr;
+	private Integer premiseId;
+	private Integer rationId;
+	private String premise;
+	private String ration;
 
 	
 	public Integer getId() {
@@ -102,6 +106,38 @@ public class CompanyTargetDto {
 
 	public void setCompletionDateStr(String completionDateStr) {
 		this.completionDateStr = completionDateStr;
+	}
+
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
+	}
+
+	public Integer getRationId() {
+		return rationId;
+	}
+
+	public void setRationId(Integer rationId) {
+		this.rationId = rationId;
+	}
+
+	public String getPremise() {
+		return premise;
+	}
+
+	public void setPremise(String premise) {
+		this.premise = premise;
+	}
+
+	public String getRation() {
+		return ration;
+	}
+
+	public void setRation(String ration) {
+		this.ration = ration;
 	}
 	
 	

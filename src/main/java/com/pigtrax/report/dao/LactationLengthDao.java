@@ -9,8 +9,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +49,7 @@ public class LactationLengthDao {
 				+" JOIN pigtrax.\"PigInfo\" PI ON PEM1.\"id_PigInfo\" = PI.\"id\" and PI.\"isActive\" is TRUE AND PI.\"id_Premise\" =? "
 				+" GROUP BY PEM1.\"id_PigInfo\") "
 				+ " AND PEM.\"id_FarrowEvent\" IS NOT NULL  AND FE.\"farrowDateTime\"::date between ? and ? "
-				+" GROUP BY PEM.\"eventTime\"::date,\"LactLength\" ) T ";
+				+" GROUP BY PEM.\"eventTime\"::date,\"LactLength\" ) T order by T.\"LactLength\" ";
 
 		lactationLengthList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -60,6 +62,32 @@ public class LactationLengthDao {
 		
 		return lactationLengthList;
 	}
+	
+	
+	public Integer getTotalCount(final Integer premiseId)
+	{
+	
+		String qry="SELECT count(\"id\") from pigtrax.\"PigInfo\" WHERE \"id_SexType\" = 2 and \"isActive\" is true aND \"id_Premise\" = ?";
+
+		@SuppressWarnings("unchecked")
+		Integer cnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {					
+					ps.setInt(1, premiseId);
+				}
+			},
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getInt(1);
+		            }
+		            return null;
+		          }
+		        });
+		
+		return cnt;
+	}
+	
 	
 	
 	private static final class LactationLengthMapper implements RowMapper<LactationLengthBean> {

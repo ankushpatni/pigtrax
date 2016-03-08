@@ -12,6 +12,8 @@ public class CompanyTarget {
 	private Integer companyId;
 	private Date lastUpdated;
 	private String userUpdated;
+	private Integer premiseId;
+	private Integer rationId;
 
 	
 	public Integer getId() {
@@ -77,5 +79,23 @@ public class CompanyTarget {
 	public void setUserUpdated(String userUpdated) {
 		this.userUpdated = userUpdated;
 	}
+
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
+	}
+
+	public Integer getRationId() {
+		return rationId;
+	}
+
+	public void setRationId(Integer rationId) {
+		this.rationId = rationId;
+	}
+	
+	
 	
 }
