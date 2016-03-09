@@ -114,7 +114,7 @@
                                      
                                </ul>
                             </li>           
-                            <li><a href="massupload"><i class="fa fa-upload"></i><span>Mass Upload</span></a></li>    
+                            <li><a href="massupload"><i class="fa fa-upload"></i><span><spring:message code="label.dashboard.massupload"  text="Mass Upload"/></span></a></li>    
                             <%} %>
                               </ul>
                   </div>
