@@ -481,7 +481,7 @@ CREATE TABLE pigtrax."FeedEvent"(
 	"userUpdated" varchar(20) NOT NULL,
 	"id_Premise" int,
 	CONSTRAINT "FEED_PK" PRIMARY KEY (id),
-	CONSTRAINT "FEED_U_TN" UNIQUE ("ticketNumber")
+	CONSTRAINT "FEED_U_TN" UNIQUE ("ticketNumber","id_Premise")
 
 );
 -- ddl-end --

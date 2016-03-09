@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-	<h2>Mass Upload - Events</h2>
+	<h2><spring:message code='label.piginfo.entryeventform.batchupload.heading'	text='Batch Upload' /></h2>
 </div>
 <div class="cl-mcont" id="massuploadControllerId" ng-controller="MassUploadController" ng-init="setStatus('${token}')">
 	<div class="row">
@@ -42,25 +42,25 @@
 					
 					
 					<div class="form-group">
-                      <label><spring:message code='label.massuploadForm.Premise'  text='Premise'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.company.premises'  text='Premise'/><span style='color: red'>*</span></label>
                        <select class="form-control"  name="premiseId" id="premiseId"  ng-model="upload.premiseId" required required-message="'<spring:message code='label.piginfo.farroweventform.premise.requiredmessage' text='Premise is required' />'" ng-change="getRooms()">
                        	<option  ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="upload.premiseId == premise.id">{{premise.name}}</option>
                         </select>
                     </div>
 						
 						<div class="form-group">
-                      <label>Event Type</label>
+                      <label><spring:message code='label.massuploadForm.eventtype'  text='Event Type'/></label>
                       <select class="form-control" name="eventType">
 							<option value="PIGINFO" <%=eventType.equals("PIGINFO")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></option>
 							<option value="BREEDINGEVENT" <%=eventType.equals("BREEDINGEVENT")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></option>
-							<option value="MATINGDETAILS" <%=eventType.equals("MATINGDETAILS")?"selected":"" %>>Mating Details</option>
+							<option value="MATINGDETAILS" <%=eventType.equals("MATINGDETAILS")?"selected":"" %>><spring:message code="label.piginfo.matingdetailsform.matingDetails.heading" text="Mating Details"/></option>
 							<option value="PREGNANCYINFO" <%=eventType.equals("PREGNANCY INFO")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></option>
 							<option value="FARROWEVENT" <%=eventType.equals("FARROWEVENT")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></option>
 							<option value="PIGLETSTATUSINFO" <%=eventType.equals("PIGLETSTATUSINFO")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></option>
 							<option value="GROUPEVENT" <%=eventType.equals("GROUPEVENT")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></option>
-							<option value="GROUPEVENTDETAILEVENT" <%=eventType.equals("GROUPEVENTDETAILEVENT")?"selected":"" %>>Group Event Details</option>
+							<option value="GROUPEVENTDETAILEVENT" <%=eventType.equals("GROUPEVENTDETAILEVENT")?"selected":"" %>><spring:message code="label.massupload.groupeventdetails" text="Group Event Details"/></option>
 							<option value="INDIVIDUALPIGLETSTATUS" <%=eventType.equals("INDIVIDUALPIGLETSTATUS")?"selected":"" %>><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></option>
-							<option value="FEEDDETAILEVENT" <%=eventType.equals("FEEDDETAILEVENT")?"selected":"" %>>Feed Event Details</option>
+							<option value="FEEDDETAILEVENT" <%=eventType.equals("FEEDDETAILEVENT")?"selected":"" %>><spring:message code="label.massuploadForm.feedeventdetails"  text="Feed Event Details"/></option>
 							<option value="REMOVALEVENTEXCEPTSALESEVENT" <%=eventType.equals("REMOVALEVENTEXCEPTSALESEVENT")?"selected":"" %>><spring:message code='label.piginfo.removalExceptSales.removalExceptSales.option'  text='Removal Except Sales'/></option>
 							<option value="SALESEVENTDETAILS" <%=eventType.equals("SALESEVENTDETAILS")?"selected":"" %>><spring:message code='label.piginfo.removalExceptSales.sales.option'  text='Removal Event Id'/> </option>
 													
@@ -68,7 +68,7 @@
 						</div>
 						
 						<div class="form-group">
-                      		<label>CSV HEADER</label>
+                      		<label><spring:message code='label.massuploadForm.csvheader'  text='CSV Header'/></label>
                        		<select class="form-control" name="header">							
 								<option value="true" <%=eventType.equals("true")?"selected":"" %>>WITH HEADER</option>
 								<option value="false" <%=eventType.equals("false")?"selected":"" %>>WITHOUT HEADER</option>
@@ -91,12 +91,12 @@
 						
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=EntryEvent"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=BreedingEvent"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=MatingDetails">Mating Details</a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=MatingDetails"><spring:message code="label.piginfo.matingdetailsform.matingDetails.heading" text="Mating Details"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PregnancyEvent"><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FarrowEvent"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PigletStatusEvent"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEvent"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEventDetails">Group Event Details</a><br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEventDetails"><spring:message code="label.massupload.groupeventdetails" text="Group Event Details"/></a><br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=IndividualPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></br>						
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEventDetails">Feed Event Details</a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventGroup"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventGroup.link"  text="Removal & Transfer - Group"/></a></br>

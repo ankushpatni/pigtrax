@@ -47,7 +47,7 @@
 				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.zipcode' text='Zipcode' />" name="zipcode" ng-model="add.zipcode" maxlength="9" required-message="'<spring:message code='label.premise.zipcodeRequired' text='Zipcode address is required' />'" />
 			</div>  
 			 <div class="form-group">
-				<label><spring:message code="label.premise.gpslatittude" text="GPS Latittude" /></label>
+				<label><spring:message code="label.premise.gpslatitude" text="GPS Latittude" /></label>
 				<input class="form-control" type="text" placeholder="<spring:message code='label.premise.gpslatittude'  text='GPS Latittude'/>" name="gpsLatittude" ng-model="add.gpsLatittude" maxlength="30"/>	
 			</div>
 			<div class="form-group">
