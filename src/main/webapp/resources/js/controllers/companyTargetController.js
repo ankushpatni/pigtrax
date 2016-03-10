@@ -100,18 +100,21 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	$scope.checkPremise = function()
 	{
 		var premiseId = $scope.companyTarget["premiseId"];
+		var premiseObj = null;
 		for(i =0 ; i<$scope.premiseList.length; i++)
 		{
-		  var premiseObj = $scope.premiseList[i];		  
-		  if(premiseObj["sowSource"] != "Yes")
+			premiseObj = $scope.premiseList[i];		  
+			if(premiseObj["id"] == $scope.companyTarget["premiseId"])
+				break;		   
+		}
+		 if(premiseObj["sowSource"] != "Yes")
 		  {
 			  $scope.usedTargetKeys = $scope.limitedTargetKeys;
 		  }
 		  else
 		  {
 			  $scope.usedTargetKeys = $scope.keys ;
-		  }			  
-		}
+		  }			
 	}
 	
 	
