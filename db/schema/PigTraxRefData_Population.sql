@@ -7032,7 +7032,7 @@ INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpd
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (19,'Service Capacity (Services/crate/year)',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (20,'Litters farrowed',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (21,'Avg parity',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (22,'Avg parity',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (22,'Avg gest',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (23,'Gilts farrowed',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (24,'Farrowing rate',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (25,'Adj farrowing rate',CURRENT_TIMESTAMP,'pigtraxadmin');
@@ -7108,6 +7108,16 @@ INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpd
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (94,'Gestation feed/sow',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (95,'Lactation feed/sow',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (96,'Total sow feed/sow',CURRENT_TIMESTAMP,'pigtraxadmin');
+
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (97,'Start Hd',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (98,'Start Weight',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (99,'End Weight',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (100,'%Culls',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (101,'%Mortality',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (102,'Average Daily gain(ADG)',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (103,'Feed efficiency(FE)',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (104,'Average Daily Feed Intake(ADFI)',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (105,'Days On Feed(DOF)',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -7209,6 +7219,16 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lactation feed/sow','en',CURRENT_TIMESTAMP,'pigtraxadmin',95);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total sow feed/sow','en',CURRENT_TIMESTAMP,'pigtraxadmin',96);
 
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Start Hd','en',CURRENT_TIMESTAMP,'pigtraxadmin',97);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Start weight','en',CURRENT_TIMESTAMP,'pigtraxadmin',98);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End weight','en',CURRENT_TIMESTAMP,'pigtraxadmin',99);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('%Culls','en',CURRENT_TIMESTAMP,'pigtraxadmin',100);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('%Mortality','en',CURRENT_TIMESTAMP,'pigtraxadmin',101);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average Daily gain(ADG)','en',CURRENT_TIMESTAMP,'pigtraxadmin',102);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed efficiency(FE)','en',CURRENT_TIMESTAMP,'pigtraxadmin',103);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average Daily Feed Intake(ADFI)','en',CURRENT_TIMESTAMP,'pigtraxadmin',104);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Days On Feed(DOF)','en',CURRENT_TIMESTAMP,'pigtraxadmin',105);
+
 
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -7309,7 +7329,15 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lactation feed/sow_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',95);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total sow feed/sow_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',96);
 
-
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Start Hd','es',CURRENT_TIMESTAMP,'pigtraxadmin',97);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Start weight','es',CURRENT_TIMESTAMP,'pigtraxadmin',98);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End weight','es',CURRENT_TIMESTAMP,'pigtraxadmin',99);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('%Culls','es',CURRENT_TIMESTAMP,'pigtraxadmin',100);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('%Mortality','es',CURRENT_TIMESTAMP,'pigtraxadmin',101);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average Daily gain(ADG)','es',CURRENT_TIMESTAMP,'pigtraxadmin',102);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed efficiency(FE)','es',CURRENT_TIMESTAMP,'pigtraxadmin',103);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average Daily Feed Intake(ADFI)','es',CURRENT_TIMESTAMP,'pigtraxadmin',104);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Days On Feed(DOF)','es',CURRENT_TIMESTAMP,'pigtraxadmin',105);
 
 
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total services_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -7410,6 +7438,15 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lactation feed/sow_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',95);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Total sow feed/sow_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',96);
 
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Start Hd','pr',CURRENT_TIMESTAMP,'pigtraxadmin',97);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Start weight','pr',CURRENT_TIMESTAMP,'pigtraxadmin',98);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('End weight','pr',CURRENT_TIMESTAMP,'pigtraxadmin',99);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('%Culls','pr',CURRENT_TIMESTAMP,'pigtraxadmin',100);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('%Mortality','pr',CURRENT_TIMESTAMP,'pigtraxadmin',101);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average Daily gain(ADG)','pr',CURRENT_TIMESTAMP,'pigtraxadmin',102);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed efficiency(FE)','pr',CURRENT_TIMESTAMP,'pigtraxadmin',103);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Average Daily Feed Intake(ADFI)','pr',CURRENT_TIMESTAMP,'pigtraxadmin',104);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Days On Feed(DOF)','pr',CURRENT_TIMESTAMP,'pigtraxadmin',105);
 
 ---------
 INSERT INTO pigtraxrefdata."GcompanyType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Choice', CURRENT_TIMESTAMP,'pigtraxadmin');

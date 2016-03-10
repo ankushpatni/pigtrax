@@ -29,7 +29,7 @@ public class LitterBalanceService {
 
 			StringBuffer rowBuffer = null;
 			returnRows
-					.add("PigID, Wean date (mm/dd/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Weaned,Balance");
+					.add("PigID, Wean date (mm/dd/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
 			returnRows.add("\n");
 			for (LitterBalanceBean litterBalanceBean : litterBalanceList) {
 				rowBuffer = new StringBuffer();
@@ -48,6 +48,7 @@ public class LitterBalanceService {
 					rowBuffer.append(litterBalanceBean.getLiveBorn() + seprater);					
 					rowBuffer.append(litterBalanceBean.getDeath() + seprater);
 					rowBuffer.append(litterBalanceBean.getTransfer() + seprater);
+					rowBuffer.append(litterBalanceBean.getFosterInNum() + seprater);
 					rowBuffer.append(litterBalanceBean.getWean() + seprater);
 					rowBuffer.append(litterBalanceBean.getBalance());
 					returnRows.add(rowBuffer.toString()+"\n");

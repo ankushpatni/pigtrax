@@ -52,9 +52,9 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 				{
 				  var responseList = data.payload;
 				  $scope.keys = responseList[0];
-				  $scope.targetTypes = responseList[1];
+				  $scope.limitedTargetKeys = responseList[1];
+				  $scope.targetTypes = responseList[2];
 				  $scope.usedTargetKeys =$scope.keys ;
-				  $scope.limitedTargetKeys = $scope.keys ;
 				}
 		});
 	}
@@ -102,14 +102,14 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		var premiseId = $scope.companyTarget["premiseId"];
 		for(i =0 ; i<$scope.premiseList.length; i++)
 		{
-		  var premiseObj = $scope.premiseList[i];
+		  var premiseObj = $scope.premiseList[i];		  
 		  if(premiseObj["sowSource"] != "Yes")
 		  {
-			  $scope.usedTargetTypes = $scope.limitedTargetTypes;
+			  $scope.usedTargetKeys = $scope.limitedTargetKeys;
 		  }
 		  else
 		  {
-			  $scope.usedTargetTypes = $scope.targetTypes;
+			  $scope.usedTargetKeys = $scope.keys ;
 		  }			  
 		}
 	}

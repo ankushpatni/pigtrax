@@ -12,6 +12,7 @@ public class LitterBalanceBean {
 	private Integer transfer;
 	private Integer wean;
 	private Integer balance;
+	private Integer fosterInNum;
 	
 	public String getPigId() {
 		return pigId;
@@ -60,6 +61,13 @@ public class LitterBalanceBean {
 	}
 	public void setTransfer(Integer transfer) {
 		this.transfer = transfer;
+	}
+	public Integer getFosterInNum() {
+		return fosterInNum;
+	}
+	public void setFosterInNum(Integer fosterInNum) {
+		this.fosterInNum = fosterInNum;
 	}	
 
+	
 }
