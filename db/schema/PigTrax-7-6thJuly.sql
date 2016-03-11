@@ -1387,7 +1387,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtraxrefdata."TrailerTypeTranslation" CASCADE;
 CREATE TABLE pigtraxrefdata."TrailerTypeTranslation"(
 	id serial NOT NULL,
-	"fieldValue" varchar(30) NOT NULL,
+	"fieldValue" varchar(100) NOT NULL,
 	"fieldLanguage" char(2) NOT NULL,
 	"lastUpdated" timestamp with time zone NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
@@ -1411,7 +1411,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtraxrefdata."PhaseOfProductionTypeTranslation" CASCADE;
 CREATE TABLE pigtraxrefdata."PhaseOfProductionTypeTranslation"(
 	id serial NOT NULL,
-	"fieldValue" varchar(30) NOT NULL,
+	"fieldValue" varchar(100) NOT NULL,
 	"fieldLanguage" char(2) NOT NULL,
 	"lastUpdated" timestamp with time zone NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,
@@ -2726,7 +2726,7 @@ ALTER TABLE pigtraxrefdata."SalesReasons" OWNER TO pitraxadmin;
 -- DROP TABLE IF EXISTS pigtraxrefdata."SalesReasonsTranslation" CASCADE;
 CREATE TABLE pigtraxrefdata."SalesReasonsTranslation"(
 	id serial NOT NULL,
-	"fieldValue" varchar(30) NOT NULL,
+	"fieldValue" varchar(100) NOT NULL,
 	"fieldLanguage" char(2) NOT NULL,
 	"lastUpdated" timestamp with time zone NOT NULL,
 	"userUpdated" varchar(20),
@@ -3135,7 +3135,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtraxrefdata."TrailerFunctionTranslation" CASCADE;
 CREATE TABLE pigtraxrefdata."TrailerFunctionTranslation"(
 	id serial NOT NULL,
-	"fieldValue" varchar(30) NOT NULL,
+	"fieldValue" varchar(100) NOT NULL,
 	"fieldLanguage" char(2) NOT NULL,
 	"lastUpdated" timestamp with time zone NOT NULL,
 	"userUpdated" varchar(20),
