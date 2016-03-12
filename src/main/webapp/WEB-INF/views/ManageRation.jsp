@@ -72,7 +72,7 @@
 					<tr>
 						<th style="width:20%"><spring:message code="label.rationform.ration" text="Ration" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.rationType" text="Ration Type" /></th>
-						<th style="width:20%"><spring:message code="label.rationform.rationDescription" text="Ration Description" /></th>
+						<th style="width:20%"><spring:message code="label.rationform.rationdescription" text="Ration Description" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.createdOn" text="Created On" /></th>
 						<th style="width:20%"><spring:message code="label.rationform.createdBy" text="Created By" /></th>
 						<th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>

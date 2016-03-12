@@ -33,15 +33,15 @@ public class LitterBalanceDao {
 		List<LitterBalanceBean> litterBalance = new ArrayList<LitterBalanceBean>();
 		
 		String qry="SELECT distinct T.\"id_PigInfo\",T.\"pigId\", T.\"weanDate\" as \"weanDate\",T.\"liveBorns\", T.\"weanPigNum\" as \"wean\" , T.\"transferPigNum\" as \"transfer\", "
-					+" T.\"deathPigNum\" as \"death\", T.\"id_Pen\",PEN.\"penId\", (T.\"liveBorns\"-T.\"transferPigNum\"-T.\"deathPigNum\") as \"balance\" "
+					+" T.\"deathPigNum\" as \"death\", T.\"fosterInPigNum\", T.\"id_Pen\",PEN.\"penId\", (T.\"liveBorns\"-T.\"transferPigNum\"-T.\"deathPigNum\" - T.\"weanPigNum\" + T.\"fosterInPigNum\") as \"balance\" "
 					+" FROM " 
 					+" ( "
 					+" SELECT  PI.\"pigId\", FE.\"liveBorns\", FE.\"id_Pen\", FE.\"id\",PS.\"id_PigInfo\", COALESCE(weanData.\"weanPigNum\",0) as \"weanPigNum\", "
 					+" weanData.\"eventDateTime\" as \"weanDate\", COALESCE(transferData.\"transferPigNum\",0) as \"transferPigNum\", transferData.\"eventDateTime\", "
-					+" COALESCE(deathData.\"deathPigNum\",0) as \"deathPigNum\", deathData.\"eventDateTime\" "
-					+" FROM pigtrax.\"PigletStatus\" PS "
-					+" JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" "
-					+" JOIN pigtrax.\"FarrowEvent\" FE ON FE.\"id_PigInfo\"  = PS.\"id_PigInfo\" "
+					+" COALESCE(deathData.\"deathPigNum\",0) as \"deathPigNum\", deathData.\"eventDateTime\", COALESCE(fosterInData.\"fosterInPigNum\" ,0) as \"fosterInPigNum\"  "
+					+" FROM pigtrax.\"FarrowEvent\" FE "
+					+" JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" "
+					+" LEFT JOIN pigtrax.\"PigletStatus\" PS ON PS.\"id_PigInfo\"  = PI.\"id\" "
 					+" LEFT JOIN "
 					+" (select \"id_PigInfo\", \"eventDateTime\",  sum(\"numberOfPigs\") as \"deathPigNum\" from pigtrax.\"PigletStatus\"  "
 					+ " WHERE  \"id_PigletStatusEventType\" =? "  
@@ -54,7 +54,11 @@ public class LitterBalanceDao {
 					+" (select \"id_PigInfo\", \"eventDateTime\", sum(\"numberOfPigs\") as \"weanPigNum\" from pigtrax.\"PigletStatus\"  "
 					+ " WHERE  \"id_PigletStatusEventType\" =? "  
 					+" GROUP BY \"id_PigInfo\",\"eventDateTime\") weanData ON PS.\"id_PigInfo\" = weanData.\"id_PigInfo\" "
-					+" wHERE FE.\"id_Premise\" = ? AND weanData.\"eventDateTime\"::date between ? AND ? "
+					+" LEFT JOIN "
+					+" (select \"id_PigInfo\", \"eventDateTime\", sum(\"numberOfPigs\") as \"fosterInPigNum\" from pigtrax.\"PigletStatus\"  "
+					+ " WHERE  \"id_PigletStatusEventType\" =? " 
+					+" GROUP BY \"id_PigInfo\",\"eventDateTime\") fosterInData ON PS.\"id_PigInfo\" = fosterInData.\"id_PigInfo\" "
+					+" WHERE FE.\"id_Premise\" = ? AND FE.\"farrowDateTime\"::date between ? AND ? "
 					+" )T "
 					+" JOIN pigtrax.\"Pen\" PEN ON T.\"id_Pen\" = PEN.\"id\" order by balance desc"; 
 
@@ -64,9 +68,10 @@ public class LitterBalanceDao {
 				ps.setInt(1, PigletStatusEventType.Death.getTypeCode());
 				ps.setInt(2, PigletStatusEventType.FosterOut.getTypeCode());
 				ps.setInt(3, PigletStatusEventType.Wean.getTypeCode());
-				ps.setInt(4, premiseId);
-				ps.setDate(5, new java.sql.Date(startDate.getTime()));
-				ps.setDate(6, new java.sql.Date(endDate.getTime()));
+				ps.setInt(4, PigletStatusEventType.FosterIn.getTypeCode());
+				ps.setInt(5, premiseId);
+				ps.setDate(6, new java.sql.Date(startDate.getTime()));
+				ps.setDate(7, new java.sql.Date(endDate.getTime()));
 			}}, new LitterBalanceMapper());
 		
 		return litterBalance;
@@ -84,6 +89,7 @@ public class LitterBalanceDao {
 			litterBean.setTransfer(rs.getInt("transfer"));
 			litterBean.setWean(rs.getInt("wean"));
 			litterBean.setBalance(rs.getInt("balance"));
+			litterBean.setFosterInNum(rs.getInt("fosterInPigNum"));
 			return litterBean;
 		}
 	}

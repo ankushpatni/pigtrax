@@ -2,6 +2,7 @@ package com.pigtrax.usermanagement.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -337,8 +338,20 @@ public class UtilController {
 		Map<Integer, String> mapval = refDataCache.getTargetTypeMap(language);
 		
 		Set<Integer> keySet = mapval.keySet();
+		Set<Integer> limitedKeySet = new HashSet<Integer>();
+		limitedKeySet.add(97);
+		limitedKeySet.add(98);
+		limitedKeySet.add(99);
+		limitedKeySet.add(100);
+		limitedKeySet.add(101);
+		limitedKeySet.add(102);
+		limitedKeySet.add(103);
+		limitedKeySet.add(104);
+		limitedKeySet.add(105);
+		
 		List<Object> responseList = new ArrayList<Object>();
 		responseList.add(keySet);
+		responseList.add(limitedKeySet);
 		responseList.add(mapval);
 		
 		dto.setPayload(responseList); 
