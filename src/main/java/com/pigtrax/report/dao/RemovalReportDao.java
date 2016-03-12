@@ -32,7 +32,10 @@ public class RemovalReportDao {
 	
 	public List<RemovalReportBean> getRemovalList(final int premisesId, final int pigId,final int groupId, final Date start, final Date end) {
 		
-		String query = " select P.\"name\",GE.\"groupId\", PI.\"pigId\", RES.\"removalDateTime\", RES.\"numberOfPigs\", "
+		String parentQuery = " Select T.\"name\", T.\"groupId\", T.\"pigId\", T.\"removalDateTime\", T.\"numberOfPigs\", T.\"averageDOF\", T.\"averageWeight\", T.\"parity\", "
+				+ " T.\"mortalityReason\", T.\"Last Phase\", T.\"penId\", T.\"barnId\", T.\"roomId\" from ( ";
+		
+		String query = "( select P.\"name\",GE.\"groupId\", PI.\"pigId\", RES.\"removalDateTime\", RES.\"numberOfPigs\", "
 				 +"  case when( RES.\"id_GroupEvent\" is not null ) THEN  DATE_PART('day', RES.\"removalDateTime\"::timestamp - GE.\"groupStartDateTime\"::timestamp) else DATE_PART('day', RES.\"removalDateTime\"::timestamp - PI.\"entryDate\"::timestamp) END as \"averageDOF\", "
 				 +"  case when( RES.\"id_GroupEvent\" is not null ) THEN  RES.\"weightInKgs\"/RES.\"numberOfPigs\" else RES.\"weightInKgs\" END as \"averageWeight\", "
 				 +"  case when( RES.\"id_PigInfo\" is not null ) THEN  PI.\"parity\" else 0 END as \"parity\", "
@@ -81,13 +84,42 @@ public class RemovalReportDao {
 		if(end != null)
 			query = query + " and RES.\"removalDateTime\" < "+ end;
 		
-		query = query + "order by RES.\"removalDateTime\" ";
+		query = query+")";
 		
-		List<RemovalReportBean> sowReportBeanList = jdbcTemplate.query(query, new PreparedStatementSetter(){
+		String secondaryQuery =  "( select P.\"name\",'' as \"groupId\", PI.\"pigId\", PS.\"eventDateTime\" as \"removalDateTime\", PS.\"numberOfPigs\", "
+				 + " case when( PS.\"id_GroupEvent\" is not null ) THEN  DATE_PART('day', PS.\"eventDateTime\"::timestamp - GE.\"groupStartDateTime\"::timestamp) else DATE_PART('day', PS.\"eventDateTime\"::timestamp - PI.\"entryDate\"::timestamp) END as \"averageDOF\", "
+				 + " PS.\"weightInKgs\" as \"averageWeight\", "
+				 + " case when( PS.\"id_PigInfo\" is not null ) THEN  PI.\"parity\" else 0 END as \"parity\", "
+				 + " case when( PS.\"id_MortalityReasonType\" is not null ) THEN  MR.\"fieldDescription\" else '' END as \"mortalityReason\", "
+				 + " case when( PS.\"id_MortalityReasonType\" is not null ) THEN  'Piglet Death' else (case when( PS.\"id_GroupEvent\" is not null) THEN 'Piglet Transfer' else (case when( PS.\"fosterTo\" is not null) THEN 'Piglet Wean' else '' END) END) END as \"Last Phase\", "
+				 + " PEN.\"penId\", "
+				 + " case when (PS.\"id_Pen\" is not null) THEN BA.\"barnId\" else '' END as \"barnId\", '' as \"roomId\" "
+				 
+				 + " from pigtrax.\"PigletStatus\" PS "
+				 + " left JOIN pigtrax.\"GroupEvent\" GE ON PS.\"id_GroupEvent\" = GE.\"id\"    " 
+				 + " left JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\"  "
+				 + " left join pigtrax.\"Premise\" P  ON PS.\"id_Premise\" = P.\"id\" "
+				 + " left join pigtrax.\"Pen\" PEN  ON PS.\"id_Pen\" = PEN.\"id\" "
+				 + " left join (SELECT \"barnserialid\" as \"id\", \"penserialid\" as \"id_Pen\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"barnId\" != '') BA_RN ON PS.\"id_Pen\" = BA_RN.\"id_Pen\" "
+				 + " left join pigtrax.\"Barn\" BA ON BA_RN.\"id\" = BA.\"id\" "
+				 + " left join pigtraxrefdata.\"MortalityReasonType\" MR ON PS.\"id_MortalityReasonType\" = MR.\"id\" WHERE PS.\"id_Premise\" = ?";
+		if(pigId != 0)
+			secondaryQuery = secondaryQuery +"  and PS.\"id_PigInfo\" =  " +pigId ;
+		if(start != null)
+			secondaryQuery = secondaryQuery +"  and PS.\"eventDateTime\" >  "+ start;
+		if(end != null)
+			secondaryQuery = secondaryQuery + " and PS.\"eventDateTime\" < "+ end;
+		
+		secondaryQuery = secondaryQuery+" ) ";
+		
+		parentQuery = parentQuery +query + " UNION "+  secondaryQuery + " ) T order by T.\"removalDateTime\"::date asc ";
+		
+		List<RemovalReportBean> sowReportBeanList = jdbcTemplate.query(parentQuery, new PreparedStatementSetter(){
 			
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, premisesId);
+				ps.setInt(2, premisesId);
 			}}, new RemovalReportMapper());
 		
 		return sowReportBeanList;
