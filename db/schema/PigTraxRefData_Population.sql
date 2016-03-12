@@ -6605,8 +6605,8 @@ INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","field
 INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Natural','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Unknown','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
-INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('AI_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Natural_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('AI','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Natural','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('Desconocido','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 INSERT INTO pigtraxrefdata."BreedingServiceTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BreedingServiceType") VALUES ('AI','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -7870,23 +7870,23 @@ INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage
 INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S23','en',CURRENT_TIMESTAMP,'pigtraxadmin',7);
 INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S123','en',CURRENT_TIMESTAMP,'pigtraxadmin',8);
 
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S1_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S2_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S3_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('WF_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('GDU_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S12_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S23_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S123_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S1','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S2','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S3','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('WF','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('GDU','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S12','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S23','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S123','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
 
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S1_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S2_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S3_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('WF_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('GDU_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S12_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S23_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S123_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S1','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S2','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S3','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('WF','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('GDU','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S12','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S23','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."PremiseTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PremiseType") VALUES ('S123','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
 
 ----------------------------------------------------------------------------------
 
@@ -7963,13 +7963,13 @@ INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguag
 INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Inside','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Outside','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
-INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Center_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Inside_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Outside_ES','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Centrar','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Dentro','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Fuera de','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
-INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Center_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Inside_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Outside_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Centro','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Dentro','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."BarnPositionTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_BarnPosition") VALUES ('Lado de fora','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 
 -----------------------------------------------------------------------------------------
 

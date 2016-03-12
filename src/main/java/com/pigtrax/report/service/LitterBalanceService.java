@@ -54,6 +54,22 @@ public class LitterBalanceService {
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}
+		else
+		{
+			StringBuffer rowBuffer = new StringBuffer();
+			returnRows
+					.add("PigID, Wean date (mm/dd/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
+			returnRows.add("\n");
+			rowBuffer.append("No data found"+seprater);
+			rowBuffer.append(seprater);
+			rowBuffer.append(seprater);					
+			rowBuffer.append(seprater);
+			rowBuffer.append(seprater);
+			rowBuffer.append(seprater);
+			rowBuffer.append(seprater);
+			rowBuffer.append(seprater);
+			returnRows.add(rowBuffer.toString()+"\n");
+		}
 		return returnRows;
 	}
 

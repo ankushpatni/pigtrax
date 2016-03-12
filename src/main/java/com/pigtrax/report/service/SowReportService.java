@@ -229,8 +229,8 @@ public class SowReportService {
 								rowBuffer.append(parityInt+seprater);
 								
 								FarrowEventDto farrowEventDetails = farrowEventService.getFarrowEventDetails(SowReportBean.getFarrowEventId());
-								rowBuffer.append("No. Of Lives Born : "+farrowEventDetails.getLiveBorns() + " :: No. of Still Born : "+farrowEventDetails.getStillBorns() 
-										+" :: No of Mummies : "+farrowEventDetails.getMummies());
+								rowBuffer.append("Live Borns : "+farrowEventDetails.getLiveBorns() + " :: Still Borns : "+farrowEventDetails.getStillBorns() 
+										+" :: Mummies : "+farrowEventDetails.getMummies());
 								
 							}
 							

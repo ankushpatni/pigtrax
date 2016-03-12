@@ -1273,11 +1273,14 @@ public class ReportControlller {
 					if(premiseId > 0)
 					{ 
 						rows = litterBalanceService.getLitterBalance(premise.getPermiseId(), premiseId, 
-								DateUtil.convertToFormat(startDate, "MM/dd/yyyy"), DateUtil.convertToFormat(endDate, "MM/dd/yyyy")); 
-						Iterator<String> iter = rows.iterator();
-						while (iter.hasNext()) {
-							String outputString = (String) iter.next();
-							response.getOutputStream().print(outputString);
+								DateUtil.convertToFormat(startDate, "MM/dd/yyyy"), DateUtil.convertToFormat(endDate, "MM/dd/yyyy"));
+						if(rows != null && rows.size() > 0)
+						{
+							Iterator<String> iter = rows.iterator();
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}
 						}
 					}
 					else
