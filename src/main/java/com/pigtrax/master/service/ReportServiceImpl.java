@@ -34,9 +34,9 @@ public class ReportServiceImpl implements ReportService{
 	@Autowired
 	RemovalEventExceptSalesDetailsDao removalEventExceptSalesDetailsDao;
 	
-	private static final String DEFAULT_FORMATTER = "yyyy-MM-dd";
+	private static final String DEFAULT_FORMATTER = "dd/MM/yyyy";
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 	Map<Date,Map> dateMapDate = new LinkedHashMap<Date,Map>();
 

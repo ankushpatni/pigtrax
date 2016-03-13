@@ -164,7 +164,7 @@
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
 					 		</td>
 					 		<td>
-                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr1" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr1, 'date1')"/>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr1" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr1, 'date1')"/>
 					 		</td>
 					 	</tr>
 					 </tbody>
@@ -184,7 +184,7 @@
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
 					 		</td>
 					 		<td>
-                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr2" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr2, 'date2')"/>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr2" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr2, 'date2')"/>
 					 		</td>
 					 	</tr>
 					 </tbody>
@@ -204,7 +204,7 @@
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
 					 		</td>
 					 		<td>
-                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr3" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr3, 'date3')"/>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr3" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr3, 'date3')"/>
 					 		</td>
 					 	</tr>
 					 </tbody>
@@ -224,7 +224,7 @@
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
 					 		</td>
 					 		<td>
-                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr4" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr4, 'date4')"/>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr4" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr4, 'date4')"/>
 					 		</td>
 					 	</tr>
 					 </tbody>
@@ -244,7 +244,7 @@
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
 					 		</td>
 					 		<td>
-                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr5" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr5, 'date5')"/>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr5" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr5, 'date5')"/>
 					 		</td>
 					 	</tr>
 					 </tbody>
@@ -264,14 +264,14 @@
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
 					 		</td>
 					 		<td>
-                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr6" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr6, 'date6')"/>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr6" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr6, 'date6')"/>
 					 		</td>
 					 	</tr>
 					 </tbody>
 					 </table>
                     </div>	
                     <div class="form-group"> 
-                    <span style='color: red'>*</span><span style='color: red'>*</span><label><spring:message code='label.piginfo.pigleteventform.dateformat.messsage'  text='All dates to be entered in mm/dd/yyyy format'/></label>
+                    <span style='color: red'>*</span><span style='color: red'>*</span><label><spring:message code='label.piginfo.pigleteventform.dateformat.messsage'  text='All dates to be entered in dd/mm/yyyy format'/></label>
                     </div>					
                     <button class="btn btn-success" type="submit" ng-disabled="inValidPigIdFromServer || pigletsAdded"><spring:message code='label.piginfo.farroweventform.submit'  text='Submit'/></button>
                     <button class="btn btn-warning" type="button" ng-click="pigleteventform.reset()"><spring:message code='label.piginfo.farroweventform.cancel'  text='Clear Form'/></button>

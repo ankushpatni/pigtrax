@@ -80,7 +80,7 @@
                    </div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.groupStartDateTime'  text='Group Start Date'/><span style='color: red'>*</span></label>	<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>					                      
-                      <input type="text" class="form-control" ng-model="groupEvent.groupStartDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.groupStartDateStr, 'groupStartDate')"/>
+                      <input type="text" class="form-control" ng-model="groupEvent.groupStartDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.groupStartDateStr, 'groupStartDate')"/>
                                             
                     </div>
 					<div>
@@ -88,7 +88,7 @@
 					</div>					
                     <div class="form-group" ng-show="(groupEvent.id != null && groupEvent.id > 0 && groupEvent.currentInventory == 0)">
                       <label><spring:message code='label.piginfo.groupEventForm.groupCloseDateTime'  text='Group Close Date'/></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
-                      <input type="text" class="form-control" ng-model="groupEvent.groupCloseDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.groupCloseDateStr, 'groupCloseDate')"/>                      
+                      <input type="text" class="form-control" ng-model="groupEvent.groupCloseDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.groupCloseDateStr, 'groupCloseDate')"/>                      
                     </div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="groupStartEndDateError" ><spring:message code='label.piginfo.groupEventForm.groupStartEndDateError.requiredMessage' text='Group Close Date can not be less than Group Start date ' /></label>

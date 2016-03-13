@@ -408,7 +408,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setWeanPigWt(pigletStatusEvent.getWeightInKgs());
 					   pigletStatusEventDto.setWeanEventDateTime(pigletStatusEvent.getEventDateTime());
 					   try{
-						   pigletStatusEventDto.setWeanEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getWeanEventDateTime(), "MM/dd/yyyy"));
+						   pigletStatusEventDto.setWeanEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getWeanEventDateTime(), "dd/MM/yyyy"));
 					   }catch(ParseException ex)
 					   {
 						   pigletStatusEventDto.setWeanEventDateStr(null);
@@ -431,7 +431,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setFosterEventDateTime(pigletStatusEvent.getEventDateTime());
 					   
 					   try{
-						   pigletStatusEventDto.setFosterEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getFosterEventDateTime(), "MM/dd/yyyy"));
+						   pigletStatusEventDto.setFosterEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getFosterEventDateTime(), "dd/MM/yyyy"));
 					   }catch(ParseException ex)
 					   {
 						   pigletStatusEventDto.setFosterEventDateStr(null);
@@ -461,7 +461,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 					   pigletStatusEventDto.setDeathEventDateTime(pigletStatusEvent.getEventDateTime());
 					   
 					   try{
-						   pigletStatusEventDto.setDeathEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getDeathEventDateTime(), "MM/dd/yyyy"));
+						   pigletStatusEventDto.setDeathEventDateStr(DateUtil.convertToFormatString(pigletStatusEventDto.getDeathEventDateTime(), "dd/MM/yyyy"));
 					   }catch(ParseException ex)
 					   {
 						   pigletStatusEventDto.setDeathEventDateStr(null);

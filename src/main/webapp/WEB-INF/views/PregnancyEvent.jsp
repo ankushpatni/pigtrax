@@ -149,7 +149,7 @@
 					</div>
                       <div class="form-group">
                       <label><spring:message code='label.piginfo.pregnancyeventform.resultDate'  text='Result Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
-                      <input type="text" class="form-control" ng-model="pregnancyEvent.resultDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pregnancyEvent.resultDateStr, 'resultDate')"/>
+                      <input type="text" class="form-control" ng-model="pregnancyEvent.resultDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pregnancyEvent.resultDateStr, 'resultDate')"/>
                        <label ng-show="resultDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.requiredmessage' text='Result Date is required' /></label>
 	                   <label ng-show="invalidResultDate" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.pregnancyeventform.resultDate.invalidmessage' text='Result date can not be earlier than exam date' /></label>
                     </div>   

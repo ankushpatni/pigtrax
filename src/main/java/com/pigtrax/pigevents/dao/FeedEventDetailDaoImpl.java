@@ -178,7 +178,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			feedEventDetail.setId(rs.getInt("id"));
 			feedEventDetail.setFeedEventDate(rs.getDate("feedEventDate"));
 			try {
-				feedEventDetail.setFeedEventDateStr(DateUtil.convertToFormatString(feedEventDetail.getFeedEventDate(), "MM/dd/yyyy"));
+				feedEventDetail.setFeedEventDateStr(DateUtil.convertToFormatString(feedEventDetail.getFeedEventDate(), "dd/MM/yyyy"));
 			} catch (ParseException e) {
 				feedEventDetail.setFeedEventDateStr(null);
 			}

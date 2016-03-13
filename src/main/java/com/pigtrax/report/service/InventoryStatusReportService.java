@@ -29,7 +29,7 @@ public class InventoryStatusReportService {
 
 			StringBuffer rowBuffer = null;
 			returnRows
-					.add("Sow Source, Barn, Phase Type, Group Id, Animal Type, Head, DOF(mm/dd/yyyy)");
+					.add("Sow Source, Barn, Phase Type, Group Id, Animal Type, Head, DOF(dd/MM/yyyy)");
 			returnRows.add("\n");
 			for (InventoryStatusBean inventoryStatusBean : inventoryList) {
 				rowBuffer = new StringBuffer();
@@ -41,7 +41,7 @@ public class InventoryStatusReportService {
 					rowBuffer.append(inventoryStatusBean.getAnimalType()+seprater);
 					rowBuffer.append(inventoryStatusBean.getHead()+seprater);
 					try {
-						dateStr = DateUtil.convertToFormatString(inventoryStatusBean.getDateOfFeed(), "MM/dd/yyyy");
+						dateStr = DateUtil.convertToFormatString(inventoryStatusBean.getDateOfFeed(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
 						else

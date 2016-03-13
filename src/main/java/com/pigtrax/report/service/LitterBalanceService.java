@@ -29,13 +29,13 @@ public class LitterBalanceService {
 
 			StringBuffer rowBuffer = null;
 			returnRows
-					.add("PigID, Wean date (mm/dd/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
+					.add("PigID, Wean date (dd/MM/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
 			returnRows.add("\n");
 			for (LitterBalanceBean litterBalanceBean : litterBalanceList) {
 				rowBuffer = new StringBuffer();
 					rowBuffer.append(litterBalanceBean.getPigId() + seprater);
 					try {
-						dateStr = DateUtil.convertToFormatString(litterBalanceBean.getWeanDate(), "MM/dd/yyyy");
+						dateStr = DateUtil.convertToFormatString(litterBalanceBean.getWeanDate(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
 						else
@@ -58,7 +58,7 @@ public class LitterBalanceService {
 		{
 			StringBuffer rowBuffer = new StringBuffer();
 			returnRows
-					.add("PigID, Wean date (mm/dd/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
+					.add("PigID, Wean date (dd/MM/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
 			returnRows.add("\n");
 			rowBuffer.append("No data found"+seprater);
 			rowBuffer.append(seprater);

@@ -43,13 +43,13 @@ public class MatingDetailsBuilder {
 			   dto.setLastUpdated(info.getLastUpdated());
 			   dto.setMatingDate(info.getMatingDate());
 			   try {
-				dto.setMatingDateStr(DateUtil.convertToFormatString(info.getMatingDate(),"MM/dd/yyyy"));
+				dto.setMatingDateStr(DateUtil.convertToFormatString(info.getMatingDate(),"dd/MM/yyyy"));
 			} catch (ParseException e) {
 				dto.setMatingDateStr(null);
 			}
 			   
 			   try {
-					dto.setSemenDateStr(DateUtil.convertToFormatString(info.getSemenDate(),"MM/dd/yyyy"));
+					dto.setSemenDateStr(DateUtil.convertToFormatString(info.getSemenDate(),"dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setSemenDateStr(null);
 				}

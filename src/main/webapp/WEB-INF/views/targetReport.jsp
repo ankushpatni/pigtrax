@@ -33,7 +33,7 @@
 						<div  class="form-group">
 						<label><spring:message code='label.generateLactationLengthReport.startDate'  text='Start Date'/></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="startDate" mask="19/39/2999" mask-validate='true' name="startDate"/>
+                      	<input type="text" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
 								</div>
 								</div>
 						<button type="button" value="report" ng-click="generateTargetReport()">

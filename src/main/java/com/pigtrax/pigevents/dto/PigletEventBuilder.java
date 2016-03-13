@@ -86,32 +86,32 @@ public class PigletEventBuilder {
 			   dto.setDate5(info.getDate5());
 			   dto.setDate6(info.getDate6());
 			   try {
-				   dto.setDateStr1(DateUtil.convertToFormatString(dto.getDate1(), "MM/dd/yyyy"));
+				   dto.setDateStr1(DateUtil.convertToFormatString(dto.getDate1(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}
 			   try {
-				   dto.setDateStr2(DateUtil.convertToFormatString(dto.getDate2(), "MM/dd/yyyy"));
+				   dto.setDateStr2(DateUtil.convertToFormatString(dto.getDate2(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}
 			   try {
-				   dto.setDateStr3(DateUtil.convertToFormatString(dto.getDate3(), "MM/dd/yyyy"));
+				   dto.setDateStr3(DateUtil.convertToFormatString(dto.getDate3(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}
 			   try {
-				   dto.setDateStr4(DateUtil.convertToFormatString(dto.getDate4(), "MM/dd/yyyy"));
+				   dto.setDateStr4(DateUtil.convertToFormatString(dto.getDate4(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}
 			   try {
-				   dto.setDateStr5(DateUtil.convertToFormatString(dto.getDate5(), "MM/dd/yyyy"));
+				   dto.setDateStr5(DateUtil.convertToFormatString(dto.getDate5(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}
 			   try {
-				   dto.setDateStr6(DateUtil.convertToFormatString(dto.getDate6(), "MM/dd/yyyy"));
+				   dto.setDateStr6(DateUtil.convertToFormatString(dto.getDate6(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}

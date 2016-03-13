@@ -58,7 +58,7 @@ public class GroupEventBuilder {
 				dto.setBarnId(groupEventDetails.getBarnId());
 				dto.setDateOfEntry(groupEventDetails.getDateOfEntry());
 				try {
-					dto.setDateOfEntryStr(DateUtil.convertToFormatString(dto.getDateOfEntry(), "MM/dd/yyyy"));
+					dto.setDateOfEntryStr(DateUtil.convertToFormatString(dto.getDateOfEntry(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateOfEntryStr(null);
 				}

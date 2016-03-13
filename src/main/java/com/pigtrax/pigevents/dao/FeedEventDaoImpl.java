@@ -200,7 +200,7 @@ public class FeedEventDaoImpl implements FeedEventDao
 			feedEvent.setFeedContentId(rs.getString("feedContentId"));
 			feedEvent.setInitialFeedEntryDateTime(rs.getDate("initialFeedEntryDateTime"));
 			try {
-				feedEvent.setFeedDateStr(DateUtil.convertToFormatString(feedEvent.getInitialFeedEntryDateTime(), "MM/dd/yyyy"));
+				feedEvent.setFeedDateStr(DateUtil.convertToFormatString(feedEvent.getInitialFeedEntryDateTime(), "dd/MM/yyyy"));
 			} catch (ParseException e) {
 				feedEvent.setFeedDateStr(null);
 			}

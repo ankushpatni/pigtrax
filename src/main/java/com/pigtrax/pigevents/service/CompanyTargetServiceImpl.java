@@ -50,7 +50,7 @@ public class CompanyTargetServiceImpl implements CompanyTargetService{
 					dto.setTargetName(refDataCache.getTargetTypeMap(companyTargetDto.getLanguage()).get(dto.getTargetId()));
 					
 					try {
-						dto.setCompletionDateStr(DateUtil.convertToFormatString(dto.getCompletionDate(), "MM/dd/yyyy"));
+						dto.setCompletionDateStr(DateUtil.convertToFormatString(dto.getCompletionDate(), "dd/MM/yyyy"));
 					} catch (ParseException e) {
 						dto.setCompletionDateStr(null);
 					}

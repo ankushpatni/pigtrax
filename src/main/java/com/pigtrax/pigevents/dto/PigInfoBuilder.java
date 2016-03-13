@@ -52,12 +52,12 @@ public class PigInfoBuilder {
 		   dto.setSireId(info.getSireId());
 		   dto.setDamId(info.getDamId());
 		   dto.setEntryDate(info.getEntryDate());
-		   dto.setEntryDateStr(DateUtil.convertToFormatString(dto.getEntryDate(), "MM/dd/yyyy"));
+		   dto.setEntryDateStr(DateUtil.convertToFormatString(dto.getEntryDate(), "dd/MM/yyyy"));
 		   dto.setOrigin(info.getOrigin());
 		   dto.setGline(info.getGline());
 		   dto.setGcompany(info.getGcompany());
 		   dto.setBirthDate(info.getBirthDate());
-		   dto.setBirthDateStr(DateUtil.convertToFormatString(dto.getBirthDate(), "MM/dd/yyyy"));
+		   dto.setBirthDateStr(DateUtil.convertToFormatString(dto.getBirthDate(), "dd/MM/yyyy"));
 		   dto.setTattoo(info.getTattoo());
 		   dto.setAlternateTattoo(info.getAlternateTattoo());
 		   dto.setRemarks(info.getRemarks());

@@ -19,15 +19,21 @@
 						</h3>
 						<div class="form-group">
                       		<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label>
-		                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                      		<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      			<input type="text" name="startDate" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
+								
+		                      <!-- <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
 		                          <input size="16" type="date" name="startDate" readonly="" class="form-control" format-date/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-								</div>
+								</div> -->
                     	</div>
                     	<div class="form-group">
                       		<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/><span style='color: red'>*</span></label>
-		                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+                      		<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      			<input type="text" name="endDate" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true'/>
+							
+		                      <!-- <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
 		                          <input size="16" type="date" name="endDate" readonly="" class="form-control" format-date/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-								</div>
+								</div> -->
                     	</div>
 						<button type="submit" value="report">
 							<spring:message code='label.piginfo.generateReport.button'

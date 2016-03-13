@@ -264,7 +264,7 @@
                                        
                      <div class="form-group">
                       <label><spring:message code='label.piginfo.matingdetailsform.matingdate'  text='Mating Date'/><span style='color: red'>*</span></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="matingDetails.matingDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(matingDetails.matingDateStr, 'matingDate')"/>                      	
+                      	<input type="text" class="form-control" ng-model="matingDetails.matingDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(matingDetails.matingDateStr, 'matingDate')"/>                      	
                     </div>
                     <div>
                     <label ng-show="matingDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.matingdetailsform.matingdate.requiredmessage' text='Mating Date is required' /></label>
@@ -292,7 +292,7 @@
                     
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.matingdetailsform.semendate'  text='Semen Date'/></label> <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="matingDetails.semenDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(matingDetails.semenDateStr, 'semenDate')"/>                      	
+                      	<input type="text" class="form-control" ng-model="matingDetails.semenDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(matingDetails.semenDateStr, 'semenDate')"/>                      	
                     </div>                    
                     
 					<div class="form-group">

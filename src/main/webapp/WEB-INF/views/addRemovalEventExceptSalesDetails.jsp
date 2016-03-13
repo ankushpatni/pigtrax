@@ -50,7 +50,7 @@
                       <label ng-show="removalTypeId == 9"><spring:message code='label.piginfo.removalExceptSales.transferDateTime'  text='Transfer Date'/><span style='color: red'>*</span></label>
 	                      <i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
 	                     <!--  <input rsmdatedropdowns ng-model="removalExceptSales.removalDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>  -->
-	                     <input type="text" class="form-control" ng-model="entryDateStr" mask="19/39/2999" ng-blur="dateCheck(entryDateStr)"/>
+	                     <input type="text" class="form-control" ng-model="entryDateStr" mask="39/19/2999" ng-blur="dateCheck(entryDateStr)"/>
 	                      
 			              </div>
 			              

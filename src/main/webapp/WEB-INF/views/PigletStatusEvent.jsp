@@ -220,7 +220,7 @@
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      <input type="text" class="form-control" ng-model="pigletStatusEvent.deathEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.deathEventDateStr, 'deathEventDate')"/>
+                      <input type="text" class="form-control" ng-model="pigletStatusEvent.deathEventDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.deathEventDateStr, 'deathEventDate')"/>
                     </div>
                      <div class="form-group" ng-show="eventSection=='death'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -242,7 +242,7 @@
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
-                      <input type="text" class="form-control" ng-model="pigletStatusEvent.fosterEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.fosterEventDateStr, 'fosterEventDate')"/>
+                      <input type="text" class="form-control" ng-model="pigletStatusEvent.fosterEventDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.fosterEventDateStr, 'fosterEventDate')"/>
                     </div>
                      <div class="form-group" ng-show="eventSection=='transfer'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -265,7 +265,7 @@
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
-                      <input type="text" class="form-control" ng-model="pigletStatusEvent.weanEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.weanEventDateStr, 'weanEventDate')"/>
+                      <input type="text" class="form-control" ng-model="pigletStatusEvent.weanEventDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.weanEventDateStr, 'weanEventDate')"/>
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>

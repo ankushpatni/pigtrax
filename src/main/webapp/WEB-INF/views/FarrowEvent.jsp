@@ -155,7 +155,7 @@
 					
 					<div class="form-group">
                       <label><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
-                      <input type="text" class="form-control" ng-model="farrowEvent.farrowDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(farrowEvent.farrowDateStr, 'farrowDate')"/>
+                      <input type="text" class="form-control" ng-model="farrowEvent.farrowDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(farrowEvent.farrowDateStr, 'farrowDate')"/>
                     </div>
                     <div>
                     <label ng-show="farrowDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.piginfo.farroweventform.farrowDate.requiredmessage' text='Farrow Date is required' /></label>

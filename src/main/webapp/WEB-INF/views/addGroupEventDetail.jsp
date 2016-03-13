@@ -27,7 +27,7 @@
                     </div>			
 					<div class="form-group">
 						<label ><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>						
-						<input type="text" class="form-control" ng-model="groupEvent.dateOfEntryStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.dateOfEntryStr, 'dateOfEntry')"/>						
+						<input type="text" class="form-control" ng-model="groupEvent.dateOfEntryStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(groupEvent.dateOfEntryStr, 'dateOfEntry')"/>						
 					</div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="dateOfEntryFlag" ><spring:message code='label.groupEventDetail.dateOfEntry.conditionMaessag' text='Date Of Entry should be greater than Group Start Date.' /></label>

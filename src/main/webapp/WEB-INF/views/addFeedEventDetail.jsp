@@ -35,7 +35,7 @@
 					 
 					<div class="form-group">
 						<label ><spring:message code="label.feedEventDetail.feedEventDate" text="Feed Event Date" /><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>						                    
-						<input type="text" class="form-control" ng-model="feedEventDetail.feedEventDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(feedEventDetail.feedEventDateStr, 'feedEventDate')"/>
+						<input type="text" class="form-control" ng-model="feedEventDetail.feedEventDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(feedEventDetail.feedEventDateStr, 'feedEventDate')"/>
 					</div>
 					<div>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="feedEventDateFlag" ><spring:message code='label.feedEventDetail.feedEventDate.required' text='Feed Event Date is required' /></label>

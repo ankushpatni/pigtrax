@@ -83,7 +83,7 @@
                     </div>                    
                     <div class="form-group">
                       <label><spring:message code='label.changepigidform.changedate'  text='Change Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="pigInfo.changePigIdDateStr" mask="19/39/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.changePigIdDateStr, 'changePigIdDate')"/>                      	
+                      	<input type="text" class="form-control" ng-model="pigInfo.changePigIdDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigInfo.changePigIdDateStr, 'changePigIdDate')"/>                      	
                     </div>
 					<div>
 					<label ng-show="changeDateRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.changepigidform.changeDate.requiredmessage' text='Change Date is required' /></label>

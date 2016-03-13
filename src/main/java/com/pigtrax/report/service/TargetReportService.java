@@ -29,13 +29,13 @@ public class TargetReportService {
 
 			StringBuffer rowBuffer = null;
 			returnRows
-					.add("Parameter, Start date (mm/dd/yyyy), Target value, Remark");
+					.add("Parameter, Start date (dd/MM/yyyy), Target value, Remark");
 			returnRows.add("\n");
 			for (TargetReportBean targetReportBean : prodEventLogList) {
 				rowBuffer = new StringBuffer();
 					rowBuffer.append(targetReportBean.getParameter() + seprater);
 					try {
-						dateStr = DateUtil.convertToFormatString(targetReportBean.getStartDate(), "MM/dd/yyyy");
+						dateStr = DateUtil.convertToFormatString(targetReportBean.getStartDate(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
 						else

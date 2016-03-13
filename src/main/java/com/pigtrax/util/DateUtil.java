@@ -85,7 +85,7 @@ public class DateUtil {
 	{
 		if(dateObj == null)
 			return null;
-		SimpleDateFormat inputformatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat inputformatter = new SimpleDateFormat("dd/MM/yyyy");
 		String dateStr = inputformatter.format(dateObj);
 		Date convertedDate = inputformatter.parse(dateStr);
 		return convertedDate;

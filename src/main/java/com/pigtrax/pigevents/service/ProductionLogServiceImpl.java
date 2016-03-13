@@ -116,7 +116,7 @@ public class ProductionLogServiceImpl implements ProductionLogService {
 	    			dto.setObservationDate(productionLog.getObservationDate());
 	    			
 	    			try {
-						dto.setObservationDateStr(DateUtil.convertToFormatString(dto.getObservationDate(), "MM/dd/yyyy"));
+						dto.setObservationDateStr(DateUtil.convertToFormatString(dto.getObservationDate(), "dd/MM/yyyy"));
 					} catch (ParseException e) {
 						dto.setObservationDateStr(null);
 					}

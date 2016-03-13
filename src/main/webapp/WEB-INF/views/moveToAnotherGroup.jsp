@@ -57,7 +57,7 @@
 					</div>
                     <div class="form-group">
                       <label><spring:message code='label.piginfo.groupEventForm.groupStartDateTime'  text='Group Start Date'/><span style='color: red'>*</span></label>
-                       <input ng-hide="(moveGroupevent.id != null && moveGroupevent.id > 0)" type="text" class="form-control" ng-model="entryDateStr" mask="19/39/2999" ng-blur="dateCheck(entryDateStr)"/>
+                       <input ng-hide="(moveGroupevent.id != null && moveGroupevent.id > 0)" type="text" class="form-control" ng-model="entryDateStr" mask="39/19/2999" ng-blur="dateCheck(entryDateStr)"/>
 					 <label ng-show="(moveGroupevent.id != null && moveGroupevent.id > 0)"> :{{ DateUtils.getFormatedDate(moveGroupevent.groupStartDateStr)}}</label>	
                     </div>
 					<div>

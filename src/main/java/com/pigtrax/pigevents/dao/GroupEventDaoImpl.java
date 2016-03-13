@@ -359,14 +359,14 @@ public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEven
 				groupEvent.setGroupId(rs.getString("groupId"));
 				groupEvent.setGroupStartDateTime(rs.getDate("groupStartDateTime"));
 				try {
-					groupEvent.setGroupStartDateStr(DateUtil.convertToFormatString(groupEvent.getGroupStartDateTime(), "MM/dd/yyyy"));
+					groupEvent.setGroupStartDateStr(DateUtil.convertToFormatString(groupEvent.getGroupStartDateTime(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					groupEvent.setGroupStartDateStr(null);
 				}
 				
 				groupEvent.setGroupCloseDateTime(rs.getDate("groupCloseDateTime"));
 				try {
-					groupEvent.setGroupCloseDateStr(DateUtil.convertToFormatString(groupEvent.getGroupCloseDateTime(), "MM/dd/yyyy"));
+					groupEvent.setGroupCloseDateStr(DateUtil.convertToFormatString(groupEvent.getGroupCloseDateTime(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					groupEvent.setGroupCloseDateStr(null);
 				}

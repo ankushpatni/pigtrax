@@ -132,13 +132,13 @@
 						    4. pigId - unique pig id value. Mandatory field </br>
 						    5. tattoo - Unique value. Optional field </br>
 						    6. alternateTattoo - Alternate value. Optional field </br>
-						    7. entryDate - Entry date in mm/dd/yyyy format. Should be within 100 - 300 days of birth date. Mandatory field </br>
+						    7. entryDate - Entry date in dd/mm/yyyy format. Should be within 100 - 300 days of birth date. Mandatory field </br>
 						    8. sexTypeId - Allowed values Male / Female. Mandatory field</br>
 						    9. geneticOrigin - Need to configure in the system and enter that value. Optional field</br>
 						    10. geneticCompany - Mandatory field. Refer to the entry event screen to know about the allowed values. </br>
 						    11. geneticLine - Mandatory field. Refer to the entry event screen to know about the allowed values. </br>
 						    12. geneticFunction - Mandatory field. Refer to the entry event screen to know about the allowed values. </br>
-						    13. birthDate - Birth date in mm/dd/yyyy format.  Optional field.</br>
+						    13. birthDate - Birth date in dd/mm/yyyy format.  Optional field.</br>
 						    14. sireId -  Optional field.</br>
 						    15. damId -  Optional field.</br>
 						    16. remarks -  Optional field.</br>

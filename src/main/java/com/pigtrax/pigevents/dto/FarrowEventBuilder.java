@@ -68,7 +68,7 @@ public class FarrowEventBuilder {
 			   dto.setEmployeeGroupId(info.getEmployeeGroupId());
 			   dto.setFarrowDateTime(info.getFarrowDateTime());
 			   try{
-				   dto.setFarrowDateStr(DateUtil.convertToFormatString(dto.getFarrowDateTime(), "MM/dd/yyyy"));
+				   dto.setFarrowDateStr(DateUtil.convertToFormatString(dto.getFarrowDateTime(), "dd/MM/yyyy"));
 			   }catch(ParseException ex)
 			   {
 				   dto.setFarrowDateStr(null);

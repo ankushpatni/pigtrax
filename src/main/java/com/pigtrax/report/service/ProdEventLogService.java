@@ -29,7 +29,7 @@ public class ProdEventLogService {
 
 			StringBuffer rowBuffer = null;
 			returnRows
-					.add("Premise, Barn, Room, Group ID, Date (mm/dd/yyyy), Log Event Type, Remarks");
+					.add("Premise, Barn, Room, Group ID, Date (dd/MM/yyyy), Log Event Type, Remarks");
 			returnRows.add("\n");
 			for (ProdEventLogBean pigletMortalityReportBean : prodEventLogList) {
 				rowBuffer = new StringBuffer();
@@ -38,7 +38,7 @@ public class ProdEventLogService {
 					rowBuffer.append(pigletMortalityReportBean.getRoomId() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getGroupId() + seprater);
 					try {
-						dateStr = DateUtil.convertToFormatString(pigletMortalityReportBean.getEventDate(), "MM/dd/yyyy");
+						dateStr = DateUtil.convertToFormatString(pigletMortalityReportBean.getEventDate(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
 						else

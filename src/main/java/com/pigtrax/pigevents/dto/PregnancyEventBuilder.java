@@ -58,7 +58,7 @@ public class PregnancyEventBuilder {
 			   dto.setPregnancyExamResultTypeId(info.getPregnancyExamResultTypeId());
 			   dto.setResultDate(info.getResultDate());
 			   try{
-				   dto.setResultDateStr(DateUtil.convertToFormatString(dto.getResultDate(), "MM/dd/yyyy"));
+				   dto.setResultDateStr(DateUtil.convertToFormatString(dto.getResultDate(), "dd/MM/yyyy"));
 			   }
 			   catch(ParseException ex)
 			   {
