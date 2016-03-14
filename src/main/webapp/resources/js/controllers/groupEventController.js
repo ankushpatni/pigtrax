@@ -132,8 +132,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	  if(dateVal != null && dateVal.length > 0) 
 	  {
 		if(dateVal.length == 10)
-		{
-		   var  dateObj = Date.parse(dateVal);		   
+		{			 			 
+		   var  dateObj = DateUtils.parse(dateVal,"dd/MM/yyyy");
 		   if(dateObj == null)
 			{
 			   if(fieldName == "groupStartDate")

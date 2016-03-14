@@ -43,4 +43,17 @@ pigTrax.service("DateUtils", function($resource, $filter, $cookieStore) {
     			  return $filter('date')(date,'MM/dd/YYYY HH:mm:ss');
     	  }
       };
+      
+      
+      this.parse = function(dateVal, format)
+      {
+    	  if(dateVal == null)
+    		  return null;
+    	  else
+    	  {
+    		  var parts = dateVal.split("/");
+    		  var  dateObj = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10)-1, parseInt(parts[0], 10));
+    		  return dateObj;
+    	  }
+      }
 });
