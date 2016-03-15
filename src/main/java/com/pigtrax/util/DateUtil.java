@@ -120,6 +120,28 @@ public class DateUtil {
 		 }
 		 return retVal;
 	 }
+	 
+	 public static boolean isDateAfter(Date endDate,Date dtToCompare){
+		
+    	Calendar cal1 = Calendar.getInstance();
+    	Calendar cal2 = Calendar.getInstance();
+    	cal1.setTime(endDate);
+    	cal2.setTime(dtToCompare);
+    	
+    	if(dtToCompare.after(endDate)){
+    		return false;
+    	}
+    	
+    	if(dtToCompare.before(endDate)){
+    		return true;
+    	}
+    	
+    	if(dtToCompare.equals(endDate)){
+    		return true;
+    	}
+		
+    	return false;
+	}	 
 	
 	
 	public static void main(String[] args) {
