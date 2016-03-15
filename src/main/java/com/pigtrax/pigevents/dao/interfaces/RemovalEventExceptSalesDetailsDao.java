@@ -26,5 +26,5 @@ public interface RemovalEventExceptSalesDetailsDao {
 	List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId(
 			int id) throws SQLException;
 
-	Integer getTotalPigsMortal(Date start, Date end, Integer companyId);
+	Integer getTotalPigsMortal(Date start, Date end, Integer companyId,Integer premisesId);
 }

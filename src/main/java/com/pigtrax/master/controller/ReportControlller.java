@@ -113,20 +113,42 @@ public class ReportControlller {
 			try {
 				String startDate = request.getParameter("startDate");
 				String endDate = request.getParameter("endDate");
+				String selectedPremise = request.getParameter("selectedPremise");
+				String companyString = request.getParameter("companyId1");
+				Integer premiseId  = 0;
 				
 				System.out.println("startDate = " + startDate);
 				System.out.println("startDate = " + endDate);
+				System.out.println("selectedPremise = " + selectedPremise);
+				
+				Integer companyId ;
+				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
 				
 				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-				Integer companyId = activeUser.getCompanyId();
+				if(companyString != null && !StringUtils.isEmpty(companyString))
+				{
+					companyId = Integer.parseInt(companyString);
+				}
+				else
+				{
+					companyId = activeUser.getCompanyId();
+				}
 				System.out.println(companyId);
+				
+				if(selectedPremise != null && !StringUtils.isEmpty(selectedPremise))
+				{
+					premiseId = Integer.parseInt(selectedPremise);
+				}
+				
 				
 				response.setContentType("text/csv");
 				String reportName = "CSV_Ferrow_Name.csv";
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
 		    
 				
-				ArrayList<String> rows = getFerrowReports(startDate, endDate, companyId);
+				ArrayList<String> rows = getFerrowReports(startDate, endDate, companyId, premiseId);
 				
 				Iterator<String> iter = rows.iterator();
 				while (iter.hasNext()) {
@@ -141,9 +163,9 @@ public class ReportControlller {
 			//return new ModelAndView("redirect:" + "reportGeneration?token=success");
 	}
 
-	private ArrayList<String> getFerrowReports(String startDate, String endDate, Integer companyId) {
+	private ArrayList<String> getFerrowReports(String startDate, String endDate, Integer companyId, Integer premisesId) {
 	
-		Map map = reportService.getFerrowEventReport(startDate, endDate, companyId);
+		Map map = reportService.getFerrowEventReport(startDate, endDate, companyId, premisesId);
 		System.out.println(map);
 		
 		int totalActivePenAvailable = reportService.getActivedPenCount(companyId);

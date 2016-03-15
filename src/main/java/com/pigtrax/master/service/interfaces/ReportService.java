@@ -5,8 +5,9 @@ import java.util.Map;
 
 public interface ReportService {
 	
-	public Map<Date, Map> getFerrowEventReport(String startDate, String enddate,Integer companyId);
-
 	int getActivedPenCount(int companyId);
+
+	Map<Date, Map> getFerrowEventReport(String startDate, String endDate,
+			Integer companyId, Integer premisesId);
 
 }

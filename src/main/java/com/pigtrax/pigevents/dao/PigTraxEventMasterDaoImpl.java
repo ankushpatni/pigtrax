@@ -271,8 +271,13 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	   
 	@Override
 	public List<Integer> selectFerrowEvents(final Date startDate,
-			final Date endDate, final Integer companyId) throws SQLException {
+			final Date endDate, final Integer companyId, final Integer premisesId) throws SQLException {
 		String qry = "select FE.\"id\" from pigtrax.\"FarrowEvent\" FE  JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" where PI.\"id_Company\" = ? and FE.\"farrowDateTime\" >= ? and FE.\"farrowDateTime\" <= ?";
+		
+		if(premisesId !=0)
+		{
+			qry = qry+ " and FE.\"id_Premise\" = " + premisesId;
+		}
 
 		List<Integer> eventMasterList = jdbcTemplate.query(qry,
 				new PreparedStatementSetter() {
@@ -293,11 +298,16 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	}
 	
 	@Override
-	public List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList, Integer companyId){
+	public List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList, Integer companyId, Integer premisesId){
 		
 		String qry = "select sum(FE.\"liveBorns\"+FE.\"mummies\"+FE.\"stillBorns\"), sum(FE.\"liveBorns\"), sum(FE.\"stillBorns\"+FE.\"mummies\"), "+
 		" sum(FE.\"stillBorns\"),sum(FE.\"mummies\"),sum(FE.\"weightInKgs\") from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" "
 				+" where PI.\"id_Company\" = :companyId  and FE.\"id\" in (:ids)";
+		
+		if(premisesId !=0)
+		{
+			qry = qry+ " and FE.\"id_Premise\" = " + premisesId;
+		}
 		
 		/*from pigtrax.\"FarrowEvent\" FE JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\""
    		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ?"
@@ -327,12 +337,17 @@ public class PigTraxEventMasterDaoImpl implements PigTraxEventMasterDao {
 	}
 	
 	@Override
-	public int getLitterForGivenrange(final Date startDate,  final Date endDate,final Integer companyId)
+	public int getLitterForGivenrange(final Date startDate,  final Date endDate,final Integer companyId, Integer premisesId)
 	{
 		//String qry ="select sum(\"liveBorns\") from pigtrax.\"FarrowEvent\" where DATE_PART('day', ?::timestamp - \"farrowDateTime\"::timestamp)<7 ";
 		
 		String qry = "select  count(FE.\"id\") from pigtrax.\"FarrowEvent\" FE  JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" where PI.\"id_Company\" = ? "
 				+" and FE.\"liveBorns\" <7 and FE.\"farrowDateTime\" >= ? and FE.\"farrowDateTime\" <= ?";
+		
+		if(premisesId !=0)
+		{
+			qry = qry+ " and FE.\"id_Premise\" = " + premisesId;
+		}
 		
 		List<Integer> eventMasterList = jdbcTemplate.query(qry,
 				new PreparedStatementSetter() {

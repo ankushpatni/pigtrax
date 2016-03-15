@@ -42,7 +42,7 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public Map<Date,Map> getFerrowEventReport(String startDate,
-			String endDate, Integer companyId) {
+			String endDate, Integer companyId, Integer premisesId) {
 		
 		Date startDateD;
 		Date endDateD;
@@ -50,7 +50,7 @@ public class ReportServiceImpl implements ReportService{
 			startDateD = new Date( sdf.parse(startDate).getTime());
 			endDateD = new Date( sdf.parse(endDate).getTime());
 			dateMapDate = new LinkedHashMap<Date,Map>();
-			monthsBetween(startDateD, endDateD, companyId);
+			monthsBetween(startDateD, endDateD, companyId, premisesId);
 			
 		} catch (ParseException e) {
 			
@@ -60,7 +60,7 @@ public class ReportServiceImpl implements ReportService{
 		return dateMapDate;
 	}
 	
-	public int monthsBetween(Date a, Date b,  Integer companyId) {
+	public int monthsBetween(Date a, Date b,  Integer companyId, Integer premisesId) {
 	    Calendar cal = Calendar.getInstance();
 	    if (a.before(b)) {
 	        cal.setTime(a);
@@ -90,46 +90,46 @@ public class ReportServiceImpl implements ReportService{
 	        }
 	        cal.add(Calendar.DAY_OF_YEAR, 1);
 	        
-	        List<Integer> listFerrowId = getFerrowEventListId(start,end,companyId);
+	        List<Integer> listFerrowId = getFerrowEventListId(start,end,companyId, premisesId);
 	        
 	        if(listFerrowId!=null && !listFerrowId.isEmpty())
 	        {
 	        	Integer totalFerrowEvents = new HashSet<Integer>(listFerrowId).size();
 	        	
 				List listValues = eventMasterDao
-						.getFerrowReportParams(listFerrowId,companyId);
+						.getFerrowReportParams(listFerrowId,companyId, premisesId);
 				
-				int litterLess7 = eventMasterDao.getLitterForGivenrange(start,end,companyId);
+				int litterLess7 = eventMasterDao.getLitterForGivenrange(start,end,companyId, premisesId);
 				listValues.add(litterLess7);//6
-				listValues.add(getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(start,end,companyId));//7
-				listValues.add(getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(start,end,companyId));//8
-				listValues.add(getTotalPigsWeavend(start,end,companyId));//9
-				listValues.add(getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(start,end,companyId));//10
-				listValues.add(getTotalPigsMortal(start,end,companyId));//11
-				listValues.add(getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(start,end,companyId));//12
-				listValues.add(getTotalPigsWeavendWithWeight(start,end,companyId));//13
-				listValues.add(getTotalPigsWeight(start,end,companyId));//14
-				listValues.add(getPigletStatusEventsFerrowIdForWeavnAndDateRange(start,end,companyId));//15 error here
-				listValues.add(getCountPifIngoIdFromFarrowWithParityOneInPigInfo(start,end,companyId));//16
-				listValues.add(getCountParityOfPigIngoIdFromFarrow(start,end,companyId));//17
-				listValues.add(getSumOfDiffOfFerrowAndBreedingDate(start,end,companyId));//18
-				listValues.add(getPiGIdFromFerrow(start,end,companyId));//19
-				listValues.add(getPiGIdFromBreeding(start,end,companyId));//20
-				listValues.add(getCountOfFirstService(start, end, companyId));//21
-				listValues.add(getCountOfRepeateService(start, end, companyId));//22
-				listValues.add(getCountOfServiceWithMatingGreaterThanOne(start, end, companyId));//23
-				listValues.add(getCountOfMating(start, end, companyId));//24
-				listValues.add(getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(start, end, companyId));//25
-				listValues.add(getPigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig(start, end, companyId));//26
-				listValues.add(getNumberOfDaysBetweenWeanAndServiceDate(start, end, companyId));//27
-				listValues.add(getPairtyOfServedFemals(start, end, companyId));//28
-				listValues.add(getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId));//29
-				listValues.add(getSumOfDateDiffBetweenServiceAndEntryDate(start, end, companyId));//30
-				listValues.add(pigletStatusEventDao.getTotalWeekBornPiglet(start, end, companyId));//31
-				listValues.add(pigletStatusEventDao.getLittersWithWeightOfLiveBorn(start, end, companyId));//32
-				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,30));//33
-				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,42));//34
-				listValues.add(pigletStatusEventDao.getSumOfDiffOfFerrowAndWeanDate(start, end, companyId));//35
+				listValues.add(getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(start,end,companyId, premisesId));//7
+				listValues.add(getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(start,end,companyId,premisesId));//8
+				listValues.add(getTotalPigsWeavend(start,end,companyId,premisesId));//9
+				listValues.add(getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(start,end,companyId,premisesId));//10
+				listValues.add(getTotalPigsMortal(start,end,companyId,premisesId));//11
+				listValues.add(getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(start,end,companyId,premisesId));//12
+				listValues.add(getTotalPigsWeavendWithWeight(start,end,companyId,premisesId));//13
+				listValues.add(getTotalPigsWeight(start,end,companyId,premisesId));//14
+				listValues.add(getPigletStatusEventsFerrowIdForWeavnAndDateRange(start,end,companyId,premisesId));//15 error here
+				listValues.add(getCountPifIngoIdFromFarrowWithParityOneInPigInfo(start,end,companyId,premisesId));//16
+				listValues.add(getCountParityOfPigIngoIdFromFarrow(start,end,companyId,premisesId));//17
+				listValues.add(getSumOfDiffOfFerrowAndBreedingDate(start,end,companyId,premisesId));//18
+				listValues.add(getPiGIdFromFerrow(start,end,companyId,premisesId));//19
+				listValues.add(getPiGIdFromBreeding(start,end,companyId,premisesId));//20
+				listValues.add(getCountOfFirstService(start, end, companyId,premisesId));//21
+				listValues.add(getCountOfRepeateService(start, end, companyId,premisesId));//22
+				listValues.add(getCountOfServiceWithMatingGreaterThanOne(start, end, companyId,premisesId));//23
+				listValues.add(getCountOfMating(start, end, companyId,premisesId));//24
+				listValues.add(getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(start, end, companyId,premisesId));//25
+				listValues.add(getPigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig(start, end, companyId,premisesId));//26
+				listValues.add(getNumberOfDaysBetweenWeanAndServiceDate(start, end, companyId,premisesId));//27
+				listValues.add(getPairtyOfServedFemals(start, end, companyId,premisesId));//28
+				listValues.add(getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId,premisesId));//29
+				listValues.add(getSumOfDateDiffBetweenServiceAndEntryDate(start, end, companyId,premisesId));//30
+				listValues.add(pigletStatusEventDao.getTotalWeekBornPiglet(start, end, companyId, premisesId));//31
+				listValues.add(pigletStatusEventDao.getLittersWithWeightOfLiveBorn(start, end, companyId, premisesId));//32
+				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,30, premisesId));//33
+				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,42, premisesId));//34
+				listValues.add(pigletStatusEventDao.getSumOfDiffOfFerrowAndWeanDate(start, end, companyId, premisesId));//35
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);
@@ -145,10 +145,10 @@ public class ReportServiceImpl implements ReportService{
 	    return c - 1;
 	}
 	
-	public List<Integer> getFerrowEventListId(Date start, Date end,int companyId)
+	public List<Integer> getFerrowEventListId(Date start, Date end,int companyId, Integer premisesId)
 	{
 		try {
-			return eventMasterDao.selectFerrowEvents(start, end, companyId);
+			return eventMasterDao.selectFerrowEvents(start, end, companyId, premisesId);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -168,124 +168,124 @@ public class ReportServiceImpl implements ReportService{
 		return 0;
 	}
 	
-	private int getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(Date start, Date end, int companyId)
+	private int getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(start, end, companyId);
+		return pigletStatusEventDao.getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(start, end, companyId,premisesId);
 	}
 	
-	private int getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(Date start, Date end, int companyId)
+	private int getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(start, end, companyId);
+		return pigletStatusEventDao.getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(start, end, companyId,premisesId);
 	}
 	
-	private int getTotalPigsWeavend(Date start, Date end, int companyId)
+	private int getTotalPigsWeavend(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getTotalPigsWeavend(start, end, companyId);
+		return pigletStatusEventDao.getTotalPigsWeavend(start, end, companyId,premisesId);
 	}
 	
-	private int getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(Date start, Date end, int companyId)
+	private int getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(start, end, companyId);
+		return pigletStatusEventDao.getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(start, end, companyId,premisesId);
 	}
 	
-	private int getTotalPigsMortal(Date start, Date end, int companyId)
+	private int getTotalPigsMortal(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return removalEventExceptSalesDetailsDao.getTotalPigsMortal(start, end, companyId);
+		return removalEventExceptSalesDetailsDao.getTotalPigsMortal(start, end, companyId,premisesId);
 	}
 	
-	private int getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(Date start, Date end, int companyId)
+	private int getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight( start,  end, companyId);
+		return pigletStatusEventDao.getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight( start,  end, companyId,premisesId);
 	}
 	
-	private int getTotalPigsWeavendWithWeight(Date start, Date end, int companyId)
+	private int getTotalPigsWeavendWithWeight(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getTotalPigsWeavendWithWeight( start,  end, companyId);
+		return pigletStatusEventDao.getTotalPigsWeavendWithWeight( start,  end, companyId,premisesId);
 	}
 	
-	private int getTotalPigsWeight(Date start, Date end, int companyId)
+	private int getTotalPigsWeight(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getTotalPigsWeight(start,  end, companyId);
+		return pigletStatusEventDao.getTotalPigsWeight(start,  end, companyId,premisesId);
 	}
 	
-	private int getPigletStatusEventsFerrowIdForWeavnAndDateRange(Date start, Date end, int companyId)
+	private int getPigletStatusEventsFerrowIdForWeavnAndDateRange(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPigletStatusEventsFerrowIdForWeavnAndDateRange(start, end, companyId);
+		return pigletStatusEventDao.getPigletStatusEventsFerrowIdForWeavnAndDateRange(start, end, companyId,premisesId);
 	}
 	
-	private int getCountPifIngoIdFromFarrowWithParityOneInPigInfo(Date start, Date end, int companyId)
+	private int getCountPifIngoIdFromFarrowWithParityOneInPigInfo(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getCountPifIngoIdFromFarrowWithParityOneInPigInfo(start, end, companyId);
+		return pigletStatusEventDao.getCountPifIngoIdFromFarrowWithParityOneInPigInfo(start, end, companyId,premisesId);
 	}
 	
-	private int getCountParityOfPigIngoIdFromFarrow(Date start, Date end, int companyId)
+	private int getCountParityOfPigIngoIdFromFarrow(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getCountParityOfPigIngoIdFromFarrow(start, end, companyId);
+		return pigletStatusEventDao.getCountParityOfPigIngoIdFromFarrow(start, end, companyId,premisesId);
 	}
 	
-	private int getSumOfDiffOfFerrowAndBreedingDate(Date start, Date end, int companyId)
+	private int getSumOfDiffOfFerrowAndBreedingDate(Date start, Date end, int companyId,Integer premisesId)// doubt here how to put premises
 	{
-		return pigletStatusEventDao.getSumOfDiffOfFerrowAndBreedingDate(start, end, companyId);
+		return pigletStatusEventDao.getSumOfDiffOfFerrowAndBreedingDate(start, end, companyId,premisesId);
 	}
 	
-	private int getPiGIdFromFerrow(Date start, Date end, int companyId)
+	private int getPiGIdFromFerrow(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPiGIdFromFerrow(start, end, companyId);
+		return pigletStatusEventDao.getPiGIdFromFerrow(start, end, companyId,premisesId);
 	}
 	
-	private int getPiGIdFromBreeding(Date start, Date end, int companyId)
+	private int getPiGIdFromBreeding(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPiGIdFromBreeding(start, end, companyId);
+		return pigletStatusEventDao.getPiGIdFromBreeding(start, end, companyId,premisesId);
 	}
 	
-	private int getCountOfFirstService(Date start, Date end, int companyId)
+	private int getCountOfFirstService(Date start, Date end, int companyId,Integer premisesId) // Doubt here how to put premises ?
 	{
-		return pigletStatusEventDao.getCountOfFirstService(start, end, companyId);
+		return pigletStatusEventDao.getCountOfFirstService(start, end, companyId,premisesId);
 	}
 	
-	private int getCountOfRepeateService(Date start, Date end, int companyId)
+	private int getCountOfRepeateService(Date start, Date end, int companyId,Integer premisesId) // Doubt here how to take premises ?
 	{
-		return pigletStatusEventDao.getCountOfRepeateService(start, end, companyId);
+		return pigletStatusEventDao.getCountOfRepeateService(start, end, companyId,premisesId);
 	}
 	
-	private int getCountOfServiceWithMatingGreaterThanOne(Date start, Date end, int companyId)
+	private int getCountOfServiceWithMatingGreaterThanOne(Date start, Date end, int companyId,Integer premisesId) // doubt
 	{
-		return pigletStatusEventDao.getCountOfServiceWithMatingGreaterThanOne(start, end, companyId);
+		return pigletStatusEventDao.getCountOfServiceWithMatingGreaterThanOne(start, end, companyId,premisesId);
 	}
 	
-	private int getCountOfMating(Date start, Date end, int companyId)
+	private int getCountOfMating(Date start, Date end, int companyId,Integer premisesId) // doubt
 	{
-		return pigletStatusEventDao.getCountOfMating(start, end, companyId);
+		return pigletStatusEventDao.getCountOfMating(start, end, companyId,premisesId);
 	}
 	
-	private int getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(Date start, Date end, int companyId)
+	private int getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(Date start, Date end, int companyId,Integer premisesId) // doubt
 	{
-		return pigletStatusEventDao.getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(start, end, companyId);
+		return pigletStatusEventDao.getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(start, end, companyId,premisesId);
 	}
 	
-	private int getPigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig(Date start, Date end, int companyId)
+	private int getPigletStatusEventsPigIdCountForWeavnAndDateRangeWithMoreThanTwalePig(Date start, Date end, int companyId,Integer premisesId) // doubt
 	{
-		return pigletStatusEventDao.getPigletStatusEventsPigIdCountForWeavnAndDateRange(start, end, companyId);
+		return pigletStatusEventDao.getPigletStatusEventsPigIdCountForWeavnAndDateRange(start, end, companyId,premisesId);
 	}
 	
-	private int getNumberOfDaysBetweenWeanAndServiceDate(Date start, Date end, int companyId)
+	private int getNumberOfDaysBetweenWeanAndServiceDate(Date start, Date end, int companyId,Integer premisesId) // doubt
 	{
-		return pigletStatusEventDao.getNumberOfDaysBetweenWeanAndServiceDate(start, end, companyId);
+		return pigletStatusEventDao.getNumberOfDaysBetweenWeanAndServiceDate(start, end, companyId,premisesId);
 	}
 	
-	private int getPairtyOfServedFemals(Date start, Date end, int companyId)
+	private int getPairtyOfServedFemals(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getPairtyOfServedFemals(start, end, companyId);
+		return pigletStatusEventDao.getPairtyOfServedFemals(start, end, companyId,premisesId);
 	}
 	
-	private int getCountPifIngoIdWithParityOneInPigInfo(Date start, Date end, int companyId)
+	private int getCountPifIngoIdWithParityOneInPigInfo(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return pigletStatusEventDao.getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId);
+		return pigletStatusEventDao.getCountPifIngoIdWithParityOneInPigInfo(start, end, companyId,premisesId);
 	}
 	
-	private int getSumOfDateDiffBetweenServiceAndEntryDate(Date start, Date end, int companyId)
+	private int getSumOfDateDiffBetweenServiceAndEntryDate(Date start, Date end, int companyId,Integer premisesId)  // doubt
 	{
-		return pigletStatusEventDao.getSumOfDateDiffBetweenServiceAndEntryDate(start, end, companyId);
+		return pigletStatusEventDao.getSumOfDateDiffBetweenServiceAndEntryDate(start, end, companyId,premisesId);
 	}
 	
 	

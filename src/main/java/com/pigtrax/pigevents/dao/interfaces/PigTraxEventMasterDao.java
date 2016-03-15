@@ -96,10 +96,10 @@ public interface PigTraxEventMasterDao {
 	 */
 	 void deleteBreedingEvent(final Integer breedingEventId) throws SQLException;
 
-	List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList, Integer companyId);
+	List<Integer> getFerrowReportParams(List<Integer> ferrowEventIdList, Integer companyId,Integer premisesId);
 
 
-	int getLitterForGivenrange(Date startDate, Date endDate, Integer companyId);
+	int getLitterForGivenrange(Date startDate, Date endDate, Integer companyId, Integer premisesId);
 	
 	int deletePigletStatusEvents(Integer pigletStatusId, int pigletStatusEventTypeId) throws SQLException;
 
@@ -111,6 +111,6 @@ public interface PigTraxEventMasterDao {
 
 
 	List<Integer> selectFerrowEvents(Date startDate, Date endDate,
-			Integer companyId) throws SQLException;
+			Integer companyId, Integer premisesId) throws SQLException;
 
 }

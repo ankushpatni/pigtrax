@@ -33,78 +33,78 @@ public interface PigletStatusEventDao {
 	PigletStatusEvent getFosterInRecord(Integer farrowEventId) throws SQLException;
 
 	Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRange(
-			Date start, Date end, Integer companyId);
+			Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithMoreThanTwalePig(
-			Date start, Date end, Integer companyId);
+			Date start, Date end, Integer companyId,Integer premisesId);
 
-	Integer getTotalPigsWeavend(Date start, Date end, Integer companyId);
+	Integer getTotalPigsWeavend(Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getPigletStatusEventsFerrowIdWeavnAndFosterInAndOut(Date start,
-			Date end, Integer companyId);
+			Date end, Integer companyId,Integer premisesId);
 
 	Integer getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(
-			Date start, Date end, Integer companyId);
+			Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getTotalPigsWeavendWithWeight(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 
-	Integer getTotalPigsWeight(Date start, Date end, Integer companyId);
+	Integer getTotalPigsWeight(Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getPigletStatusEventsFerrowIdForWeavnAndDateRange(Date start,
-			Date end, Integer companyId);
+			Date end, Integer companyId,Integer premisesId);
 
 	Integer getCountPifIngoIdFromFarrowWithParityOneInPigInfo(Date start,
-			Date end, Integer companyId);
+			Date end, Integer companyId,Integer premisesId);
 
 	Integer getCountParityOfPigIngoIdFromFarrow(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 
 	Integer getSumOfDiffOfFerrowAndBreedingDate(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 
-	Integer getPiGIdFromFerrow(Date start, Date end, Integer companyId);
+	Integer getPiGIdFromFerrow(Date start, Date end, Integer companyId,Integer premisesId);
 
-	Integer getPiGIdFromBreeding(Date start, Date end, Integer companyId);
+	Integer getPiGIdFromBreeding(Date start, Date end, Integer companyId,Integer premisesId);
 
-	Integer getCountOfFirstService(Date start, Date end, Integer companyId);
+	Integer getCountOfFirstService(Date start, Date end, Integer companyId,Integer premisesId);
 
-	Integer getCountOfRepeateService(Date start, Date end, Integer companyId);
+	Integer getCountOfRepeateService(Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getCountOfServiceWithMatingGreaterThanOne(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 
-	Integer getCountOfMating(Date start, Date end, Integer companyId);
+	Integer getCountOfMating(Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getCountOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding(
-			Date start, Date end, Integer companyId);
+			Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getPigletStatusEventsPigIdCountForWeavnAndDateRange(
-			Date start, Date end, Integer companyId);
+			Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getNumberOfDaysBetweenWeanAndServiceDate(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 
-	Integer getPairtyOfServedFemals(Date start, Date end, Integer companyId);
+	Integer getPairtyOfServedFemals(Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getCountPifIngoIdWithParityOneInPigInfo(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 
 	Integer getSumOfDateDiffBetweenServiceAndEntryDate(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 	
 	void deletePigletStatusEventsByFarrowId(final Integer pigInfoId, final Integer farrowEventId, final Integer pigletStatusEventType)
 			throws SQLException;
 
-	Integer getTotalWeekBornPiglet(Date start, Date end, Integer companyId);
+	Integer getTotalWeekBornPiglet(Date start, Date end, Integer companyId,Integer premisesId);
 
 	Integer getLittersWithWeightOfLiveBorn(Date startDate, Date endDate,
-			Integer companyId) ;
+			Integer companyId,Integer premisesId) ;
 
 	int getConceptionRateAtPresumedPregnant(Date startDate, Date endDate,
-			Integer companyId, Integer difference);
+			Integer companyId, Integer difference,Integer premisesId);
 
 	Integer getSumOfDiffOfFerrowAndWeanDate(Date start, Date end,
-			Integer companyId);
+			Integer companyId,Integer premisesId);
 	
 }
