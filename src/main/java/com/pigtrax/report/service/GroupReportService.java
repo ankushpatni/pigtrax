@@ -28,6 +28,7 @@ import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
 import com.pigtrax.report.bean.GroupReportBean;
 import com.pigtrax.report.bean.GroupReportBeanwithPhase;
 import com.pigtrax.report.dao.GroupReportDao;
+import com.pigtrax.util.DateUtil;
 
 /**
  * @author Ankush
@@ -107,7 +108,7 @@ public class GroupReportService {
 						if(groupReportBean.getGroupEventId() != null)
 						{
 							rowBuffer.append(groupIdStr + seprater);
-							rowBuffer.append(groupReportBean.getEventDate() + seprater);
+							rowBuffer.append(DateUtil.convertToFormat(groupReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 							if(groupReportBean.getRemovalEventExceptSalesDetailsId() != null && groupReportBean.getRemovalEventExceptSalesDetailsId()!=0 )
 							{
 								RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(groupReportBean.getRemovalEventExceptSalesDetailsRoomId());

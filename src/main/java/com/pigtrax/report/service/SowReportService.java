@@ -33,6 +33,7 @@ import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
 import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
 import com.pigtrax.report.bean.SowReportBean;
 import com.pigtrax.report.dao.SowReportDao;
+import com.pigtrax.util.DateUtil;
 
 /**
  * @author Ankush
@@ -119,7 +120,7 @@ public class SowReportService {
 						if(SowReportBean.getPigInfoId() != null)
 						{
 							rowBuffer.append(pidId + seprater);
-							rowBuffer.append(SowReportBean.getEventDate() + seprater);
+							rowBuffer.append(DateUtil.convertToFormat(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 							if(SowReportBean.getBreedingEventId() != null && SowReportBean.getBreedingEventId()!=0 )
 							{
 								rowBuffer.append("Breeding"+seprater);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pigtrax.cache.RefDataCache;
 import com.pigtrax.report.bean.SaleReportBean;
 import com.pigtrax.report.dao.SaleReportDao;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 public class SaleReportService {
@@ -51,6 +52,8 @@ public class SaleReportService {
 			returnRows
 			.add("Premises ,BarnID,RoomID,Group ID,SalesEvent date,Salestype,Number of pigs sold,Destination,Total weight,	weight/pig,Ticket number,Invoice number,Revenue,Truck,Trailer,Remarks");
 			returnRows.add("\n");
+			try
+			{
 			for (SaleReportBean saleReportBean : saleReportBeanList) {
 				rowBuffer = new StringBuffer();
 				rowBuffer.append(saleReportBean.getPremisesId()).append(seprater);
@@ -71,7 +74,7 @@ public class SaleReportService {
 					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getSalesEventDate() != null)
-					rowBuffer.append(saleReportBean.getSalesEventDate()).append(seprater);
+					rowBuffer.append(DateUtil.convertToFormat(saleReportBean.getSalesEventDate(),"dd/MM/yyyy")).append(seprater);
 				else
 					rowBuffer.append(seprater);
 				
@@ -139,6 +142,12 @@ public class SaleReportService {
 				returnRows.add(rowBuffer.toString()+"\n");
 				
 				}
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			returnRows.add("Error occured please coontact admin.");
+		}
 		
 		
 			}
