@@ -75,7 +75,10 @@ public class GestationReportDao {
 			cal.setTime(farrowDate);
 			int week = cal.get(Calendar.WEEK_OF_YEAR);
 			row.put("FarrowWK", week);
-			Double FACapacity = (double)(farrowCnt/penCount);
+			Double FACapacity = 0D;
+			
+			if(penCount > 0 && farrowCnt > 0)
+				FACapacity = (double)(farrowCnt/penCount);
 			row.put("FACapacity", FACapacity);
 		}
 		
