@@ -30,9 +30,16 @@
 								</div>
 							<%}%>
 						<div  class="form-group">
-						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="selectGroups()">
 								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+                      		  </select>
+						</div>
+						
+						
+						<div  class="form-group">
+						<select  class="form-control"  required required-message="'<spring:message code='label.piginfo.groupEventForm.groupId.requiredMessage' text='Group Id is required' />'"  name="selectedGroup" id="selectedGroup" ng-model="selectedGroup"  >								
+                      			 	<option ng-repeat="group in groupList" value="{{group.id}}" ng-value="group.id" ng-selected="selectedGroup == group.id">{{group.groupId}}</option>
                       		  </select>
 						</div>
 						
@@ -45,7 +52,7 @@
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
                       	<input type="text" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true' name="endDate"/>
 								</div>
-						<button type="button" value="report" ng-click="generateRationReport()">
+						<button type="submit" value="report" ng-click="generateRationReport()">
 							<spring:message code='label.piginfo.generateReport.button'
 								text='Generate Report' />
 						</button>

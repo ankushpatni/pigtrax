@@ -32,7 +32,7 @@ public class RationReportDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public List<RationReportBean> getRationReportList(final Integer premiseId, final Date startDate, final Date endDate)
+	public List<RationReportBean> getRationReportList(final Integer premiseId, final Date startDate, final Date endDate, final Integer groupId)
 	{
 		List<RationReportBean> rationReportList = new ArrayList<RationReportBean>();		
 		
@@ -46,7 +46,7 @@ public class RationReportDao {
 		
 		
 		String qry = "SELECT R.\"batchId\" as \"rationId\", R.\"actualTons\" as \"actualTonsUsed\", R.\"tons\" as \"targetTonsUsed\", (R.\"actualTons\" - R.\"tons\")/R.\"tons\" as \"deviationTonsUsed\", "
-				+ "	(R.\"actualTons\"*1000/R.\"pigNum\")/"+durationDays+" as \"actualKg\",R.\"kg/day\" as \"targetKg\", (((R.\"actualTons\"*1000/R.\"pigNum\")/10) - R.\"kg/day\")/R.\"kg/day\" as \"deviationKg\", "
+				+ "	(R.\"actualTons\"*1000/R.\"pigNum\")/"+durationDays+" as \"actualKg\",R.\"kg/day\" as \"targetKg\", (((R.\"actualTons\"*1000/R.\"pigNum\")/"+durationDays+") - R.\"kg/day\")/R.\"kg/day\" as \"deviationKg\", "
 				+ " R.\"actualCost\" as \"actualFeedCost\", R.\"feedCostTarget\" as \"targetFeedCost\", (R.\"actualCost\"-R.\"feedCostTarget\")/R.\"feedCostTarget\" as \"deviationFeedCost\" "
 				+" FROM " 
 				+" ( "
@@ -55,24 +55,24 @@ public class RationReportDao {
 				+"    FROM ( "		
 				+"     SELECT distinct FE.\"batchId\", coalesce(A.feedInWt,0) as feedInWt ,  coalesce(B.feedOutWt,0) as feedOutWt ,  coalesce(C.feedAdjWt,0) as feedAdjWt , "
 				+"		coalesce(a.feedInCost,0) as feedInCost, " 
-				+"		coalesce(b.feedOutCost,0) as feedOutCost,  coalesce(c.feedAdjCost,0) as feedAdjCost, a.num1 as \"pigNum\" "
+				+"		coalesce(b.feedOutCost,0) as feedOutCost,  coalesce(c.feedAdjCost,0) as feedAdjCost,  coalesce(a.num1,1) as \"pigNum\"  "
 				+" ,  kg.\"kg/day\",tons.\"tons\", feedCostTarget.\"feedCostTarget\" "
 				+" FROM " 
 				+" pigtrax.\"FeedEventDetails\" FED " 
 				+" JOIN pigtrax.\"FeedEvent\" FE On FED.\"id_FeedEvent\" = FE.\"id\" "
 				+" JOIN pigtrax.\"Premise\" P ON P.\"id\" = FE.\"id_Premise\" "
 				+" LEFT JOIN ( "
-				+"  SELECT CT.\"id_Company\", CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"kg/day\", 'Kg/Day' as ind from pigtrax.\"CompanyTarget\"  CT "
+				+"  SELECT CT.\"id_Premise\", CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"kg/day\", 'Kg/Day' as ind from pigtrax.\"CompanyTarget\"  CT "
 				+"  JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fieldDescription\" = 'Feed_kg/pig/day' "
-				+" ) kg  ON P.\"id_Company\" = kg.\"id_Company\" "		
+				+" ) kg  ON P.\"id\" = kg.\"id_Premise\"  "		
 				+" LEFT JOIN ( "
-				+" select CT.\"id_Company\",  CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"tons\", 'tonsUsed' as ind from pigtrax.\"CompanyTarget\"  CT "
+				+" select CT.\"id_Premise\",  CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"tons\", 'tonsUsed' as ind from pigtrax.\"CompanyTarget\"  CT "
 				+" JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fieldDescription\" = 'Feed_tons used' "
-				+" ) tons ON  P.\"id_Company\" = tons.\"id_Company\" "
+				+" ) tons ON  P.\"id\" = tons.\"id_Premise\" "
 				+" LEFT JOIN ( "
-				+"   select CT.\"id_Company\",  CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"feedCostTarget\", 'feedCostTarget' as ind from pigtrax.\"CompanyTarget\"  CT "
+				+"   select CT.\"id_Premise\",  CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"feedCostTarget\", 'feedCostTarget' as ind from pigtrax.\"CompanyTarget\"  CT "
 				+"	JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fieldDescription\" = 'Feed_Feed cost/pig' "
-				+"	) feedCostTarget ON  P.\"id_Company\" = tons.\"id_Company\" "
+				+"	) feedCostTarget ON  P.\"id\" = tons.\"id_Premise\" "
 				+"		LEFT JOIN "
 				+"(	"
 				+"	SELECT sum(GE.\"currentInventory\") as num1, a.\"batchId\", sum(a.feedInWt) as feedInWt, sum(a.feedInCost) as feedInCost  from " 
@@ -80,7 +80,7 @@ public class RationReportDao {
 				+" JOIN( "
 				+" select FED.\"id_GroupEvent\" ,FE.\"batchId\", sum(FED.\"weightInKgs\") as feedInWt,'FeedOut', sum(FED.\"feedCost\") as feedInCost from pigtrax.\"FeedEventDetails\" FED " 
 				+" JOIN pigtrax.\"FeedEvent\"  FE on FED.\"id_FeedEvent\" = FE.\"id\" " 
-				+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ? "
+				+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ? and FED.\"id_GroupEvent\" = ? "
 				+" Group by  FED.\"id_GroupEvent\",FE.\"batchId\" ) a ON a.\"id_GroupEvent\" = GE.\"id\" "
 				+" group by a.\"batchId\" "    
 				+" ) A ON FE.\"batchId\" =  A.\"batchId\" "
@@ -90,7 +90,7 @@ public class RationReportDao {
 					+" JOIN( "
 					+" select FED.\"id_GroupEvent\" ,FE.\"batchId\", sum(FED.\"weightInKgs\") as feedOutWt,'FeedOut', sum(FED.\"feedCost\") as feedOutCost from pigtrax.\"FeedEventDetails\" FED " 
 					+" JOIN pigtrax.\"FeedEvent\"  FE on FED.\"id_FeedEvent\" = FE.\"id\" " 
-					+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ? "
+					+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ?  and FED.\"id_GroupEvent\" = ?"
 					+" Group by  FED.\"id_GroupEvent\",FE.\"batchId\" ) a ON a.\"id_GroupEvent\" = GE.\"id\" "
 					+" group by a.\"batchId\" "
 					+" ) B ON A.\"batchId\" = B.\"batchId\" "
@@ -100,11 +100,11 @@ public class RationReportDao {
 					+" JOIN( "
 					+" select FED.\"id_GroupEvent\" ,FE.\"batchId\", sum(FED.\"weightInKgs\") as feedAdjWt,'FeedOut', sum(FED.\"feedCost\") as feedAdjCost from pigtrax.\"FeedEventDetails\" FED " 
 					+" JOIN pigtrax.\"FeedEvent\"  FE on FED.\"id_FeedEvent\" = FE.\"id\" " 
-					+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ? "
+					+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ?  and FED.\"id_GroupEvent\" = ?"
 					+" Group by  FED.\"id_GroupEvent\",FE.\"batchId\" ) a ON a.\"id_GroupEvent\" = GE.\"id\" "
 					+" group by a.\"batchId\" "    
 					+" ) C ON A.\"batchId\" = C.\"batchId\" "
-					+" WHERE  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL) and kg.\"kg/day\" IS NOT NULL and tons.\"tons\"  IS NOT NULL) T )R ";
+					+" WHERE  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL)) T )R ";
 		
 		final int duration = durationDays;
 		rationReportList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -115,16 +115,19 @@ public class RationReportDao {
 				ps.setDate(2, new java.sql.Date(startDate.getTime()));
 				ps.setDate(3, new java.sql.Date(endDate.getTime()));
 				ps.setInt(4, premiseId);
+				ps.setInt(5, groupId);
 				
-				ps.setInt(5, 2);
-				ps.setDate(6, new java.sql.Date(startDate.getTime()));
-				ps.setDate(7, new java.sql.Date(endDate.getTime()));
-				ps.setInt(8, premiseId);
+				ps.setInt(6, 2);
+				ps.setDate(7, new java.sql.Date(startDate.getTime()));
+				ps.setDate(8, new java.sql.Date(endDate.getTime()));
+				ps.setInt(9, premiseId);
+				ps.setInt(10, groupId);
 				
-				ps.setInt(9, 4);
-				ps.setDate(10, new java.sql.Date(startDate.getTime()));
-				ps.setDate(11, new java.sql.Date(endDate.getTime()));
-				ps.setInt(12, premiseId);
+				ps.setInt(11, 4);
+				ps.setDate(12, new java.sql.Date(startDate.getTime()));
+				ps.setDate(13, new java.sql.Date(endDate.getTime()));
+				ps.setInt(14, premiseId);
+				ps.setInt(15, groupId);
 				
 			}}, new RationReportMapper());
 		

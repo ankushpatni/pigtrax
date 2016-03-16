@@ -9,7 +9,7 @@ public class RationReportBean {
 	private Double deviationTonsUsed;
 	private Double actualKg;
 	private Double targetKg;
-	private Double deviationKg;
+	private Double deviationKg; 
 	private Double actualFeedCost;	
 	private Double targetFeedCost;	
 	private Double deviationFeedCost;
