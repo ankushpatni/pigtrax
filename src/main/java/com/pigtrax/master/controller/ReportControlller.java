@@ -1155,6 +1155,10 @@ public class ReportControlller {
 		Map<String, String> model = new HashMap<String, String>();
 		model.put("contentUrl", "reportGeneration.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer companyId = activeUser.getCompanyId();
+		model.put("CompanyId", companyId+"");
 		return new ModelAndView("template", model);
 	}
 	
