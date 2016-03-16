@@ -322,7 +322,8 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 		if(dateVal.length == 10)
 		{
 			$scope.removalDateTimerequired = false;			   
-		   var  dateObj = Date.parse(dateVal);		   
+		   //var  dateObj = Date.parse(dateVal);	
+		   var  dateObj = DateUtils.parse(dateVal,"dd/MM/yyyy");
 		   if(dateObj == null)
 			{
 			  	   $scope.removalExceptSales["salesDateTime"] = "";

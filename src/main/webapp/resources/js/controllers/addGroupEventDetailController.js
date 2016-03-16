@@ -42,7 +42,8 @@ var addGroupEventDetailController = pigTrax.controller('AddGroupEventDetailContr
 	  {
 		if(dateVal.length == 10)
 		{
-		   var  dateObj = Date.parse(dateVal);		   
+		   var  dateObj = Date.parse(dateVal);
+		   var  dateObj = DateUtils.parse(dateVal,"dd/MM/yyyy");
 		   if(dateObj == null)
 			{
 			   if(fieldName == "dateOfEntry")

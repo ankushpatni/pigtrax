@@ -75,7 +75,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	  {
 		if(dateVal.length == 10)
 		{
-		   var  dateObj = Date.parse(dateVal);		   
+		  // var  dateObj = Date.parse(dateVal);
+		   var  dateObj = DateUtils.parse(dateVal,"dd/MM/yyyy");	   
 		   if(dateObj == null)
 			{
 			   if(fieldName == "entryDate")

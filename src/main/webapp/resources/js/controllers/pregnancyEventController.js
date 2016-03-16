@@ -40,7 +40,8 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 	  {
 		if(dateVal.length == 10)
 		{
-		   var  dateObj = Date.parse(dateVal);		   
+		   //var  dateObj = Date.parse(dateVal);
+			 var  dateObj = DateUtils.parse(dateVal,"dd/MM/yyyy");
 		   if(dateObj == null)
 			{
 			   if(fieldName == "resultDate")
