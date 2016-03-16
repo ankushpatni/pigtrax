@@ -107,6 +107,7 @@
 	<script src="resources/js/controllers/feedReportController.js"></script>
 	<script src="resources/js/controllers/reportController.js"></script>
 	<script src="resources/js/controllers/gestationReportController.js"></script>
+	<script src="resources/js/controllers/groupStatusReportController.js"></script>
 	
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
