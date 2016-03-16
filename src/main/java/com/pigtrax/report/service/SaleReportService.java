@@ -74,7 +74,7 @@ public class SaleReportService {
 					rowBuffer.append(seprater);
 				
 				if(saleReportBean.getSalesEventDate() != null)
-					rowBuffer.append(DateUtil.convertToFormat(saleReportBean.getSalesEventDate(),"dd/MM/yyyy")).append(seprater);
+					rowBuffer.append(DateUtil.convertToFormatString(saleReportBean.getSalesEventDate(),"dd/MM/yyyy")).append(seprater);
 				else
 					rowBuffer.append(seprater);
 				

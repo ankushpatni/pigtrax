@@ -77,7 +77,7 @@ public class RemovalReportService {
 						rowBuffer.append(seprater);
 					
 					//rowBuffer.append(removalReportBean.getRemovalDate()).append(seprater);
-					rowBuffer.append(DateUtil.convertToFormat(removalReportBean.getRemovalDate(),"dd/MM/yyyy")).append(seprater);
+					rowBuffer.append(DateUtil.convertToFormatString(removalReportBean.getRemovalDate(),"dd/MM/yyyy")).append(seprater);
 					rowBuffer.append(removalReportBean.getNumberPigsRemoved()).append(seprater);
 					rowBuffer.append(removalReportBean.getAveWeight()).append(seprater);
 					rowBuffer.append(removalReportBean.getParity()).append(seprater);

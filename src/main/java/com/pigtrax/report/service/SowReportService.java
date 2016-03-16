@@ -120,7 +120,7 @@ public class SowReportService {
 						if(SowReportBean.getPigInfoId() != null)
 						{
 							rowBuffer.append(pidId + seprater);
-							rowBuffer.append(DateUtil.convertToFormat(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
+							rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 							if(SowReportBean.getBreedingEventId() != null && SowReportBean.getBreedingEventId()!=0 )
 							{
 								rowBuffer.append("Breeding"+seprater);

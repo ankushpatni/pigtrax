@@ -56,7 +56,7 @@ public class FeedReportService {
 						rowBuffer.append(seprater);
 					
 					if(feedReportBean.getFeedEventDate()!=null)
-						rowBuffer.append(DateUtil.convertToFormat(feedReportBean.getFeedEventDate(),"dd/MM/yyyy")).append(seprater);
+						rowBuffer.append(DateUtil.convertToFormatString(feedReportBean.getFeedEventDate(),"dd/MM/yyyy")).append(seprater);
 					else
 						rowBuffer.append(seprater);
 					

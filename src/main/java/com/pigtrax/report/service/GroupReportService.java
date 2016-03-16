@@ -348,7 +348,7 @@ public class GroupReportService {
 				for (GroupReportBeanwithPhase groupReportBeanwithPhase : groupList) {
 					rowBuffer = new StringBuffer();
 					rowBuffer.append(groupReportBeanwithPhase.getGroupEventId()+seprater);
-					rowBuffer.append(groupReportBeanwithPhase.getEventDate()+seprater);
+					rowBuffer.append(DateUtil.convertToFormatString(groupReportBeanwithPhase.getEventDate(),"dd/MM/yyyy")+seprater);
 					rowBuffer.append(groupReportBeanwithPhase.getEventName()+seprater);
 					if(groupReportBeanwithPhase.getData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getData()))
 					{
