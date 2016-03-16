@@ -34,6 +34,16 @@ pigTrax.controller('RationReportController', function($scope, $http, $window,$mo
     }
     
     
+    $scope.selectGroups = function()
+    {
+    	restServices.getActiveGroupEventsInPremise($scope.selectedPremise, function(data){
+    		if(!data.error)
+    		{
+    			 $scope.groupList = data.payload;
+    		}
+    	});
+    }
+    
     $scope.getCompanyList = function(){
     		restServices.getCompanyList(function(data){
     			 if(!data.error)

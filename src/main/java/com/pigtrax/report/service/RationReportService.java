@@ -20,8 +20,8 @@ public class RationReportService {
 
 	private static final String seprater = ",";
 
-	public List<String> getRationReportList(String premise, Integer premiseId, Date startDate, Date endDate) { 
-		List<RationReportBean> rationReportList = rationReportDao.getRationReportList(premiseId, startDate, endDate);
+	public List<String> getRationReportList(String premise, Integer premiseId, Date startDate, Date endDate, Integer groupId) { 
+		List<RationReportBean> rationReportList = rationReportDao.getRationReportList(premiseId, startDate, endDate, groupId);
 
 		ArrayList<String> returnRows = new ArrayList<String>();
 		if (rationReportList != null && rationReportList.size() > 0) {
