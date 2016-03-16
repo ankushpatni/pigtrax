@@ -83,7 +83,7 @@
 											<li><a href="rationReport"><spring:message code="label.leftmenu.reports.rationReport"  text="Feed Budget Tracking Report"/></a></li>
 											<li><a href="feedReport"><spring:message code="label.leftmenu.reports.feedReport"  text="Feed Report"/></a></li>
 											<li><a href="gestationReport"><spring:message code="label.leftmenu.reports.gestationReport"  text="Gestation Tracking Report"/></a></li>
-											<li><a href="gestationReport"><spring:message code="label.leftmenu.reports.groupStatusReport"  text="Group Status Report"/></a></li>
+											<li><a href="groupStatusReport"><spring:message code="label.leftmenu.reports.groupStatusReport"  text="Group Status Report"/></a></li>
   
                                 </ul>
                               </li>
