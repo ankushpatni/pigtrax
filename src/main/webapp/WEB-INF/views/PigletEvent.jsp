@@ -29,7 +29,7 @@
               </div>
               <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="rad1" id="pigId" class="icheck pigletevent" value="pigId" > <spring:message code='label.piginfo.pigleteventform.pigId'  text='Pig Id'/>
+                  <input type="radio" name="rad1" id="pigId" class="icheck pigletevent" value="pigId" > <spring:message code='label.piginfo.pigleteventform.pigInfoId'  text='Pig Id'/>
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="rad1"  id="pigletTattooId" class="icheck pigletevent" value="pigletTattooId"> <spring:message code='label.piginfo.pigleteventform.tattooId'  text='Tattoo'/> 

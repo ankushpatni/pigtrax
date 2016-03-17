@@ -159,9 +159,9 @@
 					</div>
 				    <div class=" block-flat bars-widget" ng-if="pigletStatusEvent.farrowEventId != null && pigletStatusEvent.farrowEventId>0 && !pigletStatusEventAlreadyAdded">
 		                <div class="spk4 pull-right spk-widget"></div>  
-		                <h4>Farrow Details</h4><div></div>
-		                <div>Farrow Event Date : {{DateUtils.getFormatedDate(pigletStatusEvent.farrowEventDto.farrowDateTime)}}</div>
-		                <div>Live Borns : {{pigletStatusEvent.farrowEventDto.liveBorns}}</div>
+		                <h4>;<spring:message code='label.leftmenu.managepigevents.farrowevent.link' text='Farrow' /></h4><div></div>
+		                <div><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> : {{DateUtils.getFormatedDate(pigletStatusEvent.farrowEventDto.farrowDateTime)}}</div>
+		                <div><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> : {{pigletStatusEvent.farrowEventDto.liveBorns}}</div>
 		            </div>					 
 					 <div class=" block-flat bars-widget" ng-if="fosterInRecords != null && fosterInRecords.length != 0">
 		                <div class="spk4 pull-right spk-widget"></div>

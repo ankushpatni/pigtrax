@@ -46,7 +46,7 @@
 				<thead>
                      <tr>     
                        <th><spring:message code='label.piginfo.farroweventform.farrowDateTime'  text='Farrow Date'/> </th>
-                       <th><spring:message code='label.piginfo.farroweventform.litterId'  text='Litter Id'/> </th>                   
+                       <th><spring:message code='label.piginfo.pigleteventform.litterId'  text='Litter Id'/> </th>                   
                        <th><spring:message code='label.piginfo.farroweventform.liveborns'  text='Live Borns'/> </th>                       
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>

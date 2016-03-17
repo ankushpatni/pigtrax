@@ -20,7 +20,7 @@
 				<th st-sort="name" style="width:20%"><spring:message code="label.transportDestination.name" text="Name" /></th>
 				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.address" text="Address" /></th>
 				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.city" text="City" /></th>
-				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.state" text="State" /></th>
+				<th st-sort="location" style="width:20%"><spring:message code="label.premise.state" text="State" /></th>
 				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.marketType" text="Market Type" /></th>
 				<th style="width:20%"><spring:message code="label.transportDestination.delete" text="Delete" /></th>
 			</tr>
