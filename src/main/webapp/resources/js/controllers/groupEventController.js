@@ -257,8 +257,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 			
 					"groupId" : $scope.groupEvent.groupId,
 					"companyId" : $rootScope.companyId,
-					"groupStartDateTime" : $scope.groupEvent.groupStartDateTime,
-					"groupCloseDateTime" : $scope.groupEvent.groupCloseDateTime,					
+					"groupStartDateTime" : DateUtils.convertLocaleDateToServer($scope.groupEvent.groupStartDateTime),
+					"groupCloseDateTime" : DateUtils.convertLocaleDateToServer($scope.groupEvent.groupCloseDateTime),					
 					"remarks" : $scope.groupEvent.remarks,
 					"phaseOfProductionTypeId" : $scope.groupEvent.phaseOfProductionTypeId,
 					"fromMove" : false,
@@ -274,7 +274,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					postParam.id = $scope.groupEvent.id;
 					postParam.active = $scope.groupEvent.active;
 				}
-			
+				
 			restServices.saveGroupEventInformation(postParam, function(data){
 				if(!data.error)
 					{
