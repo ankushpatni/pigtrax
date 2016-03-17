@@ -53,7 +53,11 @@ pigTrax.service("DateUtils", function($resource, $filter, $cookieStore) {
     	  {
     		  var parts = dateVal.split("/");
     		  var  dateObj = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10)-1, parseInt(parts[0], 10));
-    		  return dateObj;
+    		  var utcDate = new Date();
+              utcDate.setUTCDate(dateObj.getDate());
+              utcDate.setUTCMonth(dateObj.getMonth());
+              utcDate.setUTCFullYear(dateObj.getFullYear());
+              return utcDate;
     	  }
       }
 });
