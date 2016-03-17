@@ -250,6 +250,11 @@ $scope.removalEventTypeKeysValues = {};
 				$scope.clearAllMessages();
 				$scope.removalExceptSales.companyId = $scope.companyId;
 				console.log($scope.removalExceptSales);
+				
+				var removalDate = new Date($scope.removalExceptSales.removalDateTime);
+				$scope.removalExceptSales.removalDateTime = DateUtils.convertLocaleDateToServer(removalDate);
+				
+				
 				restServices.addRemovalExceptSales($scope.removalExceptSales, function(data){
 				console.log(data);
 					if(!data.error)

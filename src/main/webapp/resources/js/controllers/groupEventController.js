@@ -252,6 +252,14 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		}
 		if($scope.groupEventForm.$valid)
 		{
+			var startDate = new Date($scope.groupEvent["groupStartDateTime"]);
+			$scope.groupEvent["groupStartDateTime"] = DateUtils.convertLocaleDateToServer(startDate);
+			
+			if($scope.groupEvent["groupCloseDateTime"] != null)
+			{
+			var endDate = new Date($scope.groupEvent["groupCloseDateTime"]);
+			$scope.groupEvent["groupCloseDateTime"] = DateUtils.convertLocaleDateToServer(endDate);
+			}
 			
 			var postParam = {
 			
@@ -273,14 +281,6 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 				{
 					postParam.id = $scope.groupEvent.id;
 					postParam.active = $scope.groupEvent.active;
-				}
-				var startDate = new Date($scope.groupEvent["groupStartDateTime"]);
-				$scope.groupEvent["groupStartDateTime"] = DateUtils.convertLocaleDateToServer(startDate);
-				
-				if($scope.groupEvent["groupCloseDateTime"] != null)
-				{
-				var endDate = new Date($scope.groupEvent["groupCloseDateTime"]);
-				$scope.groupEvent["groupCloseDateTime"] = DateUtils.convertLocaleDateToServer(endDate);
 				}
 				
 				
