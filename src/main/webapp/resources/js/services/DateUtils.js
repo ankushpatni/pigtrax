@@ -50,9 +50,9 @@ pigTrax.service("DateUtils", function($resource, $filter, $cookieStore) {
     	  if(dateVal == null)
     		  return null;
     	  else
-    	  {
+    	  {    		 
     		  var parts = dateVal.split("/");
-    		  var  dateObj = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10)-1, parseInt(parts[0], 10));
+    		  var  dateObj = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10)-1, parseInt(parts[0], 10));    		
     		  var utcDate = new Date();
               utcDate.setUTCDate(dateObj.getDate());
               utcDate.setUTCMonth(dateObj.getMonth());

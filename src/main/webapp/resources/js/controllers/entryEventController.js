@@ -239,8 +239,8 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 					
 				else
 					{
-						$scope.pigInfo["birthDate"] = birthDate;
-						$scope.pigInfo["entryDate"] = entryDate;
+						$scope.pigInfo["birthDate"] = DateUtils.convertLocaleDateToServer(birthDate);
+						$scope.pigInfo["entryDate"] = DateUtils.convertLocaleDateToServer(entryDate);
 						$scope.pigInfo["companyId"] = $scope.companyId;
 						restServices.saveEntryEventInformation($scope.pigInfo, function(data){
 							if(!data.error)

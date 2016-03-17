@@ -270,6 +270,14 @@ var breedingEventController = pigTrax.controller('BreedingEventController', func
 		//$scope.matingDetails["matingDate"] =matingDate;
 		
 		//alert(JSON.stringify($scope.breedingEvent)); 
+		var matingDate = new Date($scope.matingDetails["matingDate"]);
+		$scope.matingDetails["matingDate"] = DateUtils.convertLocaleDateToServer(matingDate);
+		
+		if($scope.matingDetails["semenDate"] != null)
+		{
+			var semenDate = new Date($scope.matingDetails["semenDate"]);
+			$scope.matingDetails["semenDate"] = DateUtils.convertLocaleDateToServer(semenDate);
+		}
 		restServices.saveMatingDetails($scope.matingDetails, function(data){
 			if(!data.error)
 				{
