@@ -169,6 +169,9 @@ pigTrax.controller('ProductionLogController', function($scope,$rootScope, $http,
 			
 			$scope.productionLog["companyId"] = $rootScope.companyId;
 			
+			var observationDateVal = new Date($scope.productionLog["observationDate"]);
+			$scope.productionLog["observationDate"] = DateUtils.convertLocaleDateToServer(observationDateVal);
+			
 		   restServices.productionLog($scope.productionLog, function(data){			   
 			   $('#addProductionLogModal').modal('hide');
 			   $('body').removeClass('modal-open');

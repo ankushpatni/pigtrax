@@ -533,6 +533,22 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	{
 		//alert(JSON.stringify($scope.pigletStatusEvent));
 		
+		
+		if($scope.pigletStatusEvent["weanEventDateTime"] != null){
+			var weanEventDateVal = new Date($scope.pigletStatusEvent["weanEventDateTime"]);
+			$scope.pigletStatusEvent["weanEventDateTime"] = DateUtils.convertLocaleDateToServer(weanEventDateVal);
+		}
+		
+		if($scope.pigletStatusEvent["fosterEventDateTime"] != null){
+			var fosterEventDateVal = new Date($scope.pigletStatusEvent["fosterEventDateTime"]);
+			$scope.pigletStatusEvent["fosterEventDateTime"] = DateUtils.convertLocaleDateToServer(fosterEventDateVal);
+		}
+		
+		if($scope.pigletStatusEvent["deathEventDateTime"] != null){
+			var deathEventDateVal = new Date($scope.pigletStatusEvent["deathEventDateTime"]);
+			$scope.pigletStatusEvent["deathEventDateTime"] = DateUtils.convertLocaleDateToServer(deathEventDateVal);
+		}
+		
 		restServices.savePigletStatusEventInformation($scope.pigletStatusEvent, function(data){
 			if(!data.error)
 				{

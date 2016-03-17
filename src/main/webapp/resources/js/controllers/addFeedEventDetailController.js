@@ -139,6 +139,9 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 				}
 				$scope.feedEventDetail.feedEventId = feedEventDetailData.feedId;
 				
+				var feedEventDateVal = new Date($scope.feedEventDetail["feedEventDate"]);
+				$scope.feedEventDetail["feedEventDate"] = DateUtils.convertLocaleDateToServer(feedEventDateVal);
+				
 				restServices.addFeedEventDetail($scope.feedEventDetail, function(data){
 				console.log(data);
 					if(!data.error)

@@ -283,6 +283,10 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 				$scope.clearAllMessages();
 				$scope.removalExceptSales.companyId = $scope.companyId;
 				console.log($scope.removalExceptSales);
+				
+				var salesDateTime = new Date($scope.removalExceptSales.salesDateTime);
+				$scope.removalExceptSales.salesDateTime = DateUtils.convertLocaleDateToServer(salesDateTime);
+				
 				restServices.addSalesEventDetails($scope.removalExceptSales, function(data){
 				console.log(data);
 					if(!data.error)
