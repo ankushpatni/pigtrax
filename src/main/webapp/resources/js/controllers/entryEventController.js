@@ -32,7 +32,20 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 	{
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId+'&premisesType=1,6,8');
 		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
 			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
+	$scope.loadPigInfo = function()
+	{
+		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+$rootScope.companyId+'&premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
+			$scope.pigInfoList = data.payload;
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});

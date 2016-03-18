@@ -31,4 +31,6 @@ public interface PigInfoService {
 			throws Exception;
 
 	PigInfoDto getPigInformationWithOutStatus(PigInfoDto dto) throws Exception;
+	
+	public List<PigInfoDto> getActivePigInformationListByPremises(Integer companyId, Integer premiseId) throws PigTraxException, ParseException ;
 }  

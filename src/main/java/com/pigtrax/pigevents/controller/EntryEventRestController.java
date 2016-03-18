@@ -34,6 +34,7 @@ import com.pigtrax.pigevents.service.interfaces.PigInfoService;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("rest/entryEvent")
@@ -376,6 +377,32 @@ public class EntryEventRestController {
 			dto.setStatusMessage("ERROR : "+e.getMessage());
 		} catch (Exception e) {
 			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}
+		return dto;
+	}
+	
+	/**
+	 * Service to retrive the list of employees
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/getPigInfoList", method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getPigInfoList(HttpServletRequest request,@RequestParam int companyId, @RequestParam int premiseId)
+	{
+		logger.info("Inside getPigInfoList method" );
+		
+		ServiceResponseDto dto = new ServiceResponseDto();
+		//Map<String, Object> entryEventMap = new HashMap<String, Object>();
+		try {
+			List<PigInfoDto> pigInfoDtoList = pigInfoService.getActivePigInformationListByPremises(companyId,premiseId);
+			dto.setPayload(pigInfoDtoList);
+			if(pigInfoDtoList != null && pigInfoDtoList.size() >0)
+				dto.setStatusMessage("Success");
+			else
+				dto.setStatusMessage("ERROR : Pig Information not found");
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR");
 		}
 		return dto;
 	}

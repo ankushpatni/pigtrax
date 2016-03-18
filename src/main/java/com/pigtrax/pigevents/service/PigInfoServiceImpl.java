@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -307,4 +308,21 @@ public class PigInfoServiceImpl implements PigInfoService {
 		return builder.convertToDto(info);
 	}
 	
+	@Override
+	public List<PigInfoDto> getActivePigInformationListByPremises(Integer companyId, Integer premiseId) throws PigTraxException, ParseException {
+			
+			List<PigInfoDto> pigInfoDtoList = new LinkedList<PigInfoDto>();
+			try {
+				List<PigInfo> pigInfoList =  pigInfoDao.getActivePigInformationList(companyId,premiseId);
+				for(PigInfo pigInfo : pigInfoList)
+					{
+						pigInfoDtoList.add(builder.convertToDto(pigInfo));
+					}
+				
+			} catch (SQLException e) {
+				throw new PigTraxException(e.getMessage());
+			} 
+		
+		return pigInfoDtoList;
+	}	
 }
