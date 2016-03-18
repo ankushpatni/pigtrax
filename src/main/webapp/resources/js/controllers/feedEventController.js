@@ -25,14 +25,14 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		});	
 	}
 	
-	$scope.loadPigInfo = function()
+	$scope.loadTicketNumber = function()
 	{
-		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+$rootScope.companyId+'&premiseId='+$scope.selectedPremise);
-		res.success(function(data, status, headers, config) {
-		console.log(data.payload);
-			$scope.pigInfoList = data.payload;
+		var res1 = $http.get('rest/feedEvent/getFeedEventsByPremises?id='+$scope.selectedPremise);
+		res1.success(function(data, status, headers, config) {
+			console.log(data);
+			$scope.feedEventDetailList = data.payload;			
 		});
-		res.error(function(data, status, headers, config) {
+		res1.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
 	}
