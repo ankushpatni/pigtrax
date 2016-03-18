@@ -24,25 +24,39 @@
 				            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.errormessage' text='Please enter Group Id/Pig Id/Removal Event Id  and select the corresponding option'/></p>
 				            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.data.errormessage' text='Removal/Sales information not found for the search criteria'/></p>
 							<div  class="form-group">
-		             			<select class="form-control" name="premiseId" ng-model="premiseId"  ng-options="k as v for (k, v) in premiseNameMap"></select>		             			
+		             			<select class="form-control" name="premiseId" ng-model="premiseId"  ng-options="k as v for (k, v) in premiseNameMap" ng-change="loadPigAndGroupInfo()"></select>		             			
 							</div>
-				            <input type="text" name="search" ng-model="searchText"  ng-enter="searchRemovalEvent(searchText)" placeholder="<spring:message code='label.piginfo.removalExceptSales.search.placeholder'  text='Search by Group Id/Pig Id/Removal Event Id ...'/>" class="form-control">
-				 
-							 <div class="options">
-							 <div class="btn-group pull-right">
-				                <button type="button" class="btn btn-primary active" ng-click="searchRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
-				              </div>
-				              <div class="form-group">
+				            <div class="options">
+							  <div class="form-group">
 				              <label class="radio-inline">
-				                  <input type="radio" name="rad1"  id="rad1" class="icheck removal" value="groupId"> <spring:message code='label.piginfo.removalExceptSales.search.groupId.option'  text='Group Id'/> 
+				                  <input type="radio" name="rad1"  id="rad1" class="removal" value="groupId" ng-model="selectGroup" ng-change="loadGroupEvents()"> <spring:message code='label.piginfo.removalExceptSales.search.groupId.option'  text='Group Id'/> 
 				                </label>
 				                <label class="radio-inline">
-				                  <input type="radio" name="rad1" id="rad2" class="icheck removal" value="pigId" > <spring:message code='label.piginfo.removalExceptSales.search.pigid.option'  text='Pig Id'/>
+				                  <input type="radio" name="rad1" id="rad2" class="removal" value="pigId" ng-model="selectGroup" ng-change="loadPigInfo()"> <spring:message code='label.piginfo.removalExceptSales.search.pigid.option'  text='Pig Id'/>
 				                </label>
-				                 <%-- <label class="radio-inline">
+				                 <!-- <label class="radio-inline">
 				                  <input type="radio" name="rad1"  id="rad3" class="icheck removal" value="removalId"> <spring:message code='label.piginfo.removalExceptSales.search.removalId.option'  text='Removal Event Id'/> 
-				                </label> --%>				
+				                </label> -->				
 				              </div>
+							  
+							  <div  class="form-group" ng-show="selectGroup==='pigId'">
+				 
+								  <button type="button" class="btn btn-primary active btn-group pull-right" ng-enter="searchRemovalEvent(searchText)" ng-click="searchRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
+								
+									 <select  class="form-control"  name="search" ng-model="searchText" style="width:85%">
+												<option value="" hidden><spring:message code='label.piginfo.pigId.placeholder' text='Select PigId' /></option>
+												<option ng-repeat="pigInfoSearch in pigInfoListSearch" value="{{pigInfoSearch.pigId}}" ng-value="pigInfoSearch.pigId" ng-selected="searchText == pigInfoSearch.pigId">{{pigInfoSearch.pigId}}</option>
+												</select>
+							</div>
+							<div  class="form-group" ng-show="selectGroup==='groupId'">
+								 
+								  <button type="button" class="btn btn-primary active btn-group pull-right" ng-enter="searchRemovalEvent(searchText)" ng-click="searchRemovalEvent(searchText)"><i class="fa fa-search"></i></button>
+								
+									 <select  class="form-control"  name="search" ng-model="searchText" style="width:85%">
+												<option value="" hidden><spring:message code='label.piginfo.groupId.placeholder' text='Select GroupId' /></option>
+												<option ng-repeat="groupEventSearch in groupEventListSearch" value="{{groupEventSearch.groupId}}" ng-value="groupEventSearch.groupId" ng-selected="searchText == groupEventSearch.groupId">{{groupEventSearch.groupId}}</option>
+												</select>
+							</div>
 				            </div>            
 				          </div>
 		  			</form>	
