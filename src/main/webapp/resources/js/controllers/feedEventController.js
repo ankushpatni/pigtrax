@@ -30,7 +30,7 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		var res1 = $http.get('rest/feedEvent/getFeedEventsByPremises?id='+$scope.selectedPremise);
 		res1.success(function(data, status, headers, config) {
 			console.log(data);
-			$scope.feedEventDetailList = data.payload;			
+			$scope.feedEventTicketNumberDetailList = data.payload;			
 		});
 		res1.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});

@@ -24,7 +24,7 @@
 								<button type="button" class="btn btn-primary active pull-right" ng-click="getFeedEvent(searchText, selectedPremise)"><i class="fa fa-search"></i></button>
 								<select  class="form-control"  name="search" id="searchText" ng-model="searchText"  ng-change="loadTicketNumber()" style="width:90%">
 									<option value="" hidden><spring:message code='label.piginfo.feedEventForm.search.placeholder' text='Search by Ticket Number ...' /></option>
-									<option ng-repeat="feedEvent in feedEventDetailList" value="{{feedEvent.ticketNumber}}" ng-value="feedEvent.ticketNumber" ng-selected="searchText == feedEvent.ticketNumber">{{feedEvent.ticketNumber}}</option>
+									<option ng-repeat="feedEvent in feedEventTicketNumberDetailList" value="{{feedEvent.ticketNumber}}" ng-value="feedEvent.ticketNumber" ng-selected="searchText == feedEvent.ticketNumber">{{feedEvent.ticketNumber}}</option>
 					             </select>
 							 
 							 </div>

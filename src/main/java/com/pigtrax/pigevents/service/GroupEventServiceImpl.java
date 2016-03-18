@@ -586,6 +586,24 @@ public class GroupEventServiceImpl implements GroupEventService{
 		}
 		return 0;
 	}
+	
+	@Override
+	public List<GroupEvent> getGroupEventByPremiseWithoutStatus( 
+			int premiseId)  throws PigTraxException  {
+		List<GroupEvent> groupEventList = null;
+		try
+		{
+			 groupEventList = groupEventDao.getGroupEventByPremise(premiseId);
+			
+		} 
+		catch (SQLException sqlEx)
+		{
+			logger.info("No GroupEvent found for given premise is : " + premiseId + "/"
+					+ sqlEx.getCause());
+			throw new PigTraxException(sqlEx.getMessage());
+		} 
+		return groupEventList;
+	}
 
 	
 }

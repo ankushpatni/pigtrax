@@ -37,6 +37,8 @@ public interface GroupEventService {
 
 	int addGroupEventFromTransfer(GroupEvent groupEvent)
 			throws PigTraxException;
+
+	List<GroupEvent> getGroupEventByPremiseWithoutStatus(int premiseId) throws PigTraxException;
 		
 
 }
