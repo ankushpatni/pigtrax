@@ -86,6 +86,18 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 		});	
 	}
 	
+	$scope.loadPigInfo = function()
+	{
+		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+$rootScope.companyId+'&premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
+			$scope.pigInfoList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	
 	$scope.loadPage = function(companyId, selectedFarrowEventId)
 	{ 
