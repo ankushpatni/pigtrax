@@ -246,7 +246,7 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 				   $scope.clearAllMessages();
 				   var statusCode = data.payload;
 				   if(statusCode == 0)
-				   {
+				   {   
 						//alert(JSON.stringify($scope.pregnancyEvent));
 						restServices.savePregnancyEventInformation($scope.pregnancyEvent, function(data){
 							if(!data.error)

@@ -188,6 +188,30 @@ public class PenDaoImpl implements PenDao {
 	}
 	
 	@Override
+	public List<Pen> getPenListByPremiseId(final Integer premiseId, final String barnType)
+			throws SQLException {
+		 String Qry = "";
+		  if(barnType != null && "farrow".equalsIgnoreCase(barnType))
+			  Qry = "Select \"id\", \"penId\", \"id_Room\", \"location\", \"isActive\" from pigtrax.\"Pen\" where  \"isActive\" is true and "
+			  		+" \"id_Room\" in (Select \"id\" from pigtrax.\"Room\" where \"id_Barn\" in (select B.\"id\" from pigtrax.\"Barn\" B Join pigtraxrefdata.\"PhaseType\" PT ON B.\"id_PhaseType\" = PT.\"id\" " 
+			  		+" where B.\"id_Premise\" = ? and B.\"isActive\" is true and PT.\"fieldDescription\" = 'Farrow' ) " 
+			  		+" and  \"isActive\" is true) order by \"penId\" ";
+		  else
+			  Qry = "Select \"id\", \"penId\", \"id_Room\", \"location\", \"isActive\" from pigtrax.\"Pen\" where  \"isActive\" is true and "
+				  		+" \"id_Room\" in (Select \"id\" from pigtrax.\"Room\" where \"id_Barn\" in (select B.\"id\" from pigtrax.\"Barn\" B Join pigtraxrefdata.\"PhaseType\" PT ON B.\"id_PhaseType\" = PT.\"id\" " 
+				  		+" where B.\"id_Premise\" = ? and B.\"isActive\" is true and PT.\"fieldDescription\"  in ('Nursery','Finishing','Wean to finish') ) " 
+				  		+" and  \"isActive\" is true) order by \"penId\" ";
+		  
+			  List<Pen> penList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, premiseId);
+					}}, new PenMapper());
+
+			  return penList;
+	}
+	
+	
+	@Override
 	public Pen findPenByGeneratedId(final Integer penId) throws SQLException {
 		String Qry = "Select \"id\", \"penId\", \"id_Room\", \"location\", \"isActive\" from pigtrax.\"Pen\" where  \"isActive\" is true and \"id\"=?";		  		
 		  List<Pen> penList = jdbcTemplate.query(Qry, new PreparedStatementSetter(){

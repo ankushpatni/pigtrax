@@ -61,5 +61,12 @@ public interface RoomService {
 	 */
 	public Map<Integer,String> getRoomListBasedOnPremise( int premiseId );
 	
+	/**
+	 * To get the list of Room BIdased on premise and barn type
+	 * @return List<Room>
+	 * @throws SQLException 
+	 */
+	public Map<Integer,String> getRoomListBasedOnPremise( int premiseId, String barnType );
+	
 
 }

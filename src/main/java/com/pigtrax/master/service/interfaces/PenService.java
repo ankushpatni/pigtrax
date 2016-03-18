@@ -41,6 +41,8 @@ public interface PenService {
 	
 	List<Pen> getPenListByPremiseId(Integer premiseId) throws PigTraxException;
 	
+	List<Pen> getPenListByPremiseId(Integer premiseId, String barnType) throws PigTraxException;
+	
 	/**
 	 * Get the list of Pen for a given company
 	 * @param companyId

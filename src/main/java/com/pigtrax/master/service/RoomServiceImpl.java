@@ -102,5 +102,27 @@ public class RoomServiceImpl implements RoomService{
 		}
 		return roomIdMap;
 	}
+	
+	@Override
+	public Map<Integer, String> getRoomListBasedOnPremise(int premiseId,
+			String barnType) {
+		Map<Integer,String> roomIdMap = new LinkedHashMap<Integer,String>();
+		try
+		{
+		List<Room> roomList =  roomDao.getRoomListBasedOnPremise(premiseId, barnType);
+			if(null != roomList && roomList.size()>0)
+			{
+				for(Room room : roomList)
+				{
+					roomIdMap.put(room.getId(),room.getRoomId());
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return roomIdMap;
+	}
 
 }

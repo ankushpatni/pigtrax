@@ -67,11 +67,15 @@ public class RoomRestController {
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getRoomsForPremise", method=RequestMethod.POST, produces="application/json", consumes="application/json")
-	public ServiceResponseDto getRoomsForPremise(@RequestBody int premiseId)
+	public ServiceResponseDto getRoomsForPremise(@RequestBody Integer premiseId, @RequestParam(value="barnType", required=false) String barnType)
 	{
 		logger.info("Inside getRoomsForPremise" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		Map<Integer, String> roomMap   = roomService.getRoomListBasedOnPremise(premiseId);
+		Map<Integer, String> roomMap   = null; 
+		if(barnType!= null && 0 < barnType.trim().length())
+			roomMap = roomService.getRoomListBasedOnPremise(premiseId, barnType);
+		else
+			roomMap = roomService.getRoomListBasedOnPremise(premiseId);
 		dto.setPayload(roomMap);
 		dto.setStatusMessage("Success");
 		return dto;

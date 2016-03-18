@@ -205,5 +205,35 @@ public class RoomDaoImpl implements RoomDao {
 			return room;
 		}
 	}
+	
+	
+	@Override
+	public List<Room> getRoomListBasedOnPremise(final int premiseId,
+			final String barnType) throws SQLException {
+		String query = "";
+		if(barnType != null && "farrow".equalsIgnoreCase(barnType))
+			query = "SELECT Vw.\"roomserrialid\" as \"id\",Vw.\"roomId\" from pigtrax.\"CompPremBarnRoomPenVw\" Vw JOIN pigtrax.\"Barn\" B ON Vw.\"barnserialid\" = B.\"id\" "
+				+" JOIN pigtraxrefdata.\"PhaseType\" PT ON B.\"id_PhaseType\" = PT.\"id\" "
+				+" where Vw.\"roomId\" != '' and Vw.premiseserialid = ? and PT.\"fieldDescription\" = 'Farrow'";
+		else
+			query = "SELECT Vw.\"roomserrialid\" as \"id\",Vw.\"roomId\" from pigtrax.\"CompPremBarnRoomPenVw\" Vw JOIN pigtrax.\"Barn\" B ON Vw.\"barnserialid\" = B.\"id\" "
+					+" JOIN pigtraxrefdata.\"PhaseType\" PT ON B.\"id_PhaseType\" = PT.\"id\" "
+					+" where Vw.\"roomId\" != '' and Vw.premiseserialid = ? and PT.\"fieldDescription\" in ('Nursery','Finishing','Wean to finish')";
+			
+		//CompPremBarnRoomPenVw
+			List<Room> roomList = jdbcTemplate.query(query,
+					new PreparedStatementSetter() {
+						@Override
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setInt(1, premiseId);
+						}
+					}, new RoomMapperList());
+		
+			if (roomList != null && roomList.size() > 0) {
+				return  roomList;
+			}
+			return null;
+	}
 
 }

@@ -97,19 +97,20 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	
 	
 	$scope.getRooms = function(isOnChange)
-	{	
-	
+	{		
 		if(isOnChange)
 			$scope.groupEvent["roomIds"] = [];
-		restServices.getRoomsForPremise($scope.groupEvent["premiseId"], function(data){
-			if(!data.error){
+		var res = $http.post('rest/room/getRoomsForPremise?barnType=groupevent', $scope.groupEvent["premiseId"]);
+		res.success(function(data, status, headers, config) {
+			if(!data.error)
+			{
 				$scope.roomType = data.payload;
 				$scope.roomValues = [];
 				angular.forEach($scope.roomType, function(key, value){					
                    var itemObj = {"id" : value, "label":key}  
 				   $scope.roomValues.push(itemObj);
-               })			   
-			}
+               })		
+			}				
 		});
 	}
 	

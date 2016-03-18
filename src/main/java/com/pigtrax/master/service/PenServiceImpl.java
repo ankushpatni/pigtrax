@@ -100,5 +100,18 @@ public class PenServiceImpl implements PenService {
 		return penIdMap;
 		
 	}
+	
+	@Override
+	public List<Pen> getPenListByPremiseId(Integer premiseId, String barnType)
+			throws PigTraxException {
+		try{
+			List<Pen> penList = penDao.getPenListByPremiseId(premiseId, barnType);
+			return penList;
+		}catch(SQLException sqlEx)
+		{
+			throw new PigTraxException(sqlEx.getMessage());
+		}		
+		
+	}
 
 }

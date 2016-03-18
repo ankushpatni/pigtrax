@@ -119,11 +119,13 @@ var pregnancyEventController = pigTrax.controller('FarrowEventController', funct
 	
 	
 	$scope.getPenList = function(){
-		restServices.getPenListForPremise($scope.farrowEvent["premiseId"], function(data){
-			 if(!data.error)
-			 {
-				 $scope.penInfo = data.payload;
-			 }
+		
+		var res = $http.post('rest/farrowEvent/getPenListForPremise?barnType=farrow', $scope.farrowEvent["premiseId"]);
+		res.success(function(data, status, headers, config) {
+			if(!data.error)
+			{
+				 $scope.penInfo = data.payload;		
+			}				
 		});
 	};
 	

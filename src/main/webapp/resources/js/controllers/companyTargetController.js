@@ -32,8 +32,9 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	$scope.companyTarget = {};
 	$scope.DateUtils = DateUtils;
 	$scope.ShowRationOption = false;
-	$scope.usedTargetKeys = null;
-	$scope.limitedTargetKeys = null;
+	$scope.usedTargetKeys = [];
+	$scope.limitedTargetKeys = [];
+	$scope.s1TargetKeys = [];
 	
 	
 	$scope.setCompanyId = function(companyId)
@@ -52,8 +53,15 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 				{
 				  var responseList = data.payload;
 				  $scope.keys = responseList[0];
-				  $scope.limitedTargetKeys = responseList[1];
-				  $scope.targetTypes = responseList[2];
+				  for(i = 0; i < $scope.keys.length; i++)
+				  {
+					  if($scope.keys[i] >=97 && $scope.keys[i] <=105)
+						  $scope.limitedTargetKeys.push($scope.keys[i]);
+					  else
+						  $scope.s1TargetKeys.push($scope.keys[i]);
+				  }
+				  
+				  $scope.targetTypes = responseList[3];
 				  $scope.usedTargetKeys =$scope.keys ;
 				}
 		});
@@ -107,14 +115,22 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 			if(premiseObj["id"] == $scope.companyTarget["premiseId"])
 				break;		   
 		}
-		 if(premiseObj["sowSource"] != "Yes")
+		 if(premiseObj["premiseTypeId"] == 6 || premiseObj["premiseTypeId"] == 8 )
 		  {
-			  $scope.usedTargetKeys = $scope.limitedTargetKeys;
+			  $scope.usedTargetKeys = $scope.keys;
 		  }
+		 else if(premiseObj["premiseTypeId"] == 1)
+		  {
+			 	$scope.usedTargetKeys  = $scope.s1TargetKeys;
+		  }
+		  else if(premiseObj["premiseTypeId"] == 2 || premiseObj["premiseTypeId"] == 3 || premiseObj["premiseTypeId"] == 7)
+		  {
+			  $scope.usedTargetKeys = $scope.limitedTargetKeys ;
+		  }		
 		  else
 		  {
-			  $scope.usedTargetKeys = $scope.keys ;
-		  }			
+			  $scope.usedTargetKeys = [];
+		   }
 	}
 	
 	

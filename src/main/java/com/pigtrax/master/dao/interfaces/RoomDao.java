@@ -58,6 +58,13 @@ public interface RoomDao {
 	 * @throws SQLException 
 	 */
 	public List<Room> getRoomListBasedOnPremise( int premiseId ) throws SQLException;
+	
+	/**
+	 * To get the list of Room BIdased on premise and barn type
+	 * @return List<Room>
+	 * @throws SQLException 
+	 */
+	public List<Room> getRoomListBasedOnPremise( int premiseId, String barnType) throws SQLException;
 
 
 	Room getRoomListBasedOnPen(int penId) throws SQLException;

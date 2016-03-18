@@ -160,12 +160,13 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 	};
 	
 	
-	$scope.getPenList = function(){
-		restServices.getPenListForPremise($scope.pigletStatusEvent["premiseId"], function(data){
-			 if(!data.error)
-			 {
+	$scope.getPenList = function(){		
+		var res = $http.post('rest/farrowEvent/getPenListForPremise?barnType=farrow', $scope.pigletStatusEvent["premiseId"]);
+		res.success(function(data, status, headers, config) {
+			if(!data.error)
+			{
 				 $scope.penInfo = data.payload;
-			 }
+			}				
 		});
 	};
 	

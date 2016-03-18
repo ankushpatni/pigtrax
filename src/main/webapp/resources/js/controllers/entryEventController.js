@@ -191,11 +191,12 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 		
 		$scope.getRooms = function()
 		{
-			restServices.getRoomsForPremise($scope.pigInfo.premiseId, function(data){
-				if(!data.error){
-					
-					$scope.roomMap = data.payload;					
-				}
+			var res = $http.post('rest/room/getRoomsForPremise?barnType=farrow', $scope.pigInfo.premiseId);
+			res.success(function(data, status, headers, config) {
+				if(!data.error)
+				{
+					$scope.roomMap = data.payload;		
+				}				
 			});
 		}
 		

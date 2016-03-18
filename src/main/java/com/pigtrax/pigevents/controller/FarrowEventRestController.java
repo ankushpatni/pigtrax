@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
@@ -61,12 +62,17 @@ public class FarrowEventRestController {
 	 */
 	@RequestMapping(value = "/getPenListForPremise", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public ServiceResponseDto getPenListForPremise(HttpServletRequest request, @RequestBody Integer premiseId)
+	public ServiceResponseDto getPenListForPremise(HttpServletRequest request, @RequestBody Integer premiseId, @RequestParam(value="barnType", required=false) String barnType)
 	{
 		logger.info("Inside getPenListForPremise method" );
 		ServiceResponseDto dto = new ServiceResponseDto();
 		try {
-			List<Pen> penList = penService.getPenListByPremiseId(premiseId); 
+			List<Pen> penList = null;
+			
+			if(barnType!= null && 0 < barnType.trim().length())
+				penList = penService.getPenListByPremiseId(premiseId, barnType);
+			else
+				penList = penService.getPenListByPremiseId(premiseId);
 			dto.setPayload(penList);
 		} catch (PigTraxException e) { 
 			dto.setStatusMessage("ERROR : "+e.getMessage());

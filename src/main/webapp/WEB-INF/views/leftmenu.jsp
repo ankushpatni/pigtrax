@@ -61,8 +61,7 @@
                                          	<li><a href="pigFeedEvent"><spring:message code="label.leftmenu.managepigevents.feedevent.link"  text="Feed Event"/></a></li>											
 											<li><a href="toChangeId"><spring:message code="label.leftmenu.managepigevents.changeid.link"  text="Change Id"/></a></li>
                                          	<li><a href="loadPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></li>
-                                         	<li><a href="getProductionLogs"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>
-											<li><a href="sowMomentEvent"><spring:message code="label.leftmenu.managepigevents.sowMomentEvent.link"  text="Sow Movement Event"/></a></li>
+                                         	<li><a href="getProductionLogs"><spring:message code="label.leftmenu.managepigevents.productionlog.link"  text="Production Log"/></a></li>											
                                          </ul>
                                       </li>
                                       <%}%>
@@ -84,6 +83,7 @@
 											<li><a href="feedReport"><spring:message code="label.leftmenu.reports.feedReport"  text="Feed Report"/></a></li>
 											<li><a href="gestationReport"><spring:message code="label.leftmenu.reports.gestationReport"  text="Gestation Tracking Report"/></a></li>
 											<li><a href="groupStatusReport"><spring:message code="label.leftmenu.reports.groupStatusReport"  text="Group Status Report"/></a></li>
+											<li><a href="sowMomentEvent"><spring:message code="label.leftmenu.managepigevents.sowMomentEvent.link"  text="Sow Movement Event"/></a></li>
   
                                 </ul>
                               </li>
