@@ -1,10 +1,10 @@
 pigTrax.controller('removalReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
-
+	var localCompany ;
 	
 	$scope.loadPremises = function(comapnyId)
 	{
-		var localCompany ;
+		
 		if(comapnyId === undefined )
 		{
 			localCompany = $scope.selectedCompany;
@@ -21,6 +21,26 @@ pigTrax.controller('removalReportController', function($scope, $http, $window,$m
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+	}
+	
+	$scope.loadPigAndGroupInfo = function()
+	{
+		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+localCompany+'&premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
+			$scope.pigInfoListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		
+		var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+			$scope.groupEventListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
 	}
 	
         

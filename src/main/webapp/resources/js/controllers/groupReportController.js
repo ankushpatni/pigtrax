@@ -1,10 +1,10 @@
 pigTrax.controller('groupReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
-
+	var localCompany ;
 	
 	$scope.loadPremises = function(comapnyId)
 	{
-		var localCompany ;
+		
 		if(comapnyId === undefined )
 		{
 			localCompany = $scope.selectedCompany;
@@ -21,6 +21,17 @@ pigTrax.controller('groupReportController', function($scope, $http, $window,$mod
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+	}
+	
+	$scope.loadGroupInfo = function()
+	{
+		var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+			$scope.groupEventListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
 	}
 	
         
