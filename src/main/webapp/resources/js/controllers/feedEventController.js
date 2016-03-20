@@ -25,6 +25,18 @@ var feedEventController = pigTrax.controller('FeedEventController', function($sc
 		});	
 	}
 	
+	$scope.loadTicketNumber = function()
+	{
+		var res1 = $http.get('rest/feedEvent/getFeedEventsByPremises?id='+$scope.selectedPremise);
+		res1.success(function(data, status, headers, config) {
+			console.log(data);
+			$scope.feedEventTicketNumberDetailList = data.payload;			
+		});
+		res1.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	
 	$scope.dateCheck = function(dateVal, fieldName)
 	{			

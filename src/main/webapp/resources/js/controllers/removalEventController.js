@@ -64,6 +64,26 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			}		
 	};
 	
+	$scope.loadPigAndGroupInfo = function()
+	{
+		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+$rootScope.companyId+'&premiseId='+$scope.premiseId);
+		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
+			$scope.pigInfoListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		
+		var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.premiseId);
+		res.success(function(data, status, headers, config) {
+			$scope.groupEventListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.resetForm = function()
 	{
 		$scope.clearAllMessages();

@@ -17,27 +17,40 @@
             <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.errormessage' text='Please enter Pig Id/ Tattoo and select the corresponding option'/></p>
             <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.breedingeventform.search.data.errormessage' text='Breeding event information not found for the search criteria'/></p>
 			<div  class="form-group">
-              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise" ng-change="loadPigInfo()" >
 			  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
               <option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
               </select>
 			</div>
-			<div  class="form-group">						
-            <input type="text" name="search" ng-enter="getBreedingEventInformation()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.breedingeventform.search.placeholder'  text='Search by Pig Id/ Tattoo ...'/>" class="form-control">
- 		    </div>
+			
             <div class="options">
-			 <div class="btn-group pull-right">
-                <button type="button" class="btn btn-primary active" ng-click="getBreedingEventInformation()"><i class="fa fa-search"></i></button>
-              </div>
-              <div class="form-group">
+			  <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="rad1" id="rad1" class="icheck breedingevent" value="pigId" > <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
+                  <input type="radio" name="rad1" id="rad1" class="breedingevent" value="pigId" ng-model="selectGroup"> <spring:message code='label.piginfo.breedingeventform.search.pigid.option'  text='Pig Id'/>
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="rad1"  id="rad2" class="icheck breedingevent" value="tattoo"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
+                  <input type="radio" name="rad1"  id="rad2" class="breedingevent" value="tattoo" ng-model="selectGroup"> <spring:message code='label.piginfo.breedingeventform.search.tattoo.option'  text='Tattoo'/> 
                 </label>				
               </div>
             </div>
+			<div  class="form-group" ng-show="selectGroup==='pigId'">
+				 
+				  <button type="button" class="btn btn-primary active btn-group pull-right" ng-enter="getBreedingEventInformation()" ng-click="getBreedingEventInformation()"><i class="fa fa-search"></i></button>
+				
+					 <select  class="form-control"  name="search" ng-model="searchText" style="width:90%">
+								<option value="" hidden><spring:message code='label.piginfo.pigId.placeholder' text='Select PigId' /></option>
+								<option ng-repeat="pigInfo in pigInfoList" value="{{pigInfo.pigId}}" ng-value="pigInfo.pigId" ng-selected="searchText == premise.pigId">{{pigInfo.pigId}}</option>
+								</select>
+			</div>
+			<div  class="form-group" ng-show="selectGroup==='tattoo'">
+				 
+				  <button type="button" class="btn btn-primary active btn-group pull-right" ng-enter="getBreedingEventInformation()" ng-click="getBreedingEventInformation()"><i class="fa fa-search"></i></button>
+				
+					 <select  class="form-control"  name="search" ng-model="searchText" style="width:90%">
+								<option value="" hidden><spring:message code='label.piginfo.tatto.placeholder' text='Select Tattoo' /></option>
+								<option ng-repeat="pigInfo in pigInfoList" value="{{pigInfo.tattoo}}" ng-value="pigInfo.tattoo" ng-selected="searchText == premise.tattoo">{{pigInfo.tattoo}}</option>
+								</select>
+			</div>
           </div>
 		  </form>
 		  <form name="breedingEventSearchResultForm"  ng-if="breedingEventList != null && breedingEventList.length != 0" >

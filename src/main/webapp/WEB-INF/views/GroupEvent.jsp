@@ -14,15 +14,19 @@
 			            	<h3> <spring:message code='label.piginfo.groupEventForm.search.heading'  text='Search Group Events'/></h3>
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.groupEventForm.search.data.errormessage' text='Group event information not found for the search criteria'/></p>
 			               	<div  class="form-group">
-				              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+				              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="loadGroupEvents()">
 							  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
 				              <option ng-repeat="premise in farmList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
 				              </select>
 				             </div>
            					<div  class="form-group">  	
-					   		 <input type="text" name="search"  ng-enter="getGroupEventInformation(searchText, selectedPremise)" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.groupEventForm.search.placeholder'  text='Search by Group Id ...'/>" class="form-control" style="width:90%;display:inline">
-							 <button type="button" class="btn btn-primary active" ng-click="getGroupEventInformation(searchText, selectedPremise)"><i class="fa fa-search"></i></button>
+					   		<!--  <input type="text" name="search"  ng-enter="getGroupEventInformation(searchText, selectedPremise)" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.groupEventForm.search.placeholder'  text='Search by Group Id ...'/>" class="form-control" style="width:90%;display:inline"> -->
+							 <button type="button" class="btn btn-primary active pull-right" ng-click="getGroupEventInformation(searchText, selectedPremise)"><i class="fa fa-search"></i></button>
+							 <select  class="form-control"  name="search" id="searchText" ng-model="searchText"  style="width:90%;display:inline">
+									<option value="" hidden><spring:message code='label.piginfo.groupEventForm.search.placeholder' text='Search by Group Id ...' /></option>
+									<option ng-repeat="groupEvent in groupEventFromPremisesList" value="{{groupEvent.groupId}}" ng-value="groupEvent.groupId" ng-selected="searchText == groupEvent.groupId">{{groupEvent.groupId}}</option>
+					             </select>
 							 </div>
 			          	</div>
 					  </form>	

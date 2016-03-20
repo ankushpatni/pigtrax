@@ -31,17 +31,25 @@
 						</div>
 							<%}%>
 						<div  class="form-group">
-						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise" ng-change="loadPigAndGroupInfo()" >
 								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
                       		  </select>
 						</div>
 						<div  class="form-group">			
- 		   				 <input type="text" name="pigId" id="pigId" class="form-control" ng-model="pigId" placeholder="<spring:message code='label.sowReport.search.pig'  text='Search by Pig Id ...'/>"/>
+ 		   				<!-- <input type="text" name="pigId" id="pigId" class="form-control" ng-model="pigId" placeholder="<spring:message code='label.sowReport.search.pig'  text='Search by Pig Id ...'/>"/>-->
+						 <select  class="form-control"  name="search" id="search" ng-model="pigId" >
+								<option value="" hidden><spring:message code='label.sowReport.search.pig' text='Search by Pig Id ...' /></option>
+								<option ng-repeat="pigInfo in pigInfoListSearch" value="{{pigInfo.pigId}}" ng-value="pigInfo.pigId" ng-selected="pigId == premise.pigId">{{pigInfo.pigId}}</option>
+								</select>
 						</div>
 						
 						<div  class="form-group">			
- 		   				 <input type="text" name="groupId" id="groupId" class="form-control" ng-model="groupId" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>
+ 		   				 <!--<input type="text" name="groupId" id="groupId" class="form-control" ng-model="groupId" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>-->
+						 <select  class="form-control"  name="search" id="search" ng-model="groupId" >
+								<option value="" hidden><spring:message code='label.groupReport.search.group' text='Search by Group Id ...' /></option>
+								<option ng-repeat="groupEventSearch in groupEventListSearch" value="{{groupEventSearch.groupId}}" ng-value="groupEventSearch.groupId" ng-selected="searchText == groupEventSearch.groupId">{{groupEventSearch.groupId}}</option>
+								</select>
 						</div>
 						
 						<div  class="form-group">

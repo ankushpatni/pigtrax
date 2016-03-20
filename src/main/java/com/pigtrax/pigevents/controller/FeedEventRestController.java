@@ -187,5 +187,32 @@ public class FeedEventRestController {
 		} 
 		return dto;
 	}
+	
+	//public List<FeedEvent> getFeedEventsByPremises(final Integer selectedPremise) throws PigTraxException {
+	@RequestMapping(value = "/getFeedEventsByPremises",  method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getFeedEventsByPremises(HttpServletRequest request, @RequestParam Integer id)
+	{
+		logger.info("Inside getGroupEventInformation method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			
+			List<FeedEvent> feedEventsByPremises = feedEventService.getFeedEventsByPremises(id);
+			if(feedEventsByPremises != null  )
+			{
+				dto.setPayload(feedEventsByPremises);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
 
 }

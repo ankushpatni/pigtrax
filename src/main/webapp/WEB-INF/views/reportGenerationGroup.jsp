@@ -30,13 +30,17 @@
 						</div>
 							<%}%>
 						<div  class="form-group">
-						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise" ng-change="loadGroupInfo()" >
 								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
                       		  </select>
 						</div>
 						<div  class="form-group">			
- 		   				 <input type="text" name="search" id="search" required required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>
+ 		   				 <!---<input type="text" name="search" id="search" required required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>-->
+						 <select  class="form-control"  name="search" id="search" ng-enter="getPigInformation()" ng-model="searchText" >
+								<option value="" hidden><spring:message code='label.groupReport.search.group' text='Search by Group Id ...' /></option>
+								<option ng-repeat="groupEventSearch in groupEventListSearch" value="{{groupEventSearch.groupId}}" ng-value="groupEventSearch.groupId" ng-selected="searchText == groupEventSearch.groupId">{{groupEventSearch.groupId}}</option>
+								</select>
 						</div>
                     	
 						<button type="button" value="report" ng-click="searchGroupInfo()">

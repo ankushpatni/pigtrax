@@ -1,10 +1,11 @@
 pigTrax.controller('sowReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
+	var localCompany ;
 
 	
 	$scope.loadPremises = function(comapnyId)
 	{
-		var localCompany ;
+		
 		if(comapnyId === undefined )
 		{
 			localCompany = $scope.selectedCompany;
@@ -21,6 +22,18 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+	}
+	
+	$scope.loadPigInfo = function()
+	{
+		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+localCompany+'&premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
+			$scope.pigInfoList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
 	}
 	
         
@@ -51,7 +64,7 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
     $scope.getCompanyList = function(){
     	
     		restServices.getCompanyList(function(data){
-console.log(data);
+			console.log(data);
     			 if(!data.error)
     			 {
     				$scope.companyMapList = data.payload;

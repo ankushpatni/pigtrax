@@ -87,6 +87,18 @@ var pregnancyEventController = pigTrax.controller('PregnancyEventController', fu
 		});	
 	}
 	
+	$scope.loadPigInfo = function()
+	{
+		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+$rootScope.companyId+'&premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
+			$scope.pigInfoListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.loadPage = function(companyId, selectedPregnancyEventId)
 	{
 		$scope.setCompanyId(companyId);

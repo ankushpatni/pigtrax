@@ -15,15 +15,18 @@
 			               	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.feedEventForm.search.data.errormessage' text='Feed event information not found for the search criteria'/></p>
 			               	
 			               		<div  class="form-group">
-					              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
+					              <select  class="form-control"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="loadTicketNumber()">
 								  <option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
 					              <option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
 					              </select>
 								</div>
 			               	<div  class="form-group">
-					   		 <input type="text" name="search"   ng-enter="getFeedEvent(searchText, selectedPremise)" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
-						invalid-message="'<spring:message code='label.piginfo.feedEventForm.feedContentId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.feedEventForm.search.placeholder'  text='Search by Ticket Number ...'/>" class="form-control" style="width:90%;display:inline">
-							 <button type="button" class="btn btn-primary active" ng-click="getFeedEvent(searchText, selectedPremise)"><i class="fa fa-search"></i></button>
+								<button type="button" class="btn btn-primary active pull-right" ng-click="getFeedEvent(searchText, selectedPremise)"><i class="fa fa-search"></i></button>
+								<select  class="form-control"  name="search" id="searchText" ng-model="searchText"  ng-change="loadTicketNumber()" style="width:90%">
+									<option value="" hidden><spring:message code='label.piginfo.feedEventForm.search.placeholder' text='Search by Ticket Number ...' /></option>
+									<option ng-repeat="feedEvent in feedEventTicketNumberDetailList" value="{{feedEvent.ticketNumber}}" ng-value="feedEvent.ticketNumber" ng-selected="searchText == feedEvent.ticketNumber">{{feedEvent.ticketNumber}}</option>
+					             </select>
+							 
 							 </div>
 			          	</div>
 					  </form>	

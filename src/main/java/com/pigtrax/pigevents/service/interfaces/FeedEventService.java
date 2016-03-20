@@ -23,4 +23,6 @@ public interface FeedEventService {
 	
 	public List getFeedEventAndDetailByTicketNumber( final String ticketNumber, Integer selectedPremise) throws PigTraxException;
 
+	List<FeedEvent> getFeedEventsByPremises(Integer selectedPremise) throws PigTraxException;
+
 }

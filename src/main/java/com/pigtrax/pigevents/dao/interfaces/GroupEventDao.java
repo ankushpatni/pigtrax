@@ -32,4 +32,6 @@ public interface GroupEventDao {
 	
 	public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEvent) throws SQLException;
 
+	List<GroupEvent> getGroupEventByPremiseWithoutStatus(int premiseId) throws SQLException;
+
 }

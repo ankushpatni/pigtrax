@@ -383,6 +383,23 @@ public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEven
 			}
 		}
 	 
-	 
+	 @Override
+	 public List<GroupEvent> getGroupEventByPremiseWithoutStatus( final int premiseId) throws SQLException
+		{
+			String qry = "select \"id\", \"groupId\", \"groupStartDateTime\", \"groupCloseDateTime\", \"isActive\", "
+			   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\",\"id_Company\",  \"currentInventory\",\"previousGroupId\", \"id_PhaseOfProductionType\",\"id_Premise\" "+
+					"from pigtrax.\"GroupEvent\" where  \"id_Premise\" = ? ";
+				
+				List<GroupEvent> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+					@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, premiseId);
+					}}, new GroupEventMapper());
+
+				if(groupEventList != null && groupEventList.size() > 0){
+					return groupEventList;
+				}
+				return null;
+		}
 
 }

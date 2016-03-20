@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -518,5 +519,31 @@ private static final Logger logger = Logger.getLogger(PregnancyEventRestControll
 		return dto;
 	}
 	
+	@RequestMapping(value = "/getGroupEventByPremiseWithoutStatus", method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto getGroupEventByPremiseWithoutStatus(HttpServletRequest request, @RequestParam Integer premiseId)
+	{
+		logger.info("Inside getActiveGroupEventsInPremise method" );
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			
+			List<GroupEvent> groupEventByPremiseWithoutStatus = groupEventService.getGroupEventByPremiseWithoutStatus(premiseId);
+			
+			if(groupEventByPremiseWithoutStatus != null && groupEventByPremiseWithoutStatus.size()>0 )
+			{
+				dto.setPayload(groupEventByPremiseWithoutStatus);
+				dto.setStatusMessage("Success");
+			} 
+			else
+			{
+				dto.setRecordNotPresent(true);
+				dto.setStatusMessage("ERROR : Group Event information not available ");
+			}
+		} catch (PigTraxException e) {
+			e.printStackTrace();
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		return dto;
+	}
 
 }

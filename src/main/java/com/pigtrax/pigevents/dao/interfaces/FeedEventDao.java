@@ -20,4 +20,6 @@ public interface FeedEventDao {
 	
 	int updateFeedEvent(final FeedEvent groupEvent) throws SQLException;
 
+	List<FeedEvent> getFeedEventsByPremises(Integer selectedPremise) throws SQLException;
+
 }

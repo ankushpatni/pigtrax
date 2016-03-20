@@ -46,6 +46,17 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		});	
 	}
 	
+	$scope.loadGroupEvents = function()
+	{
+		var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+			$scope.groupEventFromPremisesList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+	}
+	
 	$scope.setCompanyId = function(companyId,searchedGroupid, searchPremiseId)
 	{
 		$scope.companyId = companyId;
@@ -190,7 +201,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		$scope.groupStartEndDateError = false;
 		$scope.groupenddaterequired = false;
 		$scope.entryEventStatusChangeSuccessMessage = false;
-		$scope.searchText='';
+		//$scope.searchText='';
 		$scope.editGroupEventInventory = false;
 		$scope.inventoryAdjustmentError = false;
 	};
