@@ -1,10 +1,10 @@
 pigTrax.controller('saleReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
-
+	var localCompany ;
 	
 	$scope.loadPremises = function(comapnyId)
 	{
-		var localCompany ;
+		
 		if(comapnyId === undefined )
 		{
 			localCompany = $scope.selectedCompany;
@@ -21,6 +21,26 @@ pigTrax.controller('saleReportController', function($scope, $http, $window,$moda
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+	}
+	
+	$scope.loadGroupTattoInfo = function()
+	{
+		var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+			$scope.groupEventListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		
+		var res1 = $http.get('rest/feedEvent/getFeedEventsByPremises?id='+$scope.selectedPremise);
+		res1.success(function(data, status, headers, config) {
+			console.log(data);
+			$scope.feedEventTicketNumberDetailList = data.payload;			
+		});
+		res1.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
 	}
 	
 	$scope.getBarnList = function(){
