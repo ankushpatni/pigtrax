@@ -17,7 +17,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.premiseNameMap={};
 	
 	
-	$scope.setCompanyId = function(companyId,removalId,fromExcept)
+	$scope.setCompanyId = function(companyId,removalId,fromExcept, actionResult)
 	{
 		$scope.companyId = companyId;
 		$rootScope.companyId = companyId;
@@ -52,13 +52,23 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			{	
 				$scope.getRemovalEvent(removalId,true,false);
 			}
-		}
+			
+		}	
+			if(actionResult == 'true')
+			{
+			  $scope.actionResult = true;
+			}
+		else
+			{
+			 $scope.actionResult = false;
+			}		
 	};
 	
 	$scope.resetForm = function()
 	{
 		$scope.clearAllMessages();
-		$scope.removalEvent = {};		
+		$scope.removalEvent = {};
+		$scope.actionResult = false;
 	}
 	
 	$scope.clearAllMessages = function()
@@ -144,6 +154,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 						$scope.exceptSalesFlag = false;
 						$scope.salesEventFlag = true;
 					}
+					
 				}
 			else
 				{
@@ -306,6 +317,7 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 				{
 					$scope.searchDataErrorMessage = false;
 				}
+				$scope.actionResult = false;
 				
 		}
 			else

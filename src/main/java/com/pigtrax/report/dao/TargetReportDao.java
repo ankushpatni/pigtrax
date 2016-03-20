@@ -30,19 +30,20 @@ public class TargetReportDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public List<TargetReportBean> getTargetList(final Integer companyId,final Date startDate)
+	public List<TargetReportBean> getTargetList(final Integer companyId,final Integer premiseId, final Date startDate)
 	{
 		List<TargetReportBean> prodEventLogList = new ArrayList<TargetReportBean>();
 		
 		String qry="select TT.\"fieldDescription\",CT.\"completionDate\" :: date,CT.\"targetValue\",CT.\"remarks\" "
 				+ "from pigtrax.\"CompanyTarget\" as CT,pigtraxrefdata.\"TargetType\" as TT where CT.\"id_TargetType\"=TT.\"id\" "
-				+"and CT.\"completionDate\" ::date <=? and CT.\"id_Company\" = ? ";
+				+"and CT.\"completionDate\" ::date >=? and CT.\"id_Company\" = ? and CT.\"id_Premise\" = ?";
 
 		prodEventLogList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setDate(1, new java.sql.Date(startDate.getTime()));
 				ps.setInt(2, companyId);
+				ps.setInt(3, premiseId	);
 			}}, new TargetReportMapper());
 		
 		return prodEventLogList;

@@ -20,8 +20,8 @@ public class TargetReportService {
 
 	private static final String seprater = ",";
 
-	public List<String> getTargetList(Integer companyId,Date startDate) { 
-		List<TargetReportBean> prodEventLogList = targetReportDao.getTargetList(companyId,startDate);
+	public List<String> getTargetList(Integer companyId,Integer premiseId, Date startDate) { 
+		List<TargetReportBean> prodEventLogList = targetReportDao.getTargetList(companyId,premiseId,startDate);
 
 		ArrayList<String> returnRows = new ArrayList<String>();
 		String dateStr = "";
@@ -45,7 +45,7 @@ public class TargetReportService {
 					}	
 					rowBuffer.append(seprater);
 					rowBuffer.append(targetReportBean.getTargetValue() + seprater);
-					rowBuffer.append(targetReportBean.getRemark() + seprater);
+					rowBuffer.append((targetReportBean.getRemark()  != null)?targetReportBean.getRemark() : "" + seprater);
 					rowBuffer.append(" ");
 					returnRows.add(rowBuffer.toString()+"\n");
 			}

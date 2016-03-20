@@ -23,7 +23,8 @@
                    <div class="alert alert-danger alert-white rounded"  ng-show="eventDuplicateErrorMessage">
                     <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
                     <div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.removalExceptSales.duplicate.error.message' text='A Removal Except Sales record already exists with the '/>
-                  </div>		 
+                  </div>		
+                   
                 </div>
                 
                 <div class="content">
@@ -137,7 +138,7 @@
 					</div>
 					
 					<div class="form-group" ng-show="removalExceptSales.removalEventId==9">
-                      <label><spring:message code='label.piginfo.removalExceptSales.roomId'  text='To Room'/><span ng-show="selectGroup==='group'" style='color: red'>*</span></label>                       
+                      <label><spring:message code='label.piginfo.removalExceptSales.toRoomId'  text='To Room'/><span ng-show="selectGroup==='group'" style='color: red'>*</span></label>                       
                        <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage" class="form-control" name="roomId" id="roomId" ng-model="removalExceptSales.roomId"   
                          ng-options="k as v for (k, v) in roomMap"> </select>
                     </div>
@@ -191,6 +192,7 @@
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>
 					<input type="hidden" name="selectedCompany" id="selectedCompany"/>
 					<input type="hidden" name="fromExcept" id="fromExcept"/>
+					<input type="hidden" name="actionResult" id="actionResult"/>
                    </form>
                 </div>
               </div>

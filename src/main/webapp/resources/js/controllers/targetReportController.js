@@ -17,5 +17,26 @@ pigTrax.controller('TargetReportController', function($scope, $http, $window,$mo
 	};
 	
 	$scope.getCompanyList();    
+	
+	$scope.loadPremises = function(comapnyId)
+	{
+		var localCompany ;
+		if(comapnyId === undefined )
+		{
+			localCompany = $scope.selectedCompany;
+		}
+		else
+		{
+			localCompany  = comapnyId;
+		}
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=null');
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		$scope.companyId = localCompany;
+	}
     
 });

@@ -1254,10 +1254,11 @@ public class ReportControlller {
 			List<String> rows =new ArrayList<String>();			
 			try {
 				Integer companyId = Integer.parseInt(request.getParameter("selectedCompany"));
+				Integer premiseId = Integer.parseInt(request.getParameter("selectedPremise"));
 				response.setContentType("text/csv");
 				String reportName = "CSV_Report_Target_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
-				rows = targetReportService.getTargetList(companyId,DateUtil.convertToFormat(startDate, "dd/MM/yyyy")); 
+				rows = targetReportService.getTargetList(companyId,premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy")); 
 				Iterator<String> iter = rows.iterator();
 				while (iter.hasNext()) {
 					String outputString = (String) iter.next();

@@ -315,6 +315,7 @@ var feedEventController = pigTrax.controller('SalesEventController', function($s
 	    {
 	    	document.getElementById("selectedCompany").value = $scope.companyId;		
 			document.getElementById("fromExcept").value = true;
+			document.getElementById("actionResult").value = true;
 			document.forms['salesEventForm'].action = 'removalEvent';
 			document.forms['salesEventForm'].submit();
 	    }	

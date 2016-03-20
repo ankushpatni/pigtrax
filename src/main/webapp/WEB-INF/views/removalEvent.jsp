@@ -4,7 +4,7 @@
           <h2>${CompanyName}</h2>
         </div>
 		 
- <div class="cl-mcont" ng-controller="RemovalEventController" ng-init="setCompanyId('${CompanyId}','${removalEventTicketNumber}','${fromExcept}')">
+ <div class="cl-mcont" ng-controller="RemovalEventController" ng-init="setCompanyId('${CompanyId}','${removalEventTicketNumber}','${fromExcept}','${actionResult}')">
    <div class="row">
 	 		  <div class="col-sm-3 col-md-3"></div> 
 	 		  <div class="col-sm-6 col-md-6">
@@ -54,11 +54,18 @@
 	 		  <div class="col-sm-3 col-md-3"></div> 
 	 		  <div class="col-sm-6 col-md-6">
 		 		  <div class="block-flat">
-					
-					   <form name="removalEventForm" method="post">
-				 		     <div class="head">
+		 		   <div class="header">
+		 		   
 				            <h3><spring:message code='label.piginfo.removalEventform.removalEventType'  text='Add Removal Event Type'/></h3>
-				           							
+		 		   <div class="alert alert-success alert-white rounded"  ng-show="actionResult">
+									<button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+									<div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.removalEventform.ExceptSalesDetailsSalesEvent.submit.success.message' text='Removal Except/Sales Event Details information saved successfully'/>
+							  </div>	
+		 		   </div>
+					<div class="content">
+					   <form name="removalEventForm" method="post">
+				 		     
+				           	<div class="head">						
 				            <div class="options">
 							 <div class="btn-group pull-right">
 				                <button type="button" class="btn btn-success active" ng-click="addDifferentRemovalEvent()"><i class="glyphicon glyphicon-plus"></i></button>
@@ -79,14 +86,12 @@
 									<button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
 									<div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.removalEventform.salesdetails.submit.success.message' text='Sales Event Details information saved successfully'/>
 								</div>
-								<div class="alert alert-success alert-white rounded"  ng-show="entryExceptSalesDetailsSuccessMessage">
-									<button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
-									<div class="icon"><i class="fa fa-check"></i></div><spring:message code='label.piginfo.removalEventform.ExceptSalesDetailsSalesEvent.submit.success.message' text='Removal Except/Sales Event Details information saved successfully'/>
-							  </div>							
+														
 				          </div>
 							<input type="hidden" name="companyId" id="companyId"/>
 							<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>
-						</form>	
+						</form>
+						</div>	
 				 </div>
 	          </div>
 	 		  <div class="col-sm-3 col-md-3"></div>

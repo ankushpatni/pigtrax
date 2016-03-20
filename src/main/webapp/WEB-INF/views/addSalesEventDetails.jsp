@@ -213,6 +213,7 @@
 					<input type="hidden" name="removalEventTicketNumber" id="removalEventTicketNumber"/>
 					<input type="hidden" name="selectedCompany" id="selectedCompany"/>
 					<input type="hidden" name="fromExcept" id="fromExcept"/>
+					<input type="hidden" name="actionResult" id="actionResult"/>
                    </form>
                 </div>
               </div>
