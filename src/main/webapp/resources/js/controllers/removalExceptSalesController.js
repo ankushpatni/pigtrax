@@ -97,6 +97,7 @@ $scope.removalEventTypeKeysValues = {};
 		{
 			$scope.getRemovalExceptSales(removalExceptSalesId);
 		}*/
+		
 	};
 	
 
@@ -316,6 +317,7 @@ $scope.removalEventTypeKeysValues = {};
 	    {
 	    	document.getElementById("selectedCompany").value = $scope.companyId;		
 			document.getElementById("fromExcept").value = true;
+			document.getElementById("actionResult").value = true;
 			document.forms['removalExceptFormSales'].action = 'removalEvent';
 			document.forms['removalExceptFormSales'].submit();
 	    }

@@ -57,6 +57,10 @@ public class RemovalEventController
 			   {
 				   model.addAttribute("fromExcept", request.getParameter("fromExcept"));
 			   }
+			   if(request.getParameter("actionResult") != null)
+			   {
+				   model.addAttribute("actionResult", request.getParameter("actionResult"));
+			   }
 		   }catch(Exception ex)
 		   {
 			   
