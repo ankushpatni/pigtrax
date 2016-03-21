@@ -338,7 +338,7 @@ public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEven
 	{
 		String qry = "select \"id\", \"groupId\", \"groupStartDateTime\", \"groupCloseDateTime\", \"isActive\", "
 		   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\",\"id_Company\",  \"currentInventory\",\"previousGroupId\", \"id_PhaseOfProductionType\",\"id_Premise\" "+
-				"from pigtrax.\"GroupEvent\" where  \"id_Premise\" = ? and \"isActive\" is true";
+				"from pigtrax.\"GroupEvent\" where  \"id_Premise\" = ? and \"isActive\" is true order by \"groupId\"";
 			
 			List<GroupEvent> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
