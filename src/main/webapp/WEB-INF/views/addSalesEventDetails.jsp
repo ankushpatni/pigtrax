@@ -57,6 +57,18 @@
                          ng-options="k as v.groupId for (k, v) in groupEventList" ng-show="v.active"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{groupEventList[removalExceptSales.groupEventId].groupId}}</label>
                          </div> 
+                         
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+                      <!--<input rsmdatedropdowns ng-model="removalExceptSales.salesDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>-->                      
+					  <input type="text" class="form-control" ng-model="entryDateStr" mask="39/19/2999" ng-blur="dateCheck(entryDateStr)"/>
+                    </div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.requiredMessage' text='Sales Date Time is required' /></label>
+					</div>
+					<div>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="errorRemovalDateTime" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.wrongDateMessage' text='Sales Date Time is can not be less than Event Start Date' /></label>
+					</div>
 					<div ng-show="selectGroup==='group'">
 						<label style="margin-top: -15px;" class="control-label" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigsInGroup' text='Group Inventory :' />{{groupEventList[removalExceptSales.groupEventId].currentInventory}}</label>
 					</div>
