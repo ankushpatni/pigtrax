@@ -3,18 +3,21 @@ package com.pigtrax.report.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.report.bean.ActionListReportBean;
-import com.pigtrax.report.bean.GroupReportBean;
 
 
 @Repository
@@ -36,7 +39,7 @@ public class ActionListReportDao {
 				+" T.\"id_PigInfo\"," 
 				+" T.\"pigId\" as \"Sow Id\", " 
 				+" T.\"parity\", " 
-				+" T.\"Age\", " 
+				+" CASE WHEN t.\"Sow Phase\" = 'EntryEvent' THEN T.\"Age\" ELSE 0 END as \"Age\", " 
 				+" T.\"serviceGroupId\" as \"Service Group\",  "
 				+" T.\"Sow Phase Date\", " 
 				+" T.\"Sow Phase\", " 
@@ -59,7 +62,7 @@ public class ActionListReportDao {
 				+ "CASE WHEN T.\"Sow Phase\"='BreedingEvent' THEN (current_date-T.\"Sow Phase Date\"::date - 115) ELSE "
 				+ "CASE WHEN T.\"Sow Phase\" = 'PregnancyEvent' THEN (current_date-T.\"Sow Phase Date\"::date - 3) ELSE "
 				+ "CASE WHEN T.\"Sow Phase\" = 'Farrow' THEN (current_date-T.\"Sow Phase Date\"::date - 30) ELSE "
-				+ "CASE WHEN T.\"Sow Phase\" = 'PigletStatusEvent' THEN (current_date-T.\"Sow Phase Date\"::date - 5) ELSE (current_date-T.\"Sow Phase Date\"::date) END END END END END \"OverDue\", "
+				+ "CASE WHEN T.\"Sow Phase\" = 'Wean' OR T.\"Sow Phase\" = 'Transfer' OR T.\"Sow Phase\" = 'Mortality' THEN (current_date-T.\"Sow Phase Date\"::date - 5) ELSE (current_date-T.\"Sow Phase Date\"::date) END END END END END \"OverDue\", "
 				+" T.\"Avg Gestlength\", "
 				+" T.\"Lactating days\" "
 				+" FROM " 
@@ -72,7 +75,8 @@ public class ActionListReportDao {
 				+" CASE WHEN PEM.\"id_SalesEventDetails\" > 0 THEN 'SalesEvent' ELSE "
 			    +" CASE WHEN PEM.\"id_RemovalEventExceptSalesDetails\" > 0 THEN 'RemovalEvent' "
 			    +" ELSE "
-			    +" CASE WHEN PEM.\"id_PigletStatus\" > 0 THEN 'PigletStatusEvent' "
+			    +" CASE WHEN PEM.\"id_PigletStatus\" > 0 THEN "
+			    + " CASE WHEN PS.\"id_PigletStatusEventType\" = 2 THEN 'Transfer' ELSE CASE WHEN PS.\"id_PigletStatusEventType\" = 3 THEN 'Wean' ELSE  CASE WHEN PS.\"id_PigletStatusEventType\" = 4 THEN 'Mortality' ELSE 'Foster In' END END END"
 			    +" ELSE "
 				+" CASE WHEN PEM.\"id_FarrowEvent\" > 0 THEN 'Farrow' " 
 				+" ELSE  CASE WHEN PEM.\"id_PregnancyEvent\" > 0 THEN 'PregnancyEvent' "
@@ -94,6 +98,7 @@ public class ActionListReportDao {
 				+" pigtrax.\"PigTraxEventMaster\" PEM  "
 				+" JOIN pigtrax.\"PigInfo\" PI ON PEM.\"id_PigInfo\" = PI.\"id\" "
 				+" LEFT JOIN pigtrax.\"Room\" R on PI.\"id_Room\" = R.\"id\" "	
+				+" LEFT JOIN pigtrax.\"PigletStatus\" PS on PEM.\"id_PigletStatus\" = PS.\"id\" "
 				+" LEFT JOIN pigtrax.\"FarrowEvent\" FE on PEM.\"id_FarrowEvent\" = FE.\"id\" " 
 				+" LEFT JOIN pigtrax.\"Pen\" PEN on FE.\"id_Pen\" = PEN.\"id\" "
 				+" LEFT JOIN pigtrax.\"PregnancyEvent\" PE on PEM.\"id_PregnancyEvent\" = PE.\"id\" "
@@ -143,7 +148,51 @@ public class ActionListReportDao {
 			return actionListReportBean;
 		}
 	}
+
 	
+	public Map<String, String> getActionListTargets(final Integer premiseId)
+	{
+		String qry = "select TT.\"fieldDescription\",coalesce(CT.\"targetValue\",'0') as \"targetValue\" from pigtraxrefdata.\"TargetType\" TT  LEFT JOIN pigtrax.\"CompanyTarget\" CT"
+				+ "   ON CT.\"id_TargetType\" = TT.\"id\" and  CT.\"id_Premise\" = ?   WHERE   TT.\"fieldDescription\" in "
+				+ "('Arrival to 1st serv interval','Avg gest','Avg weaning age','Wean to 1st service interval')";
+		@SuppressWarnings("unchecked")
+		Map<String, String> actionListReport = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, premiseId);
+			}}, new ResultSetExtractor<Map>(){
+			    @Override
+			    public Map extractData(ResultSet rs) throws SQLException,DataAccessException {
+			        HashMap<String,String> mapRet= new HashMap<String,String>();
+			        while(rs.next()){
+			        	
+			        	String fieldDesc = rs.getString("fieldDescription");
+			        	if("Arrival to 1st serv interval".equalsIgnoreCase(fieldDesc))
+			        	{
+			        		mapRet.put("EntryEvent",rs.getString("targetValue"));
+			        	}
+			        	else if("Avg gest".equalsIgnoreCase(fieldDesc))
+			        	{
+			        	    mapRet.put("BreedingEvent",rs.getString("targetValue"));
+			        	}
+			        	else if("Avg weaning age".equalsIgnoreCase(fieldDesc))
+			        	{
+			        		mapRet.put("Farrow",rs.getString("targetValue"));
+			        	}
+			        	else if("Wean to 1st service interval".equalsIgnoreCase(fieldDesc))
+			        	{
+			        		mapRet.put("Wean",rs.getString("targetValue"));
+			        	}
+			        	
+			        }
+			        return mapRet;
+			    }
+			});
+		
+		
+		return actionListReport;
+		
+	}
 	
 	
 

@@ -156,7 +156,6 @@
 			<table st-table="displayedCollection" st-safe-src="groupEventDetailList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #f7b781">
 					<tr>
-						<th style="width:5%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
 						<th style="width:10%"><spring:message code="label.groupEventDetail.dateOfEntry" text="Date Of Entry" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:7%"><spring:message code="label.groupEventDetail.weightInKgs" text="Weight" /></th>						
@@ -166,8 +165,7 @@
 					</tr>
 	 			</thead>
 				<tbody>
-				<tr ng-repeat="row in displayedCollection track by $index">
-					<td style="width:5%">{{$index+1}}</td>
+				<tr ng-repeat="row in displayedCollection track by $index">					
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.dateOfEntry)}}</td>
 					<td style="width:7%">{{row.numberOfPigs}}</td>
 					<td style="width:7%">{{row.weightInKgs}}</td>

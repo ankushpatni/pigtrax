@@ -6937,7 +6937,7 @@ INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","field
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Morte súbita','pr',CURRENT_TIMESTAMP,'pigtraxadmin',30);
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Mordida de cauda','pr',CURRENT_TIMESTAMP,'pigtraxadmin',31);
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Desconhecido','pr',CURRENT_TIMESTAMP,'pigtraxadmin',32);
-INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Weak/Unthrifty','pr',CURRENT_TIMESTAMP,'pigtraxadmin',33);
+INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Fraco','pr',CURRENT_TIMESTAMP,'pigtraxadmin',33);
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('DOA (means dead on arrival)_PR','pr',CURRENT_TIMESTAMP,'pigtraxadmin',34);
 INSERT INTO pigtraxrefdata."MortalityReasonTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_MortalityReasonType") VALUES ('Estresse por calor','pr',CURRENT_TIMESTAMP,'pigtraxadmin',35);
 
