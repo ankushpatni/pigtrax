@@ -194,20 +194,20 @@
 			<table st-table="displayedCollection2" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #f7b781">
 					<tr>
-						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
+						<!--  <th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>-->
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.removalDateTime" text="Removal Date" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
-						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.search.option.premisesId" text="Premises" /></th>
+						<th style="width:25%"><spring:message code="label.piginfo.removalExceptSales.search.option.premisesIdTo" text="Premises To" /></th>
 						<th style="width:25%"><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.delete" text="Delete" /></th>
 					</tr>
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection2 track by $index">
-					<td style="width:10%">{{$index+1}}</td>
+					<!-- <td style="width:10%">{{$index+1}}</td>-->
 					<td style="width:10%">{{row.numberOfPigs}}</td>
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.removalDateTime)}}</td>
 					<td style="width:25%">{{row.weightInKgs}}</td>
@@ -246,7 +246,7 @@
 			<table st-table="displayedCollection1" st-safe-src="salesEventList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #f7b781">
 					<tr>						
-						<th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>
+						<!--  <th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>-->
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.pigInfoId" text="Pig Info" /></th>
 						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
 						<th style="width:10%"><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/></th>
@@ -262,7 +262,7 @@
 	 			</thead>
 				<tbody>
 				<tr ng-repeat="row in displayedCollection1 track by $index">
-					<td style="width:10%">{{$index+1}}</td>
+					<!--  <td style="width:10%">{{$index+1}}</td>-->
 					<td style="width:25%">{{pigInfoList[row.pigInfoId].pigId}}</td>
 					<td style="width:25%">{{groupEventList[row.groupEventId].groupId}}</td>
 					<td style="width:10%">{{DateUtils.getFormatedDate(row.salesDateTime)}}</td>

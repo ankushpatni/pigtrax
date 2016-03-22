@@ -89,9 +89,9 @@ public class ReportDownloadController {
 		    String fullFilename = filePath + "/" + templateType+".csv";
 	    	response.setContentType("text/plain");
 	    	if(templateType.toString().equalsIgnoreCase("RemovalEventExceptSalesEventGroup"))
-	    		response.setHeader("Content-disposition", "attachment;filename=Removal&Transfer-Group.csv");
+	    		response.setHeader("Content-disposition", "attachment;filename=Mortality&Adjustment-Group.csv");
 	    	else if(templateType.toString().equalsIgnoreCase("RemovalEventExceptSalesEventPig"))
-	    		response.setHeader("Content-disposition", "attachment;filename=Removal&Transfer-Pig.csv");
+	    		response.setHeader("Content-disposition", "attachment;filename=Mortality&Adjustment-Pig.csv");
 	    	else
 	    		response.setHeader("Content-disposition", "attachment;filename="+templateType+".csv");
 			BufferedReader  fileReader = new BufferedReader(new FileReader(fullFilename));
