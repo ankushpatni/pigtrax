@@ -5,7 +5,7 @@
 	<h2><spring:message	code='label.generateTargetReport.heading'
 								text='Generate Target Report' /></h2>
 </div>
-<div class="cl-mcont" id="TargetReportControllerId" ng-controller="TargetReportController" class="container-fluid">
+<div class="cl-mcont" id="TargetReportControllerId" ng-controller="TargetReportController" class="container-fluid" ng-init="loadPremises('${CompanyId}')">
 <div class="row">
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">
