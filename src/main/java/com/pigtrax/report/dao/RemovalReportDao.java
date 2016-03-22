@@ -80,9 +80,9 @@ public class RemovalReportDao {
 		if(groupId != 0)
 			query = query +"  and RES.\"id_GroupEvent\" =  "+groupId ;
 		if(start != null)
-			query = query +"  and RES.\"removalDateTime\" >  "+ start;
+			query = query +"  and RES.\"removalDateTime\" >=  '"+ start+"'";
 		if(end != null)
-			query = query + " and RES.\"removalDateTime\" < "+ end;
+			query = query + " and RES.\"removalDateTime\" <= '"+ end+"'";
 		
 		query = query+")";
 		
@@ -106,9 +106,9 @@ public class RemovalReportDao {
 		if(pigId != 0)
 			secondaryQuery = secondaryQuery +"  and PS.\"id_PigInfo\" =  " +pigId ;
 		if(start != null)
-			secondaryQuery = secondaryQuery +"  and PS.\"eventDateTime\" >  "+ start;
+			secondaryQuery = secondaryQuery +"  and PS.\"eventDateTime\" >=  '"+ start+"'";
 		if(end != null)
-			secondaryQuery = secondaryQuery + " and PS.\"eventDateTime\" < "+ end;
+			secondaryQuery = secondaryQuery + " and PS.\"eventDateTime\" <= '"+ end+"'";
 		
 		secondaryQuery = secondaryQuery+" ) ";
 		
