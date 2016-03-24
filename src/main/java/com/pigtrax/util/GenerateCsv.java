@@ -154,7 +154,7 @@ public class GenerateCsv {
 	   {
 		   if("1".equalsIgnoreCase(event.trim()))
 		   {
-			   String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i+1)), "MM/dd/yyyy");
+			   String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i+1)), "dd/MM/yyyy");
 		    	
 		    	StringBuffer headerString = new StringBuffer();
 		    	headerString.append(",");
@@ -176,7 +176,7 @@ public class GenerateCsv {
 		   } 
 		   else if("2".equalsIgnoreCase(event.trim()))
 		   {
-			   String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i+1)), "MM/dd/yyyy");
+			   String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i+1)), "dd/MM/yyyy");
 		    	
 		    	StringBuffer headerString = new StringBuffer();		    	
 		    	headerString.append("MPG0"+(i+1)+",");
@@ -191,7 +191,7 @@ public class GenerateCsv {
 		   {
 			   for(int j=0; j<3; j++)
 			   {
-				String matingDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+j)), "MM/dd/yyyy");
+				String matingDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+j)), "dd/MM/yyyy");
 		    	
 		    	StringBuffer headerString = new StringBuffer();		    	
 		    	headerString.append("MPG0"+(i+1)+",");
@@ -207,7 +207,7 @@ public class GenerateCsv {
 		   else if("4".equalsIgnoreCase(event.trim()))
 		   {
 			   
-				String resultDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+20)), "MM/dd/yyyy");
+				String resultDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+20)), "dd/MM/yyyy");
 		    	
 		    	StringBuffer headerString = new StringBuffer();		    	
 		    	headerString.append("MPG0"+(i+1)+",");
@@ -223,7 +223,7 @@ public class GenerateCsv {
 		   else if("5".equalsIgnoreCase(event.trim()))
 		   {
 			   
-				String farrowDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+108)), "MM/dd/yyyy");
+				String farrowDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+108)), "dd/MM/yyyy");
 		    	
 		    	StringBuffer headerString = new StringBuffer();	
 		    	headerString.append(penInfo+",");
@@ -251,7 +251,7 @@ public class GenerateCsv {
 				
 		    	for(int j = 0; j<3; j++)
 		    	{	
-		    		String weanDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+128+j)), "MM/dd/yyyy");
+		    		String weanDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+(i+1+128+j)), "dd/MM/yyyy");
 			    	StringBuffer headerString = new StringBuffer();	
 			    	headerString.append("MPG0"+(i+1)+",");
 			    	headerString.append((j==0)?"wean,":((j==1)?"Transfer,":"Piglet Mortality,"));
@@ -271,7 +271,7 @@ public class GenerateCsv {
 		   } 
 		   else if("7".equalsIgnoreCase(event.trim()))
 		   {   
-		    		String eventStartDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i+1)), "MM/dd/yyyy");
+		    		String eventStartDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i+1)), "dd/MM/yyyy");
 			    	StringBuffer headerString = new StringBuffer();	
 			    	headerString.append(roomInfo+",");
 			    	headerString.append("MGROUP00"+(i+1)+",");
@@ -286,7 +286,7 @@ public class GenerateCsv {
 		   } 
 		   else if("8".equalsIgnoreCase(event.trim()))
 		   {   
-		    		String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i-2)), "MM/dd/yyyy");
+		    		String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i-2)), "dd/MM/yyyy");
 			    	StringBuffer headerString = new StringBuffer();	
 			    	headerString.append("MGROUP00"+(i+1)+",");
 			    	headerString.append("T123PRE1,");
@@ -300,7 +300,7 @@ public class GenerateCsv {
 		   }
 		   else if("9".equalsIgnoreCase(event.trim()))
 		   {   
-		    		String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i-2)), "MM/dd/yyyy");
+		    		String entryDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i-2)), "dd/MM/yyyy");
 			    	StringBuffer headerString = new StringBuffer();	
 			    	headerString.append("T00"+(i+1)+",");
 			    	headerString.append(rationId+",");
@@ -315,7 +315,7 @@ public class GenerateCsv {
 			   //Ticket Number(*),Group Id(*),Feed Event Date(*),Feed Mill,Feed Event Type(*),Weight (Kg),Feed Cost,Silo (*),Remarks
 			   for(int j = 0; j<3; j++)
 		    	{	
-		    		String feedEventDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i-1)), "MM/dd/yyyy");
+		    		String feedEventDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365-(i-1)), "dd/MM/yyyy");
 			    	StringBuffer headerString = new StringBuffer();	
 			    	headerString.append("T00"+(i+1)+",");
 			    	headerString.append("MGROUP00"+(i+1)+",");
@@ -349,7 +349,7 @@ public class GenerateCsv {
 		   }
 		   else if("12".equalsIgnoreCase(event.trim()))
 		   {   		    	
-			   String removalDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+i), "MM/dd/yyyy");
+			   String removalDate = DateUtil.convertToFormatString(DateUtil.addDays(new Date(),-365+i), "dd/MM/yyyy");
 		    	StringBuffer headerString = new StringBuffer();	
 		    	headerString.append("MGROUP00"+(i+1)+",");
 		    	headerString.append(",");
@@ -379,7 +379,7 @@ public class GenerateCsv {
 		   {
 			   if("1".equalsIgnoreCase(event.trim()))
 			   {
-				   headerString.append("Room Id,Pig Id(*),Tattoo,Alternate Tattoo,Entry Date(*) in mm/dd/yyyy,Sex (*),Genetic Origin,Genetic Company(*),Genetic Line(*),Genetic Function(*),Birth Date,Sire,Dam,Remarks");
+				   headerString.append("Room Id,Pig Id(*),Tattoo,Alternate Tattoo,Entry Date(*) in dd/MM/yyyy,Sex (*),Genetic Origin,Genetic Company(*),Genetic Line(*),Genetic Function(*),Birth Date,Sire,Dam,Remarks");
 				   writer.append(headerString);
 				   writer.append('\n');
 			   }

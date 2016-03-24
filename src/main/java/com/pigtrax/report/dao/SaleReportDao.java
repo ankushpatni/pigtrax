@@ -57,17 +57,17 @@ public List<SaleReportBean> getSaleList(final int premisesId, final int barnId, 
 		if(groupId != 0)
 			query = query +"  and RES.\"id_GroupEvent\" =  "+groupId ;
 		
-		if(start != null)
-			query = query +"  and RES.\"salesDateTime\" >  "+ start;
-		
-		if(end != null)
-			query = query + " and RES.\"salesDateTime\" < "+ end;
-		
 		if(ticketNumber != null && !StringUtils.isEmpty(ticketNumber))
 			query = query +"  and RES.\"ticketNumber\" =  '"+ticketNumber+"'" ;
 		
 		if(barnId != 0)
 			query = query +"  and BA.\"id\" =  "+barnId ;
+		
+		if(start != null)
+			query = query +"  and RES.\"salesDateTime\" >  ? ";
+		
+		if(end != null)
+			query = query + " and RES.\"salesDateTime\" < ? ";
 			
 		query = query + " order by GE.\"groupId\", RES.\"salesDateTime\" ";
 		
@@ -76,6 +76,18 @@ public List<SaleReportBean> getSaleList(final int premisesId, final int barnId, 
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, premisesId);
+				if(start != null && end != null)
+				{
+					ps.setDate(2, start);
+					ps.setDate(3, end);
+				}
+				else
+				{
+					if(start != null)
+						ps.setDate(2, start);
+					else
+						ps.setDate(2, end);
+				}
 			}}, new SaleReportMapper());
 		
 		return saleReportBeanList;
