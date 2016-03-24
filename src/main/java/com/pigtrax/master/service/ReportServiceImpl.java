@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.master.dao.interfaces.PenDao;
+import com.pigtrax.master.dao.interfaces.RoomDao;
 import com.pigtrax.master.service.interfaces.ReportService;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
@@ -27,6 +28,9 @@ public class ReportServiceImpl implements ReportService{
 	
 	@Autowired
 	PenDao penDao;
+	
+	@Autowired
+	RoomDao roomDao;
 	
 	@Autowired
 	PigletStatusEventDao pigletStatusEventDao;
@@ -130,6 +134,50 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,30, premisesId));//33
 				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,42, premisesId));//34
 				listValues.add(pigletStatusEventDao.getSumOfDiffOfFerrowAndWeanDate(start, end, companyId, premisesId));//35
+				
+				
+				listValues.add(pigletStatusEventDao.getEndFemaleInventory(start, end, companyId, premisesId));//36  End Female Inventory
+				listValues.add(pigletStatusEventDao.getEndFemaleInventory(start, end, companyId, premisesId));//37  End Female Inventory
+				listValues.add(pigletStatusEventDao.getEndLactationInventory(start, end, companyId, premisesId)); // 38     End Lactation Inventory
+				listValues.add(pigletStatusEventDao.getEndGestationInventory(start, end, companyId, premisesId)); // 39 End Gestation Inventory
+				
+				try {
+					if(premisesId !=null && premisesId !=0)
+					{
+						
+						listValues.add(penDao.getCountOfPenByPremiseId(premisesId)); 		// 40     %Space Capacity
+						listValues.add(roomDao.getCountOfSpacesBasedOnPremisesId(premisesId)) ; // 41     %Space Capacity
+						
+					}
+					else
+					{
+						listValues.add(penDao.getTotalPenActive(companyId)); 		// 40     %Space Capacity
+						listValues.add(roomDao.getCountOfSpacesBasedOnCompanyId(companyId)) ; // 41     %Space Capacity
+					}
+				
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				
+				listValues.add(pigletStatusEventDao.getAveParityofEndInventory(start, end, companyId, premisesId)) ; // 42     Ave Parity of End Inventory
+				listValues.add(pigletStatusEventDao.getFemaleEntered(start, end, companyId, premisesId)) ; // 43        Female Entered
+				
+				listValues.add(pigletStatusEventDao.getTotalFemalesCulled(start, end, companyId, premisesId)); //  44   Total Females Culled
+				listValues.add(pigletStatusEventDao.getAveParityofCulls(start, end, companyId, premisesId)); //  45   Ave Parity of Culls
+				listValues.add(pigletStatusEventDao.getSowCulled(start, end, companyId, premisesId)); // 46 Sows Culled
+				listValues.add(pigletStatusEventDao.getGiltsCulled(start, end, companyId, premisesId));//  47   Gilts Culled
+				
+				listValues.add(pigletStatusEventDao.getTotalFemaleDeathsandDestroyed(start, end, companyId, premisesId));//  48  Total Female Deaths and Destroyed
+				listValues.add(pigletStatusEventDao.getAveParityofMortality(start, end, companyId, premisesId)); //   49  Ave Parity of Mortality
+				listValues.add(pigletStatusEventDao.getGiltDeaths(start, end, companyId, premisesId));//  50  Gilt Deaths
+				listValues.add(pigletStatusEventDao.getSowDeaths(start, end, companyId, premisesId)); //  51  Sow Deaths
+				listValues.add(pigletStatusEventDao.getTotalFemalesDestroyed(start, end, companyId, premisesId)); //  52  Total Females Destroyed
+				
+				listValues.add(pigletStatusEventDao.getBoarEntered(start, end, companyId, premisesId));//  53  Boar Entered
+				listValues.add(pigletStatusEventDao.getBoarCulled(start, end, companyId, premisesId)); //  54 Boar Culled
+				listValues.add(pigletStatusEventDao.getBoarDeathsandDestroyed(start, end, companyId, premisesId));// 55 Boar Deaths and Destroyed
+				
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);

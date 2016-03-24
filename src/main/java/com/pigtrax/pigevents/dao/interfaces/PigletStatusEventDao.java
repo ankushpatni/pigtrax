@@ -106,5 +106,41 @@ public interface PigletStatusEventDao {
 
 	Integer getSumOfDiffOfFerrowAndWeanDate(Date start, Date end,
 			Integer companyId,Integer premisesId);
+
+	Integer getTotalFemaleDeathsandDestroyed(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getGiltDeaths(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getSowDeaths(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getTotalFemalesDestroyed(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getBoarEntered(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getBoarCulled(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getBoarDeathsandDestroyed(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getAveParityofMortality(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getSowCulled(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getGiltsCulled(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getAveParityofCulls(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getTotalFemalesCulled(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getEndFemaleInventory(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getEndLactationInventory(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getEndGestationInventory(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getEndBoarInventory(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getAveParityofEndInventory(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getFemaleEntered(Date start, Date end, Integer companyId, Integer premisesId);
 	
 }

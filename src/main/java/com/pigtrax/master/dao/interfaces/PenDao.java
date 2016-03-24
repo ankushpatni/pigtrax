@@ -54,4 +54,7 @@ public interface PenDao {
 	
 	public List<Pen> getPenListByPremiseId(Integer premiseId, String barnType) throws SQLException;
 
+
+	int getCountOfPenByPremiseId(Integer premiseId) throws SQLException;
+
 }

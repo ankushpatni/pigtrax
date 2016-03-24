@@ -144,7 +144,28 @@ public class RoomDaoImpl implements RoomDao {
 		return null;
 	}
 	
+	public int getCountOfSpacesBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
+	{
+		String query = "select sum(\"pigSpaces\") from pigtrax.\"Room\" where \"id\" in  (SELECT \"roomserrialid\" as \"id\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"roomId\" != '' and companyserialid = ?)";
+	//CompPremBarnRoomPenVw
+		 List<Integer> penList = jdbcTemplate.query(query,
+					new PreparedStatementSetter() {
+						@Override
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setInt(1, generatedCompanyId);
+						}
+					}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+			
+		 return penList.get(0);
+	}
 	
+	@Override
 	public List<Room> getRoomListBasedOnPremise( final int premiseId ) throws SQLException
 	{
 		String query = "SELECT \"roomserrialid\" as \"id\",\"roomId\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"roomId\" != '' and premiseserialid = ?";
@@ -163,6 +184,30 @@ public class RoomDaoImpl implements RoomDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public int getCountOfSpacesBasedOnPremisesId( final int premiseId ) throws SQLException
+	{
+		String query = "select sum(\"pigSpaces\") from pigtrax.\"Room\" where \"id\" in  (SELECT \"roomserrialid\" as \"id\" from pigtrax.\"CompPremBarnRoomPenVw\" where \"roomId\" != '' and premiseserialid = ?)";
+	//CompPremBarnRoomPenVw
+		 List<Integer> penList = jdbcTemplate.query(query,
+					new PreparedStatementSetter() {
+						@Override
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setInt(1, premiseId);
+						}
+					}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+			
+		 return penList.get(0);
+	}
+	
+	
 	@Override
 	public Room getRoomListBasedOnPen( final int penId ) throws SQLException
 	{

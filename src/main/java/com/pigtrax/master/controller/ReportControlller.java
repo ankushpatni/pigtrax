@@ -272,6 +272,34 @@ public class ReportControlller {
 		List<Float> pigsWeanedCrateYearList = new LinkedList<Float>();
 		List<Float> weaningCapacityList = new LinkedList<Float>();
 		
+		List<Integer> endFemaleInventorList = new LinkedList<Integer>();
+		List<Integer> endMatedFemaleInventoryList = new LinkedList<Integer>();
+		List<Integer> endBoarInventoryList = new LinkedList<Integer>();
+		List<Float> endLactationInventoryList = new LinkedList<Float>();
+		List<Float> endGestationInventoryList = new LinkedList<Float>();
+		List<Float> percentageSpaceCapacityList = new LinkedList<Float>();
+		List<Float> aveFemaleInventoryPerCrateList = new LinkedList<Float>();
+		List<Float> aveParityOfEndInventoryList = new LinkedList<Float>();
+		List<Integer>femaleEnteredList = new LinkedList<Integer>();
+		
+		List<Integer> totalFemalesCulledList = new LinkedList<Integer>();
+		List<Integer> aveParityofCullsList = new LinkedList<Integer>();
+		List<Integer> sowCulledList = new LinkedList<Integer>();
+		List<Integer> giltsCulledList = new LinkedList<Integer>();
+		List<Float> percentageCullingRateList = new LinkedList<Float>();
+		
+		List<Integer> totalFemaleDeathsandDestroyedList = new LinkedList<Integer>();
+		List<Integer> aveParityofMortalityList = new LinkedList<Integer>();
+		List<Integer> giltDeathsList = new LinkedList<Integer>();
+		List<Integer> sowDeathsList = new LinkedList<Integer>();
+		List<Integer> totalFemalesDestroyedList = new LinkedList<Integer>();
+		List<Float> percentageSowMortalityList = new LinkedList<Float>();
+		
+		List<Integer> boarEnteredList = new LinkedList<Integer>();
+		List<Integer> boarCulledList = new LinkedList<Integer>();
+		List<Integer> boarDeathsandDestroyedList = new LinkedList<Integer>();
+			
+		
 				
 		while(itr.hasNext())
 		{
@@ -321,6 +349,7 @@ public class ReportControlller {
 				int getConceptionRateAtPresumedPregnantFor42 = (Integer)valueList.get(34);
 				int weaingAge = (Integer)valueList.get(35);
 				
+						
 				totalBornList.add(totalBorn);
 				totalLiveBornList.add(totalLiveBorn);
 				totalDeathList.add(totalDeath);
@@ -429,6 +458,79 @@ public class ReportControlller {
 				pigsWeanedCrateYearList.add((float)totalPigsWeavened/totalActivePenAvailable);
 				weaningCapacityList.add((float)countPigletWithEaventTypeWean/totalActivePenAvailable);
 				
+				
+				int endFemaleInventor = (Integer)valueList.get(36);
+				endFemaleInventorList.add(endFemaleInventor);
+				
+				int endMatedFemaleInventory = piGIdFromFerrow + piGIdFromBreeding;
+				endMatedFemaleInventoryList.add(endMatedFemaleInventory);
+				
+				int endBoarInventory = (Integer)valueList.get(37);
+				endBoarInventoryList.add(endBoarInventory);
+				
+				int endLactationInventory =  (Integer)valueList.get(38);
+				endLactationInventoryList.add((float)endFemaleInventor/endLactationInventory);
+				
+				int endGestationInventory = (Integer)valueList.get(39);
+				endGestationInventoryList.add((float)endFemaleInventor/endGestationInventory);
+				
+				int percentageSpaceCapacity = (Integer)valueList.get(40)+ (Integer)valueList.get(41);
+				percentageSpaceCapacityList.add((float)endFemaleInventor/percentageSpaceCapacity);
+				
+				int aveFemaleInventoryPerCrate = (Integer)valueList.get(41);
+				aveFemaleInventoryPerCrateList.add((float)endFemaleInventor/aveFemaleInventoryPerCrate);
+				
+				int aveParityOfEndInventory = (Integer)valueList.get(42);
+				aveParityOfEndInventoryList.add((float)aveParityOfEndInventory/endFemaleInventor);
+				
+				int femaleEntered = (Integer)valueList.get(43);
+				femaleEnteredList.add(femaleEntered);
+				
+				int totalFemalesCulled = (Integer)valueList.get(44);
+				totalFemalesCulledList.add(totalFemalesCulled);
+				
+				percentageCullingRateList.add(((float)(totalFemalesCulled)/endFemaleInventor) * (365/7) * 100); // need to check
+				
+				// (sows and gilts culled)/(avg. female inventory) x (365/period length) x 100
+				
+				int aveParityofCulls = (Integer)valueList.get(45);
+				aveParityofCullsList.add(aveParityofCulls);
+				
+				int sowCulled = (Integer)valueList.get(46);
+				sowCulledList.add(sowCulled);
+				
+				int giltsCulled = (Integer)valueList.get(47);
+				giltsCulledList.add(giltsCulled);				
+				
+				int  totalFemaleDeathsandDestroyed = (Integer)valueList.get(48);
+				totalFemaleDeathsandDestroyedList.add(totalFemaleDeathsandDestroyed);
+				
+				percentageSowMortalityList.add(((float)(totalFemaleDeathsandDestroyed)/endFemaleInventor) * (365/7) * 100) ;
+				
+				//(sow and gilt deaths)/(avg. female inventory) x (365/period length) x100
+				
+				int  aveParityofMortality = (Integer)valueList.get(49);
+				aveParityofMortalityList.add(aveParityofMortality);
+				
+				int  giltDeaths = (Integer)valueList.get(50);
+				giltDeathsList.add(giltDeaths) ;
+				
+				int  sowDeaths = (Integer)valueList.get(51);
+				sowDeathsList.add(sowDeaths);
+				
+				int  totalFemalesDestroyed = (Integer)valueList.get(52);
+				totalFemalesDestroyedList.add(totalFemalesDestroyed);
+				
+				int  boarEntered = (Integer)valueList.get(53);
+				boarEnteredList.add(boarEntered);
+				
+				int  boarCulled = (Integer)valueList.get(54);
+				boarCulledList.add(boarCulled);
+				
+				int  boarDeathsandDestroyed = (Integer)valueList.get(55);
+				boarDeathsandDestroyedList.add(boarDeathsandDestroyed);				
+			
+				
 			}
 			else
 			{
@@ -503,6 +605,33 @@ public class ReportControlller {
 				averageWeaingAgeList.add(0f);
 				weaningCapacityList.add(0f);
 				pigsWeanedCrateYearList.add(0f);
+				
+				endFemaleInventorList.add(0);
+				endMatedFemaleInventoryList.add(0);
+				endBoarInventoryList.add(0);
+				endLactationInventoryList.add(0f);
+				endGestationInventoryList.add(0f);
+				percentageSpaceCapacityList.add(0f);
+				aveFemaleInventoryPerCrateList.add(0f);
+				aveParityOfEndInventoryList.add(0f);
+				femaleEnteredList.add(0);
+				
+				totalFemalesCulledList.add(0);
+				aveParityofCullsList.add(0);
+				sowCulledList.add(0) ;
+				giltsCulledList.add(0) ;
+				percentageCullingRateList.add(0f) ;
+				 
+				totalFemaleDeathsandDestroyedList.add(0);
+				aveParityofMortalityList.add(0);
+				giltDeathsList.add(0) ;
+				sowDeathsList.add(0);
+				totalFemalesDestroyedList.add(0) ;
+				percentageSowMortalityList.add(0f) ;
+				
+				boarEnteredList.add(0);
+				boarCulledList.add(0);
+				boarDeathsandDestroyedList.add(0);				
 				
 			}
 			
@@ -1150,7 +1279,211 @@ public class ReportControlller {
 		}
 		rows.add(weaningCapacityBuffer.toString());
 		rows.add("\n");
-
+		
+		rows.add("\n");
+		rows.add("Inventory status");
+		rows.add("\n");
+		rows.add("Adult Herd Statistics");
+		rows.add("\n");
+		
+		
+		StringBuffer endFemaleInventorListBuffer = new StringBuffer();
+		endFemaleInventorListBuffer.append("End Female Inventory,");
+		for (int i = 0; i < size; i++) {
+			endFemaleInventorListBuffer.append(endFemaleInventorList.get(i)).append(",");					
+		}
+		rows.add(endFemaleInventorListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer endMatedFemaleInventoryListBuffer = new StringBuffer();
+		endMatedFemaleInventoryListBuffer.append("End Mated Female Inventory,");
+		for (int i = 0; i < size; i++) {
+			endMatedFemaleInventoryListBuffer.append(endMatedFemaleInventoryList.get(i)).append(",");					
+		}
+		rows.add(endMatedFemaleInventoryListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer endBoarInventoryListBuffer = new StringBuffer();
+		endBoarInventoryListBuffer.append("End Boar Inventory,");
+		for (int i = 0; i < size; i++) {
+			endBoarInventoryListBuffer.append(endBoarInventoryList.get(i)).append(",");					
+		}
+		rows.add(endBoarInventoryListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer endLactationInventoryListBuffer = new StringBuffer();
+		endLactationInventoryListBuffer.append("End Lactation Inventory,");
+		for (int i = 0; i < size; i++) {
+			endLactationInventoryListBuffer.append(endLactationInventoryList.get(i)).append(",");					
+		}
+		rows.add(endLactationInventoryListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer endGestationInventoryListBuffer = new StringBuffer();
+		endGestationInventoryListBuffer.append(" End Gestation Inventory,");
+		for (int i = 0; i < size; i++) {
+			endGestationInventoryListBuffer.append(endGestationInventoryList.get(i)).append(",");					
+		}
+		rows.add(endGestationInventoryListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageSpaceCapacityListBuffer = new StringBuffer();
+		percentageSpaceCapacityListBuffer.append("%Space Capacity,");
+		for (int i = 0; i < size; i++) {
+			percentageSpaceCapacityListBuffer.append(percentageSpaceCapacityList.get(i)).append(",");					
+		}
+		rows.add(percentageSpaceCapacityListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer aveFemaleInventoryPerCrateListBuffer = new StringBuffer();
+		aveFemaleInventoryPerCrateListBuffer.append(" Ave Female Inventory/Crate,");
+		for (int i = 0; i < size; i++) {
+			aveFemaleInventoryPerCrateListBuffer.append(aveFemaleInventoryPerCrateList.get(i)).append(",");					
+		}
+		rows.add(aveFemaleInventoryPerCrateListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer aveParityOfEndInventoryListBuffer = new StringBuffer();
+		aveParityOfEndInventoryListBuffer.append("Ave Parity of End Inventory,");
+		for (int i = 0; i < size; i++) {
+			aveParityOfEndInventoryListBuffer.append(aveParityOfEndInventoryList.get(i)).append(",");					
+		}
+		rows.add(aveParityOfEndInventoryListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer femaleEnteredListBuffer = new StringBuffer();
+		femaleEnteredListBuffer.append("Female Entered,");
+		for (int i = 0; i < size; i++) {
+			femaleEnteredListBuffer.append(femaleEnteredList.get(i)).append(",");					
+		}
+		rows.add(femaleEnteredListBuffer.toString());
+		rows.add("\n");
+		
+		rows.add("\n");
+		rows.add("Culls");
+		rows.add("\n");
+		
+		StringBuffer totalFemalesCulledListBuffer = new StringBuffer();
+		totalFemalesCulledListBuffer.append("Total Females Culled,");
+		for (int i = 0; i < size; i++) {
+			femaleEnteredListBuffer.append(totalFemalesCulledList.get(i)).append(",");					
+		}
+		rows.add(totalFemalesCulledListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageCullingRateListBuffer = new StringBuffer();
+		percentageCullingRateListBuffer.append("%Culling Rate,");
+		for (int i = 0; i < size; i++) {
+			percentageCullingRateListBuffer.append(percentageCullingRateList.get(i)).append(",");					
+		}
+		rows.add(percentageCullingRateListBuffer.toString());
+		rows.add("\n");
+		
+		
+		StringBuffer aveParityofCullsListBuffer = new StringBuffer();
+		aveParityofCullsListBuffer.append("Ave Parity of Culls,");
+		for (int i = 0; i < size; i++) {
+			aveParityofCullsListBuffer.append(aveParityofCullsList.get(i)).append(",");					
+		}
+		rows.add(aveParityofCullsListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer sowCulledListBuffer = new StringBuffer();
+		sowCulledListBuffer.append("Sows Culled,");
+		for (int i = 0; i < size; i++) {
+			sowCulledListBuffer.append(sowCulledList.get(i)).append(",");					
+		}
+		rows.add(sowCulledListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer giltsCulledListBuffer = new StringBuffer();
+		giltsCulledListBuffer.append("Gilts Culled,");
+		for (int i = 0; i < size; i++) {
+			giltsCulledListBuffer.append(giltsCulledList.get(i)).append(",");					
+		}
+		rows.add(giltsCulledListBuffer.toString());
+		rows.add("\n");
+		
+		rows.add("\n");
+		rows.add("  Deaths and Destroyed");
+		rows.add("\n");
+		
+		StringBuffer totalFemaleDeathsandDestroyedListBuffer = new StringBuffer();
+		totalFemaleDeathsandDestroyedListBuffer.append("Total Female Deaths and Destroyed,");
+		for (int i = 0; i < size; i++) {
+			totalFemaleDeathsandDestroyedListBuffer.append(totalFemaleDeathsandDestroyedList.get(i)).append(",");					
+		}
+		rows.add(totalFemaleDeathsandDestroyedListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageSowMortalityListBuffer = new StringBuffer();
+		percentageSowMortalityListBuffer.append("%Sow Mortality,");
+		for (int i = 0; i < size; i++) {
+			percentageSowMortalityListBuffer.append(percentageSowMortalityList.get(i)).append(",");					
+		}
+		rows.add(percentageSowMortalityListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer aveParityofMortalityListBuffer = new StringBuffer();
+		aveParityofMortalityListBuffer.append("Ave Parity of Mortality,");
+		for (int i = 0; i < size; i++) {
+			aveParityofMortalityListBuffer.append(aveParityofMortalityList.get(i)).append(",");					
+		}
+		rows.add(aveParityofMortalityListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer giltDeathsListBuffer = new StringBuffer();
+		giltDeathsListBuffer.append("Gilt Deaths,");
+		for (int i = 0; i < size; i++) {
+			giltDeathsListBuffer.append(giltDeathsList.get(i)).append(",");					
+		}
+		rows.add(giltDeathsListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer sowDeathsListBuffer = new StringBuffer();
+		sowDeathsListBuffer.append("Sow Deaths,");
+		for (int i = 0; i < size; i++) {
+			sowDeathsListBuffer.append(sowDeathsList.get(i)).append(",");					
+		}
+		rows.add(sowDeathsListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer totalFemalesDestroyedListBuffer = new StringBuffer();
+		totalFemalesDestroyedListBuffer.append(" Total Females Destroyed,");
+		for (int i = 0; i < size; i++) {
+			totalFemalesDestroyedListBuffer.append(totalFemalesDestroyedList.get(i)).append(",");					
+		}
+		rows.add(totalFemalesDestroyedListBuffer.toString());
+		rows.add("\n");
+		
+		rows.add("\n");
+		rows.add("Boar Inventory");
+		rows.add("\n");
+		
+		StringBuffer boarEnteredListBuffer = new StringBuffer();
+		boarEnteredListBuffer.append(" Boar Entered,");
+		for (int i = 0; i < size; i++) {
+			boarEnteredListBuffer.append(boarEnteredList.get(i)).append(",");					
+		}
+		rows.add(boarEnteredListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer boarCulledListBuffer = new StringBuffer();
+		boarCulledListBuffer.append("Boar Culled,");
+		for (int i = 0; i < size; i++) {
+			boarCulledListBuffer.append(boarCulledList.get(i)).append(",");					
+		}
+		rows.add(boarCulledListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer boarDeathsandDestroyedListBuffer = new StringBuffer();
+		boarDeathsandDestroyedListBuffer.append("Boar Deaths and Destroyed,");
+		for (int i = 0; i < size; i++) {
+			boarDeathsandDestroyedListBuffer.append(boarDeathsandDestroyedList.get(i)).append(",");					
+		}
+		rows.add(boarDeathsandDestroyedListBuffer.toString());
+		rows.add("\n");
+				
 		return rows;
 	}
 	

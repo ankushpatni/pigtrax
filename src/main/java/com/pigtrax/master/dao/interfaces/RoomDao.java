@@ -68,6 +68,12 @@ public interface RoomDao {
 
 
 	Room getRoomListBasedOnPen(int penId) throws SQLException;
+
+
+	int getCountOfSpacesBasedOnPremisesId(int premiseId) throws SQLException;
+
+
+	int getCountOfSpacesBasedOnCompanyId(int generatedCompanyId) throws SQLException;
 	
 
 }
