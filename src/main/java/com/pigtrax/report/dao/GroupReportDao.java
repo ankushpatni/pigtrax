@@ -140,7 +140,7 @@ public class GroupReportDao {
 			+"  and GE.\"id\" = ?)"
 			+" UNION "
 			+ "( select  2 as row,  GE.\"groupId\",  RES.\"removalDateTime\" as \"Event Date\", 'Transfer through Pig Movement' as \"Event Name\", "
-			+"   'Start Hd : '|| RES.\"numberOfPigs\" || ' :: Weight :' || RES.\"weightInKgs\" || ' :: From Premises : ' || p.\"name\" || ' :: To Premises : ' || p1.\"name\" || ' :: To Room : ' || R.\"roomId\" as \"Data\", "
+			+"   'Start Hd : '|| RES.\"numberOfPigs\" || ' :: Weight :' || RES.\"weightInKgs\" || ' :: From Premises : ' || p.\"name\" || ' :: To Premises : ' || p1.\"name\" || ' :: To Room : ' || (case when( RES.\"id_Room\" is not null ) THEN  R.\"roomId\" else ''  END) as \"Data\", "
 			+"   '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\" "
 			+"  from pigtrax.\"GroupEvent\" GE JOIN pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GE.\"id\" = RES.\"id_GroupEvent\" and  "
 			+"  GE.\"id\" = ? and RES.\"id_RemovalEvent\" = 9 "
