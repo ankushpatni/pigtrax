@@ -142,5 +142,7 @@ public interface PigletStatusEventDao {
 	Integer getAveParityofEndInventory(Date startDate, Date endDate, Integer companyId, Integer premisesId);
 
 	Integer getFemaleEntered(Date start, Date end, Integer companyId, Integer premisesId);
+
+	Integer getTotalAbortions(Date startDate, Date endDate, Integer companyId, Integer premisesId);
 	
 }

@@ -49,4 +49,6 @@ PigInfo getPigInformationByPigIdWithOutStatus(String pigId, Integer companyId,
 		Integer premiseId) throws SQLException;
 		
 		public List<PigInfo> getActivePigInformationList(final Integer companyId, final Integer premiseId) throws SQLException ;
+
+		List<PigInfo> getPigInformationList(Integer companyId, Integer premiseId) throws SQLException;
 }

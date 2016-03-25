@@ -19,6 +19,14 @@
 				              <option ng-repeat="premise in farmList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
 				              </select>
 				             </div>
+							 
+							 <div  class="form-group">  	
+					   		 <select  class="form-control"  name="status" id="status" ng-model="status"  style="width:90%;display:inline" ng-change="loadActiveCloseGroupEvents()">
+									<!--<option value="" hidden><spring:message code='label.piginfo.groupEventForm.search.placeholder' text='Search by Group Id ...' /></option>-->
+									<option value="active" ><spring:message code='label.piginfo.groupEventForm.search.active' text='Active groups' /></option>
+									<option value="closed" ><spring:message code='label.piginfo.groupEventForm.search.close' text='Closed groups' /></option>
+					             </select>
+							 </div>
            					<div  class="form-group">  	
 					   		<!--  <input type="text" name="search"  ng-enter="getGroupEventInformation(searchText, selectedPremise)" ng-model="searchText" ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.groupEventForm.groupId.invalidMessage' text='Only Numeric values are allowed' />'" placeholder="<spring:message code='label.piginfo.groupEventForm.search.placeholder'  text='Search by Group Id ...'/>" class="form-control" style="width:90%;display:inline"> -->

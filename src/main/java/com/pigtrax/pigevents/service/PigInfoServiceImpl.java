@@ -313,7 +313,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 			
 			List<PigInfoDto> pigInfoDtoList = new LinkedList<PigInfoDto>();
 			try {
-				List<PigInfo> pigInfoList =  pigInfoDao.getActivePigInformationList(companyId,premiseId);
+				List<PigInfo> pigInfoList =  pigInfoDao.getPigInformationList(companyId,premiseId);
 				for(PigInfo pigInfo : pigInfoList)
 					{
 						pigInfoDtoList.add(builder.convertToDto(pigInfo));

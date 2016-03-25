@@ -29,6 +29,7 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 	$scope.updatedRooms = [];
 	$scope.transferPhase = null;
 	$scope.transferPhaseId = null;
+	$scope.groupEventFromPremisesListOrignal = {};
 	
 	$scope.multiselectdropdownsettings = {
     scrollableHeight: '200px',
@@ -51,10 +52,42 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.selectedPremise);
 		res.success(function(data, status, headers, config) {
 			$scope.groupEventFromPremisesList = data.payload;
+			$scope.groupEventFromPremisesListOrignal = data.payload;
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+	}
+	
+	$scope.loadActiveCloseGroupEvents = function()
+	{
+	$scope.groupEventTempList = $scope.groupEventFromPremisesListOrignal;
+		
+	if($scope.status === 'active')
+		{
+		$scope.groupEventFromPremisesList = {};
+		for( var x in $scope.groupEventTempList)
+				{
+					if( $scope.groupEventTempList[x].active )
+						{		
+							$scope.groupEventFromPremisesList[x] = $scope.groupEventTempList[x];
+						}
+				}
+		}
+		
+		if($scope.status === 'closed')
+		{
+		
+		$scope.groupEventFromPremisesList = {};
+		for( var x in $scope.groupEventTempList)
+				{
+					if(! $scope.groupEventTempList[x].active )
+						{		
+							$scope.groupEventFromPremisesList[x] = $scope.groupEventTempList[x];
+						}
+				}
+		}
+	
 	}
 	
 	$scope.setCompanyId = function(companyId,searchedGroupid, searchPremiseId)

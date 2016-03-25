@@ -2023,5 +2023,36 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 					});
 
 			return eventMasterList.get(0);
-		}			
+		}	
+		
+		
+//           Total Abortions
+	@Override
+	public Integer getTotalAbortions(final Date startDate,
+			final Date endDate, final Integer companyId,final Integer premisesId)  {
+		String qry = " select count(*) from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" "
+					+ " where PE.\"id_PregnancyEventType\" = 2 and PE.\"examDate\" :: date between ? and ? and PI.\"id_Company\" = ? ";
+		
+		if(premisesId !=0)
+		{
+			qry = qry+ " and PI.\"id_Premise\" = " + premisesId;
+		}
+
+		List<Integer> eventMasterList = jdbcTemplate.query(qry,
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setDate(1, startDate);
+						ps.setDate(2, endDate);
+						ps.setInt(3, companyId);
+					}
+				}, new RowMapper<Integer>() {
+					public Integer mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return rs.getInt(1);
+					}
+				});
+
+		return eventMasterList.get(0);
+	}
 }
