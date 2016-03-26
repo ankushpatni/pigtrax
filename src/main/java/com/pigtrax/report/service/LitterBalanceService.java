@@ -28,8 +28,11 @@ public class LitterBalanceService {
 		if (litterBalanceList != null && litterBalanceList.size() > 0) {
 
 			StringBuffer rowBuffer = null;
-			returnRows
+			/*returnRows
 					.add("PigID, Wean date (dd/MM/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
+		*/	
+			returnRows
+			.add("PigID, Wean date (dd/MM/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Weaned,Balance");
 			returnRows.add("\n");
 			for (LitterBalanceBean litterBalanceBean : litterBalanceList) {
 				rowBuffer = new StringBuffer();
@@ -48,7 +51,7 @@ public class LitterBalanceService {
 					rowBuffer.append(litterBalanceBean.getLiveBorn() + seprater);					
 					rowBuffer.append(litterBalanceBean.getDeath() + seprater);
 					rowBuffer.append(litterBalanceBean.getTransfer() + seprater);
-					rowBuffer.append(litterBalanceBean.getFosterInNum() + seprater);
+					//rowBuffer.append(litterBalanceBean.getFosterInNum() + seprater);
 					rowBuffer.append(litterBalanceBean.getWean() + seprater);
 					rowBuffer.append(litterBalanceBean.getBalance());
 					returnRows.add(rowBuffer.toString()+"\n");
