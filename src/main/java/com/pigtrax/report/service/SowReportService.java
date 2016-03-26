@@ -299,7 +299,7 @@ public class SowReportService {
 										salesTypeStr.append(saleTypesMap.get(i) +":");
 									}
 								}
-								rowBuffer.append("Sales Type : "+salesTypeStr+" :: Invoice Id : "+salesEventDetailsById.getInvoiceId());
+								rowBuffer.append("Sales Type : "+salesTypeStr+" :: Ticket Number : "+salesEventDetailsById.getTicketNumber());
 								
 							}
 							else
