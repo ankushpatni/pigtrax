@@ -41,6 +41,15 @@ pigTrax.controller('saleReportController', function($scope, $http, $window,$moda
 		res1.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+		
+		var res = $http.get('rest/entryEvent/getPigInfoList?companyId='+localCompany+'&premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+		console.log(data.payload);
+			$scope.pigInfoListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
 	}
 	
 	$scope.getBarnList = function(){

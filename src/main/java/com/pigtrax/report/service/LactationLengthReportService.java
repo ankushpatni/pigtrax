@@ -2,9 +2,9 @@ package com.pigtrax.report.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,12 +33,13 @@ public class LactationLengthReportService {
 			
 			int count = 0;
 			
-			Map<String, LactationLengthBean> dataMap = new HashMap<String, LactationLengthBean>();
+			/*Map<String, LactationLengthBean> dataMap = new HashMap<String, LactationLengthBean>();*/
+			Map<Integer, LactationLengthBean> dataMap = new TreeMap<Integer, LactationLengthBean>();
 			
 			for(LactationLengthBean bean : lactationLengthList)
 			{
 				
-				
+				/*
 				if(bean.getLactationLength() == 0)
 				{
 					LactationLengthBean rowBean = dataMap.get("0");
@@ -146,7 +147,17 @@ public class LactationLengthReportService {
 					rowBean.setTotalPigCount(bean.getTotalPigCount());
 					rowBean.setDayLabel("21+ days");
 					dataMap.put(">21", rowBean);
+				}*/
+				
+				LactationLengthBean rowBean = dataMap.get(bean.getLactationLength());
+				if(rowBean == null)
+				{
+					rowBean = new LactationLengthBean();
 				}
+				rowBean.setNumberOfPigs(rowBean.getNumberOfPigs()+bean.getNumberOfPigs());
+				rowBean.setTotalPigCount(bean.getTotalPigCount());
+				rowBean.setDayLabel(bean.getLactationLength() + " days");
+				dataMap.put(bean.getLactationLength(), rowBean);
 			}
 			
 			
@@ -155,7 +166,25 @@ public class LactationLengthReportService {
 					.add("Lactation Days, Number of Sows, Percent of Total");
 			returnRows.add("\n");
 			
-			LactationLengthBean lactationLengthBean = dataMap.get("0");
+			LactationLengthBean lactationLengthBean = null;
+			for (Map.Entry<Integer, LactationLengthBean> entry : dataMap.entrySet())
+			{
+			    //System.out.println(entry.getKey() + "/" + entry.getValue());
+				if(entry.getValue() != null)
+				{
+					lactationLengthBean = entry.getValue();
+					if(lactationLengthBean.getNumberOfPigs() > 0)
+					{
+						rowBuffer = new StringBuffer();				
+						rowBuffer.append(lactationLengthBean.getDayLabel() + seprater);
+						rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
+						rowBuffer.append(lactationLengthBean.getPercentage() );
+						returnRows.add(rowBuffer.toString()+"\n");
+					}
+				}
+			}
+			
+			/*LactationLengthBean lactationLengthBean = dataMap.get("0");
 			if(lactationLengthBean != null)
 			{   
 				rowBuffer = new StringBuffer();				
@@ -307,7 +336,7 @@ public class LactationLengthReportService {
 				rowBuffer.append(emptyBean.getNumberOfPigs() + seprater);
 				rowBuffer.append(emptyBean.getPercentage() );
 				returnRows.add(rowBuffer.toString()+"\n");
-			}
+			}*/
 		
 		return returnRows;
 	}

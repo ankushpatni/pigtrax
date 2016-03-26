@@ -24,7 +24,7 @@ public class SaleReportService {
 
 	private static final String seprater = ",";
 	
-	public List<String> getSaleList(String premise, int premiseId, int groupId, java.util.Date startDate, java.util.Date endDate, int barnId, String ticketNumber, String language)
+	public List<String> getSaleList(String premise, int premiseId, int groupId, java.util.Date startDate, java.util.Date endDate, int barnId, String ticketNumber, String language, int pigId)
 	{
 		
 		Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
@@ -41,7 +41,7 @@ public class SaleReportService {
 			endDateSql = new Date(endDate.getTime());
 		}
 		
-		List<SaleReportBean> saleReportBeanList = saleReportDao.getSaleList(premiseId,barnId, groupId, startDateSql, endDateSql, ticketNumber);
+		List<SaleReportBean> saleReportBeanList = saleReportDao.getSaleList(premiseId,barnId, groupId, startDateSql, endDateSql, ticketNumber, pigId);
 		
 		ArrayList<String> returnRows = new ArrayList<String>();
 		String dateStr = "";

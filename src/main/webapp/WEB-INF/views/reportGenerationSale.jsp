@@ -58,6 +58,14 @@
 								</select>
 						</div>
 						
+						<div  class="form-group">			
+ 		   				<!-- <input type="text" name="pigId" id="pigId" class="form-control" ng-model="pigId" placeholder="<spring:message code='label.sowReport.search.pig'  text='Search by Pig Id ...'/>"/>-->
+						 <select  class="form-control"  name="pigId" id="pigId" ng-model="pigId" >
+								<option value="" hidden><spring:message code='label.sowReport.search.pig' text='Search by Pig Id ...' /></option>
+								<option ng-repeat="pigInfo in pigInfoListSearch" value="{{pigInfo.pigId}}" ng-value="pigInfo.pigId" ng-selected="pigId == pigInfo.pigId">{{pigInfo.pigId}}</option>
+								</select>
+						</div>
+						
 						<div  class="form-group">
 						<label><spring:message code='label.generateLactationLengthReport.startDate'  text='Start Date'/></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>

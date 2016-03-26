@@ -20,6 +20,8 @@ public class SaleReportBean {
 	private String truck;
 	private String trailer;
 	private String remarks;
+	private String pigID;
+	
 	public String getPremisesId() {
 		return premisesId;
 	}
@@ -116,4 +118,12 @@ public class SaleReportBean {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	public String getPigID() {
+		return pigID;
+	}
+	public void setPigID(String pigID) {
+		this.pigID = pigID;
+	}
+	
+	
 }

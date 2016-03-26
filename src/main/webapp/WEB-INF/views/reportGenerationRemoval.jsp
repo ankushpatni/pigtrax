@@ -40,7 +40,7 @@
  		   				<!-- <input type="text" name="pigId" id="pigId" class="form-control" ng-model="pigId" placeholder="<spring:message code='label.sowReport.search.pig'  text='Search by Pig Id ...'/>"/>-->
 						 <select  class="form-control"  name="search" id="search" ng-model="pigId" >
 								<option value="" hidden><spring:message code='label.sowReport.search.pig' text='Search by Pig Id ...' /></option>
-								<option ng-repeat="pigInfo in pigInfoListSearch" value="{{pigInfo.pigId}}" ng-value="pigInfo.pigId" ng-selected="pigId == premise.pigId">{{pigInfo.pigId}}</option>
+								<option ng-repeat="pigInfo in pigInfoListSearch" value="{{pigInfo.pigId}}" ng-value="pigInfo.pigId" ng-selected="pigId == pigInfo.pigId">{{pigInfo.pigId}}</option>
 								</select>
 						</div>
 						

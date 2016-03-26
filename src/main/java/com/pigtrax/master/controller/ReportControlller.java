@@ -2193,6 +2193,7 @@ public class ReportControlller {
 					String group = request.getParameter("groupId");
 					String barn = request.getParameter("selectedBarn");
 					String ticketNumber = request.getParameter("ticketNumber");
+					String pig = request.getParameter("pigId");
 					
 					String companyString = request.getParameter("companyId1");
 					Integer companyId ;
@@ -2234,6 +2235,16 @@ public class ReportControlller {
 							barnId = Integer.parseInt(barn);
 						}
 						
+						int pigId = 0;
+						if(pig != null && !StringUtils.isEmpty(pig))
+						{
+							PigInfo pigInformation = pigInfoDao.getPigInformationByPigIdWithOutStatus(pig, companyId, premiseId);
+							if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
+							{
+								pigId = pigInformation.getId();
+							}							
+						}
+						
 						if(premise != null)
 						{
 							response.setContentType("text/csv");
@@ -2243,7 +2254,7 @@ public class ReportControlller {
 							
 							if(premiseId > 0)
 							{ 
-								rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),barnId,ticketNumber, language); 
+								rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),barnId,ticketNumber, language, pigId); 
 								Iterator<String> iter = rows.iterator();
 								while (iter.hasNext()) {
 									String outputString = (String) iter.next();

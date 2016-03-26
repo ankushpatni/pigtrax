@@ -303,7 +303,7 @@ pigTrax.controller('EntryEventController', function($scope, $http,$window,restSe
 							companyId : $scope.companyId,
 							selectedPremise : $scope.selectedPremise
 					};
-					restServices.getPigInformation(searchPigInfo, function(data)
+					restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
 					{
 						if(!data.error){
 							$scope.clearAllMessages();
