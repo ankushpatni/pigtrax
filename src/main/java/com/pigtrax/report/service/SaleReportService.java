@@ -50,7 +50,7 @@ public class SaleReportService {
 			StringBuffer rowBuffer = null;
 			
 			returnRows
-			.add("Premises ,BarnID,RoomID,Group ID,SalesEvent date,Salestype,Number of pigs sold,Destination,Total weight,	weight/pig,Ticket number,Invoice number,Revenue,Truck,Trailer,Remarks");
+			.add("Premises ,BarnID,RoomID,PigId, Group ID,SalesEvent date,Salestype,Number of pigs sold,Destination,Total weight,	weight/pig,Ticket number,Invoice number,Revenue,Truck,Trailer,Remarks");
 			returnRows.add("\n");
 			try
 			{
@@ -65,6 +65,11 @@ public class SaleReportService {
 				
 				if(saleReportBean.getRoomID() != null)
 					rowBuffer.append(saleReportBean.getRoomID()).append(seprater);
+				else
+					rowBuffer.append(seprater);
+				
+				if(saleReportBean.getPigID() != null)
+					rowBuffer.append(saleReportBean.getPigID()).append(seprater);
 				else
 					rowBuffer.append(seprater);
 				
