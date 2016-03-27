@@ -99,7 +99,7 @@ public class GestationReportService {
 				rowBuffer.append(mpRow.get("%FR") + seprater);
 				rowBuffer.append(mpRow.get("FarrowDate") + seprater);
 				rowBuffer.append(mpRow.get("FarrowWK") + seprater);
-				rowBuffer.append(mpRow.get("FACapacity"));
+				rowBuffer.append(mpRow.get("FACapacity %"));
 				returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}

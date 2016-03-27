@@ -23,7 +23,7 @@
 							 <div  class="form-group">  	
 					   		 <select  class="form-control"  name="status" id="status" ng-model="status"  style="width:90%;display:inline" ng-change="loadActiveCloseGroupEvents()">
 									<!--<option value="" hidden><spring:message code='label.piginfo.groupEventForm.search.placeholder' text='Search by Group Id ...' /></option>-->
-									<option value="active" ><spring:message code='label.piginfo.groupEventForm.search.active' text='Active groups' /></option>
+									<option value="active" ng-selected=true><spring:message code='label.piginfo.groupEventForm.search.active' text='Active groups' /></option>
 									<option value="closed" ><spring:message code='label.piginfo.groupEventForm.search.close' text='Closed groups' /></option>
 					             </select>
 							 </div>

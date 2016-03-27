@@ -3,6 +3,7 @@ package com.pigtrax.report.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,7 +66,12 @@ public class GestationReportDao {
 			Integer farrowCnt = getFarrowCount(premiseId,ServDateSTART, ServDateEND);
 			row.put("Farrows", farrowCnt);
 			Date farrowDate = DateUtil.addDays(ServDateSTART, 115);
-			row.put("FarrowDate", farrowDate);
+			try {
+				row.put("FarrowDate", DateUtil.convertToFormatString(farrowDate, "dd/MM/yyyy"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Double farrowPercentage = 0D;
 			if(NumberServ >0 && farrowCnt > 0)
 				farrowPercentage = (double) ((farrowCnt*100)/NumberServ);
@@ -78,7 +84,7 @@ public class GestationReportDao {
 			Double FACapacity = 0D;
 			
 			if(penCount > 0 && farrowCnt > 0)
-				FACapacity = (double)(farrowCnt/penCount);
+				FACapacity = (double)(farrowCnt/penCount)*100;
 			row.put("FACapacity", FACapacity);
 		}
 		
