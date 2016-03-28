@@ -34,6 +34,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	$scope.ShowRationOption = false;
 	$scope.usedTargetKeys = [];
 	$scope.limitedTargetKeys = [];
+	$scope.wfTargetKeys = [];
 	$scope.s1TargetKeys = [];
 	
 	
@@ -55,10 +56,16 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 				  $scope.keys = responseList[0];
 				  for(i = 0; i < $scope.keys.length; i++)
 				  {
-					  if($scope.keys[i] >=97 && $scope.keys[i] <=105)
+					  if($scope.keys[i] >=114 && $scope.keys[i] <=122)
+					  {
 						  $scope.limitedTargetKeys.push($scope.keys[i]);
+						  if($scope.keys[i] != 111 && $scope.keys[i] != 112 && $scope.keys[i] != 113)
+							  $scope.wfTargetKeys.push($scope.keys[i]);
+					  }
 					  else
+					  {
 						  $scope.s1TargetKeys.push($scope.keys[i]);
+					  }
 				  }
 				  
 				  $scope.targetTypes = responseList[3];
@@ -101,7 +108,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 			{
 			$scope.ShowRationOption = false;
 			$scope.companyTarget.rationId = null;
-			}
+			} 
 	}
 	
 	
@@ -127,10 +134,10 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		  {
 			  $scope.usedTargetKeys = $scope.limitedTargetKeys ;
 		  }		
-		  else
-		  {
-			  $scope.usedTargetKeys = [];
-		   }
+		  else if( premiseObj["premiseTypeId"] == 4  || premiseObj["premiseTypeId"] == 5 )
+			  {
+			  $scope.usedTargetKeys = $scope.wfTargetKeys;
+			  }
 	}
 	
 	
