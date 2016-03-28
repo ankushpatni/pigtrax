@@ -1,7 +1,7 @@
 pigTrax.controller('sowReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
 	var localCompany ;
-
+	$scope.mentaoryField = false;
 	
 	$scope.loadPremises = function(comapnyId)
 	{
@@ -40,6 +40,18 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
     $scope.searchPigInfo = function()
     {
 			$scope.pigInfo = {};
+			
+			if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
+				$scope.companyId === '' || $scope.companyId === undefined || 
+				$scope.searchText === '' || $scope.searchText === undefined )
+			{
+				$scope.mentaoryField = true;
+				return true;
+			}
+			else
+			{	
+				$scope.mentaoryField = false;
+			}
 			var searchPigInfo = {
 					searchText : $scope.searchText,
 					searchOption : 'pigId',

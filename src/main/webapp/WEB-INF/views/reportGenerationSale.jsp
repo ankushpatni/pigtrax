@@ -20,6 +20,7 @@
 						</h3>
 						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.entryeventform.search.data.errormessage' text='Pig Information not found for the search criteria'/></p>
 						<p class="color-danger" ng-show="searchDataErrorMessageGroup"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
+						<p class="color-danger" ng-show="mentaoryField"><spring:message code='label.piginfo.entryeventform.search.data.mandatory' text='Please enter mandatory fields.'/></p>
 						
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>

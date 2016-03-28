@@ -85,6 +85,18 @@ pigTrax.controller('saleReportController', function($scope, $http, $window,$moda
 					});
 				}
 			*/
+			if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
+				$scope.companyId === '' || $scope.companyId === undefined || 
+				$scope.endDate === '' || $scope.endDate === undefined || 
+				$scope.startDate === '' || $scope.startDate === undefined)
+			{
+				$scope.mentaoryField = true;
+				return true;
+			}
+			else
+			{	
+				$scope.mentaoryField = false;
+			}
 			if($scope.groupId !== undefined && $scope.groupId !== '')
 				{
 					var searchGroupInfo = {
@@ -100,6 +112,23 @@ pigTrax.controller('saleReportController', function($scope, $http, $window,$moda
 						}
 					});
 				}
+				
+			if($scope.pigId !== undefined && $scope.pigId !== '')
+				{
+				var searchPigInfo = {
+					searchText : $scope.pigId,
+					searchOption : 'pigId',
+					companyId : $scope.companyId,
+					selectedPremise : $scope.selectedPremise
+				};
+				restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
+				{
+					if(!data.error){
+						$scope.searchDataErrorMessage = true;
+								return false;
+					}
+				});
+			}
 			
 			//$scope.searchDataErrorMessage = false;
 			$scope.searchDataErrorMessageGroup = false;

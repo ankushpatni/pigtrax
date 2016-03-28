@@ -298,8 +298,19 @@ public class ReportControlller {
 		List<Integer> boarEnteredList = new LinkedList<Integer>();
 		List<Integer> boarCulledList = new LinkedList<Integer>();
 		List<Integer> boarDeathsandDestroyedList = new LinkedList<Integer>();
-			
 		
+		List<Integer> totalAbortionsList = new LinkedList<Integer>();
+		List<Integer> abortionsNaturalList = new LinkedList<Integer>();
+		List<Integer> abortionsInducedList = new LinkedList<Integer>();
+		List<Integer> aveAbortionParityList = new LinkedList<Integer>();
+		List<Float> percentageAbortions1000sowsList = new LinkedList<Float>();
+		
+		List<Integer> sowsorGiltsTransferredINList = new LinkedList<Integer>();
+		List<Integer> sowsorGiltsTransferredOutList = new LinkedList<Integer>();
+		List<Integer> giltEnteredList = new LinkedList<Integer>();
+		List<Float> percentageGiltsSowInventoryList = new LinkedList<Float>();
+		List<Float> percentageReplacementRateList = new LinkedList<Float>();
+	
 				
 		while(itr.hasNext())
 		{
@@ -489,7 +500,7 @@ public class ReportControlller {
 				int totalFemalesCulled = (Integer)valueList.get(44);
 				totalFemalesCulledList.add(totalFemalesCulled);
 				
-				percentageCullingRateList.add(((float)(totalFemalesCulled)/endFemaleInventor) * (365/7) * 100); // need to check
+				percentageCullingRateList.add(((float)(totalFemalesCulled)/endFemaleInventor) * (365/7) ); // need to check
 				
 				// (sows and gilts culled)/(avg. female inventory) x (365/period length) x 100
 				
@@ -505,7 +516,7 @@ public class ReportControlller {
 				int  totalFemaleDeathsandDestroyed = (Integer)valueList.get(48);
 				totalFemaleDeathsandDestroyedList.add(totalFemaleDeathsandDestroyed);
 				
-				percentageSowMortalityList.add(((float)(totalFemaleDeathsandDestroyed)/endFemaleInventor) * (365/7) * 100) ;
+				percentageSowMortalityList.add(((float)(totalFemaleDeathsandDestroyed)/endFemaleInventor) * (365/7) ) ;
 				
 				//(sow and gilt deaths)/(avg. female inventory) x (365/period length) x100
 				
@@ -528,9 +539,36 @@ public class ReportControlller {
 				boarCulledList.add(boarCulled);
 				
 				int  boarDeathsandDestroyed = (Integer)valueList.get(55);
-				boarDeathsandDestroyedList.add(boarDeathsandDestroyed);				
-			
+				boarDeathsandDestroyedList.add(boarDeathsandDestroyed);	
 				
+				int  totalAbortions = (Integer)valueList.get(56);
+				totalAbortionsList.add(totalAbortions);
+				
+				percentageAbortions1000sowsList.add((float)totalAbortions/(endFemaleInventor/1000));
+				
+				int  abortionsNatural = (Integer)valueList.get(57);
+				abortionsNaturalList.add(abortionsNatural);
+				
+				int  abortionsInduced = (Integer)valueList.get(58);
+				abortionsInducedList.add(abortionsInduced);
+				
+				int  aveAbortionParity = (Integer)valueList.get(59);
+				aveAbortionParityList.add(aveAbortionParity);
+				
+				
+				int sowsorGiltsTransferredIN = (Integer)valueList.get(60);
+				sowsorGiltsTransferredINList.add(sowsorGiltsTransferredIN);
+				
+				int sowsorGiltsTransferredOut = (Integer)valueList.get(61);
+				sowsorGiltsTransferredOutList.add(sowsorGiltsTransferredOut);
+				
+				int giltEntered = (Integer)valueList.get(62);
+				giltEnteredList.add(giltEntered);
+				
+				percentageGiltsSowInventoryList.add((float)giltEntered/endFemaleInventor);
+				percentageReplacementRateList.add((float)(sowsorGiltsTransferredIN/endFemaleInventor)*(365/7));
+				
+					
 			}
 			else
 			{
@@ -616,6 +654,12 @@ public class ReportControlller {
 				aveParityOfEndInventoryList.add(0f);
 				femaleEnteredList.add(0);
 				
+				totalAbortionsList.add(0);
+				percentageAbortions1000sowsList.add(0f);
+				abortionsNaturalList.add(0);
+				abortionsInducedList.add(0);
+				aveAbortionParityList.add(0);	
+				
 				totalFemalesCulledList.add(0);
 				aveParityofCullsList.add(0);
 				sowCulledList.add(0) ;
@@ -631,7 +675,13 @@ public class ReportControlller {
 				
 				boarEnteredList.add(0);
 				boarCulledList.add(0);
-				boarDeathsandDestroyedList.add(0);				
+				boarDeathsandDestroyedList.add(0);	
+				
+				sowsorGiltsTransferredINList.add(0);
+				sowsorGiltsTransferredOutList.add(0);
+				giltEnteredList.add(0);
+				percentageGiltsSowInventoryList.add(0f);
+				percentageReplacementRateList.add(0f);
 				
 			}
 			
@@ -1357,6 +1407,88 @@ public class ReportControlller {
 			femaleEnteredListBuffer.append(femaleEnteredList.get(i)).append(",");					
 		}
 		rows.add(femaleEnteredListBuffer.toString());
+		rows.add("\n");
+		
+			
+		StringBuffer sowsorGiltsTransferredINListBuffer = new StringBuffer();
+		sowsorGiltsTransferredINListBuffer.append(" Female Transfer IN,");
+		for (int i = 0; i < size; i++) {
+			sowsorGiltsTransferredINListBuffer.append(sowsorGiltsTransferredINList.get(i)).append(",");					
+		}
+		rows.add(sowsorGiltsTransferredINListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer sowsorGiltsTransferredOutListBuffer = new StringBuffer();
+		sowsorGiltsTransferredOutListBuffer.append("Female Transfer OUT,");
+		for (int i = 0; i < size; i++) {
+			sowsorGiltsTransferredOutListBuffer.append(sowsorGiltsTransferredOutList.get(i)).append(",");					
+		}
+		rows.add(sowsorGiltsTransferredOutListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer giltEnteredListBuffer = new StringBuffer();
+		giltEnteredListBuffer.append("Gilts Entered,");
+		for (int i = 0; i < size; i++) {
+			giltEnteredListBuffer.append(giltEnteredList.get(i)).append(",");					
+		}
+		rows.add(giltEnteredListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageGiltsSowInventoryListBuffer = new StringBuffer();
+		percentageGiltsSowInventoryListBuffer.append(" %Gilts - Sow Inventory,");
+		for (int i = 0; i < size; i++) {
+			percentageGiltsSowInventoryListBuffer.append(percentageGiltsSowInventoryList.get(i)).append(",");					
+		}
+		rows.add(percentageGiltsSowInventoryListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageReplacementRateListBuffer = new StringBuffer();
+		percentageReplacementRateListBuffer.append("%Replacement Rate,");
+		for (int i = 0; i < size; i++) {
+			percentageReplacementRateListBuffer.append(percentageReplacementRateList.get(i)).append(",");					
+		}
+		rows.add(percentageReplacementRateListBuffer.toString());
+		rows.add("\n");
+		
+		
+		StringBuffer totalAbortionsListBuffer = new StringBuffer();
+		totalAbortionsListBuffer.append("Total Abortions,");
+		for (int i = 0; i < size; i++) {
+			totalAbortionsListBuffer.append(totalAbortionsList.get(i)).append(",");					
+		}
+		rows.add(totalAbortionsListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageAbortions1000sowsListBuffer = new StringBuffer();
+		percentageAbortions1000sowsListBuffer.append("%Abortions 1000sows,");
+		for (int i = 0; i < size; i++) {
+			percentageAbortions1000sowsListBuffer.append(percentageAbortions1000sowsList.get(i)).append(",");					
+		}
+		rows.add(percentageAbortions1000sowsListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer abortionsNaturalListListBuffer = new StringBuffer();
+		abortionsNaturalListListBuffer.append("Abortions - Natural,");
+		for (int i = 0; i < size; i++) {
+			abortionsNaturalListListBuffer.append(abortionsNaturalList.get(i)).append(",");					
+		}
+		rows.add(abortionsNaturalListListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer abortionsInducedListBuffer = new StringBuffer();
+		abortionsInducedListBuffer.append("Abortions - Induced,");
+		for (int i = 0; i < size; i++) {
+			abortionsInducedListBuffer.append(abortionsInducedList.get(i)).append(",");					
+		}
+		rows.add(abortionsInducedListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer aveAbortionParityListBuffer = new StringBuffer();
+		aveAbortionParityListBuffer.append("Abortions - Induced,");
+		for (int i = 0; i < size; i++) {
+			aveAbortionParityListBuffer.append(aveAbortionParityList.get(i)).append(",");					
+		}
+		rows.add(aveAbortionParityListBuffer.toString());
 		rows.add("\n");
 		
 		rows.add("\n");
@@ -2266,7 +2398,18 @@ public class ReportControlller {
 							
 							if(premiseId > 0)
 							{ 
-								rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),barnId,ticketNumber, language, pigId); 
+								java.util.Date startD = null;
+								if(startDate != null && !StringUtils.isEmpty(startDate))
+								{
+									startD = DateUtil.convertToFormat(startDate, "dd/MM/yyyy");
+								}
+								java.util.Date endD =  null;
+								if(endDate != null && !StringUtils.isEmpty(endDate))
+								{
+									endD = DateUtil.convertToFormat(endDate, "dd/MM/yyyy");
+								}
+								
+								rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, startD, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),barnId,ticketNumber, language, pigId); 
 								Iterator<String> iter = rows.iterator();
 								while (iter.hasNext()) {
 									String outputString = (String) iter.next();
@@ -2390,137 +2533,158 @@ public class ReportControlller {
 				}
 	
 	
-				//Removal Report Starts
-				@RequestMapping(value = "/feedReport", method = RequestMethod.GET)
-				public ModelAndView feedReport(HttpServletRequest request) {
+		//Removal Report Starts
+		@RequestMapping(value = "/feedReport", method = RequestMethod.GET)
+		public ModelAndView feedReport(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "reportGenerationFeed.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			return new ModelAndView("template", model);
+		}
+		
+		@RequestMapping(value = "/generateFeedReport", method = RequestMethod.POST)
+		public ModelAndView generateFeedReport(HttpServletRequest request, HttpServletResponse response) {
+			
+			boolean flag = true;
+			Integer companyId =0 ;
+				try {
+					String selectedPremise = request.getParameter("selectedPremise");
+					String companyString = request.getParameter("companyId1");
+					
+					
+					LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+					String language = localeResolver.resolveLocale(request).getLanguage();
+					
+					PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					if(companyString != null && !StringUtils.isEmpty(companyString))
+					{
+						companyId = Integer.parseInt(companyString);
+					}
+					else
+					{
+						companyId = activeUser.getCompanyId();
+					}			
+				
+					List<String> rows =new ArrayList<String>();
+							
+					try {
+						Integer premiseId = Integer.parseInt(selectedPremise);
+						Premises premise = premiseDao.findByPremisesByAutoGeneratedId(premiseId);
+						
+						if(premise != null)
+						{
+							response.setContentType("text/csv");
+							String reportName = "CSV_Report_Feed_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
+							response.setHeader("Content-disposition", "attachment;filename="+reportName);
+							
+							
+							if(premiseId > 0)
+							{ 
+								rows = feedReportService.getFeedList(selectedPremise,premiseId); 
+								if(rows == null || rows.size() ==0)
+								{
+									flag = false;
+								}
+								Iterator<String> iter = rows.iterator();
+								while (iter.hasNext()) {
+									String outputString = (String) iter.next();
+									response.getOutputStream().print(outputString);
+								}
+							}
+							else
+							{
+								rows.add("Can not find premise by given Id");
+							}
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						rows.add("There is some error please contact Admin");
+					}
+					
+					response.getOutputStream().flush();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if(!flag)
+				{
 					Map<String, String> model = new HashMap<String, String>();
 					model.put("contentUrl", "reportGenerationFeed.jsp");
 					model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 					
-					PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-					Integer companyId = activeUser.getCompanyId();
 					model.put("CompanyId", companyId+"");
+					model.put("error", "error");
 					return new ModelAndView("template", model);
 				}
-				
-				@RequestMapping(value = "/generateFeedReport", method = RequestMethod.POST)
-				public void generateFeedReport(HttpServletRequest request, HttpServletResponse response) {
-						try {
-							String selectedPremise = request.getParameter("selectedPremise");
-							String companyString = request.getParameter("companyId1");
-							Integer companyId ;
-							
-							
-							LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
-							String language = localeResolver.resolveLocale(request).getLanguage();
-							
-							PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-							if(companyString != null && !StringUtils.isEmpty(companyString))
-							{
-								companyId = Integer.parseInt(companyString);
-							}
-							else
-							{
-								companyId = activeUser.getCompanyId();
-							}			
-						
-							List<String> rows =new ArrayList<String>();
-									
-							try {
-								Integer premiseId = Integer.parseInt(selectedPremise);
-								Premises premise = premiseDao.findByPremisesByAutoGeneratedId(premiseId);
-								
-								if(premise != null)
-								{
-									response.setContentType("text/csv");
-									String reportName = "CSV_Report_Feed_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
-									response.setHeader("Content-disposition", "attachment;filename="+reportName);
-									
-									
-									if(premiseId > 0)
-									{ 
-										rows = feedReportService.getFeedList(selectedPremise,premiseId); 
-										Iterator<String> iter = rows.iterator();
-										while (iter.hasNext()) {
-											String outputString = (String) iter.next();
-											response.getOutputStream().print(outputString);
-										}
-									}
-									else
-									{
-										rows.add("Can not find premise by given Id");
-									}
-								}
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								rows.add("There is some error please contact Admin");
-							}
-							
-							response.getOutputStream().flush();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+				else
+				{
+					return null;
 				}
+		}
 				
 				
 				
 				
-				//Group Status Report start
-				@RequestMapping(value = "/groupStatusReport", method = RequestMethod.GET)
-				public ModelAndView groupStatusReport(HttpServletRequest request) {
-					Map<String, String> model = new HashMap<String, String>();
-					model.put("contentUrl", "groupStatusReport.jsp");
-					model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
-					
-					PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-					Integer companyId = activeUser.getCompanyId();
-					model.put("CompanyId", companyId+"");
-					return new ModelAndView("template", model);
-				}	
+		//Group Status Report start
+		@RequestMapping(value = "/groupStatusReport", method = RequestMethod.GET)
+		public ModelAndView groupStatusReport(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "groupStatusReport.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			return new ModelAndView("template", model);
+		}	
+		
+		
+		@RequestMapping(value = "/generateGroupStatusReport", method = RequestMethod.POST)
+		public void generateGroupStatusReport(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				String selectedPremise = request.getParameter("selectedPremise");
+				String startDate = request.getParameter("startDate");
+				String endDate = request.getParameter("endDate");	
+				String groupId = request.getParameter("selectedGroup");
 				
-				
-				@RequestMapping(value = "/generateGroupStatusReport", method = RequestMethod.POST)
-				public void generateGroupStatusReport(HttpServletRequest request, HttpServletResponse response) {
-					try {
-						String selectedPremise = request.getParameter("selectedPremise");
-						String startDate = request.getParameter("startDate");
-						String endDate = request.getParameter("endDate");	
-						String groupId = request.getParameter("selectedGroup");
-						
-						List<String> rows =new ArrayList<String>();			
-						try {
-							Integer premiseId = Integer.parseInt(selectedPremise);
-							Premises premise = premiseDao.findByPremisesByAutoGeneratedId(premiseId);
-							if(premise != null)
-							{
-								response.setContentType("text/csv");
-								String reportName = "CSV_Report_GroupStatusReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
-								response.setHeader("Content-disposition", "attachment;filename="+reportName);
-								if(premiseId > 0)
-								{ 
-									rows = groupStatusReportService.getGroupStatusResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId); 
-									Iterator<String> iter = rows.iterator();
-									while (iter.hasNext()) {
-										String outputString = (String) iter.next();
-										response.getOutputStream().print(outputString);
-									}
-								}
-								else
-								{
-									rows.add("Cannot find premise by given Id");
-								}
+				List<String> rows =new ArrayList<String>();			
+				try {
+					Integer premiseId = Integer.parseInt(selectedPremise);
+					Premises premise = premiseDao.findByPremisesByAutoGeneratedId(premiseId);
+					if(premise != null)
+					{
+						response.setContentType("text/csv");
+						String reportName = "CSV_Report_GroupStatusReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
+						response.setHeader("Content-disposition", "attachment;filename="+reportName);
+						if(premiseId > 0)
+						{ 
+							rows = groupStatusReportService.getGroupStatusResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId); 
+							Iterator<String> iter = rows.iterator();
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
 							}
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							rows.add("There is some error please contact Admin");
 						}
-						response.getOutputStream().flush();
-					} catch (Exception e) {
-						e.printStackTrace();
+						else
+						{
+							rows.add("Cannot find premise by given Id");
+						}
 					}
-				}	
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					rows.add("There is some error please contact Admin");
+				}
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
 				//Gestation Report end						
 				
 				

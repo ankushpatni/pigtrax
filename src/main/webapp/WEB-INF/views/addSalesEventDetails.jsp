@@ -88,6 +88,13 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="noOfPigWrongCount" ><spring:message code='label.piginfo.removalExceptSales.numberOfPigs.wrongCount' text='No. Of pigs can nto be greater than Group event Pigs.' /></label>
 					</div>
 					
+					<div class="form-group">
+                      <label><spring:message code='label.piginfo.removalExceptSales.weightInKgs'  text='Weight In Kgs'/><span style='color: red'>*</span></label>
+                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.weightInKgs.placeHolder' text='Enter Weight In Kgs' />" 
+                     	name="weightInKgs" ng-model="removalExceptSales.weightInKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.weightInKgs.requiredMessage' text='Weight In Kgs required' />'" 
+                     	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
+                   </div>
+					
 					
                    <div class="form-group">
                       <label><spring:message code='label.piginfo.removalEventform.removalTypeId'  text='Removal Type'/></label>                      
@@ -154,23 +161,7 @@
                      </select>
                    </div>
                   
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.salesDateTime'  text='Sales Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      <!--<input rsmdatedropdowns ng-model="removalExceptSales.salesDateTime" day-div-class="day-container" day-class="day-selector" starting-year="2030" num-years="30"/>-->                      
-					  <input type="text" class="form-control" ng-model="entryDateStr" mask="39/19/2999" ng-blur="dateCheck(entryDateStr)"/>
-                    </div>
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="removalDateTimerequired" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.requiredMessage' text='Sales Date Time is required' /></label>
-					</div>
-					<div>
-						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="errorRemovalDateTime" ><spring:message code='label.piginfo.removalExceptSales.salesDateTime.wrongDateMessage' text='Sales Date Time is can not be less than Event Start Date' /></label>
-					</div>	
-	 				<div class="form-group">
-                      <label><spring:message code='label.piginfo.removalExceptSales.weightInKgs'  text='Weight In Kgs'/><span style='color: red'>*</span></label>
-                     <input class="form-control" type="text" placeholder="<spring:message code='label.piginfo.removalExceptSales.weightInKgs.placeHolder' text='Enter Weight In Kgs' />" 
-                     	name="weightInKgs" ng-model="removalExceptSales.weightInKgs" maxlength="20" required required-message="'<spring:message code='label.piginfo.removalExceptSales.weightInKgs.requiredMessage' text='Weight In Kgs required' />'" 
-                     	 ng-pattern="/^[0-9]{1,15}(\.[0-9]{1,2})?$/i" invalid-message="'<spring:message code='label.barn.areaInvalid' text='Only values like xxx.xx are Allowed.'/>'"/>
-                   </div>
+	 			
                  
                   <%--   <div class="form-group">
                       <label><spring:message code='label.piginfo.removalExceptSales.premiseId'  text='Premise'/></label>
