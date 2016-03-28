@@ -298,8 +298,13 @@ public class ReportControlller {
 		List<Integer> boarEnteredList = new LinkedList<Integer>();
 		List<Integer> boarCulledList = new LinkedList<Integer>();
 		List<Integer> boarDeathsandDestroyedList = new LinkedList<Integer>();
-			
 		
+		List<Integer> totalAbortionsList = new LinkedList<Integer>();
+		List<Integer> abortionsNaturalList = new LinkedList<Integer>();
+		List<Integer> abortionsInducedList = new LinkedList<Integer>();
+		List<Integer> aveAbortionParityList = new LinkedList<Integer>();
+		List<Float> percentageAbortions1000sowsList = new LinkedList<Float>();
+	   
 				
 		while(itr.hasNext())
 		{
@@ -528,8 +533,21 @@ public class ReportControlller {
 				boarCulledList.add(boarCulled);
 				
 				int  boarDeathsandDestroyed = (Integer)valueList.get(55);
-				boarDeathsandDestroyedList.add(boarDeathsandDestroyed);				
-			
+				boarDeathsandDestroyedList.add(boarDeathsandDestroyed);	
+				
+				int  totalAbortions = (Integer)valueList.get(56);
+				totalAbortionsList.add(totalAbortions);
+				
+				percentageAbortions1000sowsList.add((float)totalAbortions/(endFemaleInventor/1000));
+				
+				int  abortionsNatural = (Integer)valueList.get(57);
+				abortionsNaturalList.add(abortionsNatural);
+				
+				int  abortionsInduced = (Integer)valueList.get(58);
+				abortionsInducedList.add(abortionsInduced);
+				
+				int  aveAbortionParity = (Integer)valueList.get(59);
+				aveAbortionParityList.add(aveAbortionParity);				
 				
 			}
 			else
@@ -615,6 +633,12 @@ public class ReportControlller {
 				aveFemaleInventoryPerCrateList.add(0f);
 				aveParityOfEndInventoryList.add(0f);
 				femaleEnteredList.add(0);
+				
+				totalAbortionsList.add(0);
+				percentageAbortions1000sowsList.add(0f);
+				abortionsNaturalList.add(0);
+				abortionsInducedList.add(0);
+				aveAbortionParityList.add(0);	
 				
 				totalFemalesCulledList.add(0);
 				aveParityofCullsList.add(0);
@@ -1357,6 +1381,46 @@ public class ReportControlller {
 			femaleEnteredListBuffer.append(femaleEnteredList.get(i)).append(",");					
 		}
 		rows.add(femaleEnteredListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer totalAbortionsListBuffer = new StringBuffer();
+		totalAbortionsListBuffer.append("Total Abortions,");
+		for (int i = 0; i < size; i++) {
+			totalAbortionsListBuffer.append(totalAbortionsList.get(i)).append(",");					
+		}
+		rows.add(totalAbortionsListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer percentageAbortions1000sowsListBuffer = new StringBuffer();
+		percentageAbortions1000sowsListBuffer.append("%Abortions 1000sows,");
+		for (int i = 0; i < size; i++) {
+			percentageAbortions1000sowsListBuffer.append(percentageAbortions1000sowsList.get(i)).append(",");					
+		}
+		rows.add(percentageAbortions1000sowsListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer abortionsNaturalListListBuffer = new StringBuffer();
+		abortionsNaturalListListBuffer.append("Abortions - Natural,");
+		for (int i = 0; i < size; i++) {
+			abortionsNaturalListListBuffer.append(abortionsNaturalList.get(i)).append(",");					
+		}
+		rows.add(abortionsNaturalListListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer abortionsInducedListBuffer = new StringBuffer();
+		abortionsInducedListBuffer.append("Abortions - Induced,");
+		for (int i = 0; i < size; i++) {
+			abortionsInducedListBuffer.append(abortionsInducedList.get(i)).append(",");					
+		}
+		rows.add(abortionsInducedListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer aveAbortionParityListBuffer = new StringBuffer();
+		aveAbortionParityListBuffer.append("Abortions - Induced,");
+		for (int i = 0; i < size; i++) {
+			aveAbortionParityListBuffer.append(aveAbortionParityList.get(i)).append(",");					
+		}
+		rows.add(aveAbortionParityListBuffer.toString());
 		rows.add("\n");
 		
 		rows.add("\n");

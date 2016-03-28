@@ -2055,4 +2055,96 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 
 		return eventMasterList.get(0);
 	}
+	
+	//      Abortions - Natural
+	@Override
+	public Integer getAbortionsNatural(final Date startDate,
+		final Date endDate, final Integer companyId,final Integer premisesId)  {
+	String qry = " select count(*) from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" "
+				+ " left join pigtrax.\"BreedingEvent\" BE ON PE.\"id_PigInfo\" = PI.\"id\" "
+				+ " where PE.\"id_PregnancyEventType\" = 2 and BE.\"id_BreedingServiceType\" = 2 and PE.\"examDate\" :: date between ? and ? and PI.\"id_Company\" = ? ";
+	
+	if(premisesId !=0)
+	{
+		qry = qry+ " and PI.\"id_Premise\" = " + premisesId;
+	}
+	
+	List<Integer> eventMasterList = jdbcTemplate.query(qry,
+			new PreparedStatementSetter() {
+				public void setValues(PreparedStatement ps)
+						throws SQLException {
+					ps.setDate(1, startDate);
+					ps.setDate(2, endDate);
+					ps.setInt(3, companyId);
+				}
+			}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+	
+	return eventMasterList.get(0);
+	}
+	
+   // Abortions - Induced
+		@Override
+		public Integer getAbortionsInduced(final Date startDate,
+			final Date endDate, final Integer companyId,final Integer premisesId)  {
+			String qry = " select count(*) from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" "
+					+ " left join pigtrax.\"BreedingEvent\" BE ON PE.\"id_PigInfo\" = PI.\"id\" "
+					+ " where PE.\"id_PregnancyEventType\" = 2 and BE.\"id_BreedingServiceType\" = 1 and PE.\"examDate\" :: date between ? and ? and PI.\"id_Company\" = ? ";
+		
+		if(premisesId !=0)
+		{
+			qry = qry+ " and PI.\"id_Premise\" = " + premisesId;
+		}
+		
+		List<Integer> eventMasterList = jdbcTemplate.query(qry,
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setDate(1, startDate);
+						ps.setDate(2, endDate);
+						ps.setInt(3, companyId);
+					}
+				}, new RowMapper<Integer>() {
+					public Integer mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return rs.getInt(1);
+					}
+				});
+		
+		return eventMasterList.get(0);
+		}
+		
+		//    Ave Abortion Parity
+		@Override
+		public Integer getAveAbortionParity(final Date startDate,
+			final Date endDate, final Integer companyId,final Integer premisesId)  {
+		String qry = " select sum(PI.\"parity\") from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" "
+					+ " where PE.\"id_PregnancyEventType\" = 2 and PE.\"examDate\" :: date between ? and ? and PI.\"id_Company\" = ? ";
+		
+		if(premisesId !=0)
+		{
+			qry = qry+ " and PI.\"id_Premise\" = " + premisesId;
+		}
+		
+		List<Integer> eventMasterList = jdbcTemplate.query(qry,
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setDate(1, startDate);
+						ps.setDate(2, endDate);
+						ps.setInt(3, companyId);
+					}
+				}, new RowMapper<Integer>() {
+					public Integer mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return rs.getInt(1);
+					}
+				});
+		
+		return eventMasterList.get(0);
+		}
 }

@@ -178,6 +178,11 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(pigletStatusEventDao.getBoarCulled(start, end, companyId, premisesId)); //  54 Boar Culled
 				listValues.add(pigletStatusEventDao.getBoarDeathsandDestroyed(start, end, companyId, premisesId));// 55 Boar Deaths and Destroyed
 				
+				listValues.add(pigletStatusEventDao.getTotalAbortions(start, end, companyId, premisesId));// 56 Total Abortions
+				listValues.add(pigletStatusEventDao.getAbortionsNatural(start, end, companyId, premisesId));// 57 Abortions - Natural
+				listValues.add(pigletStatusEventDao.getAbortionsInduced(start, end, companyId, premisesId));// 58 Abortions - Induced
+				listValues.add(pigletStatusEventDao.getAveAbortionParity(start, end, companyId, premisesId));// 59 Ave Abortion Parity
+				
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
 				mapOfValues.put("valueList", listValues);
