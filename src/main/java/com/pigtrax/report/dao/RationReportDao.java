@@ -73,7 +73,7 @@ public class RationReportDao {
 				+"   select CT.\"id_Premise\",  CAST(coalesce(CT.\"targetValue\", '0') AS integer) as \"feedCostTarget\", 'feedCostTarget' as ind from pigtrax.\"CompanyTarget\"  CT "
 				+"	JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fieldDescription\" = 'Feed_Feed cost/pig' "
 				+"	) feedCostTarget ON  P.\"id\" = tons.\"id_Premise\" "
-				+"		LEFT JOIN "
+				+"		LEFT JOIN " 
 				+"(	"
 				+"	SELECT sum(GE.\"currentInventory\") as num1, a.\"batchId\", sum(a.feedInWt) as feedInWt, sum(a.feedInCost) as feedInCost  from " 
 				+"	pigtrax.\"GroupEvent\" GE " 
@@ -93,7 +93,7 @@ public class RationReportDao {
 					+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ?  and FED.\"id_GroupEvent\" = ?"
 					+" Group by  FED.\"id_GroupEvent\",FE.\"batchId\" ) a ON a.\"id_GroupEvent\" = GE.\"id\" "
 					+" group by a.\"batchId\" "
-					+" ) B ON A.\"batchId\" = B.\"batchId\" "
+					+" ) B ON FE.\"batchId\" = B.\"batchId\" "
 					+" LEFT JOIN ( "
 					+" select sum(GE.\"currentInventory\") as num3, a.\"batchId\", sum(a.feedAdjWt) as feedAdjWt, sum(a.feedAdjCost) as feedAdjCost  from " 
 					+" pigtrax.\"GroupEvent\" GE "
@@ -103,7 +103,7 @@ public class RationReportDao {
 					+" where FED.\"id_FeedEventType\"  = ? and FED.\"feedEventDate\" between ? and ? and FE.\"id_Premise\" = ?  and FED.\"id_GroupEvent\" = ?"
 					+" Group by  FED.\"id_GroupEvent\",FE.\"batchId\" ) a ON a.\"id_GroupEvent\" = GE.\"id\" "
 					+" group by a.\"batchId\" "    
-					+" ) C ON A.\"batchId\" = C.\"batchId\" "
+					+" ) C ON FE.\"batchId\" = C.\"batchId\" "
 					+" WHERE  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL)) T )R ";
 		
 		final int duration = durationDays;
