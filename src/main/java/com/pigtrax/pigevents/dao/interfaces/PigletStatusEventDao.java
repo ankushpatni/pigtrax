@@ -150,5 +150,11 @@ public interface PigletStatusEventDao {
 	Integer getAbortionsInduced(Date startDate, Date endDate, Integer companyId, Integer premisesId);
 
 	Integer getAveAbortionParity(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getSowsorGiltsTransferredIN(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getSowsorGiltsTransferredOut(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getGiltEntered(Date start, Date end, Integer companyId, Integer premisesId);
 	
 }

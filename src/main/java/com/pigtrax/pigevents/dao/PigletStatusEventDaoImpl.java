@@ -2147,4 +2147,86 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		
 		return eventMasterList.get(0);
 		}
+		
+		// sows or gilts Transferred IN
+				@Override
+				public Integer getSowsorGiltsTransferredIN(final Date startDate,
+					final Date endDate, final Integer companyId,final Integer premisesId)  {
+					
+					String qry = " select count(*) from pigtrax.\"RemovalEventExceptSalesDetails\" REES where 	REES.\"id_RemovalEvent\" = 9 and " +
+								" REES.\"id_PigInfo\" is not null and REES.\"removalDateTime\" :: date between ? and ? and REES.\"id_DestPremise\" = ? " ;
+				
+				List<Integer> eventMasterList = jdbcTemplate.query(qry,
+						new PreparedStatementSetter() {
+							public void setValues(PreparedStatement ps)
+									throws SQLException {
+								ps.setDate(1, startDate);
+								ps.setDate(2, endDate);
+								ps.setInt(3, premisesId);
+							}
+						}, new RowMapper<Integer>() {
+							public Integer mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								return rs.getInt(1);
+							}
+						});
+				
+				return eventMasterList.get(0);
+				}
+				
+			// sows or gilts Transferred out
+			@Override
+			public Integer getSowsorGiltsTransferredOut(final Date startDate,
+				final Date endDate, final Integer companyId,final Integer premisesId)  {
+				
+				String qry = " select count(*) from pigtrax.\"RemovalEventExceptSalesDetails\" REES where 	REES.\"id_RemovalEvent\" = 9 and " +
+							" REES.\"id_PigInfo\" is not null and REES.\"removalDateTime\" :: date between ? and ? and REES.\"id_Premise\" = ? " ;
+			
+			List<Integer> eventMasterList = jdbcTemplate.query(qry,
+					new PreparedStatementSetter() {
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setDate(1, startDate);
+							ps.setDate(2, endDate);
+							ps.setInt(3, premisesId);
+						}
+					}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+			
+			return eventMasterList.get(0);
+			}
+				
+			/**
+			 * To get the count of piginfo id from piginfo with parity 0 in
+			 */
+			@Override
+			public Integer getGiltEntered(final Date start,final Date end, final Integer companyId,Integer premisesId) {
+				
+				String qry = "SELECT count(PI.\"id\") FROM pigtrax.\"PigInfo\" PI where PI.\"parity\" = 0 " +
+						" and PI.\"entryDate\" >= ? and PI.\"entryDate\" <= ? and PI.\"id_Company\" = ?";
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and PI.\"id_Premise\" = " + premisesId;
+				}
+				
+		 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+		 			@Override
+		 			public void setValues(PreparedStatement ps) throws SQLException {
+		 				ps.setDate(1, start);
+		 				ps.setDate(2, end);
+		 				ps.setInt(3, companyId);
+		 			}}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+
+				return pigletStatusEventList.get(0);
+			}
 }

@@ -18,6 +18,7 @@
 								code='label.piginfo.generateFeedReport.heading'
 								text='Generate Feed Report' />
 						</h3>
+						<p class="color-danger" ng-show="mentaoryField"><spring:message code='label.piginfo.entryeventform.search.data.mandatory' text='Please enter mandatory fields.'/></p>
 						
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>

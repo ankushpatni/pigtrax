@@ -26,6 +26,16 @@ pigTrax.controller('feedReportController', function($scope, $http, $window,$moda
         
     $scope.searchPigInfo = function()
     {
+		if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
+				$scope.companyId === '' || $scope.companyId === undefined  )
+			{
+				$scope.mentaoryField = true;
+				return true;
+			}
+			else
+			{	
+				$scope.mentaoryField = false;
+			}
 			document.getElementById("companyId1").value	= $scope.companyId;		
 			document.forms['generateFeedReport'].submit();
     }
