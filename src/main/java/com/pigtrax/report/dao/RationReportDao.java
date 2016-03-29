@@ -45,7 +45,7 @@ public class RationReportDao {
 		}
 		
 		
-		String qry = "SELECT R.\"batchId\" as \"rationId\", R.\"actualTons\" as \"actualTonsUsed\", R.\"tons\" as \"targetTonsUsed\", (R.\"actualTons\" - R.\"tons\")/R.\"tons\" as \"deviationTonsUsed\", "
+		String qry = "SELECT MR.\"rationValue\" as \"rationId\", R.\"actualTons\" as \"actualTonsUsed\", R.\"tons\" as \"targetTonsUsed\", (R.\"actualTons\" - R.\"tons\")/R.\"tons\" as \"deviationTonsUsed\", "
 				+ "	(R.\"actualTons\"*1000/R.\"pigNum\")/"+durationDays+" as \"actualKg\",R.\"kg/day\" as \"targetKg\", (((R.\"actualTons\"*1000/R.\"pigNum\")/"+durationDays+") - R.\"kg/day\")/R.\"kg/day\" as \"deviationKg\", "
 				+ " R.\"actualCost\" as \"actualFeedCost\", R.\"feedCostTarget\" as \"targetFeedCost\", (R.\"actualCost\"-R.\"feedCostTarget\")/R.\"feedCostTarget\" as \"deviationFeedCost\" "
 				+" FROM " 
@@ -104,7 +104,7 @@ public class RationReportDao {
 					+" Group by  FED.\"id_GroupEvent\",FE.\"batchId\" ) a ON a.\"id_GroupEvent\" = GE.\"id\" "
 					+" group by a.\"batchId\" "    
 					+" ) C ON FE.\"batchId\" = C.\"batchId\" "
-					+" WHERE  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL)) T )R ";
+					+" WHERE  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL)) T )R JOIN pigtrax.\"MasterRation\" MR ON MR.\"id\" = R.\"batchId\" ";
 		
 		final int duration = durationDays;
 		rationReportList = jdbcTemplate.query(qry, new PreparedStatementSetter(){

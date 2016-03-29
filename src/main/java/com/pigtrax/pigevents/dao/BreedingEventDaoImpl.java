@@ -410,6 +410,25 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 
 		return serviceStartDate;
 	}
+	
+	@Override
+	public Integer getParity(final Integer breedingEventId) {
+		String qry = "Select  BE.\"currentParity\" from pigtrax.\"BreedingEvent\" BE  where BE.\"id\" = ? ";
+		Integer currentParity = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, breedingEventId);
+			}}, new ResultSetExtractor<Integer>() {
+				public Integer extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+					if (resultSet.next()) {
+						return resultSet.getInt(1);
+					}
+					return 1;
+				}
+			});	
+
+		return currentParity;
+	}
 
 	
 }

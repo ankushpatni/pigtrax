@@ -28,4 +28,6 @@ public interface FarrowEventDao {
    boolean checkFarrowEventByBreedingEvent(Integer breedingEventId);
    
    FarrowEvent getFarrowEventIdByLitterId(Integer pigInfoId, Integer litterId);
+   
+   Integer getFarrowCount(Integer pigInfoId);
 }
