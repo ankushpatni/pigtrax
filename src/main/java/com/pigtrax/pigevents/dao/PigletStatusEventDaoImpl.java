@@ -2229,4 +2229,96 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 
 				return pigletStatusEventList.get(0);
 			}
+			
+		//  Gilts Culled
+
+			@Override
+			public Integer getLifetimeParity(final Date startDate,
+					final Date endDate, final Integer companyId,final Integer premisesId)  {
+				String qry = " select sum(PI.\"parity\") as total from pigtrax.\"SalesEventDetails\" SED "
+						 + " left join pigtrax.\"PigInfo\" PI on SED.\"id_PigInfo\" = PI.\"id\" "
+						+ " where  PI.\"id_SexType\" = 2 and SED.\"salesDateTime\" :: date between ? and ? and PI.\"id_Company\" = ? ";
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and PI.\"id_Premise\" = " + premisesId;
+				}
+				
+				String qry1 = " select sum(PI.\"parity\") as total from pigtrax.\"RemovalEventExceptSalesDetails\" REESD "
+						+"	left join pigtrax.\"PigInfo\" PI on REESD.\"id_PigInfo\" = PI.\"id\" "
+						+ " where PI.\"id_SexType\" = 2 and (REESD.\"id_RemovalEvent\" = 8 or REESD.\"id_RemovalEvent\" = 2 or REESD.\"id_RemovalEvent\" = 7) and  PI.\"id_Company\" = ? and REESD.\"removalDateTime\" :: date between ? and ? "; 
+						
+				
+				if(premisesId !=0)
+				{
+					qry1 = qry1+ " and PI.\"id_Premise\" = " + premisesId;
+				}
+				
+				String finalQuery = "select sum (total) from (" + qry + " UNION " + qry1 + " ) a ";
+
+				List<Integer> eventMasterList = jdbcTemplate.query(finalQuery,
+						new PreparedStatementSetter() {
+							public void setValues(PreparedStatement ps)
+									throws SQLException {
+								ps.setDate(1, startDate);
+								ps.setDate(2, endDate);
+								ps.setInt(3, companyId);
+								
+								ps.setDate(5, startDate);
+								ps.setDate(6, endDate);
+								ps.setInt(4, companyId);
+							}
+						}, new RowMapper<Integer>() {
+							public Integer mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								return rs.getInt(1);
+							}
+						});
+
+				return eventMasterList.get(0);
+			}
+			
+			/**
+			 * non-productive sow days
+			 */
+			@Override
+			public Integer getNonProductiveSowDays(final Date start,final Date end, final Integer companyId,Integer premisesId) {
+				
+				String qry = " select sum(DATE_PART('day', BE.\"serviceStartDate\"::timestamp - PI.\"entryDate\"::timestamp))  from "+ 
+				" pigtrax.\"PigInfo\" PI, pigtrax.\"BreedingEvent\" BE where PI.\"id\" = BE.\"id_PigInfo\" and PI.\"parity\" = 0 and " + 
+						" BE.\"serviceStartDate\" :: date between ? and ? and PI.\"id_Company\"=? ";
+				
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and BE.\"id_Premise\" = " + premisesId;
+				}
+				
+				
+				String qry1 = " select sum(DATE_PART('day', current_timestamp ::timestamp - PI.\"entryDate\"::timestamp))  from "+ 
+						" pigtrax.\"PigInfo\" PI join pigtrax.\"BreedingEvent\" BE where PI.\"id\" = BE.\"id_PigInfo\" and PI.\"parity\" = 0 and " + 
+								" BE.\"serviceStartDate\" :: date between ? and ? and PI.\"id_Company\"=? ";
+						
+						
+						if(premisesId !=0)
+						{
+							qry1 = qry1+ " and BE.\"id_Premise\" = " + premisesId;
+						}
+
+				
+		 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+		 			@Override
+		 			public void setValues(PreparedStatement ps) throws SQLException {
+		 				ps.setDate(1, start);
+		 				ps.setDate(2, end);
+		 				ps.setInt(3, companyId);
+		 			}}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+
+				return pigletStatusEventList.get(0);
+			}
 }

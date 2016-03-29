@@ -152,7 +152,7 @@ public class ReportControlller {
 				
 				
 				response.setContentType("text/csv");
-				String reportName = "CSV_Ferrow_Name.csv";
+				String reportName = "CSV_Performance_Report "+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
 		    
 				
@@ -310,6 +310,15 @@ public class ReportControlller {
 		List<Integer> giltEnteredList = new LinkedList<Integer>();
 		List<Float> percentageGiltsSowInventoryList = new LinkedList<Float>();
 		List<Float> percentageReplacementRateList = new LinkedList<Float>();
+		
+		List<Float> sowBoarRatioList  = new LinkedList<Float>();
+		List<Float> littersFemaleYearList  = new LinkedList<Float>();
+		List<Float> littersMatedFemaleYearList  = new LinkedList<Float>();
+		List<Float> pigsWeanedFemaleYearList  = new LinkedList<Float>();
+		List<Float> pigsWeanedMatedFemaleYearList  = new LinkedList<Float>();
+		List<Float> pigsWeanedLifetimeList  = new LinkedList<Float>();
+	   
+
 	
 				
 		while(itr.hasNext())
@@ -568,6 +577,19 @@ public class ReportControlller {
 				percentageGiltsSowInventoryList.add((float)giltEntered/endFemaleInventor);
 				percentageReplacementRateList.add((float)(sowsorGiltsTransferredIN/endFemaleInventor)*(365/7));
 				
+				int  pigsWeanedLifetime = (Integer)valueList.get(63);	
+				
+				sowBoarRatioList.add((float)endFemaleInventor/endBoarInventory);
+				
+				float littersFemaleYear = ((float)piGIdFromBreeding/endFemaleInventor)*365;				
+				littersFemaleYearList.add(littersFemaleYear);
+				
+				float littersMatedFemaleYear = ((float)piGIdFromBreeding/endMatedFemaleInventory)*365;
+				littersMatedFemaleYearList.add(littersMatedFemaleYear);
+				
+				pigsWeanedFemaleYearList.add(littersFemaleYear * totalPigsWeavened);
+				pigsWeanedMatedFemaleYearList.add(littersMatedFemaleYear* totalPigsWeavened);
+				pigsWeanedLifetimeList.add((float)pigsWeanedLifetime/totalPigsWeavened);
 					
 			}
 			else
@@ -682,6 +704,13 @@ public class ReportControlller {
 				giltEnteredList.add(0);
 				percentageGiltsSowInventoryList.add(0f);
 				percentageReplacementRateList.add(0f);
+				
+				sowBoarRatioList.add(0f);
+				littersFemaleYearList.add(0f);
+				littersMatedFemaleYearList.add(0f);				
+				pigsWeanedFemaleYearList.add(0f);
+				pigsWeanedMatedFemaleYearList.add(0f);
+				pigsWeanedLifetimeList.add(0f);
 				
 			}
 			
@@ -1615,7 +1644,60 @@ public class ReportControlller {
 		}
 		rows.add(boarDeathsandDestroyedListBuffer.toString());
 		rows.add("\n");
-				
+		
+		rows.add("\n");
+		rows.add("Sow Days Statistics");
+		rows.add("\n");
+		
+		
+		StringBuffer sowBoarRatioListBuffer = new StringBuffer();
+		sowBoarRatioListBuffer.append("Sow - Boar Ratio,");
+		for (int i = 0; i < size; i++) {
+			sowBoarRatioListBuffer.append(sowBoarRatioList.get(i)).append(",");					
+		}
+		rows.add(sowBoarRatioListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer littersFemaleYearListBuffer = new StringBuffer();
+		littersFemaleYearListBuffer.append("Litters/Female/Year,");
+		for (int i = 0; i < size; i++) {
+			littersFemaleYearListBuffer.append(littersFemaleYearList.get(i)).append(",");					
+		}
+		rows.add(littersFemaleYearListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer littersMatedFemaleYearListBuffer = new StringBuffer();
+		littersMatedFemaleYearListBuffer.append("Litters/Mated Female/Year,");
+		for (int i = 0; i < size; i++) {
+			littersMatedFemaleYearListBuffer.append(littersMatedFemaleYearList.get(i)).append(",");					
+		}
+		rows.add(littersMatedFemaleYearListBuffer.toString());
+		rows.add("\n");
+		
+		StringBuffer pigsWeanedFemaleYearListBuffer = new StringBuffer();
+		pigsWeanedFemaleYearListBuffer.append("Pigs Weaned/Female/Year,");
+		for (int i = 0; i < size; i++) {
+			pigsWeanedFemaleYearListBuffer.append(pigsWeanedFemaleYearList.get(i)).append(",");					
+		}
+		rows.add(pigsWeanedFemaleYearListBuffer.toString());
+		rows.add("\n");	
+		
+		StringBuffer pigsWeanedMatedFemaleYearListBuffer = new StringBuffer();
+		pigsWeanedMatedFemaleYearListBuffer.append("Pigs Weaned/Mated Female/Year,");
+		for (int i = 0; i < size; i++) {
+			pigsWeanedMatedFemaleYearListBuffer.append(pigsWeanedMatedFemaleYearList.get(i)).append(",");					
+		}
+		rows.add(pigsWeanedMatedFemaleYearListBuffer.toString());
+		rows.add("\n");	
+		
+		StringBuffer pigsWeanedLifetimeListBuffer = new StringBuffer();
+		pigsWeanedLifetimeListBuffer.append("Pigs Weaned/Lifetime,");
+		for (int i = 0; i < size; i++) {
+			pigsWeanedLifetimeListBuffer.append(pigsWeanedLifetimeList.get(i)).append(",");					
+		}
+		rows.add(pigsWeanedLifetimeListBuffer.toString());
+		rows.add("\n");	
+		
 		return rows;
 	}
 	
