@@ -52,15 +52,19 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		restServices.getTargetTypes(function(data){
 			if(!data.error)
 				{
-				  var responseList = data.payload;
+				  var responseList = data.payload; 
 				  $scope.keys = responseList[0];
 				  for(i = 0; i < $scope.keys.length; i++)
 				  {
-					  if($scope.keys[i] >=114 && $scope.keys[i] <=122)
+					  if($scope.keys[i] == 111 || $scope.keys[i] == 112 || $scope.keys[i] == 113)
+					  {						  
+						  $scope.limitedTargetKeys.push($scope.keys[i]);	
+						  $scope.s1TargetKeys.push($scope.keys[i]);						  
+					  }
+					  else if($scope.keys[i] >=114 && $scope.keys[i] <=122)
 					  {
-						  $scope.limitedTargetKeys.push($scope.keys[i]);
-						  if($scope.keys[i] != 111 && $scope.keys[i] != 112 && $scope.keys[i] != 113)
-							  $scope.wfTargetKeys.push($scope.keys[i]);
+						  $scope.limitedTargetKeys.push($scope.keys[i]);	
+						  $scope.wfTargetKeys.push($scope.keys[i]);						  
 					  }
 					  else
 					  {
@@ -102,7 +106,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	
 	$scope.checkTargetType = function()
 	{
-		if($scope.companyTarget.targetId == 91 || $scope.companyTarget.targetId == 92 || $scope.companyTarget.targetId == 93)
+		if($scope.companyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113)
 	        $scope.ShowRationOption = true;
 		else
 			{
@@ -138,6 +142,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 			  {
 			  $scope.usedTargetKeys = $scope.wfTargetKeys;
 			  }
+			  
 	}
 	
 	

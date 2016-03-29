@@ -2245,6 +2245,11 @@ public class ReportControlller {
 		model.put("contentUrl", "reportPigletMortality.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 		
+		if(request.getParameter("nodata") == null)
+		{
+			request.getSession().removeAttribute("REPORT_NO_DATA");
+		}
+		
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer companyId = activeUser.getCompanyId();
 		model.put("CompanyId", companyId+"");
@@ -2294,7 +2299,7 @@ public class ReportControlller {
 							else
 							{
 								request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-								response.sendRedirect("reportPigletMortality");
+								response.sendRedirect("reportPigletMortality?nodata=true");
 							}
 						}
 						else
