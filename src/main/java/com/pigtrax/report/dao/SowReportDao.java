@@ -45,7 +45,7 @@ public class SowReportDao {
 
 				"from pigtrax.\"PigTraxEventMaster\" PM "+
 
-				"left join  pigtrax.\"PigInfo\" PI ON PM.\"id_PigInfo\" = PI.\"id\" "+
+				"join  pigtrax.\"PigInfo\" PI ON PM.\"id_PigInfo\" = PI.\"id\" "+
 
 				"left join  pigtrax.\"BreedingEvent\" BE ON PM.\"id_BreedingEvent\" = BE.\"id\" "+
 
