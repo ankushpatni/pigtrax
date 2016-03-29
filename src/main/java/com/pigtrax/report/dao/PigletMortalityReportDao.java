@@ -87,7 +87,7 @@ public class PigletMortalityReportDao {
 					 +" (SELECT R.\"id\", SUM(FE.\"liveBorns\") as \"cnt\", SUM(PS.\"numberOfPigs\") as \"out\",SUM(PS1.\"numberOfPigs\") as \"in\"  from pigtrax.\"FarrowEvent\" FE " 
 					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"id_PigletStatusEventType\" IN (4,2) "
 					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 ON FE.\"id\" = PS1.\"id_FarrowEvent\" AND PS1.\"id_PigletStatusEventType\" IN (1) "
-					 +" LEFT JOIN pigtrax.\"Pen\" P ON P.\"id\" = PS.\"id_Pen\" "
+					 +" LEFT JOIN pigtrax.\"Pen\" P ON P.\"id\" = FE.\"id_Pen\" "
 					 +" LEFT JOIN pigtrax.\"Room\" R ON P.\"id_Room\" = R.\"id\" "
 					 +" where FE.\"farrowDateTime\" <= '"+qryDate+"' ";
 		if(roomId != null)
