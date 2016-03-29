@@ -100,7 +100,7 @@ public class ReportServiceImpl implements ReportService{
 	      //  if(listFerrowId!=null && !listFerrowId.isEmpty())
 	        {
 	        	Integer totalFerrowEvents = new HashSet<Integer>(listFerrowId).size();
-	        	List<Integer> listValues = new LinkedList<Integer>();
+	        	List listValues = new LinkedList();
 	        	 if(listFerrowId!=null && !listFerrowId.isEmpty())
 	 	        {
 				listValues = eventMasterDao
@@ -113,7 +113,7 @@ public class ReportServiceImpl implements ReportService{
 	        		 listValues.add(0);
 	        		 listValues.add(0);
 	        		 listValues.add(0);
-	        		 listValues.add(0);
+	        		 listValues.add(0f);
 	        	 }
 				
 				int litterLess7 = eventMasterDao.getLitterForGivenrange(start,end,companyId, premisesId);

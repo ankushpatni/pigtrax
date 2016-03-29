@@ -2,7 +2,7 @@ pigTrax.controller('groupReportController', function($scope, $http, $window,$mod
 	$scope.companyId = 0;
 	var localCompany ;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId, dataStatus)
 	{
 		
 		if(comapnyId === undefined )
@@ -21,6 +21,11 @@ pigTrax.controller('groupReportController', function($scope, $http, $window,$mod
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+		
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}
 	
 	$scope.loadGroupInfo = function()
@@ -46,13 +51,13 @@ pigTrax.controller('groupReportController', function($scope, $http, $window,$mod
 			restServices.getGroupEventInformation(searchPigInfo, function(data)
 			{
 				if(!data.error){
-					$scope.searchDataErrorMessage = false;
+					$scope.searchDataErrorMessageGroup = false;
 					document.getElementById("companyId1").value	= $scope.companyId;		
 					document.forms['generateReportGroup'].submit();
 				}
 				else
 				{
-					$scope.searchDataErrorMessage = true;
+					$scope.searchDataErrorMessageGroup = true;
 					
 				}
 			});

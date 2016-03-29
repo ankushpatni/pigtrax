@@ -3,7 +3,7 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 	var localCompany ;
 	$scope.mentaoryField = false;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId,dataStatus)
 	{
 		
 		if(comapnyId === undefined )
@@ -22,6 +22,10 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}
 	
 	$scope.loadPigInfo = function()
@@ -61,13 +65,13 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 			restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
 			{
 				if(!data.error){
-					$scope.searchDataErrorMessage = false;
+					$scope.searchDataErrorMessagePig = false;
 					document.getElementById("companyId1").value	= $scope.companyId;		
 					document.forms['generateReportSow'].submit();
 				}
 				else
 				{
-					$scope.searchDataErrorMessage = true;
+					$scope.searchDataErrorMessagePig = true;
 					
 				}
 			});
