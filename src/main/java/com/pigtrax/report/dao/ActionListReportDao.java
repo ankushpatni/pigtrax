@@ -110,11 +110,9 @@ public class ActionListReportDao {
 				+ "		FROM pigtrax.\"BreedingEvent\" where \"serviceStartDate\" IS NOT NULL group by \"id_PigInfo\",\"currentParity\") BE_PAR ON PEM.\"id_PigInfo\" = BE_PAR.\"id_PigInfo\" and PI.\"parity\" = BE_PAR.\"currentParity\" "    
 				+" WHERE "
 				+" PEM.\"id\" in " 
-				+" (SELECT max(PEM1.\"id\") " 
-				+" FROM " 
-				+" pigtrax.\"PigTraxEventMaster\" PEM1 " 
-				+" JOIN pigtrax.\"PigInfo\" PI ON PEM1.\"id_PigInfo\" = PI.\"id\" and PI.\"id_Premise\"=? "
-				+" group by PEM1.\"id_PigInfo\") " 
+				+" (select distinct on (PEM1.\"id_PigInfo\")  PEM1.\"id\" from pigtrax.\"PigTraxEventMaster\" PEM1 "
+				+ "JOIN pigtrax.\"PigInfo\" PI ON PEM1.\"id_PigInfo\" = PI.\"id\" and PI.\"id_Premise\"=?  "
+				+ " order by PEM1.\"id_PigInfo\", PEM1.\"eventTime\" desc, PEM1.\"id\" desc) " 
 				+" order by PEM.\"id_PigInfo\") T ";
 
 
