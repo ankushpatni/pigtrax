@@ -2654,7 +2654,7 @@ public class ReportControlller {
 								else
 								{
 									request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-									response.sendRedirect("removalReport");
+									response.sendRedirect("feedReport");
 								}
 							}
 							else
