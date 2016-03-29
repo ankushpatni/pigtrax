@@ -2,7 +2,7 @@ pigTrax.controller('removalReportController', function($scope, $http, $window,$m
 	$scope.companyId = 0;
 	var localCompany ;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId, dataStatus)
 	{
 		
 		if(comapnyId === undefined )
@@ -21,6 +21,11 @@ pigTrax.controller('removalReportController', function($scope, $http, $window,$m
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+		
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}
 	
 	$scope.loadPigAndGroupInfo = function()
@@ -72,7 +77,7 @@ pigTrax.controller('removalReportController', function($scope, $http, $window,$m
 					restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
 					{
 						if(data.error){
-							$scope.searchDataErrorMessage = true;
+							$scope.searchDataErrorMessagePig = true;
 							return false;
 						}				
 					});
@@ -94,7 +99,7 @@ pigTrax.controller('removalReportController', function($scope, $http, $window,$m
 					});
 				}
 			
-			$scope.searchDataErrorMessage = false;
+			$scope.searchDataErrorMessagePig = false;
 			$scope.searchDataErrorMessageGroup = false;
 			document.getElementById("companyId1").value	= $scope.companyId;		
 			document.forms['generateReportRemoval'].submit();

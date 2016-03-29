@@ -2,7 +2,7 @@ pigTrax.controller('saleReportController', function($scope, $http, $window,$moda
 	$scope.companyId = 0;
 	var localCompany ;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId,dataStatus)
 	{
 		
 		if(comapnyId === undefined )
@@ -21,6 +21,10 @@ pigTrax.controller('saleReportController', function($scope, $http, $window,$moda
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}
 	
 	$scope.loadGroupTattoInfo = function()
@@ -124,13 +128,13 @@ pigTrax.controller('saleReportController', function($scope, $http, $window,$moda
 				restServices.getPigInformationWithOutStatus(searchPigInfo, function(data)
 				{
 					if(!data.error){
-						$scope.searchDataErrorMessage = true;
+						$scope.searchDataErrorMessagePig = true;
 								return false;
 					}
 				});
 			}
 			
-			//$scope.searchDataErrorMessage = false;
+			$scope.searchDataErrorMessagePig = false;
 			$scope.searchDataErrorMessageGroup = false;
 			document.getElementById("companyId1").value	= $scope.companyId;		
 			document.forms['generateReportSale'].submit();

@@ -1631,17 +1631,7 @@ public class ReportControlller {
 		return new ModelAndView("template", model);
 	}
 	
-	@RequestMapping(value = "/reportGenerationSow", method = RequestMethod.GET)
-	public ModelAndView reportGenerationSow(HttpServletRequest request) {
-		Map<String, String> model = new HashMap<String, String>();
-		model.put("contentUrl", "reportGenerationSow.jsp");
-		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
-		
-		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Integer companyId = activeUser.getCompanyId();
-		model.put("CompanyId", companyId+"");
-		return new ModelAndView("template", model);
-	}
+	
 	
 	//Production Event Log start
 	@RequestMapping(value = "/prodEventLog", method = RequestMethod.GET)
@@ -1912,19 +1902,21 @@ public class ReportControlller {
 				e.printStackTrace();
 			}
 		}	
-		//Gestation Report end		
-	
-	@RequestMapping(value = "/reportGenerationGroup", method = RequestMethod.GET)
-	public ModelAndView reportGenerationGroup(HttpServletRequest request) {
-		Map<String, String> model = new HashMap<String, String>();
-		model.put("contentUrl", "reportGenerationGroup.jsp");
-		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		//Gestation Report end	
 		
-		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Integer companyId = activeUser.getCompanyId();
-		model.put("CompanyId", companyId+"");
-		return new ModelAndView("template", model);
-	}
+		// Sow report
+	@RequestMapping(value = "/reportGenerationSow", method = RequestMethod.GET)
+		public ModelAndView reportGenerationSow(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "reportGenerationSow.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			return new ModelAndView("template", model);
+		}
+		
 	
 	@RequestMapping(value = "/generateReportSow", method = RequestMethod.POST)
 	public void generateReportSow(HttpServletRequest request, HttpServletResponse response) {
@@ -1952,11 +1944,7 @@ public class ReportControlller {
 				System.out.println(companyId);
 				
 				response.setContentType("text/csv");
-				//String reportName = "CSV_Sow_"+search+".csv";
-				String date = DateUtil.convertToFormatString(new java.util.Date(System.currentTimeMillis()),"mm-dd-yyyy");
-				String reportName = "SowHistory_"+selectedPremise+"_"+search+"_"+(new java.util.Date(System.currentTimeMillis())).toString()+".csv";
-				response.setHeader("Content-disposition", "attachment;filename="+reportName);
-		    
+				
 				List<String> rows =new ArrayList<String>();
 						
 				try {
@@ -1965,10 +1953,28 @@ public class ReportControlller {
 					if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
 					{
 						rows = sowReportService.getSowReport(search,pigInformation.getId(), companyId, language);
-						Iterator<String> iter = rows.iterator();
-						while (iter.hasNext()) {
-							String outputString = (String) iter.next();
-							response.getOutputStream().print(outputString);
+						if(rows != null && rows.size() > 0)
+						{
+							
+							//String reportName = "CSV_Sow_"+search+".csv";
+							String date = DateUtil.convertToFormatString(new java.util.Date(System.currentTimeMillis()),"mm-dd-yyyy");
+							String reportName = "SowHistory_"+selectedPremise+"_"+search+"_"+(new java.util.Date(System.currentTimeMillis())).toString()+".csv";
+							response.setHeader("Content-disposition", "attachment;filename="+reportName);
+					    
+							
+							Iterator<String> iter = rows.iterator();
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}
+							
+							request.getSession(true).setAttribute("REPORT_NO_DATA", false);
+							response.getOutputStream().flush();
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							response.sendRedirect("reportGenerationSow");
 						}
 					}
 					else
@@ -1987,6 +1993,19 @@ public class ReportControlller {
 			}
 			//return new ModelAndView("redirect:" + "reportGeneration?token=success");
 	}
+	
+	@RequestMapping(value = "/reportGenerationGroup", method = RequestMethod.GET)
+	public ModelAndView reportGenerationGroup(HttpServletRequest request) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("contentUrl", "reportGenerationGroup.jsp");
+		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer companyId = activeUser.getCompanyId();
+		model.put("CompanyId", companyId+"");
+		return new ModelAndView("template", model);
+	}
+	
 
 	@RequestMapping(value = "/generateReportGroup", method = RequestMethod.POST)
 	public void generateReportGroup(HttpServletRequest request, HttpServletResponse response) {
@@ -2013,12 +2032,7 @@ public class ReportControlller {
 				}
 				System.out.println(companyId);
 				
-				response.setContentType("text/csv");
-				String date = DateUtil.convertToFormatString(new java.util.Date(System.currentTimeMillis()),"mm-dd-yyyy");
-				//String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+date+".csv";
-				String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+(new java.util.Date(System.currentTimeMillis())).toString()+".csv";
-				response.setHeader("Content-disposition", "attachment;filename="+reportName);
-		    
+				
 				List<String> rows =new ArrayList<String>();
 						
 				try {
@@ -2028,10 +2042,27 @@ public class ReportControlller {
 					{
 						//rows = groupReportService.getSowReport(search,groupEventByGroupId.getId(), companyId, language);
 						rows = groupReportService.getGroupReportwithPhase(search,groupEventByGroupId, companyId, language);
-						Iterator<String> iter = rows.iterator();
-						while (iter.hasNext()) {
-							String outputString = (String) iter.next();
-							response.getOutputStream().print(outputString);
+						if(rows != null && rows.size() >0 )
+						{
+							response.setContentType("text/csv");
+							String date = DateUtil.convertToFormatString(new java.util.Date(System.currentTimeMillis()),"mm-dd-yyyy");
+							//String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+date+".csv";
+							String reportName = "GroupHistory_"+selectedPremise+"_"+search+"_"+(new java.util.Date(System.currentTimeMillis())).toString()+".csv";
+							response.setHeader("Content-disposition", "attachment;filename="+reportName);
+					    
+							Iterator<String> iter = rows.iterator();
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}
+							
+							request.getSession(true).setAttribute("REPORT_NO_DATA", false);
+							response.getOutputStream().flush();
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							response.sendRedirect("reportGenerationGroup");
 						}
 					}
 					else
@@ -2391,10 +2422,6 @@ public class ReportControlller {
 						
 						if(premise != null)
 						{
-							response.setContentType("text/csv");
-							String reportName = "CSV_Report_Sale_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
-							response.setHeader("Content-disposition", "attachment;filename="+reportName);
-							
 							
 							if(premiseId > 0)
 							{ 
@@ -2409,11 +2436,28 @@ public class ReportControlller {
 									endD = DateUtil.convertToFormat(endDate, "dd/MM/yyyy");
 								}
 								
-								rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, startD, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),barnId,ticketNumber, language, pigId); 
-								Iterator<String> iter = rows.iterator();
-								while (iter.hasNext()) {
-									String outputString = (String) iter.next();
-									response.getOutputStream().print(outputString);
+								
+								rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, startD, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),barnId,ticketNumber, language, pigId);
+								if(rows!= null && rows.size() > 0)
+								{
+									response.setContentType("text/csv");
+									String reportName = "CSV_Report_Sale_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
+									response.setHeader("Content-disposition", "attachment;filename="+reportName);
+									
+								
+									Iterator<String> iter = rows.iterator();
+									while (iter.hasNext()) {
+										String outputString = (String) iter.next();
+										response.getOutputStream().print(outputString);
+									}
+									request.getSession(true).setAttribute("REPORT_NO_DATA", false);
+									response.getOutputStream().flush();
+								}
+								
+								else
+								{
+									request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+									response.sendRedirect("saleReport");
 								}
 							}
 							else
@@ -2501,18 +2545,31 @@ public class ReportControlller {
 								
 								if(premise != null)
 								{
-									response.setContentType("text/csv");
-									String reportName = "CSV_Report_Removal_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
-									response.setHeader("Content-disposition", "attachment;filename="+reportName);
-									
 									
 									if(premiseId > 0)
 									{ 
-										rows = removalReportService.getRemovalList(selectedPremise,premiseId, pigId, groupId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy")); 
-										Iterator<String> iter = rows.iterator();
-										while (iter.hasNext()) {
-											String outputString = (String) iter.next();
-											response.getOutputStream().print(outputString);
+										rows = removalReportService.getRemovalList(selectedPremise,premiseId, pigId, groupId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+										if(rows != null && rows.size()>0)
+										{
+											
+											response.setContentType("text/csv");
+											String reportName = "CSV_Report_Removal_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
+											response.setHeader("Content-disposition", "attachment;filename="+reportName);
+											
+											
+											Iterator<String> iter = rows.iterator();
+											while (iter.hasNext()) {
+												String outputString = (String) iter.next();
+												response.getOutputStream().print(outputString);
+											}
+											
+											request.getSession(true).setAttribute("REPORT_NO_DATA", false);
+											response.getOutputStream().flush();
+										}
+										else
+										{
+											request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+											response.sendRedirect("removalReport");
 										}
 									}
 									else
@@ -2547,7 +2604,7 @@ public class ReportControlller {
 		}
 		
 		@RequestMapping(value = "/generateFeedReport", method = RequestMethod.POST)
-		public ModelAndView generateFeedReport(HttpServletRequest request, HttpServletResponse response) {
+		public void generateFeedReport(HttpServletRequest request, HttpServletResponse response) {
 			
 			boolean flag = true;
 			Integer companyId =0 ;
@@ -2577,22 +2634,27 @@ public class ReportControlller {
 						
 						if(premise != null)
 						{
-							response.setContentType("text/csv");
-							String reportName = "CSV_Report_Feed_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
-							response.setHeader("Content-disposition", "attachment;filename="+reportName);
-							
-							
 							if(premiseId > 0)
 							{ 
 								rows = feedReportService.getFeedList(selectedPremise,premiseId); 
-								if(rows == null || rows.size() ==0)
+								if(rows == null || rows.size() > 0)
 								{
-									flag = false;
+									response.setContentType("text/csv");
+									String reportName = "CSV_Report_Feed_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
+									response.setHeader("Content-disposition", "attachment;filename="+reportName);
+									
+									Iterator<String> iter = rows.iterator();
+									while (iter.hasNext()) {
+										String outputString = (String) iter.next();
+										response.getOutputStream().print(outputString);
+									}
+									request.getSession(true).setAttribute("REPORT_NO_DATA", false);
+									response.getOutputStream().flush();
 								}
-								Iterator<String> iter = rows.iterator();
-								while (iter.hasNext()) {
-									String outputString = (String) iter.next();
-									response.getOutputStream().print(outputString);
+								else
+								{
+									request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+									response.sendRedirect("removalReport");
 								}
 							}
 							else
@@ -2610,20 +2672,6 @@ public class ReportControlller {
 					
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-				if(!flag)
-				{
-					Map<String, String> model = new HashMap<String, String>();
-					model.put("contentUrl", "reportGenerationFeed.jsp");
-					model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
-					
-					model.put("CompanyId", companyId+"");
-					model.put("error", "error");
-					return new ModelAndView("template", model);
-				}
-				else
-				{
-					return null;
 				}
 		}
 				
