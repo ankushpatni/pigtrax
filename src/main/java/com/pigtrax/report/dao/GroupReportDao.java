@@ -147,7 +147,7 @@ public class GroupReportDao {
 			  +" left join pigtrax.\"Premise\" P  ON RES.\"id_Premise\" = P.\"id\" "
 			  +" left join pigtrax.\"Premise\" P1  ON RES.\"id_DestPremise\" = P1.\"id\" "
 			  +" left join pigtrax.\"Room\" R ON RES.\"id_Room\" = R.\"id\" ORDER BY RES.\"removalDateTime\" ) "
-			+" ) T order by T.\"row\", T.\"Event Date\" asc ";
+			+" ) T order by  T.\"Event Date\" asc ";
 	
 	List<GroupReportBeanwithPhase> groupReportGroupList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 		@Override
