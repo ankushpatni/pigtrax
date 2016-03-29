@@ -39,7 +39,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 		 String qry = "select GED.\"id\", GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", "
 			   		+ "GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", "
 			   		+ "GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\",GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\",GED.\"id_RemovalEventExceptSalesDetails\",GED.\"id_SalesEventDetails\", GE.\"groupId\" "
-			   		+ "from pigtrax.\"GroupEventDetails\" GED LEFT JOIN  pigtrax.\"GroupEvent\" GE ON GED.\"id_FromGroup\" = GE.\"id\" where GED.\"id_GroupEvent\" = ?";
+			   		+ "from pigtrax.\"GroupEventDetails\" GED LEFT JOIN  pigtrax.\"GroupEvent\" GE ON GED.\"id_FromGroup\" = GE.\"id\" where GED.\"id_GroupEvent\" = ? order by GED.\"dateOfEntry\" desc";
 		 
 				List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 					@Override
