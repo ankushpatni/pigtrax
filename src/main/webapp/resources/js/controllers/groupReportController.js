@@ -46,7 +46,7 @@ pigTrax.controller('groupReportController', function($scope, $http, $window,$mod
 			
 			if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
 				$scope.companyId === '' || $scope.companyId === undefined || 
-				$scope.searchText === '' || $scope.endDate === searchText)
+				$scope.searchText === '' || $scope.searchText === undefined)
 			{
 				$scope.mentaoryField = true;
 				return true;
