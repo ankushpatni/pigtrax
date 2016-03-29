@@ -2,8 +2,9 @@ pigTrax.controller('PigletMortalityReportController', function($scope, $http, $w
 	$scope.companyId = 0;
 	$scope.startDate;
 	$scope.endDate;
+	$scope.searchDataErrorMessage = false;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId, dataStatus)
 	{
 		var localCompany ;
 		if(comapnyId === undefined )
@@ -22,14 +23,27 @@ pigTrax.controller('PigletMortalityReportController', function($scope, $http, $w
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}    
   
     
     $scope.generatePigletMortalityReport = function()
     {	
-		document.getElementById("companyId1").value	= $scope.companyId;		
-		document.getElementById("selectedPremise").value	= $scope.selectedPremise;		
-		document.forms['generatePigletMortalityReportForm'].submit();
+    	
+    	if($scope.companyId != null && $scope.selectedPremise !=  null && $scope.startDate !=  null &&  $scope.endDate != null)
+    	{
+    		$scope.criteriaMessage = false;
+    			document.getElementById("companyId1").value	= $scope.companyId;		
+				document.getElementById("selectedPremise").value	= $scope.selectedPremise;		
+				document.forms['generatePigletMortalityReportForm'].submit();
+    	}
+    	else
+    	{
+    		$scope.criteriaMessage = true;
+    	}
 			
     }
     

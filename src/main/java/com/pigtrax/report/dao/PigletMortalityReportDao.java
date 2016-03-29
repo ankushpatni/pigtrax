@@ -9,8 +9,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,17 +37,16 @@ public class PigletMortalityReportDao {
 	{
 		List<PigletMortalityReportBean> pigletMortalityList = new ArrayList<PigletMortalityReportBean>();
 		
-		String qry=" SELECT BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",current_date-FE.\"farrowDateTime\":: date as \"lactationDays\", "
-				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\", MRT.\"fieldDescription\",PS.\"id_Pen\" " 
+		String qry=" SELECT R.\"id\", BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",current_date-FE.\"farrowDateTime\":: date as \"lactationDays\", "
+				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\",PS.\"id_Pen\", PS.\"eventDateTime\" as \"deathDate\", FE.\"farrowDateTime\" as \"farrowDate\" " 
 				 +" FROM pigtrax.\"FarrowEvent\" FE "
 				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS On PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 4"
 				 +" LEFT JOIN pigtrax.\"Pen\" PEN ON PS.\"id_Pen\" = PEN.\"id\" "
 				 +" LEFT JOIN pigtrax.\"Room\" R ON PEN.\"id_Room\" = R.\"id\" "
-				 +" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\" "				 
-				 +" LEFT JOIN pigtraxrefdata.\"MortalityReasonType\" MRT ON PS.\"id_MortalityReasonType\" = MRT.\"id\" "
+				 +" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\" "	
 				 +" WHERE  FE.\"id_Premise\" = ? "
 				 +" AND FE.\"farrowDateTime\"::date between ? and ? "
-				 +" GROUP BY PS.\"id_Pen\" , MRT.\"fieldDescription\", \"lactationDays\", R.\"roomId\",BN.\"barnId\" ORDER BY \"lactationDays\" ";
+				 +" GROUP BY PS.\"id_Pen\" , \"lactationDays\", R.\"roomId\",R.\"id\", BN.\"barnId\", FE.\"farrowDateTime\", PS.\"eventDateTime\" ORDER BY  BN.\"barnId\",  R.\"roomId\", PS.\"eventDateTime\",\"lactationDays\" ";
 
 		pigletMortalityList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -66,10 +67,51 @@ public class PigletMortalityReportDao {
 			pigletMortalityReportBean.setRoomId(rs.getString("roomId"));
 			pigletMortalityReportBean.setLactationDays(rs.getInt("lactationDays"));
 			pigletMortalityReportBean.setNumberOfDeaths(rs.getInt("Number of Deaths"));
-			pigletMortalityReportBean.setMortalityReason(rs.getString("fieldDescription"));
 			pigletMortalityReportBean.setInventoryCount(rs.getInt("inventoryCount"));
+			pigletMortalityReportBean.setDeathDate((rs.getObject("deathDate") != null) ? rs.getDate("deathDate") : null);
+			pigletMortalityReportBean.setFarrowDate((rs.getObject("farrowDate") != null) ? rs.getDate("farrowDate") : null); 
+			pigletMortalityReportBean.setRoomPkId(rs.getObject("id") != null ? rs.getInt("id") : null);
 			
 			return pigletMortalityReportBean;
 		}
 	}
+	
+	
+	public Integer getStartHead(Date startDate, Integer roomId)
+	{
+		java.sql.Date qryDate = null;
+		if(startDate != null)
+			qryDate = new java.sql.Date(startDate.getTime());
+		
+		String qry = "SELECT T.\"id\", COALESCE(T.\"cnt\"+T.\"in\"-T.\"out\", 0) as net from "
+					 +" (SELECT R.\"id\", SUM(FE.\"liveBorns\") as \"cnt\", SUM(PS.\"numberOfPigs\") as \"out\",SUM(PS1.\"numberOfPigs\") as \"in\"  from pigtrax.\"FarrowEvent\" FE " 
+					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"id_PigletStatusEventType\" IN (4,2) "
+					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 ON FE.\"id\" = PS1.\"id_FarrowEvent\" AND PS1.\"id_PigletStatusEventType\" IN (1) "
+					 +" LEFT JOIN pigtrax.\"Pen\" P ON P.\"id\" = PS.\"id_Pen\" "
+					 +" LEFT JOIN pigtrax.\"Room\" R ON P.\"id_Room\" = R.\"id\" "
+					 +" where FE.\"farrowDateTime\" <= '"+qryDate+"' ";
+		if(roomId != null)
+				qry += " AND R.\"id\" = "+roomId;
+					 
+					 qry += " GROUP BY R.\"id\") T" ;
+		
+		Long returnValue = null;
+		returnValue = jdbcTemplate.query(qry, new ResultSetExtractor<Long>() {
+			public Long extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				if (resultSet.next()) {
+					return resultSet.getLong(1);
+				}
+				return null;
+			}
+		});			 
+		
+		logger.debug("retVal is :" + returnValue);
+		if (returnValue != null) {
+			return Integer.decode(returnValue.toString());
+		}
+	
+	return 0;
+		
+	}
+
 }
