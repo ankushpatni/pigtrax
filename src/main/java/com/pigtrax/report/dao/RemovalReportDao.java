@@ -149,5 +149,73 @@ public class RemovalReportDao {
 			return removalReportBean;
 		}
 	}
+	
+	
+	private static final class RemovalReportMortalityReasonMapper implements RowMapper<RemovalReportBean> {
+		public RemovalReportBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+			RemovalReportBean removalReportBean = new RemovalReportBean();
+			
+			removalReportBean.setNumberPigsRemoved(rs.getInt("sum"));
+			removalReportBean.setMortalityReason(rs.getString("mortalityReason"));
+			
+			return removalReportBean;
+		}
+	}
+	
+	
+	public List<RemovalReportBean> getRemovalMortalityReasonList(final int premisesId, final Date start, final Date end, String animalType) {
+		
+		String query = null;
+		String groupQuery =	" select sum(RES.\"numberOfPigs\"), case when( RES.\"id_MortalityReason\" is not null ) THEN  MR.\"fieldDescription\" else 'Unclassified' END as \"mortalityReason\"  "
+				 + " from pigtrax.\"RemovalEventExceptSalesDetails\" RES LEFT OUTER JOIN pigtraxrefdata.\"MortalityReasonType\" MR ON RES.\"id_MortalityReason\" = MR.\"id\"  "
+				 + " where  RES.\"id_GroupEvent\" is not null and  (RES.\"id_RemovalEvent\" = 2 or RES.\"id_RemovalEvent\" = 7 or RES.\"id_RemovalEvent\" = 8 )  and RES.\"id_Premise\" = ?" ;
+		
+		String pigQuery =	" select sum(RES.\"numberOfPigs\"), case when( RES.\"id_MortalityReason\" is not null ) THEN  MR.\"fieldDescription\" else 'UnClassified' END as \"mortalityReason\"  "
+				 + " from pigtrax.\"RemovalEventExceptSalesDetails\" RES LEFT OUTER JOIN pigtraxrefdata.\"MortalityReasonType\" MR ON RES.\"id_MortalityReason\" = MR.\"id\"  "
+				 + " where  RES.\"id_PigInfo\" is not null and  (RES.\"id_RemovalEvent\" = 2 or RES.\"id_RemovalEvent\" = 7 or RES.\"id_RemovalEvent\" = 8 )  and RES.\"id_Premise\" = ? " ;
+		
+		String pigLetStatusQuery = " select case when( RES.\"id_MortalityReasonType\" is not null ) THEN  MR.\"fieldDescription\" else 'Unclassified' END as \"mortalityReason\"  , "
+									+" sum(RES.\"numberOfPigs\") from pigtrax.\"PigletStatus\" RES LEFT OUTER JOIN pigtraxrefdata.\"MortalityReasonType\" MR ON RES.\"id_MortalityReasonType\" = MR.\"id\"  "
+									+" where RES.\"id_PigletStatusEventType\" = 4 and  RES.\"id_Premise\" = ?";
+				 
+		
+		if(animalType.equalsIgnoreCase("group"))
+		{
+			query = groupQuery;
+			if(start != null)
+				query = query +"  and RES.\"removalDateTime\" >=  '"+ start+"'";
+			if(end != null)
+				query = query + " and RES.\"removalDateTime\" <= '"+ end+"'";
+		}
+		else if(animalType.equalsIgnoreCase("pig"))
+		{
+			query = pigQuery;
+			if(start != null)
+				query = query +"  and RES.\"removalDateTime\" >=  '"+ start+"'";
+			if(end != null)
+				query = query + " and RES.\"removalDateTime\" <= '"+ end+"'";
+		}
+		else
+		{
+			query = pigLetStatusQuery;
+			
+			if(start != null)
+				query = query +"  and RES.\"eventDateTime\" >=  '"+ start+"'";
+			if(end != null)
+				query = query + " and RES.\"eventDateTime\" <= '"+ end+"'";
+			
+		}
+		
+		query = query + " group by \"mortalityReason\" order by \"mortalityReason\" " ;
+		
+		List<RemovalReportBean> sowReportBeanList = jdbcTemplate.query(query, new PreparedStatementSetter(){
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, premisesId);
+			}}, new RemovalReportMortalityReasonMapper());
+		
+		return sowReportBeanList;
+	}
 
 }

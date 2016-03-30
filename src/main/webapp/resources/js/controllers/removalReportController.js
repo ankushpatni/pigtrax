@@ -56,7 +56,8 @@ pigTrax.controller('removalReportController', function($scope, $http, $window,$m
 			if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
 				$scope.companyId === '' || $scope.companyId === undefined || 
 				$scope.endDate === '' || $scope.endDate === undefined || 
-				$scope.startDate === '' || $scope.startDate === undefined)
+				$scope.startDate === '' || $scope.startDate === undefined || 
+				$scope.animalType === '' || $scope.animalType === undefined)
 			{
 				$scope.mentaoryField = true;
 				return true;

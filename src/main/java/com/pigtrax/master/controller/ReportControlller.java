@@ -2585,6 +2585,7 @@ public class ReportControlller {
 							String endDate = request.getParameter("endDate");
 							String group = request.getParameter("groupId");
 							String pig = request.getParameter("pigId");
+							String animalType = request.getParameter("animalType");
 							
 							String companyString = request.getParameter("companyId1");
 							Integer companyId ;
@@ -2635,7 +2636,7 @@ public class ReportControlller {
 									
 									if(premiseId > 0)
 									{ 
-										rows = removalReportService.getRemovalList(selectedPremise,premiseId, pigId, groupId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+										rows = removalReportService.getRemovalList(selectedPremise,premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),language, animalType);
 										if(rows != null && rows.size()>0)
 										{
 											

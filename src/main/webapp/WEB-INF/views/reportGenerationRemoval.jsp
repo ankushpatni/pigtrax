@@ -40,7 +40,7 @@
                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
                       		  </select>
 						</div>
-						<div  class="form-group">			
+					<%-- 	<div  class="form-group">			
  		   				<!-- <input type="text" name="pigId" id="pigId" class="form-control" ng-model="pigId" placeholder="<spring:message code='label.sowReport.search.pig'  text='Search by Pig Id ...'/>"/>-->
 						 <select  class="form-control"  name="search" id="search" ng-model="pigId" >
 								<option value="" hidden><spring:message code='label.sowReport.search.pig' text='Search by Pig Id ...' /></option>
@@ -53,6 +53,17 @@
 						 <select  class="form-control"  name="search" id="search" ng-model="groupId" >
 								<option value="" hidden><spring:message code='label.groupReport.search.group' text='Search by Group Id ...' /></option>
 								<option ng-repeat="groupEventSearch in groupEventListSearch" value="{{groupEventSearch.groupId}}" ng-value="groupEventSearch.groupId" ng-selected="searchText == groupEventSearch.groupId">{{groupEventSearch.groupId}}</option>
+								</select>
+						</div> --%>
+						
+						<div  class="form-group">			
+ 		   				 <!--<input type="text" name="groupId" id="groupId" class="form-control" ng-model="groupId" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>-->
+						 <label><spring:message code='label.groupReport.search.animal' text='Animal Type' /><span style='color: red'>*</span></label>
+						 <select  class="form-control"  name="animalType" id="animalType" ng-model="animalType" >
+								<option value="" hidden><spring:message code='label.groupReport.search.animal' text='Animal Type' /></option>
+								<option value="group" ><spring:message code='label.groupReport.search.Grover' text='Grover' /></option>
+								<option value="pig" ><spring:message code='label.groupReport.search.Pig' text='Pig' /></option>
+								<option value="piglet" ><spring:message code='label.groupReport.search.PigletStatus' text='Piglet Status' /></option>
 								</select>
 						</div>
 						
