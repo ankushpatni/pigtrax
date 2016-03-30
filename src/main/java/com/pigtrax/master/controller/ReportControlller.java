@@ -32,6 +32,7 @@ import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.report.service.ActionListReportService;
+import com.pigtrax.report.service.DataIntegrityLogService;
 import com.pigtrax.report.service.FeedReportService;
 import com.pigtrax.report.service.GestationReportService;
 import com.pigtrax.report.service.GroupReportService;
@@ -115,6 +116,8 @@ public class ReportControlller {
 	@Autowired
 	GroupStatusReportService groupStatusReportService;
 	
+	@Autowired
+	DataIntegrityLogService logService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -2825,7 +2828,63 @@ public class ReportControlller {
 				
 				
 				
+		//Data Integrity Report start
+		@RequestMapping(value = "/dataIntegrityReport", method = RequestMethod.GET)
+		public ModelAndView dataIntegrityReport(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "dataIntegrityReport.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			
+			return new ModelAndView("template", model);
+		}	
+								
+		@RequestMapping(value = "/generateDataIntegrityReport", method = RequestMethod.POST)
+		public void generateDataIntegrityReport(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				String startDate = request.getParameter("startDate");
+				String endDate = request.getParameter("endDate");
 				
-				
+				List<String> rows =new ArrayList<String>();			
+				try {
+						response.setContentType("text/csv");
+						String reportName = "CSV_Report_DataIntegrity_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
+						response.setHeader("Content-disposition", "attachment;filename="+reportName);
+						
+						rows = logService.getLog(DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+						if(rows != null && rows.size() > 1)
+						{
+							Iterator<String> iter = rows.iterator();
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}		
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							response.sendRedirect("dataIntegrityReport?nodata=true");
+						}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					rows.add("There is some error please contact Admin");
+				}
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}			
 	
+		
+		
 }

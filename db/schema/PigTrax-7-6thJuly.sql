@@ -3369,6 +3369,60 @@ CREATE TABLE pigtrax."PigInfoParityLog"
 )
 ;
 
+--DROP TABLE IF EXISTS pigtrax."DataIntegrityLog" CASCADE;
+CREATE TABLE pigtrax."DataIntegrityLog"
+(
+  "id" serial NOT NULL,
+  "eventType" varchar(50) NOT NULL,
+  "errorType" varchar(50) NOT NULL,
+  "eventDate" timestamp without time zone NOT NULL,
+  "errorDescription" varchar(1000) not null,
+  CONSTRAINT "DataIntegrityLog_PK" PRIMARY KEY (id)
+)
+;
+
+
+-- object: pigtraxrefdata."EventType" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."EventType" CASCADE;
+CREATE TABLE pigtraxrefdata."EventType"(
+	id serial NOT NULL,
+	"fieldCode" smallint NOT NULL,
+	"fieldDescription" varchar(100) NOT NULL,
+	"lastUpdated" timestamp NOT NULL,
+	"userUpdated" varchar(20) NOT NULL,
+	CONSTRAINT "EventType_PK" PRIMARY KEY (id),
+	CONSTRAINT "EventType_FC_U" UNIQUE ("fieldCode")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."EventType" OWNER TO pitraxadmin;
+
+
+-- object: pigtraxrefdata."EventTypeTranslation" | type: TABLE --
+-- DROP TABLE IF EXISTS pigtraxrefdata."EventTypeTranslation" CASCADE;
+CREATE TABLE pigtraxrefdata."EventTypeTranslation"(
+	id serial NOT NULL,
+	"fieldValue" varchar(100) NOT NULL,
+	"fieldLanguage" char(2) NOT NULL,
+	"lastUpdated" timestamp with time zone NOT NULL,
+	"userUpdated" varchar(20),
+	"id_EventType" integer,
+	CONSTRAINT "EventTypeTranslation_PK" PRIMARY KEY (id),
+	CONSTRAINT "EventTypeTranslation_FV_FL_U" UNIQUE ("fieldValue","fieldLanguage")
+
+);
+-- ddl-end --
+ALTER TABLE pigtraxrefdata."EventTypeTranslation" OWNER TO pitraxadmin;
+-- ddl-end --
+
+-- object: "EventType_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtraxrefdata."EventTypeTranslation" DROP CONSTRAINT IF EXISTS "EventType_fk" CASCADE;
+ALTER TABLE pigtraxrefdata."EventTypeTranslation" ADD CONSTRAINT "EventType_fk" FOREIGN KEY ("id_EventType")
+REFERENCES pigtraxrefdata."EventType" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
 as(
