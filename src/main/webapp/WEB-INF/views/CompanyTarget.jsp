@@ -128,7 +128,7 @@
 							&nbsp;				
 					<button type="button" class="btn btn-edit btn-xs"
 							ng-click="deleteTargetDetails(row)" ng-confirm-click="<spring:message code='label.matingdetailsform.delete.confirmmessage'  text='Are you sure you want to delete the entry?'/>">
-							<span class="glyphicon glyphicon-remove"></span>												
+							<span class="glyphicon glyphicon-remove"></span><spring:message code="label.transportDestination.delete" text="Delete" /></span>												
 						</button>
 					</td>				
 				</tr>

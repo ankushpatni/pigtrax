@@ -38,7 +38,7 @@
 								<td style="width:20%">{{row.make}}</td>
 								<td style="width: 20%">
 									<button type="button" class="btn btn-edit btn-xs" ng-click="deleteTransportTruckData(row)">
-										<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.transportTruck.deleteTruck" text="Delete" /></a></button>					
+										<span class="glyphicon glyphicon-remove" ></span><spring:message code="label.transportTruck.deleteTruck" text="Delete" /></a></button>					
 								</td>				
 							</tr>
 							</tbody>		
@@ -91,7 +91,7 @@
 								<td style="width:30%">{{row.trailerMake}}</td>
 								<td style="width: 20%">
 									<button type="button" class="btn btn-edit btn-xs" ng-click="deleteTransportTrailerData(row)">
-										<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.transportTrailer.deleteTrailer" text="Delete" /></a></button>					
+										<span class="glyphicon glyphicon-remove" ></span><spring:message code="label.transportTrailer.deleteTrailer" text="Delete" /></a></button>					
 								</td>				
 							</tr>
 							</tbody>		
