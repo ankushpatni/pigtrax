@@ -37,11 +37,11 @@ public class PigletMortalityReportDao {
 	{
 		List<PigletMortalityReportBean> pigletMortalityList = new ArrayList<PigletMortalityReportBean>();
 		
-		String qry=" SELECT R.\"id\", BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",current_date-FE.\"farrowDateTime\":: date as \"lactationDays\", "
+		String qry=" SELECT R.\"id\", BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",(current_date-FE.\"farrowDateTime\":: date-30) as \"lactationDays\", "
 				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\",PS.\"id_Pen\", PS.\"eventDateTime\" as \"deathDate\", FE.\"farrowDateTime\" as \"farrowDate\" " 
 				 +" FROM pigtrax.\"FarrowEvent\" FE "
 				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS On PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 4"
-				 +" LEFT JOIN pigtrax.\"Pen\" PEN ON PS.\"id_Pen\" = PEN.\"id\" "
+				 +" LEFT JOIN pigtrax.\"Pen\" PEN ON FE.\"id_Pen\" = PEN.\"id\" "
 				 +" LEFT JOIN pigtrax.\"Room\" R ON PEN.\"id_Room\" = R.\"id\" "
 				 +" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\" "	
 				 +" WHERE  FE.\"id_Premise\" = ? "
@@ -87,7 +87,7 @@ public class PigletMortalityReportDao {
 					 +" (SELECT R.\"id\", SUM(FE.\"liveBorns\") as \"cnt\", SUM(PS.\"numberOfPigs\") as \"out\",SUM(PS1.\"numberOfPigs\") as \"in\"  from pigtrax.\"FarrowEvent\" FE " 
 					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"id_PigletStatusEventType\" IN (4,2) "
 					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 ON FE.\"id\" = PS1.\"id_FarrowEvent\" AND PS1.\"id_PigletStatusEventType\" IN (1) "
-					 +" LEFT JOIN pigtrax.\"Pen\" P ON P.\"id\" = PS.\"id_Pen\" "
+					 +" LEFT JOIN pigtrax.\"Pen\" P ON P.\"id\" = FE.\"id_Pen\" "
 					 +" LEFT JOIN pigtrax.\"Room\" R ON P.\"id_Room\" = R.\"id\" "
 					 +" where FE.\"farrowDateTime\" <= '"+qryDate+"' ";
 		if(roomId != null)

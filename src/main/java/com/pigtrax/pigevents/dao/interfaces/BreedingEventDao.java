@@ -39,4 +39,6 @@ public interface BreedingEventDao {
    
    Date getServiceStartDate(Integer breedingEventId);
    
+   Integer getParity(Integer breedingEventId);
+   
 }

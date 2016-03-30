@@ -58,7 +58,7 @@ public class InventoryStatusDao {
 				+" AND "	
 				+" PI.\"isActive\" is true AND PI.\"id_Premise\" = ?" 
 				+" GROUP BY PI.\"id_SexType\",  \"Sow Source\", \"Phase Type\", BN.\"barnId\" "
-				+" UNION "
+				+" UNION ALL"
 				+" SELECT PR.\"permiseId\" as \"Sow Source\",  BN.\"barnId\" , PPT.\"fieldDescription\"  as \"Phase Type\", GE.\"groupId\" as \"Group Id\", "
 					+ "'Pig' as \"Animal Type\", SUM(GED.\"numberOfPigs\") as \"Head\", FED.\"DOF\" as \"DOF\" "
 				+" FROM pigtrax.\"GroupEvent\" GE "

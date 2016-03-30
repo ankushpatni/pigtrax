@@ -21,6 +21,8 @@ import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.beans.SalesEventDetails;
+import com.pigtrax.pigevents.dao.interfaces.BreedingEventDao;
+import com.pigtrax.pigevents.dao.interfaces.FarrowEventDao;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
 import com.pigtrax.pigevents.dto.FarrowEventDto;
@@ -67,6 +69,9 @@ public class SowReportService {
 	BarnDao barnDao;
 	
 	@Autowired
+	FarrowEventDao farrowDao;
+	
+	@Autowired
 	PigletStatusEventService pigletStatusEventService; 
 	
 	@Autowired
@@ -89,6 +94,9 @@ public class SowReportService {
 	
 	@Autowired
 	GroupEventService groupEventService;
+	
+	@Autowired
+	BreedingEventDao breedingEventDao;
 	
 	private static final String seprater = ",";
 
@@ -123,6 +131,10 @@ public class SowReportService {
 							rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 							if(SowReportBean.getBreedingEventId() != null && SowReportBean.getBreedingEventId()!=0 )
 							{
+								
+								parityInt = breedingEventDao.getParity(SowReportBean.getBreedingEventId());
+								parityInt = parityInt - 1;
+								
 								rowBuffer.append("Breeding"+seprater);
 								
 								if(SowReportBean.getBreedingEventPenId() != null && SowReportBean.getBreedingEventPenId() !=0)
@@ -147,6 +159,14 @@ public class SowReportService {
 							}
 							else if(SowReportBean.getPregnancyEventId() != null  && SowReportBean.getPregnancyEventId() !=0)
 							{
+								
+								PregnancyEventDto pregEvent = pregnancyEventService.getPregnancyEventInformation(SowReportBean.getPregnancyEventId(), "en");
+								if(pregEvent != null)
+								{
+									parityInt = breedingEventDao.getParity(pregEvent.getBreedingEventId());
+									parityInt = parityInt - 1;
+								}
+								
 								rowBuffer.append("Pregnancy"+seprater);
 								
 								rowBuffer.append(seprater);
@@ -161,6 +181,13 @@ public class SowReportService {
 							{
 								
 								PigletStatusEvent pigletStatusEventInformation = pigletStatusEventdao.getPigletStatusEventInformation(SowReportBean.getPigletStatusId());
+								
+								FarrowEventDto farrowEvent = farrowEventService.getFarrowEventDetails(pigletStatusEventInformation.getFarrowEventId())	;
+								if(farrowEvent != null)
+								{
+									parityInt = breedingEventDao.getParity(farrowEvent.getBreedingEventId());
+								}
+								
 								
 								rowBuffer.append(pigletStatusEventType.get(pigletStatusEventInformation.getPigletStatusEventTypeId())+seprater);
 								
@@ -202,7 +229,13 @@ public class SowReportService {
 							}
 							else if(SowReportBean.getFarrowEventId() != null  && SowReportBean.getFarrowEventId() !=0)
 							{
-								parityInt++;
+								
+								FarrowEventDto farrowEvent = farrowEventService.getFarrowEventDetails(SowReportBean.getFarrowEventId())	;
+								if(farrowEvent != null)
+								{
+									parityInt = breedingEventDao.getParity(farrowEvent.getBreedingEventId());
+								}								
+								
 								rowBuffer.append("Farrow"+seprater);
 								
 								if(SowReportBean.getFarrowEventPenId() != null && SowReportBean.getFarrowEventPenId()!=0)
@@ -238,6 +271,8 @@ public class SowReportService {
 							
 							else if(SowReportBean.getRemovalEventExceptSalesDetailsId()!= null && SowReportBean.getRemovalEventExceptSalesDetailsId()!=0 )
 							{
+								parityInt = farrowDao.getFarrowCount(SowReportBean.getPigInfoId());
+								
 								RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsId());
 								if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
 								{
@@ -283,6 +318,9 @@ public class SowReportService {
 							
 							else if(SowReportBean.getSalesEventDetailsId() != null  && SowReportBean.getSalesEventDetailsId() !=0)
 							{
+								
+								parityInt = farrowDao.getFarrowCount(SowReportBean.getPigInfoId());
+								
 								rowBuffer.append("Sales"+seprater);
 								
 								rowBuffer.append(seprater);
