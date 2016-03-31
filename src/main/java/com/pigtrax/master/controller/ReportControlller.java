@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.dao.interfaces.PigInfoDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.report.service.ActionListReportService;
+import com.pigtrax.report.service.DataExtractionService;
 import com.pigtrax.report.service.DataIntegrityLogService;
 import com.pigtrax.report.service.FeedReportService;
 import com.pigtrax.report.service.GestationReportService;
@@ -118,6 +120,9 @@ public class ReportControlller {
 	
 	@Autowired
 	DataIntegrityLogService logService;
+	
+	@Autowired
+	DataExtractionService extractionService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -2979,6 +2984,101 @@ public class ReportControlller {
 			return new ModelAndView("template", model);
 		}		
 	
+		
+		//Data Integrity Report start
+		@RequestMapping(value = "/dataExtraction", method = RequestMethod.GET)
+		public ModelAndView dataExtractionPig(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "dataExtractionReport.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
+
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			
+			return new ModelAndView("template", model);
+		}	
+								
+		@RequestMapping(value = "/generateDataExtraction", method = RequestMethod.POST)
+		public void generateDataExtraction(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				Locale locale = localeResolver.resolveLocale(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
+				
+				String startDate = request.getParameter("startDate");
+				String endDate = request.getParameter("endDate");
+				String reportOption = request.getParameter("reportOption");
+				String selectedPremise = request.getParameter("selectedPremise");
+				String selectedEvent = request.getParameter("selectedEvent");
+				String groupIdStr = request.getParameter("selectedGroup");
+				String pigIdStr = request.getParameter("selectedPig");
+				
+				List<String> rows =new ArrayList<String>();			
+				try {
+					    Integer premiseId = Integer.parseInt(selectedPremise);
+					    Integer eventTypeId = null;
+					    Integer groupId = null;
+					    Integer pigId = null;
+					    try{
+					    	groupId = Integer.parseInt(groupIdStr);
+					    }catch(NumberFormatException nfEx)
+					    {
+					    	groupId = null;
+					    }
+					    
+					    try{
+					    	pigId = Integer.parseInt(pigIdStr);
+					    }catch(NumberFormatException nfEx)
+					    {
+					    	pigId = null;
+					    }
+					    
+					    try{
+					    	eventTypeId = Integer.parseInt(selectedEvent);
+					    }catch(NumberFormatException nfEx)
+					    {
+					    	eventTypeId = null;
+					    }
+					   
+					    
+						response.setContentType("text/csv");
+						String reportName = "CSV_Report_DataExtractionReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
+						response.setHeader("Content-disposition", "attachment;filename="+reportName);
+						 
+						rows = extractionService.getData(premiseId, pigId, groupId, reportOption, eventTypeId,  DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), locale);
+						if(rows != null && rows.size() > 1)
+						{
+							Iterator<String> iter = rows.iterator();
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}		
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							response.sendRedirect("dataExtraction?nodata=true");
+						}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					rows.add("There is some error please contact Admin");
+				}
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}		
+
 		
 		
 }

@@ -73,4 +73,6 @@ public interface RefDataCache {
 	Map<Integer, String> getMarketTypeMap(String language);
 	
 	Map<Integer, String> getMasterRationTypeMap(String language);
+	
+	Map<Integer, String> getEventTypeMap(String language);
 }

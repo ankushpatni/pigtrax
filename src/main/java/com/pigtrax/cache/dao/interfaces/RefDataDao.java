@@ -80,4 +80,6 @@ public interface RefDataDao {
 	
 	List<RefDataTranslationDto> getRationTypes();
 	
+	List<RefDataTranslationDto> getEventTypes();
+	
 }
