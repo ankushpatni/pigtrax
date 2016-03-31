@@ -252,7 +252,7 @@ public class DataExtractionService {
 									 resultList = extractionDao.getSalesData(query);
 										returnRows = populateRows(resultList, eventType);
 											break;
-			case 8 : 	query = "select GE.\"groupId\", PI.\"pigId\",RES.\"removalDateTime\",RES.\"numberOfPigs\",RES.\"weightInKgs\", PRE.\"premiseId\", TPRE.\"premiseId\", TR.\"roomId\", RES.\"revenueUsd\" as \"revenue\",TTK.\"truckId\", TTR.\"trailerId\", RES.\"remarks\" "
+			case 8 : 	query = "select GE.\"groupId\", PI.\"pigId\",RES.\"removalDateTime\",RES.\"numberOfPigs\",RES.\"weightInKgs\", PRE.\"permiseId\", TPRE.\"permiseId\", TR.\"roomId\", RES.\"revenueUsd\" as \"revenue\",TTK.\"truckId\", TTR.\"trailerId\", RES.\"remarks\" "
 					+ "	 From pigtrax.\"RemovalEventExceptSalesDetails\" RES Left join pigtrax.\"GroupEvent\" GE ON RES.\"id_GroupEvent\" = GE.\"id\" "
 					+ "  left join pigtrax.\"PigInfo\" PI ON RES.\"id_PigInfo\" = PI.\"id\" "
 					+ " left join pigtrax.\"Premise\" PRE ON RES.\"id_Premise\" = PRE.\"id\" "
@@ -267,13 +267,13 @@ public class DataExtractionService {
 						{
 							query += " and SE.\"id_GroupEvent\" IS NULL ";
 							 if(pigId != null)
-								 query += " and SE.\"id_PigInfo\" = "+pigId;
+								 query += " and RES.\"id_PigInfo\" = "+pigId;
 						}
 						else if(reportOption.equalsIgnoreCase("groupId"))
 						{
-							query += " and SE.\"id_PigInfo\" IS NULL ";
+							query += " and RES.\"id_PigInfo\" IS NULL ";
 							if(groupId != null)
-								query += " and SE.\"id_GroupEvent\" = "+groupId;
+								query += " and RES.\"id_GroupEvent\" = "+groupId;
 						}
 						 resultList = extractionDao.getTransferData(query);
 							returnRows = populateRows(resultList, eventType);
@@ -293,8 +293,8 @@ public class DataExtractionService {
 						returnRows = populateRows(resultList, eventType);
 								break;
 			case 10 : query = " select R.\"roomId\", PL.\"groupId\", PL.\"observationDate\", LET.\"fieldValue\" as \"logEventType\", PL.\"observation\" from pigtrax.\"ProductionLog\" PL "
-							+ " join pigtrax.\"Room\" R on PL.\"id_Room\" = R.\"id\" JOIN pigtrax.\"LogEventTypeTranslation\" LET ON LET.\"id_LogEventType\" = PL.\"id_LogEventType\" "
-							+" where PL.\"idPremise\" = "+premiseId+" and PL.\"observationDate\" between '"+start+ "' and '"+end+"'";
+							+ " join pigtrax.\"Room\" R on PL.\"id_Room\" = R.\"id\" JOIN pigtraxrefdata.\"LogEventTypeTranslation\" LET ON LET.\"id_LogEventType\" = PL.\"id_LogEventType\" "
+							+" where PL.\"id_Premise\" = "+premiseId+" and PL.\"observationDate\" between '"+start+ "' and '"+end+"'";
 			 resultList = extractionDao.getProductionLogData(query);
 				returnRows = populateRows(resultList, eventType);
 								break;
