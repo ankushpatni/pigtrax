@@ -47,7 +47,7 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 			
 			if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
 				$scope.companyId === '' || $scope.companyId === undefined || 
-				$scope.searchText === '' || $scope.searchText === undefined )
+				$scope.pigId === '' || $scope.pigId === undefined )
 			{
 				$scope.mentaoryField = true;
 				return true;
