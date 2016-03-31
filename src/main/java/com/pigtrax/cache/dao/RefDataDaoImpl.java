@@ -338,4 +338,10 @@ public class RefDataDaoImpl implements RefDataDao {
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
+	@Override
+	public List<RefDataTranslationDto> getEventTypes() {
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_EventType\" FROM pigtraxrefdata.\"EventTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
+	}
+	
 }

@@ -92,6 +92,8 @@ public class RefDataCacheImpl implements RefDataCache {
 	
 	private Map<String, Map<Integer, String>> masterRationTypeMap;
 	
+	private Map<String, Map<Integer, String>> eventTypeMap;
+	
 	/*
 	 * This map is simpler <Country, <[List of cities in this country]>>
 	 * 
@@ -137,6 +139,7 @@ public class RefDataCacheImpl implements RefDataCache {
 		trailerFunctionMap = Collections.unmodifiableMap(convertToMap(refDataDao.getTrailerFunctions()));
 		marketTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getMarketTypes()));
 		masterRationTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getRationTypes()));
+		eventTypeMap = Collections.unmodifiableMap(convertToMap(refDataDao.getEventTypes()));
 	}
 
 	@Override
@@ -332,6 +335,11 @@ public class RefDataCacheImpl implements RefDataCache {
 	@Override
 	public Map<Integer, String> getMasterRationTypeMap(String language) {
 		return masterRationTypeMap.get(language);
+	}
+	
+	@Override
+	public Map<Integer, String> getEventTypeMap(String language) {
+		return eventTypeMap.get(language);
 	}
 	
 }
