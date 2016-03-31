@@ -25,7 +25,7 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
 				
 				 for(i = 0; i < $scope.eventTypeKeys.length; i++)
 				  {
-					  if($scope.eventTypeKeys[i] >= 1 && $scope.eventTypeKeys[i] <= 10 && $scope.eventTypeKeys[i != 9)
+					  if($scope.eventTypeKeys[i] >= 1 && $scope.eventTypeKeys[i] <= 10 && $scope.eventTypeKeys[i] != 9)
 					  {						  
 						  $scope.pigEventKeys.push($scope.eventTypeKeys[i]);		
 						 if($scope.eventTypeKeys[i] >= 6 && $scope.eventTypeKeys[i] <= 10)

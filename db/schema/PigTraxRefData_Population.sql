@@ -8314,8 +8314,8 @@ INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Transfers','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Feed','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Production Log','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
 
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entry','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Breeding','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -8327,8 +8327,8 @@ INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Transfers','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Feed','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Production Log','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
 
 
 
