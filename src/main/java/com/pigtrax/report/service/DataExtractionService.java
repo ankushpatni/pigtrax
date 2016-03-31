@@ -461,8 +461,8 @@ public class DataExtractionService {
 						rowBuffer.append(rowMap.get("transferToPig") + seprater);
 						rowBuffer.append(rowMap.get("mortalityReason") + seprater);
 						rowBuffer.append(rowMap.get("penId") + seprater);
-						rowBuffer.append(rowMap.get("sowCondition") + seprater);
 						rowBuffer.append(rowMap.get("remarks") + seprater);
+						rowBuffer.append(rowMap.get("sowCondition"));						
 						returnRows.add(rowBuffer.toString()+"\n");
 					}
 					break;
