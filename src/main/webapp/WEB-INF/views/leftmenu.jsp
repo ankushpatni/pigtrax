@@ -67,6 +67,8 @@
                                       <%}%>
                              <li><a href="#"><i class="glyphicon glyphicon-stats"></i><span><spring:message code="label.leftmenu.analyticreports.link"  text="Analytical reports"/></span></a>
                              	<ul class="sub-menu">
+                             	
+                             				<li><a href="overViewReport"><spring:message code="label.leftmenu.reports.overViewReport"  text="Report OverView"/></a></li>		
 											<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.performanceMonitoring"  text="Performance Monitoring"/></a></li>																																	
 											<li><a href="reportGenerationSow"><spring:message code="label.leftmenu.Charts.sowReport"  text="Sow Report"/></a></li>
 											<li><a href="reportGenerationGroup"><spring:message code="label.leftmenu.Charts.groupReport"  text="Group Report"/></a></li>

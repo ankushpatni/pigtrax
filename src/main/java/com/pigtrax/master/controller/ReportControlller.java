@@ -2006,6 +2006,7 @@ public class ReportControlller {
 				String selectedPremise = request.getParameter("selectedPremise");
 				String search = request.getParameter("search");
 				String companyString = request.getParameter("companyId1");
+				String fromOverView = request.getParameter("fromOverView");
 				Integer companyId ;
 				
 				System.out.println("selectedPremise = " + selectedPremise);
@@ -2056,7 +2057,14 @@ public class ReportControlller {
 						else
 						{
 							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-							response.sendRedirect("reportGenerationSow");
+							if(fromOverView == null)
+							{
+								response.sendRedirect("reportGenerationSow");
+							}
+							else
+							{
+								response.sendRedirect("overViewReport");
+							}
 						}
 					}
 					else
@@ -2824,7 +2832,18 @@ public class ReportControlller {
 				//Gestation Report end						
 				
 				
-				
+		//Group Status Report start
+		@RequestMapping(value = "/overViewReport", method = RequestMethod.GET)
+		public ModelAndView overViewReport(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "overViewReport.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			return new ModelAndView("template", model);
+		}			
 				
 				
 	
