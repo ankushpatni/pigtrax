@@ -43,9 +43,9 @@
 						<div  class="form-group">			
  		   				 <!---<input type="text" name="search" id="search" required required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>-->
 						 <label><spring:message code='label.group.entryeventform.name'  text='Group Name'/><span style='color: red'>*</span></label>
-						 <select  class="form-control"  name="search" id="search" ng-enter="getPigInformation()" ng-model="searchText" >
+						 <select  class="form-control"  name="groupId" id="groupId" ng-enter="getPigInformation()" ng-model="groupId" >
 								<option value="" hidden><spring:message code='label.groupReport.search.group' text='Search by Group Id ...' /></option>
-								<option ng-repeat="groupEventSearch in groupEventListSearch" value="{{groupEventSearch.groupId}}" ng-value="groupEventSearch.groupId" ng-selected="searchText == groupEventSearch.groupId">{{groupEventSearch.groupId}}</option>
+								<option ng-repeat="groupEventSearch in groupEventListSearch" value="{{groupEventSearch.groupId}}" ng-value="groupEventSearch.groupId" ng-selected="groupId == groupEventSearch.groupId">{{groupEventSearch.groupId}}</option>
 								</select>
 						</div>
                     	

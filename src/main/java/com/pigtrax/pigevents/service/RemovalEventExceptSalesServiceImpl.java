@@ -284,15 +284,34 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 					
 					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode())
 					{
-						groupEventUpdate.setPremiseId(removalEventExceptSalesDetails.getPremiseId());
-						groupEventDao.updateGroupEvent(groupEventUpdate);
-						
-						GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEventUpdate.getId());
-						currentPhase.setPremiseId(removalEventExceptSalesDetails.getPremiseId());						
-						groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);						
+						if(removalEventExceptSalesDetails.getPremiseId() != null && removalEventExceptSalesDetails.getPremiseId() !=0  )
+						{
+							groupEventUpdate.setPremiseId(removalEventExceptSalesDetails.getPremiseId());
+							groupEventDao.updateGroupEvent(groupEventUpdate);
+							
+							GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEventUpdate.getId());
+							currentPhase.setPremiseId(removalEventExceptSalesDetails.getPremiseId());						
+							groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);	
+						}
 						/*groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
 						groupEventRoomDao.addSingleGroupEventRooms(currentPhase.getId(), removalEventExceptSalesDetails.getRoomId());
+						
 						*/
+						
+						GroupEventDetails groupEventDetails = groupEventDetailsDao.groupEventDetailsListByIdAndRemovalId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getId());
+						
+						if(groupEventDetails != null)
+						{
+							GroupEventDetails groupEventFromDetails = groupEventDetailsDao.groupEventDetailsListByIdAndRemovalId(groupEventDetails.getFromGroupId(), removalEventExceptSalesDetails.getCompanyId());
+							if(groupEventFromDetails != null)
+							{
+								GroupEvent groupEventFromUpdate = groupEventDao.getGroupEventByGeneratedGroupId(groupEventDetails.getFromGroupId(), removalEventExceptSalesDetails.getCompanyId());
+								groupEventFromUpdate.setCurrentInventory(groupEventFromUpdate.getCurrentInventory() - removalEventExceptSalesDetails.getNumberOfPigs());
+								groupEventDao.updateGroupEventCurrentInventorywithStatus(groupEventFromUpdate);
+								groupEventDetailsDao.deleteGroupEventDetailsByGroupId(groupEventFromDetails.getId());
+							}
+							groupEventDetailsDao.deleteGroupEventDetailsByGroupId(groupEventDetails.getId());
+						}
 					}
 					else
 					{

@@ -314,10 +314,13 @@ public class PigInfoServiceImpl implements PigInfoService {
 			List<PigInfoDto> pigInfoDtoList = new LinkedList<PigInfoDto>();
 			try {
 				List<PigInfo> pigInfoList =  pigInfoDao.getPigInformationList(companyId,premiseId);
+				if(pigInfoList != null && pigInfoList.size()>0)
+				{
 				for(PigInfo pigInfo : pigInfoList)
 					{
 						pigInfoDtoList.add(builder.convertToDto(pigInfo));
 					}
+				}
 				
 			} catch (SQLException e) {
 				throw new PigTraxException(e.getMessage());
