@@ -2017,7 +2017,7 @@ public class ReportControlller {
 	public void generateReportSow(HttpServletRequest request, HttpServletResponse response) {
 			try {
 				String selectedPremise = request.getParameter("selectedPremise");
-				String search = request.getParameter("search");
+				String search = request.getParameter("pigId");
 				String companyString = request.getParameter("companyId1");
 				String fromOverView = request.getParameter("fromOverView");
 				Integer companyId ;

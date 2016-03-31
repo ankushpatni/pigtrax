@@ -43,7 +43,7 @@ public class PremisesDaoImpl implements PremisesDao{
 					query = query + " and \"id_PremiseType\" in ("+premisesType+")";
 				}
 				
-				query = query + "order by \"id\" desc ";
+				query = query + "order by \"name\" ";
 		
 		List<Premises> premisesList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			@Override
@@ -64,7 +64,7 @@ public class PremisesDaoImpl implements PremisesDao{
 					query = query + " and \"id_PremiseType\" not in ("+premisesType+")";
 				}
 				
-				query = query + "order by \"id\" desc ";
+				query = query + "order by \"name\" ";
 		
 		List<Premises> premisesList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			@Override
@@ -80,7 +80,7 @@ public class PremisesDaoImpl implements PremisesDao{
 	public List<Premises> getPremisesListBySowSource(final int generatedCompanyId) {
 		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\",\"gpsLatittude\",\"gpsLongitude\","
 				+ "\"id_PremiseType\",\"sowSource\",\"otherCity\" "
-				+ "from pigtrax.\"Premise\" where \"id_Company\" = ? and lower(\"sowSource\") = ? order by \"id\" desc ";
+				+ "from pigtrax.\"Premise\" where \"id_Company\" = ? and lower(\"sowSource\") = ? order by \"name\" ";
 		
 		List<Premises> premisesList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			@Override
