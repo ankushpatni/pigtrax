@@ -1996,6 +1996,11 @@ public class ReportControlller {
 			model.put("contentUrl", "reportGenerationSow.jsp");
 			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Integer companyId = activeUser.getCompanyId();
 			model.put("CompanyId", companyId+"");
@@ -2062,11 +2067,11 @@ public class ReportControlller {
 							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
 							if(fromOverView == null)
 							{
-								response.sendRedirect("reportGenerationSow");
+								response.sendRedirect("reportGenerationSow?nodata=true");
 							}
 							else
 							{
-								response.sendRedirect("overViewReport");
+								response.sendRedirect("overViewReport?nodata=true");
 							}
 						}
 					}
@@ -2093,6 +2098,11 @@ public class ReportControlller {
 		model.put("contentUrl", "reportGenerationGroup.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 		
+		if(request.getParameter("nodata") == null)
+		{
+			request.getSession().removeAttribute("REPORT_NO_DATA");
+		}
+		
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer companyId = activeUser.getCompanyId();
 		model.put("CompanyId", companyId+"");
@@ -2104,8 +2114,9 @@ public class ReportControlller {
 	public void generateReportGroup(HttpServletRequest request, HttpServletResponse response) {
 			try {
 				String selectedPremise = request.getParameter("selectedPremise");
-				String search = request.getParameter("search");
+				String search = request.getParameter("groupId");
 				String companyString = request.getParameter("companyId1");
+				String fromOverView = request.getParameter("fromOverView");
 				Integer companyId ;
 				
 				System.out.println("selectedPremise = " + selectedPremise);
@@ -2155,7 +2166,15 @@ public class ReportControlller {
 						else
 						{
 							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-							response.sendRedirect("reportGenerationGroup");
+							if(fromOverView == null)
+							{
+								response.sendRedirect("reportGenerationGroup?nodata=true");
+							}
+							else
+							{
+								response.sendRedirect("overViewReport?nodata=true");
+							}
+							
 						}
 					}
 					else
@@ -2387,6 +2406,7 @@ public class ReportControlller {
 				String selectedPremise = request.getParameter("selectedPremise");
 				String startDate = request.getParameter("startDate");
 				String endDate = request.getParameter("endDate");
+				String fromOverView = request.getParameter("fromOverView");
 				
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				String language = localeResolver.resolveLocale(request).getLanguage();
@@ -2423,7 +2443,15 @@ public class ReportControlller {
 							else
 							{
 								request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-								response.sendRedirect("reportPigletMortality?nodata=true");
+								if(fromOverView == null)
+								{
+									response.sendRedirect("reportPigletMortality?nodata=true");
+								}
+								else
+								{
+									response.sendRedirect("overViewReport?nodata=true");
+								}
+								
 							}
 						}
 						else
@@ -2451,6 +2479,11 @@ public class ReportControlller {
 			model.put("contentUrl", "reportGenerationSale.jsp");
 			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Integer companyId = activeUser.getCompanyId();
 			model.put("CompanyId", companyId+"");
@@ -2467,6 +2500,7 @@ public class ReportControlller {
 					String barn = request.getParameter("selectedBarn");
 					String ticketNumber = request.getParameter("ticketNumber");
 					String pig = request.getParameter("pigId");
+					String fromOverView = request.getParameter("fromOverView");
 					
 					String companyString = request.getParameter("companyId1");
 					Integer companyId ;
@@ -2555,7 +2589,15 @@ public class ReportControlller {
 								else
 								{
 									request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-									response.sendRedirect("saleReport");
+									if(fromOverView == null)
+									{
+										response.sendRedirect("saleReport?nodata=true");
+									}
+									else
+									{
+										response.sendRedirect("overViewReport?nodata=true");
+									}
+									
 								}
 							}
 							else
@@ -2582,6 +2624,11 @@ public class ReportControlller {
 					model.put("contentUrl", "reportGenerationRemoval.jsp");
 					model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 					
+					if(request.getParameter("nodata") == null)
+					{
+						request.getSession().removeAttribute("REPORT_NO_DATA");
+					}
+					
 					PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 					Integer companyId = activeUser.getCompanyId();
 					model.put("CompanyId", companyId+"");
@@ -2597,6 +2644,7 @@ public class ReportControlller {
 							String group = request.getParameter("groupId");
 							String pig = request.getParameter("pigId");
 							String animalType = request.getParameter("animalType");
+							String fromOverView = request.getParameter("fromOverView");
 							
 							String companyString = request.getParameter("companyId1");
 							Integer companyId ;
@@ -2668,7 +2716,15 @@ public class ReportControlller {
 										else
 										{
 											request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-											response.sendRedirect("removalReport");
+											if(fromOverView == null)
+											{
+												response.sendRedirect("removalReport?nodata=true");
+											}
+											else
+											{
+												response.sendRedirect("overViewReport?nodata=true");
+											}
+											
 										}
 									}
 									else
@@ -2696,6 +2752,11 @@ public class ReportControlller {
 			model.put("contentUrl", "reportGenerationFeed.jsp");
 			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Integer companyId = activeUser.getCompanyId();
 			model.put("CompanyId", companyId+"");
@@ -2710,7 +2771,7 @@ public class ReportControlller {
 				try {
 					String selectedPremise = request.getParameter("selectedPremise");
 					String companyString = request.getParameter("companyId1");
-					
+					String fromOverView = request.getParameter("fromOverView");
 					
 					LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 					String language = localeResolver.resolveLocale(request).getLanguage();
@@ -2753,7 +2814,15 @@ public class ReportControlller {
 								else
 								{
 									request.getSession(true).setAttribute("REPORT_NO_DATA", true);
-									response.sendRedirect("feedReport");
+									
+									if(fromOverView == null)
+									{
+										response.sendRedirect("feedReport?nodata=true");
+									}
+									else
+									{
+										response.sendRedirect("overViewReport?nodata=true");
+									}
 								}
 							}
 							else
@@ -2797,7 +2866,7 @@ public class ReportControlller {
 				String selectedPremise = request.getParameter("selectedPremise");
 				String startDate = request.getParameter("startDate");
 				String endDate = request.getParameter("endDate");	
-				String groupId = request.getParameter("selectedGroup");
+				String groupId = request.getParameter("groupId");
 				
 				List<String> rows =new ArrayList<String>();			
 				try {
@@ -2898,6 +2967,11 @@ public class ReportControlller {
 			Map<String, String> model = new HashMap<String, String>();
 			model.put("contentUrl", "overViewReport.jsp");
 			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
 			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Integer companyId = activeUser.getCompanyId();

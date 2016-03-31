@@ -221,7 +221,8 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 					groupEventDao.updateGroupEventCurrentInventorywithStatus(groupEventUpdate);
 					
 					GroupEventDetails groupEventDetails = groupEventDetailsDao.groupEventDetailsListByIdAndSalesId(salesEventDetails.getGroupEventId(), salesEventDetails.getId());
-					groupEventDetailsDao.deleteGroupEventDetailsByGroupId(groupEventDetails.getId());
+					if(groupEventDetails != null)
+						groupEventDetailsDao.deleteGroupEventDetailsByGroupId(groupEventDetails.getId());
 				
 				}
 			}

@@ -4,11 +4,12 @@
 <div class="page-head header">
           <h2><spring:message code='label.piginfo.overView.report.overView'  text='OverView Report'/></h2>
 </div>
- <div class="block-flat" ng-controller="overViewController" ng-init="loadPremises(${CompanyId})"  id="OverViewControllerId">
+ <div class="block-flat" ng-controller="overViewController" ng-init="loadPremises(${CompanyId},'${REPORT_NO_DATA}')"  id="OverViewControllerId">
 	<form method="POST" name="overViewForm" novalidate angular-validator my-reset>
 	<div class="content" class="block-flat">
 	<p class="color-danger" ng-show="mentaoryField"><spring:message code='label.report.search.criteria.errormessage' text='Please enter mandatory fields.'/></p>
-
+	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
+						
 		<div class="row">
 			  <div>
 				
@@ -74,7 +75,7 @@
 						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="searchSowHistory('SowHistory')" type="button"><spring:message code='label.piginfo.overView.report.SowHistory'  text='Sow History'/><br><p style="font-size:10px">Pig Name Mandatory*<p></button>
 					</div>
 					<div class="form-group col-sm-2 col-md-2">
-						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="searchPigInfo('GroupHistory')" type="button"><spring:message code='label.piginfo.overView.report.GroupHistory'  text='Group History'/><br><p style="font-size:10px">Group Name Mandatory*<p></button>	
+						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="searchGroupHistory('GroupHistory')" type="button"><spring:message code='label.piginfo.overView.report.GroupHistory'  text='Group History'/><br><p style="font-size:10px">Group Name Mandatory*<p></button>	
 					</div>
 					
 					<div  class="form-group col-sm-2 col-md-2">			

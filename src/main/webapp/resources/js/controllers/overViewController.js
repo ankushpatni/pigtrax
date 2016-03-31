@@ -3,7 +3,7 @@ pigTrax.controller('overViewController', function($scope, $http, $window,$modal,
 	var localCompany ;
 	$scope.mentaoryField = false;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId,dataStatus)
 	{
 		
 		if(comapnyId === undefined )
@@ -24,6 +24,11 @@ pigTrax.controller('overViewController', function($scope, $http, $window,$modal,
 		$scope.companyId = localCompany;
 		$scope.pigId = '';
 		$scope.selectedPremise === '';
+		
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}
 	
 	$scope.loadPigInfo = function()
@@ -37,9 +42,17 @@ pigTrax.controller('overViewController', function($scope, $http, $window,$modal,
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+
+		var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+			$scope.groupEventListSearch = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
 	}
-	
-        
+
+	        
     $scope.searchSowHistory = function()
     {
 			$scope.pigInfo = {};
@@ -71,11 +84,49 @@ pigTrax.controller('overViewController', function($scope, $http, $window,$modal,
 				}
 				else
 				{
-					$scope.searchDataErrorMessagePig = true;
+					$scope.searchDataErrorMessage = true;
 					
 				}
 			});
     }
+
+	$scope.searchGroupHistory = function()
+		{
+				$scope.pigInfo = {};
+				
+				if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
+					$scope.companyId === '' || $scope.companyId === undefined || 
+					$scope.groupId === '' || $scope.groupId === undefined)
+				{
+					$scope.mentaoryField = true;
+					return true;
+				}
+				else
+				{	
+					$scope.mentaoryField = false;
+				}
+				
+				$scope.pigInfo = {};
+				var searchPigInfo = {
+						groupId : $scope.groupId,
+						companyId : $scope.companyId,
+						premiseId : $scope.selectedPremise
+				};
+				restServices.getGroupEventInformation(searchPigInfo, function(data)
+				{
+					if(!data.error){
+						$scope.searchDataErrorMessageGroup = false;
+						document.getElementById("companyId1").value	= $scope.companyId;		
+						document.forms['overViewForm'].action='generateReportGroup';
+						document.forms['overViewForm'].submit();
+					}
+					else
+					{
+						$scope.searchDataErrorMessage = true;
+						
+					}
+				});
+		}
     
     $scope.getCompanyList = function(){
     	
