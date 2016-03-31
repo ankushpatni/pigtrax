@@ -57,7 +57,7 @@ pigTrax.controller('sowReportController', function($scope, $http, $window,$modal
 				$scope.mentaoryField = false;
 			}
 			var searchPigInfo = {
-					searchText : $scope.searchText,
+					searchText : $scope.pigId,
 					searchOption : 'pigId',
 					companyId : $scope.companyId,
 					selectedPremise : $scope.selectedPremise

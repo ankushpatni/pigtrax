@@ -33,7 +33,7 @@
 					</div>
 					<div class="form-group col-sm-2 col-md-2">
 						<label><spring:message code='label.piginfo.entryeventform.name'  text='Pig Name'/></label>
-						 <select  class="form-control"  name="search" id="search" ng-enter="getPigInformation()" ng-model="pigId" >
+						 <select  class="form-control"  name="pigId" id="pigId" ng-enter="getPigInformation()" ng-model="pigId" >
 							<option value="" hidden><spring:message code='label.sowReport.search.pig' text='Search by Pig Id ...' /></option>
 							<option ng-repeat="pigInfo in pigInfoList" value="{{pigInfo.pigId}}" ng-value="pigInfo.pigId" ng-selected="pigId == pigInfo.pigId">{{pigInfo.pigId}}</option>
 						</select>	
