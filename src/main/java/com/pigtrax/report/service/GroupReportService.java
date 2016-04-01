@@ -2,9 +2,11 @@ package com.pigtrax.report.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -79,11 +81,14 @@ public class GroupReportService {
 	@Autowired
 	RefDataCache refDataCache;
 	
+	@Autowired
+	MessageSource messageSource;
+	
 	private static final String seprater = ",";
 	
 	private static final String dataSeprater = "::";
 	
-	public ArrayList<String> getGroupReport(String groupIdStr, int groupId, int companyId, String language)
+	public ArrayList<String> getGroupReport(String groupIdStr, int groupId, int companyId, String language, Locale locale)
 	{
 		ArrayList<String> returnRows = new ArrayList<String>();
 		try {
@@ -100,8 +105,9 @@ public class GroupReportService {
 				
 				
 				StringBuffer rowBuffer = null;
-				returnRows.add("Group ID, Event Date, Event Name, Barn, Room, Data");
-				returnRows.add("\n");
+				returnRows.add(messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","+messageSource.getMessage("label.piginfo.pigletstatuseventform.eventDateTime", null, "", locale)+","
+						+messageSource.getMessage("label.reports.sowhistory.eventname", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
+						+messageSource.getMessage("label.barn.room", null, "", locale)+","+messageSource.getMessage("label.reports.sowhistory.eventdata", null, "", locale)+"\n");
 				int parityInt = 0;
 				for (GroupReportBean groupReportBean : groupList) {
 					rowBuffer = new StringBuffer();
@@ -325,7 +331,7 @@ public class GroupReportService {
 		return returnRows;
 	}
 	
-	public ArrayList<String> getGroupReportwithPhase(String groupIdStr, GroupEvent groupEvent, int companyId, String language)
+	public ArrayList<String> getGroupReportwithPhase(String groupIdStr, GroupEvent groupEvent, int companyId, String language, Locale locale)
 	{
 		ArrayList<String> returnRows = new ArrayList<String>();
 		try {
@@ -342,9 +348,9 @@ public class GroupReportService {
 				
 				
 				StringBuffer rowBuffer = new StringBuffer();
-				returnRows.add("Group ID, Event Date, Event Name, Data");
-				returnRows.add("\n");				
-					
+				
+				returnRows.add(messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","+messageSource.getMessage("label.piginfo.pigletstatuseventform.eventDateTime", null, "", locale)+messageSource.getMessage("label.piginfo.input.dateformat", null, "", locale)+","
+						+messageSource.getMessage("label.reports.sowhistory.eventname", null, "", locale)+","+messageSource.getMessage("label.reports.sowhistory.eventdata", null, "", locale)+"\n");	
 				for (GroupReportBeanwithPhase groupReportBeanwithPhase : groupList) {
 					rowBuffer = new StringBuffer();
 					rowBuffer.append(groupReportBeanwithPhase.getGroupEventId()+seprater);
@@ -357,21 +363,21 @@ public class GroupReportService {
 					
 					if(groupReportBeanwithPhase.getRemovalType() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getRemovalType()))
 					{
-						rowBuffer.append("Removal Type : ").append(groupReportBeanwithPhase.getRemovalType()+dataSeprater);
+						rowBuffer.append(messageSource.getMessage("label.piginfo.removalEventform.removalTypeId", null, "", locale)+" : ").append(groupReportBeanwithPhase.getRemovalType()+dataSeprater);
 					}
 					
 					if(groupReportBeanwithPhase.getMortalityReason() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getMortalityReason()))
 					{
-						rowBuffer.append("Mortality Reason : ").append(groupReportBeanwithPhase.getMortalityReason()+dataSeprater);
+						rowBuffer.append(messageSource.getMessage("label.piginfo.pigletstatuseventform.mortalityreason", null, "", locale)+" : ").append(groupReportBeanwithPhase.getMortalityReason()+dataSeprater);
 					}
 					if(groupReportBeanwithPhase.getTicketnumber() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getTicketnumber()))
 					{
-						rowBuffer.append("Ticket Number : ").append(groupReportBeanwithPhase.getTicketnumber()+dataSeprater);
+						rowBuffer.append(messageSource.getMessage("label.piginfo.feedEventForm.ticketNumber", null, "", locale)+" : ").append(groupReportBeanwithPhase.getTicketnumber()+dataSeprater);
 					}
 					if(groupReportBeanwithPhase.getSalesTypes() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getSalesTypes()))
 					{
 						Integer [] salesType = getSalesTypesAsString(groupReportBeanwithPhase.getSalesTypes());
-						rowBuffer.append("Sales Type : ");
+						rowBuffer.append(messageSource.getMessage("label.piginfo.removalEventform.salesType", null, "", locale)+" : ");
 						for(Integer i : salesType)
 						{
 							rowBuffer.append(saleTypesMap.get(i) +":");
@@ -379,7 +385,7 @@ public class GroupReportService {
 					}	
 					if(groupReportBeanwithPhase.getPhaseChange() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getPhaseChange()))
 					{
-						rowBuffer.append("Phase Change : ").append(groupReportBeanwithPhase.getPhaseChange());
+						rowBuffer.append(messageSource.getMessage("label.reports.grouphistory.phasechange", null, "", locale)+" : ").append(groupReportBeanwithPhase.getPhaseChange());
 					}
 					returnRows.add(rowBuffer.toString()+"\n");
 						

@@ -6,10 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.report.dao.GroupStatusReportDao;
@@ -24,8 +26,11 @@ public class GroupStatusReportService {
 	private static final Logger logger = Logger.getLogger(GroupStatusReportService.class);
 	
 	private static final String seprater = ",";
+	
+	@Autowired
+	MessageSource messageSource;
 
-	public List<String> getGroupStatusResult(String premise, Integer premiseId, Date startDate, Date endDate, String groupIdStr) { 
+	public List<String> getGroupStatusResult(String premise, Integer premiseId, Date startDate, Date endDate, String groupIdStr, Locale locale) { 
 		
 		Integer groupId = null;
 		
@@ -45,17 +50,24 @@ public class GroupStatusReportService {
 		}
 		
 		logger.info("Range List size"+rangeList.size());
-		groupStatusReportDao.getGroupStatusList(premiseId, rangeList, groupId);
+		groupStatusReportDao.getGroupStatusList(premiseId, rangeList, groupId, locale.getLanguage());
 
 		ArrayList<String> returnRows = new ArrayList<String>();
 		String dateStr = "";
 		if (rangeList != null && rangeList.size() > 0) {
 
 			StringBuffer rowBuffer = null;
-			returnRows
-					.add("PhaseType, EventDateStart, EventDateEnd, WK, StartWt, StartHd,Inventory,Deads, Mortality%,WOF,Density,Sales,"
-							+ " 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,ProjectedSaleDate,SaleWk");
-			returnRows.add("\n");
+			
+			returnRows.add(messageSource.getMessage("label.reports.groupstatus.phasetype", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.eventstartdate", null, "", locale)+","
+					+messageSource.getMessage("label.reports.groupstatus.eventdateend", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.wk", null, "", locale)+","
+					+messageSource.getMessage("label.reports.groupstatus.startwt", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.starthd", null, "", locale)+","
+					+messageSource.getMessage("label.reports.groupstatus.inventory", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.deads", null, "", locale)+","
+					+messageSource.getMessage("label.reports.groupstatus.percentagemortality", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.wof", null, "", locale)+","
+					+messageSource.getMessage("label.reports.groupstatus.density", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.sales", null, "", locale)+","
+					+"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,"+messageSource.getMessage("label.piginfo.groupstatus.projectedsaledate", null, "", locale)
+					+messageSource.getMessage("label.reports.groupstatus.salewk", null, "", locale)+"\n");
+			
+			
 			for (Map mpRow : rangeList) {
 				rowBuffer = new StringBuffer();
 				rowBuffer.append(mpRow.get("PhaseType") + seprater);

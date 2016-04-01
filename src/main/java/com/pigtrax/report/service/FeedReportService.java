@@ -1,14 +1,14 @@
 package com.pigtrax.report.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.report.bean.FeedReportBean;
-import com.pigtrax.report.bean.RemovalReportBean;
 import com.pigtrax.report.dao.FeedReportDao;
 import com.pigtrax.util.DateUtil;
 
@@ -17,10 +17,13 @@ public class FeedReportService {
 	
 	@Autowired
 	FeedReportDao feedReportDao;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	private static final String seprater = ",";
 	
-	public List<String> getFeedList(String premise, int premiseId) {
+	public List<String> getFeedList(String premise, int premiseId, Locale locale) {
 	
 		List<FeedReportBean> feedReportBeanList = feedReportDao.getFeedList(premiseId);
 		
@@ -28,10 +31,18 @@ public class FeedReportService {
 		String dateStr = "";
 		if (feedReportBeanList != null && feedReportBeanList.size() > 0) {
 			
-			StringBuffer rowBuffer = null;
-			returnRows
-					.add("GroupID,BarnID,SiloID,RationID,Feed event Date,FeedEventtype,Weight,Feed cost,Medication,Ticket Number,Feed mill,Truck,Trailer,Remarks");
-			returnRows.add("\n");
+			StringBuffer rowBuffer = null;		
+			
+			returnRows.add(messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
+					+messageSource.getMessage("label.barn.silo", null, "", locale)+","+messageSource.getMessage("label.feedEventDetail.feedEventDate", null, "", locale)+","
+					+messageSource.getMessage("label.feedEventDetail.feedEventTypeId", null, "", locale)+","+messageSource.getMessage("label.piginfo.breedingeventform.weightInKgs", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.feedEventForm.feedCost", null, "", locale)+","+messageSource.getMessage("label.piginfo.feedEventForm.feedMedication", null, "", locale)
+					+messageSource.getMessage("label.piginfo.feedEventForm.ticketNumber", null, "", locale)+","+messageSource.getMessage("label.feedEventDetail.feedmill", null, "", locale)+","
+					+messageSource.getMessage("label.transportJourney.transportTruckId", null, "", locale)+","+messageSource.getMessage("label.transportJourney.transportTrailerId", null, "", locale)
+					+","+messageSource.getMessage("label.piginfo.entryeventform.remarks", null, "", locale)+",\n");
+			
+			
+			
 			try{
 				for (FeedReportBean feedReportBean : feedReportBeanList) {
 					rowBuffer = new StringBuffer();

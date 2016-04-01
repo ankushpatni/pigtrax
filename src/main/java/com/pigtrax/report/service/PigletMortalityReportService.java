@@ -1,32 +1,33 @@
 package com.pigtrax.report.service;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.report.bean.PigletMortalityReportBean;
 import com.pigtrax.report.dao.PigletMortalityReportDao;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 public class PigletMortalityReportService {
 
 	@Autowired
 	PigletMortalityReportDao pigletMortalityReportDao;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	private static final String seprater = ",";
 
-	public List<String> getPigletMortalityList(String premise, Integer premiseId, Date startDate, Date endDate) { 
+	public List<String> getPigletMortalityList(String premise, Integer premiseId, Date startDate, Date endDate, Locale locale) { 
 		List<PigletMortalityReportBean> pigletMortalityList = pigletMortalityReportDao.getPigletMortalityList(premiseId, startDate, endDate);
 
 		List<PigletMortalityReportBean> arrangedList = reArrange(pigletMortalityList);
@@ -37,9 +38,20 @@ public class PigletMortalityReportService {
 		if (arrangedList != null && arrangedList.size() > 0) {
 
 			StringBuffer rowBuffer = null;
-			returnRows
-					.add("Premise, Barn, Room, StartHd, Inven, Lactation Days, 0d, 1d, 2d, 3d, 4-7d, 8-10d, 11-15d, 16-20d, 21+d, Number of Deaths, Mortality, End Date");
-			returnRows.add("\n");
+			
+			returnRows.add(messageSource.getMessage("label.piginfo.removalExceptSales.premiseId", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
+					+messageSource.getMessage("label.barn.room", null, "", locale)+messageSource.getMessage("label.reports.pigletmortality.starthead", null, "", locale)+","
+					+messageSource.getMessage("label.reports.pigletmortality.invencount", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.lactationdays", null, "", locale)+","
+					+messageSource.getMessage("label.reports.pigletmortality.0d", null, "", locale)+","+messageSource.getMessage("label.reports.pigletmortality.1d", null, "", locale)+","
+					+messageSource.getMessage("label.reports.pigletmortality.2d", null, "", locale)+","+messageSource.getMessage("label.reports.pigletmortality.3d", null, "", locale)+","
+					+messageSource.getMessage("label.reports.pigletmortality.4d", null, "", locale)+","+messageSource.getMessage("label.reports.pigletmortality.5d", null, "", locale)+","
+					+messageSource.getMessage("label.reports.pigletmortality.6d", null, "", locale)+","+messageSource.getMessage("label.reports.pigletmortality.7d", null, "", locale)+","
+					+messageSource.getMessage("label.reports.pigletmortality.8d", null, "", locale)+","+messageSource.getMessage("label.reports.pigletmortality.9d", null, "", locale)+","
+					+messageSource.getMessage("label.reports.pigletmortality.deathnum", null, "", locale)+","+messageSource.getMessage("label.reports.pigletmortality.mortality", null, "", locale)+","
+					+messageSource.getMessage("label.employee.functionEndDate", null, "", locale)
+					+"\n");
+			
+			
 			for (PigletMortalityReportBean pigletMortalityReportBean : arrangedList) {
 				rowBuffer = new StringBuffer();
 				    
@@ -70,7 +82,17 @@ public class PigletMortalityReportService {
 					
 					rowBuffer.append(pigletMortalityReportBean.getNumberOfDeaths() + seprater);
 					rowBuffer.append(percentageMortality + seprater);
-					rowBuffer.append(" ");
+					
+					try {
+						String dateStr = DateUtil.convertToFormatString(pigletMortalityReportBean.getWeanDate(), "dd/MM/yyyy");
+						if(dateStr != null)
+							rowBuffer.append(dateStr);
+						else
+							rowBuffer.append(" ");
+					} catch (ParseException e) {
+						rowBuffer.append(" ");
+					}
+					
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}

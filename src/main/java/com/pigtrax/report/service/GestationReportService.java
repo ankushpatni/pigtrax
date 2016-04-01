@@ -6,10 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.report.dao.GestationReportDao;
@@ -21,11 +23,14 @@ public class GestationReportService {
 	@Autowired
 	GestationReportDao gestationReportDao;
 	
+	@Autowired
+	MessageSource messageSource;
+	
 	private static final Logger logger = Logger.getLogger(GestationReportService.class);
 	
 	private static final String seprater = ",";
 
-	public List<String> getGestationResult(String premise, Integer premiseId, Date startDate, Date endDate) { 
+	public List<String> getGestationResult(String premise, Integer premiseId, Date startDate, Date endDate, Locale locale) { 
 		
 		List<Map<String, Object>> rangeList = new ArrayList<Map<String,Object>>();
 		Map<String, Object> mp = new HashMap<String, Object>();
@@ -49,10 +54,16 @@ public class GestationReportService {
 		if (rangeList != null && rangeList.size() > 0) {
 
 			StringBuffer rowBuffer = null;
-			returnRows
-					.add("ServDateStart, ServDateEnd, ServeWk, NumberServ, ServTarget, Serv+/-,"
-							+ " 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,Farrow,%FR,FarrowDateStart,FarrowWk,FACapacity");
-			returnRows.add("\n");
+			
+			returnRows.add(messageSource.getMessage("label.reports.gestation.servdatestart", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.servdateend", null, "", locale)+","
+					+messageSource.getMessage("label.reports.gestation.servwk", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.numberserv", null, "", locale)+","
+					+messageSource.getMessage("label.reports.gestation.servtarget", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.servadj", null, "", locale)+","
+					+"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,"+messageSource.getMessage("label.piginfo.farroweventform.farrowEvent", null, "", locale)
+					+messageSource.getMessage("label.reports.gestation.percetfr", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.farrowdatestart", null, "", locale)+","
+					+messageSource.getMessage("label.reports.gestation.farrowwk", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.facapacity", null, "", locale)+"\n");
+			
+			
+			
 			for (Map mpRow : rangeList) {
 				rowBuffer = new StringBuffer();
 				try {

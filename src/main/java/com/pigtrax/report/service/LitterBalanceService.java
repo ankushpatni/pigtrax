@@ -4,8 +4,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.report.bean.LitterBalanceBean;
@@ -17,10 +19,13 @@ public class LitterBalanceService {
 
 	@Autowired
 	LitterBalanceDao litterBalanceBean;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	private static final String seprater = ",";
 
-	public List<String> getLitterBalance(String premise, Integer premiseId, Date startDate, Date endDate) { 
+	public List<String> getLitterBalance(String premise, Integer premiseId, Date startDate, Date endDate, Locale locale) { 
 		List<LitterBalanceBean> litterBalanceList = litterBalanceBean.getLitterBalance(premiseId, startDate, endDate);
 
 		ArrayList<String> returnRows = new ArrayList<String>();
@@ -30,10 +35,15 @@ public class LitterBalanceService {
 			StringBuffer rowBuffer = null;
 			/*returnRows
 					.add("PigID, Wean date (dd/MM/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
-		*/	
-			returnRows
-			.add("PigID, Wean date (dd/MM/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Weaned,Balance");
-			returnRows.add("\n");
+		*/				
+			
+			returnRows.add(messageSource.getMessage("label.piginfo.entryeventform.pigid", null, "", locale)+","+messageSource.getMessage("label.reports.litterbalance.weandate", null, "", locale)
+					+messageSource.getMessage("label.piginfo.input.dateformat", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.entryeventform.pen", null, "", locale)+","+messageSource.getMessage("label.piginfo.farroweventform.liveborns", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.pigletstatuseventform.death", null, "", locale)+","+messageSource.getMessage("label.piginfo.pigletstatuseventform.foster", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.pigletstatuseventform.wean", null, "", locale)+","+messageSource.getMessage("label.leftmenu.reports.litterBalance", null, "", locale)+"\n");
+			
+			
 			for (LitterBalanceBean litterBalanceBean : litterBalanceList) {
 				rowBuffer = new StringBuffer();
 					rowBuffer.append(litterBalanceBean.getPigId() + seprater);
@@ -56,23 +66,7 @@ public class LitterBalanceService {
 					rowBuffer.append(litterBalanceBean.getBalance());
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
-		}
-		else
-		{
-			StringBuffer rowBuffer = new StringBuffer();
-			returnRows
-					.add("PigID, Wean date (dd/MM/yyyy), PenID,Liveborn, Deaths, PigletTransfer, Foster In, Weaned,Balance");
-			returnRows.add("\n");
-			rowBuffer.append("No data found"+seprater);
-			rowBuffer.append(seprater);
-			rowBuffer.append(seprater);					
-			rowBuffer.append(seprater);
-			rowBuffer.append(seprater);
-			rowBuffer.append(seprater);
-			rowBuffer.append(seprater);
-			rowBuffer.append(seprater);
-			returnRows.add(rowBuffer.toString()+"\n");
-		}
+		}		
 		return returnRows;
 	}
 

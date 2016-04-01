@@ -47,7 +47,7 @@ public class GroupStatusReportDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public List<Map<String, Object>> getGroupStatusList(Integer premiseId, List<Map<String, Object>> rangeList, Integer groupId)
+	public List<Map<String, Object>> getGroupStatusList(Integer premiseId, List<Map<String, Object>> rangeList, Integer groupId, String language)
 	{	
 		Date groupStartDate = getGroupStartDate(groupId);
 		
@@ -70,7 +70,7 @@ public class GroupStatusReportDao {
 			Integer phaseId = getPhaseOfProduction(ServDateSTART, ServDateEND, groupId);
 			
 			if(phaseId != null && phaseId > 0)
-				row.put("PhaseType",refDataCache.getPhaseOfProductionTypeMap("en").get(phaseId));
+				row.put("PhaseType",refDataCache.getPhaseOfProductionTypeMap(language).get(phaseId));
 			else
 				row.put("PhaseType", " ");
 			

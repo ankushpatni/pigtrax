@@ -2,9 +2,11 @@ package com.pigtrax.report.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.cache.RefDataCache;
@@ -98,9 +100,13 @@ public class SowReportService {
 	@Autowired
 	BreedingEventDao breedingEventDao;
 	
+	@Autowired
+	MessageSource messageSource;
+	
+	
 	private static final String seprater = ",";
 
-	public ArrayList<String> getSowReport(String pidId, int sowId, int companyId, String language)
+	public ArrayList<String> getSowReport(String pidId, int sowId, int companyId, String language, Locale locale)
 	{
 		ArrayList<String> returnRows = new ArrayList<String>();
 		try {
@@ -120,8 +126,11 @@ public class SowReportService {
 				Map<Integer, GroupEvent> groupEventMap=  groupEventService.getGroupEventByCompanyId(companyId);
 				
 				StringBuffer rowBuffer = null;
-				returnRows.add("Sow ID, Event Date, Event Name, Barn, Room, Pen, Parity, Event Data");
-				returnRows.add("\n");
+				returnRows.add(messageSource.getMessage("label.reports.sowhistory.sowid", null, "", locale)+","+messageSource.getMessage("label.piginfo.pigletstatuseventform.eventDateTime", null, "", locale)+","
+							+messageSource.getMessage("label.reports.sowhistory.eventname", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
+							+messageSource.getMessage("label.barn.room", null, "", locale)+","+messageSource.getMessage("label.piginfo.entryeventform.pen", null, "", locale)+","
+							+messageSource.getMessage("label.piginfo.entryeventform.parity", null, "", locale)+","+messageSource.getMessage("label.reports.sowhistory.eventdata", null, "", locale)+"\n");
+				
 				int parityInt = 0;
 				for (SowReportBean SowReportBean : sowList) {
 					rowBuffer = new StringBuffer();
@@ -160,7 +169,7 @@ public class SowReportService {
 							else if(SowReportBean.getPregnancyEventId() != null  && SowReportBean.getPregnancyEventId() !=0)
 							{
 								
-								PregnancyEventDto pregEvent = pregnancyEventService.getPregnancyEventInformation(SowReportBean.getPregnancyEventId(), "en");
+								PregnancyEventDto pregEvent = pregnancyEventService.getPregnancyEventInformation(SowReportBean.getPregnancyEventId(), language);
 								if(pregEvent != null)
 								{
 									parityInt = breedingEventDao.getParity(pregEvent.getBreedingEventId());

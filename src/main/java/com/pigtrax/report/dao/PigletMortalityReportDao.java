@@ -38,15 +38,16 @@ public class PigletMortalityReportDao {
 		List<PigletMortalityReportBean> pigletMortalityList = new ArrayList<PigletMortalityReportBean>();
 		
 		String qry=" SELECT R.\"id\", BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",(current_date-FE.\"farrowDateTime\":: date-30) as \"lactationDays\", "
-				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\",PS.\"id_Pen\", PS.\"eventDateTime\" as \"deathDate\", FE.\"farrowDateTime\" as \"farrowDate\" " 
+				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\",PS.\"id_Pen\", PS.\"eventDateTime\" as \"deathDate\", FE.\"farrowDateTime\" as \"farrowDate\",PS1.\"eventDateTime\"as \"weanDate\" " 
 				 +" FROM pigtrax.\"FarrowEvent\" FE "
 				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS On PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 4"
 				 +" LEFT JOIN pigtrax.\"Pen\" PEN ON FE.\"id_Pen\" = PEN.\"id\" "
 				 +" LEFT JOIN pigtrax.\"Room\" R ON PEN.\"id_Room\" = R.\"id\" "
-				 +" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\" "	
+				 +" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\" "
+				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 On PS1.\"id_FarrowEvent\" = FE.\"id\" and PS1.\"id_PigletStatusEventType\" = 3"
 				 +" WHERE  FE.\"id_Premise\" = ? "
 				 +" AND FE.\"farrowDateTime\"::date between ? and ? "
-				 +" GROUP BY PS.\"id_Pen\" , \"lactationDays\", R.\"roomId\",R.\"id\", BN.\"barnId\", FE.\"farrowDateTime\", PS.\"eventDateTime\" ORDER BY  BN.\"barnId\",  R.\"roomId\", PS.\"eventDateTime\",\"lactationDays\" ";
+				 +" GROUP BY PS.\"id_Pen\" , \"lactationDays\", R.\"roomId\",R.\"id\", BN.\"barnId\", FE.\"farrowDateTime\", PS.\"eventDateTime\", PS1.\"eventDateTime\" ORDER BY  BN.\"barnId\",  R.\"roomId\", PS.\"eventDateTime\",\"lactationDays\" ";
 
 		pigletMortalityList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -69,7 +70,8 @@ public class PigletMortalityReportDao {
 			pigletMortalityReportBean.setNumberOfDeaths(rs.getInt("Number of Deaths"));
 			pigletMortalityReportBean.setInventoryCount(rs.getInt("inventoryCount"));
 			pigletMortalityReportBean.setDeathDate((rs.getObject("deathDate") != null) ? rs.getDate("deathDate") : null);
-			pigletMortalityReportBean.setFarrowDate((rs.getObject("farrowDate") != null) ? rs.getDate("farrowDate") : null); 
+			pigletMortalityReportBean.setFarrowDate((rs.getObject("farrowDate") != null) ? rs.getDate("farrowDate") : null);
+			pigletMortalityReportBean.setWeanDate((rs.getObject("weanDate") != null) ? rs.getDate("weanDate") : null);
 			pigletMortalityReportBean.setRoomPkId(rs.getObject("id") != null ? rs.getInt("id") : null);
 			
 			return pigletMortalityReportBean;

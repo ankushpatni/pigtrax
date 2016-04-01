@@ -25,6 +25,7 @@ public class PigletMortalityReportBean {
 	private Integer count9;
 	private Date farrowDate;
 	private Integer roomPkId;
+	private Date weanDate;
 		
 	public String getPremise() {
 		if(premise == null) premise = "";
@@ -158,6 +159,12 @@ public class PigletMortalityReportBean {
 	}
 	public void setRoomPkId(Integer roomPkId) {
 		this.roomPkId = roomPkId;
+	}
+	public Date getWeanDate() {
+		return weanDate;
+	}
+	public void setWeanDate(Date weanDate) {
+		this.weanDate = weanDate;
 	}
 	
     

@@ -3,10 +3,12 @@ package com.pigtrax.report.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.report.bean.LactationLengthBean;
@@ -17,10 +19,13 @@ public class LactationLengthReportService {
 
 	@Autowired
 	LactationLengthDao lactationLengthDao;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	private static final String seprater = ",";
 
-	public List<String> getLactationLength(Integer premiseId, Date startDate, Date endDate) { 
+	public List<String> getLactationLength(Integer premiseId, Date startDate, Date endDate, Locale locale) { 
 		List<LactationLengthBean> lactationLengthList = lactationLengthDao.getLactationLength(premiseId, startDate, endDate);
 		if(lactationLengthList == null) lactationLengthList = new ArrayList<LactationLengthBean>();
 		
@@ -162,9 +167,9 @@ public class LactationLengthReportService {
 			
 			
 			StringBuffer rowBuffer = null;
-			returnRows
-					.add("Lactation Days, Number of Sows, Percent of Total");
-			returnRows.add("\n");
+			
+			returnRows.add(messageSource.getMessage("label.reports.lactation.lactationdays", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.numberofsows", null, "", locale)+","
+					+messageSource.getMessage("label.reports.lactation.totalpercentage", null, "", locale)+"\n");
 			
 			LactationLengthBean lactationLengthBean = null;
 			for (Map.Entry<Integer, LactationLengthBean> entry : dataMap.entrySet())
