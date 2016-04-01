@@ -47,7 +47,7 @@ public class PigletMortalityReportDao {
 				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 On PS1.\"id_FarrowEvent\" = FE.\"id\" and PS1.\"id_PigletStatusEventType\" = 3"
 				 +" WHERE  FE.\"id_Premise\" = ? "
 				 +" AND FE.\"farrowDateTime\"::date between ? and ? "
-				 +" GROUP BY PS.\"id_Pen\" , \"lactationDays\", R.\"roomId\",R.\"id\", BN.\"barnId\", FE.\"farrowDateTime\", PS.\"eventDateTime\" ORDER BY  BN.\"barnId\",  R.\"roomId\", PS.\"eventDateTime\",\"lactationDays\" ";
+				 +" GROUP BY PS.\"id_Pen\" , \"lactationDays\", R.\"roomId\",R.\"id\", BN.\"barnId\", FE.\"farrowDateTime\", PS.\"eventDateTime\", PS1.\"eventDateTime\" ORDER BY  BN.\"barnId\",  R.\"roomId\", PS.\"eventDateTime\",\"lactationDays\" ";
 
 		pigletMortalityList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
