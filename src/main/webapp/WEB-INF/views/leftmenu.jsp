@@ -88,6 +88,7 @@
 											<li><a href="sowMomentEvent"><spring:message code="label.leftmenu.managepigevents.sowMomentEvent.link"  text="Sow Movement Event"/></a></li>
 											<li><a href="dataIntegrityReport"><spring:message code="label.leftmenu.reports.dataIntegrityReport"  text="Data Integrity Report"/></a></li>
 											<li><a href="dataExtraction"><spring:message code="label.leftmenu.reports.dataExtraction"  text="Data Extraction Report"/></a></li> 
+											<li><a href="sowCardReport"><spring:message code="label.leftmenu.reports.sowCardReport"  text="Sow Card Report"/></a></li>
 											
   
                                 </ul>

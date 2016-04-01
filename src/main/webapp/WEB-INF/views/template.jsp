@@ -112,6 +112,7 @@
 	<script src="resources/js/controllers/dataIntegrityReportController.js"></script>
 	<script src="resources/js/controllers/dataExtractionReportController.js"></script>
 	<script src="resources/js/controllers/overViewController.js"></script>	
+	<script src="resources/js/controllers/sowCardReportController.js"></script>	
 	<script src="resources/lib/angular/smart-table.js"></script> 
 	<script src="resources/lib/angular/smart-table.min.js"></script>
 	<script type="text/javascript" src="resources/assets/lib/jquery/jquery.min.js"></script>

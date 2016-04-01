@@ -47,6 +47,7 @@ import com.pigtrax.report.service.ProdEventLogService;
 import com.pigtrax.report.service.RationReportService;
 import com.pigtrax.report.service.RemovalReportService;
 import com.pigtrax.report.service.SaleReportService;
+import com.pigtrax.report.service.SowCardReportService;
 import com.pigtrax.report.service.SowReportService;
 import com.pigtrax.report.service.TargetReportService;
 import com.pigtrax.usermanagement.beans.PigTraxUser;
@@ -123,6 +124,9 @@ public class ReportControlller {
 	
 	@Autowired
 	DataExtractionService extractionService;
+	
+	@Autowired
+	SowCardReportService sowCardReportService;
 	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -3077,8 +3081,92 @@ public class ReportControlller {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}	
+		
+		// Sow Card report
+		@RequestMapping(value = "/sowCardReport", method = RequestMethod.GET)
+		public ModelAndView sowCardReport(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "reportGenerationsowCard.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			return new ModelAndView("template", model);
 		}		
 
-		
+		@RequestMapping(value = "/generateSowCardReport", method = RequestMethod.POST)
+		public void generateOverViewReport(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				Locale locale = localeResolver.resolveLocale(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
+
+				String selectedPremise = request.getParameter("selectedPremise");
+				String pigIdStr = request.getParameter("pigId");
+				String companyString = request.getParameter("companyId1");
+				
+				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				Integer companyId = 0;
+				if(companyString != null && !StringUtils.isEmpty(companyString))
+				{
+					companyId = Integer.parseInt(companyString);
+				}
+				else
+				{
+					companyId = activeUser.getCompanyId();
+				}
+				
+				List<StringBuffer> rows =new ArrayList<StringBuffer>();			
+				try {
+					    Integer premiseId = Integer.parseInt(selectedPremise);
+					    Integer pigId = null;
+					    
+					    if(pigIdStr != null && !StringUtils.isEmpty(pigIdStr))
+						{
+							PigInfo pigInformation = pigInfoDao.getPigInformationByPigIdWithOutStatus(pigIdStr, companyId, premiseId);
+							if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
+							{
+								pigId = pigInformation.getId();
+							}							
+						}
+					      
+					    
+						response.setContentType("text/csv");
+						String reportName = "CSV_Report_SowCardReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
+						response.setHeader("Content-disposition", "attachment;filename="+reportName);
+						 
+						rows = sowCardReportService.getSowCardList(selectedPremise, premiseId,language, pigId );
+						if(rows != null && rows.size() > 1)
+						{
+							Iterator<StringBuffer> iter = rows.iterator();
+							while (iter.hasNext()) {
+								StringBuffer outputString = (StringBuffer) iter.next();
+								response.getOutputStream().print(outputString.append("\n").toString());
+							}		
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							response.sendRedirect("sowCardReport?nodata=true");
+						}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					//rows.add("There is some error please contact Admin");
+				}
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}		
 		
 }
