@@ -266,7 +266,7 @@ public class DataExtractionService {
 			
 						if(reportOption.equalsIgnoreCase("pigId"))
 						{
-							query += " and SE.\"id_GroupEvent\" IS NULL ";
+							query += " and RES.\"id_GroupEvent\" IS NULL ";
 							 if(pigId != null)
 								 query += " and RES.\"id_PigInfo\" = "+pigId;
 						}

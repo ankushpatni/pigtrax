@@ -4,9 +4,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.report.bean.ActionListReportBean;
@@ -18,10 +20,13 @@ public class ActionListReportService {
 
 	@Autowired
 	ActionListReportDao actionListReportDao;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	private static final String separator = ",";
 
-	public List<String> getActionList(Integer premiseId) {
+	public List<String> getActionList(Integer premiseId, Locale locale) {
 		List<ActionListReportBean> actionList = actionListReportDao
 				.getActionList(premiseId);
 
@@ -34,10 +39,16 @@ public class ActionListReportService {
 
 		if (actionList != null && actionList.size() > 0) {
 
-			StringBuffer rowBuffer = null;
-			returnRows
-					.add("Sow Id, Parity, Age, Service Group, Sow Phase Date(dd/MM/yyyy), Sow Phase, Room, Pen, Serv No, Due Date Anticipated(dd/MM/yyyy), Overdue, Target, Days over Target");
-			returnRows.add("\n");
+			StringBuffer rowBuffer = null;			
+			returnRows.add(messageSource.getMessage("label.reports.sowhistory.sowid", null, "", locale)+","+messageSource.getMessage("label.piginfo.entryeventform.parity", null, "", locale)+","
+					+messageSource.getMessage("label.reports.actionlist.age", null, "", locale)+","+messageSource.getMessage("label.reports.actionlist.servicegroup", null, "", locale)+","
+					+messageSource.getMessage("label.reports.actionlist.sowphasedate", null, "", locale)+messageSource.getMessage("label.piginfo.input.dateformat", null, "", locale)+","
+					+messageSource.getMessage("label.reports.actionlist.sowphase", null, "", locale)+","+messageSource.getMessage("label.barn.room", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.entryeventform.pen", null, "", locale)+","+messageSource.getMessage("label.reports.actionlist.servno", null, "", locale)+","
+					+messageSource.getMessage("label.reports.actionlist.duedtanticipated", null, "", locale)+messageSource.getMessage("label.piginfo.input.dateformat", null, "", locale)+","
+					+messageSource.getMessage("label.reports.actionlist.overdue", null, "", locale)+","+messageSource.getMessage("label.companytargetform.targetvalue", null, "", locale)+","
+					+messageSource.getMessage("label.reports.actionlist.daysovertarget", null, "", locale)+"\n");
+		
 			int parityInt = 0;
 			for (ActionListReportBean actionBean : actionList) {
 				rowBuffer = new StringBuffer();

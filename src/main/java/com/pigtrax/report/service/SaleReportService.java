@@ -3,9 +3,11 @@ package com.pigtrax.report.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.cache.RefDataCache;
@@ -21,10 +23,13 @@ public class SaleReportService {
 	
 	@Autowired
 	RefDataCache refDataCache;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	private static final String seprater = ",";
 	
-	public List<String> getSaleList(String premise, int premiseId, int groupId, java.util.Date startDate, java.util.Date endDate, int barnId, String ticketNumber, String language, int pigId)
+	public List<String> getSaleList(String premise, int premiseId, int groupId, java.util.Date startDate, java.util.Date endDate, int barnId, String ticketNumber, String language, int pigId, Locale locale)
 	{
 		
 		Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
@@ -49,9 +54,17 @@ public class SaleReportService {
 
 			StringBuffer rowBuffer = null;
 			
-			returnRows
-			.add("Premises ,BarnID,RoomID,PigId, Group ID,SalesEvent date,Salestype,Number of pigs sold,Destination,Total weight,	weight/pig,Ticket number,Invoice number,Revenue,Truck,Trailer,Remarks");
-			returnRows.add("\n");
+			returnRows.add(messageSource.getMessage("label.piginfo.removalExceptSales.premiseId", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
+					+messageSource.getMessage("label.barn.room", null, "", locale)+","+messageSource.getMessage("label.piginfo.entryeventform.pigid", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","+messageSource.getMessage("label.piginfo.removalExceptSales.salesDateTime", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.removalEventform.salesType", null, "", locale)+","+messageSource.getMessage("label.groupEventDetail.numberOfPigs", null, "", locale)
+					+messageSource.getMessage("label.piginfo.removalExceptSales.soldTo", null, "", locale)+","+messageSource.getMessage("label.reports.salesreport.totalweight", null, "", locale)+","
+					+messageSource.getMessage("label.reports.salesreport.weightperpig", null, "", locale)+","+messageSource.getMessage("label.piginfo.feedEventForm.ticketNumber", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.removalExceptSales.invoiceId", null, "", locale)+","+messageSource.getMessage("label.piginfo.removalExceptSales.revenueUsd", null, "", locale)+","
+					+messageSource.getMessage("label.transportJourney.transportTruckId", null, "", locale)+","+messageSource.getMessage("label.transportJourney.transportTrailerId", null, "", locale)+","
+					+messageSource.getMessage("label.piginfo.entryeventform.remarks", null, "", locale)+","+"\n");
+			
+			
 			try
 			{
 			for (SaleReportBean saleReportBean : saleReportBeanList) {
