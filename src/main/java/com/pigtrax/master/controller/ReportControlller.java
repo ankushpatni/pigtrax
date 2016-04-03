@@ -128,7 +128,7 @@ public class ReportControlller {
 	@Autowired
 	SowCardReportService sowCardReportService;
 	
-	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
 			try {
 				String startDate = request.getParameter("startDate");
@@ -181,7 +181,7 @@ public class ReportControlller {
 				e.printStackTrace();
 			}
 			//return new ModelAndView("redirect:" + "reportGeneration?token=success");
-	}
+	}*/
 
 	private ArrayList<String> getFerrowReports(String startDate, String endDate, Integer companyId, Integer premisesId) {
 	
