@@ -3110,7 +3110,7 @@ public class ReportControlller {
 		}		
 
 		@RequestMapping(value = "/generateSowCardReport", method = RequestMethod.POST)
-		public void generateOverViewReport(HttpServletRequest request, HttpServletResponse response) {
+		public void generateSowCardReport(HttpServletRequest request, HttpServletResponse response) {
 			try {
 				
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
@@ -3132,7 +3132,7 @@ public class ReportControlller {
 					companyId = activeUser.getCompanyId();
 				}
 				
-				List<StringBuffer> rows =new ArrayList<StringBuffer>();			
+				List<String> rows =new ArrayList<String>();			
 				try {
 					    Integer premiseId = Integer.parseInt(selectedPremise);
 					    Integer pigId = null;
@@ -3154,10 +3154,10 @@ public class ReportControlller {
 						rows = sowCardReportService.getSowCardList(selectedPremise, premiseId,language, pigId );
 						if(rows != null && rows.size() > 1)
 						{
-							Iterator<StringBuffer> iter = rows.iterator();
+							Iterator<String> iter = rows.iterator();
 							while (iter.hasNext()) {
-								StringBuffer outputString = (StringBuffer) iter.next();
-								response.getOutputStream().print(outputString.append("\n").toString());
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString + "\n");
 							}		
 						}
 						else
@@ -3176,5 +3176,167 @@ public class ReportControlller {
 				e.printStackTrace();
 			}
 		}		
+		
+		@RequestMapping(value = "/generateOverViewReport", method = RequestMethod.POST)
+		public void generateOverViewReport(HttpServletRequest request, HttpServletResponse response) {
+			try {
+				
+				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+				Locale locale = localeResolver.resolveLocale(request);
+				String language = localeResolver.resolveLocale(request).getLanguage();
+
+				String selectedPremise = request.getParameter("selectedPremise");
+				String pigIdStr = request.getParameter("pigId");
+				String companyString = request.getParameter("companyId1");
+				String reportType = request.getParameter("reportType");///SowCardReport
+				String groupIdStr = request.getParameter("groupId");
+				
+				///////////////////////////////////
+				
+				String animalType = request.getParameter("animalType");
+				String startDate = request.getParameter("startDate");
+				String endDate = request.getParameter("endDate");
+				String barn = request.getParameter("selectedBarn");
+				String ticketNumber = request.getParameter("ticketNumber");				
+				
+				//////////////////////////////////////
+				
+				
+				
+				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				Integer companyId = 0;
+				if(companyString != null && !StringUtils.isEmpty(companyString))
+				{
+					companyId = Integer.parseInt(companyString);
+				}
+				else
+				{
+					companyId = activeUser.getCompanyId();
+				}
+				
+				List<String> rows =new ArrayList<String>();			
+				try {
+					    Integer premiseId = Integer.parseInt(selectedPremise);
+					    Integer pigId = null;
+					    Integer groupId = null;
+					    
+					    try{
+					    	pigId = Integer.parseInt(pigIdStr);
+					    }catch(NumberFormatException nfEx)
+					    {
+					    	pigId = null;
+					    }
+					    
+					    try{
+					    	groupId = Integer.parseInt(groupIdStr);
+					    }catch(NumberFormatException nfEx)
+					    {
+					    	groupId = null;
+					    }
+					    
+					    int barnId = 0;
+						if(!StringUtils.isEmpty(barn))
+						{
+							barnId = Integer.parseInt(barn);
+						}
+						
+						java.util.Date startD = null;
+						if(startDate != null && !StringUtils.isEmpty(startDate))
+						{
+							startD = DateUtil.convertToFormat(startDate, "dd/MM/yyyy");
+						}
+						java.util.Date endD =  null;
+						if(endDate != null && !StringUtils.isEmpty(endDate))
+						{
+							endD = DateUtil.convertToFormat(endDate, "dd/MM/yyyy");
+						}
+						
+						
+					 					    
+					    if(reportType!= null && reportType.equalsIgnoreCase("SowCardReport") && pigId != null)
+					    {
+					    	rows = sowCardReportService.getSowCardList(selectedPremise, premiseId,language, pigId );
+					    }
+					    else if(reportType.equalsIgnoreCase("SowReport") && pigId != null)
+					    {
+					    	rows = sowReportService.getSowReport(pigIdStr,pigId, companyId, language, locale);
+					    }
+					    else if(reportType.equalsIgnoreCase("GroupReport") && groupId != null)
+					    {
+					    	GroupEvent groupEventByGroupId = groupEventService.getGroupEventByGeneratedGroupId(groupId, companyId);
+					    	rows = groupReportService.getGroupReportwithPhase(groupIdStr,groupEventByGroupId, companyId, language, locale);
+					    }
+					    else if(reportType.equalsIgnoreCase("SaleReport"))
+					    {
+					    	rows = saleReportService.getSaleList(selectedPremise,premiseId, groupId, startD, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),barnId,ticketNumber, language, pigId, localeResolver.resolveLocale(request));
+					    }
+					    else if(reportType.equalsIgnoreCase("RemovalReport"))
+					    {
+					    	rows = removalReportService.getRemovalList(selectedPremise,premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"),language, animalType);
+					    }
+					    else if(reportType.equalsIgnoreCase("FeedReport"))
+					    {
+					    	rows = feedReportService.getFeedList(selectedPremise,premiseId, localeResolver.resolveLocale(request)); 
+					    }
+					    else if(reportType.equalsIgnoreCase("ActionListReport"))
+					    {
+					    	rows = actionListReportService.getActionList(premiseId, localeResolver.resolveLocale(request));
+					    }
+					    else if(reportType.equalsIgnoreCase("InventoryStatusListReport"))
+					    {
+					    	rows = inventoryStatusReportService.getInventoryStatusList(premiseId, localeResolver.resolveLocale(request));
+					    }
+					    else if(reportType.equalsIgnoreCase("LacationReport"))
+					    {
+					    	rows = lactationLengthService.getLactationLength(premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request)); 
+						}
+					    else if(reportType.equalsIgnoreCase("Litterbalance"))
+					    {
+					    	Premises premise = premiseDao.findByPremisesByAutoGeneratedId(premiseId);
+							rows = litterBalanceService.getLitterBalance(premise.getPermiseId(), premiseId, 
+											DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request));
+								
+					    }
+					    else if(reportType.equalsIgnoreCase("TargetReport"))
+					    {
+					    	rows = targetReportService.getTargetList(companyId,premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request));
+					    }
+					    else if(reportType.equalsIgnoreCase("ProductionLogReport"))
+					    {
+					    	Premises premise = premiseDao.findByPremisesByAutoGeneratedId(premiseId);
+					    	 rows = prodEventLogService.getProdEventLogList(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request)); 
+						 }
+					   
+						
+						
+						if(rows != null && rows.size() > 1)
+						{
+							response.setContentType("text/csv");
+							String reportName = "CSV_Report_"+reportType+"_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
+							response.setHeader("Content-disposition", "attachment;filename="+reportName);
+							 
+							Iterator<String> iter = rows.iterator();
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}		
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							response.sendRedirect("overViewReport?nodata=true");
+						}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					//rows.add("There is some error please contact Admin");
+				}
+				response.getOutputStream().flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}		
+		
 		
 }

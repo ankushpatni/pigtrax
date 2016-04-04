@@ -21,11 +21,13 @@ public class SowCardReportService {
 	
 	private static final String seprater = ",";
 	
-	public List<StringBuffer> getSowCardList(String premise, int premiseId, String language, int pigId) {
+	public List<String> getSowCardList(String premise, int premiseId, String language, int pigId) {
 		
 		Map< String, StringBuffer> sowCardServiceMap = new LinkedHashMap<String, StringBuffer>();
 		List< StringBuffer> sowCardServiceList = new LinkedList<StringBuffer>();
 		List<SowCardReportBean> sowCardList = sowCardReportDao.getSowCardList(pigId);
+		
+		List< String> sowCardServiceListReturn = new LinkedList<String>();
 		
 		//sowCardServiceMap.put("Parity", value);
 		sowCardServiceList.add(new StringBuffer("Parity,"));
@@ -70,8 +72,12 @@ public class SowCardReportService {
 				e.printStackTrace();
 			}
 		}
+		for(StringBuffer stringBuffer : sowCardServiceList)
+		{
+			sowCardServiceListReturn.add(stringBuffer.toString()+"\n");
+		}
 		
-		return sowCardServiceList;
+		return sowCardServiceListReturn;
 		
 	}
 

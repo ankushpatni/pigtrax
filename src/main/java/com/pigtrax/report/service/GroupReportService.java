@@ -153,12 +153,12 @@ public class GroupReportService {
 									if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
 									{
 										rowBuffer.append("Removal Type : "+removalEventTypeMap.get(removalEventExceptSalesDetailsById.getRemovalEventId()) +
-												" :: Start Heads : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: Weight : "+removalEventExceptSalesDetailsById.getWeightInKgs()+
+												" :: Pigs : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: Weight : "+removalEventExceptSalesDetailsById.getWeightInKgs()+
 												" :: Mortality Reason : "+mortalityReasonTypeMap.get(removalEventExceptSalesDetailsById.getMortalityReasonId()));
 									}
 									else
 									{
-										rowBuffer.append("Start Heads : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: To premises : "+premisesNameMap.get(removalEventExceptSalesDetailsById.getDestPremiseId()) +
+										rowBuffer.append("Pigs : "+removalEventExceptSalesDetailsById.getNumberOfPigs() + " :: To premises : "+premisesNameMap.get(removalEventExceptSalesDetailsById.getDestPremiseId()) +
 												" :: To Room : "+roomIdMap.get(removalEventExceptSalesDetailsById.getRoomId()));
 									}
 								
@@ -180,7 +180,7 @@ public class GroupReportService {
 										salesTypeStr.append(saleTypesMap.get(i) +":");
 									}
 								}
-								rowBuffer.append("Start Heads : "+salesEventDetailsById.getNumberOfPigs() +"Sales Type : "+salesTypeStr+" :: Invoice Id : "+salesEventDetailsById.getInvoiceId());
+								rowBuffer.append("Pigs : "+salesEventDetailsById.getNumberOfPigs() +"Sales Type : "+salesTypeStr+" :: Invoice Id : "+salesEventDetailsById.getInvoiceId());
 								
 							}
 							else

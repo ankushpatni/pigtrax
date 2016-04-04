@@ -127,6 +127,112 @@ pigTrax.controller('overViewController', function($scope, $http, $window,$modal,
 					}
 				});
 		}
+	
+	  $scope.generateReport = function(reportType)
+	    {
+
+				$scope.mentaoryField = false;
+				$scope.prmisesSelect = false;
+				$scope.pigSelect = false;
+				$scope.groupSelect = false;
+				$scope.startSelect = false;
+				$scope.endSelect = false;
+				$scope.searchDataErrorMessage = false;
+				
+			if($scope.selectedPremise === '' || $scope.selectedPremise === undefined ||
+					$scope.companyId === '' || $scope.companyId === undefined )
+			{
+				$scope.mentaoryField = true;
+				$scope.prmisesSelect = true;
+				return true;
+			}
+			else
+			{	
+				$scope.mentaoryField = false;
+			}
+			
+			//
+			
+			
+			 if(reportType!= undefined && reportType==="SowCardReport" && pigId != null)
+			    {
+			    }
+			    else if(reportType!= undefined && reportType==="SowReport" && ( $scope.pigId === '' || $scope.pigId === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.pigSelect = true;
+					return true;
+			    }
+			    else if(reportType!= undefined && reportType==="GroupReport" && ( $scope.groupId === '' || $scope.groupId === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.groupSelect = true;
+					return true;
+			    }
+			    else if(reportType!= undefined && reportType==="SaleReport" && 
+					($scope.endDate === '' || $scope.endDate === undefined || 
+						$scope.startDate === '' || $scope.startDate === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.startSelect = true;
+					$scope.endSelect = true;
+					return true;
+			    }
+			    else if(reportType!= undefined && reportType==="RemovalReport" && 
+					($scope.endDate === '' || $scope.endDate === undefined || 
+						$scope.startDate === '' || $scope.startDate === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.startSelect = true;
+					$scope.endSelect = true;
+					return true;
+			    }
+			    			    
+			    else if(reportType!= undefined && reportType==="LacationReport" && 
+					($scope.endDate === '' || $scope.endDate === undefined || 
+						$scope.startDate === '' || $scope.startDate === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.startSelect = true;
+					$scope.endSelect = true;
+					return true;
+				}
+			    else if(reportType!= undefined && reportType==="Litterbalance" &&
+						($scope.endDate === '' || $scope.endDate === undefined || 
+						$scope.startDate === '' || $scope.startDate === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.startSelect = true;
+					$scope.endSelect = true;
+					return true;	
+			    }
+			    else if(reportType!= undefined && reportType==="TargetReport" &&
+				($scope.startDate === '' || $scope.startDate === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.startSelect = true;
+					return true;	
+			    }
+			    else if(reportType!= undefined && reportType==="ProductionLogReport" && 
+				($scope.endDate === '' || $scope.endDate === undefined || 
+						$scope.startDate === '' || $scope.startDate === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.startSelect = true;
+					$scope.endSelect = true;
+					return true;
+				 }
+			
+			
+			// mandatory parameter
+			$scope.searchDataErrorMessagePig = false;
+			document.getElementById("companyId1").value	= $scope.companyId;				
+			document.getElementById('reportType').value=reportType;
+
+			document.forms['overViewForm'].action='generateOverViewReport';
+			document.forms['overViewForm'].submit();
+				
+	    }
     
     $scope.getCompanyList = function(){
     	
