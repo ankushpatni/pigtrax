@@ -222,7 +222,15 @@ pigTrax.controller('overViewController', function($scope, $http, $window,$modal,
 					$scope.endSelect = true;
 					return true;
 				 }
-			
+				else if(reportType!= undefined && reportType==="PerformanceMonitor" && 
+				($scope.endDate === '' || $scope.endDate === undefined || 
+						$scope.startDate === '' || $scope.startDate === undefined))
+			    {
+					$scope.mentaoryField = true;
+					$scope.startSelect = true;
+					$scope.endSelect = true;
+					return true;
+				 }
 			
 			// mandatory parameter
 			$scope.searchDataErrorMessagePig = false;

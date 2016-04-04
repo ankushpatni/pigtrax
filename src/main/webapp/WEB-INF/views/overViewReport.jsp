@@ -128,6 +128,14 @@
 			  </div>
 			</div>
 
+			<div class="row block-flat" >
+				<div class="text-center"><h3>Performance Monitor</h3></div>
+
+					<div class="form-group col-sm-2 col-md-2">
+					<button style="height:60px" class="btn btn-warning btn-lg" ng-click="generateReport('PerformanceMonitor')" type="button"><spring:message code='label.piginfo.entryeventform.PerformanceMonitor'  text='Performance Monitor'/></button>	
+					</div>
+			</div>
+
 			<div class="row">
 			  <div>	
 			  </div>
