@@ -1,7 +1,8 @@
 pigTrax.controller('InventoryStatusReportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;	
+	$scope.searchDataErrorMessage = false;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId, dataStatus)
 	{
 		var localCompany ;
 		if(comapnyId === undefined )
@@ -20,6 +21,11 @@ pigTrax.controller('InventoryStatusReportController', function($scope, $http, $w
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+		
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}    
   
     
