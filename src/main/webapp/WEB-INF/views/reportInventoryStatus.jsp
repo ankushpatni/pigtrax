@@ -5,7 +5,7 @@
 	<h2><spring:message	code='label.generateInventoryStatusReport.heading'
 								text='Generate Inventory Status Report' /></h2>
 </div>
-<div class="cl-mcont" id="InventoryStatusReportControllerId" ng-controller="InventoryStatusReportController" ng-init="loadPremises('${CompanyId}')" class="container-fluid">
+<div class="cl-mcont" id="InventoryStatusReportControllerId" ng-controller="InventoryStatusReportController" ng-init="loadPremises('${CompanyId}','${REPORT_NO_DATA}')" class="container-fluid">
 <div class="row">
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">
@@ -18,7 +18,8 @@
 								code='label.generateInventoryStatusReport.heading'
 								text='Generate Inventory Status Report' />
 						</h3>
-						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
+						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
+						<p class="color-danger" ng-show="criteriaMessage"><spring:message code='label.report.search.criteria.errormessage' text='Please provide the mandatory criteria to generate the report'/></p>
 						
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>

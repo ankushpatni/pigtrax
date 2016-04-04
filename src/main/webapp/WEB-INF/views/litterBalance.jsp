@@ -5,7 +5,7 @@
 	<h2><spring:message	code='label.generateLitterBalance.heading'
 								text='Generate Litter Balance' /></h2>
 </div>
-<div class="cl-mcont" id="LitterBalanceControllerId" ng-controller="LitterBalanceController" ng-init="loadPremises('${CompanyId}')" class="container-fluid">
+<div class="cl-mcont" id="LitterBalanceControllerId" ng-controller="LitterBalanceController" ng-init="loadPremises('${CompanyId}','${REPORT_NO_DATA}')" class="container-fluid">
 <div class="row">
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">
@@ -18,7 +18,8 @@
 								code='label.generateLitterBalance.heading'
 								text='Generate Litter Balance' />
 						</h3>
-						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
+						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
+						<p class="color-danger" ng-show="criteriaMessage"><spring:message code='label.report.search.criteria.errormessage' text='Please provide the mandatory criteria to generate the report'/></p>
 						
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>
