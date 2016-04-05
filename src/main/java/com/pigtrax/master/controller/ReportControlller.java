@@ -3338,6 +3338,11 @@ public class ReportControlller {
 		model.put("contentUrl", "prodEventLog.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 		
+		if(request.getParameter("nodata") == null)
+		{
+			request.getSession().removeAttribute("REPORT_NO_DATA");
+		}
+		
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer companyId = activeUser.getCompanyId();
 		model.put("CompanyId", companyId+"");
@@ -3350,7 +3355,8 @@ public class ReportControlller {
 		try {
 			String selectedPremise = request.getParameter("selectedPremise");
 			String startDate = request.getParameter("startDate");
-			String endDate = request.getParameter("endDate");	    
+			String endDate = request.getParameter("endDate");	  
+			String fromOverView = request.getParameter("fromOverView");
 			List<String> rows =new ArrayList<String>();			
 			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 			try {
@@ -3365,10 +3371,28 @@ public class ReportControlller {
 					{ 
 						rows = prodEventLogService.getProdEventLogList(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request)); 
 						Iterator<String> iter = rows.iterator();
-						while (iter.hasNext()) {
-							String outputString = (String) iter.next();
-							response.getOutputStream().print(outputString);
+						
+						if(rows != null && rows.size() > 0)
+						{
+						
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}
 						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							if(fromOverView == null)
+							{
+								response.sendRedirect("prodEventLog?nodata=true");
+							}
+							else
+							{
+								response.sendRedirect("overViewReport?nodata=true");
+							}
+						}
+						
 					}
 					else
 					{
@@ -3393,6 +3417,13 @@ public class ReportControlller {
 		Map<String, String> model = new HashMap<String, String>();
 		model.put("contentUrl", "targetReport.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+		
+		if(request.getParameter("nodata") == null)
+		{
+			request.getSession().removeAttribute("REPORT_NO_DATA");
+		}
+		
+		
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer companyId = activeUser.getCompanyId();
 		model.put("CompanyId", companyId+"");
@@ -3405,7 +3436,8 @@ public class ReportControlller {
 		try {
 
 			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
-			String startDate = request.getParameter("startDate");   
+			String startDate = request.getParameter("startDate");  
+			String fromOverView = request.getParameter("fromOverView");
 			List<String> rows =new ArrayList<String>();			
 			try {
 				Integer companyId = Integer.parseInt(request.getParameter("selectedCompany"));
@@ -3415,9 +3447,24 @@ public class ReportControlller {
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
 				rows = targetReportService.getTargetList(companyId,premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request)); 
 				Iterator<String> iter = rows.iterator();
-				while (iter.hasNext()) {
-					String outputString = (String) iter.next();
-					response.getOutputStream().print(outputString);
+				if(rows != null && rows.size() > 0)
+				{
+					while (iter.hasNext()) {
+						String outputString = (String) iter.next();
+						response.getOutputStream().print(outputString);
+					}
+				}
+				else
+				{
+					request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+					if(fromOverView == null)
+					{
+						response.sendRedirect("targetReport?nodata=true");
+					}
+					else
+					{
+						response.sendRedirect("overViewReport?nodata=true");
+					}
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -3512,6 +3559,11 @@ public class ReportControlller {
 		model.put("contentUrl", "reportRation.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 		
+		if(request.getParameter("nodata") == null)
+		{
+			request.getSession().removeAttribute("REPORT_NO_DATA");
+		}
+		
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer companyId = activeUser.getCompanyId();
 		model.put("CompanyId", companyId+"");
@@ -3526,6 +3578,7 @@ public class ReportControlller {
 			String startDate = request.getParameter("startDate");
 			String endDate = request.getParameter("endDate");	 
 			String selectedGroup = request.getParameter("selectedGroup");
+			String fromOverView = request.getParameter("fromOverView");
 			List<String> rows =new ArrayList<String>();
 			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 			try {
@@ -3542,9 +3595,25 @@ public class ReportControlller {
 					{ 
 						rows = rationReportService.getRationReportList(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request)); 
 						Iterator<String> iter = rows.iterator();
-						while (iter.hasNext()) {
-							String outputString = (String) iter.next();
-							response.getOutputStream().print(outputString);
+						if(rows != null && rows.size() > 0)
+						{
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}
+						
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							if(fromOverView == null)
+							{
+								response.sendRedirect("rationReport?nodata=true");
+							}
+							else
+							{
+								response.sendRedirect("overViewReport?nodata=true");
+							}
 						}
 					} 
 					else
@@ -3572,6 +3641,11 @@ public class ReportControlller {
 			model.put("contentUrl", "gestationReport.jsp");
 			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Integer companyId = activeUser.getCompanyId();
 			model.put("CompanyId", companyId+"");
@@ -3584,7 +3658,8 @@ public class ReportControlller {
 			try {
 				String selectedPremise = request.getParameter("selectedPremise");
 				String startDate = request.getParameter("startDate");
-				String endDate = request.getParameter("endDate");	    
+				String endDate = request.getParameter("endDate");	 
+				String fromOverView = request.getParameter("fromOverView");
 				List<String> rows =new ArrayList<String>();	
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				try {
@@ -3599,9 +3674,25 @@ public class ReportControlller {
 						{ 
 							rows = gestationReportService.getGestationResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request)); 
 							Iterator<String> iter = rows.iterator();
-							while (iter.hasNext()) {
-								String outputString = (String) iter.next();
-								response.getOutputStream().print(outputString);
+							if(rows != null && rows.size() > 0)
+							{
+								while (iter.hasNext()) {
+									String outputString = (String) iter.next();
+									response.getOutputStream().print(outputString);
+								}
+							
+							}
+							else
+							{
+								request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+								if(fromOverView == null)
+								{
+									response.sendRedirect("gestationReport?nodata=true");
+								}
+								else
+								{
+									response.sendRedirect("overViewReport?nodata=true");
+								}
 							}
 						}
 						else
@@ -3834,7 +3925,7 @@ public class ReportControlller {
 	public void generateActionListReport(HttpServletRequest request, HttpServletResponse response) {
 			try {
 				String selectedPremise = request.getParameter("selectedPremise");
-				
+				String fromOverView = request.getParameter("fromOverView");
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				String language = localeResolver.resolveLocale(request).getLanguage();
 				
@@ -3854,9 +3945,25 @@ public class ReportControlller {
 						//rows = groupReportService.getSowReport(search,groupEventByGroupId.getId(), companyId, language);
 						rows = actionListReportService.getActionList(premiseId, localeResolver.resolveLocale(request));
 						Iterator<String> iter = rows.iterator();
-						while (iter.hasNext()) {
-							String outputString = (String) iter.next();
-							response.getOutputStream().print(outputString);
+						if(rows != null && rows.size() > 1)
+						{
+							while (iter.hasNext()) {
+								String outputString = (String) iter.next();
+								response.getOutputStream().print(outputString);
+							}
+						}
+						else
+						{
+							request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+							if(fromOverView == null)
+							{
+								response.sendRedirect("reportGenerationActionList?nodata=true");
+							}
+							else
+							{
+								response.sendRedirect("overViewReport?nodata=true");
+							}
+							
 						}
 					}
 					else
@@ -3880,7 +3987,10 @@ public class ReportControlller {
 		Map<String, String> model = new HashMap<String, String>();
 		model.put("contentUrl", "reportGenerationActionList.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
-		
+		if(request.getParameter("nodata") == null)
+		{
+			request.getSession().removeAttribute("REPORT_NO_DATA");
+		}
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer companyId = activeUser.getCompanyId();
 		model.put("CompanyId", companyId+"");
@@ -3976,7 +4086,10 @@ public class ReportControlller {
 		Map<String, String> model = new HashMap<String, String>();
 		model.put("contentUrl", "reportLactationLength.jsp");
 		model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
-		
+		if(request.getParameter("nodata") == null)
+		{
+			request.getSession().removeAttribute("REPORT_NO_DATA");
+		}
 		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer companyId = activeUser.getCompanyId();
 		model.put("CompanyId", companyId+"");
@@ -4012,10 +4125,19 @@ public class ReportControlller {
 						if(premiseId > 0)
 						{ 
 							rows = lactationLengthService.getLactationLength(premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request)); 
-							Iterator<String> iter = rows.iterator();
-							while (iter.hasNext()) {
-								String outputString = (String) iter.next();
-								response.getOutputStream().print(outputString);
+								Iterator<String> iter = rows.iterator();
+							if(rows != null && rows.size() > 1)
+							{
+								while (iter.hasNext()) {
+									String outputString = (String) iter.next();
+									response.getOutputStream().print(outputString);
+								}
+							
+							}
+							else
+							{
+								request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+								response.sendRedirect("reportLactationLength?nodata=true");
 							}
 						}
 						else
@@ -4508,6 +4630,11 @@ public class ReportControlller {
 			model.put("contentUrl", "groupStatusReport.jsp");
 			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
 			
+			if(request.getParameter("nodata") == null)
+			{
+				request.getSession().removeAttribute("REPORT_NO_DATA");
+			}
+			
 			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Integer companyId = activeUser.getCompanyId();
 			model.put("CompanyId", companyId+"");
@@ -4537,9 +4664,17 @@ public class ReportControlller {
 						{ 
 							rows = groupStatusReportService.getGroupStatusResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request)); 
 							Iterator<String> iter = rows.iterator();
-							while (iter.hasNext()) {
-								String outputString = (String) iter.next();
-								response.getOutputStream().print(outputString);
+							if(rows != null && rows.size() > 1)
+							{
+								while (iter.hasNext()) {
+									String outputString = (String) iter.next();
+									response.getOutputStream().print(outputString);
+								}
+							}
+							else
+							{
+								request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+								response.sendRedirect("groupStatusReport?nodata=true");
 							}
 						}
 						else

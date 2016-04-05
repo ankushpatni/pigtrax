@@ -3,7 +3,7 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 	$scope.startDate;
 	$scope.endDate;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId,dataStatus)
 	{
 		var localCompany ;
 		if(comapnyId === undefined )
@@ -22,6 +22,11 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 			console.log( "failure message: " + {data: data});
 		});		
 		$scope.companyId = localCompany;
+		
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}    
   
     

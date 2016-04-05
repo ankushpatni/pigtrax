@@ -5,7 +5,7 @@
 	<h2><spring:message	code='label.generateActionListReport.heading'
 								text='Generate Action List Report' /></h2>
 </div>
-<div class="cl-mcont" id="groupReposrtGeneraterControllerId" ng-controller="groupReportController" ng-init="loadPremises('${CompanyId}')" class="container-fluid">
+<div class="cl-mcont" id="groupReposrtGeneraterControllerId" ng-controller="groupReportController" ng-init="loadPremises('${CompanyId}','${REPORT_NO_DATA}')" class="container-fluid">
 <div class="row">
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">

@@ -3,7 +3,7 @@ pigTrax.controller('ProdEventLogController', function($scope, $http, $window,$mo
 	$scope.startDate;
 	$scope.endDate;
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId, dataStatus)
 	{
 		var localCompany ;
 		if(comapnyId === undefined )
@@ -22,6 +22,10 @@ pigTrax.controller('ProdEventLogController', function($scope, $http, $window,$mo
 			console.log( "failure message: " + {data: data});
 		});		
 		$scope.companyId = localCompany;
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}    
   
     

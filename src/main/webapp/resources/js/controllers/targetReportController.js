@@ -18,7 +18,7 @@ pigTrax.controller('TargetReportController', function($scope, $http, $window,$mo
 	
 	$scope.getCompanyList();    
 	
-	$scope.loadPremises = function(comapnyId)
+	$scope.loadPremises = function(comapnyId,dataStatus)
 	{
 		var localCompany ;
 		if(comapnyId === undefined )
@@ -37,6 +37,11 @@ pigTrax.controller('TargetReportController', function($scope, $http, $window,$mo
 			console.log( "failure message: " + {data: data});
 		});	
 		$scope.companyId = localCompany;
+		
+		if(dataStatus == "true")
+			$scope.searchDataErrorMessage = true;
+		else
+			$scope.searchDataErrorMessage = false;
 	}
     
 });

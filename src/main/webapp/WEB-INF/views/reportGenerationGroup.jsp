@@ -18,9 +18,9 @@
 								code='label.groupReport.generateReport.heading'
 								text='Generate Group Report' />
 						</h3>
-						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
+						<p class="color-danger" ng-show="searchDataErrorMessageGroup"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
 						<p class="color-danger" ng-show="mentaoryField"><spring:message code='label.piginfo.entryeventform.search.data.mandatory' text='Please enter mandatory fields.'/></p>
-						<p class="color-danger" ng-show="searchDataErrorMessageGroup"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
+						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
 						
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>
