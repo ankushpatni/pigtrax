@@ -130,10 +130,49 @@
 
 			<div class="row block-flat" >
 				<div class="text-center"><h3>Performance Monitor</h3></div>
-
-					<div class="form-group col-sm-2 col-md-2">
-					<button style="height:60px" class="btn btn-warning btn-lg" ng-click="generateReport('PerformanceMonitor')" type="button"><spring:message code='label.piginfo.entryeventform.PerformanceMonitor'  text='Performance Monitor'/></button>	
+				  <div>
+				
+					<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
+								{%>
+								
+					<div class="form-group col-sm-3 col-md-3">
+							<label><spring:message code='label.piginfo.overView.report.overView'  text='Company'/><span style='color: red'>*</span></label>
+							<select  class="form-control"  name="selectedCompany" id="selectedCompany" ng-model="selectedCompany"  ng-change="loadPremises()">
+							<option value="" hidden><spring:message code='label.piginfo.Company.placeholder' text='Select Company' /></option>
+								<option ng-repeat="company in companyMapList" value="{{company.id}}" ng-value="company.id" ng-selected="selectedCompany == company.id" >{{company.name}}</option>
+						  </select>
 					</div>
+							<%}%>
+					<div class="form-group col-sm-3 col-md-3">				
+						<label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
+						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise" ng-change="loadPigInfo()" >
+								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+									<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+						</select>
+						<p class="color-danger" ng-show="prmisesSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>
+	
+					</div>
+										
+					
+					<div class="form-group col-sm-3 col-md-3">
+						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label>
+						<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+						<input type="text" name="startDate" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
+						<p class="color-danger" ng-show="startSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>		   
+					</div>
+					
+					<div class="form-group col-sm-3 col-md-3">
+					
+						<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/><span style='color: red'>*</span></label>
+						<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
+						<input type="text" name="endDate" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true'/>
+						<p class="color-danger" ng-show="endSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>				
+					</div>						
+			  </div>
+					<div class="form-group col-sm-12" >
+						<button style="height:60px;align:center" class="btn btn-warning btn-lg" ng-click="generateReport('PerformanceMonitor')" type="button"><spring:message code='label.piginfo.entryeventform.PerformanceMonitor'  text='Performance Monitor'/></button>	
+					</div>
+					
 			</div>
 
 			<div class="row">
