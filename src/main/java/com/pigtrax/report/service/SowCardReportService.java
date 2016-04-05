@@ -29,6 +29,9 @@ public class SowCardReportService {
 		
 		List< String> sowCardServiceListReturn = new LinkedList<String>();
 		
+		if(sowCardList == null || sowCardList.size() == 0)
+			return sowCardServiceListReturn;
+		
 		//sowCardServiceMap.put("Parity", value);
 		sowCardServiceList.add(new StringBuffer("Parity,"));
 		sowCardServiceList.add(new StringBuffer("FarrowDate,"));
