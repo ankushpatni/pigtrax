@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,6 +51,7 @@ public class SowCardReportService {
 		sowCardServiceList.add(new StringBuffer("First Service Date,"));
 		sowCardServiceList.add(new StringBuffer("Last Service Date,"));
 		
+		int counter = 0;
 		for(SowCardReportBean sowCardReportBean : sowCardList)
 		{
 			try {
@@ -60,7 +62,18 @@ public class SowCardReportService {
 			sowCardServiceList.get(4).append(sowCardReportBean.getStillBorns()).append(",");
 			sowCardServiceList.get(5).append(sowCardReportBean.getMummies()).append(",");
 			sowCardServiceList.get(6).append(sowCardReportBean.getGenLength()).append(",");
-			sowCardServiceList.get(7).append(",");
+			if(counter != 0)
+				{
+				SowCardReportBean sowCardReportBeanDate = sowCardList.get(counter-1);
+				long diff = sowCardReportBean.getFarrowDateTime().getTime() - sowCardReportBeanDate.getFarrowDateTime().getTime();
+				long dateDifference  = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+				sowCardServiceList.get(7).append(dateDifference).append(",");
+				//int dateDifference = DateUtil.sowCardReportBean.getFarrowDateTime() - sowCardReportBeanDate.getFarrowDateTime();
+				}
+			else
+			{
+				sowCardServiceList.get(7).append(",");
+			}
 			sowCardServiceList.get(8).append(sowCardReportBean.getBirthWeight()).append(",");
 			sowCardServiceList.get(9).append(DateUtil.convertToFormatString(sowCardReportBean.getWeanDate(),"dd/MM/yyyy")).append(",");
 			sowCardServiceList.get(10).append(sowCardReportBean.getNumberOfPigs()).append(",");
@@ -69,7 +82,7 @@ public class SowCardReportService {
 			sowCardServiceList.get(13).append(sowCardReportBean.getTotalService()).append(",");
 			sowCardServiceList.get(14).append(DateUtil.convertToFormatString(sowCardReportBean.getFirstServiceDate(),"dd/MM/yyyy")).append(",");
 			sowCardServiceList.get(15).append(DateUtil.convertToFormatString(sowCardReportBean.getLastServiceDate(),"dd/MM/yyyy")).append(",");
-			
+			counter++;
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
