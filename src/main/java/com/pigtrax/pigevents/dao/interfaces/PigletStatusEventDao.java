@@ -160,5 +160,7 @@ public interface PigletStatusEventDao {
 	Integer getLifetimeParity(Date startDate, Date endDate, Integer companyId, Integer premisesId);
 
 	Integer getNonProductiveSowDays(Date start, Date end, Integer companyId, Integer premisesId);
+
+	Integer getCountOfGiltService(Date start, Date end, Integer companyId, Integer premisesId);
 	
 }

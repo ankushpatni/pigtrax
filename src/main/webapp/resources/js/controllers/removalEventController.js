@@ -31,11 +31,19 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 			$scope.removalEventType = removalEventTypeMap['RemovalEventValue'];
 			//$scope.removalEventType = data.payload[0];
 			$scope.pigInfoList = data.payload[1];
-			$scope.premiseList = data.payload[2];
+			//$scope.premiseList = data.payload[2];
 			$scope.groupEventList = data.payload[3];
 			$scope.premiseNameMap = data.payload[5];
 		});
 		res2.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+
+var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootScope.companyId+'&premisesType=null');
+		res.success(function(data, status, headers, config) {
+			$scope.premiseList = data.payload;
+		});
+		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
 		

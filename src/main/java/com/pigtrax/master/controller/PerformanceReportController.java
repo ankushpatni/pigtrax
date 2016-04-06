@@ -328,8 +328,8 @@ public class PerformanceReportController {
 		List<Float> pigsWeanedFemaleYearList  = new LinkedList<Float>();
 		List<Float> pigsWeanedMatedFemaleYearList  = new LinkedList<Float>();
 		List<Float> pigsWeanedLifetimeList  = new LinkedList<Float>();
-	   
-
+		List<Integer> giltServiceCountList  = new LinkedList<Integer>();
+		List<Float> percentageGiltServiceCountList  = new LinkedList<Float>();
 	
 				
 		while(itr.hasNext())
@@ -398,37 +398,37 @@ public class PerformanceReportController {
 				float averageLiveBorn = (float)(totalLiveBorn)/totalFerrow;
 				
 				float averageDeadBorn = (float)(totalDeath)/totalFerrow;
-				float percentageDeadBorn = ((float)(totalDeath)/totalBorn)*100;
+				float percentageDeadBorn = ((float)(totalDeath)/totalBorn);
 				
 				float averageStillBorn = (float)(totalStillBorn)/totalFerrow;
-				float percentageStillBorn = ((float)(totalStillBorn)/totalBorn)*100;
+				float percentageStillBorn = ((float)(totalStillBorn)/totalBorn);
 				
 				float averageMummies = (float)(totalMummies)/totalFerrow;
-				float percentageMummies = ((float)(totalMummies)/totalBorn)*100;
+				float percentageMummies = ((float)(totalMummies)/totalBorn);
 				
 				float averageBirthWeight = (float)(totalBirthWeight)/totalBorn;
 				float averageLiveBirthWeight = ((float)(totalBirthWeight)/totalLiveBorn)*100;
 				
-				float percentageLitterWithAgeLessSeven = ((float)(litterWithAgeLessSeven)/littersWeaned)*100;
+				float percentageLitterWithAgeLessSeven = ((float)(litterWithAgeLessSeven)/littersWeaned);
 				
 				float ferrowCapacity = (float)(totalFerrow)/totalActivePenAvailable;
 				
 				float percentageLittersWeanedWithMoreThanTwalePigs = ((float)(littersWeanedWithMoreThanTwalePigs)/totalPigsWeavened)*100;
-				float percentageSowsWeaningZeroPig  = ((float)(sowsWeaningZeroPig)/totalFerrow)*100;
+				float percentageSowsWeaningZeroPig  = ((float)(sowsWeaningZeroPig)/totalFerrow);
 				
 				float pigsWeaningDivideLitterWeaned = (float)(totalPigsWeavened)/littersWeaned;
 				float pigsWeaningDivideSowWeaned = (float)(totalPigsWeavened)/totalLitterSWeanedFosterInOut;
 				
-				float percentagePingsWeanedDivideByTotalPigs = ((float)(totalPigsWeavened)/totalBorn)*100;
+				float percentagePingsWeanedDivideByTotalPigs = ((float)(totalPigsWeavened)/totalBorn);
 				
 				int netFoster = totalLiveBorn -totalPigsMortal- totalPigsWeavened;
 				
-				float percentagePreWeaningMortality = ((float)(totalPigsMortal)/totalLiveBorn)*100;
+				float percentagePreWeaningMortality = ((float)(totalPigsMortal)/totalLiveBorn);
 				
 				float weaningWeightWithLitter = (float)(weainngWeight)/littersWeaned;
 				float weaningWeightWithPiglets = (float)(weainngWeight)/totalPigsWeavened;
 				
-				float percentageLittersWeanedLessThan17Days = ((float)(littersWeanedLessThan17Days)/littersWeaned)*100;
+				float percentageLittersWeanedLessThan17Days = ((float)(littersWeanedLessThan17Days)/littersWeaned);
 				
 				averageTotalBornList.add(averageTotalBorn);
 				averageLiveBornList.add(averageLiveBorn);
@@ -467,10 +467,10 @@ public class PerformanceReportController {
 				percentageGiltsFarrowedList.add((float)countPifIngoIdFromFarrowWithParityOneInPigInfo/piGIdFromFerrow);
 				farrowingRateList.add((float)piGIdFromFerrow/piGIdFromBreeding);
 				
-				percentageFirstServiceList.add(((float)firstServiceCount/piGIdFromBreeding)*100);
-				percentageRepeateServiceList.add(((float)repeateServiceCount/piGIdFromBreeding)*100);
+				percentageFirstServiceList.add(((float)firstServiceCount/piGIdFromBreeding));
+				percentageRepeateServiceList.add(((float)repeateServiceCount/piGIdFromBreeding));
 				breedingEventWithMatingMoreThanOneList.add(breedingEventWithMatingMoreThanOne);
-				percentageBreedingEventWithMatingMoreThanOneList.add(((float)breedingEventWithMatingMoreThanOne/piGIdFromBreeding)*100);
+				percentageBreedingEventWithMatingMoreThanOneList.add(((float)breedingEventWithMatingMoreThanOne/piGIdFromBreeding));
 				countOfMatingPerServiceList.add((float)countOfMating/piGIdFromBreeding);
 				
 				weanSowsBredBy7DaysList.add(countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding);
@@ -607,6 +607,12 @@ public class PerformanceReportController {
 				pigsWeanedFemaleYearList.add(littersFemaleYear * totalPigsWeavened);
 				pigsWeanedMatedFemaleYearList.add(littersMatedFemaleYear* totalPigsWeavened);
 				pigsWeanedLifetimeList.add((float)pigsWeanedLifetime/totalPigsWeavened);
+				
+				int giltServiceCount = (Integer)valueList.get(64);
+				
+				giltServiceCountList.add(giltServiceCount);
+				percentageGiltServiceCountList.add((float)giltServiceCount/piGIdFromBreeding);
+			
 					
 			}
 			else
@@ -730,6 +736,9 @@ public class PerformanceReportController {
 				pigsWeanedMatedFemaleYearList.add(0f);
 				pigsWeanedLifetimeList.add(0f);
 				
+				giltServiceCountList.add(0);
+				percentageGiltServiceCountList.add(0f);
+				
 			}
 			
 		}
@@ -813,7 +822,7 @@ public class PerformanceReportController {
 		giltsServicedListBuffer.append("Gilts Serviced,");
 		for(int i=0;i<size;i++)
 		{
-			giltsServicedListBuffer.append(",");
+			giltsServicedListBuffer.append(giltServiceCountList.get(i)).append(",");
 		}		
 		rows.add(giltsServicedListBuffer.toString());
 		rows.add("\n");
@@ -823,7 +832,7 @@ public class PerformanceReportController {
 		percentageFirstServiceGiltBuffer.append("% 1st services: gilts,");
 		for(int i=0;i<size;i++)
 		{
-			percentageFirstServiceGiltBuffer.append(",");
+			percentageFirstServiceGiltBuffer.append(percentageGiltServiceCountList.get(i)).append(",");
 		}		
 		rows.add(percentageFirstServiceGiltBuffer.toString());
 		rows.add("\n");
@@ -832,7 +841,7 @@ public class PerformanceReportController {
 		percentageFirstServiceSowsBuffer.append("% 1st services: sows,");
 		for(int i=0;i<size;i++)
 		{
-			percentageFirstServiceSowsBuffer.append(",");
+			percentageFirstServiceSowsBuffer.append(percentageFirstServiceList.get(i)).append(",");
 		}		
 		rows.add(percentageFirstServiceSowsBuffer.toString());
 		rows.add("\n");
@@ -1118,7 +1127,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageDeathBornBuffer = new StringBuffer();
-		percentageDeathBornBuffer.append("Percentage Death Born,");
+		percentageDeathBornBuffer.append("% Death Born,");
 		for (int i = 0; i < size; i++) {
 			percentageDeathBornBuffer.append(percentageDeadBornList.get(i)).append(",");					
 		}
@@ -1142,7 +1151,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageStillBornBuffer = new StringBuffer();
-		percentageStillBornBuffer.append("Percentage Still Born,");
+		percentageStillBornBuffer.append("% Still Born,");
 		for (int i = 0; i < size; i++) {
 			percentageStillBornBuffer.append(percentageStillBornList.get(i)).append(",");					
 		}
@@ -1166,7 +1175,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageMummiesBornBuffer = new StringBuffer();
-		percentageMummiesBornBuffer.append("Percentage Mummies Born,");
+		percentageMummiesBornBuffer.append("% Mummies Born,");
 		for (int i = 0; i < size; i++) {
 			percentageMummiesBornBuffer.append(percentageMummiesList.get(i)).append(",");					
 		}
@@ -1182,7 +1191,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageLitterWithAgeLessSevenBuffer = new StringBuffer();
-		percentageLitterWithAgeLessSevenBuffer.append("Percentage Litter with age less 7, ");
+		percentageLitterWithAgeLessSevenBuffer.append("% Litter with age less 7, ");
 		for (int i = 0; i < size; i++) {
 			percentageLitterWithAgeLessSevenBuffer.append(percentageLitterWithAgeLessSevenList.get(i)).append(",");					
 		}
@@ -1206,7 +1215,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageWeakbornListBuffer = new StringBuffer();
-		percentageWeakbornListBuffer.append("%Weakborn , ");
+		percentageWeakbornListBuffer.append("% Weakborn , ");
 		for (int i = 0; i < size; i++) {
 			percentageWeakbornListBuffer.append(percentageWeakbornList.get(i)).append(",");					
 		}
@@ -1593,7 +1602,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer aveAbortionParityListBuffer = new StringBuffer();
-		aveAbortionParityListBuffer.append("Abortions - Induced,");
+		aveAbortionParityListBuffer.append("Ave Abortion Parity,");
 		for (int i = 0; i < size; i++) {
 			aveAbortionParityListBuffer.append(aveAbortionParityList.get(i)).append(",");					
 		}

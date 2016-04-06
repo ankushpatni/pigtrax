@@ -225,7 +225,7 @@ public class PremisesDaoImpl implements PremisesDao{
 	
 	public List<Premises> getPremisesListBasedOnCompanyId( final int generatedCompanyId ) throws SQLException
 	{
-		String query = "SELECT \"id\",\"permiseId\",\"name\" from pigtrax.\"Premise\" where \"id_Company\" = ?";
+		String query = "SELECT \"id\",\"permiseId\",\"name\" from pigtrax.\"Premise\" where \"id_Company\" = ? order by \"name\"";
 	//CompPremBarnRoomPenVw
 		List<Premises> premisesList = jdbcTemplate.query(query,
 				new PreparedStatementSetter() {
@@ -250,7 +250,7 @@ public class PremisesDaoImpl implements PremisesDao{
 		
 		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\",\"gpsLatittude\","
 				+ "\"gpsLongitude\",\"id_PremiseType\",\"sowSource\",\"otherCity\" "+
-						" from pigtrax.\"Premise\" where \"id\" in ( SELECT \"premiseserialid\" from pigtrax.\"CompPremBarnSiloVw\" where \"permiseId\" != '' and companyserialid = ? ) ";
+						" from pigtrax.\"Premise\" where \"id\" in ( SELECT \"premiseserialid\" from pigtrax.\"CompPremBarnSiloVw\" where \"permiseId\" != '' and companyserialid = ? ) order by \"name\" ";
 
 		List<Premises> premisesList = jdbcTemplate.query(query,
 				new PreparedStatementSetter() {

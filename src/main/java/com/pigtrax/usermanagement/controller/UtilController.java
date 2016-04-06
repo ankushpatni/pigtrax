@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -248,7 +249,7 @@ public class UtilController {
 		Set<Integer> keySet = null;
 		if(refDataMap != null)
 			keySet  = refDataMap.keySet();
-		Map refDataKeyValueMap = new HashMap<String, Object>();
+		Map refDataKeyValueMap = new LinkedHashMap<String, Object>();
 		refDataKeyValueMap.put("RemovalEventKey", keySet);
 		refDataKeyValueMap.put("RemovalEventValue", refDataMap);
 		outDataList.add(refDataKeyValueMap);

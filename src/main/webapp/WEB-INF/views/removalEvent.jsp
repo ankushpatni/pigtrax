@@ -23,9 +23,15 @@
 				            <h3> <spring:message code='label.piginfo.removalExceptSales.search.heading'  text='Search Removal Events'/></h3>
 				            <p class="color-danger" ng-show="searchErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.errormessage' text='Please enter Group Id/Pig Id/Removal Event Id  and select the corresponding option'/></p>
 				            <p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.piginfo.removalExceptSales.search.data.errormessage' text='Removal/Sales information not found for the search criteria'/></p>
-							<div  class="form-group">
+							<!--<div  class="form-group">
 		             			<select class="form-control" name="premiseId" ng-model="premiseId"  ng-options="k as v for (k, v) in premiseNameMap" ng-change="loadPigAndGroupInfo()"></select>		             			
-							</div>
+							</div>-->
+						<div  class="form-group">
+						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="premiseId" id="premiseId" ng-model="premiseId"  ng-change="loadPigAndGroupInfo()">
+								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+                      			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="premiseId == premise.id">{{premise.name}}</option>
+                      		  </select>
+						</div>
 				            <div class="options">
 							  <div class="form-group">
 				              <label class="radio-inline">

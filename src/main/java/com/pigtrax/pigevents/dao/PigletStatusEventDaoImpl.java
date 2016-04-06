@@ -862,7 +862,38 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		
 		String qry = "select count(PI.\"id\") from pigtrax.\"PigInfo\" PI "+
 					" JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id\" = BE.\"id_PigInfo\" "+ 
-				" where PI.\"parity\" = 1 and PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
+				" where  PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
+		
+		if(premisesId !=0)
+		{
+			qry = qry+ " and BE.\"id_Premise\" = " + premisesId;
+		}
+		
+ 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+ 			@Override
+ 			public void setValues(PreparedStatement ps) throws SQLException {
+ 				ps.setInt(1, companyId);
+ 				ps.setDate(2, start);
+ 				ps.setDate(3, end);
+ 			}}, new RowMapper<Integer>() {
+				public Integer mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return rs.getInt(1);
+				}
+			});
+
+		return pigletStatusEventList.get(0);
+	}
+	
+	/**
+	 * To get the count of first service from breeding
+	 */
+	@Override
+	public Integer getCountOfGiltService(final Date start,final Date end, final Integer companyId,Integer premisesId) {
+		
+		String qry = "select count(PI.\"id\") from pigtrax.\"PigInfo\" PI "+
+					" JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id\" = BE.\"id_PigInfo\" "+ 
+				" where PI.\"parity\" = 0 and PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
 		
 		if(premisesId !=0)
 		{
