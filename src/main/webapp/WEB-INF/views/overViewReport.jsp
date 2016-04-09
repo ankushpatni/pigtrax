@@ -7,7 +7,7 @@
  <div class="block-flat" ng-controller="overViewController" ng-init="loadPremises(${CompanyId},'${REPORT_NO_DATA}')"  id="OverViewControllerId">
 	<form method="POST" name="overViewForm" novalidate angular-validator my-reset>
 	<div class="content" class="block-flat">
-	<p class="color-danger" ng-show="mentaoryField"><spring:message code='label.report.search.criteria.errormessage' text='Please enter mandatory fields.'/></p>
+	<p class="color-danger" ng-show="mentaoryField"><spring:message code='label.report.search.criteria.errormessage.overView' text='Please enter mandatory fields.'/></p>
 	<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
 						
 		<div class="row">
@@ -65,7 +65,17 @@
 						<input type="text" name="endDate" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true'/>
 						<p class="color-danger" ng-show="endSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>				
 					</div>	
-
+					<div  class="form-group col-sm-2 col-md-2">			
+ 		   				 <!--<input type="text" name="groupId" id="groupId" class="form-control" ng-model="groupId" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>-->
+						 <label><spring:message code='label.groupReport.search.animal' text='Animal Type' /><span style='color: red'>*</span></label>
+						 <select  class="form-control"  name="animalType" id="animalType" ng-model="animalType" >
+								<option value="" hidden><spring:message code='label.groupReport.search.animal' text='Animal Type' /></option>
+								<option value="group" ><spring:message code='label.groupReport.search.Grover' text='Grover' /></option>
+								<option value="pig" ><spring:message code='label.groupReport.search.Pig' text='Pig' /></option>
+								<option value="piglet" ><spring:message code='label.groupReport.search.PigletStatus' text='Piglet Status' /></option>
+								</select>
+								<p class="color-danger" ng-show="animalSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>
+						</div>
 					
 			  </div>
 			</div>
@@ -128,7 +138,7 @@
 			  </div>
 			</div>
 
-			<div class="row block-flat" >
+			<%-- <div class="row block-flat" >
 				<div class="text-center"><h3>Performance Monitor</h3></div>
 				  <div>
 				
@@ -174,7 +184,7 @@
 					</div>
 					
 			</div>
-
+ --%>
 			<div class="row">
 			  <div>	
 			  </div>

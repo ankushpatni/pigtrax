@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-	<h2><spring:message	code='label.piginfo.generateReport.heading'
+	<h2><spring:message	code='label.leftmenu.reports.performanceMonitoring'
 								text='Generate Report' /></h2>
 </div>
 <div class="cl-mcont" id="reposrtGeneraterControllerId" ng-controller="reportController" ng-init="loadPremises('${CompanyId}')">
@@ -15,7 +15,7 @@
 						<h3 style="color:green">${token}</h3>
 						<h3>
 							<spring:message
-								code='label.piginfo.generateReport.heading'
+								code='label.leftmenu.reports.performanceMonitoring'
 								text='Generate Report' />
 						</h3>
 						

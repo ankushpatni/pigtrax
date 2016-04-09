@@ -28,7 +28,8 @@
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.transportTruckId" text="Truck Number Plate" /></th>
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.purchaseYear" text="Purchase Year" /></th>
 								<th st-sort="siloId" style="width:20%"><spring:message code="label.transportTruck.make" text="Make" /></th>
-								<th style="width:20%"><spring:message code="label.transportTruck.deleteTruckData" text="Delete Truck" /></th>
+								<%-- <th style="width:20%"><spring:message code="label.transportTruck.deleteTruckData" text="Delete Truck" /></th>
+								 --%><th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
 							</tr>
 						 	</thead>
 							<tbody>
@@ -79,7 +80,9 @@
 								<th style="width:30%"><spring:message code="label.transportTrailer.trailerFunction" text="Trailer Function" /></th>
 								<th style="width:30%"><spring:message code="label.transportTrailer.trailerYear" text="Year" /></th>
 								<th style="width:30%"><spring:message code="label.transportTrailer.trailerMake" text="Make" /></th>
-								<th style="width:20%"><spring:message code="label.transportTrailer.deleteTrailerData" text="Delete Trailer" /></th>
+								<%-- <th style="width:20%"><spring:message code="label.transportTrailer.deleteTrailerData" text="Delete Trailer" /></th>
+								 --%>
+								 <th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
 							</tr>
 						 	</thead>
 							<tbody>

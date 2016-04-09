@@ -22,7 +22,9 @@
 				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.city" text="City" /></th>
 				<th st-sort="location" style="width:20%"><spring:message code="label.premise.state" text="State" /></th>
 				<th st-sort="location" style="width:20%"><spring:message code="label.transportDestination.marketType" text="Market Type" /></th>
-				<th style="width:20%"><spring:message code="label.transportDestination.delete" text="Delete" /></th>
+				<%-- <th style="width:20%"><spring:message code="label.transportDestination.delete" text="Delete" /></th>
+				 --%>
+				 <th style="width:20%"><spring:message code="label.companytargetform.action" text="Action" /></th>
 			</tr>
 		 	<tr>
 				<th colspan="6"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>

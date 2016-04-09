@@ -92,7 +92,7 @@
 					<td style="width:20%">						
 					<button type="button" class="btn btn-edit btn-xs"
 							ng-click="deleteRation(row.id)" ng-confirm-click="<spring:message code='label.rationform.delete.confirmmessage'  text='Are you sure you want to delete the ration? On delete this value will be removed from feed events'/>">
-							<span class="glyphicon glyphicon-remove"></span>												
+							<span class="glyphicon glyphicon-remove"></span><spring:message code="label.transportDestination.delete" text="Delete" />										
 						</button>
 					</td>				
 				</tr>

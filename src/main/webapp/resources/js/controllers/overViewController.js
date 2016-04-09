@@ -180,11 +180,12 @@ pigTrax.controller('overViewController', function($scope, $http, $window,$modal,
 			    }
 			    else if(reportType!= undefined && reportType==="RemovalReport" && 
 					($scope.endDate === '' || $scope.endDate === undefined || 
-						$scope.startDate === '' || $scope.startDate === undefined))
+						$scope.startDate === '' || $scope.startDate === undefined || $scope.animalType === '' || $scope.animalType === undefined))
 			    {
 					$scope.mentaoryField = true;
 					$scope.startSelect = true;
 					$scope.endSelect = true;
+					$scope.animalSelect = true;
 					return true;
 			    }
 			    			    
