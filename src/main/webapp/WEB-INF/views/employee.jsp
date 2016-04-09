@@ -34,8 +34,8 @@
 				<%if(activeUser.getUserRole()==1 || activeUser.getUserRole() == 2){%>
 				<th><label><spring:message code="label.employee.company" text="Company" /></label></th>
 				<% } %>
-				<th size="5%"><label><spring:message code="label.employee.edit" text="Edit" /><label></th>
-				<th size="1%" style="width:10px;"><label><spring:message code="label.employee.action" text="Action" /></label></th>
+				<!--<th size="5%"><label><spring:message code="label.employee.edit" text="Edit" /><label></th>-->
+				<th size="1%" style="width:20px;"><label><spring:message code="label.employee.action" text="Action" /></label></th>
 			</tr>
 			<tr>
 										<th colspan="6"><input st-search="" class="form-control"
@@ -56,8 +56,8 @@
 						<span class="glyphicon glyphicon-pencil"></span>
 							<spring:message code="label.employee.edit" text="Edit" />
 					</button>
-				</td>
-				<td>
+				<!--</td>
+				<td>-->
 											<button ng-if="employee.activeFlag == 'true' " type="button"
 												ng-click="deActivateEmployee(employee.id)" class="btn btn-sm btn-danger"
 												ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
