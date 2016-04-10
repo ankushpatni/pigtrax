@@ -118,7 +118,7 @@ public class RefDataDaoImpl implements RefDataDao {
 	
 	@Override
 	public List<RefDataTranslationDto> getTargetTypes() {
-		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TargetType\" FROM pigtraxrefdata.\"TargetTypeTranslation\" order by \"fieldLanguage\", \"fieldValue\"; ";
+		String query = "SELECT \"fieldValue\", \"fieldLanguage\", \"id_TargetType\" FROM pigtraxrefdata.\"TargetTypeTranslation\" order by \"id_TargetType\", \"fieldLanguage\", \"fieldValue\"; ";
 		return jdbcTemplate.query(query, new CacheRefDataRowMaper());
 	}
 	
