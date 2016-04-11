@@ -593,7 +593,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 		List<GroupEvent> groupEventList = null;
 		try
 		{
-			 groupEventList = groupEventDao.getGroupEventByPremise(premiseId);
+			 groupEventList = groupEventDao.getGroupEventByPremiseWithoutStatus(premiseId);
 			
 		} 
 		catch (SQLException sqlEx)

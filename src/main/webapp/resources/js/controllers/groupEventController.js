@@ -53,24 +53,27 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		res.success(function(data, status, headers, config) {
 			$scope.groupEventFromPremisesList = data.payload;
 			$scope.groupEventFromPremisesListOrignal = data.payload;
+			$scope.loadActiveCloseGroupEvents();
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+		
+		
 	}
 	
 	$scope.loadActiveCloseGroupEvents = function()
 	{
 	$scope.groupEventTempList = $scope.groupEventFromPremisesListOrignal;
 		
-	if($scope.status === 'active')
+	if($scope.status === undefined || $scope.status === 'active')
 		{
 		$scope.groupEventFromPremisesList = {};
-		for( var x in $scope.groupEventTempList)
+		for( var x in $scope.groupEventFromPremisesListOrignal)
 				{
-					if( $scope.groupEventTempList[x].active )
+					if( $scope.groupEventFromPremisesListOrignal[x].active )
 						{		
-							$scope.groupEventFromPremisesList[x] = $scope.groupEventTempList[x];
+							$scope.groupEventFromPremisesList[x] = $scope.groupEventFromPremisesListOrignal[x];
 						}
 				}
 		}
@@ -79,11 +82,11 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		{
 		
 		$scope.groupEventFromPremisesList = {};
-		for( var x in $scope.groupEventTempList)
+		for( var x in $scope.groupEventFromPremisesListOrignal)
 				{
-					if(! $scope.groupEventTempList[x].active )
+					if(! $scope.groupEventFromPremisesListOrignal[x].active )
 						{		
-							$scope.groupEventFromPremisesList[x] = $scope.groupEventTempList[x];
+							$scope.groupEventFromPremisesList[x] = $scope.groupEventFromPremisesListOrignal[x];
 						}
 				}
 		}
