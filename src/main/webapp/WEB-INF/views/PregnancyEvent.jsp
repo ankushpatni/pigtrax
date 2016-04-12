@@ -48,7 +48,7 @@
 				
 					 <select  class="form-control"  name="search" ng-model="searchText" style="width:87%">
 								<option value="" hidden><spring:message code='label.piginfo.tatto.placeholder' text='Select Tattoo' /></option>
-								<option ng-repeat="pigInfo in pigInfoListSearch" value="{{pigInfo.tattoo}}" ng-value="pigInfo.tattoo" ng-selected="searchText == premise.tattoo">{{pigInfo.tattoo}}</option>
+								<option ng-repeat="pigInfo in pigInfoListSearch" value="{{pigInfo.tattoo}}" ng-value="pigInfo.tattoo" ng-selected="searchText == pigInfo.tattoo">{{pigInfo.tattoo}}</option>
 								</select>
 			</div>            
           </div>

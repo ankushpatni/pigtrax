@@ -53,7 +53,7 @@ public class LitterBalanceDao {
 					+" LEFT JOIN "
 					+" (select \"id_PigInfo\", \"eventDateTime\", sum(\"numberOfPigs\") as \"weanPigNum\" from pigtrax.\"PigletStatus\"  "
 					+ " WHERE  \"id_PigletStatusEventType\" =? "  
-					+" GROUP BY \"id_PigInfo\",\"eventDateTime\") weanData ON PS.\"id_PigInfo\" = weanData.\"id_PigInfo\" "
+					+" GROUP BY \"id_PigInfo\",\"eventDateTime\") weanData ON PS.\"id_PigInfo\" = weanData.\"id_PigInfo\" and weanData.\"eventDateTime\"::date between ? AND ? "
 					+" LEFT JOIN "
 					+" (select \"id_PigInfo\", \"eventDateTime\", sum(\"numberOfPigs\") as \"fosterInPigNum\" from pigtrax.\"PigletStatus\"  "
 					+ " WHERE  \"id_PigletStatusEventType\" =? " 
@@ -68,10 +68,12 @@ public class LitterBalanceDao {
 				ps.setInt(1, PigletStatusEventType.Death.getTypeCode());
 				ps.setInt(2, PigletStatusEventType.FosterOut.getTypeCode());
 				ps.setInt(3, PigletStatusEventType.Wean.getTypeCode());
-				ps.setInt(4, PigletStatusEventType.FosterIn.getTypeCode());
-				ps.setInt(5, premiseId);
-				ps.setDate(6, new java.sql.Date(startDate.getTime()));
-				ps.setDate(7, new java.sql.Date(endDate.getTime()));
+				ps.setDate(4, new java.sql.Date(startDate.getTime()));
+				ps.setDate(5, new java.sql.Date(endDate.getTime()));
+				ps.setInt(6, PigletStatusEventType.FosterIn.getTypeCode());
+				ps.setInt(7, premiseId);
+				ps.setDate(8, new java.sql.Date(startDate.getTime()));
+				ps.setDate(9, new java.sql.Date(endDate.getTime()));
 			}}, new LitterBalanceMapper());
 		
 		return litterBalance;
