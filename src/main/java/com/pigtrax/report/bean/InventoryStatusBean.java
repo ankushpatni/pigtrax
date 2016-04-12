@@ -10,7 +10,7 @@ public class InventoryStatusBean {
 	private String groupId;
 	private String animalType;
 	private Integer head;
-	private Date dateOfFeed;
+	private Integer dateOfFeed;
 
 	public String getSowSource() {
 		return sowSource;
@@ -65,11 +65,11 @@ public class InventoryStatusBean {
 		this.head = head;
 	}
 
-	public Date getDateOfFeed() {
+	public Integer getDateOfFeed() {
 		return dateOfFeed;
 	}
 
-	public void setDateOfFeed(Date dateOfFeed) {
+	public void setDateOfFeed(Integer dateOfFeed) {
 		this.dateOfFeed = dateOfFeed;
 	}
 

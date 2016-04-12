@@ -3767,7 +3767,7 @@ public class ReportControlller {
 					PigInfo pigInformation = pigInfoDao.getPigInformationByPigIdWithOutStatus(search, companyId, premisesId);
 					if(null != pigInformation && pigInformation.getId() != null && pigInformation.getId() != 0)
 					{
-						rows = sowReportService.getSowReport(search,pigInformation.getId(), companyId, language, locale);
+						rows = sowReportService.getSowReport(pigInformation.getPigId(),pigInformation.getId(), companyId, language, locale);
 						if(rows != null && rows.size() > 0)
 						{
 							

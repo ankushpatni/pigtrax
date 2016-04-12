@@ -33,22 +33,28 @@ public class InventoryStatusReportService {
 		if (inventoryList != null && inventoryList.size() > 0) {
 
 			StringBuffer rowBuffer = null;
-			returnRows.add(messageSource.getMessage("label.premise.sowSource", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
+			//returnRows.add(messageSource.getMessage("label.premise.sowSource", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
+			returnRows.add(messageSource.getMessage("label.premise.barn", null, "", locale)+","
 					+messageSource.getMessage("label.barn.phaseType", null, "", locale)+","+messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","
 					+messageSource.getMessage("label.groupReport.search.animal", null, "", locale)+","
 					+messageSource.getMessage("label.reports.inventorystatus.head", null, "", locale)+","+messageSource.getMessage("label.reports.inventorystatus.dof", null, "", locale)
-					+messageSource.getMessage("label.piginfo.input.dateformat", null, "", locale)+"\n");
+					+"\n");
 			
 			for (InventoryStatusBean inventoryStatusBean : inventoryList) {
 				rowBuffer = new StringBuffer();
 				
-					rowBuffer.append(inventoryStatusBean.getSowSource() + seprater);
+					//rowBuffer.append(inventoryStatusBean.getSowSource() + seprater);
 					rowBuffer.append(inventoryStatusBean.getBarnId() + seprater);
 					rowBuffer.append(inventoryStatusBean.getPhaseType() + seprater);
 					rowBuffer.append(inventoryStatusBean.getGroupId()+seprater);
 					rowBuffer.append(inventoryStatusBean.getAnimalType()+seprater);
 					rowBuffer.append(inventoryStatusBean.getHead()+seprater);
-					try {
+					if(inventoryStatusBean.getDateOfFeed() != null)
+						rowBuffer.append(inventoryStatusBean.getDateOfFeed());
+					else
+						rowBuffer.append(" ");
+					
+					/*try {
 						dateStr = DateUtil.convertToFormatString(inventoryStatusBean.getDateOfFeed(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
@@ -56,7 +62,7 @@ public class InventoryStatusReportService {
 							rowBuffer.append(" ");
 					} catch (ParseException e) {
 						rowBuffer.append(" ");
-					}
+					}*/
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}
