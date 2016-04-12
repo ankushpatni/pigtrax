@@ -79,7 +79,10 @@
                   
                   <div class="form-group">
                       <label><spring:message code='label.groupEventDetail.roomId'  text='Room'/><span style='color: red'>*</span></label>
-                      <div ng-dropdown-multiselect="" options="roomValues" selected-model="groupEvent.roomIds"  extra-settings="multiselectdropdownsettings"></div>			
+					   <select class="form-control"  name="roomId" id="roomId" ng-model="groupEvent.roomId" required required-message="'<spring:message code='label.piginfo.farroweventform.room.requiredmessage' text='Room is required' />'">
+                       	<option ng-repeat="room in roomValues" value="{{room.id}}" ng-value="room.id" ng-selected="groupEvent.roomId == room.id">{{room.label}}</option>
+                        </select>
+                      <!--<div ng-dropdown-multiselect="" options="roomValues" selected-model="groupEvent.roomIds"  extra-settings="multiselectdropdownsettings"></div>			-->
                     </div>
                   
 				  <div class="form-group">

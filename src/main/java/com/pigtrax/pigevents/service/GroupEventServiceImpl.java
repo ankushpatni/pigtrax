@@ -139,7 +139,11 @@ public class GroupEventServiceImpl implements GroupEventService{
 			groupEventPhaseChange.setPhaseOfProductionTypeId(groupEvent.getPhaseOfProductionTypeId());
 			groupEventPhaseChange.setUserUpdated(groupEvent.getUserUpdated());
 			groupEventPhaseChange.setPremiseId(groupEvent.getPremiseId());
-			groupEventPhaseChange.setRoomIds(groupEvent.getRoomIds()); 
+			RoomPK roomPK = new RoomPK();
+			roomPK.setId(groupEvent.getRoomId());
+			List<RoomPK> roomPkList  = new ArrayList<RoomPK>();
+			roomPkList.add(roomPK);
+			groupEventPhaseChange.setRoomIds(roomPkList); 
 			groupEventPhaseChange.setPhaseStartDate(groupEvent.getGroupStartDateTime());
 			
 			Integer groupEventPhaseChangeId = groupEventPhaseChangeDao.addGroupPhaseChange(groupEventPhaseChange);

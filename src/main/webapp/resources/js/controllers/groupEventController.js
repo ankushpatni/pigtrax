@@ -322,7 +322,8 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 					"currentInventory" : $scope.groupEvent.currentInventory,
 					"inventoryAdjustment" : $scope.groupEvent.inventoryAdjustment,
 					"premiseId" : $scope.groupEvent.premiseId,
-					"roomIds" : $scope.groupEvent.roomIds
+					"roomIds" : $scope.groupEvent.roomIds,
+					"roomId" : $scope.groupEvent.roomId
 					
 				};
 				if($scope.groupEvent.id != undefined && $scope.groupEvent.id >0)

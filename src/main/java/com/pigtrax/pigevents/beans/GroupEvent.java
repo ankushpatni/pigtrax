@@ -30,7 +30,7 @@ public class GroupEvent {
 	private Double transferredPigWt;
 	private Integer transferredFromGroupId;
 	private Integer transferredToGroupId;
-	
+	private String roomId;
 	private List<GroupEventPhaseChange> phaseChangeList;
 	
 	
@@ -177,6 +177,12 @@ public class GroupEvent {
 	}
 	public void setTransferredPigWt(Double transferredPigWt) {
 		this.transferredPigWt = transferredPigWt;
+	}
+	public String getRoomId() {
+		return roomId;
+	}
+	public void setRoomId(String roomId) {
+		this.roomId = roomId;
 	}
 	
 	
