@@ -37,7 +37,7 @@ public class PigletMortalityReportDao {
 	{
 		List<PigletMortalityReportBean> pigletMortalityList = new ArrayList<PigletMortalityReportBean>();
 		
-		String qry=" SELECT R.\"id\", BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",(current_date-FE.\"farrowDateTime\":: date-30) as \"lactationDays\", "
+		String qry=" SELECT R.\"id\", BN.\"barnId\", R.\"roomId\", coalesce(SUM(FE.\"liveBorns\"),0) as \"inventoryCount\",(?-FE.\"farrowDateTime\":: date) as \"lactationDays\", "
 				 +"	COALESCE(SUM(PS.\"numberOfPigs\"),0) as \"Number of Deaths\",PS.\"id_Pen\", PS.\"eventDateTime\" as \"deathDate\", FE.\"farrowDateTime\" as \"farrowDate\",PS1.\"eventDateTime\"as \"weanDate\" " 
 				 +" FROM pigtrax.\"FarrowEvent\" FE "
 				 +" LEFT JOIN pigtrax.\"PigletStatus\" PS On PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 4"
@@ -52,9 +52,10 @@ public class PigletMortalityReportDao {
 		pigletMortalityList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, premiseId);
-				ps.setDate(2, new java.sql.Date(startDate.getTime()));
-				ps.setDate(3, new java.sql.Date(endDate.getTime()));
+				ps.setDate(1, new java.sql.Date(endDate.getTime()));
+				ps.setInt(2, premiseId);
+				ps.setDate(3, new java.sql.Date(startDate.getTime()));
+				ps.setDate(4, new java.sql.Date(endDate.getTime()));
 			}}, new PigletMortalityReportMapper());
 		
 		return pigletMortalityList;
