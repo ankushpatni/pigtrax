@@ -80,19 +80,23 @@ public class PigletMortalityReportDao {
 	}
 	
 	
-	public Integer getStartHead(Date startDate, Integer roomId)
+	public Integer getStartHead(Date startDate,Date endDate, Integer roomId, Integer premisesId)
 	{
 		java.sql.Date qryDate = null;
 		if(startDate != null)
 			qryDate = new java.sql.Date(startDate.getTime());
 		
-		String qry = "SELECT T.\"id\", COALESCE(T.\"cnt\"+T.\"in\"-T.\"out\", 0) as net from "
-					 +" (SELECT R.\"id\", SUM(FE.\"liveBorns\") as \"cnt\", SUM(PS.\"numberOfPigs\") as \"out\",SUM(PS1.\"numberOfPigs\") as \"in\"  from pigtrax.\"FarrowEvent\" FE " 
-					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"id_PigletStatusEventType\" IN (4,2) "
-					 +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 ON FE.\"id\" = PS1.\"id_FarrowEvent\" AND PS1.\"id_PigletStatusEventType\" IN (1) "
+		java.sql.Date qryEndDate = null;
+		if(endDate != null)
+			qryEndDate = new java.sql.Date(endDate.getTime());
+		
+		String qry = "SELECT T.\"id\", COALESCE(T.\"cnt\") as net from "
+					 +" (SELECT R.\"id\", SUM(FE.\"liveBorns\") as \"cnt\"  from pigtrax.\"FarrowEvent\" FE " 
+					// +" LEFT JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"id_PigletStatusEventType\" IN (4,2) "
+					// +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 ON FE.\"id\" = PS1.\"id_FarrowEvent\" AND PS1.\"id_PigletStatusEventType\" IN (1) "
 					 +" LEFT JOIN pigtrax.\"Pen\" P ON P.\"id\" = FE.\"id_Pen\" "
 					 +" LEFT JOIN pigtrax.\"Room\" R ON P.\"id_Room\" = R.\"id\" "
-					 +" where FE.\"farrowDateTime\" <= '"+qryDate+"' ";
+					 +" LEFT JOIN pigtrax.\"PigInfo\" PI ON PI.\"id\" = FE.\"id_PigInfo\" where PI.\"entryDate\" <= '"+qryEndDate+"' and PI.\"entryDate\" >= '"+qryDate+"'  and PI.\"id_Premise\" ="+premisesId+" ";
 		if(roomId != null)
 				qry += " AND R.\"id\" = "+roomId;
 					 
@@ -102,7 +106,7 @@ public class PigletMortalityReportDao {
 		returnValue = jdbcTemplate.query(qry, new ResultSetExtractor<Long>() {
 			public Long extractData(ResultSet resultSet) throws SQLException, DataAccessException {
 				if (resultSet.next()) {
-					return resultSet.getLong(1);
+					return resultSet.getLong(2);
 				}
 				return null;
 			}

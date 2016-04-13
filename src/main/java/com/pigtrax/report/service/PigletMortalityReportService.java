@@ -55,7 +55,7 @@ public class PigletMortalityReportService {
 			for (PigletMortalityReportBean pigletMortalityReportBean : arrangedList) {
 				rowBuffer = new StringBuffer();
 				    
-					Integer startHead = pigletMortalityReportDao.getStartHead(startDate, pigletMortalityReportBean.getRoomPkId());
+					Integer startHead = pigletMortalityReportDao.getStartHead(startDate, endDate,pigletMortalityReportBean.getRoomPkId(),premiseId);
 				
 					rowBuffer.append(premise + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getBarnId() + seprater);

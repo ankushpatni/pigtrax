@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.report.bean.LactationLengthBean;
+import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 
 @Repository
 @Transactional
@@ -39,25 +40,33 @@ public class LactationLengthDao {
 		String qry="SELECT "
 				+" T.\"cnt\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\", T.\"eventTime\" FROM " 
 				+" ( "
-				+" SELECT count(PEM.\"id\") as cnt, PEM.\"eventTime\"::date, current_date-PEM.\"eventTime\"::date as \"LactLength\", "
+				+" SELECT count(PEM.\"id\") as cnt, PEM.\"eventTime\"::date, ?-FE.\"farrowDateTime\"::date as \"LactLength\", "
 				+" (SELECT count(\"id\") from pigtrax.\"PigInfo\" WHERE \"id_SexType\" = 2 and \"isActive\" is true aND \"id_Premise\" = ?) as \"totalCnt\"  "
 				+" FROM pigtrax.\"PigTraxEventMaster\" PEM  "
 				+" JOIN pigtrax.\"FarrowEvent\" FE ON PEM.\"id_FarrowEvent\" = FE.\"id\" "
+				+"  JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\" "
+				+ " JOIN pigtrax.\"PigletStatus\" PS ON PS.\"id_PigInfo\"  = PI.\"id\" and PS.\"eventDateTime\"::date between ? AND ?  AND PS.\"id_PigletStatusEventType\" = ? "  
+  
 				+" WHERE PEM.\"id\" in ( "
 				+" SELECT max(PEM1.\"id\") " 
 				+" FROM pigtrax.\"PigTraxEventMaster\" PEM1  "
 				+" JOIN pigtrax.\"PigInfo\" PI ON PEM1.\"id_PigInfo\" = PI.\"id\" and PI.\"isActive\" is TRUE AND PI.\"id_Premise\" =? "
 				+" GROUP BY PEM1.\"id_PigInfo\") "
-				+ " AND PEM.\"id_FarrowEvent\" IS NOT NULL  AND FE.\"farrowDateTime\"::date between ? and ? "
+				+ " AND PEM.\"id_FarrowEvent\" IS NOT NULL " // AND FE.\"farrowDateTime\"::date between ? and ? "
 				+" GROUP BY PEM.\"eventTime\"::date,\"LactLength\" ) T order by T.\"LactLength\" ";
 
 		lactationLengthList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, premiseId);
+				
+				ps.setDate(1, new java.sql.Date(endDate.getTime()));
 				ps.setInt(2, premiseId);
 				ps.setDate(3, new java.sql.Date(startDate.getTime()));
 				ps.setDate(4, new java.sql.Date(endDate.getTime()));
+				ps.setInt(5, PigletStatusEventType.Wean.getTypeCode());
+				ps.setInt(6, premiseId);
+				//ps.setInt(7, premiseId);
+				
 			}}, new LactationLengthMapper());
 		
 		return lactationLengthList;

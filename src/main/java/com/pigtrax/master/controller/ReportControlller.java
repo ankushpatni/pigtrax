@@ -4998,14 +4998,14 @@ public class ReportControlller {
 					    	pigId = Integer.parseInt(pigIdStr);
 					    }catch(NumberFormatException nfEx)
 					    {
-					    	pigId = null;
+					    	pigId = 0;
 					    }
 					    
 					    try{
 					    	groupId = Integer.parseInt(groupIdStr);
 					    }catch(NumberFormatException nfEx)
 					    {
-					    	groupId = null;
+					    	groupId = 0;
 					    }
 					    
 					    int barnId = 0;
