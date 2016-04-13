@@ -67,7 +67,7 @@
 					</div>	
 					<div  class="form-group col-sm-2 col-md-2">			
  		   				 <!--<input type="text" name="groupId" id="groupId" class="form-control" ng-model="groupId" placeholder="<spring:message code='label.groupReport.search.group'  text='Search by Group Id ...'/>"/>-->
-						 <label><spring:message code='label.groupReport.search.animal' text='Animal Type' /><span style='color: red'>*</span></label>
+						 <label><spring:message code='label.groupReport.search.animal' text='Animal Type' /></label>
 						 <select  class="form-control"  name="animalType" id="animalType" ng-model="animalType" >
 								<option value="" hidden><spring:message code='label.groupReport.search.animal' text='Animal Type' /></option>
 								<option value="group" ><spring:message code='label.groupReport.search.Grover' text='Grower' /></option>

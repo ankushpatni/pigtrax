@@ -33,7 +33,7 @@ public class SowReportDao {
 	
 	public List<SowReportBean> getSowList(final int sowId) {
 		
-		String query = "select PM.\"id\",PM.\"eventTime\", PM.\"id_PigInfo\",PI.\"id_Premise\",PI.\"id_Barn\",PI.\"id_Room\", "+
+		String query = "select PI.\"pigId\",PM.\"id\",PM.\"eventTime\", PM.\"id_PigInfo\",PI.\"id_Premise\",PI.\"id_Barn\",PI.\"id_Room\", "+
 				"PM.\"id_BreedingEvent\", BE.\"id_Premise\" as BE_PREMISES ,BE.\"id_Pen\" as BE_PEN,"+
 				" PM.\"id_PregnancyEvent\", PE.\"id_Premise\" as PE_PREMISES, "+
 				" PM.\"id_FarrowEvent\" , FE.\"id_Premise\" as FE_PREMISES , FE.\"id_Pen\" as FE_PEN,"+
@@ -101,6 +101,7 @@ public class SowReportDao {
 			sowReportBean.setPigletStatusRemarks(rs.getString("PSRemarks"));
 			sowReportBean.setRemovalRemarks(rs.getString("RESRemarks"));
 			sowReportBean.setSalesRemarks(rs.getString("SERemarks"));
+			sowReportBean.setPigId(rs.getString("pigId"));
 			return sowReportBean;
 		}
 	}

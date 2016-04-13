@@ -30,6 +30,7 @@ private String farrowEventRemarks;
 private String pigletStatusRemarks;
 private String removalRemarks;
 private String salesRemarks;
+private String PigId;
 
 public Integer getMasterEventId() {
 	return masterEventId;
@@ -189,6 +190,12 @@ public String getSalesRemarks() {
 }
 public void setSalesRemarks(String salesRemarks) {
 	this.salesRemarks = salesRemarks;
+}
+public String getPigId() {
+	return PigId;
+}
+public void setPigId(String pigId) {
+	PigId = pigId;
 }
 
 }

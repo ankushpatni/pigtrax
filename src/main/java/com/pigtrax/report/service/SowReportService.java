@@ -134,7 +134,7 @@ public class SowReportService {
 				int parityInt = 0;
 				for (SowReportBean SowReportBean : sowList) {
 					rowBuffer = new StringBuffer();
-						if(SowReportBean.getPigInfoId() != null)
+						if(SowReportBean.getPigId() != null)
 						{
 							rowBuffer.append(pidId + seprater);
 							rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
