@@ -96,7 +96,8 @@ public class PigletMortalityReportDao {
 					// +" LEFT JOIN pigtrax.\"PigletStatus\" PS1 ON FE.\"id\" = PS1.\"id_FarrowEvent\" AND PS1.\"id_PigletStatusEventType\" IN (1) "
 					 +" LEFT JOIN pigtrax.\"Pen\" P ON P.\"id\" = FE.\"id_Pen\" "
 					 +" LEFT JOIN pigtrax.\"Room\" R ON P.\"id_Room\" = R.\"id\" "
-					 +" LEFT JOIN pigtrax.\"PigInfo\" PI ON PI.\"id\" = FE.\"id_PigInfo\" where PI.\"entryDate\" <= '"+qryEndDate+"' and PI.\"entryDate\" >= '"+qryDate+"'  and PI.\"id_Premise\" ="+premisesId+" ";
+					 +" LEFT JOIN pigtrax.\"PigInfo\" PI ON PI.\"id\" = FE.\"id_PigInfo\" where " 
+					 + "PI.\"entryDate\" <= '"+qryEndDate+"' and PI.\"id_Premise\" ="+premisesId+" ";
 		if(roomId != null)
 				qry += " AND R.\"id\" = "+roomId;
 					 
