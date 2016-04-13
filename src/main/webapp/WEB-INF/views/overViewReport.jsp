@@ -17,7 +17,7 @@
 								{%>
 								
 					<div class="form-group col-sm-2 col-md-2">
-							<label><spring:message code='label.piginfo.overView.report.overView'  text='Company'/><span style='color: red'>*</span></label>
+							<label><spring:message code='label.employee.company'  text='Company'/><span style='color: red'>*</span></label>
 							<select  class="form-control"  name="selectedCompany" id="selectedCompany" ng-model="selectedCompany"  ng-change="loadPremises()">
 							<option value="" hidden><spring:message code='label.piginfo.Company.placeholder' text='Select Company' /></option>
 								<option ng-repeat="company in companyMapList" value="{{company.id}}" ng-value="company.id" ng-selected="selectedCompany == company.id" >{{company.name}}</option>
@@ -52,7 +52,7 @@
 					</div>
 					
 					<div class="form-group col-sm-2 col-md-2">
-						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label>
+						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/></label>
 						<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
 						<input type="text" name="startDate" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
 						<p class="color-danger" ng-show="startSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>		   
@@ -60,7 +60,7 @@
 					
 					<div class="form-group col-sm-2 col-md-2">
 					
-						<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/><span style='color: red'>*</span></label>
+						<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/></label>
 						<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
 						<input type="text" name="endDate" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true'/>
 						<p class="color-danger" ng-show="endSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>				
@@ -70,8 +70,8 @@
 						 <label><spring:message code='label.groupReport.search.animal' text='Animal Type' /><span style='color: red'>*</span></label>
 						 <select  class="form-control"  name="animalType" id="animalType" ng-model="animalType" >
 								<option value="" hidden><spring:message code='label.groupReport.search.animal' text='Animal Type' /></option>
-								<option value="group" ><spring:message code='label.groupReport.search.Grover' text='Grover' /></option>
-								<option value="pig" ><spring:message code='label.groupReport.search.Pig' text='Pig' /></option>
+								<option value="group" ><spring:message code='label.groupReport.search.Grover' text='Grower' /></option>
+								<option value="pig" ><spring:message code='label.groupReport.search.Pig' text='Sow' /></option>
 								<option value="piglet" ><spring:message code='label.groupReport.search.PigletStatus' text='Piglet Status' /></option>
 								</select>
 								<p class="color-danger" ng-show="animalSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>
