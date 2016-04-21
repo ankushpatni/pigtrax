@@ -36,7 +36,12 @@ public class LactationLengthDao {
 	{
 		List<LactationLengthBean> lactationLengthList = new ArrayList<LactationLengthBean>();
 		
-		String qry="SELECT "
+		String qry=" SELECT  T.\"cnt\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\" FROM  ( "+
+				 " select count(PS.\"id_PigInfo\") as cnt, current_date-FE.\"farrowDateTime\"::date as \"LactLength\", (SELECT count(\"id\") from pigtrax.\"PigInfo\" WHERE \"id_SexType\" = 2 and \"isActive\" is true aND \"id_Premise\" = ?) as \"totalCnt\"    from pigtrax.\"FarrowEvent\" FE "+
+				 " JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"eventDateTime\"::date between ? AND ?  AND PS.\"id_PigletStatusEventType\" = 3   "+
+				 " WHERE PS.\"id_Premise\" = ? "+
+				 " GROUP BY  FE.\"farrowDateTime\"::date) T order by T.\"LactLength\" ";
+				/*"SELECT "
 				+" T.\"cnt\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\", T.\"eventTime\" FROM " 
 				+" ( "
 				+" SELECT count(PEM.\"id\") as cnt, PEM.\"eventTime\"::date, current_date-PEM.\"eventTime\"::date as \"LactLength\", "
@@ -49,15 +54,15 @@ public class LactationLengthDao {
 				+" JOIN pigtrax.\"PigInfo\" PI ON PEM1.\"id_PigInfo\" = PI.\"id\" and PI.\"isActive\" is TRUE AND PI.\"id_Premise\" =? "
 				+" GROUP BY PEM1.\"id_PigInfo\") "
 				+ " AND PEM.\"id_FarrowEvent\" IS NOT NULL  AND FE.\"farrowDateTime\"::date between ? and ? "
-				+" GROUP BY PEM.\"eventTime\"::date,\"LactLength\" ) T order by T.\"LactLength\" ";
+				+" GROUP BY PEM.\"eventTime\"::date,\"LactLength\" ) T order by T.\"LactLength\" ";*/
 
 		lactationLengthList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, premiseId);
-				ps.setInt(2, premiseId);
-				ps.setDate(3, new java.sql.Date(startDate.getTime()));
-				ps.setDate(4, new java.sql.Date(endDate.getTime()));
+				ps.setInt(1, premiseId);				
+				ps.setDate(2, new java.sql.Date(startDate.getTime()));
+				ps.setDate(3, new java.sql.Date(endDate.getTime()));
+				ps.setInt(4, premiseId);
 			}}, new LactationLengthMapper());
 		
 		return lactationLengthList;
@@ -98,7 +103,7 @@ public class LactationLengthDao {
 			lactationLengthBean.setTotalPigCount(rs.getInt("totalCnt"));
 			lactationLengthBean.setLactationLength(rs.getInt("LactLength"));
 			lactationLengthBean.setPercentage(rs.getDouble("percentage"));
-			lactationLengthBean.setEventTime(rs.getDate("eventTime"));
+			//lactationLengthBean.setEventTime(rs.getDate("eventTime"));
 			
 			return lactationLengthBean;
 		}
