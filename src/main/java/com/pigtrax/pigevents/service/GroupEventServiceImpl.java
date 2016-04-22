@@ -100,6 +100,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 				{
 					List<RoomPK> roomIds = groupEventRoomDao.getGroupEventRooms(currentPhaseRecordId);
 					groupEvent.setRoomIds(roomIds);
+					groupEvent.setRoomId(roomIds.get(0).getId());
 				}
 				
 				
