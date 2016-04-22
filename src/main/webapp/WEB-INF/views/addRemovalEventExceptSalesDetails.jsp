@@ -119,10 +119,12 @@
                       <label ng-show="removalExceptSales.removalEventId==9"><spring:message code='label.piginfo.removalExceptSales.premiseIdFrom'  text='From Premise'/></label>
                       
                       <label >:{{premiseList[removalExceptSales.premiseId]}}</label>
-                      
                         <!-- <select ng-hide="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage || selectGroup=='pigInfo'" class="form-control" name="premiseId" id="premiseId" ng-model="removalExceptSales.premiseId"   
                          ng-options="k as v for (k, v) in premiseList"> </select>
                          <label ng-show="(removalExceptSales.id != null && removalExceptSales.id > 0) || entryEventSuccessMessage"> :  {{premiseList[removalExceptSales.premiseId]}}</label> -->                       
+                    </div>
+					<div class="form-group" ng-show="selectGroup==='group'">
+					  <label ng-show="removalExceptSales.removalEventId==9"><spring:message code='label.groupEvent.transfer.message'  text='Ankush'/></label>
                     </div>
                     <div class="form-group" ng-show="removalExceptSales.removalEventId==9">
                       <label><spring:message code='label.piginfo.removalExceptSales.premiseIdTo'  text='To Premise'/><span style='color: red'>*</span></label>                      

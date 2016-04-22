@@ -104,7 +104,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 			{
 				event = builder.convertToBean(pigletStatusEventDto);
 				//delete the records if present
-				deletePigletStatusEvent(pigletStatusEventDto);
+				//deletePigletStatusEvent(pigletStatusEventDto);
 		
 				logger.info("farrow event ids : "+event.getFarrowEventId()+"/"+event.getFosterFarrowEventId());
 				
