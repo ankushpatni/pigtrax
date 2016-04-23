@@ -80,32 +80,53 @@ public class ReportDownloadController {
 	
 	@RequestMapping(value = "/downloadTemplate", method = RequestMethod.GET)
 	public String downloadTemplate(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam("type") ValidTemplates templateType) {
+			@RequestParam("type") ValidTemplates templateType,@RequestParam("fileType") String fileType) {
 	
 		try{
 			
 			
 			String filePath = env.getProperty("upload.template.path") + File.separator;
-		    String fullFilename = filePath + "/" + templateType+".csv";
-	    	response.setContentType("text/plain");
+		    String fullFilename = filePath + "/" + templateType+"."+fileType;
+		     
 	    	if(templateType.toString().equalsIgnoreCase("RemovalEventExceptSalesEventGroup"))
-	    		response.setHeader("Content-disposition", "attachment;filename=Mortality&Adjustment-Group.csv");
+	    		response.setHeader("Content-disposition", "attachment;filename=Mortality&Adjustment-Group."+fileType);
 	    	else if(templateType.toString().equalsIgnoreCase("RemovalEventExceptSalesEventPig"))
-	    		response.setHeader("Content-disposition", "attachment;filename=Mortality&Adjustment-Pig.csv");
+	    		response.setHeader("Content-disposition", "attachment;filename=Mortality&Adjustment-Pig."+fileType);
 	    	else
-	    		response.setHeader("Content-disposition", "attachment;filename="+templateType+".csv");
-			BufferedReader  fileReader = new BufferedReader(new FileReader(fullFilename));
+	    		response.setHeader("Content-disposition", "attachment;filename="+templateType+"."+fileType);
 			ServletOutputStream out = response.getOutputStream();
 			String newLine = "\r\n";
 			
-			String line = "";
-			while((line = fileReader.readLine()) != null)
-			{
-				out.write(line.getBytes(), 0, line.getBytes().length);
-				out.write(newLine.getBytes(), 0, newLine.getBytes().length);
-			}
+			 if(fileType.equalsIgnoreCase("CSV"))
+			 {
+			    	response.setContentType("text/plain");
+			    	BufferedReader  fileReader = new BufferedReader(new FileReader(fullFilename));
+			    	String line = "";
+					while((line = fileReader.readLine()) != null)
+					{
+						out.write(line.getBytes(), 0, line.getBytes().length);
+						out.write(newLine.getBytes(), 0, newLine.getBytes().length);
+					}
+					fileReader.close();
+					
+			 }
+		    if(fileType.equalsIgnoreCase("xlsx"))
+		    {
+		    	response.setContentType("application/vnd.ms-excel");	
+		    	FileInputStream in = new FileInputStream(new File(fullFilename));
+
+		    	byte[] buffer= new byte[8192]; // use bigger if you want
+		    	int length = 0;
+
+		    	while ((length = in.read(buffer)) > 0){
+		    	     out.write(buffer, 0, length);
+		    	}
+		    	in.close();
+		    }
+			
+			
 	
-			fileReader.close();
+	
 			out.flush();
 			out.close();
 		}catch(Exception e)

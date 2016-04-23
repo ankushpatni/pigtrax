@@ -84,25 +84,54 @@
 								text='Upload' />
 						</button> 
 						
-						
 						<div class="form-group">
+						
+							<button type="button"  class="btn btn-edit btn-xs" ng-click="showCSVData()">
+							<span class="glyphicon" ></span><spring:message code="label.leftmenu.managepigevents.csv.link" text="Show CSV Template" /></a></button>
+							
+							<button type="button"  class="btn btn-edit btn-xs" ng-click="showXLSData()">
+							<span class="glyphicon" ></span><spring:message code="label.leftmenu.managepigevents.xls.link" text="Show XLS Template" /></a></button>
+						</div>
+						
+						
+						<div class="form-group" ng-show="showCSV">
 						
 						<h4>Download sample CSV templates</h4>
 						
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=EntryEvent"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=BreedingEvent"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=MatingDetails"><spring:message code="label.piginfo.matingdetailsform.matingDetails.heading" text="Mating Details"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PregnancyEvent"><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FarrowEvent"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PigletStatusEvent"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEvent"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEventDetails"><spring:message code="label.massupload.groupeventdetails" text="Group Event Details"/></a><br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=IndividualPigletEvent"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></br>						
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEventDetails">Feed Event Details</a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventGroup"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventGroup.link"  text="Mortality & adjustment - Group"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventPig"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventPig.link"  text="Mortality & adjustment - Pig"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventGroup"><spring:message code="label.leftmenu.managepigevents.SalesEventGroup.link"  text="Sales- Group"/></a></br>
-						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventPig"><spring:message code="label.leftmenu.managepigevents.SalesEventPig.link"  text="Sales- Pig"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=EntryEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=BreedingEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=MatingDetails&fileType=csv"><spring:message code="label.piginfo.matingdetailsform.matingDetails.heading" text="Mating Details"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PregnancyEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FarrowEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PigletStatusEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEventDetails&fileType=csv"><spring:message code="label.massupload.groupeventdetails" text="Group Event Details"/></a><br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=IndividualPigletEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></br>						
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEventDetails&fileType=csv">Feed Event Details</a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventGroup&fileType=csv"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventGroup.link"  text="Mortality & adjustment - Group"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventPig&fileType=csv"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventPig.link"  text="Mortality & adjustment - Pig"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventGroup&fileType=csv"><spring:message code="label.leftmenu.managepigevents.SalesEventGroup.link"  text="Sales- Group"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventPig&fileType=csv"><spring:message code="label.leftmenu.managepigevents.SalesEventPig.link"  text="Sales- Pig"/></a></br>
+						</div>
+						
+						<div class="form-group" ng-show="showXLS">
+						
+						<h4>Download sample XLS templates</h4>
+						
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=EntryEvent&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=BreedingEvent&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=MatingDetails&fileType=xlsx"><spring:message code="label.piginfo.matingdetailsform.matingDetails.heading" text="Mating Details"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PregnancyEvent&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.pregnancyevent.link"  text="Pregnancy Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FarrowEvent&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.farrowevent.link"  text="Farrow Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=PigletStatusEvent&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.pigletstatus.link"  text="Piglet Status Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEvent&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.groupEvent.link"  text="Group Event"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=GroupEventDetails&fileType=xlsx"><spring:message code="label.massupload.groupeventdetails" text="Group Event Details"/></a><br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=IndividualPigletEvent&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.individualpiglet.link"  text="Individual Piglet"/></a></br>						
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=FeedEventDetails&fileType=xlsx">Feed Event Details</a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventGroup&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventGroup.link"  text="Mortality & adjustment - Group"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=RemovalEventExceptSalesEventPig&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.removalEventExceptSalesEventPig.link"  text="Mortality & adjustment - Pig"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventGroup&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.SalesEventGroup.link"  text="Sales- Group"/></a></br>
+						<a href="<%=request.getContextPath()%>/downloadTemplate?type=SalesEventPig&fileType=xlsx"><spring:message code="label.leftmenu.managepigevents.SalesEventPig.link"  text="Sales- Pig"/></a></br>
 						</div>
 						
 					</div>					

@@ -34,5 +34,17 @@ pigTrax.controller('MassUploadController', function($scope,$rootScope, $http,$wi
 		});	
 	}
 	
+	$scope.showCSVData = function()
+	{
+		$scope.showCSV = true;
+		$scope.showXLS = false;
+	}
+	
+	$scope.showXLSData = function()
+	{
+		$scope.showCSV = false;
+		$scope.showXLS = true;		
+	}
+	
 	
 });
