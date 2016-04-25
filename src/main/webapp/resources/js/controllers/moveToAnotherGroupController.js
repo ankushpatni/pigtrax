@@ -110,7 +110,7 @@ pigTrax.controller('moveToAnotherGroupCtrl', function($scope, $http, $window, $m
 					"transferredPigWt" : $scope.moveGroupevent.weightInKgs,
 					"transferredFromGroupId" : $scope.moveToAnotherGroup.groupGeneratedIdSeq,
 					"transferredToGroupId" : $scope.moveGroupevent.id,
-					
+					"removalDateTime" : $moveToAnotherGroup.startDate,
 					
 				};				
 			

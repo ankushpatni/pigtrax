@@ -32,8 +32,15 @@ public class GroupEvent {
 	private Integer transferredToGroupId;
 	private String roomId;
 	private List<GroupEventPhaseChange> phaseChangeList;
+	private Date removalDateTime;
 	
 	
+	public Date getRemovalDateTime() {
+		return removalDateTime;
+	}
+	public void setRemovalDateTime(Date removalDateTime) {
+		this.removalDateTime = removalDateTime;
+	}
 	public Integer getCompanyId() {
 		return companyId;
 	}

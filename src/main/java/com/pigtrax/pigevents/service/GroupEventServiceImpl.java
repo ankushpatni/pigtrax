@@ -169,6 +169,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
 				}
 				GroupEventDetails groupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				groupEventDetails.setDateOfEntry(groupEvent.getRemovalDateTime());
 				if(null!=groupEventDetails)
 				{
 					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
@@ -237,6 +238,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
 				}
 				GroupEventDetails groupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				groupEventDetails.setDateOfEntry(groupEvent.getRemovalDateTime());
 				if(null!=groupEventDetails)
 				{
 					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
@@ -380,7 +382,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 					//Add a negative transaction for transfer
 					GroupEventDetails groupEventDetails = new GroupEventDetails();
 					groupEventDetails.setGroupId(currentGroup.getId());
-					groupEventDetails.setDateOfEntry(DateUtil.getToday());
+					groupEventDetails.setDateOfEntry(groupEvent.getRemovalDateTime());
 					groupEventDetails.setNumberOfPigs(-1*groupEvent.getTransferredPigNum());
 					groupEventDetails.setWeightInKgs(groupEvent.getTransferredPigWt());
 					groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
@@ -404,6 +406,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 				}
 				//Add new entries to the transferred group
 				GroupEventDetails newGroupEventDetails = getGroupeventDetailsFromgroupEvent(groupEvent);
+				newGroupEventDetails.setDateOfEntry(groupEvent.getRemovalDateTime());
 				if(null!=newGroupEventDetails)
 				{
 					groupEventDetailsDao.addGroupEventDetails(newGroupEventDetails);

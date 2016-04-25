@@ -372,6 +372,7 @@ $scope.removalEventTypeKeysValues = {};
 						moveToAnotherGroup.pigCount = groupEventObj.currentInventory;
 						moveToAnotherGroup.groupStartDateTime = groupEventObj.groupStartDateTime;
 						moveToAnotherGroup.premisesMap = $scope.premisesMap;
+						moveToAnotherGroup.startDate = $scope.removalExceptSales.removalDateTime;
 						return moveToAnotherGroup;
 					}
 				}
