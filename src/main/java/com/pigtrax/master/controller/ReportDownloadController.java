@@ -4,21 +4,19 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.OutputStream;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 @RestController
 public class ReportDownloadController {
@@ -84,9 +82,11 @@ public class ReportDownloadController {
 	
 		try{
 			
+			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+			String language = localeResolver.resolveLocale(request).getLanguage();
 			
 			String filePath = env.getProperty("upload.template.path") + File.separator;
-		    String fullFilename = filePath + "/" + templateType+"."+fileType;
+		    String fullFilename = filePath  +language+ File.separator+templateType+"."+fileType;
 		     
 	    	if(templateType.toString().equalsIgnoreCase("RemovalEventExceptSalesEventGroup"))
 	    		response.setHeader("Content-disposition", "attachment;filename=Mortality&Adjustment-Group."+fileType);
