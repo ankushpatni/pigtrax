@@ -38,7 +38,7 @@ public class InventoryStatusDao {
 				+" (SELECT BN.\"barnId\" , " 
 				+" CASE WHEN PEM.\"id_RemovalEventExceptSalesDetails\" > 0 THEN 'Transfer' ELSE "
 				+" CASE WHEN PEM.\"id_PigletStatus\" > 0 THEN  "
-				+ "  CASE WHEN PS.\"id_PigletStatusEventType\" = 2 THEN 'Transfer' ELSE CASE WHEN PS.\"id_PigletStatusEventType\" = 3 THEN 'Wean' ELSE CASE WHEN PS.\"id_PigletStatusEventType\" = 4 THEN 'Mortality' ELSE 'Foster In' END eND END "
+				+ "  CASE WHEN PS.\"id_PigletStatusEventType\" = 2 THEN 'Transfer' ELSE CASE WHEN PS.\"id_PigletStatusEventType\" = 3 THEN 'Wean' ELSE CASE WHEN PS.\"id_PigletStatusEventType\" = 4 THEN 'Farrow' ELSE 'Farrow' END eND END "
 				+" ELSE CASE WHEN PEM.\"id_FarrowEvent\" > 0 THEN 'Farrow' " 
 				+" ELSE  CASE WHEN PEM.\"id_PregnancyEvent\" > 0 THEN 'PregnancyEvent' "
 				+" ELSE CASE WHEN PEM.\"id_BreedingEvent\" > 0 THEN 'BreedingEvent' " 

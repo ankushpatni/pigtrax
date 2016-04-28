@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.rationform.topheading'  text='Rations'/> </h2>
+          <h2><spring:message code='label.leftmenu.managemasterdata.rartion.link'  text='Rations'/> </h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="RationController" ng-init="getFeedTypes()">

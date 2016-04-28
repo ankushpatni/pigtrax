@@ -20,7 +20,7 @@
 						<input class="form-control" type="text" placeholder="<spring:message code='label.transportDestination.city' text='City' />" name="city" ng-model="add.city" maxlength="100"  required-message="'<spring:message code='label.transportDestination.cityRequired' text='City is required' />'" />
 					</div>
 					<div class="form-group">
-						<label><spring:message code="label.transportDestination.state" text="State" /></label>
+						<label><spring:message code="label.premise.state" text="State" /></label>
 						<input class="form-control" type="text" placeholder="<spring:message code='state' text='State' />" name="state" ng-model="add.state" maxlength="100"   required-message="'<spring:message code='label.transportDestination.stateRequired' text='State is required' />'" />
 					</div>					
 					<div class="form-group">

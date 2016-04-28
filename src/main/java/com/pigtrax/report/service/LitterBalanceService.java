@@ -43,7 +43,12 @@ public class LitterBalanceService {
 					+messageSource.getMessage("label.piginfo.pigletstatuseventform.death", null, "", locale)+","+messageSource.getMessage("label.piginfo.pigletstatuseventform.foster", null, "", locale)+","
 					+messageSource.getMessage("label.piginfo.pigletstatuseventform.wean", null, "", locale)+","+messageSource.getMessage("label.leftmenu.reports.litterBalance", null, "", locale)+"\n");
 			
-			
+			ArrayList<String> returnRows1 = new ArrayList<String>();
+			int liveBornTotal = 0;
+			int deathTotal = 0 ;
+			int transferTotal = 0;
+			int weanTotal = 0 ;
+			int banalceTotal = 0;
 			for (LitterBalanceBean litterBalanceBean : litterBalanceList) {
 				rowBuffer = new StringBuffer();
 					rowBuffer.append(litterBalanceBean.getPigId() + seprater);
@@ -64,9 +69,18 @@ public class LitterBalanceService {
 					//rowBuffer.append(litterBalanceBean.getFosterInNum() + seprater);
 					rowBuffer.append(litterBalanceBean.getWean() + seprater);
 					rowBuffer.append(litterBalanceBean.getBalance());
-					returnRows.add(rowBuffer.toString()+"\n");
+					returnRows1.add(rowBuffer.toString()+"\n");
+					liveBornTotal  = liveBornTotal + litterBalanceBean.getLiveBorn();
+					deathTotal = deathTotal + litterBalanceBean.getDeath() ;
+					transferTotal = transferTotal + litterBalanceBean.getTransfer() ;
+					weanTotal = weanTotal + litterBalanceBean.getWean() ;
+					banalceTotal = banalceTotal + litterBalanceBean.getBalance();
 			}
-		}		
+			returnRows.add(messageSource.getMessage("label.piginfo.litterbalanceReport.netLitterBalance", null, "", locale)+",,,"+liveBornTotal+","+deathTotal+","+
+					transferTotal+","+weanTotal+","+banalceTotal+"\n");
+			returnRows.addAll(returnRows1);
+		}	
+		
 		return returnRows;
 	}
 

@@ -76,7 +76,7 @@ public class ActionListReportDao {
 			    +" CASE WHEN PEM.\"id_RemovalEventExceptSalesDetails\" > 0 THEN 'RemovalEvent' "
 			    +" ELSE "
 			    +" CASE WHEN PEM.\"id_PigletStatus\" > 0 THEN "
-			    + " CASE WHEN PS.\"id_PigletStatusEventType\" = 2 THEN 'Transfer' ELSE CASE WHEN PS.\"id_PigletStatusEventType\" = 3 THEN 'Wean' ELSE  CASE WHEN PS.\"id_PigletStatusEventType\" = 4 THEN 'Mortality' ELSE 'Foster In' END END END"
+			    + " CASE WHEN PS.\"id_PigletStatusEventType\" = 2 THEN 'Transfer' ELSE CASE WHEN PS.\"id_PigletStatusEventType\" = 3 THEN 'Wean' ELSE  CASE WHEN PS.\"id_PigletStatusEventType\" = 4 THEN 'Piglet Mortality' ELSE 'Foster In' END END END"
 			    +" ELSE "
 				+" CASE WHEN PEM.\"id_FarrowEvent\" > 0 THEN 'Farrow' " 
 				+" ELSE  CASE WHEN PEM.\"id_PregnancyEvent\" > 0 THEN 'PregnancyEvent' "
