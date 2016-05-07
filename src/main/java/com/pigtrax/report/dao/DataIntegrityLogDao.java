@@ -62,7 +62,7 @@ public class DataIntegrityLogDao {
 		final java.sql.Date end = new java.sql.Date(endDate.getTime());
 		
 		String qry = "select \"id\", \"eventType\", \"errorType\", \"eventDate\", \"errorDescription\" from pigtrax.\"DataIntegrityLog\""
-				+ " where \"eventDate\" between ? and ?";
+				+ " where \"eventDate\" between ? and ? order by \"eventDate\" desc";
 		
 		List<DataIntegrityLog> logList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override

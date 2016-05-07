@@ -150,9 +150,10 @@ public class ActionListReportDao {
 	
 	public Map<String, String> getActionListTargets(final Integer premiseId)
 	{
-		String qry = "select TT.\"fieldDescription\",coalesce(CT.\"targetValue\",'0') as \"targetValue\" from pigtraxrefdata.\"TargetType\" TT  LEFT JOIN pigtrax.\"CompanyTarget\" CT"
-				+ "   ON CT.\"id_TargetType\" = TT.\"id\" and  CT.\"id_Premise\" = ?   WHERE   TT.\"fieldDescription\" in "
-				+ "('Arrival to 1st serv interval','Avg gest','Avg weaning age','Wean to 1st service interval')";
+		String qry = "select TT.\"fieldCode\",coalesce(CT.\"targetValue\",'0') as \"targetValue\" from pigtraxrefdata.\"TargetType\" TT  LEFT JOIN pigtrax.\"CompanyTarget\" CT"
+				+ "   ON CT.\"id_TargetType\" = TT.\"id\" and  CT.\"id_Premise\" = ?   WHERE   TT.\"fieldCode\" in "
+				//+ "('Arrival to 1st serv interval','Ave Gestation Length','Avg weaning age','Wean to 1st service interval')";
+				+ "(15,24,68,18)";
 		@SuppressWarnings("unchecked")
 		Map<String, String> actionListReport = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -164,20 +165,20 @@ public class ActionListReportDao {
 			        HashMap<String,String> mapRet= new HashMap<String,String>();
 			        while(rs.next()){
 			        	
-			        	String fieldDesc = rs.getString("fieldDescription");
-			        	if("Arrival to 1st serv interval".equalsIgnoreCase(fieldDesc))
+			        	int fieldDesc = rs.getInt("fieldCode");
+			        	if(15 == fieldDesc)
 			        	{
 			        		mapRet.put("EntryEvent",rs.getString("targetValue"));
 			        	}
-			        	else if("Avg gest".equalsIgnoreCase(fieldDesc))
+			        	else if(24== fieldDesc)
 			        	{
 			        	    mapRet.put("BreedingEvent",rs.getString("targetValue"));
 			        	}
-			        	else if("Avg weaning age".equalsIgnoreCase(fieldDesc))
+			        	else if(68 == fieldDesc)
 			        	{
 			        		mapRet.put("Farrow",rs.getString("targetValue"));
 			        	}
-			        	else if("Wean to 1st service interval".equalsIgnoreCase(fieldDesc))
+			        	else if(18 == fieldDesc)
 			        	{
 			        		mapRet.put("Wean",rs.getString("targetValue"));
 			        	}

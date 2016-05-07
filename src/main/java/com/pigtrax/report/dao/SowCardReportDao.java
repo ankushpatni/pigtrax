@@ -37,7 +37,9 @@ public class SowCardReportDao {
 				 + " LAST_SERV.\"LastServDate\", BE.\"serviceStartDate\" as \"firstServiceDate\" from pigtrax.\"FarrowEvent\" FE "
 				 + "  join pigtrax.\"BreedingEvent\" BE ON FE.\"id_BreedingEvent\" = BE.\"id\"  "
 				 + "  left join pigtrax.\"PigletStatus\" PS ON PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 3 "
-				 + "  join (select \"id_BreedingEvent\" as \"serviceId\", count(*) as \"ServNo\" from pigtrax.\"MatingDetails\" group by \"id_BreedingEvent\") M ON M.\"serviceId\" = BE.\"id\" "
+				// + "  left join pigtrax.\"PigletStatus\" PSIN ON PSIN.\"id_PigInfo\" = FE.\"id\" and PSIN.\"id_PigletStatusEventType\" = 3 "
+				 // + "  join (select \"id_BreedingEvent\" as \"serviceId\", count(*) as \"ServNo\" from pigtrax.\"MatingDetails\" group by \"id_BreedingEvent\") M ON M.\"serviceId\" = BE.\"id\" "
+				 + "  join (select \"id\", count(*) as \"ServNo\" from pigtrax.\"BreedingEvent\" group by \"id\") M ON M.\"id\" = BE.\"id\" "
 				 + "  JOIN (select \"id_BreedingEvent\", \"matingDate\"  as \"LastServDate\" from  pigtrax.\"MatingDetails\" where \"id\" in (select max(\"id\") from pigtrax.\"MatingDetails\" group by \"id_BreedingEvent\")) LAST_SERV ON LAST_SERV.\"id_BreedingEvent\" = BE.\"id\" "
 				 + "  where FE.\"id_PigInfo\" = ? order by  FE.\"farrowDateTime\" ";
 

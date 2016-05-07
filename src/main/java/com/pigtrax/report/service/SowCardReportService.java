@@ -1,6 +1,7 @@
 package com.pigtrax.report.service;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class SowCardReportService {
 		sowCardServiceList.add(new StringBuffer("Number Of Services,"));
 		sowCardServiceList.add(new StringBuffer("First Service Date,"));
 		sowCardServiceList.add(new StringBuffer("Last Service Date,"));
+		sowCardServiceList.add(new StringBuffer("115 Farrow date,"));
 		
 		int counter = 0;
 		for(SowCardReportBean sowCardReportBean : sowCardList)
@@ -82,6 +84,13 @@ public class SowCardReportService {
 			sowCardServiceList.get(13).append(sowCardReportBean.getTotalService()).append(",");
 			sowCardServiceList.get(14).append(DateUtil.convertToFormatString(sowCardReportBean.getFirstServiceDate(),"dd/MM/yyyy")).append(",");
 			sowCardServiceList.get(15).append(DateUtil.convertToFormatString(sowCardReportBean.getLastServiceDate(),"dd/MM/yyyy")).append(",");
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(sowCardReportBean.getFirstServiceDate());
+			cal.add(Calendar.DATE, 115);
+			
+			
+			sowCardServiceList.get(16).append(DateUtil.convertToFormatString(cal.getTime(),"dd/MM/yyyy")).append(",");
 			counter++;
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block

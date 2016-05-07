@@ -34,18 +34,19 @@ public class DataIntegrityLogService {
 		if (logList != null && logList.size() > 0) {
 
 			StringBuffer rowBuffer = null;			
-			returnRows.add(messageSource.getMessage("label.reports.dataintegrity.datatable", null, "", locale)+","+messageSource.getMessage("label.reports.dataintegrity.errortype", null, "", locale)+","
-					+messageSource.getMessage("label.reports.dataintegrity.eventdate", null, "", locale)+","+messageSource.getMessage("label.reports.dataintegrity.errordescription", null, "", locale)+"\n");
+			returnRows.add(messageSource.getMessage("label.reports.dataintegrity.eventdate", null, "", locale)+","+messageSource.getMessage("label.reports.dataintegrity.datatable", null, "", locale)+","+messageSource.getMessage("label.reports.dataintegrity.errortype", null, "", locale)+","
+					+messageSource.getMessage("label.reports.dataintegrity.errordescription", null, "", locale)+"\n");
 			
 			for (DataIntegrityLog log : logList) {
 				rowBuffer = new StringBuffer();
+				try {
+					rowBuffer.append(DateUtil.convertToFormatString(log.getEventDate(),"dd/MM/yyyy") + seprater);
+				} catch (ParseException e) {
+					rowBuffer.append("" + seprater);
+				}
 					rowBuffer.append(log.getEventType() + seprater);
 					rowBuffer.append(log.getErrorType() + seprater);
-					try {
-						rowBuffer.append(DateUtil.convertToFormatString(log.getEventDate(),"dd/MM/yyyy") + seprater);
-					} catch (ParseException e) {
-						rowBuffer.append("" + seprater);
-					}
+					
 					rowBuffer.append(log.getErrorDescription());
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
