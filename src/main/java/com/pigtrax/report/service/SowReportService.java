@@ -18,6 +18,7 @@ import com.pigtrax.master.service.interfaces.BarnService;
 import com.pigtrax.master.service.interfaces.PenService;
 import com.pigtrax.master.service.interfaces.PremisesService;
 import com.pigtrax.master.service.interfaces.RoomService;
+import com.pigtrax.pigevents.beans.BreedingEvent;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.PigInfo;
 import com.pigtrax.pigevents.beans.PigletStatusEvent;
@@ -137,11 +138,13 @@ public class SowReportService {
 						if(SowReportBean.getPigInfoId() != null)
 						{
 							rowBuffer.append(SowReportBean.getPigId() + seprater);
-							rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
+							
 							if(SowReportBean.getBreedingEventId() != null && SowReportBean.getBreedingEventId()!=0 )
 							{
 								
-								parityInt = breedingEventDao.getParity(SowReportBean.getBreedingEventId());
+								BreedingEvent breedingEventInformation = breedingEventDao.getBreedingEventInformation(SowReportBean.getBreedingEventId());
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
+								parityInt = breedingEventInformation.getCurrentParity();
 								parityInt = parityInt - 1;
 								
 								rowBuffer.append("Breeding"+seprater);
@@ -168,7 +171,7 @@ public class SowReportService {
 							}
 							else if(SowReportBean.getPregnancyEventId() != null  && SowReportBean.getPregnancyEventId() !=0)
 							{
-								
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								PregnancyEventDto pregEvent = pregnancyEventService.getPregnancyEventInformation(SowReportBean.getPregnancyEventId(), language);
 								if(pregEvent != null)
 								{
@@ -188,7 +191,7 @@ public class SowReportService {
 							
 							else if(SowReportBean.getPigletStatusId()!= null  && SowReportBean.getPigletStatusId()!=0)
 							{
-								
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								PigletStatusEvent pigletStatusEventInformation = pigletStatusEventdao.getPigletStatusEventInformation(SowReportBean.getPigletStatusId());
 								
 								FarrowEventDto farrowEvent = farrowEventService.getFarrowEventDetails(pigletStatusEventInformation.getFarrowEventId())	;
@@ -238,7 +241,7 @@ public class SowReportService {
 							}
 							else if(SowReportBean.getFarrowEventId() != null  && SowReportBean.getFarrowEventId() !=0)
 							{
-								
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								FarrowEventDto farrowEvent = farrowEventService.getFarrowEventDetails(SowReportBean.getFarrowEventId())	;
 								if(farrowEvent != null)
 								{
@@ -280,6 +283,7 @@ public class SowReportService {
 							
 							else if(SowReportBean.getRemovalEventExceptSalesDetailsId()!= null && SowReportBean.getRemovalEventExceptSalesDetailsId()!=0 )
 							{
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								parityInt = farrowDao.getFarrowCount(SowReportBean.getPigInfoId());
 								
 								RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsId());
@@ -327,7 +331,7 @@ public class SowReportService {
 							
 							else if(SowReportBean.getSalesEventDetailsId() != null  && SowReportBean.getSalesEventDetailsId() !=0)
 							{
-								
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								parityInt = farrowDao.getFarrowCount(SowReportBean.getPigInfoId());
 								
 								rowBuffer.append("Sales"+seprater);
@@ -351,6 +355,7 @@ public class SowReportService {
 							}
 							else
 							{
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								rowBuffer.append("Entry"+seprater);
 								
 								if(SowReportBean.getPigInfoRoom() != null && SowReportBean.getPigInfoRoom()!=0)
