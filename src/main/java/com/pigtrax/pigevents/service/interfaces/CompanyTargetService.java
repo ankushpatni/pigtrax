@@ -3,6 +3,7 @@ package com.pigtrax.pigevents.service.interfaces;
 import java.util.List;
 
 import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.CompanyTarget;
 import com.pigtrax.pigevents.dto.CompanyTargetDto;
 
 public interface CompanyTargetService {
@@ -11,5 +12,7 @@ public interface CompanyTargetService {
    CompanyTargetDto saveCompanyTarget(CompanyTargetDto companyTargetDto) throws PigTraxException;
    
    List<CompanyTargetDto> deleteTargetDetails(CompanyTargetDto companyTargetDto) throws PigTraxException;
+
+CompanyTarget getCompanyTargetsByPremises(Integer premisesId) throws PigTraxException;
    
 }

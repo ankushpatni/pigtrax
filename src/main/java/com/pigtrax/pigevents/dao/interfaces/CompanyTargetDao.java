@@ -14,4 +14,6 @@ public interface CompanyTargetDao {
    int updateCompanyTarget(CompanyTarget companyTarget) throws SQLException;
    
    int deleteTargetDetails(Integer companyTargetId) throws SQLException;
+
+   CompanyTarget getCompanyTargetsByPremises(Integer premisesId) throws SQLException;
 }

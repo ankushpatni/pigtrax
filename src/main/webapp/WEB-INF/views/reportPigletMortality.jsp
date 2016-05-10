@@ -3,7 +3,7 @@
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
 	<h2><spring:message	code='label.generatePigletMortalityReport.heading'
-								text='Generate Piglet Mortality Report' /></h2>
+								text='Generate Piglet mortality tracking' /></h2>
 </div>
 <div class="cl-mcont" id="PigletMortalityReportControllerId" ng-controller="PigletMortalityReportController" ng-init="loadPremises('${CompanyId}','${REPORT_NO_DATA}')" class="container-fluid">
 <div class="row">
@@ -16,7 +16,7 @@
 						<h3>
 							<spring:message
 								code='label.generatePigletMortalityReport.heading'
-								text='Generate Piglet Mortality Report' />
+								text='Generate Piglet mortality tracking' />
 						</h3>
 						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
 						<p class="color-danger" ng-show="criteriaMessage"><spring:message code='label.report.search.criteria.errormessage' text='Please provide the mandatory criteria to generate the report'/></p>

@@ -117,4 +117,18 @@ public class CompanyTargetServiceImpl implements CompanyTargetService{
 		}
 		
 	}
+	
+	@Override
+	public CompanyTarget getCompanyTargetsByPremises(final Integer premisesId)  throws PigTraxException {
+	
+		try{
+			 return  companyTargetDao.getCompanyTargetsByPremises(premisesId);
+			
+		} catch(SQLException sqlEx)
+		{
+			throw new PigTraxException(sqlEx.getMessage(), sqlEx.getSQLState());
+		}
+		
+		
+	}
 }

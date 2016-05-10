@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
+import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.pigevents.beans.CompanyTarget;
+import com.pigtrax.pigevents.service.interfaces.CompanyTargetService;
 import com.pigtrax.report.dao.GestationReportDao;
 import com.pigtrax.util.DateUtil;
 
@@ -25,6 +28,9 @@ public class GestationReportService {
 	
 	@Autowired
 	MessageSource messageSource;
+	
+	@Autowired
+	CompanyTargetService companyTargetService;
 	
 	private static final Logger logger = Logger.getLogger(GestationReportService.class);
 	
@@ -42,6 +48,13 @@ public class GestationReportService {
 			cal.setTime(startDate);
 			cal.add(Calendar.DAY_OF_MONTH, 1);//add one day to the previous end date
 			startDate = cal.getTime();
+		}
+		CompanyTarget companyTargetsByPremises = null;
+		try {
+			companyTargetsByPremises = companyTargetService.getCompanyTargetsByPremises(premiseId);
+		} catch (PigTraxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		logger.info("Range List size"+rangeList.size());
@@ -85,10 +98,19 @@ public class GestationReportService {
 				} catch (ParseException e) {
 					rowBuffer.append(" ");
 				}	
-				rowBuffer.append(seprater);					
+				
+				rowBuffer.append(seprater);				
 				rowBuffer.append(mpRow.get("ServeWk") + seprater);
 				rowBuffer.append(mpRow.get("NumberServ") + seprater);
-				rowBuffer.append(gestationTarget + seprater);
+				//rowBuffer.append(gestationTarget + seprater);
+				if(DateUtil.isDateAfter((Date)mpRow.get("ServDateEND"),companyTargetsByPremises.getCompletionDate()))
+				{
+					rowBuffer.append(companyTargetsByPremises.getTargetValue()).append(seprater);	
+				}
+				else
+				{
+					rowBuffer.append(seprater);	
+				}
 				rowBuffer.append(((Integer)mpRow.get("NumberServ")- gestationTarget)+ seprater);
 				rowBuffer.append(mpRow.get("W1") + seprater);
 				rowBuffer.append(mpRow.get("W2") + seprater);

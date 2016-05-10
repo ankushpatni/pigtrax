@@ -247,7 +247,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	public BreedingEvent getBreedingEventInformation(final Integer breedingEventId)
 			throws SQLException {
 		String qry = "Select BE.\"id\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"serviceGroupId\","
-				+ " BE.\"serviceStartDate\", BE.\"id_Pen\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", BE.\"userUpdated\",BE.\"id_Premise\""
+				+ " BE.\"serviceStartDate\", BE.\"id_Pen\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", BE.\"userUpdated\",BE.\"id_Premise\", BE.\"currentParity\" "
 				+ " from pigtrax.\"BreedingEvent\" BE  where BE.\"id\" = ? ";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -277,6 +277,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			breedingEvent.setLastUpdated(rs.getDate("lastUpdated"));
 			breedingEvent.setUserUpdated(rs.getString("userUpdated"));
 			breedingEvent.setPremiseId(rs.getInt("id_Premise"));
+			breedingEvent.setCurrentParity(rs.getInt("currentParity"));
 			return breedingEvent;
 		}
 	}
@@ -339,7 +340,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 	@Override
 	public BreedingEvent getLatestServiceEvent(final Integer pigInfoId) {
 		String qry = "Select BE.\"id\", BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", BE.\"serviceGroupId\","
-				+ " BE.\"serviceStartDate\", BE.\"id_Pen\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", BE.\"userUpdated\", BE.\"id_Premise\""
+				+ " BE.\"serviceStartDate\", BE.\"id_Pen\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", BE.\"userUpdated\", BE.\"id_Premise\", BE.\"currentParity\" "
 				+ " from pigtrax.\"BreedingEvent\" BE  where BE.\"id_PigInfo\" = ? order by BE.\"id\" desc";
 		
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){

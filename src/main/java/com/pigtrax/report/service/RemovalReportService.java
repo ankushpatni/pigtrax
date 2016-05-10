@@ -39,7 +39,8 @@ public class RemovalReportService {
 		Map< String, StringBuffer> mortalityReasonCountMap = new LinkedHashMap<String, StringBuffer>();
 		Map< String, StringBuffer> mortalityReasonPercentageCountMap = new LinkedHashMap<String, StringBuffer>();
 		
-		mortalityReasonCountMap.put("Week", new StringBuffer("Week").append(seprater));
+		mortalityReasonCountMap.put("WeekStart", new StringBuffer("Week Start").append(seprater));
+		mortalityReasonCountMap.put("WeekEnd", new StringBuffer("Week End").append(seprater));
 		mortalityReasonCountMap.put("Unclassified", new StringBuffer("Unclassified").append(seprater));
 		mortalityReasonPercentageCountMap.put("Unclassified", new StringBuffer("Unclassified").append(seprater));
 		for (Map.Entry<Integer, String> entry : mortalityReasonTypeMap.entrySet())
@@ -77,24 +78,28 @@ public class RemovalReportService {
 			
 			List<RemovalReportBean> removalReportBeanList = null;
 			
-			StringBuffer weekReason = mortalityReasonCountMap.get("Week");
-			
-			
+			StringBuffer weekReason = mortalityReasonCountMap.get("WeekStart");
+			StringBuffer WeekEnd = mortalityReasonCountMap.get("WeekEnd");
+			Set<String> selectedMortality = new HashSet<String>();
+			selectedMortality.add("WeekStart");
+			selectedMortality.add("WeekEnd");
 			try 
 			{
-				weekReason.append(DateUtil.convertToFormatString((Date)map.get("ServDateSTART"), "dd/MM/yyyy") +"-"+ DateUtil.convertToFormatString((Date)map.get("ServDateEND"), "dd/MM/yyyy")).append(seprater);
-				mortalityReasonCountMap.put("Week",weekReason);
+				weekReason.append(DateUtil.convertToFormatString((Date)map.get("ServDateSTART"), "dd/MM/yyyy")).append(seprater);
+				WeekEnd.append(DateUtil.convertToFormatString((Date)map.get("ServDateEND"), "dd/MM/yyyy")).append(seprater);
+				mortalityReasonCountMap.put("WeekStart",weekReason);
+				mortalityReasonCountMap.put("WeekEnd",WeekEnd);
 			} 
 			catch (ParseException e) 
 			{
 				e.printStackTrace();
 			}
 			
-			if(animalType.equalsIgnoreCase("piglet"))
+			//if(animalType.equalsIgnoreCase("piglet"))
 			{
 				removalReportBeanList = removalReportDao.getRemovalMortalityReasonList(premiseId, startDateSql, endDateSql, animalType);
 			}
-			Set<String> selectedMortality = new HashSet<String>();
+			
 			if(removalReportBeanList != null && removalReportBeanList.size() >0)
 			{
 				for(RemovalReportBean removalReportBean : removalReportBeanList)
@@ -110,6 +115,16 @@ public class RemovalReportService {
 				mortalityReason.append(total).append(seprater);
 				mortalityReasonCountMap.put("Total", mortalityReason);
 				selectedMortality.add("Total");
+				
+				for (Map.Entry< String, StringBuffer> entry : mortalityReasonCountMap.entrySet())
+				{
+					if(!selectedMortality.contains(entry.getKey()))
+					{
+						StringBuffer mortalityReasonNon = mortalityReasonCountMap.get(entry.getKey());
+						mortalityReasonNon.append(seprater);
+						mortalityReasonCountMap.put(entry.getKey(), mortalityReasonNon);
+					}
+				}
 			}
 			else
 			{
@@ -135,6 +150,16 @@ public class RemovalReportService {
 					mortalityReasonPercentageCountMap.put(removalReportBean.getMortalityReason(), mortalityReason);
 				}
 				
+				for (Map.Entry< String, StringBuffer> entry : mortalityReasonPercentageCountMap.entrySet())
+				{
+					if(!selectedMortality.contains(entry.getKey()))
+					{
+						StringBuffer mortalityReason = mortalityReasonPercentageCountMap.get(entry.getKey());
+						mortalityReason.append(seprater);
+						mortalityReasonPercentageCountMap.put(entry.getKey(), mortalityReason);
+					}
+				}
+				
 			}
 			else
 			{
@@ -157,7 +182,7 @@ public class RemovalReportService {
 		{
 			returnRows.add(entry.getValue().toString()+"\n");
 			i++;
-			if(i==1)
+			if(i==2)
 			{
 				returnRows.add("Piglet Deaths \n");
 			}

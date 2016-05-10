@@ -217,7 +217,7 @@ public class GestationReportDao {
 		            return 0;
 		          }
 		        });
-			
+			/*
 			final String qry1 = "select sum(T.cnt) as removalCnt from (select count(RE.\"id_PigInfo\") as cnt from pigtrax.\"RemovalEventExceptSalesDetails\" RE where "
 					+ " \"id_PigInfo\" in ( select \"id_PigInfo\" from pigtrax.\"BreedingEvent\" where \"serviceStartDate\" between ? and ? and \"id_Premise\" = ? "
 					+" ) and \"removalDateTime\" between ? and ? "
@@ -254,7 +254,8 @@ public class GestationReportDao {
 			        });
 			
 			remainingCnt = sowCount - removalCnt;
-			weekCntMap.put(index, remainingCnt);
+			weekCntMap.put(index, remainingCnt);*/
+			weekCntMap.put(index, sowCount);
 		}
 		
 		return weekCntMap;
