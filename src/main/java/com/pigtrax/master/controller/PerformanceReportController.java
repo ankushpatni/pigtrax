@@ -389,7 +389,7 @@ public class PerformanceReportController {
 				totalBirthWeightList.add(totalBirthWeight);
 				litterWithAgeLessSevenList.add(litterWithAgeLessSeven);
 				totalPigsWeavnedList.add(totalPigsWeavened);
-				totalServicesList.add((float)piGIdFromBreeding/7);
+				totalServicesList.add((float)piGIdFromBreeding);
 				firstServiceList.add(firstServiceCount);
 				repeateServiceList.add(repeateServiceCount);
 				
@@ -611,7 +611,7 @@ public class PerformanceReportController {
 				int giltServiceCount = (Integer)valueList.get(64);
 				
 				giltServiceCountList.add(giltServiceCount);
-				percentageGiltServiceCountList.add((float)giltServiceCount/piGIdFromBreeding);
+				percentageGiltServiceCountList.add(((float)giltServiceCount/piGIdFromBreeding)*100);
 			
 					
 			}

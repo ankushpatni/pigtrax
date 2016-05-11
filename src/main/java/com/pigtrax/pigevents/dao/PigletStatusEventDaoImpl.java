@@ -1199,7 +1199,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	public Integer getSumOfDateDiffBetweenServiceAndEntryDate(final Date start,final Date end, final Integer companyId,Integer premisesId) {
 		
 		String qry = " select sum(DATE_PART('day', BE.\"serviceStartDate\"::timestamp - PI.\"entryDate\"::timestamp))  from "+ 
-		" pigtrax.\"PigInfo\" PI, pigtrax.\"BreedingEvent\" BE where PI.\"id\" = BE.\"id_PigInfo\" and PI.\"parity\" = 0 and " + 
+		" pigtrax.\"PigInfo\" PI, pigtrax.\"BreedingEvent\" BE where PI.\"id\" = BE.\"id_PigInfo\" and BE.\"currentParity\"-1 < 1 and " + 
 				" BE.\"serviceStartDate\" :: date between ? and ? and PI.\"id_Company\"=? ";
 		
 		
