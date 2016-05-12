@@ -704,8 +704,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	public Integer getCountPifIngoIdFromFarrowWithParityOneInPigInfo(final Date start,final Date end, final Integer companyId,Integer premisesId) {
 		
 		String qry = "SELECT count(PS.\"id_PigInfo\") FROM pigtrax.\"FarrowEvent\" PS " +
-				 " JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where PI.\"parity\" = 1 " +
-				" and PS.\"farrowDateTime\" >= ? and PS.\"farrowDateTime\" <= ? and PI.\"id_Company\" = ?";
+				 " JOIN pigtrax.\"BreedingEvent\" PI ON PS.\"id_BreedingEvent\" = PI.\"id\" where PI.\"currentParity\" = 1 " +
+				" and PS.\"farrowDateTime\" >= ? and PS.\"farrowDateTime\" <= ?";
 		
 		if(premisesId !=0)
 		{
@@ -717,7 +717,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setDate(1, start);
  				ps.setDate(2, end);
- 				ps.setInt(3, companyId);
+ 				//ps.setInt(3, companyId);
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -735,9 +735,9 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	@Override
 	public Integer getCountParityOfPigIngoIdFromFarrow(final Date start,final Date end, final Integer companyId,Integer premisesId) {
 		
-		String qry = "SELECT sum(PI.\"parity\") FROM pigtrax.\"PigInfo\" PI "+
-				 "JOIN pigtrax.\"FarrowEvent\" FE ON PI.\"id\" = FE.\"id_PigInfo\" "+
-				" and FE.\"farrowDateTime\" >= ? and  FE.\"farrowDateTime\" <= ? and PI.\"id_Company\" = ?"; 
+		String qry = "SELECT sum(PI.\"currentParity\") FROM pigtrax.\"BreedingEvent\" PI "+
+				 "JOIN pigtrax.\"FarrowEvent\" FE ON PI.\"id\" = FE.\"id_BreedingEvent\" "+
+				" and FE.\"farrowDateTime\" >= ? and  FE.\"farrowDateTime\" <= ?"; 
 		
 		if(premisesId !=0)
 		{
@@ -749,7 +749,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setDate(1, start);
  				ps.setDate(2, end);
- 				ps.setInt(3, companyId);
+ 				//ps.setInt(3, companyId);
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -767,8 +767,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	public Integer getSumOfDiffOfFerrowAndBreedingDate(final Date start,final Date end, final Integer companyId,Integer premisesId) {
 		
 		String qry =  "SELECT sum(DATE_PART('day', FE.\"farrowDateTime\"::timestamp - BE.\"serviceStartDate\"::timestamp )) FROM pigtrax.\"FarrowEvent\" FE " +
-		 " JOIN pigtrax.\"BreedingEvent\" BE ON FE.\"id_PigInfo\" = BE.\"id_PigInfo\" and FE.\"farrowDateTime\" >= ? and  FE.\"farrowDateTime\" <= ? " +
-				" and BE.\"serviceStartDate\" >= ? and BE.\"serviceStartDate\" <= ? ";
+		 " JOIN pigtrax.\"BreedingEvent\" BE ON FE.\"id_PigInfo\" = BE.\"id_PigInfo\" and FE.\"farrowDateTime\" >= ? and  FE.\"farrowDateTime\" <= ? " ;
+			//	" and BE.\"serviceStartDate\" >= ? and BE.\"serviceStartDate\" <= ? ";
 		
 		if(premisesId !=0)
 		{
@@ -780,8 +780,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setDate(1, start);
  				ps.setDate(2, end);
- 				ps.setDate(3, start);
- 				ps.setDate(4, end);
+ 				
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -893,7 +892,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		
 		String qry = "select count(PI.\"id\") from pigtrax.\"PigInfo\" PI "+
 					" JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id\" = BE.\"id_PigInfo\" "+ 
-				" where PI.\"parity\" = 0 and PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
+				" where BE.\"currentParity\"-1 < 1 and PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
 		
 		if(premisesId !=0)
 		{
@@ -922,9 +921,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	@Override
 	public Integer getCountOfRepeateService(final Date start,final Date end, final Integer companyId,Integer premisesId) {
 		
-		String qry = "select count(PI.\"id\") from pigtrax.\"PigInfo\" PI "+
-				" JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id\" = BE.\"id_PigInfo\" "+ 
-			" where PI.\"parity\" > 1 and PI.\"id_Company\" = ? and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
+		String qry = "select count(BE.\"id\") from pigtrax.\"BreedingEvent\" BE join pigtrax.\"BreedingEvent\" BE1 on BE1.\"id_PigInfo\" = BE.\"id_PigInfo\" "
+				+" and BE1.\"currentParity\"=BE.\"currentParity\" and BE.\"serviceStartDate\" >= ? and  BE.\"serviceStartDate\" <= ?";
 		
 		if(premisesId !=0)
 		{
@@ -934,9 +932,9 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
  			public void setValues(PreparedStatement ps) throws SQLException {
- 				ps.setInt(1, companyId);
- 				ps.setDate(2, start);
- 				ps.setDate(3, end);
+ 				//ps.setInt(1, companyId);
+ 				ps.setDate(1, start);
+ 				ps.setDate(2, end);
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -953,15 +951,17 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	@Override
 	public Integer getCountOfServiceWithMatingGreaterThanOne(final Date start,final Date end, final Integer companyId,Integer premisesId) {
 		
-		String qry = " select count(MD.\"id\"), BE.\"id\", BE.\"serviceStartDate\" from pigtrax.\"MatingDetails\" MD " +
+		String qry = " select count(BE.\"id\") from pigtrax.\"MatingDetails\" MD " +
 						" JOIN pigtrax.\"BreedingEvent\" BE on BE.\"id\" = MD.\"id_BreedingEvent\" "+ 	
 						" JOIN pigtrax.\"PigInfo\" PI ON BE.\"id_PigInfo\" = PI.\"id\"	" +
-						" where PI.\"id_Company\" = ?  and BE.\"serviceStartDate\" :: date between ? and ? group by BE.\"id\" 	having count(MD.\"id\") > 1";
+						" where PI.\"id_Company\" = ?  and BE.\"serviceStartDate\" :: date between ? and ? ";
 		
 		if(premisesId !=0)
 		{
 			qry = qry+ " and BE.\"id_Premise\" = " + premisesId;
 		}
+		
+		qry = qry+ " group by MD.\"id\" having count(MD.\"id\") > 1";
 	
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
@@ -1029,7 +1029,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 					 " JOIN pigtrax.\"BreedingEvent\" BE ON PI.\"id_PigInfo\" = BE.\"id_PigInfo\" "+
 					 " JOIN pigtrax.\"PigInfo\" PS ON BE.\"id_PigInfo\" = PS.\"id\"	" +
 					 " where DATE_PART('day', PI.\"eventDateTime\"::timestamp - BE.\"serviceStartDate\"::timestamp)<7 " +
-					 " and BE.\"serviceStartDate\" :: date between ? and ? and PI.\"eventDateTime\" :: date between ? and ? and PS.\"id_Company\" = ?";
+					 " and BE.\"serviceStartDate\" :: date between ? and ? and PI.\"eventDateTime\" :: date between ? and ? and PS.\"id_Company\" = ? and PI.\"id_PigletStatusEventType\" = ?" ;
 		
 		if(premisesId !=0)
 		{
@@ -1044,6 +1044,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  				ps.setDate(3, start);
  				ps.setDate(4, end);
  				ps.setInt(5, companyId);
+ 				ps.setInt(6, PigletStatusEventType.Wean.getTypeCode());
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
 						throws SQLException {
@@ -1138,12 +1139,17 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 	public Integer getPairtyOfServedFemals(final Date start,final Date end,
 			final Integer companyId,Integer premisesId) {
 		
-		String qry = " select sum(\"parity\") from pigtrax.\"PigInfo\" where \"id\" " + 
+		/*String qry = " select sum(\"parity\") from pigtrax.\"PigInfo\" where \"id\" " + 
 					" in (select \"id_PigInfo\" from pigtrax.\"BreedingEvent\" where \"serviceStartDate\" :: date between ? and ?) and \"id_Company\"=? ";
+		*/
+		
+		String qry = " select sum(BE.\"currentParity\"-1) from pigtrax.\"BreedingEvent\" BE join pigtrax.\"FarrowEvent\" FE on BE.\"id\" = FE.\"id_BreedingEvent\" where BE.\"serviceStartDate\" :: date between ? and ? and BE.\"currentParity\">0 ";
+	
+		
 		
 		if(premisesId !=0)
 		{
-			qry = qry+ " and \"id_Premise\" = " + premisesId;
+			qry = qry+ " and BE.\"id_Premise\" = " + premisesId;
 		}
 		
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -1151,7 +1157,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  			public void setValues(PreparedStatement ps) throws SQLException {
  				ps.setDate(1, start);
  				ps.setDate(2, end);
- 				ps.setInt(3, companyId);
+ 				//ps.setInt(3, companyId);
  				
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
@@ -2385,4 +2391,94 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 
 				return pigletStatusEventList.get(0);
 			}
+			
+			@Override
+			public Integer getNegativePregenancy(final Date startDate,
+					final Date endDate, final Integer companyId,final Integer premisesId)  {
+				String qry = " select count(*) from pigtrax.\"PregnancyEvent\" PE JOIN pigtrax.\"PigInfo\" PI ON PE.\"id_PigInfo\" = PI.\"id\" "
+							+ " where  PE.\"examDate\" :: date between ? and ? and PI.\"id_Company\" = ? and (PE.\"id_PregnancyEventType\" = 2 or PE.\"id_PregnancyEventType\" = 3) ";
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and PI.\"id_Premise\" = " + premisesId;
+				}
+
+				List<Integer> eventMasterList = jdbcTemplate.query(qry,
+						new PreparedStatementSetter() {
+							public void setValues(PreparedStatement ps)
+									throws SQLException {
+								ps.setDate(1, startDate);
+								ps.setDate(2, endDate);
+								ps.setInt(3, companyId);
+							}
+						}, new RowMapper<Integer>() {
+							public Integer mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								return rs.getInt(1);
+							}
+						});
+
+				return eventMasterList.get(0);
+			}
+			
+			@Override
+			public Integer getSowsWeaningZeroPig(final Date startDate,
+					final Date endDate, final Integer companyId,final Integer premisesId)  {
+				String qry =  "SELECT count(PS.\"id_PigInfo\") FROM pigtrax.\"PigletStatus\" PS "
+						+ "	JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" "
+						+ "	where PS.\"eventDateTime\" >= ? and  PS.\"eventDateTime\" <= ? and PI.\"id_Company\" = ? and PS.\"id_PigletStatusEventType\" = ? and PS.\"numberOfPigs\" =0 ";
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and PS.\"id_Premise\" = " + premisesId;
+				}
+				
+		 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+		 			@Override
+		 			public void setValues(PreparedStatement ps) throws SQLException {
+		 				ps.setDate(1, startDate);
+		 				ps.setDate(2, endDate);
+		 				ps.setInt(3, companyId);
+		 				ps.setInt(4, PigletStatusEventType.Wean.getTypeCode());
+		 				
+		 			}}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+
+				return pigletStatusEventList.get(0);
+			}
+			
+			@Override
+			public Integer getTotalPigsMortal(final Date startDate,
+					final Date endDate, final Integer companyId,final Integer premisesId)  {
+				String qry =  "SELECT sum(PS.\"numberOfPigs\") FROM pigtrax.\"PigletStatus\" PS "
+						+ "	JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" "
+						+ "	where PS.\"eventDateTime\" >= ? and  PS.\"eventDateTime\" <= ? and PI.\"id_Company\" = ? and PS.\"id_PigletStatusEventType\" = 4  ";
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and PS.\"id_Premise\" = " + premisesId;
+				}
+				
+		 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+		 			@Override
+		 			public void setValues(PreparedStatement ps) throws SQLException {
+		 				ps.setDate(1, startDate);
+		 				ps.setDate(2, endDate);
+		 				ps.setInt(3, companyId);
+		 				
+		 			}}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+
+				return pigletStatusEventList.get(0);
+			}
+			
+			
 }

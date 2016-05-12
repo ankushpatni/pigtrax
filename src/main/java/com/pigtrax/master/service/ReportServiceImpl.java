@@ -210,6 +210,8 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(pigletStatusEventDao.getLifetimeParity(start, end, companyId, premisesId)); // 63    Pigs Weaned/Lifetime
 				listValues.add(pigletStatusEventDao.getCountOfGiltService(start, end, companyId, premisesId));// 64 getCountOfGiltService
 				listValues.add(pigletStatusEventDao.getCountOfDifferentPiGIdFromBreeding(start, end, companyId, premisesId));// 65 getCountOfDifferentPiGIdFromBreeding
+				listValues.add(pigletStatusEventDao.getNegativePregenancy(start, end, companyId, premisesId));// 66 getNegativePregenancy
+				listValues.add(pigletStatusEventDao.getSowsWeaningZeroPig(start, end, companyId, premisesId));// 67 getSowsWeaningZeroPig
 					
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);
@@ -271,7 +273,7 @@ public class ReportServiceImpl implements ReportService{
 	
 	private int getTotalPigsMortal(Date start, Date end, int companyId,Integer premisesId)
 	{
-		return removalEventExceptSalesDetailsDao.getTotalPigsMortal(start, end, companyId,premisesId);
+		return pigletStatusEventDao.getTotalPigsMortal(start, end, companyId,premisesId);
 	}
 	
 	private int getPigletStatusEventsFerrowIdCountForWeavnAndDateRangeWithWeight(Date start, Date end, int companyId,Integer premisesId)

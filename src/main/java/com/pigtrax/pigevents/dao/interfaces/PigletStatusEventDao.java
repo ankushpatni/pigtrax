@@ -164,5 +164,11 @@ public interface PigletStatusEventDao {
 	Integer getCountOfGiltService(Date start, Date end, Integer companyId, Integer premisesId);
 
 	Integer getCountOfDifferentPiGIdFromBreeding(Date start, Date end, Integer companyId, Integer premisesId);
+
+	Integer getNegativePregenancy(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getSowsWeaningZeroPig(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+
+	Integer getTotalPigsMortal(Date startDate, Date endDate, Integer companyId, Integer premisesId);
 	
 }

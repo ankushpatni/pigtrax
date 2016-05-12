@@ -247,6 +247,7 @@ public class PerformanceReportController {
 		List<Float> avgParityList = new LinkedList<Float>();
 		List<Integer> littersFarrowedList = new LinkedList<Integer>();
 		List<Float> farrowingRateList = new LinkedList<Float>();
+		List<Float> percentageAdjFarrowingRate = new LinkedList<Float>();
 		
 		//Total services 1st services
 
@@ -351,7 +352,7 @@ public class PerformanceReportController {
 				int litterWithAgeLessSeven = (Integer)valueList.get(6);
 				int littersWeaned = (Integer)valueList.get(7);
 				int littersWeanedWithMoreThanTwalePigs = (Integer)valueList.get(8);
-				int sowsWeaningZeroPig = totalFerrow - littersWeaned ;
+				
 				int totalPigsWeavened = (Integer)valueList.get(9);
 				int totalLitterSWeanedFosterInOut = (Integer)valueList.get(10);
 				int totalPigsMortal = (Integer)valueList.get(11);
@@ -380,6 +381,8 @@ public class PerformanceReportController {
 				int getConceptionRateAtPresumedPregnantFor42 = (Integer)valueList.get(34);
 				int weaingAge = (Integer)valueList.get(35);
 				int countOfDifferentPiGIdFromBreeding = (Integer)valueList.get(65);
+				int countOfNegativePregnancyAndAbortion = (Integer)valueList.get(66);
+				int sowsWeaningZeroPig = (Integer)valueList.get(67);
 				
 						
 				totalBornList.add(totalBorn);
@@ -467,6 +470,7 @@ public class PerformanceReportController {
 				giltsFarrowedList.add(countPifIngoIdFromFarrowWithParityOneInPigInfo);
 				percentageGiltsFarrowedList.add((float)countPifIngoIdFromFarrowWithParityOneInPigInfo/piGIdFromFerrow);
 				farrowingRateList.add((float)piGIdFromFerrow/piGIdFromBreeding);
+				percentageAdjFarrowingRate.add((float)piGIdFromFerrow/(piGIdFromBreeding-countOfNegativePregnancyAndAbortion));
 				
 				percentageFirstServiceList.add(((float)firstServiceCount/piGIdFromBreeding));
 				percentageRepeateServiceList.add(((float)repeateServiceCount/piGIdFromBreeding));
@@ -739,6 +743,7 @@ public class PerformanceReportController {
 				
 				giltServiceCountList.add(0);
 				percentageGiltServiceCountList.add(0f);
+				percentageAdjFarrowingRate.add(0f);
 				
 			}
 			
@@ -987,7 +992,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer ferrowCapacityBuffer = new StringBuffer();
-		ferrowCapacityBuffer.append("% Ferrow Capacity,");
+		ferrowCapacityBuffer.append("% Farrow Capacity,");
 		for (int i = 0; i < size; i++) {
 			ferrowCapacityBuffer.append(ferrowCapacityList.get(i)).append(",");					
 		}
@@ -1051,8 +1056,8 @@ public class PerformanceReportController {
 		adjFarrowingRateListRateBuffer.append("% Adj farrowing rate,");
 		for(int i=0;i<size;i++)
 		{
-			//adjFarrowingRateListRateBuffer.append(farrowingRateList.get(i)).append(",");
-			adjFarrowingRateListRateBuffer.append(",");
+			adjFarrowingRateListRateBuffer.append(percentageAdjFarrowingRate.get(i)).append(",");
+			//adjFarrowingRateListRateBuffer.append(",");
 		}
 		
 		rows.add(adjFarrowingRateListRateBuffer.toString());
