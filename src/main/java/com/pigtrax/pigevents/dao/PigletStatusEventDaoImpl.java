@@ -1104,8 +1104,8 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		*/
 		String qry = " select sum(DATE_PART('day', PS.\"eventDateTime\"::timestamp - BE.\"serviceStartDate\"::timestamp))  from "+
 				" pigtrax.\"PigletStatus\" PS, pigtrax.\"BreedingEvent\" BE where PS.\"id_PigInfo\" = BE.\"id_PigInfo\" and "+ 
-				" BE.\"id_PigInfo\" in (Select \"id\" from pigtrax.\"PigInfo\" where \"parity\" = 1 and \"id_Company\"=?) and "+
-				" BE.\"serviceStartDate\" :: date between ? and ?"; 
+				" BE.\"id_PigInfo\" in (Select \"id\" from pigtrax.\"PigInfo\" where  \"id_Company\"=?) and "+
+				" PS.\"eventDateTime\" :: date between ? and ? and PS.\"id_PigletStatusEventType\" = ? and BE.\"currentParity\" = 1"; 
 		
 		if(premisesId !=0)
 		{
@@ -1119,6 +1119,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
  				ps.setInt(1, companyId);
  				ps.setDate(2, start);
  				ps.setDate(3, end);
+ 				ps.setInt(4, PigletStatusEventType.Wean.getTypeCode());
  				
  			}}, new RowMapper<Integer>() {
 				public Integer mapRow(ResultSet rs, int rowNum)
@@ -2336,6 +2337,38 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 							qry1 = qry1+ " and BE.\"id_Premise\" = " + premisesId;
 						}
 
+				
+		 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+		 			@Override
+		 			public void setValues(PreparedStatement ps) throws SQLException {
+		 				ps.setDate(1, start);
+		 				ps.setDate(2, end);
+		 				ps.setInt(3, companyId);
+		 			}}, new RowMapper<Integer>() {
+						public Integer mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getInt(1);
+						}
+					});
+
+				return pigletStatusEventList.get(0);
+			}
+			
+			
+			/**
+			 * To get the count of pigid from breeding
+			 */
+			@Override
+			public Integer getCountOfDifferentPiGIdFromBreeding(final Date start,final Date end, final Integer companyId,Integer premisesId) {
+				
+				String qry = "SELECT count(distinct(PS.\"id_PigInfo\")) FROM pigtrax.\"BreedingEvent\" PS " +
+						 " JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" where " +
+						" PS.\"serviceStartDate\" >= ? and PS.\"serviceStartDate\" <= ? and PI.\"id_Company\" = ?";
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and PS.\"id_Premise\" = " + premisesId;
+				}
 				
 		 		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 		 			@Override

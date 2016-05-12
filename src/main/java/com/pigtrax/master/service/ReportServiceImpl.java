@@ -209,6 +209,7 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(pigletStatusEventDao.getGiltEntered(start, end, companyId, premisesId));// 62 number of gilt entered during the time period
 				listValues.add(pigletStatusEventDao.getLifetimeParity(start, end, companyId, premisesId)); // 63    Pigs Weaned/Lifetime
 				listValues.add(pigletStatusEventDao.getCountOfGiltService(start, end, companyId, premisesId));// 64 getCountOfGiltService
+				listValues.add(pigletStatusEventDao.getCountOfDifferentPiGIdFromBreeding(start, end, companyId, premisesId));// 65 getCountOfDifferentPiGIdFromBreeding
 					
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);

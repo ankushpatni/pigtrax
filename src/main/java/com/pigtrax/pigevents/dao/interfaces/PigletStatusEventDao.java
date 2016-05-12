@@ -162,5 +162,7 @@ public interface PigletStatusEventDao {
 	Integer getNonProductiveSowDays(Date start, Date end, Integer companyId, Integer premisesId);
 
 	Integer getCountOfGiltService(Date start, Date end, Integer companyId, Integer premisesId);
+
+	Integer getCountOfDifferentPiGIdFromBreeding(Date start, Date end, Integer companyId, Integer premisesId);
 	
 }

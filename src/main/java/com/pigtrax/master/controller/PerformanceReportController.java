@@ -379,6 +379,7 @@ public class PerformanceReportController {
 				int getConceptionRateAtPresumedPregnantFor30 = (Integer)valueList.get(33);
 				int getConceptionRateAtPresumedPregnantFor42 = (Integer)valueList.get(34);
 				int weaingAge = (Integer)valueList.get(35);
+				int countOfDifferentPiGIdFromBreeding = (Integer)valueList.get(65);
 				
 						
 				totalBornList.add(totalBorn);
@@ -475,8 +476,8 @@ public class PerformanceReportController {
 				
 				weanSowsBredBy7DaysList.add(countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding);
 				percentageWeanSowsBredBy7DaysList.add((float)countOfPiGIdWithDateDifferenceLess7FromPigletStatusAndBreeding/countPigletWithEaventTypeWean);
-				weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/countPifIngoIdWithParityOneInPigInfo);
-				avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/piGIdFromBreeding);
+				weanTo1stServiceIntervalList.add((float)numberOfDaysBetweenWeanAndServiceDate/littersWeaned);
+				avgParityOfServedFemalesList.add((float)pairtyOfServedFemals/countOfDifferentPiGIdFromBreeding);
 				serviceCapacityList.add((float)piGIdFromBreeding/totalActivePenAvailable);
 				arrivalTo1stServIntervalList.add((float)arrivalTo1stServInterval/piGIdFromBreeding);
 				

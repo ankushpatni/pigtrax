@@ -178,7 +178,7 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 			throws SQLException {
 		String qry = "Select PI.\"id_Company\", BE.\"id\",BE.\"id_PigInfo\",BE.\"id_BreedingServiceType\", "
 				+ "BE.\"serviceGroupId\", BE.\"id_Pen\", BE.\"serviceStartDate\", BE.\"sowCondition\", BE.\"weightInKgs\", BE.\"lastUpdated\", "
-				+ "BE.\"userUpdated\",BE.\"id_Premise\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
+				+ "BE.\"userUpdated\",BE.\"id_Premise\",BE.\"currentParity\" from pigtrax.\"BreedingEvent\" BE join pigtrax.\"PigInfo\" PI on BE.\"id_PigInfo\" = PI.\"id\"  "
 				+ " where PI.\"pigId\" = ? and PI.\"id_Company\" = ? and PI.\"id_Premise\" = ? order by BE.\"id\" desc";
 		List<BreedingEvent> breedingEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
