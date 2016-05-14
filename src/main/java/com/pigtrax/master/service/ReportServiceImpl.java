@@ -150,7 +150,7 @@ public class ReportServiceImpl implements ReportService{
 				
 				
 				listValues.add(pigletStatusEventDao.getEndFemaleInventory(start, end, companyId, premisesId));//36  End Female Inventory
-				listValues.add(pigletStatusEventDao.getEndFemaleInventory(start, end, companyId, premisesId));//37  End Female Inventory
+				listValues.add(pigletStatusEventDao.getEndBoarInventory(start, end, companyId, premisesId));//37  End Boar Inventory
 				listValues.add(pigletStatusEventDao.getEndLactationInventory(start, end, companyId, premisesId)); // 38     End Lactation Inventory
 				listValues.add(pigletStatusEventDao.getEndGestationInventory(start, end, companyId, premisesId)); // 39 End Gestation Inventory
 				

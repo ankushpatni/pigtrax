@@ -1465,11 +1465,14 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			@Override
 			public Integer getEndLactationInventory(final Date startDate,
 					final Date endDate, final Integer companyId,final Integer premisesId)  {
+				int finalValue =0 ;
 				
-				String qry = " SELECT count(*) FROM (  SELECT ROW_NUMBER() OVER (PARTITION BY \"id_PigInfo\" ORDER BY \"id\" desc) AS rowNum, "
+				/*String qry = " SELECT count(*) FROM (  SELECT ROW_NUMBER() OVER (PARTITION BY \"id_PigInfo\" ORDER BY \"id\" desc) AS rowNum, "
 					   +" PEM.*  FROM  pigtrax.\"PigTraxEventMaster\" PEM) events JOIN pigtrax.\"PigInfo\" PI ON events.\"id_PigInfo\" = PI.\"id\""
 					  + " WHERE  events.rowNum = 1 and events.\"id_FarrowEvent\" is not null and events.\"id_PigletStatus\" is null and events.\"eventTime\" = ? and PI.\"id_Company\" = ? "; 
-							
+				*/	
+				
+				String qry = "select count(distinct(FE.\"id\")) from   pigtrax.\"FarrowEvent\" FE where FE.\"farrowDateTime\" < ? and FE.\"id_Premise\" = ? ";
 				
 				/*if(premisesId !=0)
 				{
@@ -1481,7 +1484,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 							public void setValues(PreparedStatement ps)
 									throws SQLException {
 								ps.setDate(1, endDate);
-								ps.setInt(2, companyId);
+								ps.setInt(2, premisesId);
 							}
 						}, new RowMapper<Integer>() {
 							public Integer mapRow(ResultSet rs, int rowNum)
@@ -1490,7 +1493,57 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 							}
 						});
 
-				return eventMasterList.get(0);
+				int farrowCount =  eventMasterList.get(0);
+				
+				
+				String qry1 = "select count(distinct(RESD.\"id\")) from   pigtrax.\"RemovalEventExceptSalesDetails\" RESD join pigtrax.\"PigInfo\" PI on PI.\"id\" = RESD.\"id_PigInfo\" where RESD.\"removalDateTime\" <= ? and RESD.\"id_Premise\" = ? and PI.\"parity\"=1";
+				
+				/*if(premisesId !=0)
+				{
+					qry = qry+ " and REESD.\"id_Premise\" = " + premisesId;
+				}
+*/
+				List<Integer> eventMasterList1 = jdbcTemplate.query(qry1,
+						new PreparedStatementSetter() {
+							public void setValues(PreparedStatement ps)
+									throws SQLException {
+								ps.setDate(1, endDate);
+								ps.setInt(2, premisesId);
+							}
+						}, new RowMapper<Integer>() {
+							public Integer mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								return rs.getInt(1);
+							}
+						});
+
+				int removal1 =  eventMasterList1.get(0);
+				
+				String qry2 = "select count(distinct(RESD.\"id\")) from   pigtrax.\"SalesEventDetails\" RESD join pigtrax.\"PigInfo\" PI on PI.\"id\" = RESD.\"id_PigInfo\" where RESD.\"salesDateTime\" <= ? and PI.\"id_Premise\" = ? and PI.\"parity\"=1 ";
+				
+				/*if(premisesId !=0)
+				{
+					qry = qry+ " and REESD.\"id_Premise\" = " + premisesId;
+				}
+*/
+				List<Integer> eventMasterList2 = jdbcTemplate.query(qry2,
+						new PreparedStatementSetter() {
+							public void setValues(PreparedStatement ps)
+									throws SQLException {
+								ps.setDate(1, endDate);
+								ps.setInt(2, premisesId);
+							}
+						}, new RowMapper<Integer>() {
+							public Integer mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								return rs.getInt(1);
+							}
+						});
+
+				int removal2 =  eventMasterList1.get(0);
+				
+				
+				return farrowCount-removal1-removal2;
 			}
 			
 	//    End Gestation Inventory
@@ -1499,22 +1552,20 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			public Integer getEndGestationInventory(final Date startDate,
 					final Date endDate, final Integer companyId,final Integer premisesId)  {
 				
-				String qry = " SELECT count(*) FROM (  SELECT ROW_NUMBER() OVER (PARTITION BY \"id_PigInfo\" ORDER BY \"id\" desc) AS rowNum, "
+				/*String qry = " SELECT count(*) FROM (  SELECT ROW_NUMBER() OVER (PARTITION BY \"id_PigInfo\" ORDER BY \"id\" desc) AS rowNum, "
 					   +" PEM.*  FROM  pigtrax.\"PigTraxEventMaster\" PEM) events JOIN pigtrax.\"PigInfo\" PI ON events.\"id_PigInfo\" = PI.\"id\" "
 					  + " WHERE  events.rowNum = 1 and events.\"id_BreedingEvent\" is not null and \"eventTime\" = ? and PI.\"id_Company\" = ? "; 
-							
+				*/
+				String qry = "select count(distinct(RESD.\"id\")) from   pigtrax.\"BreedingEvent\" RESD join pigtrax.\"PigInfo\" PI on PI.\"id\" = RESD.\"id_PigInfo\"  "
+						+"where RESD.\"serviceStartDate\" <= ? and RESD.\"id_Premise\" = ? ";
 				
-				/*if(premisesId !=0)
-				{
-					qry = qry+ " and REESD.\"id_Premise\" = " + premisesId;
-				}
-*/
+				
 				List<Integer> eventMasterList = jdbcTemplate.query(qry,
 						new PreparedStatementSetter() {
 							public void setValues(PreparedStatement ps)
 									throws SQLException {
 								ps.setDate(1, endDate);
-								ps.setInt(2, companyId);
+								ps.setInt(2, premisesId);
 							}
 						}, new RowMapper<Integer>() {
 							public Integer mapRow(ResultSet rs, int rowNum)
@@ -1534,18 +1585,13 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 				
 				String qry = " select sum(\"parity\") from pigtrax.\"PigInfo\" where \"id_SexType\" = 2 and \"isActive\" = true and \"entryDate\" <= ? and \"id_Company\" = ? ";
 							
-				
-				if(premisesId !=0)
-				{
-					qry = qry+ " and \"id_Premise\" = " + premisesId;
-				}
 
 				List<Integer> eventMasterList = jdbcTemplate.query(qry,
 						new PreparedStatementSetter() {
 							public void setValues(PreparedStatement ps)
 									throws SQLException {
 								ps.setDate(1, endDate);
-								ps.setInt(2, companyId);
+								ps.setInt(2, premisesId);
 							}
 						}, new RowMapper<Integer>() {
 							public Integer mapRow(ResultSet rs, int rowNum)

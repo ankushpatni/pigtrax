@@ -518,10 +518,10 @@ public class PerformanceReportController {
 				endBoarInventoryList.add(endBoarInventory);
 				
 				int endLactationInventory =  (Integer)valueList.get(38);
-				endLactationInventoryList.add((float)endFemaleInventor/endLactationInventory);
+				endLactationInventoryList.add((float)endLactationInventory);
 				
 				int endGestationInventory = (Integer)valueList.get(39);
-				endGestationInventoryList.add((float)endFemaleInventor/endGestationInventory);
+				endGestationInventoryList.add((float)endGestationInventory);
 				
 				int percentageSpaceCapacity = (Integer)valueList.get(40)+ (Integer)valueList.get(41);
 				percentageSpaceCapacityList.add((float)endFemaleInventor/percentageSpaceCapacity);
@@ -760,7 +760,7 @@ public class PerformanceReportController {
 		int size = dateList.size();		
 
 		StringBuffer dateBuffer = new StringBuffer();
-		dateBuffer.append("Calander Week,");
+		dateBuffer.append(messageSource.getMessage("label.report.performance.calendarweek", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			dateBuffer.append(dateList.get(i)).append(",");
@@ -1266,13 +1266,13 @@ public class PerformanceReportController {
 		
 		
 		rows.add("\n");
-		rows.add("Weaning Performance");
+		rows.add(messageSource.getMessage("label.report.performance.weaningperformance", null, "", local));
 		rows.add("\n");
-		rows.add("Gilts and Sows Weaned");
+		rows.add(messageSource.getMessage("label.report.performance.GiltsandSowsWeaned", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer totalPigsWeavnedBuffer = new StringBuffer();
-		totalPigsWeavnedBuffer.append("Total pigs weaned,");
+		totalPigsWeavnedBuffer.append(messageSource.getMessage("label.report.performance.Totalpigsweaned", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalPigsWeavnedBuffer.append(totalPigsWeavnedList.get(i)).append(",");					
 		}
@@ -1282,7 +1282,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer littersWeanedBuffer = new StringBuffer();
-		littersWeanedBuffer.append("Litters weaned,");
+		littersWeanedBuffer.append(messageSource.getMessage("label.report.performance.Littersweaned", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			littersWeanedBuffer.append(littersWeanedList.get(i)).append(",");					
 		}
