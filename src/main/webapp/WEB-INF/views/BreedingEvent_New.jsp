@@ -345,7 +345,7 @@
 			<table st-table="displayedCollection" st-safe-src="breedingEvent.matingDetailsList" class="table table-striped" style="background-color: LightGray">  
 				<thead style="background-color: #f7b781">
 					<tr>
-						<th style="width:20%"><spring:message code="label.matingdetailsform.matingDate" text="Mating Date" /></th>
+						<th style="width:20%"><spring:message code="label.piginfo.matingdetailsform.matingdate" text="Mating Date" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.employeeGroupId" text="Group Id" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.semenId" text="Semen Id" /></th>
 						<th style="width:20%"><spring:message code="label.matingdetailsform.semendate" text="Semen Date" /></th>
