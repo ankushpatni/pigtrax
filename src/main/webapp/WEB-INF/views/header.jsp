@@ -27,7 +27,7 @@
                 <li><a href="#">Messages</a></li>
                 <li><a href="resetPassword">Reset Password</a></li>
                 <li class="divider"></li>
-                <li><a href="j_spring_security_logout"><spring:message code="label.header.home.signOut"  text="Sign Out"/>Sign Out</a></li>
+                <li><a href="j_spring_security_logout"><spring:message code="label.header.home.signOut"  text="Sign Out"/></a></li>
               </ul>
             </li>
           </ul>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -121,6 +124,9 @@ public class PerformanceReportController {
 	@Autowired
 	SowCardReportService sowCardReportService;
 	
+	@Autowired
+	MessageSource messageSource;
+	
 	@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
 			try {
@@ -138,6 +144,7 @@ public class PerformanceReportController {
 				
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				String language = localeResolver.resolveLocale(request).getLanguage();
+				Locale local =  localeResolver.resolveLocale(request);
 				
 				PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				if(companyString != null && !StringUtils.isEmpty(companyString))
@@ -161,7 +168,7 @@ public class PerformanceReportController {
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
 		    
 				
-				ArrayList<String> rows = getFerrowReports(startDate, endDate, companyId, premiseId);
+				ArrayList<String> rows = getFerrowReports(startDate, endDate, companyId, premiseId,local);
 				
 				Iterator<String> iter = rows.iterator();
 				while (iter.hasNext()) {
@@ -177,7 +184,7 @@ public class PerformanceReportController {
 	}
 	
 	
-	private ArrayList<String> getFerrowReports(String startDate, String endDate, Integer companyId, Integer premisesId) {
+	private ArrayList<String> getFerrowReports(String startDate, String endDate, Integer companyId, Integer premisesId,Locale local) {
 		
 		Map map = reportService.getFerrowEventReport(startDate, endDate, companyId, premisesId);
 		System.out.println(map);
@@ -597,7 +604,7 @@ public class PerformanceReportController {
 				giltEnteredList.add(giltEntered);
 				
 				percentageGiltsSowInventoryList.add((float)giltEntered/endFemaleInventor);
-				percentageReplacementRateList.add((float)(sowsorGiltsTransferredIN/endFemaleInventor)*(365/7));
+				percentageReplacementRateList.add(((float)sowsorGiltsTransferredIN/endFemaleInventor)*(365/7));
 				
 				int  pigsWeanedLifetime = (Integer)valueList.get(63);	
 				
@@ -762,13 +769,13 @@ public class PerformanceReportController {
 		rows.add(dateBuffer.toString());
 		rows.add("\n");
 		
-		rows.add("Breeding Performance");
+		rows.add(messageSource.getMessage("label.report.performance.BreedingPerformance", null, "", local));
 		rows.add("\n");
-		rows.add("Gilts and Sows");
+		rows.add(messageSource.getMessage("label.report.performance.GiltsandSows", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer totalServicesBuffer = new StringBuffer();
-		totalServicesBuffer.append("Total services,");
+		totalServicesBuffer.append(messageSource.getMessage("label.report.performance.TotalServices", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			totalServicesBuffer.append(totalServicesList.get(i)).append(",");
@@ -806,7 +813,7 @@ public class PerformanceReportController {
 		
 
 		StringBuffer serviceCapacityListBuffer = new StringBuffer();
-		serviceCapacityListBuffer.append("% Service Capacity (Services/crate/year),");
+		serviceCapacityListBuffer.append(messageSource.getMessage("label.report.performance.%ServiceCapacity", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			serviceCapacityListBuffer.append(serviceCapacityList.get(i)).append(",");
@@ -816,7 +823,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer avgParityOfServedFemalesListBuffer = new StringBuffer(); // no calculation
-		avgParityOfServedFemalesListBuffer.append("Avg parity of served females").append(",");
+		avgParityOfServedFemalesListBuffer.append(messageSource.getMessage("label.report.performance.averageParityOfservedFemale", null, "Average Parity Of ServedFemale", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			avgParityOfServedFemalesListBuffer.append(avgParityOfServedFemalesList.get(i)).append(",");
@@ -825,7 +832,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer giltsServicedListBuffer = new StringBuffer(); //percentageFirstServiceGiltList
-		giltsServicedListBuffer.append("Gilts Serviced,");
+		giltsServicedListBuffer.append(messageSource.getMessage("label.report.performance.GiltsServiced", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			giltsServicedListBuffer.append(giltServiceCountList.get(i)).append(",");
@@ -835,7 +842,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer percentageFirstServiceGiltBuffer = new StringBuffer(); //percentageFirstServiceGiltList
-		percentageFirstServiceGiltBuffer.append("% 1st services: gilts,");
+		percentageFirstServiceGiltBuffer.append(messageSource.getMessage("label.report.performance.%1stServicesGilts", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			percentageFirstServiceGiltBuffer.append(percentageGiltServiceCountList.get(i)).append(",");
@@ -844,7 +851,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageFirstServiceSowsBuffer = new StringBuffer(); //percentageFirstServiceSowsList
-		percentageFirstServiceSowsBuffer.append("% 1st services: sows,");
+		percentageFirstServiceSowsBuffer.append(messageSource.getMessage("label.report.performance.%1stServicesSows", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			percentageFirstServiceSowsBuffer.append(percentageFirstServiceList.get(i)).append(",");
@@ -853,7 +860,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer breedingEventWithMatingMoreThanOneBuffer = new StringBuffer();
-		breedingEventWithMatingMoreThanOneBuffer.append("Services with >1 matings,");
+		breedingEventWithMatingMoreThanOneBuffer.append(messageSource.getMessage("label.report.performance.Serviceswith>1Matings", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			breedingEventWithMatingMoreThanOneBuffer.append(breedingEventWithMatingMoreThanOneList.get(i)).append(",");
@@ -863,7 +870,7 @@ public class PerformanceReportController {
 		
 			
 		StringBuffer percentageBreedingEventWithMatingMoreThanOneBuffer = new StringBuffer();
-		percentageBreedingEventWithMatingMoreThanOneBuffer.append("% Services with 1+ matings,");
+		percentageBreedingEventWithMatingMoreThanOneBuffer.append(messageSource.getMessage("label.report.performance.%Serviceswith1+Matings", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			percentageBreedingEventWithMatingMoreThanOneBuffer.append(percentageBreedingEventWithMatingMoreThanOneList.get(i)).append(",");
@@ -872,7 +879,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer countOfMatingPerServiceListBuffer = new StringBuffer();
-		countOfMatingPerServiceListBuffer.append("Matings per Service,");
+		countOfMatingPerServiceListBuffer.append(messageSource.getMessage("label.report.performance.MatingsperService", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			countOfMatingPerServiceListBuffer.append(countOfMatingPerServiceList.get(i)).append(",");
@@ -881,7 +888,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer repeateServiceBuffer = new StringBuffer();
-		repeateServiceBuffer.append("Total Repeat services,");
+		repeateServiceBuffer.append(messageSource.getMessage("label.report.performance.TotalRepeatServices", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			repeateServiceBuffer.append(repeateServiceList.get(i)).append(",");
@@ -891,7 +898,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageRepeateServiceBuffer = new StringBuffer();
-		percentageRepeateServiceBuffer.append("% Repeat services,");
+		percentageRepeateServiceBuffer.append(messageSource.getMessage("label.report.performance.%RepeatServices", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			percentageRepeateServiceBuffer.append(percentageRepeateServiceList.get(i)).append(",");
@@ -900,7 +907,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer conceptionRateAt30dPresumedPregnantListBuffer = new StringBuffer(); // no calculation
-		conceptionRateAt30dPresumedPregnantListBuffer.append("Conception rate at 30d Presumed Pregnant,");
+		conceptionRateAt30dPresumedPregnantListBuffer.append(messageSource.getMessage("label.report.performance.%Conceptionrateat30d", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			conceptionRateAt30dPresumedPregnantListBuffer.append(conceptionRateAt30dPresumedPregnantList.get(i)).append(",");
@@ -909,7 +916,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer conceptionRateAtDay42ListBuffer = new StringBuffer(); // no calculation
-		conceptionRateAtDay42ListBuffer.append("Conception rate at day42,");
+		conceptionRateAtDay42ListBuffer.append(messageSource.getMessage("label.report.performance.%Conceptionrateat42d", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			conceptionRateAtDay42ListBuffer.append(conceptionRateAtDay42List.get(i)).append(",");
@@ -918,7 +925,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer serviceToFalloutIntervalListBuffer = new StringBuffer();
-		serviceToFalloutIntervalListBuffer.append("Service to fallout interval,");
+		serviceToFalloutIntervalListBuffer.append(messageSource.getMessage("label.report.performance.ServicetoFalloutInterval", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			if(!serviceToFalloutIntervalList.isEmpty())
@@ -931,11 +938,11 @@ public class PerformanceReportController {
 	
 		rows.add("\n");
 		
-		rows.add("Gilts");
+		rows.add(messageSource.getMessage("label.report.performance.Gilts", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer arrivalTo1stServIntervalListBuffer = new StringBuffer();
-		arrivalTo1stServIntervalListBuffer.append("Arrival to 1st serv interval,");
+		arrivalTo1stServIntervalListBuffer.append(messageSource.getMessage("label.report.performance.Arrivalto1stServeInterval", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			arrivalTo1stServIntervalListBuffer.append(arrivalTo1stServIntervalList.get(i)).append(",");
@@ -944,11 +951,11 @@ public class PerformanceReportController {
 		rows.add("\n");
 		rows.add("\n");
 		
-		rows.add("Wean Sows");
+		rows.add(messageSource.getMessage("label.report.performance.WeanSows", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer weanSowsBredBy7DaysListBuffer = new StringBuffer();
-		weanSowsBredBy7DaysListBuffer.append("Wean sows bred by 7 days,");
+		weanSowsBredBy7DaysListBuffer.append(messageSource.getMessage("label.report.performance.WeanSowsBredby7days", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			weanSowsBredBy7DaysListBuffer.append(weanSowsBredBy7DaysList.get(i)).append(",");
@@ -957,7 +964,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageWeanSowsBredBy7DaysListBuffer = new StringBuffer();
-		percentageWeanSowsBredBy7DaysListBuffer.append("% Wean sows bred by 7 days,");
+		percentageWeanSowsBredBy7DaysListBuffer.append(messageSource.getMessage("label.report.performance.%WeanSowsBredby7days", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			percentageWeanSowsBredBy7DaysListBuffer.append(percentageWeanSowsBredBy7DaysList.get(i)).append(",");
@@ -968,7 +975,7 @@ public class PerformanceReportController {
 		//Wean to 1st service interval
 		
 		StringBuffer weanTo1stServiceIntervalListBuffer = new StringBuffer();
-		weanTo1stServiceIntervalListBuffer.append("Wean to 1st service interval,");
+		weanTo1stServiceIntervalListBuffer.append(messageSource.getMessage("label.report.performance.Weanto1stServiceInterval", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			weanTo1stServiceIntervalListBuffer.append(weanTo1stServiceIntervalList.get(i)).append(",");
@@ -977,13 +984,13 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		rows.add("\n");
-		rows.add("Farrowing Performance");
+		rows.add(messageSource.getMessage("label.report.performance.FarrowingPerformance", null, "", local));
 		rows.add("\n");
-		rows.add("Gilts and Sows");
+		rows.add(messageSource.getMessage("label.report.performance.GiltsandSows", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer littersFarrowedBuffer = new StringBuffer();
-		littersFarrowedBuffer.append("Total Litters farrowed,");
+		littersFarrowedBuffer.append(messageSource.getMessage("label.report.performance.TotalLittersFarrowed", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			littersFarrowedBuffer.append(littersFarrowedList.get(i)).append(",");
@@ -992,7 +999,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer ferrowCapacityBuffer = new StringBuffer();
-		ferrowCapacityBuffer.append("% Farrow Capacity,");
+		ferrowCapacityBuffer.append(messageSource.getMessage("label.report.performance.%FarrowCapacity", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			ferrowCapacityBuffer.append(ferrowCapacityList.get(i)).append(",");					
 		}
@@ -1000,7 +1007,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer avgParityBuffer = new StringBuffer();
-		avgParityBuffer.append("Ave Parity Farrowed,");
+		avgParityBuffer.append(messageSource.getMessage("label.report.performance.AveParityFarrowed", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			avgParityBuffer.append(avgParityList.get(i)).append(",");
@@ -1010,7 +1017,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer giltsFarrowedBuffer = new StringBuffer();
-		giltsFarrowedBuffer.append("Gilts farrowed,");
+		giltsFarrowedBuffer.append(messageSource.getMessage("label.report.performance.GiltsFarrowed", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			giltsFarrowedBuffer.append(giltsFarrowedList.get(i)).append(",");
@@ -1020,7 +1027,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageGiltsFarrowedListBuffer = new StringBuffer();
-		percentageGiltsFarrowedListBuffer.append("%Gilts farrowed,");
+		percentageGiltsFarrowedListBuffer.append(messageSource.getMessage("label.report.performance.%GiltsFarrowed", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			percentageGiltsFarrowedListBuffer.append(percentageGiltsFarrowedList.get(i)).append(",");
@@ -1031,7 +1038,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer avgGestlenBuffer = new StringBuffer();
-		avgGestlenBuffer.append("Ave Gestation Length,");
+		avgGestlenBuffer.append(messageSource.getMessage("label.report.performance.AveGestationLength", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			avgGestlenBuffer.append(avgGestlenList.get(i)).append(",");
@@ -1043,7 +1050,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer farrowingRateBuffer = new StringBuffer();
-		farrowingRateBuffer.append("% Farrowing rate,");
+		farrowingRateBuffer.append(messageSource.getMessage("label.report.performance.%FarrowingRate", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			farrowingRateBuffer.append(farrowingRateList.get(i)).append(",");
@@ -1053,7 +1060,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer adjFarrowingRateListRateBuffer = new StringBuffer();
-		adjFarrowingRateListRateBuffer.append("% Adj farrowing rate,");
+		adjFarrowingRateListRateBuffer.append(messageSource.getMessage("label.report.performance.%AdjFarrowingRate", null, "", local)).append(",");
 		for(int i=0;i<size;i++)
 		{
 			adjFarrowingRateListRateBuffer.append(percentageAdjFarrowingRate.get(i)).append(",");
@@ -1063,12 +1070,12 @@ public class PerformanceReportController {
 		rows.add(adjFarrowingRateListRateBuffer.toString());
 		rows.add("\n");
 		rows.add("\n");		
-		rows.add("Piglets");
+		rows.add(messageSource.getMessage("label.report.performance.Piglets", null, "", local));
 		rows.add("\n");
 		
 		
 		StringBuffer totalBornBuffer = new StringBuffer();
-		totalBornBuffer.append("Total Born,");
+		totalBornBuffer.append(messageSource.getMessage("label.report.performance.TotalTotalborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalBornBuffer.append(totalBornList.get(i)).append(",");					
 		}
@@ -1076,7 +1083,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer averageTotalBornBuffer = new StringBuffer();
-		averageTotalBornBuffer.append("Average Total Born,");
+		averageTotalBornBuffer.append(messageSource.getMessage("label.report.performance.AveTotalborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageTotalBornBuffer.append(averageTotalBornList.get(i)).append(",");					
 		}
@@ -1101,7 +1108,7 @@ public class PerformanceReportController {
 		rows.add("\n");	*/
 		
 		StringBuffer totalLiveBornBuffer = new StringBuffer();
-		totalLiveBornBuffer.append("Total Live Born,");
+		totalLiveBornBuffer.append(messageSource.getMessage("label.report.performance.TotalLiveborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalLiveBornBuffer.append(totalLiveBornList.get(i)).append(",");					
 		}
@@ -1109,7 +1116,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer averageLiveBornBuffer = new StringBuffer();
-		averageLiveBornBuffer.append("Average Live Born,");
+		averageLiveBornBuffer.append(messageSource.getMessage("label.report.performance.AveLiveborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageLiveBornBuffer.append(averageLiveBornList.get(i)).append(",");					
 		}
@@ -1117,7 +1124,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer totalDeathBuffer = new StringBuffer();
-		totalDeathBuffer.append("Total Death Born,");
+		totalDeathBuffer.append(messageSource.getMessage("label.report.performance.TotalDeadborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalDeathBuffer.append(totalDeathList.get(i)).append(",");					
 		}
@@ -1125,7 +1132,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer averageDeathBornBuffer = new StringBuffer();
-		averageDeathBornBuffer.append("Average Death Born,");
+		averageDeathBornBuffer.append(messageSource.getMessage("label.report.performance.AveDeadborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageDeathBornBuffer.append(averageDeadBornList.get(i)).append(",");					
 		}
@@ -1133,7 +1140,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageDeathBornBuffer = new StringBuffer();
-		percentageDeathBornBuffer.append("% Death Born,");
+		percentageDeathBornBuffer.append(messageSource.getMessage("label.report.performance.%Deadborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageDeathBornBuffer.append(percentageDeadBornList.get(i)).append(",");					
 		}
@@ -1141,7 +1148,7 @@ public class PerformanceReportController {
 		rows.add("\n");				
 		
 		StringBuffer totalStillBornBuffer = new StringBuffer();
-		totalStillBornBuffer.append("Total Still Born,");
+		totalStillBornBuffer.append(messageSource.getMessage("label.report.performance.TotalStillborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalStillBornBuffer.append(totalStillBornList.get(i)).append(",");					
 		}
@@ -1149,7 +1156,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer averageStillBornBuffer = new StringBuffer();
-		averageStillBornBuffer.append("Average Still Born,");
+		averageStillBornBuffer.append(messageSource.getMessage("label.report.performance.AveStillborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageStillBornBuffer.append(averageStillBornList.get(i)).append(",");					
 		}
@@ -1157,7 +1164,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageStillBornBuffer = new StringBuffer();
-		percentageStillBornBuffer.append("% Still Born,");
+		percentageStillBornBuffer.append(messageSource.getMessage("label.report.performance.%Stillborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageStillBornBuffer.append(percentageStillBornList.get(i)).append(",");					
 		}
@@ -1165,7 +1172,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer totalMummiesBuffer = new StringBuffer();
-		totalMummiesBuffer.append("Total Mummies Born,");
+		totalMummiesBuffer.append(messageSource.getMessage("label.report.performance.TotalMummies", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalMummiesBuffer.append(totalMummiesList.get(i)).append(",");					
 		}
@@ -1173,7 +1180,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer averageMummiesBornBuffer = new StringBuffer();
-		averageMummiesBornBuffer.append("Average Mummies Born,");
+		averageMummiesBornBuffer.append(messageSource.getMessage("label.report.performance.AveMummies", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageMummiesBornBuffer.append(averageMummiesList.get(i)).append(",");					
 		}
@@ -1181,7 +1188,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageMummiesBornBuffer = new StringBuffer();
-		percentageMummiesBornBuffer.append("% Mummies Born,");
+		percentageMummiesBornBuffer.append(messageSource.getMessage("label.report.performance.%Mummies", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageMummiesBornBuffer.append(percentageMummiesList.get(i)).append(",");					
 		}
@@ -1189,7 +1196,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer litterWithAgeLessSevenBuffer = new StringBuffer();
-		litterWithAgeLessSevenBuffer.append("Litter with age less 7,");
+		litterWithAgeLessSevenBuffer.append(messageSource.getMessage("label.report.performance.Litterswith<7Liveborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			litterWithAgeLessSevenBuffer.append(litterWithAgeLessSevenList.get(i)).append(",");					
 		}
@@ -1197,7 +1204,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageLitterWithAgeLessSevenBuffer = new StringBuffer();
-		percentageLitterWithAgeLessSevenBuffer.append("% Litter with age less 7, ");
+		percentageLitterWithAgeLessSevenBuffer.append(messageSource.getMessage("label.report.performance.%Litterswith<7Liveborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageLitterWithAgeLessSevenBuffer.append(percentageLitterWithAgeLessSevenList.get(i)).append(",");					
 		}
@@ -1205,7 +1212,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer totalWeakbornListBuffer = new StringBuffer();
-		totalWeakbornListBuffer.append("Total Weakborn, ");
+		totalWeakbornListBuffer.append(messageSource.getMessage("label.report.performance.TotalWeakborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalWeakbornListBuffer.append(totalWeakbornList.get(i)).append(",");					
 		}
@@ -1213,7 +1220,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer averageTotalWeakbornListBuffer = new StringBuffer();
-		averageTotalWeakbornListBuffer.append("Ave Weakborn, ");
+		averageTotalWeakbornListBuffer.append(messageSource.getMessage("label.report.performance.AveWeakborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageTotalWeakbornListBuffer.append(averageTotalWeakbornList.get(i)).append(",");					
 		}
@@ -1221,7 +1228,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer percentageWeakbornListBuffer = new StringBuffer();
-		percentageWeakbornListBuffer.append("% Weakborn , ");
+		percentageWeakbornListBuffer.append(messageSource.getMessage("label.report.performance.%WeakbornTotalborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageWeakbornListBuffer.append(percentageWeakbornList.get(i)).append(",");					
 		}
@@ -1237,7 +1244,7 @@ public class PerformanceReportController {
 		rows.add("\n");*/
 		
 		StringBuffer littersWithBirthWeightBuffer = new StringBuffer();
-		littersWithBirthWeightBuffer.append("Litters with birth weight,");
+		littersWithBirthWeightBuffer.append(messageSource.getMessage("label.report.performance.Litterswithbirthweight", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			littersWithBirthWeightBuffer.append(littersWithBirthWeightList.get(i)).append(",");					
 		}
@@ -1245,7 +1252,7 @@ public class PerformanceReportController {
 		rows.add("\n");
  
 		StringBuffer averageBirthWeightBuffer = new StringBuffer();
-		averageBirthWeightBuffer.append("Ave Litter Birth Weight,");
+		averageBirthWeightBuffer.append(messageSource.getMessage("label.report.performance.AveLitterBirthWeight", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageBirthWeightBuffer.append(averageBirthWeightList.get(i)).append(",");					
 		}
@@ -1283,7 +1290,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer weaningCapacityBuffer = new StringBuffer();
-		weaningCapacityBuffer.append("%Weaning Capacity,");
+		weaningCapacityBuffer.append(messageSource.getMessage("label.report.performance.%WeaningCapacity", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			weaningCapacityBuffer.append(weaningCapacityList.get(i)).append(",");					
 		}
@@ -1291,7 +1298,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer littersWeanedWithMoreThanTwalePigsBuffer = new StringBuffer();
-		littersWeanedWithMoreThanTwalePigsBuffer.append("Litters weaning 12+,");
+		littersWeanedWithMoreThanTwalePigsBuffer.append(messageSource.getMessage("label.report.performance.LittersWeaning12+piglets", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			littersWeanedWithMoreThanTwalePigsBuffer.append(littersWeanedWithMoreThanTwalePigsList.get(i)).append(",");					
 		}
@@ -1299,7 +1306,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageLittersWeanedWithMoreThanTwalePigsBuffer = new StringBuffer();
-		percentageLittersWeanedWithMoreThanTwalePigsBuffer.append("% Litters weaning 12+,");
+		percentageLittersWeanedWithMoreThanTwalePigsBuffer.append(messageSource.getMessage("label.report.performance.%LittersWeaning12+piglet", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageLittersWeanedWithMoreThanTwalePigsBuffer.append(percentageLittersWeanedWithMoreThanTwalePigsList.get(i)).append(",");					
 		}
@@ -1307,7 +1314,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer sowsWeaningZeroPigBuffer = new StringBuffer();
-		sowsWeaningZeroPigBuffer.append("Sows weaning 0 pig,");
+		sowsWeaningZeroPigBuffer.append(messageSource.getMessage("label.report.performance.SowsWeaning0piglets", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			sowsWeaningZeroPigBuffer.append(sowsWeaningZeroPigList.get(i)).append(",");					
 		}
@@ -1315,7 +1322,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageSowsWeaningZeroPigBuffer = new StringBuffer();
-		percentageSowsWeaningZeroPigBuffer.append("% Sows weaning 0 pigs,");
+		percentageSowsWeaningZeroPigBuffer.append(messageSource.getMessage("label.report.performance.%SowsWeaning0piglets", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageSowsWeaningZeroPigBuffer.append(percentageSowsWeaningZeroPigList.get(i)).append(",");					
 		}
@@ -1323,7 +1330,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer pigsWeaningDivideLitterWeanedBuffer = new StringBuffer();
-		pigsWeaningDivideLitterWeanedBuffer.append("Pigs weaned/litter weaned,");
+		pigsWeaningDivideLitterWeanedBuffer.append(messageSource.getMessage("label.report.performance.PigsWeaned/LitterWeaned", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			pigsWeaningDivideLitterWeanedBuffer.append(pigsWeaningDivideLitterWeanedList.get(i)).append(",");					
 		}
@@ -1332,7 +1339,7 @@ public class PerformanceReportController {
 		
 				
 		StringBuffer pigsWeaningDivideSowWeanedBuffer = new StringBuffer();
-		pigsWeaningDivideSowWeanedBuffer.append("Pigs weaned/sow weaned,");
+		pigsWeaningDivideSowWeanedBuffer.append(messageSource.getMessage("label.report.performance.PigsWeaned/SowWeaned", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			pigsWeaningDivideSowWeanedBuffer.append(pigsWeaningDivideSowWeanedList.get(i)).append(",");					
 		}
@@ -1341,7 +1348,7 @@ public class PerformanceReportController {
 		
 
 		StringBuffer pigsWeanedCrateYearBuffer = new StringBuffer();
-		pigsWeanedCrateYearBuffer.append("Pigs weaned/crate/year,");
+		pigsWeanedCrateYearBuffer.append(messageSource.getMessage("label.report.performance.PigsWeaned/Crate/Year", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			pigsWeanedCrateYearBuffer.append(pigsWeanedCrateYearList.get(i)).append(",");					
 		}
@@ -1360,11 +1367,11 @@ public class PerformanceReportController {
 		
 		
 		rows.add("\n");
-		rows.add("Piglets");
+		rows.add(messageSource.getMessage("label.report.performance.Piglets", null, "", local));
 		rows.add("\n");
 		//Pre-weaning Mortality
 		StringBuffer percentagePreWeaningMortalityBuffer = new StringBuffer();
-		percentagePreWeaningMortalityBuffer.append("(%)Pre-weaning Mortality,");
+		percentagePreWeaningMortalityBuffer.append(messageSource.getMessage("label.report.performance.%PreWeanMortality", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentagePreWeaningMortalityBuffer.append(percentagePreWeaningMortalityList.get(i)).append(",");					
 		}
@@ -1373,7 +1380,7 @@ public class PerformanceReportController {
 		
 		//Net foster
 		StringBuffer netFosterBuffer = new StringBuffer();
-		netFosterBuffer.append("Net foster,");
+		netFosterBuffer.append(messageSource.getMessage("label.report.performance.NetTransfer", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			netFosterBuffer.append(netFosterList.get(i)).append(",");					
 		}
@@ -1381,7 +1388,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer weainngWeightBuffer = new StringBuffer();
-		weainngWeightBuffer.append("Total weaning weight,");
+		weainngWeightBuffer.append(messageSource.getMessage("label.report.performance.%PigsWeaned-Totalborn", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			weainngWeightBuffer.append(weainngWeightList.get(i)).append(",");					
 		}
@@ -1389,7 +1396,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer littersWithWeaingWeightBuffer = new StringBuffer();
-		littersWithWeaingWeightBuffer.append("Litters with weaning weight,");
+		littersWithWeaingWeightBuffer.append(messageSource.getMessage("label.report.performance.TotalWeaningWeight", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			littersWithWeaingWeightBuffer.append(littersWithWeaingWeightList.get(i)).append(",");					
 		}
@@ -1404,7 +1411,7 @@ public class PerformanceReportController {
 	*/
 		
 		StringBuffer pigletsWithWeainngWeightBuffer = new StringBuffer();
-		pigletsWithWeainngWeightBuffer.append("Piglets with weaning weight,");
+		pigletsWithWeainngWeightBuffer.append(messageSource.getMessage("label.report.performance.LitterWeaningWeight", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			pigletsWithWeainngWeightBuffer.append(pigletsWithWeainngWeightList.get(i)).append(",");					
 		}
@@ -1422,7 +1429,7 @@ public class PerformanceReportController {
 		rows.add("\n");*/
 		
 		StringBuffer weaningWeightWithPigletsBuffer = new StringBuffer();
-		weaningWeightWithPigletsBuffer.append("Individual Weaning Weight,");
+		weaningWeightWithPigletsBuffer.append(messageSource.getMessage("label.report.performance.IndividualWeaningWeight", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			weaningWeightWithPigletsBuffer.append(weaningWeightWithPigletsList.get(i)).append(",");					
 		}
@@ -1430,7 +1437,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer averageWeaingAgeBuffer = new StringBuffer();
-		averageWeaingAgeBuffer.append("Avgerage weaning age,");
+		averageWeaingAgeBuffer.append(messageSource.getMessage("label.report.performance.AveWeaningAge", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			averageWeaingAgeBuffer.append(averageWeaingAgeList.get(i)).append(",");					
 		}
@@ -1438,7 +1445,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 	    
 		StringBuffer littersWeanedLessThan17DaysBuffer = new StringBuffer();
-		littersWeanedLessThan17DaysBuffer.append("Litters weaned less than 17 days,");
+		littersWeanedLessThan17DaysBuffer.append(messageSource.getMessage("label.report.performance.LittersWeaned<17days", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			littersWeanedLessThan17DaysBuffer.append(littersWeanedLessThan17DaysList.get(i)).append(",");					
 		}
@@ -1446,7 +1453,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageLittersWeanedLessThan17DaysBuffer = new StringBuffer();
-		percentageLittersWeanedLessThan17DaysBuffer.append("% Litters weaned less than 17 days,");
+		percentageLittersWeanedLessThan17DaysBuffer.append(messageSource.getMessage("label.report.performance.%LittersWeaned<17days", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageLittersWeanedLessThan17DaysBuffer.append(percentageLittersWeanedLessThan17DaysList.get(i)).append(",");					
 		}
@@ -1455,14 +1462,14 @@ public class PerformanceReportController {
 		
 		
 		rows.add("\n");
-		rows.add("Inventory status");
+		rows.add(messageSource.getMessage("label.report.performance.InventoryStatus", null, "", local));
 		rows.add("\n");
-		rows.add("Adult Herd Statistics");
+		rows.add(messageSource.getMessage("label.report.performance.HerdPopulationStatistics", null, "", local));
 		rows.add("\n");
 		
 		
 		StringBuffer endFemaleInventorListBuffer = new StringBuffer();
-		endFemaleInventorListBuffer.append("End Female Inventory,");
+		endFemaleInventorListBuffer.append(messageSource.getMessage("label.report.performance.EndFemaleInventory", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			endFemaleInventorListBuffer.append(endFemaleInventorList.get(i)).append(",");					
 		}
@@ -1470,7 +1477,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer endMatedFemaleInventoryListBuffer = new StringBuffer();
-		endMatedFemaleInventoryListBuffer.append("End Mated Female Inventory,");
+		endMatedFemaleInventoryListBuffer.append(messageSource.getMessage("label.report.performance.EndMatedFemaleInventory", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			endMatedFemaleInventoryListBuffer.append(endMatedFemaleInventoryList.get(i)).append(",");					
 		}
@@ -1478,7 +1485,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer endBoarInventoryListBuffer = new StringBuffer();
-		endBoarInventoryListBuffer.append("End Boar Inventory,");
+		endBoarInventoryListBuffer.append(messageSource.getMessage("label.report.performance.EndBoarInventory", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			endBoarInventoryListBuffer.append(endBoarInventoryList.get(i)).append(",");					
 		}
@@ -1486,7 +1493,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer endLactationInventoryListBuffer = new StringBuffer();
-		endLactationInventoryListBuffer.append("End Lactation Inventory,");
+		endLactationInventoryListBuffer.append(messageSource.getMessage("label.report.performance.EndLactationInventory", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			endLactationInventoryListBuffer.append(endLactationInventoryList.get(i)).append(",");					
 		}
@@ -1494,7 +1501,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer endGestationInventoryListBuffer = new StringBuffer();
-		endGestationInventoryListBuffer.append(" End Gestation Inventory,");
+		endGestationInventoryListBuffer.append(messageSource.getMessage("label.report.performance.EndGestationInventory", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			endGestationInventoryListBuffer.append(endGestationInventoryList.get(i)).append(",");					
 		}
@@ -1502,7 +1509,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageSpaceCapacityListBuffer = new StringBuffer();
-		percentageSpaceCapacityListBuffer.append("%Space Capacity,");
+		percentageSpaceCapacityListBuffer.append(messageSource.getMessage("label.report.performance.%SpaceCapacity", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageSpaceCapacityListBuffer.append(percentageSpaceCapacityList.get(i)).append(",");					
 		}
@@ -1510,7 +1517,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer aveFemaleInventoryPerCrateListBuffer = new StringBuffer();
-		aveFemaleInventoryPerCrateListBuffer.append(" Ave Female Inventory/Crate,");
+		aveFemaleInventoryPerCrateListBuffer.append(messageSource.getMessage("label.report.performance.AveFemaleInventory/Crate", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			aveFemaleInventoryPerCrateListBuffer.append(aveFemaleInventoryPerCrateList.get(i)).append(",");					
 		}
@@ -1518,7 +1525,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer aveParityOfEndInventoryListBuffer = new StringBuffer();
-		aveParityOfEndInventoryListBuffer.append("Ave Parity of End Inventory,");
+		aveParityOfEndInventoryListBuffer.append(messageSource.getMessage("label.report.performance.AveParityofEndInventory", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			aveParityOfEndInventoryListBuffer.append(aveParityOfEndInventoryList.get(i)).append(",");					
 		}
@@ -1526,7 +1533,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer femaleEnteredListBuffer = new StringBuffer();
-		femaleEnteredListBuffer.append("Female Entered,");
+		femaleEnteredListBuffer.append(messageSource.getMessage("label.report.performance.FemaleEntered", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			femaleEnteredListBuffer.append(femaleEnteredList.get(i)).append(",");					
 		}
@@ -1535,7 +1542,7 @@ public class PerformanceReportController {
 		
 			
 		StringBuffer sowsorGiltsTransferredINListBuffer = new StringBuffer();
-		sowsorGiltsTransferredINListBuffer.append(" Female Transfer IN,");
+		sowsorGiltsTransferredINListBuffer.append(messageSource.getMessage("label.report.performance.FemaleTransferIN", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			sowsorGiltsTransferredINListBuffer.append(sowsorGiltsTransferredINList.get(i)).append(",");					
 		}
@@ -1543,7 +1550,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer sowsorGiltsTransferredOutListBuffer = new StringBuffer();
-		sowsorGiltsTransferredOutListBuffer.append("Female Transfer OUT,");
+		sowsorGiltsTransferredOutListBuffer.append(messageSource.getMessage("label.report.performance.FemaleTransferOUT", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			sowsorGiltsTransferredOutListBuffer.append(sowsorGiltsTransferredOutList.get(i)).append(",");					
 		}
@@ -1551,7 +1558,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer giltEnteredListBuffer = new StringBuffer();
-		giltEnteredListBuffer.append("Gilts Entered,");
+		giltEnteredListBuffer.append(messageSource.getMessage("label.report.performance.GiltsEntered", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			giltEnteredListBuffer.append(giltEnteredList.get(i)).append(",");					
 		}
@@ -1559,7 +1566,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageGiltsSowInventoryListBuffer = new StringBuffer();
-		percentageGiltsSowInventoryListBuffer.append(" %Gilts - Sow Inventory,");
+		percentageGiltsSowInventoryListBuffer.append(messageSource.getMessage("label.report.performance.%Gilts-SowInventory", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageGiltsSowInventoryListBuffer.append(percentageGiltsSowInventoryList.get(i)).append(",");					
 		}
@@ -1567,7 +1574,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageReplacementRateListBuffer = new StringBuffer();
-		percentageReplacementRateListBuffer.append("%Replacement Rate,");
+		percentageReplacementRateListBuffer.append(messageSource.getMessage("label.report.performance.%ReplacementRate", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageReplacementRateListBuffer.append(percentageReplacementRateList.get(i)).append(",");					
 		}
@@ -1576,7 +1583,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer totalAbortionsListBuffer = new StringBuffer();
-		totalAbortionsListBuffer.append("Total Abortions,");
+		totalAbortionsListBuffer.append(messageSource.getMessage("label.report.performance.TotalAbortions", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalAbortionsListBuffer.append(totalAbortionsList.get(i)).append(",");					
 		}
@@ -1584,7 +1591,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageAbortions1000sowsListBuffer = new StringBuffer();
-		percentageAbortions1000sowsListBuffer.append("%Abortions 1000sows,");
+		percentageAbortions1000sowsListBuffer.append(messageSource.getMessage("label.report.performance.%Abortions1000sows", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageAbortions1000sowsListBuffer.append(percentageAbortions1000sowsList.get(i)).append(",");					
 		}
@@ -1592,7 +1599,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer abortionsNaturalListListBuffer = new StringBuffer();
-		abortionsNaturalListListBuffer.append("Abortions - Natural,");
+		abortionsNaturalListListBuffer.append(messageSource.getMessage("label.report.performance.Abortions-Natural", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			abortionsNaturalListListBuffer.append(abortionsNaturalList.get(i)).append(",");					
 		}
@@ -1600,7 +1607,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer abortionsInducedListBuffer = new StringBuffer();
-		abortionsInducedListBuffer.append("Abortions - Induced,");
+		abortionsInducedListBuffer.append(messageSource.getMessage("label.report.performance.Abortions-Induced", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			abortionsInducedListBuffer.append(abortionsInducedList.get(i)).append(",");					
 		}
@@ -1608,7 +1615,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer aveAbortionParityListBuffer = new StringBuffer();
-		aveAbortionParityListBuffer.append("Ave Abortion Parity,");
+		aveAbortionParityListBuffer.append(messageSource.getMessage("label.report.performance.AveAbortionParity", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			aveAbortionParityListBuffer.append(aveAbortionParityList.get(i)).append(",");					
 		}
@@ -1616,11 +1623,11 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		rows.add("\n");
-		rows.add("Culls");
+		rows.add(messageSource.getMessage("label.report.performance.Culls", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer totalFemalesCulledListBuffer = new StringBuffer();
-		totalFemalesCulledListBuffer.append("Total Females Culled,");
+		totalFemalesCulledListBuffer.append(messageSource.getMessage("label.report.performance.TotalFemalesCulled", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			femaleEnteredListBuffer.append(totalFemalesCulledList.get(i)).append(",");					
 		}
@@ -1628,7 +1635,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageCullingRateListBuffer = new StringBuffer();
-		percentageCullingRateListBuffer.append("%Culling Rate,");
+		percentageCullingRateListBuffer.append(messageSource.getMessage("label.report.performance.%CullingRate", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageCullingRateListBuffer.append(percentageCullingRateList.get(i)).append(",");					
 		}
@@ -1637,7 +1644,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer aveParityofCullsListBuffer = new StringBuffer();
-		aveParityofCullsListBuffer.append("Ave Parity of Culls,");
+		aveParityofCullsListBuffer.append(messageSource.getMessage("label.report.performance.AveParityofCulls", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			aveParityofCullsListBuffer.append(aveParityofCullsList.get(i)).append(",");					
 		}
@@ -1645,7 +1652,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer sowCulledListBuffer = new StringBuffer();
-		sowCulledListBuffer.append("Sows Culled,");
+		sowCulledListBuffer.append(messageSource.getMessage("label.report.performance.SowsCulled", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			sowCulledListBuffer.append(sowCulledList.get(i)).append(",");					
 		}
@@ -1653,7 +1660,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer giltsCulledListBuffer = new StringBuffer();
-		giltsCulledListBuffer.append("Gilts Culled,");
+		giltsCulledListBuffer.append(messageSource.getMessage("label.report.performance.GiltsCulled", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			giltsCulledListBuffer.append(giltsCulledList.get(i)).append(",");					
 		}
@@ -1661,11 +1668,11 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		rows.add("\n");
-		rows.add("  Deaths and Destroyed");
+		rows.add(messageSource.getMessage("label.report.performance.MortalityandEuthanasia", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer totalFemaleDeathsandDestroyedListBuffer = new StringBuffer();
-		totalFemaleDeathsandDestroyedListBuffer.append("Total Female Deaths and Destroyed,");
+		totalFemaleDeathsandDestroyedListBuffer.append(messageSource.getMessage("label.report.performance.TotalFemaleMortalityandEuthanasia", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalFemaleDeathsandDestroyedListBuffer.append(totalFemaleDeathsandDestroyedList.get(i)).append(",");					
 		}
@@ -1673,7 +1680,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer percentageSowMortalityListBuffer = new StringBuffer();
-		percentageSowMortalityListBuffer.append("%Sow Mortality,");
+		percentageSowMortalityListBuffer.append(messageSource.getMessage("label.report.performance.%SowMortality", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			percentageSowMortalityListBuffer.append(percentageSowMortalityList.get(i)).append(",");					
 		}
@@ -1681,7 +1688,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer aveParityofMortalityListBuffer = new StringBuffer();
-		aveParityofMortalityListBuffer.append("Ave Parity of Mortality,");
+		aveParityofMortalityListBuffer.append(messageSource.getMessage("label.report.performance.AveParityofMortality", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			aveParityofMortalityListBuffer.append(aveParityofMortalityList.get(i)).append(",");					
 		}
@@ -1689,7 +1696,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer giltDeathsListBuffer = new StringBuffer();
-		giltDeathsListBuffer.append("Gilt Deaths,");
+		giltDeathsListBuffer.append(messageSource.getMessage("label.report.performance.GiltDeaths", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			giltDeathsListBuffer.append(giltDeathsList.get(i)).append(",");					
 		}
@@ -1697,7 +1704,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer sowDeathsListBuffer = new StringBuffer();
-		sowDeathsListBuffer.append("Sow Deaths,");
+		sowDeathsListBuffer.append(messageSource.getMessage("label.report.performance.SowDeaths", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			sowDeathsListBuffer.append(sowDeathsList.get(i)).append(",");					
 		}
@@ -1705,7 +1712,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer totalFemalesDestroyedListBuffer = new StringBuffer();
-		totalFemalesDestroyedListBuffer.append(" Total Females Destroyed,");
+		totalFemalesDestroyedListBuffer.append(messageSource.getMessage("label.report.performance.TotalFemalesEuthanized", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			totalFemalesDestroyedListBuffer.append(totalFemalesDestroyedList.get(i)).append(",");					
 		}
@@ -1713,11 +1720,11 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		rows.add("\n");
-		rows.add("Boar Inventory");
+		rows.add(messageSource.getMessage("label.report.performance.BoarInventory", null, "", local));
 		rows.add("\n");
 		
 		StringBuffer boarEnteredListBuffer = new StringBuffer();
-		boarEnteredListBuffer.append(" Boar Entered,");
+		boarEnteredListBuffer.append(messageSource.getMessage("label.report.performance.BoarEntered", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			boarEnteredListBuffer.append(boarEnteredList.get(i)).append(",");					
 		}
@@ -1725,7 +1732,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer boarCulledListBuffer = new StringBuffer();
-		boarCulledListBuffer.append("Boar Culled,");
+		boarCulledListBuffer.append(messageSource.getMessage("label.report.performance.BoarCulled", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			boarCulledListBuffer.append(boarCulledList.get(i)).append(",");					
 		}
@@ -1733,7 +1740,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer boarDeathsandDestroyedListBuffer = new StringBuffer();
-		boarDeathsandDestroyedListBuffer.append("Boar Deaths and Destroyed,");
+		boarDeathsandDestroyedListBuffer.append(messageSource.getMessage("label.report.performance.BoarDeathsandDestroyed", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			boarDeathsandDestroyedListBuffer.append(boarDeathsandDestroyedList.get(i)).append(",");					
 		}
@@ -1746,7 +1753,7 @@ public class PerformanceReportController {
 		
 		
 		StringBuffer sowBoarRatioListBuffer = new StringBuffer();
-		sowBoarRatioListBuffer.append("Sow - Boar Ratio,");
+		sowBoarRatioListBuffer.append(messageSource.getMessage("label.report.performance.Sow-BoarRatio", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			sowBoarRatioListBuffer.append(sowBoarRatioList.get(i)).append(",");					
 		}
@@ -1754,7 +1761,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer littersFemaleYearListBuffer = new StringBuffer();
-		littersFemaleYearListBuffer.append("Litters/Female/Year,");
+		littersFemaleYearListBuffer.append(messageSource.getMessage("label.report.performance.Litters/Female/Year", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			littersFemaleYearListBuffer.append(littersFemaleYearList.get(i)).append(",");					
 		}
@@ -1762,7 +1769,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer littersMatedFemaleYearListBuffer = new StringBuffer();
-		littersMatedFemaleYearListBuffer.append("Litters/Mated Female/Year,");
+		littersMatedFemaleYearListBuffer.append(messageSource.getMessage("label.report.performance.Litters/MatedFemale/Year", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			littersMatedFemaleYearListBuffer.append(littersMatedFemaleYearList.get(i)).append(",");					
 		}
@@ -1770,7 +1777,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		StringBuffer pigsWeanedFemaleYearListBuffer = new StringBuffer();
-		pigsWeanedFemaleYearListBuffer.append("Pigs Weaned/Female/Year,");
+		pigsWeanedFemaleYearListBuffer.append(messageSource.getMessage("label.report.performance.PigsWeaned/Female/Yea", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			pigsWeanedFemaleYearListBuffer.append(pigsWeanedFemaleYearList.get(i)).append(",");					
 		}
@@ -1778,7 +1785,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer pigsWeanedMatedFemaleYearListBuffer = new StringBuffer();
-		pigsWeanedMatedFemaleYearListBuffer.append("Pigs Weaned/Mated Female/Year,");
+		pigsWeanedMatedFemaleYearListBuffer.append(messageSource.getMessage("label.report.performance.PigsWeaned/MatedFemale/Year", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			pigsWeanedMatedFemaleYearListBuffer.append(pigsWeanedMatedFemaleYearList.get(i)).append(",");					
 		}
@@ -1786,7 +1793,7 @@ public class PerformanceReportController {
 		rows.add("\n");	
 		
 		StringBuffer pigsWeanedLifetimeListBuffer = new StringBuffer();
-		pigsWeanedLifetimeListBuffer.append("Pigs Weaned/Lifetime,");
+		pigsWeanedLifetimeListBuffer.append(messageSource.getMessage("label.report.performance.PigsWeaned/Lifetime", null, "", local)).append(",");
 		for (int i = 0; i < size; i++) {
 			pigsWeanedLifetimeListBuffer.append(pigsWeanedLifetimeList.get(i)).append(",");					
 		}
