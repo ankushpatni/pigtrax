@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-	<h2><spring:message	code='label.dataExtractionReport.heading'
+	<h2><spring:message	code='label.leftmenu.reports.dataExtraction'
 								text='Generate Data Extraction Report' /></h2>
 </div>
 <div class="cl-mcont" id="dataIntegrityControllerId" ng-controller="DataExtractionReportController" ng-init = "loadPremises('${CompanyId}','${REPORT_NO_DATA}')" class="container-fluid">
@@ -14,7 +14,7 @@
 					<div class="head">						
 						<h3>
 							<spring:message
-								code='label.dataExtractionReport.heading'
+								code='label.leftmenu.reports.dataExtraction'
 								text='Generate Data Extraction Report' />
 						</h3>
 						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
