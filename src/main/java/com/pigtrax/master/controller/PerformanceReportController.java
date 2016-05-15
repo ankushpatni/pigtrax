@@ -1260,7 +1260,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		rows.add("\n");
-		rows.add("Litters with farrow & wean");
+		rows.add(messageSource.getMessage("label.report.performance.Litterswithfarrowwean", null, "", local));
 		rows.add("\n");
 		
 		
@@ -1748,7 +1748,7 @@ public class PerformanceReportController {
 		rows.add("\n");
 		
 		rows.add("\n");
-		rows.add("Sow Days Statistics");
+		rows.add(messageSource.getMessage("label.report.performance.SowDaysStatistics", null, "", local));
 		rows.add("\n");
 		
 		
