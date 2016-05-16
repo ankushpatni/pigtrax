@@ -1596,8 +1596,7 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 							public void setValues(PreparedStatement ps)
 									throws SQLException {
 								ps.setDate(1, endDate);
-								ps.setInt(2, companyId);
-								ps.setInt(3, premisesId);
+								ps.setInt(2, companyId);								
 							}
 						}, new RowMapper<Integer>() {
 							public Integer mapRow(ResultSet rs, int rowNum)

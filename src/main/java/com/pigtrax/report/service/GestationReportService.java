@@ -103,7 +103,7 @@ public class GestationReportService {
 				rowBuffer.append(mpRow.get("ServeWk") + seprater);
 				rowBuffer.append(mpRow.get("NumberServ") + seprater);
 				//rowBuffer.append(gestationTarget + seprater);
-				if(DateUtil.isDateAfter((Date)mpRow.get("ServDateEND"),companyTargetsByPremises.getCompletionDate()))
+				if(companyTargetsByPremises != null && DateUtil.isDateAfter((Date)mpRow.get("ServDateEND"),companyTargetsByPremises.getCompletionDate()))
 				{
 					rowBuffer.append(companyTargetsByPremises.getTargetValue()).append(seprater);	
 				}
