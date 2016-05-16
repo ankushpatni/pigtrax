@@ -161,12 +161,15 @@ public class LactationLengthReportService {
 				}
 				rowBean.setNumberOfPigs(rowBean.getNumberOfPigs()+bean.getNumberOfPigs());
 				rowBean.setTotalPigCount(bean.getTotalPigCount());
-				rowBean.setDayLabel(bean.getLactationLength() + " days");
+				rowBean.setLactationLength(bean.getLactationLength());
+				count = count + rowBean.getNumberOfPigs();
 				dataMap.put(bean.getLactationLength(), rowBean);
 			}
 			
 			
 			StringBuffer rowBuffer = null;
+			double totalPercentage = 0;
+			double weightedAvgOfLacationDays = 0;
 			
 			returnRows.add(messageSource.getMessage("label.reports.lactation.lactationdays", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.numberofsows", null, "", locale)+","
 					+messageSource.getMessage("label.reports.lactation.totalpercentage", null, "", locale)+"\n");
@@ -181,13 +184,18 @@ public class LactationLengthReportService {
 					if(lactationLengthBean.getNumberOfPigs() > 0)
 					{
 						rowBuffer = new StringBuffer();				
-						rowBuffer.append(lactationLengthBean.getDayLabel() + seprater);
+						rowBuffer.append(lactationLengthBean.getLactationLength()+ " days" + seprater);
 						rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
-						rowBuffer.append(lactationLengthBean.getPercentage() );
+						
+						totalPercentage = totalPercentage+((double)lactationLengthBean.getNumberOfPigs())/count;
+						weightedAvgOfLacationDays = weightedAvgOfLacationDays + (double)(lactationLengthBean.getNumberOfPigs()*lactationLengthBean.getLactationLength()/count);
+						rowBuffer.append(((double)(100*lactationLengthBean.getNumberOfPigs())/count) );
 						returnRows.add(rowBuffer.toString()+"\n");
 					}
 				}
 			}
+			
+			returnRows.add(weightedAvgOfLacationDays +","+count+","+totalPercentage);
 			
 			/*LactationLengthBean lactationLengthBean = dataMap.get("0");
 			if(lactationLengthBean != null)

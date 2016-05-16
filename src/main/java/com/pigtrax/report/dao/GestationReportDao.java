@@ -84,8 +84,12 @@ public class GestationReportDao {
 			Double FACapacity = 0D;
 			
 			if(penCount > 0 && farrowCnt > 0)
+			{
 				FACapacity = (double)(farrowCnt/penCount)*100;
 			row.put("FACapacity", FACapacity);
+			}
+			else
+				row.put("FACapacity", 0);
 		}
 		
 		return rangeList;

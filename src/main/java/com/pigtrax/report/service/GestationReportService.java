@@ -71,7 +71,7 @@ public class GestationReportService {
 			returnRows.add(messageSource.getMessage("label.reports.gestation.servdatestart", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.servdateend", null, "", locale)+","
 					+messageSource.getMessage("label.reports.gestation.servwk", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.numberserv", null, "", locale)+","
 					+messageSource.getMessage("label.reports.gestation.servtarget", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.servadj", null, "", locale)+","
-					+"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,"+messageSource.getMessage("label.piginfo.farroweventform.farrowEvent", null, "", locale)
+					+"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,"+messageSource.getMessage("label.piginfo.farroweventform.farrowEvent", null, "", locale)+","
 					+messageSource.getMessage("label.reports.gestation.percetfr", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.farrowdatestart", null, "", locale)+","
 					+messageSource.getMessage("label.reports.gestation.farrowwk", null, "", locale)+","+messageSource.getMessage("label.reports.gestation.facapacity", null, "", locale)+"\n");
 			

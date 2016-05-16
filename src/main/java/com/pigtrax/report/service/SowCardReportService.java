@@ -99,7 +99,7 @@ public class SowCardReportService {
 		}
 		for(StringBuffer stringBuffer : sowCardServiceList)
 		{
-			sowCardServiceListReturn.add(stringBuffer.toString()+"\n");
+			sowCardServiceListReturn.add(stringBuffer.toString());
 		}
 		
 		return sowCardServiceListReturn;
