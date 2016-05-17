@@ -78,6 +78,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 	
 	
 	@Override
+	@Transactional("ptxJTransactionManager")
 	public int saveFarrowEventInformation(FarrowEventDto farrowEventDto)
 			throws PigTraxException {
 		try{

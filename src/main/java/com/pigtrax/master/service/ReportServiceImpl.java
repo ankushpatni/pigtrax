@@ -144,7 +144,7 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(getSumOfDateDiffBetweenServiceAndEntryDate(start, end, companyId,premisesId));//30
 				listValues.add(pigletStatusEventDao.getTotalWeekBornPiglet(start, end, companyId, premisesId));//31
 				listValues.add(pigletStatusEventDao.getLittersWithWeightOfLiveBorn(start, end, companyId, premisesId));//32
-				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,30, premisesId));//33
+				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,28, premisesId));//33
 				listValues.add(pigletStatusEventDao.getConceptionRateAtPresumedPregnant(start, end, companyId,42, premisesId));//34
 				listValues.add(pigletStatusEventDao.getSumOfDiffOfFerrowAndWeanDate(start, end, companyId, premisesId));//35
 				

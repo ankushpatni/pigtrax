@@ -1331,27 +1331,23 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		public int getConceptionRateAtPresumedPregnant(final Date startDate,  final Date endDate,final Integer companyId, final Integer difference, final Integer premisesId)
 		{
 			
-			String qry = "select count(FE.\"id_PigInfo\") from pigtrax.\"FarrowEvent\" FE "
-					+"	JOIN pigtrax.\"BreedingEvent\" BE ON FE.\"id_PigInfo\" = BE.\"id_PigInfo\" "
-					+"	JOIN pigtrax.\"PregnancyEvent\" PE ON FE.\"id_PigInfo\" = PE.\"id_PigInfo\" "
-					+"	JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\"  "
-					+"	where DATE_PART('day', FE.\"farrowDateTime\"::timestamp - BE.\"serviceStartDate\"::timestamp) = ? "
-					+"	and FE.\"farrowDateTime\" :: date between ? and ? "
+			String qry = "select count(BE.\"id_PigInfo\") from pigtrax.\"BreedingEvent\" BE "
+					+"	JOIN pigtrax.\"PigInfo\" PI ON BE.\"id_PigInfo\" = PI.\"id\"  "
+					+"	where BE.\"serviceStartDate\" +interval '"+difference+"' between ? and ? "
 					+"	and PI.\"id_Company\" = ? ";
 			
 			if(premisesId !=0)
 			{
-				qry = qry+ " and FE.\"id_Premise\" = " + premisesId;
+				qry = qry+ " and BE.\"id_Premise\" = " + premisesId;
 			}
 			
 			List<Integer> eventMasterList = jdbcTemplate.query(qry,
 					new PreparedStatementSetter() {
 						public void setValues(PreparedStatement ps)
 								throws SQLException {
-							ps.setInt(1, difference);
-							ps.setInt(4, companyId);
-							ps.setDate(2, startDate);
-							ps.setDate(3, endDate);
+							ps.setInt(3, companyId);
+							ps.setDate(1, startDate);
+							ps.setDate(2, endDate);
 						}
 					}, new RowMapper<Integer>() {
 						public Integer mapRow(ResultSet rs, int rowNum)

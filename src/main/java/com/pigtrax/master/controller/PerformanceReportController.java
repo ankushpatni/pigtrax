@@ -501,8 +501,8 @@ public class PerformanceReportController {
 				percentageWeakbornList.add((float)totalWeakBorn/totalBorn);
 				
 				
-				conceptionRateAt30dPresumedPregnantList.add((float)getConceptionRateAtPresumedPregnantFor30/totalFerrow);
-				conceptionRateAtDay42List.add((float)getConceptionRateAtPresumedPregnantFor42/totalFerrow);
+				conceptionRateAt30dPresumedPregnantList.add((float)getConceptionRateAtPresumedPregnantFor30/piGIdFromBreeding);
+				conceptionRateAtDay42List.add((float)getConceptionRateAtPresumedPregnantFor42/piGIdFromBreeding);
 				averageWeaingAgeList.add((float)weaingAge/totalPigsWeavened);
 				pigsWeanedCrateYearList.add((float)totalPigsWeavened/totalActivePenAvailable);
 				weaningCapacityList.add((float)countPigletWithEaventTypeWean/totalActivePenAvailable);
