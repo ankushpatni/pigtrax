@@ -275,7 +275,7 @@ public class PerformanceReportController {
 		List<Float> conceptionRateAt30dPresumedPregnantList = new LinkedList<Float>();
 		List<Float> conceptionRateAtDay42List = new LinkedList<Float>();
 		List<Float> avgParityOfServedFemalesList = new LinkedList<Float>();
-		List<Integer> serviceToFalloutIntervalList = new LinkedList<Integer>();
+		List<Float> serviceToFalloutIntervalList = new LinkedList<Float>();
 		List<Float> serviceCapacityList = new LinkedList<Float>();
 		List<Float> arrivalTo1stServIntervalList = new LinkedList<Float>();
 		
@@ -624,6 +624,8 @@ public class PerformanceReportController {
 				
 				giltServiceCountList.add(giltServiceCount);
 				percentageGiltServiceCountList.add(((float)giltServiceCount/piGIdFromBreeding)*100);
+				
+				serviceToFalloutIntervalList.add((float)countOfNegativePregnancyAndAbortion/piGIdFromBreeding);
 			
 					
 			}
@@ -751,6 +753,7 @@ public class PerformanceReportController {
 				giltServiceCountList.add(0);
 				percentageGiltServiceCountList.add(0f);
 				percentageAdjFarrowingRate.add(0f);
+				serviceToFalloutIntervalList.add(0f);
 				
 			}
 			
