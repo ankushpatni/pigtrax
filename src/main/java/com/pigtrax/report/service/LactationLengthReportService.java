@@ -187,7 +187,7 @@ public class LactationLengthReportService {
 						rowBuffer.append(lactationLengthBean.getLactationLength()+ " days" + seprater);
 						rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
 						
-						totalPercentage = totalPercentage+((double)lactationLengthBean.getNumberOfPigs())/count;
+						totalPercentage = totalPercentage+((double)(100*lactationLengthBean.getNumberOfPigs()))/count;
 						weightedAvgOfLacationDays = weightedAvgOfLacationDays + (double)(lactationLengthBean.getNumberOfPigs()*lactationLengthBean.getLactationLength()/count);
 						rowBuffer.append(((double)(100*lactationLengthBean.getNumberOfPigs())/count) );
 						returnRows.add(rowBuffer.toString()+"\n");
