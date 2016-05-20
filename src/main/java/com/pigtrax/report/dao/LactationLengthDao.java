@@ -36,13 +36,13 @@ public class LactationLengthDao {
 	{
 		List<LactationLengthBean> lactationLengthList = new ArrayList<LactationLengthBean>();
 		
-		String qry=" SELECT  T.\"cnt\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\" FROM  ( "+
+		/*String qry=" SELECT  T.\"cnt\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\" FROM  ( "+
 				 " select count(PS.\"id_PigInfo\") as cnt, (select PS.\"eventDateTime\"::date  from pigtrax.\"PigletStatus\" PS   JOIN pigtrax.\"FarrowEvent\" FE ON  PS.\"id_FarrowEvent\" = FE.\"id\" "+
 				 " AND PS.\"eventDateTime\"::date between ? AND ? AND PS.\"id_PigletStatusEventType\" = 3 " +   
 				 " WHERE PS.\"id_Premise\" = ?)-FE.\"farrowDateTime\"::date as \"LactLength\", (SELECT count(\"id\") from pigtrax.\"PigInfo\" WHERE \"id_SexType\" = 2 and \"isActive\" is true aND \"id_Premise\" = ?) as \"totalCnt\"    from pigtrax.\"FarrowEvent\" FE "+
 				 " JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"eventDateTime\"::date between ? AND ?  AND PS.\"id_PigletStatusEventType\" = 3   "+
 				 " WHERE PS.\"id_Premise\" = ? "+
-				 " GROUP BY  FE.\"farrowDateTime\"::date) T order by T.\"LactLength\" ";
+				 " GROUP BY  FE.\"farrowDateTime\"::date) T order by T.\"LactLength\" ";*/
 				/*"SELECT "
 				+" T.\"cnt\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\", T.\"eventTime\" FROM " 
 				+" ( "
@@ -57,18 +57,21 @@ public class LactationLengthDao {
 				+" GROUP BY PEM1.\"id_PigInfo\") "
 				+ " AND PEM.\"id_FarrowEvent\" IS NOT NULL  AND FE.\"farrowDateTime\"::date between ? and ? "
 				+" GROUP BY PEM.\"eventTime\"::date,\"LactLength\" ) T order by T.\"LactLength\" ";*/
+		
+		String qry=" SELECT  T.\"cnt\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\" FROM  ( "+
+				 " select count(PS.\"id_PigInfo\") as cnt, PS.\"eventDateTime\"::date -FE.\"farrowDateTime\"::date as \"LactLength\", (SELECT count(\"id\") from pigtrax.\"PigInfo\" WHERE \"id_SexType\" = 2 and \"isActive\" is true aND \"id_Premise\" = ?) as \"totalCnt\"    from pigtrax.\"FarrowEvent\" FE "+
+				 " JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"eventDateTime\"::date between ? AND ?  AND PS.\"id_PigletStatusEventType\" = 3   "+
+				 " WHERE PS.\"id_Premise\" = ? "+
+				 " GROUP BY  FE.\"farrowDateTime\"::date,  PS.\"eventDateTime\"::date) T order by T.\"LactLength\" ";
 
 		lactationLengthList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 								
-				ps.setDate(1, new java.sql.Date(startDate.getTime()));
-				ps.setDate(2, new java.sql.Date(endDate.getTime()));
-				ps.setInt(3, premiseId);
-				ps.setInt(4, premiseId);				
-				ps.setDate(5, new java.sql.Date(startDate.getTime()));
-				ps.setDate(6, new java.sql.Date(endDate.getTime()));
-				ps.setInt(7, premiseId);
+				ps.setInt(1, premiseId);				
+				ps.setDate(2, new java.sql.Date(startDate.getTime()));
+				ps.setDate(3, new java.sql.Date(endDate.getTime()));
+				ps.setInt(4, premiseId);
 			}}, new LactationLengthMapper());
 		
 		return lactationLengthList;

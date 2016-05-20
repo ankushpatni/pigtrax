@@ -140,15 +140,15 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 						int durationDays = Days.daysBetween(serviceDate, pregnancyResultDate).getDays();
 						
 						
-						if (eventTypeId == 1 && durationDays >= 18 && durationDays <= 60) {
+						if (eventTypeId == 1 && durationDays >= 18 && durationDays <= 100) {
 							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
 							break;
 						}
-						else if (eventTypeId == 2 && durationDays >= 18 && durationDays >= 110) {
+						else if (eventTypeId == 2 && durationDays >= 28 && durationDays >= 112) {
 							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
 							break;
 						}
-						else if (eventTypeId == 3 && durationDays >= 105 && durationDays <= 125) {
+						else if (eventTypeId == 3 && durationDays >= 35 && durationDays <= 130) {
 							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
 							break;
 						}						

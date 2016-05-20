@@ -146,7 +146,7 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 						DateTime serviceDate = new DateTime(breedingEventDetails.getServiceStartDate());
 						DateTime farrowDate = new DateTime(farrowEventDto.getFarrowDateTime());
 						int duration = Days.daysBetween(serviceDate, farrowDate).getDays();
-						if(duration >= 105 && duration <= 130)
+						if(duration >= 105 && duration <= 125)
 						{
 							farrowEventDto.setBreedingEventId(breedingEventDetails.getId());
 							farrowEventDto.setLastGestationLength(duration);
