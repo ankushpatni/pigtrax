@@ -94,6 +94,7 @@
 						</button>
 					</div>
 					<input type="hidden" name="reportOption" id="reportOption"/>
+					<input type="hidden" name="companyId1" id="companyId1"/>
 				</form>
 			</div>
 		</div>

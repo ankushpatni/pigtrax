@@ -170,12 +170,12 @@
                     </div>	
                     
                     <div class="form-group">
-                      <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/><span style='color: red'>*</span></label>                      
-                      <select class="form-control" required required-message="'<spring:message code='label.productionlogform.roomId.requiredMessage'  text='Room Id is required'/>'" name="roomId" ng-model="productionLog.roomId"  ng-options="k as v for (k, v) in roomMap"></select>
+                      <label><spring:message code='label.productionlogform.roomId'  text='Room Id'/></label>                      
+                      <select class="form-control"  required-message="'<spring:message code='label.productionlogform.roomId.requiredMessage'  text='Room Id is required'/>'" name="roomId" ng-model="productionLog.roomId"  ng-options="k as v for (k, v) in roomMap"></select>
                     </div>                   
                      <div class="form-group">
-                      <label><spring:message code='label.productionlogform.groupId'  text='Group Id'/><span style='color: red'>*</span></label>                      
-                      <input required required-message="'<spring:message code='label.productionlogform.groupId.requiredMessage'  text='Group Id is required'/>'" type="text" name="groupId" ng-model="productionLog.groupId" class="form-control" 
+                      <label><spring:message code='label.productionlogform.groupId'  text='Group Id'/></label>                      
+                      <input required-message="'<spring:message code='label.productionlogform.groupId.requiredMessage'  text='Group Id is required'/>'" type="text" name="groupId" ng-model="productionLog.groupId" class="form-control" 
                         placeholder="<spring:message code='label.productionlogform.groupId.placeholder' text='Enter group id'/>" maxlength = "30"/>                        
                     </div>
                     

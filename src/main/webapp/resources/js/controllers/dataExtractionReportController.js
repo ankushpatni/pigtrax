@@ -25,7 +25,13 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
 				
 				 for(i = 0; i < $scope.eventTypeKeys.length; i++)
 				  {
-					  if($scope.eventTypeKeys[i] >= 1 && $scope.eventTypeKeys[i] <= 10 && $scope.eventTypeKeys[i] != 9)
+					  $scope.usedEventKeys.push($scope.eventTypeKeys[i]);
+					  if($scope.eventTypeKeys[i] == 13)
+					  {
+						  $scope.groupEventKeys.push($scope.eventTypeKeys[i]);
+						  $scope.pigEventKeys.push($scope.eventTypeKeys[i]);	
+					  }
+					  else if($scope.eventTypeKeys[i] >= 1 && $scope.eventTypeKeys[i] <= 10 && $scope.eventTypeKeys[i] != 9)
 					  {						  
 						  $scope.pigEventKeys.push($scope.eventTypeKeys[i]);		
 						 if($scope.eventTypeKeys[i] >= 6 && $scope.eventTypeKeys[i] <= 10)
@@ -36,6 +42,7 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
 					  {
 						  $scope.groupEventKeys.push($scope.eventTypeKeys[i]);					  
 					  }
+					  
 					 
 				  }
 				
@@ -97,10 +104,16 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
     	if($scope.selectedPig == null)
     		$scope.selectedPig = "";
     	
-    	if($scope.selectedPremise != null && $scope.reportOption != null && $scope.startDate !=  null &&  $scope.endDate != null && $scope.selectedEvent != null)
+    	if($scope.selectedPremise != null && $scope.startDate !=  null &&  $scope.endDate != null && $scope.selectedEvent != null)
     	{
-    		$scope.criteriaMessage = false;	
+    		$scope.criteriaMessage = false;
+    		if($scope.selectedEvent == 13)
+    		{
+    			document.getElementById("companyId1").value	= $scope.companyId;
+    			document.forms['generateDataExtractionForm'].action = "generateReport";
+    		}
 			document.forms['generateDataExtractionForm'].submit();
+			
     	}
     	else
     	{

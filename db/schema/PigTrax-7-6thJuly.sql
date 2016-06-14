@@ -1346,7 +1346,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- DROP TABLE IF EXISTS pigtraxrefdata."RoleTypeTranslation" CASCADE;
 CREATE TABLE pigtraxrefdata."RoleTypeTranslation"(
 	id serial NOT NULL,
-	"fieldValue" varchar(30) NOT NULL,
+	"fieldValue" varchar(50) NOT NULL,
 	"fieldLanguage" char(2) NOT NULL,
 	"lastUpdated" timestamp with time zone NOT NULL,
 	"userUpdated" varchar(20) NOT NULL,

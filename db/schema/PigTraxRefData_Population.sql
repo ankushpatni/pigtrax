@@ -8288,6 +8288,7 @@ INSERT INTO pigtraxrefdata."EventType" ("fieldCode","fieldDescription","lastUpda
 INSERT INTO pigtraxrefdata."EventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (10,'Production Log',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."EventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (11,'Group Event',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."EventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (12,'Individual Piglet',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."EventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (13,'Performance Monitoring',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entry','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -8302,6 +8303,7 @@ INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Production Log','en',CURRENT_TIMESTAMP,'pigtraxadmin',10);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','en',CURRENT_TIMESTAMP,'pigtraxadmin',11);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','en',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Performance Monitoring','en',CURRENT_TIMESTAMP,'pigtraxadmin',13);
 
 
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entry','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
@@ -8316,6 +8318,7 @@ INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Production Log','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Monitor de Desempeño','es',CURRENT_TIMESTAMP,'pigtraxadmin',13);
 
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entry','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Breeding','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
@@ -8329,6 +8332,7 @@ INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Production Log','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Monitor de Performance','es',CURRENT_TIMESTAMP,'pigtraxadmin',13);
 
 
 
