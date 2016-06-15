@@ -212,7 +212,7 @@ public class DataExtractionService {
 													+ "  left join pigtrax.\"PigInfo\" PI ON RES.\"id_PigInfo\" = PI.\"id\" "
 													+ " join pigtraxrefdata.\"RemovalEventTypeTranslation\" RT ON RES.\"id_RemovalEvent\" = RT.\"id_RemovalType\" and RT.\"fieldLanguage\" = '"+language+"' "
 													+ " left join pigtraxrefdata.\"MortalityReasonTypeTranslation\" MRTT ON RES.\"id_MortalityReason\" = MRTT.\"id_MortalityReasonType\" and MRTT.\"fieldLanguage\" = '"+language+"' "
-													+ "  where GE.\"id_Premise\" = "+premiseId+" and RES.\"removalDateTime\" between '"+start+"' and '"+end+"'  and RES.\"id_RemovalEvent\" != 9 ";
+													+ "  where RES.\"id_Premise\" = "+premiseId+" and RES.\"removalDateTime\" between '"+start+"' and '"+end+"'  and RES.\"id_RemovalEvent\" != 9 ";
 													if(reportOption.equalsIgnoreCase("pigId"))
 													{
 														query += " and RES.\"id_GroupEvent\" IS NULL ";
@@ -236,7 +236,7 @@ public class DataExtractionService {
 									+" left join pigtrax.\"TransportJourney\" TJ ON SE.\"id_TransportJourney\" = TJ.\"id\" "
 									+ " left join pigtrax.\"TransportTruck\" TTK ON TJ.\"id_TransportTruck\" = TTK.\"id\" "
 									+ " left join pigtrax.\"TransportTrailer\" TTR ON TJ.\"id_TransportTrailer\" = TTR.\"id\"  "
-									+ " where  SE.\"salesDateTime\"  between '"+start+"' and '"+end+"' ";
+									+ " where  SE.\"id_Premise\" = "+premiseId+"  and SE.\"salesDateTime\"  between '"+start+"' and '"+end+"' ";
 									if(reportOption.equalsIgnoreCase("pigId"))
 									{
 										query += " and SE.\"id_GroupEvent\" IS NULL ";
@@ -262,7 +262,7 @@ public class DataExtractionService {
 					+" left join pigtrax.\"TransportJourney\" TJ ON RES.\"id_TransportJourney\" = TJ.\"id\" "
 					+ " left join pigtrax.\"TransportTruck\" TTK ON TJ.\"id_TransportTruck\" = TTK.\"id\" "
 					+ " left join pigtrax.\"TransportTrailer\" TTR ON TJ.\"id_TransportTrailer\" = TTR.\"id\"  "
-					+ "  where RES.\"removalDateTime\" between '"+start+"' and '"+end+"' and RES.\"id_RemovalEvent\" = 9";
+					+ "  where RES.\"id_Premise\" = "+premiseId+" and RES.\"removalDateTime\" between '"+start+"' and '"+end+"' and RES.\"id_RemovalEvent\" = 9";
 			
 						if(reportOption.equalsIgnoreCase("pigId"))
 						{
