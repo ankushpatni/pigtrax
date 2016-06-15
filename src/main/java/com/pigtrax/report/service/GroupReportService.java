@@ -358,7 +358,10 @@ public class GroupReportService {
 					rowBuffer.append(groupReportBeanwithPhase.getEventName()+seprater);
 					if(groupReportBeanwithPhase.getData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getData()))
 					{
-						rowBuffer.append(groupReportBeanwithPhase.getData()).append(dataSeprater).append(messageSource.getMessage("label.piginfo.pigEvent.Nursery", null, "", locale));
+						rowBuffer.append(groupReportBeanwithPhase.getData());
+						if(groupReportBeanwithPhase.getAdditionalData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getAdditionalData()))
+							rowBuffer.append(dataSeprater+" "+groupReportBeanwithPhase.getAdditionalData());
+						rowBuffer.append(dataSeprater).append(" "+messageSource.getMessage("label.piginfo.pigEvent.Nursery", null, "", locale));
 					}
 					
 					if(groupReportBeanwithPhase.getRemovalType() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getRemovalType()))

@@ -112,9 +112,13 @@ public class GroupReportDao {
 	
 	public List<GroupReportBeanwithPhase> getGroupListWithPhaseDetails(final int groupId) {
 	
-	String query = 			" Select T.\"groupId\", T.\"Event Date\", T.\"Event Name\", T.\"Data\",T.\"RemovalType\",T.\"mortalityReason\", T.\"Ticketnumber\",T.\"salesTypes\",T.\"phaseChange\" from ( "
-			+" (SELECT 1 as row, null, GE.\"groupId\" as \"groupId\", GE.\"groupStartDateTime\" as \"Event Date\", 'Begin Group' as \"Event Name\", 'Created' as \"Data\" "
-			+" , '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\" from pigtrax.\"GroupEvent\" GE where GE.\"id\"= ?) "
+	String query = 			" Select T.\"groupId\", T.\"Event Date\", T.\"Event Name\", T.\"Data\",T.\"RemovalType\",T.\"mortalityReason\", T.\"Ticketnumber\",T.\"salesTypes\",T.\"phaseChange\", T.\"AdditionalData\" from ( "
+			+" (SELECT 1 as row, null, GE.\"groupId\" as \"groupId\", GE.\"groupStartDateTime\" as \"Event Date\", 'Begin Group' as \"Event Name\", 'Created at Room : '||R.\"roomId\"  as \"Data\" "
+			+" , '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\", '' as \"AdditionalData\" from pigtrax.\"GroupEvent\" GE "
+			+" JOIN pigtrax.\"GroupEventPhaseChange\" GEPC on GE.\"id\" = GEPC.\"id_GroupEvent\"  and GE.\"groupStartDateTime\" = GEPC.\"phaseStartDate\" "
+			+" JOIN pigtrax.\"GroupEventRoom\" GER on GER.\"id_GroupEventPhaseChange\" = GEPC.\"id\" "
+			+" JOIN pigtrax.\"Room\" R on R.\"id\" = GER.\"id_Room\" "
+			+ " where GE.\"id\"= ?) "
 			+" UNION ALL "
 			+" (SELECT  2 as row, RES.\"id_RemovalEvent\", GE.\"groupId\", GED.\"dateOfEntry\" as \"Event Date\",GED.\"remarks\" as \"Event Name\", "
 			+" 'Pigs : '|| GED.\"numberOfPigs\" || ' :: Weight :' || GED.\"weightInKgs\" || ' :: Transfered To : ' || coalesce(GEF.\"groupId\",'') as \"Data\", "
@@ -122,10 +126,17 @@ public class GroupReportDao {
 			+" case when( RES.\"id_MortalityReason\" is not null ) THEN  MR.\"fieldDescription\" else '' END as \"mortalityReason\", "
 			+" case when( SED.\"ticketNumber\" is not null ) THEN  SED.\"ticketNumber\" else '' END as \"Ticketnumber\", "
 			+" case when( SED.\"salesTypes\" is not null ) THEN  SED.\"salesTypes\" else '' END as \"salesTypes\", "
-			+" '' as \"phaseChange\" "
+			+" '' as \"phaseChange\", "
+			+" case when GED.\"remarks\" = 'Transferred' THEN 'From Premise : '||PRE.\"name\"||' :: To Premise : '||PRE2.\"name\"||' :: To Room :'||ROOM2.\"roomId\" "
+			+" ELSE case when GED.\"remarks\" = 'Received' THEN 'From Premise : '||PRE2.\"name\"||' :: To Premise : '||PRE.\"name\"||' :: From Room :'||ROOM2.\"roomId\" END END as \"AdditionalData\" "
 			+" from pigtrax.\"GroupEvent\" GE   "
-			 +" JOIN pigtrax.\"GroupEventDetails\" GED ON GE.\"id\" = GED.\"id_GroupEvent\" "
+			 +" JOIN pigtrax.\"GroupEventDetails\" GED ON GE.\"id\" = GED.\"id_GroupEvent\" "			 
+			 +" left join pigtrax.\"Premise\" PRE ON GE.\"id_Premise\" = PRE.\"id\" "
 			+ " left join pigtrax.\"GroupEvent\" GEF ON GEF.\"id\" = GED.\"id_FromGroup\" "
+			+" left join pigtrax.\"Premise\" PRE2 ON GEF.\"id_Premise\" = PRE2.\"id\" "
+			+" left join pigtrax.\"GroupEventPhaseChange\" GEPC2 ON GEF.\"id\" = GEPC2.\"id_GroupEvent\" and (GED.\"dateOfEntry\" between GEPC2.\"phaseStartDate\" and GEPC2.\"phaseEndDate\" or GEPC2.\"phaseEndDate\" IS NULL) "
+			 +" left join pigtrax.\"GroupEventRoom\" GER2 ON GER2.\"id_GroupEventPhaseChange\" = GEPC2.\"id\" "
+			 +" left join pigtrax.\"Room\" ROOM2 ON GER2.\"id_Room\" = ROOM2.\"id\" "
 			 +" left join pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GED.\"id_RemovalEventExceptSalesDetails\" = RES.\"id\"   "
 			 +" left join pigtraxrefdata.\"RemovalType\" RT  ON RES.\"id_RemovalEvent\" = RT.\"id\"  "
 			 +" left join pigtraxrefdata.\"MortalityReasonType\" MR ON RES.\"id_MortalityReason\" = MR.\"id\" "
@@ -134,15 +145,15 @@ public class GroupReportDao {
 			 +" UNION ALL   "
 			+" (SELECT  2 as row, null,  GE.\"groupId\", GEPC.\"phaseEndDate\" as \"Event Date\",'Phase Change' as \"Event Name\",  "
 			 +" '' as \"Data\", '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\", "
-			 +" (select PPT.\"fieldDescription\" from pigtraxrefdata.\"PhaseOfProductionType\" PPT where GEPC.\"id_PhaseOfProductionType\" = PPT.\"id\") as \"phaseChange\" "
+			 +" (select PPT.\"fieldDescription\" from pigtraxrefdata.\"PhaseOfProductionType\" PPT where GEPC.\"id_PhaseOfProductionType\" = PPT.\"id\") as \"phaseChange\", '' as \"AdditionalData\" "
 			 +" from pigtrax.\"GroupEvent\" GE   "
 			 +" JOIN pigtrax.\"GroupEventPhaseChange\" GEPC ON GE.\"id\" = GEPC.\"id_GroupEvent\" "
 			 +" and GEPC.\"phaseEndDate\" is NOT NULL  "
 			  +" and GE.\"id\" = ?  order by GEPC.\"id\" ) "
 			+" UNION ALL "
 			+" ( select  2 as row,  RES.\"id_RemovalEvent\", GE.\"groupId\",  RES.\"removalDateTime\" as \"Event Date\", 'Transfer through Pig Movement' as \"Event Name\", "
-			+" 'Pigs : '|| RES.\"numberOfPigs\" || ' :: Weight :' || RES.\"weightInKgs\" || ' :: From Premises : ' || coalesce(p.\"name\",'') || ' :: To Premises : ' || coalesce(p1.\"name\",'') || ' :: To Room : ' || (case when( RES.\"id_Room\" is not null ) THEN  R.\"roomId\" else ''  END) as \"Data\", "
-			 +" '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\" "
+			+" 'Pigs : '|| RES.\"numberOfPigs\" || ' :: Weight :' || RES.\"weightInKgs\" || ' :: From Premise : ' || coalesce(p.\"name\",'') || ' :: To Premise : ' || coalesce(p1.\"name\",'') || ' :: To Room : ' || (case when( RES.\"id_Room\" is not null ) THEN  R.\"roomId\" else ''  END) as \"Data\", "
+			 +" '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\", '' as \"AdditionalData\" "
 			  +" from pigtrax.\"GroupEvent\" GE JOIN pigtrax.\"RemovalEventExceptSalesDetails\" RES ON GE.\"id\" = RES.\"id_GroupEvent\" and  "
 			  +" GE.\"id\" = ? and RES.\"id_RemovalEvent\" = 9  "
 			  +" left join pigtrax.\"Premise\" P  ON RES.\"id_Premise\" = P.\"id\" "
@@ -175,6 +186,7 @@ public class GroupReportDao {
 			groupReportBeanwithPhase.setTicketnumber(rs.getString("Ticketnumber"));
 			groupReportBeanwithPhase.setSalesTypes(rs.getString("salesTypes"));
 			groupReportBeanwithPhase.setPhaseChange(rs.getString("phaseChange"));
+			groupReportBeanwithPhase.setAdditionalData(rs.getString("AdditionalData"));
 			
 			return groupReportBeanwithPhase;
 		}

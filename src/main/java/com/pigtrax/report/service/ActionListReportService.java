@@ -76,7 +76,7 @@ public class ActionListReportService {
 						} catch (ParseException e) {
 							rowBuffer.append(" " + separator);
 						}
-						rowBuffer.append(actionBean.getSowPhase() + separator);
+						rowBuffer.append(messageSource.getMessage("label.piginfo.pigletstatuseventform.wean", null, "", locale) + separator);
 						rowBuffer.append(actionBean.getRoomId() + separator);
 						rowBuffer.append(actionBean.getPenId() + separator);
 						rowBuffer.append(actionBean.getServNum() + separator);

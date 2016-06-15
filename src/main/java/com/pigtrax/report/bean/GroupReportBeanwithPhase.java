@@ -13,6 +13,7 @@ public class GroupReportBeanwithPhase {
 	private String ticketnumber;	
 	private String salesTypes;
 	private String phaseChange;
+	private String additionalData;
 	
 	public String getGroupEventId() {
 		return groupEventId;
@@ -67,5 +68,13 @@ public class GroupReportBeanwithPhase {
 	}
 	public void setPhaseChange(String phaseChange) {
 		this.phaseChange = phaseChange;
+	}
+	public String getAdditionalData() {
+		return additionalData;
+	}
+	public void setAdditionalData(String additionalData) {
+		this.additionalData = additionalData;
 	}	
+	
+	
 }
