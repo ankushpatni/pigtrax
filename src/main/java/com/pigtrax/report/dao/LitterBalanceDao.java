@@ -70,7 +70,7 @@ public class LitterBalanceDao {
 				+ "  FROM  ( "
 				+ "   SELECT  PI.\"pigId\", FE.\"liveBorns\", FE.\"id_Pen\", FE.\"id\",PS.\"id_PigInfo\", COALESCE(weanData.\"weanPigNum\",0) as \"weanPigNum\",  weanData.\"eventDateTime\" as \"weanDate\", COALESCE(transferData.\"transferPigNum\",0) as \"transferPigNum\", transferData.\"eventDateTime\",  COALESCE(deathData.\"deathPigNum\",0) as \"deathPigNum\", deathData.\"eventDateTime\", COALESCE(fosterInData.\"fosterInPigNum\" ,0) as \"fosterInPigNum\"  "
 				+ "   FROM pigtrax.\"FarrowEvent\" FE  JOIN pigtrax.\"PigInfo\" PI ON FE.\"id_PigInfo\" = PI.\"id\"  "   
-				+ "   JOIN pigtrax.\"PigletStatus\" PS ON PS.\"id_PigInfo\"  = PI.\"id\" and PS.\"eventDateTime\"::date between ? AND ?  AND PS.\"id_PigletStatusEventType\" = ?  "
+				+ "   JOIN pigtrax.\"PigletStatus\" PS ON PS.\"id_PigInfo\"  = PI.\"id\" and PS.\"eventDateTime\"::date between ? AND ?  AND PS.\"id_PigletStatusEventType\" = ?   AND PS.\"id_FarrowEvent\" = FE.\"id\" "
 				+ "   LEFT JOIN  "
 				+ "   (select \"id_FarrowEvent\", \"eventDateTime\",  sum(\"numberOfPigs\") as \"deathPigNum\" from pigtrax.\"PigletStatus\"   WHERE  \"id_PigletStatusEventType\" =?  GROUP BY \"id_FarrowEvent\",\"eventDateTime\") deathData ON PS.\"id_FarrowEvent\" = deathData.\"id_FarrowEvent\"  "
 				+ "    LEFT JOIN  (select \"id_FarrowEvent\", \"eventDateTime\", sum(\"numberOfPigs\") as \"transferPigNum\" from pigtrax.\"PigletStatus\"   WHERE  \"id_PigletStatusEventType\" =?  GROUP BY \"id_FarrowEvent\",\"eventDateTime\") transferData ON PS.\"id_FarrowEvent\" = transferData.\"id_FarrowEvent\" "
