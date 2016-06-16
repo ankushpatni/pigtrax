@@ -50,7 +50,7 @@ public class LactationLengthReportService {
 					{
 						rowBean = new LactationLengthBean();
 					}
-					rowBean.setNumberOfPigs(rowBean.getNumberOfPigs()+bean.getNumberOfPigs());
+					rowBean.setNumberOfPigs(bean.getNumberOfPigs());
 					rowBean.setTotalPigCount(bean.getTotalPigCount());
 					rowBean.setLactationLength(bean.getLactationLength());
 					rowBean.setPercentage(bean.getPercentage());
