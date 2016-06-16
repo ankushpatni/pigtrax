@@ -50,11 +50,11 @@ public class LactationLengthReportService {
 					{
 						rowBean = new LactationLengthBean();
 					}
-					rowBean.setNumberOfPigs(bean.getNumberOfPigs());
+					rowBean.setNumberOfPigs(rowBean.getNumberOfPigs()+bean.getNumberOfPigs());
 					rowBean.setTotalPigCount(bean.getTotalPigCount());
 					rowBean.setLactationLength(bean.getLactationLength());
 					rowBean.setPercentage(bean.getPercentage());
-					count = count + rowBean.getNumberOfPigs();
+					
 					dataMap.put(bean.getLactationLength(), rowBean);
 				}
 				
@@ -79,13 +79,14 @@ public class LactationLengthReportService {
 						lactationLengthBean = entry.getValue();
 						if(lactationLengthBean.getNumberOfPigs() > 0)
 						{
+							count = count + lactationLengthBean.getNumberOfPigs();
 							rowBuffer = new StringBuffer();				
 							rowBuffer.append(lactationLengthBean.getLactationLength()+ seprater);
 							rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
 							totalLactationDays+=lactationLengthBean.getLactationLength();
 							
-							totalPercentage = totalPercentage+((double)(100*lactationLengthBean.getNumberOfPigs()))/count;
-							weightedAvgOfLacationDays = weightedAvgOfLacationDays + (double)(lactationLengthBean.getNumberOfPigs()*lactationLengthBean.getLactationLength()/count);
+							totalPercentage = totalPercentage+lactationLengthBean.getPercentage();
+							//weightedAvgOfLacationDays = weightedAvgOfLacationDays + (double)(lactationLengthBean.getNumberOfPigs()*lactationLengthBean.getLactationLength()/count);
 							rowBuffer.append(lactationLengthBean.getPercentage());
 							//rowBuffer.append(((double)(100*lactationLengthBean.getNumberOfPigs())/count) );
 							returnRows.add(rowBuffer.toString()+"\n");
