@@ -162,6 +162,7 @@ public class LactationLengthReportService {
 				rowBean.setNumberOfPigs(rowBean.getNumberOfPigs()+bean.getNumberOfPigs());
 				rowBean.setTotalPigCount(bean.getTotalPigCount());
 				rowBean.setLactationLength(bean.getLactationLength());
+				rowBean.setPercentage(bean.getPercentage());
 				count = count + rowBean.getNumberOfPigs();
 				dataMap.put(bean.getLactationLength(), rowBean);
 			}
@@ -170,11 +171,15 @@ public class LactationLengthReportService {
 			StringBuffer rowBuffer = null;
 			double totalPercentage = 0;
 			double weightedAvgOfLacationDays = 0;
+			double averageLactationDays = 0D;
+			double totalLactationDays = 0D;
+			int totalSowCount = 0;
 			
 			returnRows.add(messageSource.getMessage("label.reports.lactation.lactationdays", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.numberofsows", null, "", locale)+","
 					+messageSource.getMessage("label.reports.lactation.totalpercentage", null, "", locale)+"\n");
 			
 			LactationLengthBean lactationLengthBean = null;
+			int numberOfRows = dataMap.entrySet().size();
 			for (Map.Entry<Integer, LactationLengthBean> entry : dataMap.entrySet())
 			{
 			    //System.out.println(entry.getKey() + "/" + entry.getValue());
@@ -184,18 +189,22 @@ public class LactationLengthReportService {
 					if(lactationLengthBean.getNumberOfPigs() > 0)
 					{
 						rowBuffer = new StringBuffer();				
-						rowBuffer.append(lactationLengthBean.getLactationLength()+ " days" + seprater);
+						rowBuffer.append(lactationLengthBean.getLactationLength()+ seprater);
 						rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
+						totalLactationDays+=lactationLengthBean.getLactationLength();
 						
 						totalPercentage = totalPercentage+((double)(100*lactationLengthBean.getNumberOfPigs()))/count;
 						weightedAvgOfLacationDays = weightedAvgOfLacationDays + (double)(lactationLengthBean.getNumberOfPigs()*lactationLengthBean.getLactationLength()/count);
-						rowBuffer.append(((double)(100*lactationLengthBean.getNumberOfPigs())/count) );
+						rowBuffer.append(lactationLengthBean.getPercentage());
+						//rowBuffer.append(((double)(100*lactationLengthBean.getNumberOfPigs())/count) );
 						returnRows.add(rowBuffer.toString()+"\n");
+						totalSowCount = lactationLengthBean.getTotalPigCount();
 					}
 				}
 			}
-			
-			returnRows.add(weightedAvgOfLacationDays +","+count+","+totalPercentage);
+			averageLactationDays = totalLactationDays/numberOfRows;
+			returnRows.add("\n");
+			returnRows.add(averageLactationDays +","+count+","+totalPercentage);
 			
 			/*LactationLengthBean lactationLengthBean = dataMap.get("0");
 			if(lactationLengthBean != null)

@@ -361,7 +361,7 @@ public class GroupReportService {
 						rowBuffer.append(groupReportBeanwithPhase.getData());
 						if(groupReportBeanwithPhase.getAdditionalData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getAdditionalData()))
 							rowBuffer.append(dataSeprater+" "+groupReportBeanwithPhase.getAdditionalData());
-						rowBuffer.append(dataSeprater).append(" "+messageSource.getMessage("label.piginfo.pigEvent.Nursery", null, "", locale));
+						rowBuffer.append(dataSeprater).append(" Current Phase : "+messageSource.getMessage("label.piginfo.pigEvent.Nursery", null, "", locale));
 					}
 					
 					if(groupReportBeanwithPhase.getRemovalType() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getRemovalType()))
