@@ -279,11 +279,12 @@ public class DataExtractionService {
 						 resultList = extractionDao.getTransferData(query);
 							returnRows = populateRows(resultList, eventType);
 								break;
-			case 9 : query = "  select GE.\"groupId\", FED.\"feedEventDate\",FE.\"ticketNumber\", FE.\"batchId\", FE.\"feedMedication\", TTK.\"truckId\", " 
+			case 9 : query = "  select GE.\"groupId\", FED.\"feedEventDate\",FE.\"ticketNumber\", MR.\"rationValue\", FE.\"feedMedication\", TTK.\"truckId\", " 
 						+" TTR.\"trailerId\", FED.\"feedMill\", FET.\"fieldValue\" as \"feedEventType\", FED.\"weightInKgs\", FED.\"feedCost\", SI.\"siloId\", FED.\"remarks\" "
 						+"	from pigtrax.\"FeedEventDetails\" FED JOIN pigtrax.\"FeedEvent\" FE ON FED.\"id_FeedEvent\" = FE.\"id\" "
 						+"		JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" "
 						+"		JOIN pigtrax.\"Silo\" SI on FED.\"id_Silo\" = SI.\"id\" "
+						+"		JOIN pigtrax.\"MasterRation\" MR on FE.\"batchId\" = MR.\"id\" "
 						+"		JOIN pigtraxrefdata.\"FeedEventTypeTranslation\" FET ON FET.\"id_FeedEventType\" = FED.\"id_FeedEventType\" and FET.\"fieldLanguage\" = '"+language+"'"
 						+"		LEFT JOIN pigtrax.\"TransportJourney\" TJ ON FE.\"id_TransportJourney\"= TJ.\"id\"  "
 						+"	LEFT Join pigtrax.\"TransportTruck\" TTK ON TJ.\"id_TransportTruck\" = TTK.\"id\" "

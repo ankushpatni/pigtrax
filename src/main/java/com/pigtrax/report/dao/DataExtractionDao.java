@@ -311,7 +311,7 @@ public class DataExtractionDao {
 			rowMap.put("groupId", rs.getString("groupId")!= null?rs.getString("groupId"):"");
 			rowMap.put("feedEventDate", rs.getDate("feedEventDate"));
 			rowMap.put("ticketNumber", rs.getString("ticketNumber")!= null?rs.getString("ticketNumber"):"");
-			rowMap.put("batchId", rs.getString("batchId")!= null?rs.getString("batchId"):"");
+			rowMap.put("batchId", rs.getString("rationValue")!= null?rs.getString("rationValue"):"");
 			rowMap.put("feedMedication", rs.getString("feedMedication")!= null?rs.getString("feedMedication"):"");
 			rowMap.put("truckId", rs.getString("truckId")!= null?rs.getString("truckId"):"");
 			rowMap.put("trailerId", rs.getString("trailerId")!= null?rs.getString("trailerId"):"");
