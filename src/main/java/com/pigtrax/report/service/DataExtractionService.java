@@ -64,8 +64,8 @@ public class DataExtractionService {
 							+messageSource.getMessage("label.piginfo.breedingeventform.breedingServiceType", null, "", locale)+"," +messageSource.getMessage("label.piginfo.breedingeventform.breedinggroupId", null, "", locale)+","
 							 +messageSource.getMessage("label.piginfo.entryeventform.sowcondition", null, "", locale)+","+messageSource.getMessage("label.piginfo.breedingeventform.weightInKgs", null, "", locale);
 							break;	
-			case 3 : header = messageSource.getMessage("label.piginfo.entryeventform.pigid", null, "", locale)+","+messageSource.getMessage("label.piginfo.breedingeventform.employeegroupGroup", null, "", locale)+","+messageSource.getMessage("label.piginfo.pregnancyeventform.pregnancyEventType", null, "", locale)+", "
-							+  messageSource.getMessage("label.piginfo.pregnancyeventform.pregnancyExamResultType", null, "", locale)+","+messageSource.getMessage("label.piginfo.entryeventform.sowcondition", null, "", locale);
+			case 3 : header = messageSource.getMessage("label.piginfo.entryeventform.pigid", null, "", locale)+","+messageSource.getMessage("label.piginfo.breedingeventform.employeegroup", null, "", locale)+","+messageSource.getMessage("label.piginfo.pregnancyeventform.pregnancyEventType", null, "", locale)+", "
+							+  messageSource.getMessage("label.piginfo.pregnancyeventform.pregnancyExamResultType", null, "", locale)+","+  messageSource.getMessage("label.piginfo.pregnancyeventform.resultDate", null, "", locale)+","+messageSource.getMessage("label.piginfo.entryeventform.sowcondition", null, "", locale);
 							break;
 			case 4 : header =messageSource.getMessage("label.piginfo.entryeventform.pigid", null, "", locale)+","+messageSource.getMessage("label.piginfo.entryeventform.pen", null, "", locale)+"," +messageSource.getMessage("label.piginfo.farroweventform.farrowDateTime", null, "", locale)+","
 								+messageSource.getMessage("label.piginfo.farroweventform.liveborns", null, "", locale)+","+messageSource.getMessage("label.piginfo.farroweventform.stillborns", null, "", locale)+","+messageSource.getMessage("label.piginfo.farroweventform.mummies", null, "", locale)+","
@@ -229,14 +229,14 @@ public class DataExtractionService {
 														returnRows = populateRows(resultList, eventType);
 													break;
 			case 7 : query = "select GE.\"groupId\", PI.\"pigId\", SE.\"salesDateTime\",  SE.\"numberOfPigs\", STT.\"fieldValue\" as \"salesType\", SRT.\"fieldValue\" as \"salesReason\",SE.\"ticketNumber\",SE.\"invoiceId\",SE.\"revenueUsd\", SE.\"soldTo\", TTK.\"truckId\", TTR.\"trailerId\",SE.\"remarks\" "
-									+ "	from pigtrax.\"SalesEventDetails\" SE Left join pigtrax.\"GroupEvent\" GE ON SE.\"id_GroupEvent\" = GE.\"id\" "
-									+ " left join pigtrax.\"PigInfo\" PI ON SE.\"id_PigInfo\" = PI.\"id\" "
+									+ "	from pigtrax.\"SalesEventDetails\" SE Left join pigtrax.\"GroupEvent\" GE ON SE.\"id_GroupEvent\" = GE.\"id\" and GE.\"id_Premise\" = "+premiseId
+									+ " left join pigtrax.\"PigInfo\" PI ON SE.\"id_PigInfo\" = PI.\"id\"  and PI.\"id_Premise\" = "+premiseId 
 									+ " left join pigtraxrefdata.\"SalesTypeTranslation\" STT ON SE.\"salesTypes\" = STT.\"id_SalesType\"::text and STT.\"fieldLanguage\" = '"+language+"' "
 									+ " left join pigtraxrefdata.\"SalesReasonsTranslation\" SRT ON SE.\"salesReasons\" = SRT.\"id_SalesReason\"::text and SRT.\"fieldLanguage\" = '"+language+"' "
 									+" left join pigtrax.\"TransportJourney\" TJ ON SE.\"id_TransportJourney\" = TJ.\"id\" "
 									+ " left join pigtrax.\"TransportTruck\" TTK ON TJ.\"id_TransportTruck\" = TTK.\"id\" "
 									+ " left join pigtrax.\"TransportTrailer\" TTR ON TJ.\"id_TransportTrailer\" = TTR.\"id\"  "
-									+ " where  SE.\"id_Premise\" = "+premiseId+"  and SE.\"salesDateTime\"  between '"+start+"' and '"+end+"' ";
+									+ " where SE.\"salesDateTime\"  between '"+start+"' and '"+end+"' and (GE.\"groupId\" IS NOT NULL OR PI.\"pigId\" IS NOT NULL) ";
 									if(reportOption.equalsIgnoreCase("pigId"))
 									{
 										query += " and SE.\"id_GroupEvent\" IS NULL ";
@@ -295,7 +295,7 @@ public class DataExtractionService {
 						returnRows = populateRows(resultList, eventType);
 								break;
 			case 10 : query = " select R.\"roomId\", PL.\"groupId\", PL.\"observationDate\", LET.\"fieldValue\" as \"logEventType\", PL.\"observation\" from pigtrax.\"ProductionLog\" PL "
-							+ " join pigtrax.\"Room\" R on PL.\"id_Room\" = R.\"id\" JOIN pigtraxrefdata.\"LogEventTypeTranslation\" LET ON LET.\"id_LogEventType\" = PL.\"id_LogEventType\" "
+							+ " left join pigtrax.\"Room\" R on PL.\"id_Room\" = R.\"id\" JOIN pigtraxrefdata.\"LogEventTypeTranslation\" LET ON LET.\"id_LogEventType\" = PL.\"id_LogEventType\" "
 							+ "and LET.\"fieldLanguage\" = '"+language+"' "
 							+" where PL.\"id_Premise\" = "+premiseId+" and PL.\"observationDate\" between '"+start+ "' and '"+end+"'";
 			 resultList = extractionDao.getProductionLogData(query);
@@ -387,7 +387,7 @@ public class DataExtractionService {
 						}
 						rowBuffer.append(rowMap.get("serviceType") + seprater);
 						rowBuffer.append(rowMap.get("serviceGroupId") + seprater);				
-						rowBuffer.append(rowMap.get("sowCondition"));
+						rowBuffer.append(rowMap.get("sowCondition")+ seprater);
 						rowBuffer.append(rowMap.get("weightInKgs") + seprater);
 						
 						returnRows.add(rowBuffer.toString()+"\n");
@@ -543,7 +543,6 @@ public class DataExtractionService {
 					rowBuffer.append(rowMap.get("fromPremise") + seprater);
 					rowBuffer.append(rowMap.get("toPremise") + seprater);
 					rowBuffer.append(rowMap.get("roomId") + seprater);
-					rowBuffer.append(rowMap.get("ticketNumber")  + seprater);
 					rowBuffer.append(rowMap.get("revenue")  + seprater);
 					rowBuffer.append(rowMap.get("truckId")  + seprater);
 					rowBuffer.append(rowMap.get("trailerId")  + seprater);
@@ -597,7 +596,7 @@ public class DataExtractionService {
 						rowBuffer.append("" + seprater);
 					}
 					rowBuffer.append(rowMap.get("logEventType") + seprater);
-					rowBuffer.append(rowMap.get("remarks")  );
+					rowBuffer.append(rowMap.get("observation")  );
 					
 					returnRows.add(rowBuffer.toString()+"\n");
 				}

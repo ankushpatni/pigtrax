@@ -6693,8 +6693,8 @@ INSERT INTO pigtraxrefdata."PigletStatusEventType" ("fieldCode","fieldDescriptio
 INSERT INTO pigtraxrefdata."PigletStatusEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Pig Death',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
-INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletStatusEventType") VALUES ('Foster In','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletStatusEventType") VALUES ('Foster Out','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletStatusEventType") VALUES ('Tranfer In','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletStatusEventType") VALUES ('Transfer Out','en',CURRENT_TIMESTAMP,'pigtraxadmin',2);
 INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletStatusEventType") VALUES ('Wean','en',CURRENT_TIMESTAMP,'pigtraxadmin',3);
 INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_PigletStatusEventType") VALUES ('Pig Death','en',CURRENT_TIMESTAMP,'pigtraxadmin',4);
 
