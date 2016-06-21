@@ -112,7 +112,7 @@ public class ActionListReportDao {
 				+" PEM.\"id\" in " 
 				+" (select distinct on (PEM1.\"id_PigInfo\")  PEM1.\"id\" from pigtrax.\"PigTraxEventMaster\" PEM1 "
 				+ "JOIN pigtrax.\"PigInfo\" PI ON PEM1.\"id_PigInfo\" = PI.\"id\" and PI.\"id_Premise\"=?  "
-				+ "JOIN pigtrax.\"PigletStatus\" PS ON PEM1.\"id_PigInfo\" = PS.\"id_PigInfo\" and PS.\"id_PigletStatusEventType\" = 3"
+				+ "JOIN pigtrax.\"PigletStatus\" PS ON PEM1.\"id_PigletStatus\" = PS.\"id\" and PS.\"id_PigletStatusEventType\" = 3"
 				+ " order by PEM1.\"id_PigInfo\", PEM1.\"eventTime\" desc, PEM1.\"id\" desc) " 
 				+" order by PEM.\"id_PigInfo\") T ";
 
