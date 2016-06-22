@@ -45,7 +45,7 @@ public class ProdEventLogService {
 					rowBuffer.append(premise + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getBarnId() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getRoomId() + seprater);
-					rowBuffer.append(pigletMortalityReportBean.getGroupId() + seprater);
+					rowBuffer.append(pigletMortalityReportBean.getGroupId() != null ? pigletMortalityReportBean.getGroupId()  : "" + seprater);
 					try {
 						dateStr = DateUtil.convertToFormatString(pigletMortalityReportBean.getEventDate(), "dd/MM/yyyy");
 						if(dateStr != null)
