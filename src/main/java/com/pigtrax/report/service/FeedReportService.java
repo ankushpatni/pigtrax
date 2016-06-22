@@ -36,7 +36,7 @@ public class FeedReportService {
 			returnRows.add(messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","+messageSource.getMessage("label.premise.barn", null, "", locale)+","
 					+messageSource.getMessage("label.barn.silo", null, "", locale)+","+messageSource.getMessage("label.piginfo.feedEventForm.batchId", null, "", locale)+","+messageSource.getMessage("label.feedEventDetail.feedEventDate", null, "", locale)+","
 					+messageSource.getMessage("label.feedEventDetail.feedEventTypeId", null, "", locale)+","+messageSource.getMessage("label.piginfo.breedingeventform.weightInKgs", null, "", locale)+","
-					+messageSource.getMessage("label.piginfo.feedEventForm.feedCost", null, "", locale)+","+messageSource.getMessage("label.piginfo.feedEventForm.feedMedication", null, "", locale)
+					+messageSource.getMessage("label.piginfo.feedEventForm.feedCost", null, "", locale)+","+messageSource.getMessage("label.piginfo.feedEventForm.feedMedication", null, "", locale)+","
 					+messageSource.getMessage("label.piginfo.feedEventForm.ticketNumber", null, "", locale)+","+messageSource.getMessage("label.feedEventDetail.feedmill", null, "", locale)+","
 					+messageSource.getMessage("label.transportJourney.transportTruckId", null, "", locale)+","+messageSource.getMessage("label.transportJourney.transportTrailerId", null, "", locale)
 					+","+messageSource.getMessage("label.piginfo.entryeventform.remarks", null, "", locale)+",\n");

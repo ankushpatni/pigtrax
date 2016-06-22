@@ -44,7 +44,7 @@ public List<FeedReportBean> getFeedList(final int premisesId, final Integer grou
 				 +"  left JOIN pigtrax.\"TransportTruck\" TAT ON TJ.\"id_TransportTruck\" = TAT.\"id\" "
 				 +"  where FE.\"id_Premise\"=? ";
 		if(groupId != null && groupId > 0)
-			query += " and FE.\"id_GroupEvent\" = ? ";
+			query += " and FED.\"id_GroupEvent\" = ? ";
 		
 		query+= " order by B.\"barnId\", FED.\"feedEventDate\" ";
 		
