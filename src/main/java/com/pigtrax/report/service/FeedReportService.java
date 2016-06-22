@@ -23,9 +23,9 @@ public class FeedReportService {
 
 	private static final String seprater = ",";
 	
-	public List<String> getFeedList(String premise, int premiseId, Locale locale) {
+	public List<String> getFeedList(String premise, int premiseId, Locale locale, Integer groupId) {
 	
-		List<FeedReportBean> feedReportBeanList = feedReportDao.getFeedList(premiseId);
+		List<FeedReportBean> feedReportBeanList = feedReportDao.getFeedList(premiseId, groupId);
 		
 		ArrayList<String> returnRows = new ArrayList<String>();
 		String dateStr = "";

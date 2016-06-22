@@ -28,7 +28,7 @@ public class FeedReportDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-public List<FeedReportBean> getFeedList(final int premisesId) {
+public List<FeedReportBean> getFeedList(final int premisesId, final Integer groupId) {
 		
 		String query = " select GE.\"groupId\",B.\"barnId\",S.\"siloId\",MR.\"rationValue\",FED.\"feedEventDate\",FET.\"fieldDescription\" as \"eventType\", FED.\"weightInKgs\",FED.\"feedCost\", "
 				 +"  FE.\"feedMedication\",FE.\"ticketNumber\",FED.\"feedMill\",TT.\"trailerId\", TAT.\"truckId\", FED.remarks "
@@ -42,13 +42,19 @@ public List<FeedReportBean> getFeedList(final int premisesId) {
 				 +"  left JOIN pigtrax.\"TransportJourney\" TJ ON FE.\"id_TransportJourney\" = TJ.\"id\" "
 				 +"  left JOIN pigtrax.\"TransportTrailer\" TT ON TJ.\"id_TransportTrailer\" = TT.\"id\" "
 				 +"  left JOIN pigtrax.\"TransportTruck\" TAT ON TJ.\"id_TransportTruck\" = TAT.\"id\" "
-				 +"  where FE.\"id_Premise\"=? order by B.\"barnId\", FED.\"feedEventDate\" ";
+				 +"  where FE.\"id_Premise\"=? ";
+		if(groupId != null && groupId > 0)
+			query += " and FE.\"id_GroupEvent\" = ? ";
+		
+		query+= " order by B.\"barnId\", FED.\"feedEventDate\" ";
 		
 		List<FeedReportBean> feedReportBeanList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, premisesId);
+				if(groupId != null && groupId > 0)
+					ps.setInt(2, groupId);
 			}}, new FeedReportMapper());
 		
 		return feedReportBeanList;
