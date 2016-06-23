@@ -4,8 +4,20 @@ pigTrax.controller('DataIntegrityReportController', function($scope, $http, $win
 	$scope.endDate;
 	$scope.searchDataErrorMessage = false;
 	
+	$scope.getCompanyList = function(){
+		restServices.getCompanyList(function(data){
+			 if(!data.error)
+			 {
+				$scope.companyMapList = data.payload;
+			 }
+		});
+	};
+	
+	
+	
 	$scope.load = function( dataStatus)
-	{		
+	{
+		$scope.getCompanyList();
 		if(dataStatus == "true")
 			$scope.searchDataErrorMessage = true;
 		else

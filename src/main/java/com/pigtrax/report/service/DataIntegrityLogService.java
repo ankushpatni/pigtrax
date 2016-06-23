@@ -25,9 +25,14 @@ public class DataIntegrityLogService {
 	
 	private static final String seprater = ",";
 	
-	public List<String> getLog(Date startDate, Date endDate, Locale locale)
+	public List<String> getLog(Date startDate, Date endDate, Locale locale, Integer companyId)
 	{
-		List<DataIntegrityLog> logList = logDao.getLog(startDate, endDate);
+		List<DataIntegrityLog> logList = null;
+		
+		if(companyId != null)
+			logList = logDao.getLog(startDate, endDate, companyId);
+		else
+			logList = logDao.getLog(startDate, endDate);
 		
 		ArrayList<String> returnRows = new ArrayList<String>();
 
@@ -35,7 +40,7 @@ public class DataIntegrityLogService {
 
 			StringBuffer rowBuffer = null;			
 			returnRows.add(messageSource.getMessage("label.reports.dataintegrity.eventdate", null, "", locale)+","+messageSource.getMessage("label.reports.dataintegrity.datatable", null, "", locale)+","+messageSource.getMessage("label.reports.dataintegrity.errortype", null, "", locale)+","
-					+messageSource.getMessage("label.reports.dataintegrity.errordescription", null, "", locale)+"\n");
+					+messageSource.getMessage("label.reports.dataintegrity.errordescription", null, "", locale)+","+messageSource.getMessage("label.reports.dataintegrity.userresponsible", null, "", locale)+"\n");
 			
 			for (DataIntegrityLog log : logList) {
 				rowBuffer = new StringBuffer();
@@ -47,7 +52,8 @@ public class DataIntegrityLogService {
 					rowBuffer.append(log.getEventType() + seprater);
 					rowBuffer.append(log.getErrorType() + seprater);
 					
-					rowBuffer.append(log.getErrorDescription());
+					rowBuffer.append(log.getErrorDescription()+ seprater);
+					rowBuffer.append(log.getUserId() != null ?log.getUserId():"" ); 
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}

@@ -4726,14 +4726,18 @@ public class ReportControlller {
 			try {
 				String startDate = request.getParameter("startDate");
 				String endDate = request.getParameter("endDate");
+				String selectedCompany = request.getParameter("selectedCompany");
+				Integer companyId = null;
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				List<String> rows =new ArrayList<String>();			
 				try {
+					   if(selectedCompany != null)
+						   companyId = Integer.parseInt(selectedCompany);
 						response.setContentType("text/csv");
 						String reportName = "CSV_Report_DataIntegrity_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						
-						rows = logService.getLog(DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request));
+						rows = logService.getLog(DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request), companyId);
 						if(rows != null && rows.size() > 1)
 						{
 							Iterator<String> iter = rows.iterator();

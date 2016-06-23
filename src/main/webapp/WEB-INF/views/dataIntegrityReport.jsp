@@ -20,6 +20,20 @@
 						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.report.search.data.errormessage' text='No data found for the given criteria'/></p>
 						<p class="color-danger" ng-show="criteriaMessage"><spring:message code='label.report.search.criteria.errormessage' text='Please provide the mandatory criteria to generate the report'/></p>
 						
+						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
+								{%>
+								<div  class="form-group">
+								<select  class="form-control"  name="selectedCompany" id="selectedCompany" ng-model="selectedCompany"  ng-change="loadPremises()">
+								<option value="" hidden><spring:message code='label.piginfo.Company.placeholder' text='Select Company' /></option>
+                      			 	<option ng-repeat="company in companyMapList" value="{{company.id}}" ng-value="company.id" ng-selected="selectedCompany == company.id" >{{company.name}}</option>
+                      		  </select>
+								</div>
+						<%} else {
+							%>
+							  <input type="hidden" name="selectedCompany" value="${CompanyId}">
+							<%
+						}%>
+						
 						<div  class="form-group">
 						<label><spring:message code='label.generateLactationLengthReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
