@@ -62,7 +62,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 		{
 			throw new PigTraxException(e.getMessage(), e.getSQLState());
 		}
-	}
+	} 
 	
 	@Override
 	public GroupEvent getGroupEventByGeneratedGroupId(final int groupId,  final int companyId) {
@@ -506,7 +506,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 		groupEventDetails.setDateOfEntry(DateUtil.getToday());
 		groupEventDetails.setWeightInKgs(groupEvent.getTransferredPigWt());
 		groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
-		groupEventDetails.setFromGroupId(groupEvent.getId());
+		groupEventDetails.setFromGroupId(groupEvent.getTransferredFromGroupId() != null ?groupEvent.getTransferredFromGroupId():groupEvent.getId());
 		groupEventDetails.setRemarks("Received");
 		return groupEventDetails;
 	}
