@@ -15,15 +15,17 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
+@PropertySource("classpath:PigTraxValidation.properties")
 public class Mailer {
    	 
 
 	private static Logger logger = Logger.getLogger(Mailer.class);
-    // Sender's email ID needs to be mentioned
-	@Value("${email.from.address}")
+    // Sender's email ID needs to be mentioned	
 	String from;
     String host = "localhost";	
 	Session session = null;
@@ -33,7 +35,8 @@ public class Mailer {
     private String subject;
     private String message;
 	
-    
+    @Autowired
+	private Environment env;
     
     
 	public String getSubject() {
@@ -76,6 +79,20 @@ public class Mailer {
 	}
 
 
+	
+	
+	
+	public String getFrom() {
+		this.from = env.getProperty("email.from.address");		
+		return from;
+	}
+
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+
 	void loadProperties()
 	{
 		// Get system properties
@@ -99,7 +116,9 @@ public class Mailer {
 	         MimeMessage emailMessage = new MimeMessage(session);
 
 	         // Set From: header field of the header.
-	         emailMessage.setFrom(new InternetAddress(from));
+	         emailMessage.setFrom(new InternetAddress(this.getFrom()));
+	         
+	         emailMessage.setSubject(getSubject());
 
 	         // Set To: header field of the header.
 	         emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
@@ -110,7 +129,7 @@ public class Mailer {
 	        	 {
 	        		 emailMessage.addRecipient(Message.RecipientType.BCC, new InternetAddress(addr));
 	        	 }
-	         }	 
+	         }	  
 	         emailMessage.setContent(this.message,"text/html");	         
 	         // Send message
 	         Transport.send(emailMessage);
