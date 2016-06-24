@@ -12,6 +12,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,7 +23,8 @@ public class Mailer {
 
 	private static Logger logger = Logger.getLogger(Mailer.class);
     // Sender's email ID needs to be mentioned
-    String from = "vidyar2002@gmail.com";
+	@Value("${email.from.address}")
+	String from;
     String host = "localhost";	
 	Session session = null;
     
@@ -29,6 +33,7 @@ public class Mailer {
     private String subject;
     private String message;
 	
+    
     
     
 	public String getSubject() {
