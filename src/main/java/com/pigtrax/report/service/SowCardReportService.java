@@ -52,6 +52,7 @@ public class SowCardReportService {
 		sowCardServiceList.add(new StringBuffer("First Service Date,"));
 		sowCardServiceList.add(new StringBuffer("Last Service Date,"));
 		sowCardServiceList.add(new StringBuffer("115 Farrow date,"));
+		sowCardServiceList.add(new StringBuffer("Net Transfer,"));
 		
 		int counter = 0;
 		for(SowCardReportBean sowCardReportBean : sowCardList)
@@ -91,6 +92,14 @@ public class SowCardReportService {
 			
 			
 			sowCardServiceList.get(16).append(DateUtil.convertToFormatString(cal.getTime(),"dd/MM/yyyy")).append(",");
+			
+			Integer transferInPigs = sowCardReportBean.getTransferredInPigs() != null ? sowCardReportBean.getTransferredInPigs() : 0;
+			Integer transferOutPigs = sowCardReportBean.getTransferredOutPigs() != null ? sowCardReportBean.getTransferredOutPigs() : 0;
+			
+			Integer netTransfer = transferInPigs - transferOutPigs;
+			
+			sowCardServiceList.get(17).append(netTransfer).append(",");
+			
 			counter++;
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block

@@ -19,6 +19,9 @@ public class SowCardReportBean {
 	private Double avgWeanWeight;	
 	private Date firstServiceDate;
 	private Date lastServiceDate;
+	private Integer transferredInPigs;
+	private Integer transferredOutPigs;
+	
 	public Integer getCurrentParity() {
 		return currentParity;
 	}
@@ -108,6 +111,18 @@ public class SowCardReportBean {
 	}
 	public void setLastServiceDate(Date lastServiceDate) {
 		this.lastServiceDate = lastServiceDate;
+	}
+	public Integer getTransferredInPigs() {
+		return transferredInPigs;
+	}
+	public void setTransferredInPigs(Integer transferredInPigs) {
+		this.transferredInPigs = transferredInPigs;
+	}
+	public Integer getTransferredOutPigs() {
+		return transferredOutPigs;
+	}
+	public void setTransferredOutPigs(Integer transferredOutPigs) {
+		this.transferredOutPigs = transferredOutPigs;
 	}
 	
 	
