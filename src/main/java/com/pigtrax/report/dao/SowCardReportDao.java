@@ -26,7 +26,7 @@ public class SowCardReportDao {
 	@Autowired
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-	}
+	} 
 	
 	public List<SowCardReportBean> getSowCardList(final int pigId) {
 		
@@ -34,11 +34,13 @@ public class SowCardReportDao {
 				 + " DATE_PART('day',FE.\"farrowDateTime\" - BE.\"serviceStartDate\") as genLength, "
 				 + " FE.\"weightInKgs\" as \"birthWeight\", PS.\"eventDateTime\" weanDate, PS.\"numberOfPigs\",  "
 				 + " DATE_PART('day',PS.\"eventDateTime\" - FE.\"farrowDateTime\") as \"weanAge\", PS.\"weightInKgs\"/PS.\"numberOfPigs\" as \"avgWeanWeight\", M.\"ServNo\" as \"totalService\",  "
-				 + " LAST_SERV.\"LastServDate\", BE.\"serviceStartDate\" as \"firstServiceDate\", PST.\"numberOfPigs\" as \"transferredOutPigs\", PST1.\"numberOfPigs\" as \"transferredInPigs\" from pigtrax.\"FarrowEvent\" FE "
+				 + " LAST_SERV.\"LastServDate\", BE.\"serviceStartDate\" as \"firstServiceDate\", TR_OUT.\"numberOfPigs\" as \"transferredOutPigs\", TR_IN.\"numberOfPigs\" as \"transferredInPigs\" from pigtrax.\"FarrowEvent\" FE "
 				 + "  join pigtrax.\"BreedingEvent\" BE ON FE.\"id_BreedingEvent\" = BE.\"id\"  "
 				 + "  left join pigtrax.\"PigletStatus\" PS ON PS.\"id_FarrowEvent\" = FE.\"id\" and PS.\"id_PigletStatusEventType\" = 3 "
-				 + " left join pigtrax.\"PigletStatus\" PST ON PST.\"id_FarrowEvent\" = FE.\"id\" and PST.\"id_PigletStatusEventType\" in (2) "
-				 + " left join pigtrax.\"PigletStatus\" PST1 ON PST1.\"id_FarrowEvent\" = FE.\"id\" and PST1.\"id_PigletStatusEventType\" in (1) "
+				 + " left join ( select sum(\"numberOfPigs\") as \"numberOfPigs\", \"id_FarrowEvent\" from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" in (2) group by \"id_FarrowEvent\") AS TR_OUT "
+				  + " ON  TR_OUT.\"id_FarrowEvent\" = FE.\"id\"  "
+				 +"  left join ( select sum(\"numberOfPigs\") as \"numberOfPigs\", \"id_FarrowEvent\" from pigtrax.\"PigletStatus\" where \"id_PigletStatusEventType\" in (1) group by \"id_FarrowEvent\") AS TR_IN "
+				  + " ON  TR_IN.\"id_FarrowEvent\" = FE.\"id\"   "
 				 + "  join (select \"id\", count(*) as \"ServNo\" from pigtrax.\"BreedingEvent\" group by \"id\") M ON M.\"id\" = BE.\"id\" "
 				 + "  JOIN (select \"id_BreedingEvent\", \"matingDate\"  as \"LastServDate\" from  pigtrax.\"MatingDetails\" where \"id\" in (select max(\"id\") from pigtrax.\"MatingDetails\" group by \"id_BreedingEvent\")) LAST_SERV ON LAST_SERV.\"id_BreedingEvent\" = BE.\"id\" "
 				 + "  where FE.\"id_PigInfo\" = ? order by  FE.\"farrowDateTime\" ";
