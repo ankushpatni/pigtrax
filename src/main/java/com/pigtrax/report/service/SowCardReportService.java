@@ -78,7 +78,11 @@ public class SowCardReportService {
 				sowCardServiceList.get(7).append(",");
 			}
 			sowCardServiceList.get(8).append(sowCardReportBean.getBirthWeight()).append(",");
-			sowCardServiceList.get(9).append(DateUtil.convertToFormatString(sowCardReportBean.getWeanDate(),"dd/MM/yyyy")).append(",");
+			if(sowCardReportBean.getWeanDate() != null)
+				sowCardServiceList.get(9).append(DateUtil.convertToFormatString(sowCardReportBean.getWeanDate(),"dd/MM/yyyy")).append(",");
+			else
+				sowCardServiceList.get(9).append(" ").append(",");
+				
 			sowCardServiceList.get(10).append(sowCardReportBean.getNumberOfPigs()).append(",");
 			sowCardServiceList.get(11).append(sowCardReportBean.getWeanAge()).append(",");
 			sowCardServiceList.get(12).append(sowCardReportBean.getAvgWeanWeight()).append(",");
