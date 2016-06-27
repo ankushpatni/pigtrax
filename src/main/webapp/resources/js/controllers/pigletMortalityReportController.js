@@ -3,6 +3,8 @@ pigTrax.controller('PigletMortalityReportController', function($scope, $http, $w
 	$scope.startDate;
 	$scope.endDate;
 	$scope.searchDataErrorMessage = false;
+	$scope.premiseList = [];
+	$scope.completePremiseList = [];
 	
 	$scope.loadPremises = function(comapnyId, dataStatus)
 	{
@@ -17,11 +19,23 @@ pigTrax.controller('PigletMortalityReportController', function($scope, $http, $w
 		}
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=null');
 		res.success(function(data, status, headers, config) {
-			$scope.premiseList = data.payload;
+			$scope.completePremiseList = data.payload;
+			
+			for(i = 0; i < $scope.completePremiseList.length; i++)
+			 {
+			     var premiseObj = $scope.completePremiseList[i];
+			     if(premiseObj.premiseTypeId == 1 || premiseObj.premiseTypeId == 6 || premiseObj.premiseTypeId == 8)
+			    	 $scope.premiseList.push(premiseObj);
+			 }
+			
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
 		});	
+		
+		
+		 
+		
 		$scope.companyId = localCompany;
 		if(dataStatus == "true")
 			$scope.searchDataErrorMessage = true;
