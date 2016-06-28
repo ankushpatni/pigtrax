@@ -104,7 +104,7 @@ public class RationReportDao {
 					+" Group by  FED.\"id_GroupEvent\",FE.\"batchId\" ) a ON a.\"id_GroupEvent\" = GE.\"id\" "
 					+" group by a.\"batchId\" "    
 					+" ) C ON FE.\"batchId\" = C.\"batchId\" "
-					+" WHERE  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL)) T )R JOIN pigtrax.\"MasterRation\" MR ON MR.\"id\" = R.\"batchId\" ";
+					+" WHERE P.\"id\" = ? and FED.\"id_GroupEvent\" = ? and  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL)) T )R JOIN pigtrax.\"MasterRation\" MR ON MR.\"id\" = R.\"batchId\" ";
 		
 		final int duration = durationDays;
 		rationReportList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -128,6 +128,11 @@ public class RationReportDao {
 				ps.setDate(13, new java.sql.Date(endDate.getTime()));
 				ps.setInt(14, premiseId);
 				ps.setInt(15, groupId);
+				
+				ps.setInt(16, premiseId);
+				ps.setInt(17, groupId);
+				
+				
 				
 			}}, new RationReportMapper());
 		
