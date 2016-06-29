@@ -37,6 +37,7 @@ public class LactationLengthReportService {
 			emptyBean.setNumberOfPigs(0);
 			
 			int count = 0;
+			int totalSowCount = 0;
 			
 			Map<Integer, LactationLengthBean> dataMap = new TreeMap<Integer, LactationLengthBean>();
 			
@@ -55,6 +56,8 @@ public class LactationLengthReportService {
 					rowBean.setLactationLength(bean.getLactationLength());
 					rowBean.setPercentage(bean.getPercentage());
 					
+					totalSowCount += bean.getNumberOfPigs();
+					
 					dataMap.put(bean.getLactationLength(), rowBean);
 				}
 				
@@ -64,7 +67,7 @@ public class LactationLengthReportService {
 				double weightedAvgOfLacationDays = 0;
 				double averageLactationDays = 0D;
 				double totalLactationDays = 0D;
-				int totalSowCount = 0;
+				
 				
 				returnRows.add(messageSource.getMessage("label.reports.lactation.lactationdays", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.numberofsows", null, "", locale)+","
 						+messageSource.getMessage("label.reports.lactation.totalpercentage", null, "", locale)+"\n");
@@ -85,12 +88,13 @@ public class LactationLengthReportService {
 							rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
 							totalLactationDays+=lactationLengthBean.getLactationLength();
 							
+							lactationLengthBean.setPercentage(((double)(100*lactationLengthBean.getNumberOfPigs())/totalSowCount));
+							
 							totalPercentage = totalPercentage+lactationLengthBean.getPercentage();
 							//weightedAvgOfLacationDays = weightedAvgOfLacationDays + (double)(lactationLengthBean.getNumberOfPigs()*lactationLengthBean.getLactationLength()/count);
-							rowBuffer.append(lactationLengthBean.getPercentage());
-							//rowBuffer.append(((double)(100*lactationLengthBean.getNumberOfPigs())/count) );
+							rowBuffer.append(lactationLengthBean.getPercentage());							
 							returnRows.add(rowBuffer.toString()+"\n");
-							totalSowCount = lactationLengthBean.getTotalPigCount();
+							//totalSowCount = lactationLengthBean.getTotalPigCount();
 						}
 					}
 				}

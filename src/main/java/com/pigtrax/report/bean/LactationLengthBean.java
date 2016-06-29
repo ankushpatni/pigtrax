@@ -33,13 +33,13 @@ public class LactationLengthBean {
 		this.lactationLength = lactationLength;
 	}
 	public Double getPercentage() {
-		percentage = (double) ((numberOfPigs*100)/totalPigCount);
-		if(percentage != null)
-		{
-			 BigDecimal bd = new BigDecimal(percentage);
-		     bd = bd.setScale(2, RoundingMode.HALF_UP); //set the precision to 2 decimal places
-		     return bd.doubleValue();
-		}
+//		percentage = (double) ((numberOfPigs*100)/totalPigCount);
+//		if(percentage != null)
+//		{
+//			 BigDecimal bd = new BigDecimal(percentage);
+//		     bd = bd.setScale(2, RoundingMode.HALF_UP); //set the precision to 2 decimal places
+//		     return bd.doubleValue();
+//		}
 		return percentage;
 	}
 	public void setPercentage(Double percentage) {
