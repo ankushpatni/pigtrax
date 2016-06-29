@@ -31,7 +31,7 @@ public class DataIntegrityLogDao {
 
 	public void insert(final DataIntegrityLog log) {
 		final String Qry = "insert into pigtrax.\"DataIntegrityLog\"(\"eventType\", \"errorType\", "
-				+ "\"eventDate\", \"errorDescription\", \"companyId\") values(?,?,?,?,?)";
+				+ "\"eventDate\", \"errorDescription\", \"id_Company\", \"userId\", \"relevantField\",\"id_Premise\") values(?,?,?,?,?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -49,6 +49,9 @@ public class DataIntegrityLogDao {
 	    					ps.setNull(3, java.sql.Types.DATE);
 	    				ps.setString(4, log.getErrorDescription());
 	    				ps.setInt(5, log.getCompanyId());
+	    				ps.setString(6, log.getUserId());
+	    				ps.setString(7, log.getRelevantField());
+	    				ps.setInt(8, log.getPremiseId());
 	    	            return ps;
 	    	        }
 	    	    }, 
@@ -62,8 +65,9 @@ public class DataIntegrityLogDao {
 		final java.sql.Date start = new java.sql.Date(startDate.getTime());
 		final java.sql.Date end = new java.sql.Date(endDate.getTime());
 		
-		String qry = "select \"id\", \"eventType\", \"errorType\", \"eventDate\", \"errorDescription\",\"companyId\",\"userId\" from pigtrax.\"DataIntegrityLog\""
-				+ " where \"eventDate\" between ? and ? order by \"eventDate\" desc";
+		String qry = "select DI.\"id\",  DI.\"eventType\",  DI.\"errorType\",  DI.\"eventDate\",  DI.\"errorDescription\", DI.\"id_Company\", DI.\"userId\", DI.\"relevantField\", DI.\"id_Premise\", P.\"name\" from "
+				+ "  pigtrax.\"DataIntegrityLog\"  DI JOIN pigtrax.\"Premise\" P ON DI.\"id_Premise\" = P.\"id\" "
+				+ " where DI.\"eventDate\" between ? and ? ";
 		
 		List<DataIntegrityLog> logList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 	
@@ -80,8 +84,9 @@ public class DataIntegrityLogDao {
 		final java.sql.Date start = new java.sql.Date(startDate.getTime());
 		final java.sql.Date end = new java.sql.Date(endDate.getTime());
 		
-		String qry = "select \"id\", \"eventType\", \"errorType\", \"eventDate\", \"errorDescription\",\"companyId\",\"userId\" from pigtrax.\"DataIntegrityLog\""
-				+ " where \"eventDate\" between ? and ? and \"companyId\" = ?";
+		String qry = "select DI.\"id\",  DI.\"eventType\",  DI.\"errorType\",  DI.\"eventDate\",  DI.\"errorDescription\", DI.\"id_Company\", DI.\"userId\", DI.\"relevantField\", DI.\"id_Premise\", P.\"name\" from "
+				+ "  pigtrax.\"DataIntegrityLog\"  DI JOIN pigtrax.\"Premise\" P ON DI.\"id_Premise\" = P.\"id\" "
+				+ " where DI.\"eventDate\" between ? and ? and DI.\"id_Company\" = ?";
 		
 		List<DataIntegrityLog> logList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			
@@ -95,6 +100,26 @@ public class DataIntegrityLogDao {
 	} 
 	
 	
+	public List<DataIntegrityLog> getLog(final Date startDate, final Date endDate, final Integer companyId, final Integer premiseId) {
+		final java.sql.Date start = new java.sql.Date(startDate.getTime());
+		final java.sql.Date end = new java.sql.Date(endDate.getTime());
+		
+		String qry = "select DI.\"id\", DI.\"eventType\", DI.\"errorType\", DI.\"eventDate\", DI.\"errorDescription\",DI.\"id_Company\",DI.\"userId\",DI.\"relevantField\",DI.\"id_Premise\", P.\"name\" from "
+				+ " pigtrax.\"DataIntegrityLog\" DI JOIN pigtrax.\"Premise\" P ON DI.\"id_Premise\" = P.\"id\" "
+				+ " where DI.\"eventDate\" between ? and ? and DI.\"id_Company\" = ? and DI.\"id_Premise\" = ?";
+		
+		List<DataIntegrityLog> logList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+			
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setDate(1, start);
+				ps.setDate(2, end);
+				ps.setInt(3, companyId);
+				ps.setInt(4, premiseId);
+			}}, new EventMapper());
+		
+		return logList;
+	} 
+	
 	
 	private static final class EventMapper implements RowMapper<DataIntegrityLog> {
 		public DataIntegrityLog mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -103,8 +128,11 @@ public class DataIntegrityLogDao {
 			log.setErrorType(rs.getString("errorType"));
 			log.setEventDate(rs.getDate("eventDate"));
 			log.setErrorDescription(rs.getString("errorDescription"));		
-			log.setCompanyId(rs.getInt("companyId"));
+			log.setCompanyId(rs.getInt("id_Company"));
 			log.setUserId(rs.getString("userId")); 
+			log.setRelevantField(rs.getString("relevantField"));
+			log.setPremiseId(rs.getInt("id_Premise"));
+			log.setPremise(rs.getString("name"));
 			return log;
 		}
 	}

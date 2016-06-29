@@ -4727,17 +4727,23 @@ public class ReportControlller {
 				String startDate = request.getParameter("startDate");
 				String endDate = request.getParameter("endDate");
 				String selectedCompany = request.getParameter("selectedCompany");
+				String selectedPremise = request.getParameter("selectedPremise");
 				Integer companyId = null;
+				Integer premiseId = null;
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				List<String> rows =new ArrayList<String>();			
 				try {
-					   if(selectedCompany != null)
+					   if(selectedCompany != null && selectedCompany.trim().length() > 0)
 						   companyId = Integer.parseInt(selectedCompany);
+					   
+					   if(selectedPremise != null && selectedPremise.trim().length() > 0)
+						   premiseId = Integer.parseInt(selectedPremise);
+					   
 						response.setContentType("text/csv");
 						String reportName = "CSV_Report_DataIntegrity_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						
-						rows = logService.getLog(DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request), companyId);
+						rows = logService.getLog(DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request), companyId, premiseId);
 						if(rows != null && rows.size() > 1)
 						{
 							Iterator<String> iter = rows.iterator();

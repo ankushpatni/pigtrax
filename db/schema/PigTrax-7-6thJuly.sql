@@ -3377,8 +3377,10 @@ CREATE TABLE pigtrax."DataIntegrityLog"
   "errorType" varchar(50) NOT NULL,
   "eventDate" timestamp without time zone NOT NULL,
   "errorDescription" varchar(1000) not null,
-  "companyId" integer,
+  "id_Company" integer,
   "userId"varchar(50),
+  "relevantField" varchar(50),
+  "id_Premise" integer
   CONSTRAINT "DataIntegrityLog_PK" PRIMARY KEY (id)
 )
 ;

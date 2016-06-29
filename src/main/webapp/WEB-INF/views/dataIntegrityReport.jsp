@@ -34,6 +34,16 @@
 							<%
 						}%>
 						
+						
+						<div  class="form-group">
+						<label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/></label>
+						<select  class="form-control"  required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="loadData()">
+								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
+                      			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
+                      		  </select>
+						</div>
+						
+						
 						<div  class="form-group">
 						<label><spring:message code='label.generateLactationLengthReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
