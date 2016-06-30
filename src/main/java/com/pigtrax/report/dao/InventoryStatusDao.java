@@ -49,6 +49,7 @@ public class InventoryStatusDao {
 				+" pigtrax.\"PigTraxEventMaster\" PEM " 
 				+" JOIN pigtrax.\"PigInfo\" PI ON PEM.\"id_PigInfo\" = PI.\"id\" "
 				+" LEFT JOIN pigtrax.\"PigletStatus\" PS ON PEM.\"id_PigletStatus\" = PS.\"id\" "
+				+" LEFT JOIN pigtrax.\"PregnancyEvent\" PE ON PEM.\"id_PregnancyEvent\" = PE.\"id\" "
 				+" JOIN pigtrax.\"Premise\" P ON P.\"id\"=PI.\"id_Premise\" "
 				+" LEFT JOIN pigtrax.\"Room\" R ON PI.\"id_Room\" = R.\"id\" "
 				+" LEFT JOIN pigtrax.\"Barn\" BN ON BN.\"id\" = R.\"id_Barn\" "
