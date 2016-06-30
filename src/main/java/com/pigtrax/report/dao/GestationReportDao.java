@@ -221,6 +221,32 @@ public class GestationReportDao {
 		            return 0;
 		          }
 		        });
+			
+			
+			
+			final String qry1 = "Select count(BE.\"id_PigInfo\") from pigtrax.\"BreedingEvent\" BE JOIN pigtrax.\"PregnancyEvent\" PE ON PE.\"id_BreedingEvent\" = BE.\"id\""
+					+ "  where BE.\"id_Premise\" = ? and BE.\"serviceStartDate\"+interval '"+i*7+"' day between ? and ?  and (PE.\"id_PregnancyEventType\" in (2,3) OR (PE.\"id_PregnancyEventType\" in (1) and PE.\"id_PregnancyExamResultType\" in (2))) ";
+			
+			
+			@SuppressWarnings("unchecked")
+			Integer notPregnantCnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+				@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, premiseId);
+						ps.setDate(2, new java.sql.Date(startDate.getTime()));
+						ps.setDate(3, new java.sql.Date(endDate.getTime()));
+					}
+				},
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getInt(1);
+		            }
+		            return 0;
+		          }
+		        });
+			
+			
 			/*
 			final String qry1 = "select sum(T.cnt) as removalCnt from (select count(RE.\"id_PigInfo\") as cnt from pigtrax.\"RemovalEventExceptSalesDetails\" RE where "
 					+ " \"id_PigInfo\" in ( select \"id_PigInfo\" from pigtrax.\"BreedingEvent\" where \"serviceStartDate\" between ? and ? and \"id_Premise\" = ? "
@@ -259,7 +285,8 @@ public class GestationReportDao {
 			
 			remainingCnt = sowCount - removalCnt;
 			weekCntMap.put(index, remainingCnt);*/
-			weekCntMap.put(index, sowCount);
+			remainingCnt = sowCount - notPregnantCnt;
+			weekCntMap.put(index, remainingCnt);
 		}
 		
 		return weekCntMap;

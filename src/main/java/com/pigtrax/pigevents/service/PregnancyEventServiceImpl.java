@@ -144,7 +144,7 @@ public class PregnancyEventServiceImpl implements PregnancyEventService {
 							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
 							break;
 						}
-						else if (eventTypeId == 2 && durationDays >= 28 && durationDays >= 112) {
+						else if (eventTypeId == 2 && durationDays >= 28 && durationDays <= 112) {
 							pregnancyEventDto.setBreedingEventId(breedingEvent.getId());
 							break;
 						}
