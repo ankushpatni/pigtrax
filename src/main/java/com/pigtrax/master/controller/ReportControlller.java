@@ -3660,6 +3660,7 @@ public class ReportControlller {
 				String startDate = request.getParameter("startDate");
 				String endDate = request.getParameter("endDate");	 
 				String fromOverView = request.getParameter("fromOverView");
+				String reportOption = request.getParameter("reportOption"); 
 				List<String> rows =new ArrayList<String>();	
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				try {
@@ -3672,7 +3673,7 @@ public class ReportControlller {
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						if(premiseId > 0)
 						{ 
-							rows = gestationReportService.getGestationResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request)); 
+							rows = gestationReportService.getGestationResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request), reportOption); 
 							Iterator<String> iter = rows.iterator();
 							if(rows != null && rows.size() > 0)
 							{
