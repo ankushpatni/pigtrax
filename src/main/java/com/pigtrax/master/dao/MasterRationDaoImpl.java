@@ -86,6 +86,27 @@ public class MasterRationDaoImpl implements MasterRationDao {
 		
 	}
    
+   
+   @Override
+	public Integer updateRation(final MasterRation rationObj) {
+	   String query = "Update pigtrax.\"MasterRation\" set  \"rationValue\" = ?, \"id_FeedEventType\" = ?, \"lastUpdated\" = current_timestamp,\"userUpdated\" = ?,"
+	   		+ "  \"rationDescription\" = ?, \"id_RationType\" = ? where \"id\" = ?";
+	
+	return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+		@Override
+		public void setValues(PreparedStatement ps) throws SQLException {
+			ps.setString(1, rationObj.getRationValue());
+			ps.setObject(2, rationObj.getFeedTypeId(), java.sql.Types.INTEGER);
+			ps.setString(3, rationObj.getUserUpdated());
+			ps.setString(4, rationObj.getRationDescription());
+			ps.setObject(5, rationObj.getRationTypeId(), java.sql.Types.INTEGER);
+			ps.setObject(6, rationObj.getId(), java.sql.Types.INTEGER);
+		}
+	});
+		
+	}
+   
+   
    @Override
 	public Integer deleteRation(final Integer rationId) {
 	   String query = "delete from pigtrax.\"MasterRation\" where \"id\" = ?";

@@ -7,8 +7,10 @@ import com.pigtrax.master.dto.MasterRationDto;
 
 public interface MasterRationDao {
    Integer saveRation(MasterRation masterRationDto);
+   Integer updateRation(MasterRation masterRationDto);
    Integer deleteRation(Integer id);
    List<MasterRationDto> getRationList();
    List<MasterRationDto> getRationList(String language);	
    MasterRationDto findRationById(Integer rationId);
 }
+
