@@ -39,7 +39,7 @@ public class GestationReportDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public List<Map<String, Object>> getGestationResultList(Integer premiseId, List<Map<String, Object>> rangeList)
+	public List<Map<String, Object>> getGestationResultList(Integer premiseId, List<Map<String, Object>> rangeList, String reportOption)
 	{
 		Integer penCount = getPenCount(premiseId);
 		
@@ -52,7 +52,7 @@ public class GestationReportDao {
 			Integer NumberServ = getNumberOfSowsByServiceDate(premiseId,ServDateSTART, ServDateEND);
 			row.put("NumberServ", NumberServ);
 			
-			Map<Integer, Integer> weekCntMap = getNumberOfSowsByWeek(premiseId,ServDateSTART, ServDateEND);
+			Map<Integer, Integer> weekCntMap = getNumberOfSowsByWeek(premiseId,ServDateSTART, ServDateEND, reportOption);
 			if(weekCntMap != null && weekCntMap.size() > 0)
 			{
 				int i = 1;
@@ -191,8 +191,9 @@ public class GestationReportDao {
 	}
 	
 	
-	private Map<Integer, Integer> getNumberOfSowsByWeek(final Integer premiseId, final Date ServDateSTART, final Date ServDateEND)
+	private Map<Integer, Integer> getNumberOfSowsByWeek(final Integer premiseId, final Date ServDateSTART, final Date ServDateEND, String reportOption)
 	{
+		if(reportOption == null) reportOption = "";
 		Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
 		Integer remainingCnt = 0;
 		for(int i =1 ;i <=16; i++)
@@ -225,16 +226,17 @@ public class GestationReportDao {
 			
 			
 			final String qry1 = "Select count(BE.\"id_PigInfo\") from pigtrax.\"BreedingEvent\" BE JOIN pigtrax.\"PregnancyEvent\" PE ON PE.\"id_BreedingEvent\" = BE.\"id\""
-					+ "  where BE.\"id_Premise\" = ? and BE.\"serviceStartDate\"+interval '"+i*7+"' day between ? and ?  and (PE.\"id_PregnancyEventType\" in (2,3) OR (PE.\"id_PregnancyEventType\" in (1) and PE.\"id_PregnancyExamResultType\" in (2))) ";
+					+ "  where BE.\"id_Premise\" = ? and BE.\"serviceStartDate\"+interval '"+i*7+"' day between ? and ?  and PE.\"resultDate\" < ? and (PE.\"id_PregnancyEventType\" in (2,3) OR (PE.\"id_PregnancyEventType\" in (1) and PE.\"id_PregnancyExamResultType\" in (2))) ";
 			
 			
 			@SuppressWarnings("unchecked")
-			Integer notPregnantCnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			Integer notPregnantCnt  = (Integer)jdbcTemplate.query(qry1,new PreparedStatementSetter() {
 				@Override
 					public void setValues(PreparedStatement ps) throws SQLException {
 						ps.setInt(1, premiseId);
 						ps.setDate(2, new java.sql.Date(startDate.getTime()));
 						ps.setDate(3, new java.sql.Date(endDate.getTime()));
+						ps.setDate(4, new java.sql.Date(endDate.getTime()));
 					}
 				},
 		        new ResultSetExtractor() {
@@ -285,7 +287,10 @@ public class GestationReportDao {
 			
 			remainingCnt = sowCount - removalCnt;
 			weekCntMap.put(index, remainingCnt);*/
-			remainingCnt = sowCount - notPregnantCnt;
+			if(reportOption.equalsIgnoreCase("pregnant"))
+				remainingCnt = sowCount - notPregnantCnt;
+			else
+				remainingCnt = notPregnantCnt;
 			weekCntMap.put(index, remainingCnt);
 		}
 		

@@ -36,13 +36,13 @@ public class GestationReportService {
 	
 	private static final String seprater = ",";
 
-	public List<String> getGestationResult(String premise, Integer premiseId, Date startDate, Date endDate, Locale locale) { 
+	public List<String> getGestationResult(String premise, Integer premiseId, Date startDate, Date endDate, Locale locale, String reportOption) { 
 		
 		List<Map<String, Object>> rangeList = new ArrayList<Map<String,Object>>();
 		Map<String, Object> mp = new HashMap<String, Object>();
 		Calendar cal = Calendar.getInstance();
 		while(DateUtil.isDateAfter(endDate,startDate)){
-			mp = getDateRange(startDate,endDate);
+			mp = getDateRange(startDate,endDate); 
 			rangeList.add(mp);
 			startDate = (Date)mp.get("ServDateEND");
 			cal.setTime(startDate);
@@ -58,7 +58,7 @@ public class GestationReportService {
 		}
 		
 		logger.info("Range List size"+rangeList.size());
-		gestationReportDao.getGestationResultList(premiseId, rangeList);
+		gestationReportDao.getGestationResultList(premiseId, rangeList, reportOption);
 		
 		Integer gestationTarget = gestationReportDao.getAverageGestationTarget(premiseId);
 

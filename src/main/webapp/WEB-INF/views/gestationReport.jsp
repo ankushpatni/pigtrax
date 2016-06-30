@@ -37,6 +37,15 @@
 						</div>
 						
 						<div  class="form-group">
+							<label class="radio-inline">
+			                  <input type="radio" name="reportOption" id="rad1" class="farrowevent" value="pregnant" ng-model="reportOption" > <spring:message code='label.generateGestationReport.pregnant.option'  text='Presumed Pregnant'/>
+			                </label>
+			                <label class="radio-inline">
+			                  <input type="radio" name="reportOption" id="rad2" class="farrowevent" value="open" ng-model="reportOption"  > <spring:message code='label.generateGestationReport.foundopen.option'  text='Found Open'/> 
+			                </label>
+						</div>
+						
+						<div  class="form-group">
 						<label><spring:message code='label.generateLactationLengthReport.startDate'  text='Start Date'/></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
                       	<input type="text" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
@@ -52,6 +61,7 @@
 					</div>
 					<input type="hidden" name="companyId1" id="companyId1"/>
 					<input type="hidden" name="selectedPremise" id="selectedPremise"/>
+					
 				</form>
 			</div>
 		</div>
