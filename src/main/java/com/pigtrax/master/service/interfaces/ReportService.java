@@ -8,6 +8,6 @@ public interface ReportService {
 	int getActivedPenCount(int companyId);
 
 	Map<Date, Map> getFerrowEventReport(String startDate, String endDate,
-			Integer companyId, Integer premisesId);
+			Integer companyId, Integer premisesId, Integer numberOfWeeks);
 
 }

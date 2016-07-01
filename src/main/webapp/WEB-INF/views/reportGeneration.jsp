@@ -34,15 +34,6 @@
                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
                       		  </select>
 						</div>
-						<div class="form-group">
-                      		<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label>
-                      		<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      			<input type="text" name="startDate" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
-								
-		                      <!-- <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-		                          <input size="16" type="date" name="startDate" readonly="" class="form-control" format-date/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-								</div> -->
-                    	</div>
                     	<div class="form-group">
                       		<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/><span style='color: red'>*</span></label>
                       		<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
@@ -52,6 +43,16 @@
 		                          <input size="16" type="date" name="endDate" readonly="" class="form-control" format-date/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
 								</div> -->
                     	</div>
+                    	
+                    	<div class="form-group">
+                      		<label><spring:message code='label.piginfo.generateReport.numberOfWeeks'  text='Number of Weeks'/><span style='color: red'>*</span></label>
+                      			<input type="number" name="numberOfWeeks" class="form-control" ng-model="numberOfWeeks" step="1"/>
+								<input type="hidden" name="startDate" class="form-control" ng-model="startDate"/>
+		                      <!-- <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+		                          <input size="16" type="date" name="startDate" readonly="" class="form-control" format-date/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
+								</div> -->
+                    	</div>
+                    	
                     	<button type="button" value="report" ng-click="searchGroupInfo()">
 							<spring:message code='label.piginfo.generateReport.button'
 								text='Generate Report' />

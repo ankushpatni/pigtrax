@@ -134,7 +134,11 @@ public class PerformanceReportController {
 				String endDate = request.getParameter("endDate");
 				String selectedPremise = request.getParameter("selectedPremise");
 				String companyString = request.getParameter("companyId1");
+				String numberOfWeeksStr = request.getParameter("numberOfWeeks");
+				if(numberOfWeeksStr == null) numberOfWeeksStr = "0";
 				Integer premiseId  = 0;
+				Integer numberOfWeeks = 0;
+				numberOfWeeks = Integer.parseInt(numberOfWeeksStr);
 				
 				System.out.println("startDate = " + startDate);
 				System.out.println("startDate = " + endDate);
@@ -168,7 +172,7 @@ public class PerformanceReportController {
 				response.setHeader("Content-disposition", "attachment;filename="+reportName);
 		    
 				
-				ArrayList<String> rows = getFerrowReports(startDate, endDate, companyId, premiseId,local);
+				ArrayList<String> rows = getFerrowReports(startDate, endDate, companyId, premiseId,local, numberOfWeeks);
 				
 				Iterator<String> iter = rows.iterator();
 				while (iter.hasNext()) {
@@ -184,9 +188,9 @@ public class PerformanceReportController {
 	}
 	
 	
-	private ArrayList<String> getFerrowReports(String startDate, String endDate, Integer companyId, Integer premisesId,Locale local) {
+	private ArrayList<String> getFerrowReports(String startDate, String endDate, Integer companyId, Integer premisesId,Locale local, Integer numberOfWeeks) {
 		
-		Map map = reportService.getFerrowEventReport(startDate, endDate, companyId, premisesId);
+		Map map = reportService.getFerrowEventReport(startDate, endDate, companyId, premisesId, numberOfWeeks);
 		System.out.println(map);
 		
 		int totalActivePenAvailable = reportService.getActivedPenCount(companyId);
@@ -338,6 +342,8 @@ public class PerformanceReportController {
 		List<Float> pigsWeanedLifetimeList  = new LinkedList<Float>();
 		List<Integer> giltServiceCountList  = new LinkedList<Integer>();
 		List<Float> percentageGiltServiceCountList  = new LinkedList<Float>();
+		
+		List<Double> totalKgWeanedPerWeekList  = new LinkedList<Double>();
 	
 				
 		while(itr.hasNext())
@@ -390,6 +396,7 @@ public class PerformanceReportController {
 				int countOfDifferentPiGIdFromBreeding = (Integer)valueList.get(65);
 				int countOfNegativePregnancyAndAbortion = (Integer)valueList.get(66);
 				int sowsWeaningZeroPig = (Integer)valueList.get(67);
+				double totalKgWeanedPerWk = (Double)valueList.get(68);
 				
 						
 				totalBornList.add(totalBorn);
@@ -626,7 +633,8 @@ public class PerformanceReportController {
 				percentageGiltServiceCountList.add(((float)giltServiceCount/piGIdFromBreeding)*100);
 				
 				serviceToFalloutIntervalList.add((float)countOfNegativePregnancyAndAbortion/piGIdFromBreeding);
-			
+			   
+				totalKgWeanedPerWeekList.add(totalKgWeanedPerWk);
 					
 			}
 			else
@@ -754,6 +762,7 @@ public class PerformanceReportController {
 				percentageGiltServiceCountList.add(0f);
 				percentageAdjFarrowingRate.add(0f);
 				serviceToFalloutIntervalList.add(0f);
+				totalKgWeanedPerWeekList.add(0D);
 				
 			}
 			
@@ -1801,6 +1810,15 @@ public class PerformanceReportController {
 			pigsWeanedLifetimeListBuffer.append(pigsWeanedLifetimeList.get(i)).append(",");					
 		}
 		rows.add(pigsWeanedLifetimeListBuffer.toString());
+		rows.add("\n");	
+		
+		
+		StringBuffer totalKgWeanedBuffer = new StringBuffer();
+		totalKgWeanedBuffer.append(messageSource.getMessage("label.report.performance.TotalKgWeanedPerWeek", null, "", local)).append(",");
+		for (int i = 0; i < size; i++) {
+			totalKgWeanedBuffer.append(totalKgWeanedPerWeekList.get(i)).append(",");					
+		}
+		rows.add(totalKgWeanedBuffer.toString());
 		rows.add("\n");	
 		
 		return rows;

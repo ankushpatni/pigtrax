@@ -2528,4 +2528,35 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 			}
 			
 			
+			
+			@Override
+			public Double getTotalKgWeanedPerWk(final Date startDate,
+					final Date endDate, final Integer companyId,final Integer premisesId)  {
+				String qry =  "SELECT SUM(PS.\"weightInKgs\") FROM pigtrax.\"PigletStatus\" PS "
+						+ "	JOIN pigtrax.\"PigInfo\" PI ON PS.\"id_PigInfo\" = PI.\"id\" "
+						+ "	where PS.\"eventDateTime\" >= ? and  PS.\"eventDateTime\" <= ? and PI.\"id_Company\" = ? and PS.\"id_PigletStatusEventType\" = ? ";
+				
+				if(premisesId !=0)
+				{
+					qry = qry+ " and PS.\"id_Premise\" = " + premisesId;
+				}
+				
+		 		List<Double> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+		 			@Override
+		 			public void setValues(PreparedStatement ps) throws SQLException {
+		 				ps.setDate(1, startDate);
+		 				ps.setDate(2, endDate);
+		 				ps.setInt(3, companyId);
+		 				ps.setInt(4, PigletStatusEventType.Wean.getTypeCode());
+		 				
+		 			}}, new RowMapper<Double>() {
+						public Double mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							return rs.getDouble(1);
+						}
+					});
+
+				return pigletStatusEventList.get(0);
+			}
+			
 }

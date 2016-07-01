@@ -20,6 +20,7 @@ import com.pigtrax.master.service.interfaces.ReportService;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.PigletStatusEventDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 public class ReportServiceImpl implements ReportService{
@@ -47,13 +48,14 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public Map<Date,Map> getFerrowEventReport(String startDate,
-			String endDate, Integer companyId, Integer premisesId) {
+			String endDate, Integer companyId, Integer premisesId, Integer numberOfWeeks) {
 		
 		Date startDateD;
 		Date endDateD;
 		try {
-			startDateD = new Date( sdf.parse(startDate).getTime());
+			//startDateD = new Date( sdf.parse(startDate).getTime());			
 			endDateD = new Date( sdf.parse(endDate).getTime());
+			startDateD = new java.sql.Date(DateUtil.addDays(new java.util.Date(sdf.parse(endDate).getTime()), numberOfWeeks*-7).getTime());
 			dateMapDate = new LinkedHashMap<Date,Map>();
 			monthsBetween(startDateD, endDateD, companyId, premisesId);
 			
@@ -212,6 +214,8 @@ public class ReportServiceImpl implements ReportService{
 				listValues.add(pigletStatusEventDao.getCountOfDifferentPiGIdFromBreeding(start, end, companyId, premisesId));// 65 getCountOfDifferentPiGIdFromBreeding
 				listValues.add(pigletStatusEventDao.getNegativePregenancy(start, end, companyId, premisesId));// 66 getNegativePregenancy
 				listValues.add(pigletStatusEventDao.getSowsWeaningZeroPig(start, end, companyId, premisesId));// 67 getSowsWeaningZeroPig
+				
+				listValues.add(pigletStatusEventDao.getTotalKgWeanedPerWk(start, end, companyId, premisesId));// 68 getSowsWeaningZeroPig
 					
 				Map mapOfValues = new LinkedHashMap();
 				mapOfValues.put("totalFerrow", totalFerrowEvents);

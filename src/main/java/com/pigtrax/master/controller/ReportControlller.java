@@ -1715,7 +1715,7 @@ public class ReportControlller {
 		
 
 		
-		Map map = reportService.getFerrowEventReport(startDate, endDate, companyId, premisesId);
+		Map map = reportService.getFerrowEventReport(startDate, endDate, companyId, premisesId, 0);
 		System.out.println(map);
 		
 		int totalActivePenAvailable = reportService.getActivedPenCount(companyId);
@@ -3310,6 +3310,14 @@ public class ReportControlller {
 		pigsWeanedLifetimeListBuffer.append("Pigs Weaned/Lifetime,");
 		for (int i = 0; i < size; i++) {
 			pigsWeanedLifetimeListBuffer.append(pigsWeanedLifetimeList.get(i)).append(",");					
+		}
+		rows.add(pigsWeanedLifetimeListBuffer.toString());
+		rows.add("\n");	
+		
+		StringBuffer totalKgWeanedBuffer = new StringBuffer();
+		totalKgWeanedBuffer.append("Total Kg Weaned / Week,");
+		for (int i = 0; i < size; i++) {
+			totalKgWeanedBuffer.append(pigsWeanedLifetimeList.get(i)).append(",");					
 		}
 		rows.add(pigsWeanedLifetimeListBuffer.toString());
 		rows.add("\n");	

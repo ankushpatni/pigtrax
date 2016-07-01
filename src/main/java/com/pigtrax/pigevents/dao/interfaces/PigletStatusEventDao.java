@@ -171,4 +171,6 @@ public interface PigletStatusEventDao {
 
 	Integer getTotalPigsMortal(Date startDate, Date endDate, Integer companyId, Integer premisesId);
 	
+	Double getTotalKgWeanedPerWk(Date startDate, Date endDate, Integer companyId, Integer premisesId);
+	
 }
