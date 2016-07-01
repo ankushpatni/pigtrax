@@ -31,7 +31,7 @@
 								</div>
 							<%} else {%>
 							
-							<input type="hidden" name="selectedPremise" id="selectedPremise"/>
+							<input type="hidden" name="selectedCompany" id="selectedCompany"/>
 							<%} %>
 						<div  class="form-group">
 						<label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>

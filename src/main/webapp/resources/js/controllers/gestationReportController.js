@@ -27,10 +27,12 @@ pigTrax.controller('GestationReportController', function($scope, $http, $window,
     
     $scope.generateProdEventLog = function()
     {	
-		document.getElementById("companyId1").value	= $scope.companyId;		
-		document.getElementById("selectedPremise").value	= $scope.selectedPremise;		
-		document.forms['generateGestationReportForm'].submit();
-			
+    	if($scope.generateGestationReportForm.$valid)
+    	{
+			document.getElementById("companyId1").value	= $scope.companyId;		
+			document.getElementById("selectedPremise").value	= $scope.selectedPremise;		
+			document.forms['generateGestationReportForm'].submit();
+    	}	
     }
     
     
