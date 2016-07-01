@@ -89,13 +89,17 @@ private static final Logger logger = Logger.getLogger(GroupEventDaoImpl.class);
 	{
 		String qry = "select \"id\", \"groupId\", \"groupStartDateTime\", \"groupCloseDateTime\", \"isActive\", "
 		   		+ "\"remarks\", \"lastUpdated\", \"userUpdated\",\"id_Company\",  \"currentInventory\",\"previousGroupId\", \"id_PhaseOfProductionType\", \"id_Premise\" "+
-				"from pigtrax.\"GroupEvent\" where  \"id\" = ? and \"id_Company\" = ?";
-			
+				"from pigtrax.\"GroupEvent\" where  \"id\" = ? ";
+		
+			 if(companyId > 0 )
+			   qry += " and \"id_Company\" = ? ";
+			 
 			List<GroupEvent> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
 					ps.setInt(1, groupId);
-					ps.setInt(2, companyId);
+					if(companyId > 0)
+						ps.setInt(2, companyId);
 				}}, new GroupEventMapper());
 
 			if(groupEventList != null && groupEventList.size() > 0){

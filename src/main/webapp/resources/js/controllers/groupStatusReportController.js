@@ -32,9 +32,12 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
     
     $scope.generateProdEventLog = function()
     {	
-		document.getElementById("companyId1").value	= $scope.companyId;		
-		document.getElementById("selectedPremise").value	= $scope.selectedPremise;
-		document.forms['generateGroupStatusReportForm'].submit();
+    	if($scope.generateGroupStatusReportForm.$valid)
+    	{
+			document.getElementById("companyId1").value	= $scope.companyId;		
+			document.getElementById("selectedPremise").value	= $scope.selectedPremise;
+			document.forms['generateGroupStatusReportForm'].submit();
+    	}
 			
     }
     

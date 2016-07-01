@@ -105,6 +105,7 @@ pigTrax.controller('RationController', function($scope,$rootScope, $http,$window
 		$scope.masterRation["rationValue"] = rationObj.rationValue;
 		$scope.masterRation["rationTypeId"] = rationObj.rationTypeId;
 		$scope.masterRation["rationDescription"] = rationObj.rationDescription;
+		$window.scrollTo(0, 5);
 	}
 	
 	

@@ -13,5 +13,5 @@ public interface GroupEventRoomDao {
      
      List<RoomPK> getGroupEventRooms(final Integer groupEventPhaseChangeId)	throws SQLException;
 
-	void addSingleGroupEventRooms(Integer eventId, Integer roomId);
+	 void addSingleGroupEventRooms(Integer eventId, Integer roomId);
 }
