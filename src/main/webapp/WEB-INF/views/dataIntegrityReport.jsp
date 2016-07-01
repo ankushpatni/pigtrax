@@ -5,7 +5,7 @@
 	<h2><spring:message	code='label.dataIntegrityReport.heading'
 								text='Generate Data Integrity Report' /></h2>
 </div>
-<div class="cl-mcont" id="dataIntegrityControllerId" ng-controller="DataIntegrityReportController" ng-init = "load('${REPORT_NO_DATA}')" class="container-fluid">
+<div class="cl-mcont" id="dataIntegrityControllerId" ng-controller="DataIntegrityReportController" ng-init = "load('${CompanyId}','${REPORT_NO_DATA}')" class="container-fluid">
 <div class="row">
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">

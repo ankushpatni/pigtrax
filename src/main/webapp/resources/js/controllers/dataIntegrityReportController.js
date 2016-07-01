@@ -14,17 +14,13 @@ pigTrax.controller('DataIntegrityReportController', function($scope, $http, $win
 	};
 	
 	
-	$scope.loadPremises = function(comapnyId, dataStatus)
+	$scope.loadPremises = function(companyId, dataStatus)
 	{
 		var localCompany ;
-		if(comapnyId === undefined )
-		{
-			localCompany = $scope.selectedCompany;
-		}
+		if(companyId != null && companyId != undefined)
+			localCompany = companyId;
 		else
-		{
-			localCompany  = comapnyId;
-		}
+			localCompany = $scope.selectedCompany;
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=null');
 		res.success(function(data, status, headers, config) {
 			$scope.premiseList = data.payload;
@@ -40,9 +36,10 @@ pigTrax.controller('DataIntegrityReportController', function($scope, $http, $win
 	}    
 	
 	
-	$scope.load = function( dataStatus)
+	$scope.load = function(companyId, dataStatus)
 	{
 		$scope.getCompanyList();
+		$scope.loadPremises(companyId, dataStatus);
 		if(dataStatus == "true")
 			$scope.searchDataErrorMessage = true;
 		else
@@ -62,6 +59,7 @@ pigTrax.controller('DataIntegrityReportController', function($scope, $http, $win
     	{
     		$scope.criteriaMessage = true;
     	}
+    	
 			
     }
     
