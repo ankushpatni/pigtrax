@@ -64,6 +64,10 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 		return nameMap;
 	}
+	
+	public void cleanupCompanyData(Integer companyId) {
+		companyDao.cleanupCompany(companyId);
+	}
 
 	
 }

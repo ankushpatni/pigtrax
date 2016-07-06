@@ -54,5 +54,12 @@ public class CompanyController {
 		return "template";
 	}
 
+	@Secured({"ROLE_1"})
+	@RequestMapping(value = "/cleanup")
+	public String cleanupCompanyData(Model model)
+	{
+		model.addAttribute("contentUrl","CleanupData.jsp");
+		return "template";
+	}
 
 }

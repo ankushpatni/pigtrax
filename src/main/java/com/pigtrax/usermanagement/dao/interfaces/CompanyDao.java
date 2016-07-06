@@ -58,4 +58,11 @@ public interface CompanyDao {
 	 */
 	public void increaseLitterId(int companyId);
 	
+	
+	/**
+	 * Clean up the data for the given company
+	 * @param companyId
+	 */
+	public void cleanupCompany(Integer companyId);
+	
 }

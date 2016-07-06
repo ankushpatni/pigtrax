@@ -193,6 +193,145 @@ private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 				ps.setInt(1, companyId);
 			}
 		});		
-	}	
-	
+	}
+    
+    
+    @Override
+	public void cleanupCompany(final Integer companyId) {
+		
+		String query = "delete from pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_Premise\" in"
+				+ "  (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});		
+    	
+    	query = "delete from pigtrax.\"SalesEventDetails\" where \"id_PigInfo\" in "
+    			+ "(select \"id\" from pigtrax.\"PigInfo\" where \"id_Premise\" in "
+    			+ "(select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?))";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});		
+		
+    	
+    	query = "delete from pigtrax.\"GroupEventRoom\" where \"id_GroupEventPhaseChange\" in "
+    			+ "(select \"id\" from pigtrax.\"GroupEventPhaseChange\" where \"id_GroupEvent\" in "
+    			+ "(select \"id\" from pigtrax.\"GroupEvent\" where \"id_Premise\" in "
+    			+ "(select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)))";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});		
+    	
+    	
+    	query = "delete from pigtrax.\"GroupEventPhaseChange\" where \"id_GroupEvent\" in "
+    			+ "(select \"id\" from pigtrax.\"GroupEvent\" where \"id_Premise\" in "
+    			+ "(select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?))";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});		
+    	
+    	query = "delete from pigtrax.\"GroupEvent\" where \"id_Premise\" in (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});		
+		
+    	query = "delete from pigtrax.\"PigletStatus\" where \"id_Premise\" in (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});	
+    	
+    	
+    	query = "delete from pigtrax.\"FarrowEvent\" where \"id_Premise\" in (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});
+    	
+    	query = "delete from pigtrax.\"PregnancyEvent\" where \"id_Premise\" in (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});
+    	
+    	query = "delete from pigtrax.\"MatingDetails\" where \"id_BreedingEvent\" in (select \"id\" from  pigtrax.\"BreedingEvent\" where \"id_Premise\" in"
+    			+ " (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"= ?))";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});
+    	
+    	query = "delete from pigtrax.\"BreedingEvent\" where \"id_Premise\" in (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});
+    	
+    	
+    	query = "delete from pigtrax.\"SowMovement\" where \"id_PigInfo\" in (select \"id\" from pigtrax.\"PigInfo\" where \"id_Premise\" "
+    			+ "in (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?))";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});
+    	
+    	query = "delete from \"pigtrax\".\"ChangedPigId\" where \"id_PigInfo\" in "
+    			+ "(select \"id\" from pigtrax.\"PigInfo\" where \"id_Premise\" in "
+    			+ "(select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?))";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});
+    	
+    	query = "delete from pigtrax.\"PigInfo\" where \"id_Premise\" in (select \"id\" from pigtrax.\"Premise\" where \"id_Company\"=  ?)";
+    	
+    	this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, companyId);
+			}
+		});
+    	
+	}
+
 }

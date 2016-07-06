@@ -141,5 +141,6 @@ pigTrax.factory("restServices", function($resource) {
 		"getPigInformationWithOutStatus" : {method:"POST", url:"rest/entryEvent/getPigInformationWithOutStatus"},
 		"getRationIdList" : {method:"GET", url:"rest/util/getRationIdList"},	
 		"getEventTypes" : {method:"GET", url:"rest/util/getEventTypes"},
+		"cleanUpCompanyData" : {method:"POST", url:"rest/company/cleanUpCompanyData"},
     });
 });

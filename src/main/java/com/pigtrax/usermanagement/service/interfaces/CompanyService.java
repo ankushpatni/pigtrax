@@ -53,4 +53,6 @@ public interface CompanyService {
 
 	Map<String, Integer> getCompanyListNameMap();
 	
+	void cleanupCompanyData(Integer companyId);
+	
 }
