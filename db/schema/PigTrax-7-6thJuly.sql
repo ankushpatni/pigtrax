@@ -85,6 +85,7 @@ CREATE TABLE pigtrax."Premise"(
 	"gpsLongitude" varchar(30),
 	"id_PremiseType" smallint,
 	"sowSource" varchar(5),
+	"lactationLength" smallint,
 	CONSTRAINT "Premise_U_PI" UNIQUE ("permiseId"),
 	CONSTRAINT "Premise_PK_PI" PRIMARY KEY (id)
 
@@ -3380,7 +3381,7 @@ CREATE TABLE pigtrax."DataIntegrityLog"
   "id_Company" integer,
   "userId"varchar(50),
   "relevantField" varchar(50),
-  "id_Premise" integer
+  "id_Premise" integer,
   CONSTRAINT "DataIntegrityLog_PK" PRIMARY KEY (id)
 )
 ;

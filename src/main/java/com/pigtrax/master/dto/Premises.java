@@ -22,6 +22,7 @@ public class Premises {
 	private String language;
 	private String sowSource;
 	private String otherCity;
+	private Integer lactationLengthInWeeks;
 	
 	public int getId() {
 		return id;
@@ -130,6 +131,12 @@ public class Premises {
 	}
 	public void setOtherCity(String otherCity) {
 		this.otherCity = otherCity;
+	}
+	public Integer getLactationLengthInWeeks() {
+		return lactationLengthInWeeks;
+	}
+	public void setLactationLengthInWeeks(Integer lactationLengthInWeeks) {
+		this.lactationLengthInWeeks = lactationLengthInWeeks;
 	}
 	
 	

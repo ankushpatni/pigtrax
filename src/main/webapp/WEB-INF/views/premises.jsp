@@ -32,6 +32,7 @@
 				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.zipcode" text="Zip Code" /></th>
 				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.gpsLatittude" text="GPS Latittude" /></th>
 				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.gpsLongitude" text="GPS Longitude" /></th>
+				<th st-sort="zipcode" style="width:10%"><spring:message code="label.premise.lactationlengthinweeks" text="Lactation Length (weeks)" /></th>
 				<th style="width:8%"><spring:message code="label.premise.edit" text="Edit" /></th>
 				<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue())) {%>
 				<th style="width:8%"><spring:message code="label.premise.delete" text="Delete" /></th>
@@ -41,7 +42,7 @@
 												text="Activate/Deactivate"/></th>
 			</tr>
 		 	<tr>
-				<th colspan="13"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
+				<th colspan="14"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -55,6 +56,7 @@
 				<td style="width:10%">{{row.zipcode}}</td>
 				<td style="width:10%">{{row.gpsLatittude}}</td>
 				<td style="width:10%">{{row.gpsLongitude}}</td>
+				<td style="width:10%">{{row.lactationLengthInWeeks}}</td>
 				<td style="width: 8%">
 					<button type="button" class="btn btn-edit btn-xs" ng-click="editPremiseData(row)">
 						<span class="glyphicon glyphicon-pencil" ></span><spring:message code="label.company.edit" text="Edit" /></a></button>					

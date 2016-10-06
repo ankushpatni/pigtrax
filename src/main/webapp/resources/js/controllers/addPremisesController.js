@@ -74,6 +74,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 		$scope.add.premiseTypeId = premisesData.premiseTypeId
 		$scope.add.sowSource = premisesData.sowSource;		
 		$scope.add.otherCity = premisesData.otherCity;
+		$scope.add.lactationLengthInWeeks = premisesData.lactationLengthInWeeks
 		
 	}
 	
@@ -113,6 +114,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"premiseTypeId" : $scope.add.premiseTypeId,
 							"sowSource" : sowSource,
 							"otherCity" : $scope.add.otherCity,
+							"lactationLengthInWeeks" : $scope.add.lactationLengthInWeeks,
 					};
 				}
 				else
@@ -132,6 +134,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 							"premiseTypeId" : $scope.add.premiseTypeId,
 							"sowSource" : sowSource,
 							"otherCity" : $scope.add.otherCity,
+							"lactationLengthInWeeks" : $scope.add.lactationLengthInWeeks,
 					};
 				}
 				console.log(postParam);

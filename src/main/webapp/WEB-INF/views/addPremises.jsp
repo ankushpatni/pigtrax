@@ -67,6 +67,16 @@
               </div>
               <label ng-show="sowSourceRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.premise.sowSourceYes.requiredMessage' text='Sow source is required' /></label>
 			</div>
+			<div class="form-group">
+                      <label><spring:message code='label.premise.lactationlengthinweeks'  text='Lactation Length(weeks)'/>
+                      </label>
+                      
+                      <select class="form-control" name="sowCondition" ng-model="add.lactationLengthInWeeks" >                           
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                    </div>
 			
         <div class="modal-footer">
 
