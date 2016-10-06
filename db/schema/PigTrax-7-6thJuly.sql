@@ -581,7 +581,7 @@ CREATE TABLE pigtrax."TransportTruck"(
 	"purchaseYear" integer  NOT NULL,
 	"make" varchar(30),
 	CONSTRAINT "TRANSPORTTRUCK_PK" PRIMARY KEY (id),
-	CONSTRAINT "TANSPORTTRUCK_TI" UNIQUE ("truckId")
+	CONSTRAINT "TANSPORTTRUCK_TI" UNIQUE ("truckId","id_Company")
 
 );
 -- ddl-end --
@@ -601,7 +601,7 @@ CREATE TABLE pigtrax."TransportTrailer"(
 	"trailerYear" integer,
 	"trailerMake" varchar(50),
 	CONSTRAINT "TANSPORTTAILER_PK" PRIMARY KEY (id),
-	CONSTRAINT "TANSPORTRAILER_TI" UNIQUE ("trailerId")
+	CONSTRAINT "TANSPORTRAILER_TI" UNIQUE ("trailerId","id_Company")
 
 );
 -- ddl-end --
