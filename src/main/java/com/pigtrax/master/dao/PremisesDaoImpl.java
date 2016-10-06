@@ -165,7 +165,10 @@ public class PremisesDaoImpl implements PremisesDao{
 					ps.setNull(13,java.sql.Types.INTEGER);
 				ps.setString(14, premises.getSowSource());
 				ps.setString(15, premises.getOtherCity());
-				ps.setInt(16, premises.getLactationLengthInWeeks());
+				if(premises.getLactationLengthInWeeks() != null && premises.getLactationLengthInWeeks() > 0)
+					ps.setInt(16, premises.getLactationLengthInWeeks());
+				else
+					ps.setNull(16, java.sql.Types.INTEGER);
 			}
 		});		
 	}
@@ -193,7 +196,10 @@ public class PremisesDaoImpl implements PremisesDao{
 					ps.setNull(10,java.sql.Types.INTEGER);
 				ps.setString(11, premises.getSowSource());
 				ps.setString(12, premises.getOtherCity());
-				ps.setInt(13, premises.getLactationLengthInWeeks()); 
+				if(premises.getLactationLengthInWeeks() != null && premises.getLactationLengthInWeeks() > 0)
+					ps.setInt(13, premises.getLactationLengthInWeeks());
+				else
+					ps.setNull(13, java.sql.Types.INTEGER);				 
 				ps.setString(14, premises.getPermiseId().toUpperCase());
 			}
 		});

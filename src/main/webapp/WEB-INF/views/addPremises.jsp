@@ -76,8 +76,9 @@
                           <option value="4">4</option>
                           <option value="5">5</option>
                         </select>
-                    </div>
-			
+                        
+              </div>
+			<label ng-show="lactationLengthRequired" style='color:red' class='control-label has-error validationMessage'>&nbsp;<spring:message code='label.premise.lactationLengthInWeeks.requiredMessage' text='Lactation length is required for Premise Types - S1, S12 & S123' /></label>
         <div class="modal-footer">
 
             <button class="btn btn-success btn-flat md-close" ng-click="addPremise()" ng-hide="edit"><spring:message code="label.premise.add" text="Add" /></button>

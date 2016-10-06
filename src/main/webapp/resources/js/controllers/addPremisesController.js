@@ -93,6 +93,15 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 		}
 		else
 			$scope.sowSourceRequired = false;
+		
+		if(($scope.add.premiseTypeId == 1 || $scope.add.premiseTypeId == 6 || $scope.add.premiseTypeId == 8) && ($scope.add.lactationLengthInWeeks == null || $scope.add.lactationLengthInWeeks == 0))
+			{
+			$scope.lactationLengthRequired = true;
+			return;
+			}
+		else
+			 $scope.lactationLengthRequired = false;
+		
 		if($scope.premisesAddForm.$valid)
 			{			
 				var postParam;
