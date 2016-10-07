@@ -59,7 +59,7 @@ public class LactationLengthDao {
 				+" GROUP BY PEM.\"eventTime\"::date,\"LactLength\" ) T order by T.\"LactLength\" ";*/
 		
 		String qry=" SELECT  T.\"cnt\",T.\"SowId\", T.\"totalCnt\", T.\"LactLength\", (100*T.\"cnt\"::double precision)/T.\"totalCnt\"::double precision as \"percentage\" FROM  ( "+
-				 " select count(PS.\"id_PigInfo\") as cnt, string_agg(PI.\"pigId\",',') as \"SowId\", PS.\"eventDateTime\"::date -FE.\"farrowDateTime\"::date as \"LactLength\", (SELECT count(\"id\") from pigtrax.\"PigInfo\" WHERE \"id_SexType\" = 2 and \"isActive\" is true aND \"id_Premise\" = ?) as \"totalCnt\"  "
+				 " select count(PS.\"id_PigInfo\") as cnt, string_agg(PI.\"pigId\",'|') as \"SowId\", PS.\"eventDateTime\"::date -FE.\"farrowDateTime\"::date as \"LactLength\", (SELECT count(\"id\") from pigtrax.\"PigInfo\" WHERE \"id_SexType\" = 2 and \"isActive\" is true aND \"id_Premise\" = ?) as \"totalCnt\"  "
 				 + "  from pigtrax.\"FarrowEvent\" FE JOIN  pigtrax.\"PigInfo\" PI ON PI.\"id\" = FE.\"id_PigInfo\" "+
 				 " JOIN pigtrax.\"PigletStatus\" PS ON FE.\"id\" = PS.\"id_FarrowEvent\" AND PS.\"eventDateTime\"::date between ? AND ?  AND PS.\"id_PigletStatusEventType\" = 3   "+
 				 " WHERE PS.\"id_Premise\" = ? "+
