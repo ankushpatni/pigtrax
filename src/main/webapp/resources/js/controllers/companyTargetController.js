@@ -29,7 +29,7 @@ pigTrax.service("CompanyTargetsService", function() {
     	    		   }
     	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
     	    		   {
-		    	    		if($scope.newCompanyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113))
+		    	    		if($scope.newCompanyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113)
 		   	    		   	{
 								if(item["rationId"] != newCompanyTarget["rationId"])
 									return true;
