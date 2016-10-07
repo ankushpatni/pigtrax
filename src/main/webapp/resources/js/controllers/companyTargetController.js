@@ -17,7 +17,7 @@ pigTrax.service("CompanyTargetsService", function() {
     	    	   targetYear = targetDate.getFullYear();
     	    	   if(newCompanyTarget["id"] == null && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
     	    		   {
-	    	    		   	if($scope.newCompanyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113)
+	    	    		   	if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 	    	    		   	{
 								if(item["rationId"] != newCompanyTarget["rationId"])
 									return true;
@@ -29,7 +29,7 @@ pigTrax.service("CompanyTargetsService", function() {
     	    		   }
     	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
     	    		   {
-		    	    		if($scope.newCompanyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113)
+		    	    		if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 		   	    		   	{
 								if(item["rationId"] != newCompanyTarget["rationId"])
 									return true;
