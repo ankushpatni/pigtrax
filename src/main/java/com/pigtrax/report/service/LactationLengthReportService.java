@@ -52,6 +52,7 @@ public class LactationLengthReportService {
 						rowBean = new LactationLengthBean();
 					}
 					rowBean.setNumberOfPigs(rowBean.getNumberOfPigs()+bean.getNumberOfPigs());
+					System.out.println("adding to map: "+bean.getSowIdString());
 					rowBean.setSowIdString(rowBean.getSowIdString()+","+bean.getSowIdString());
 					rowBean.setTotalPigCount(bean.getTotalPigCount());
 					rowBean.setLactationLength(bean.getLactationLength());
@@ -85,6 +86,7 @@ public class LactationLengthReportService {
 						{
 							count = count + lactationLengthBean.getNumberOfPigs();
 							rowBuffer = new StringBuffer();
+							System.out.println("Before writing to csv : "+lactationLengthBean.getSowIdString());
 							rowBuffer.append(lactationLengthBean.getSowIdString()+ seprater);
 							rowBuffer.append(lactationLengthBean.getLactationLength()+ seprater);
 							rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
@@ -104,7 +106,7 @@ public class LactationLengthReportService {
 				{
 					averageLactationDays = totalLactationDays/numberOfRows;
 					returnRows.add("\n");
-					returnRows.add(averageLactationDays +","+count+","+totalPercentage);
+					returnRows.add(", "+averageLactationDays +","+count+","+totalPercentage);
 				}
 			
 			}
