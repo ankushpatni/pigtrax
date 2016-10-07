@@ -11,6 +11,7 @@ public class LactationLengthBean {
 	private Double percentage;
 	private Date eventTime;
 	private String dayLabel;
+	private String sowIdString;
 	public Integer getNumberOfPigs() {
 		if(numberOfPigs == null) numberOfPigs = 0;
 		return numberOfPigs;
@@ -56,6 +57,12 @@ public class LactationLengthBean {
 	}
 	public void setDayLabel(String dayLabel) {
 		this.dayLabel = dayLabel;
+	}
+	public String getSowIdString() {
+		return sowIdString;
+	}
+	public void setSowIdString(String sowIdString) {
+		this.sowIdString = sowIdString;
 	}
 	
 	
