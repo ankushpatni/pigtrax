@@ -5,6 +5,7 @@ pigTrax.service("CompanyTargetsService", function() {
        var newTargetDate = new Date(newCompanyTarget["completionDate"]);
        	newTargetYear = newTargetDate.getFullYear();
        var targetYear = 0;
+	   alert(newCompanyTarget.targetId);
        if(companyTargets != null)
     	    len = companyTargets.length;
        if(len > 0)
@@ -19,7 +20,8 @@ pigTrax.service("CompanyTargetsService", function() {
     	    		   {
 	    	    		   	if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 	    	    		   	{
-								if(item["rationId"] != newCompanyTarget["rationId"])
+								
+								if(item["rationId"] == newCompanyTarget["rationId"])
 									return true;
 								else
 									return false;
@@ -31,7 +33,8 @@ pigTrax.service("CompanyTargetsService", function() {
     	    		   {
 		    	    		if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 		   	    		   	{
-								if(item["rationId"] != newCompanyTarget["rationId"])
+								
+								if(item["rationId"] == newCompanyTarget["rationId"])
 									return true;
 								else
 									return false;
