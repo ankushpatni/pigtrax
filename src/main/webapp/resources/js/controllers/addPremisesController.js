@@ -177,7 +177,7 @@ pigTrax.controller('addPremisesCtrl', function($scope, $http, $window, $modalIns
 	}
 	
 	$scope.selectOtherCity = function(){	
-		if($scope.add.city.toUpperCase()==="OTHERS")
+		if($scope.add.city != null && $scope.add.city.toUpperCase()==="OTHERS")
 		{
 		   $scope.premiseOtherCityBox = true;
 		}

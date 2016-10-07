@@ -16,9 +16,29 @@ pigTrax.service("CompanyTargetsService", function() {
     	    	   var targetDate = new Date(item["completionDate"]);
     	    	   targetYear = targetDate.getFullYear();
     	    	   if(newCompanyTarget["id"] == null && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
-    	    	   		return true;
+    	    		   {
+	    	    		   	if($scope.newCompanyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113))
+	    	    		   	{
+								if(item["rationId"] != newCompanyTarget["rationId"])
+									return true;
+								else
+									return false;
+	    	    		   	}
+							else
+								return true;
+    	    		   }
     	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
-    	    		   return true;
+    	    		   {
+		    	    		if($scope.newCompanyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113))
+		   	    		   	{
+								if(item["rationId"] != newCompanyTarget["rationId"])
+									return true;
+								else
+									return false;
+		   	    		   	}
+								else
+									return true;
+    	    		   }
     	    	 }
     	   }
        return false;
@@ -330,7 +350,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$scope.companyTarget["remarks"] = selectedObject["remarks"];
 		$scope.companyTarget["premiseId"] = selectedObject["premiseId"];
 		$scope.companyTarget["rationId"] = selectedObject["rationId"];
-		if($scope.companyTarget["targetId"] == 91 || $scope.companyTarget["targetId"] == 92 || $scope.companyTarget["targetId"] == 93)
+		if($scope.companyTarget["targetId"] == 111 || $scope.companyTarget["targetId"] == 112 || $scope.companyTarget["targetId"] == 113)
 	        $scope.ShowRationOption = true;
 		else
 		{
