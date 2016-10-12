@@ -171,6 +171,10 @@ public class FarrowEventServiceImpl implements FarrowEventService {
 		
 		pigInfoDao.increaseParity(farrowEvent.getPigInfoId(), gestationLength);
 		
+		PigInfo pigInfo = pigInfoDao.getPigInformationById(farrowEvent.getPigInfoId());
+		
+		breedingEventDao.updateBreedingParity(pigInfo.getParity(), farrowEvent.getBreedingEventId());
+		
 		farrowEventDao.updateLitterId(farrowEventId, companyId);
 		
 		companyDao.increaseLitterId(companyId); 

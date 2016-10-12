@@ -430,6 +430,18 @@ public class BreedingEventDaoImpl implements BreedingEventDao {
 
 		return currentParity;
 	}
+	
+	@Override 
+	public int updateBreedingParity(final int parity, final Integer breedingEventId) {
+		String qry = "update pigtrax.\"BreedingEvent\" set \"currentParity\" = ? where \"id\" = ?";
+		return this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, parity);
+				ps.setInt(2, breedingEventId);
+			}
+		});
+	}
 
 	
 }

@@ -143,11 +143,11 @@ public class SowReportService {
 							{
 								
 								BreedingEvent breedingEventInformation = breedingEventDao.getBreedingEventInformation(SowReportBean.getBreedingEventId());
-								rowBuffer.append(DateUtil.convertToFormatString(breedingEventInformation.getServiceStartDate(),"dd/MM/yyyy") + seprater);
+								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								parityInt = breedingEventInformation.getCurrentParity();
 								parityInt = parityInt - 1;
 								
-								rowBuffer.append("Breeding"+seprater);
+								rowBuffer.append("Breeding/Mating"+seprater);
 								
 								if(SowReportBean.getBreedingEventPenId() != null && SowReportBean.getBreedingEventPenId() !=0)
 								{

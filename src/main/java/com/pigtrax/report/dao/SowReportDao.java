@@ -33,7 +33,7 @@ public class SowReportDao {
 	
 	public List<SowReportBean> getSowList(final int sowId) {
 		
-		String query = "select PI.\"pigId\",PM.\"id\",PM.\"eventTime\", PM.\"id_PigInfo\",PI.\"id_Premise\",PI.\"id_Barn\",PI.\"id_Room\", "+
+		String query = "select T.* from ((select PI.\"pigId\",PM.\"eventTime\" as \"eventTime\", PM.\"id_PigInfo\",PI.\"id_Premise\",PI.\"id_Barn\",PI.\"id_Room\", "+
 				"PM.\"id_BreedingEvent\", BE.\"id_Premise\" as BE_PREMISES ,BE.\"id_Pen\" as BE_PEN,"+
 				" PM.\"id_PregnancyEvent\", PE.\"id_Premise\" as PE_PREMISES, "+
 				" PM.\"id_FarrowEvent\" , FE.\"id_Premise\" as FE_PREMISES , FE.\"id_Pen\" as FE_PEN,"+
@@ -59,13 +59,21 @@ public class SowReportDao {
 
 				"left join pigtrax.\"SalesEventDetails\" SE ON PM.\"id_SalesEventDetails\" = SE.\"id\" "+
 				
-				"where PM.\"id_PigInfo\" = ? order by PM.\"eventTime\" ";
+				"where PM.\"id_PigInfo\" = ? order by PM.\"eventTime\") UNION "+
+				" (select PI.\"pigId\", MD.\"matingDate\" as \"eventTime\", PI.\"id\",PI.\"id_Premise\",PI.\"id_Barn\",PI.\"id_Room\", "+ 
+				" MD.\"id_BreedingEvent\", BE.\"id_Premise\" as BE_PREMISES ,BE.\"id_Pen\" as BE_PEN, "+
+				  " null, null, null,null,null, null,null,null, null,null,null,null,null,null,null,null,null "+
+				  " from pigtrax.\"PigInfo\" PI "+ 
+				" join  pigtrax.\"BreedingEvent\" BE ON BE.\"id_PigInfo\" = PI.\"id\" "+ 
+				" join  pigtrax.\"MatingDetails\" MD ON BE.\"id\" = MD.\"id_BreedingEvent\" "+ 
+				" where PI.\"id\" = ?)) T order by T.\"eventTime\" ";
 
 
 		List<SowReportBean> sowReportBeanList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, sowId);
+				ps.setInt(2, sowId);
 			}}, new SowReportMapper());
 		
 		return sowReportBeanList;
@@ -75,7 +83,7 @@ public class SowReportDao {
 	private static final class SowReportMapper implements RowMapper<SowReportBean> {
 		public SowReportBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 			SowReportBean sowReportBean = new SowReportBean();
-			sowReportBean.setMasterEventId(rs.getInt("id"));
+			//sowReportBean.setMasterEventId(rs.getInt("id"));
 			sowReportBean.setEventDate(rs.getDate("eventTime"));
 			sowReportBean.setPigInfoId(rs.getInt("id_PigInfo"));
 			sowReportBean.setPigInfoPremisesId(rs.getInt("id_Premise"));
