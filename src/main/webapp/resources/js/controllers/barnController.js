@@ -148,6 +148,7 @@ pigTrax.controller('BarnController', function($scope, $http, $window,$modal, res
     				barnData : function(){
     					barnData.generatedPremisesId = $scope.generatedPremisesId;
 						barnData.phaseType = $scope.phaseType;
+						barnData.phaseTypeKeys = $scope.phaseTypeKeys;
 						barnData.validationType = $scope.validationType;
     					return barnData;
     				}
