@@ -6,7 +6,7 @@
 
 -- object: pitraxadmin | type: ROLE --
 DROP ROLE IF EXISTS pitraxadmin;
-CREATE ROLE pitraxadmin WITH 
+CREATE ROLE pitraxadmin WITH LOGIN
 	SUPERUSER
 	UNENCRYPTED PASSWORD 'k3rm1t';
 -- ddl-end --
