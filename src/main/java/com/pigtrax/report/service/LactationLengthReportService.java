@@ -70,7 +70,7 @@ public class LactationLengthReportService {
 				double totalLactationDays = 0D;
 				
 				
-				returnRows.add(messageSource.getMessage("label.reports.lactation.sowIdString", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.lactationdays", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.numberofsows", null, "", locale)+","
+				returnRows.add(messageSource.getMessage("label.reports.lactation.numberofsows", null, "", locale)+","+messageSource.getMessage("label.reports.lactation.lactationdays", null, "", locale)+","
 						+messageSource.getMessage("label.reports.lactation.totalpercentage", null, "", locale)+"\n");
 				
 				LactationLengthBean lactationLengthBean = null;
@@ -85,9 +85,9 @@ public class LactationLengthReportService {
 						{
 							count = count + lactationLengthBean.getNumberOfPigs();
 							rowBuffer = new StringBuffer();							
-							rowBuffer.append(lactationLengthBean.getSowIdString()+ seprater);
-							rowBuffer.append(lactationLengthBean.getLactationLength()+ seprater);
+
 							rowBuffer.append(lactationLengthBean.getNumberOfPigs() + seprater);
+							rowBuffer.append(lactationLengthBean.getLactationLength()+ seprater);
 							totalLactationDays+=lactationLengthBean.getLactationLength();
 							
 							lactationLengthBean.setPercentage(((double)(100*lactationLengthBean.getNumberOfPigs())/totalSowCount));
@@ -104,7 +104,7 @@ public class LactationLengthReportService {
 				{
 					averageLactationDays = totalLactationDays/numberOfRows;
 					returnRows.add("\n");
-					returnRows.add(" "+", "+averageLactationDays +","+count+","+totalPercentage);
+					returnRows.add(1, count +","+averageLactationDays+","+totalPercentage+"\n\n");					
 				}
 			
 			}

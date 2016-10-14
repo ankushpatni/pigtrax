@@ -27,9 +27,18 @@ pigTrax.controller('RationReportController', function($scope, $http, $window,$mo
     
     $scope.generateRationReport = function()
     {	
-		document.getElementById("companyId1").value	= $scope.companyId;		
-		document.getElementById("selectedPremise").value	= $scope.selectedPremise;		
-		document.forms['generateRationReportForm'].submit();
+    	if($scope.companyId == null || $scope.selectedPremise == null || $scope.selectedGroup == null 
+    			|| $scope.startDate == null || $scope.endDate == null)
+		{
+		  $scope.mandatoryField = true;
+		}
+    	else
+		{
+    		$scope.mandatoryField = false;
+			document.getElementById("companyId1").value	= $scope.companyId;		
+			document.getElementById("selectedPremise").value	= $scope.selectedPremise;		
+			document.forms['generateRationReportForm'].submit();
+		}
 			
     }
     

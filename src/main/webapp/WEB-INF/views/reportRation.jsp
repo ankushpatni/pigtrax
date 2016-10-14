@@ -18,12 +18,18 @@
 								code='label.generateRationReport.heading'
 								text='Generate Ration Report' />
 						</h3>
+						<p>
+							<spring:message
+								code='label.generateRationReport.subheading'
+								text='Please generate the report for a given company, premise and group for the given date range' />
+						</p>
 						<p class="color-danger" ng-show="searchDataErrorMessage"><spring:message code='label.groupReport.generateReport.search.data.errormessage' text='Group Information not found for the search criteria'/></p>
-						
+						<p class="color-danger" ng-show="mandatoryField"><spring:message code='label.report.search.criteria.errormessage' text='Please provide the mandatory criteria to generate the report'/></p>
+						<p>
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>
 								<div  class="form-group">
-								<select  class="form-control"  name="selectedCompany" id="selectedCompany" ng-model="selectedCompany"  ng-change="loadPremises()">
+								<select  class="form-control" required required-message="'<spring:message code='label.employee.companyRequired' text='Company is required' />'"  name="selectedCompany" id="selectedCompany" ng-model="selectedCompany"  ng-change="loadPremises()">
 								<option value="" hidden><spring:message code='label.piginfo.Company.placeholder' text='Select Company' /></option>
                       			 	<option ng-repeat="company in companyMapList" value="{{company.id}}" ng-value="company.id" ng-selected="selectedCompany == company.id" >{{company.name}}</option>
                       		  </select>
@@ -46,11 +52,11 @@
 						<div  class="form-group">
 						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
+                      	<input type="text" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"  required required-message="'<spring:message code='label.report.startdate.required' text='Start Date is required' />'" />
 								</div>
                     	<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true' name="endDate"/>
+                      	<input type="text" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true' name="endDate"  required required-message="'<spring:message code='label.report.enddate.required' text='End Date is required' />'" />
 								</div>
 						<button type="submit" value="report" ng-click="generateRationReport()">
 							<spring:message code='label.piginfo.generateReport.button'
