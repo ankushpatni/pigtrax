@@ -4,8 +4,7 @@ pigTrax.service("CompanyTargetsService", function() {
        var newTargetYear = 0;
        var newTargetDate = new Date(newCompanyTarget["completionDate"]);
        	newTargetYear = newTargetDate.getFullYear();
-       var targetYear = 0;
-	   alert(newCompanyTarget.targetId);
+       var targetYear = 0;	   
        if(companyTargets != null)
     	    len = companyTargets.length;
        if(len > 0)
@@ -16,7 +15,7 @@ pigTrax.service("CompanyTargetsService", function() {
     	    	   item = companyTargets[i];
     	    	   var targetDate = new Date(item["completionDate"]);
     	    	   targetYear = targetDate.getFullYear();
-    	    	   if(newCompanyTarget["id"] == null && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
+    	    	   if(newCompanyTarget["id"] == null && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear && item["premiseId"] == newCompanyTarget["premiseId"])
     	    		   {
 	    	    		   	if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 	    	    		   	{
@@ -29,7 +28,8 @@ pigTrax.service("CompanyTargetsService", function() {
 							else
 								return true;
     	    		   }
-    	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear)
+    	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear
+    	    			   && item["premiseId"] == newCompanyTarget["premiseId"])
     	    		   {
 		    	    		if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 		   	    		   	{
