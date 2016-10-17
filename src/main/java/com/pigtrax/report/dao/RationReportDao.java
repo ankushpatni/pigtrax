@@ -47,14 +47,14 @@ public class RationReportDao {
 		
 		String qry = " SELECT "+
 	" 		MR.\"rationValue\", RE.\"batchId\", RE.\"actualTons\", RE.\"Target_Tons\", RE.\"deviationTons\",  "+
-		" 	RE.\"actualKg\", RE.\"Target_Kg\", (RE.\"actualKg\"-RE.\"Target_Kg\") as \"deviationKg\", "+
+		" 	RE.\"actualKg\", RE.\"Target_Kg\", (RE.\"Target_Kg\"-RE.\"actualKg\") as \"deviationKg\", "+
 			" RE.\"actualCost\", RE.\"feedCostTarget\",RE.\"deviationFeedCost\" , RE.\"pigNum\",  "+
 			" RE.\"T1\", RE.\"T2\", RE.\"T3\"  "+
 			" FROM ( "+
 				" SELECT  "+
-					" 	FR.\"batchId\", FR.\"actualTons\", FR.\"Target_Tons\", (FR.\"actualTons\" - FR.\"Target_Tons\") as  \"deviationTons\",  "+
+					" 	FR.\"batchId\", FR.\"actualTons\", FR.\"Target_Tons\", (FR.\"Target_Tons\" - FR.\"actualTons\") as  \"deviationTons\",  "+
 						" (FR.\"actualTons\"*1000/FR.\"pigNum\")/"+durationDays+" as \"actualKg\", FR.\"kg/day\"  as \"Target_Kg\",FR.\"actualCost\", FR.\"feedCostTarget\",  "+
-						" (FR.\"actualCost\"-FR.\"feedCostTarget\") as \"deviationFeedCost\" , FR.\"pigNum\", FR.\"T1\",  FR.\"T2\", FR.\"T3\"  "+
+						" (FR.\"feedCostTarget\"-FR.\"actualTons\") as \"deviationFeedCost\" , FR.\"pigNum\", FR.\"T1\",  FR.\"T2\", FR.\"T3\"  "+
 						" FROM (  "+
 							" SELECT  "+ 
 								" R.\"batchId\", (R.\"feedInWt\"-R.\"feedOutWt\"+R.\"feedAdjWt\")/1000 as \"actualTons\", R.\"tons\" as \"Target_Tons\", R.\"kg/day\", (R.\"feedInCost\"-R.\"feedOutCost\"+R.\"feedAdjCost\")/R.\"pigNum\" as \"actualCost\"  "+
@@ -167,19 +167,19 @@ public class RationReportDao {
 	private static final class RationReportMapper implements RowMapper<RationReportBean> {
 		public RationReportBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 			RationReportBean rationReportBean = new RationReportBean();	
-			rationReportBean.setRationId(rs.getString("rationId"));
-			rationReportBean.setActualTonsUsed(rs.getDouble("actualTonsUsed"));
-			rationReportBean.setTargetTonsUsed(rs.getDouble("targetTonsUsed"));
-			rationReportBean.setDeviationTonsUsed(rs.getDouble("deviationTonsUsed"));
+			rationReportBean.setRationId(rs.getString("rationValue"));
+			rationReportBean.setActualTonsUsed(rs.getDouble("actualTons"));
+			rationReportBean.setTargetTonsUsed(rs.getDouble("Target_Tons"));
+			rationReportBean.setDeviationTonsUsed(rs.getDouble("deviationTons"));
 			rationReportBean.setActualKg(rs.getDouble("actualKg"));
-			rationReportBean.setTargetKg(rs.getDouble("targetKg"));
+			rationReportBean.setTargetKg(rs.getDouble("Target_Kg"));
 			rationReportBean.setDeviationKg(rs.getDouble("deviationKg"));
-			rationReportBean.setActualFeedCost(rs.getDouble("actualFeedCost"));
-			rationReportBean.setTargetFeedCost(rs.getDouble("targetFeedCost"));
+			rationReportBean.setActualFeedCost(rs.getDouble("actualCost"));
+			rationReportBean.setTargetFeedCost(rs.getDouble("feedCostTarget"));
 			rationReportBean.setDeviationFeedCost(rs.getDouble("deviationFeedCost"));
 			rationReportBean.setTicketNum1(rs.getString("T1"));
-			rationReportBean.setTicketNum1(rs.getString("T2"));
-			rationReportBean.setTicketNum1(rs.getString("T3"));
+			rationReportBean.setTicketNum2(rs.getString("T2"));
+			rationReportBean.setTicketNum3(rs.getString("T3"));
 			return rationReportBean;
 		}
 	}

@@ -34,7 +34,7 @@ public class RationReportService {
 			returnRows.add(messageSource.getMessage("label.piginfo.feedEventForm.batchId", null, "", locale)+","+messageSource.getMessage("label.reports.rationreport.actualtonsused", null, "", locale)+","
 					+messageSource.getMessage("label.reports.rationreport.targettonsused", null, "", locale)+","+messageSource.getMessage("label.reports.rationreport.deviationtonsused", null, "", locale)+","
 					+messageSource.getMessage("label.reports.rationreport.actualkgperpig", null, "", locale)+","+messageSource.getMessage("label.reports.rationreport.targetkgperpig", null, "", locale)+","
-					+messageSource.getMessage("label.reports.rationreport.deviationkgperpig", null, "", locale)+","+messageSource.getMessage("label.reports.rationreport.actualcostperpig", null, "", locale)
+					+messageSource.getMessage("label.reports.rationreport.deviationkgperpig", null, "", locale)+","+messageSource.getMessage("label.reports.rationreport.actualcostperpig", null, "", locale)+","
 					+messageSource.getMessage("label.reports.rationreport.targetcostperpig", null, "", locale)+","+messageSource.getMessage("label.reports.rationreport.deviationcostperpig", null, "", locale)+","
 					+messageSource.getMessage("label.reports.salesreport.weightperpig", null, "", locale)+","+messageSource.getMessage("label.piginfo.feedEventForm.ticketNumber", null, "", locale)+",\n");
 			
