@@ -54,7 +54,7 @@ public class RationReportDao {
 				" SELECT  "+
 					" 	FR.\"batchId\", FR.\"actualTons\", FR.\"Target_Tons\", (FR.\"Target_Tons\" - FR.\"actualTons\") as  \"deviationTons\",  "+
 						" (FR.\"actualTons\"*1000/FR.\"pigNum\")/"+durationDays+" as \"actualKg\", FR.\"kg/day\"  as \"Target_Kg\",FR.\"actualCost\", FR.\"feedCostTarget\",  "+
-						" (FR.\"feedCostTarget\"-FR.\"actualTons\") as \"deviationFeedCost\" , FR.\"pigNum\", FR.\"T1\",  FR.\"T2\", FR.\"T3\"  "+
+						" (FR.\"feedCostTarget\"-FR.\"actualCost\") as \"deviationFeedCost\" , FR.\"pigNum\", FR.\"T1\",  FR.\"T2\", FR.\"T3\"  "+
 						" FROM (  "+
 							" SELECT  "+ 
 								" R.\"batchId\", (R.\"feedInWt\"-R.\"feedOutWt\"+R.\"feedAdjWt\")/1000 as \"actualTons\", R.\"tons\" as \"Target_Tons\", R.\"kg/day\", (R.\"feedInCost\"-R.\"feedOutCost\"+R.\"feedAdjCost\")/R.\"pigNum\" as \"actualCost\"  "+

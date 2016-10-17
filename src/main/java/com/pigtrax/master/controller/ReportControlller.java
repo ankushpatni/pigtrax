@@ -3583,6 +3583,7 @@ public class ReportControlller {
 	public void generateRationReport(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String selectedPremise = request.getParameter("selectedPremise");
+			String companyId = request.getParameter("companyId1");
 			String startDate = request.getParameter("startDate");
 			String endDate = request.getParameter("endDate");	 
 			String selectedGroup = request.getParameter("selectedGroup");
@@ -3599,9 +3600,9 @@ public class ReportControlller {
 					response.setContentType("text/csv");
 					String reportName = "CSV_Report_Ration_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
 					response.setHeader("Content-disposition", "attachment;filename="+reportName);
-					if(premiseId > 0)
+					if(premiseId > 0) 
 					{ 
-						rows = rationReportService.getRationReportList(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request)); 
+						rows = rationReportService.getRationReportList(premise.getPermiseId(), Integer.parseInt(companyId), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request)); 
 						Iterator<String> iter = rows.iterator();
 						if(rows != null && rows.size() > 0)
 						{
