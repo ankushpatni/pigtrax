@@ -16,6 +16,7 @@ public class RationReportBean {
 	private String ticketNum1;
 	private String ticketNum2;
 	private String ticketNum3;
+	private Double totalWeight;
 	
 	public String getRationId() {
 		return rationId;
@@ -94,6 +95,12 @@ public class RationReportBean {
 	}
 	public void setTicketNum3(String ticketNum3) {
 		this.ticketNum3 = ticketNum3;
+	}
+	public Double getTotalWeight() {
+		return totalWeight;
+	}
+	public void setTotalWeight(Double totalWeight) {
+		this.totalWeight = totalWeight;
 	}
 	
 	

@@ -49,17 +49,17 @@ public class RationReportDao {
 	" 		MR.\"rationValue\", RE.\"batchId\", RE.\"actualTons\", RE.\"Target_Tons\", RE.\"deviationTons\",  "+
 		" 	RE.\"actualKg\", RE.\"Target_Kg\", (RE.\"Target_Kg\"-RE.\"actualKg\") as \"deviationKg\", "+
 			" RE.\"actualCost\", RE.\"feedCostTarget\",RE.\"deviationFeedCost\" , RE.\"pigNum\",  "+
-			" RE.\"T1\", RE.\"T2\", RE.\"T3\"  "+
+			" RE.\"T1\", RE.\"T2\", RE.\"T3\", RE.\"TotalWt\"  "+
 			" FROM ( "+
 				" SELECT  "+
 					" 	FR.\"batchId\", FR.\"actualTons\", FR.\"Target_Tons\", (FR.\"Target_Tons\" - FR.\"actualTons\") as  \"deviationTons\",  "+
 						" (FR.\"actualTons\"*1000/FR.\"pigNum\")/"+durationDays+" as \"actualKg\", FR.\"kg/day\"  as \"Target_Kg\",FR.\"actualCost\", FR.\"feedCostTarget\",  "+
-						" (FR.\"feedCostTarget\"-FR.\"actualCost\") as \"deviationFeedCost\" , FR.\"pigNum\", FR.\"T1\",  FR.\"T2\", FR.\"T3\"  "+
+						" (FR.\"feedCostTarget\"-FR.\"actualCost\") as \"deviationFeedCost\" , FR.\"pigNum\", FR.\"T1\",  FR.\"T2\", FR.\"T3\", FR.\"TotalWt\" "+
 						" FROM (  "+
 							" SELECT  "+ 
 								" R.\"batchId\", (R.\"feedInWt\"-R.\"feedOutWt\"+R.\"feedAdjWt\")/1000 as \"actualTons\", R.\"tons\" as \"Target_Tons\", R.\"kg/day\", (R.\"feedInCost\"-R.\"feedOutCost\"+R.\"feedAdjCost\")/R.\"pigNum\" as \"actualCost\"  "+
 								" , R.\"feedCostTarget\"  "+
-								" , R.\"pigNum\" ,R.\"T1\", R.\"T2\", R.\"T3\"  "+
+								" , R.\"pigNum\" ,R.\"T1\", R.\"T2\", R.\"T3\",  (R.\"feedInWt\"-R.\"feedOutWt\"+R.\"feedAdjWt\") as \"TotalWt\"  "+
 							" FROM (  "+
 								" SELECT  "+
 									" 	T.\"batchId\", T.\"feedInWt\", T.\"feedOutWt\", T.\"feedAdjWt\", T.\"feedInCost\",  T.\"feedOutCost\", T.\"feedAdjCost\", T.\"pigNum\", T.\"T1\", T.\"T2\", T.\"T3\",tons.\"tons\",  kg.\"kg/day\", feedCostTarget.\"feedCostTarget\"   "+
@@ -179,7 +179,8 @@ public class RationReportDao {
 			rationReportBean.setDeviationFeedCost(rs.getDouble("deviationFeedCost"));
 			rationReportBean.setTicketNum1(rs.getString("T1"));
 			rationReportBean.setTicketNum2(rs.getString("T2"));
-			rationReportBean.setTicketNum3(rs.getString("T3"));
+			rationReportBean.setTicketNum3(rs.getString("T3")); 
+			rationReportBean.setTotalWeight(rs.getDouble("TotalWt"));
 			return rationReportBean;
 		}
 	}
