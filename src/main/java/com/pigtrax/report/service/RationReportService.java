@@ -50,7 +50,10 @@ public class RationReportService {
 					rowBuffer.append(rationReportBean.getActualFeedCost() + seprater);
 					rowBuffer.append(rationReportBean.getTargetFeedCost() + seprater);
 					rowBuffer.append(rationReportBean.getDeviationFeedCost() + seprater);
-					rowBuffer.append(" ");
+					rowBuffer.append(" "+ seprater);
+					rowBuffer.append((rationReportBean.getTicketNum1() != null?rationReportBean.getTicketNum1()+":": "")+(rationReportBean.getTicketNum2() != null?rationReportBean.getTicketNum2()+":": "")+(rationReportBean.getTicketNum3() != null?rationReportBean.getTicketNum3()+":": "") +seprater);
+					
+					
 					returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}

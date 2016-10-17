@@ -13,6 +13,10 @@ public class RationReportBean {
 	private Double actualFeedCost;	
 	private Double targetFeedCost;	
 	private Double deviationFeedCost;
+	private String ticketNum1;
+	private String ticketNum2;
+	private String ticketNum3;
+	
 	public String getRationId() {
 		return rationId;
 	}
@@ -72,6 +76,26 @@ public class RationReportBean {
 	}
 	public void setDeviationFeedCost(Double deviationFeedCost) {
 		this.deviationFeedCost = deviationFeedCost;
-	}	
+	}
+	public String getTicketNum1() {
+		return ticketNum1;
+	}
+	public void setTicketNum1(String ticketNum1) {
+		this.ticketNum1 = ticketNum1;
+	}
+	public String getTicketNum2() {
+		return ticketNum2;
+	}
+	public void setTicketNum2(String ticketNum2) {
+		this.ticketNum2 = ticketNum2;
+	}
+	public String getTicketNum3() {
+		return ticketNum3;
+	}
+	public void setTicketNum3(String ticketNum3) {
+		this.ticketNum3 = ticketNum3;
+	}
+	
+	
 
 }
