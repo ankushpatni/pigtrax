@@ -6711,7 +6711,7 @@ INSERT INTO pigtraxrefdata."PigletStatusEventTypeTranslation" ("fieldValue","fie
 ------PigletstatuevebntType
 INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (1,'Feed In', CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (2,'Feed Out', CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (4,'Feed Invenadj',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."FeedEventType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (3,'Feed Invenadj',CURRENT_TIMESTAMP,'pigtraxadmin');
 
 
 INSERT INTO pigtraxrefdata."FeedEventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_FeedEventType") VALUES ('Feed In','en',CURRENT_TIMESTAMP,'pigtraxadmin',1);

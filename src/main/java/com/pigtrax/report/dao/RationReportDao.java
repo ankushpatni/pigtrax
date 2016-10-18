@@ -144,7 +144,7 @@ public class RationReportDao {
 				ps.setInt(9, premiseId);
 				ps.setInt(10, groupId);
 				
-				ps.setInt(11, 4);
+				ps.setInt(11, 3);
 				ps.setDate(12, new java.sql.Date(startDate.getTime()));
 				ps.setDate(13, new java.sql.Date(endDate.getTime()));
 				ps.setInt(14, premiseId);
