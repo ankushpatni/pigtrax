@@ -991,14 +991,14 @@ public class PigletStatusEventDaoImpl implements PigletStatusEventDao {
 		String qry = " select count(MD.\"id\"), BE.\"id\", BE.\"serviceStartDate\" from pigtrax.\"MatingDetails\" MD " +
 						" JOIN pigtrax.\"BreedingEvent\" BE on BE.\"id\" = MD.\"id_BreedingEvent\" "+
 						" JOIN pigtrax.\"PigInfo\" PI ON BE.\"id_PigInfo\" = PI.\"id\"	" +
-						" where BE.\"serviceStartDate\" :: date between ? and ? and PI.\"id_Company\" = ?  ";
+						" where BE.\"serviceStartDate\" :: date between ? and ? and PI.\"id_Company\" = ? ";
 	
 		if(premisesId !=0)
 		{
 			qry = qry+ " and BE.\"id_Premise\" = " + premisesId;
 		}
 		
-		qry = qry+ "group by BE.\"id\" ";
+		qry = qry+ "group by BE.\"id\", BE.\"serviceStartDate\"  ";
 		
  		List<Integer> pigletStatusEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
  			@Override
