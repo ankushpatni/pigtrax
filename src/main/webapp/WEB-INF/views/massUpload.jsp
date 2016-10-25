@@ -70,8 +70,8 @@
 						<div class="form-group">
                       		<label><spring:message code='label.massuploadForm.csvheader'  text='CSV Header'/></label>
                        		<select class="form-control" name="header">							
-								<option value="true" <%=eventType.equals("true")?"selected":"" %>>WITH HEADER</option>
-								<option value="false" <%=eventType.equals("false")?"selected":"" %>>WITHOUT HEADER</option>
+								<option value="true" <%=eventType.equals("true")?"selected":"" %>><spring:message code='label.massuploadForm.withHeader'  text='WITH HEADER'/></option>
+								<option value="false" <%=eventType.equals("false")?"selected":"" %>><spring:message code='label.massuploadForm.withoutHeader'  text='WITHOUT HEADER'/></option>
 							</select> 
 						</div>
 						

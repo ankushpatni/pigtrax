@@ -225,8 +225,13 @@ public class GestationReportDao {
 			
 			
 			
+			//final String qry1 = "Select count(BE.\"id_PigInfo\") from pigtrax.\"BreedingEvent\" BE JOIN pigtrax.\"PregnancyEvent\" PE ON PE.\"id_BreedingEvent\" = BE.\"id\""
+				//	+ "  where BE.\"id_Premise\" = ? and BE.\"serviceStartDate\"+interval '"+i*7+"' day between ? and ?  and PE.\"resultDate\" < ? and (PE.\"id_PregnancyEventType\" in (2,3) OR (PE.\"id_PregnancyEventType\" in (1) and PE.\"id_PregnancyExamResultType\" in (2))) ";
+			
+			
+			
 			final String qry1 = "Select count(BE.\"id_PigInfo\") from pigtrax.\"BreedingEvent\" BE JOIN pigtrax.\"PregnancyEvent\" PE ON PE.\"id_BreedingEvent\" = BE.\"id\""
-					+ "  where BE.\"id_Premise\" = ? and BE.\"serviceStartDate\"+interval '"+i*7+"' day between ? and ?  and PE.\"resultDate\" < ? and (PE.\"id_PregnancyEventType\" in (2,3) OR (PE.\"id_PregnancyEventType\" in (1) and PE.\"id_PregnancyExamResultType\" in (2))) ";
+					+ "  where BE.\"id_Premise\" = ? and BE.\"serviceStartDate\" between ? and ?  and (PE.\"id_PregnancyEventType\" in (2,3) OR (PE.\"id_PregnancyEventType\" in (1) and PE.\"id_PregnancyExamResultType\" in (2))) ";
 			
 			
 			@SuppressWarnings("unchecked")
@@ -236,7 +241,7 @@ public class GestationReportDao {
 						ps.setInt(1, premiseId);
 						ps.setDate(2, new java.sql.Date(startDate.getTime()));
 						ps.setDate(3, new java.sql.Date(endDate.getTime()));
-						ps.setDate(4, new java.sql.Date(endDate.getTime()));
+						//ps.setDate(4, new java.sql.Date(endDate.getTime()));
 					}
 				},
 		        new ResultSetExtractor() {

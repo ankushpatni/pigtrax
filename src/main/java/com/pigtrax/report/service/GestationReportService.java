@@ -58,7 +58,7 @@ public class GestationReportService {
 		}
 		
 		logger.info("Range List size"+rangeList.size());
-		gestationReportDao.getGestationResultList(premiseId, rangeList, reportOption);
+		rangeList = gestationReportDao.getGestationResultList(premiseId, rangeList, reportOption);
 		
 		Integer gestationTarget = gestationReportDao.getAverageGestationTarget(premiseId);
 
@@ -111,7 +111,7 @@ public class GestationReportService {
 				{
 					rowBuffer.append(seprater);	
 				}
-				rowBuffer.append(((Integer)mpRow.get("NumberServ")- gestationTarget)+ seprater);
+				rowBuffer.append((gestationTarget - (Integer)mpRow.get("NumberServ"))+ seprater);
 				rowBuffer.append(mpRow.get("W1") + seprater);
 				rowBuffer.append(mpRow.get("W2") + seprater);
 				rowBuffer.append(mpRow.get("W3") + seprater);

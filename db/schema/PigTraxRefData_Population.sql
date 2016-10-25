@@ -8306,32 +8306,32 @@ INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage",
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Performance Monitoring','en',CURRENT_TIMESTAMP,'pigtraxadmin',13);
 
 
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entry','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Breeding','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Pregnancy','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Farrow','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Piglet Status','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Mortality & Adjustments','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Sales','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Transfers','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Feed','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Production Log','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entrada','es',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Cría','es',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Embarazo','es',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Parto','es',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Estado de eventos Lechones','es',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Mortalidad & Ajuste','es',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Ventas','es',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Transferencia','es',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Alimentación','es',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Iniciar la producción','es',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Grupo','es',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Lechone','es',CURRENT_TIMESTAMP,'pigtraxadmin',12);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Monitor de Desempeño','es',CURRENT_TIMESTAMP,'pigtraxadmin',13);
 
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entry','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Breeding','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Pregnancy','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Farrow','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Piglet Status','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Mortality & Adjustments','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Sales','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Transfers','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Feed','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Production Log','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Group Event','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
-INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Individual Piglet','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Entrada','pr',CURRENT_TIMESTAMP,'pigtraxadmin',1);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Cobertura','pr',CURRENT_TIMESTAMP,'pigtraxadmin',2);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Gestação','pr',CURRENT_TIMESTAMP,'pigtraxadmin',3);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Parto','pr',CURRENT_TIMESTAMP,'pigtraxadmin',4);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Status Leitáo','pr',CURRENT_TIMESTAMP,'pigtraxadmin',5);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Mortalidade & Ajuste','pr',CURRENT_TIMESTAMP,'pigtraxadmin',6);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Venda','pr',CURRENT_TIMESTAMP,'pigtraxadmin',7);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Transferência','pr',CURRENT_TIMESTAMP,'pigtraxadmin',8);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Ração','pr',CURRENT_TIMESTAMP,'pigtraxadmin',9);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Registro da Produçáo','pr',CURRENT_TIMESTAMP,'pigtraxadmin',10);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Grupo','pr',CURRENT_TIMESTAMP,'pigtraxadmin',11);
+INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Leitáo Individual','pr',CURRENT_TIMESTAMP,'pigtraxadmin',12);
 INSERT INTO pigtraxrefdata."EventTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_EventType") VALUES ('Monitor de Performance','es',CURRENT_TIMESTAMP,'pigtraxadmin',13);
 
 

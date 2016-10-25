@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-	<h2><spring:message	code='label.dataIntegrityReport.heading'
+	<h2><spring:message	code='label.leftmenu.reports.dataIntegrityReport'
 								text='Generate Data Integrity Report' /></h2>
 </div>
 <div class="cl-mcont" id="dataIntegrityControllerId" ng-controller="DataIntegrityReportController" ng-init = "load('${CompanyId}','${REPORT_NO_DATA}')" class="container-fluid">

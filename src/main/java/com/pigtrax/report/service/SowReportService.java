@@ -147,7 +147,7 @@ public class SowReportService {
 								parityInt = breedingEventInformation.getCurrentParity();
 								parityInt = parityInt - 1;
 								
-								rowBuffer.append("Breeding/Mating"+seprater);
+								rowBuffer.append(messageSource.getMessage("label.leftmenu.managepigevents.breedingevent.link", null, "", locale)+"/"+messageSource.getMessage("label.piginfo.matingdetailsform.matingDetails.heading", null, "", locale)+seprater);
 								
 								if(SowReportBean.getBreedingEventPenId() != null && SowReportBean.getBreedingEventPenId() !=0)
 								{
@@ -179,14 +179,14 @@ public class SowReportService {
 									parityInt = parityInt - 1;
 								}
 								
-								rowBuffer.append("Pregnancy"+seprater);
+								rowBuffer.append(messageSource.getMessage("label.leftmenu.managepigevents.pregnancyevent.link", null, "", locale)+seprater);
 								
 								rowBuffer.append(seprater);
 								rowBuffer.append(seprater);
 								rowBuffer.append(seprater);
 								rowBuffer.append(parityInt+seprater); // no remark for Pregnancy
 								PregnancyEventDto pregnancyEventInformation = pregnancyEventService.getPregnancyEventInformation(SowReportBean.getPregnancyEventId(), language);
-								rowBuffer.append("Pregnancy Event Type : "+pregnancyEventInformation.getPregnancyEventType()+" :: Result : " +pregenancyExamResultTypesMap.get(pregnancyEventInformation.getPregnancyExamResultTypeId()));
+								rowBuffer.append(messageSource.getMessage("label.piginfo.pregnancyeventform.pregnancyEventType", null, "", locale)+" : "+pregnancyEventInformation.getPregnancyEventType()+" :: "+messageSource.getMessage("label.piginfo.pregnancyeventform.pregnancyExamResultType", null, "", locale)+" : " +pregenancyExamResultTypesMap.get(pregnancyEventInformation.getPregnancyExamResultTypeId()));
 							}
 							
 							else if(SowReportBean.getPigletStatusId()!= null  && SowReportBean.getPigletStatusId()!=0)
@@ -225,19 +225,19 @@ public class SowReportService {
 								String info="";
 								if(pigletStatusEventInformation.getMortalityReasonTypeId() != null && pigletStatusEventInformation.getMortalityReasonTypeId() != 0)
 								{
-									info = " Reason : "+mortalityReasonTypeMap.get(pigletStatusEventInformation.getMortalityReasonTypeId());
+									info =  " "+messageSource.getMessage("label.piginfo.pigletstatuseventform.mortalityreason", null, "", locale)+" : "+mortalityReasonTypeMap.get(pigletStatusEventInformation.getMortalityReasonTypeId());
 								}
 								if(pigletStatusEventInformation.getGroupEventId() != null && pigletStatusEventInformation.getGroupEventId() !=0)
 								{
-									info = " Transfered to group : " + groupEventMap.get(pigletStatusEventInformation.getGroupEventId()).getGroupId();
+									info =   " "+messageSource.getMessage("label.piginfo.pigletstatuseventform.groupeventId", null, "", locale)+" : " + groupEventMap.get(pigletStatusEventInformation.getGroupEventId()).getGroupId();
 								}
 								if(pigletStatusEventInformation.getFosterTo() != null && pigletStatusEventInformation.getFosterTo() !=0)
 								{
 									PigInfo pigInformationById = pigInfoDao.getPigInformationById(pigletStatusEventInformation.getFosterTo());
-									info = " Transfered to pig ID : " + pigInformationById.getPigId();
+									info = " "+messageSource.getMessage("label.piginfo.pigletstatuseventform.fosterToPigId", null, "", locale)+" : " + pigInformationById.getPigId();
 								}
 								//else if(pigletStatusEventInformation.getP)
-								rowBuffer.append("Number of Pigs "+pigletStatusEventInformation.getNumberOfPigs() + " :: "+ info);
+								rowBuffer.append(messageSource.getMessage("label.groupEventDetail.numberOfPigs", null, "", locale)+" : "+pigletStatusEventInformation.getNumberOfPigs() + " :: "+ info);
 							}
 							else if(SowReportBean.getFarrowEventId() != null  && SowReportBean.getFarrowEventId() !=0)
 							{
@@ -248,7 +248,7 @@ public class SowReportService {
 									parityInt = breedingEventDao.getParity(farrowEvent.getBreedingEventId());
 								}								
 								
-								rowBuffer.append("Farrow"+seprater);
+								rowBuffer.append(messageSource.getMessage("label.leftmenu.managepigevents.farrowevent.link", null, "", locale)+seprater);
 								
 								if(SowReportBean.getFarrowEventPenId() != null && SowReportBean.getFarrowEventPenId()!=0)
 								{
@@ -275,8 +275,8 @@ public class SowReportService {
 								rowBuffer.append(parityInt+seprater);
 								
 								FarrowEventDto farrowEventDetails = farrowEventService.getFarrowEventDetails(SowReportBean.getFarrowEventId());
-								rowBuffer.append("Live Born : "+farrowEventDetails.getLiveBorns() + " :: Still Born : "+farrowEventDetails.getStillBorns() 
-										+" :: Mummie : "+farrowEventDetails.getMummies());
+								rowBuffer.append(messageSource.getMessage("label.piginfo.farroweventform.liveborns", null, "", locale)+": "+farrowEventDetails.getLiveBorns() + " :: "+messageSource.getMessage("label.piginfo.farroweventform.stillborns", null, "", locale)+" : "+farrowEventDetails.getStillBorns() 
+										+" :: "+messageSource.getMessage("label.piginfo.farroweventform.mummies", null, "", locale)+" : "+farrowEventDetails.getMummies());
 								
 							}
 							
@@ -289,10 +289,10 @@ public class SowReportService {
 								RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsId());
 								if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
 								{
-									rowBuffer.append("Removal"+seprater);
+									rowBuffer.append(messageSource.getMessage("label.leftmenu.managepigevents.removalevent.link", null, "", locale)+seprater);
 								}
 								else
-									rowBuffer.append("Transfer"+seprater);
+									rowBuffer.append(messageSource.getMessage("label.piginfo.removalExceptSales.transfer.option", null, "", locale)+seprater);
 								
 								if(SowReportBean.getRemovalEventExceptSalesDetailsRoomId() != null && SowReportBean.getRemovalEventExceptSalesDetailsRoomId()!=0)
 								{
@@ -319,11 +319,11 @@ public class SowReportService {
 								//RemovalEventExceptSalesDetails removalEventExceptSalesDetailsById = removalEventExceptSalesService.getRemovalEventExceptSalesDetailsById(SowReportBean.getRemovalEventExceptSalesDetailsRoomId());
 								if(removalEventExceptSalesDetailsById.getRemovalEventId() !=9)
 								{
-									rowBuffer.append("Removal Type : "+removalEventTypeMap.get(removalEventExceptSalesDetailsById.getRemovalEventId()) + " :: Mortality Reason : "+mortalityReasonTypeMap.get(removalEventExceptSalesDetailsById.getMortalityReasonId()));
+									rowBuffer.append(messageSource.getMessage("label.piginfo.removalEventform.removalTypeId", null, "", locale)+": "+removalEventTypeMap.get(removalEventExceptSalesDetailsById.getRemovalEventId()) + " :: Mortality Reason : "+mortalityReasonTypeMap.get(removalEventExceptSalesDetailsById.getMortalityReasonId()));
 								}
 								else
 								{
-									rowBuffer.append("To premises : "+premisesNameMap.get(removalEventExceptSalesDetailsById.getDestPremiseId()));
+									rowBuffer.append(messageSource.getMessage("label.piginfo.removalExceptSales.premiseIdTo", null, "", locale)+": "+premisesNameMap.get(removalEventExceptSalesDetailsById.getDestPremiseId()));
 								}
 								
 								
@@ -334,7 +334,7 @@ public class SowReportService {
 								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
 								parityInt = farrowDao.getFarrowCount(SowReportBean.getPigInfoId());
 								
-								rowBuffer.append("Sales"+seprater);
+								rowBuffer.append(messageSource.getMessage("label.piginfo.removalExceptSales.sales.option", null, "", locale)+seprater);
 								
 								rowBuffer.append(seprater);
 								rowBuffer.append(seprater);
@@ -356,7 +356,7 @@ public class SowReportService {
 							else
 							{
 								rowBuffer.append(DateUtil.convertToFormatString(SowReportBean.getEventDate(),"dd/MM/yyyy") + seprater);
-								rowBuffer.append("Entry"+seprater);
+								rowBuffer.append(messageSource.getMessage("label.piginfo.entryeventform.entryevent", null, "", locale)+seprater);
 								
 								if(SowReportBean.getPigInfoRoom() != null && SowReportBean.getPigInfoRoom()!=0)
 								{

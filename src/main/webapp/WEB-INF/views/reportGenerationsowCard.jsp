@@ -43,7 +43,7 @@
  		   				<!-- <input type="text" name="search" id="search"  required required-message="'<spring:message code='label.piginfo.entryeventform.pigid.requiredmessage' text='Pig Id is required' />'" class="form-control" ng-model="searchText" placeholder="<spring:message code='label.sowReport.search.pig'  text='Search by Pig Id ...'/>"/>-->
 						<label><spring:message code='label.piginfo.entryeventform.name'  text='Pig Name'/><span style='color: red'>*</span></label>
 						 <select  class="form-control"  name="pigId" id="pigId" ng-enter="getPigInformation()" ng-model="pigId" >
-								<option value="" hidden><spring:message code='label.sowReport.search.pig' text='Search by Pig Id ...' /></option>
+								<option value="" hidden><spring:message code='label.piginfo.pigletstatuseventform.search.placeholder' text='Search by Pig Id ...' /></option>
 								<option ng-repeat="pigInfo in pigInfoList" value="{{pigInfo.pigId}}" ng-value="pigInfo.pigId" ng-selected="pigId == pigInfo.pigId">{{pigInfo.pigId}}</option>
 								</select>
 						</div>

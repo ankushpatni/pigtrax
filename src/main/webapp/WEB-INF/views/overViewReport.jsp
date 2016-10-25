@@ -81,20 +81,20 @@
 			</div>
 			
 			<div class="row">
-			<div class="text-center"><h3>Select Any One to Generate report</h3></div>
+			<div class="text-center"><h3><spring:message code='label.groupReport.selection.msg' text='Select Any One to Generate report' /></h3></div>
 			</div>
 
 		<div class="row">
 			  <div>			  
 					<div class="form-group col-sm-2 col-md-2">				
-						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('SowReport')" type="button"><spring:message code='label.piginfo.overView.report.SowHistory'  text='Sow History'/><br><p style="font-size:10px">Pig Name Mandatory*<p></button>
+						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('SowReport')" type="button"><spring:message code='label.piginfo.overView.report.SowHistory'  text='Sow History'/><br><p style="font-size:10px"><spring:message code='label.piginfo.overView.pigName.mandatory'  text='Pig Name Mandatory'/>*<p></button>
 					</div>
 					<div class="form-group col-sm-2 col-md-2">
-						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('GroupReport')" type="button"><spring:message code='label.piginfo.overView.report.GroupHistory'  text='Group History'/><br><p style="font-size:10px">Group Name Mandatory*<p></button>	
+						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('GroupReport')" type="button"><spring:message code='label.piginfo.overView.report.GroupHistory'  text='Group History'/><br><p style="font-size:10px"><spring:message code='label.piginfo.overView.groupName.mandatory'  text='Group Name Mandatory'/>*<p></button>	
 					</div>
 					
 					<div  class="form-group col-sm-2 col-md-2">			
- 		   				<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('ActionListReport')" type="button"><spring:message code='label.piginfo.overView.report.Actionlists'  text='Action lists'/><br><p style="font-size:10px">Group Name Mandatory*<p></button>
+ 		   				<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('ActionListReport')" type="button"><spring:message code='label.piginfo.overView.report.Actionlists'  text='Action lists'/><br><p style="font-size:10px"><spring:message code='label.piginfo.overView.groupName.mandatory'  text='Group Name Mandatory'/>*<p></button>
 					</div>
 					
 					<div class="form-group col-sm-2 col-md-2">
@@ -114,7 +114,7 @@
 		<div class="row">
 			  <div>			  
 					<div class="form-group col-sm-2 col-md-2">				
-						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('')" type="button"><spring:message code='label.piginfo.overView.report.SowMovement'  text='Sow Movement'/><br><p style="font-size:10px">Pig Name Mandatory*<p></button>
+						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('')" type="button"><spring:message code='label.piginfo.overView.report.SowMovement'  text='Sow Movement'/><br><p style="font-size:10px"><spring:message code='label.piginfo.overView.pigName.mandatory'  text='Pig Name Mandatory'/>*<p></button>
 					</div>
 					<div class="form-group col-sm-2 col-md-2">
 						<button style="height:60px;width:150px" class="btn btn-warning btn-lg" ng-click="generateReport('FeedReport')" type="button"><spring:message code='label.piginfo.overView.report.Feed'  text='Feed'/></button>	
