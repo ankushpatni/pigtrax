@@ -52,7 +52,7 @@
 					</div>
 					
 					<div class="form-group col-sm-2 col-md-2">
-						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/></label>
+						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/></label><br>
 						<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
 						<input type="text" name="startDate" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
 						<p class="color-danger" ng-show="startSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>		   
@@ -60,7 +60,7 @@
 					
 					<div class="form-group col-sm-2 col-md-2">
 					
-						<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/></label>
+						<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/></label><br>
 						<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
 						<input type="text" name="endDate" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true'/>
 						<p class="color-danger" ng-show="endSelect"><spring:message code='label.report.search.criteria.errormessage.select' text='Please Select.'/></p>				
