@@ -1,6 +1,8 @@
 package com.pigtrax.pigevents.service;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -379,7 +381,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByGroupId( final String groupId, final int companyId, final int premisesId) throws PigTraxException
 	{
 		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetails = null;
-		
+		 
 		try 
 		{
 			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(
@@ -390,6 +392,30 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 				removalEventExceptSalesDetails = removalEventExceptSalesDetailsDao
 						.getRemovalEventExceptSalesDetailsByGroupId(groupEvent
 								.getId());
+				
+				List<GroupEventDetails> transferList = groupEventDetailsDao.getAllTransfers(groupEvent.getId());
+				if(transferList != null && 0 <transferList.size())
+				{	
+					if(removalEventExceptSalesDetails == null)
+						removalEventExceptSalesDetails = new ArrayList<RemovalEventExceptSalesDetails>();
+					for(GroupEventDetails details : transferList)
+					{
+						RemovalEventExceptSalesDetails transferDetails = new RemovalEventExceptSalesDetails();
+						GroupEvent group1 = groupEventDao.getGroupEventByGeneratedGroupId(details.getGroupId(), companyId);
+						transferDetails.setGroupIdStr(group1.getGroupId());
+						GroupEvent group2 = groupEventDao.getGroupEventByGeneratedGroupId(details.getFromGroupId(), companyId);
+						transferDetails.setFromGroupIdStr(group2.getGroupId());
+						transferDetails.setRemovalDateTime(details.getDateOfEntry());
+						transferDetails.setRemarks(details.getRemarks());
+						transferDetails.setNumberOfPigs(details.getNumberOfPigs());
+						transferDetails.setWeightInKgs(new BigDecimal(details.getWeightInKgs()));
+						transferDetails.setRemovalEventId(RemovalEventType.Transferred.getTypeCode());
+						removalEventExceptSalesDetails.add(transferDetails);
+						
+						
+					}
+				}
+				
 			}
 		} 
 		catch (SQLException sqlEx)
@@ -400,6 +426,56 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 		
 		return removalEventExceptSalesDetails;
 	}
+	
+	
+	 
+	@Override
+	public List<RemovalEventExceptSalesDetails> getTransferDetailsByGroupId( final String groupId, final int companyId, final int premisesId) throws PigTraxException
+	{
+		List<RemovalEventExceptSalesDetails> removalEventExceptSalesDetails = null;
+		
+		try 
+		{
+			GroupEvent groupEvent = groupEventDao.getGroupEventByGroupId(
+					groupId, companyId, premisesId);
+
+			if (null != groupEvent) 
+			{
+								
+				List<GroupEventDetails> transferList = groupEventDetailsDao.getAllTransfers(groupEvent.getId());
+				if(transferList != null && 0 <transferList.size())
+				{	
+					if(removalEventExceptSalesDetails == null)
+						removalEventExceptSalesDetails = new ArrayList<RemovalEventExceptSalesDetails>();
+					for(GroupEventDetails details : transferList)
+					{
+						RemovalEventExceptSalesDetails transferDetails = new RemovalEventExceptSalesDetails();
+						GroupEvent group1 = groupEventDao.getGroupEventByGeneratedGroupId(details.getGroupId(), companyId);
+						transferDetails.setGroupIdStr(group1.getGroupId());
+						GroupEvent group2 = groupEventDao.getGroupEventByGeneratedGroupId(details.getFromGroupId(), companyId);
+						transferDetails.setFromGroupIdStr(group2.getGroupId());
+						transferDetails.setRemovalDateTime(details.getDateOfEntry());
+						transferDetails.setRemarks(details.getRemarks());
+						transferDetails.setNumberOfPigs(details.getNumberOfPigs());
+						transferDetails.setWeightInKgs(new BigDecimal(details.getWeightInKgs()));
+						transferDetails.setRemovalEventId(RemovalEventType.Transferred.getTypeCode());
+						removalEventExceptSalesDetails.add(transferDetails);
+							
+					}
+				}
+				
+			}
+		} 
+		catch (SQLException sqlEx)
+		{
+			throw new PigTraxException("SqlException occured",
+					sqlEx.getSQLState());
+		}
+		
+		return removalEventExceptSalesDetails;
+	}
+	
+	
 	
 	@Override
 	public List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId( final String pigInfoIdId, final int companyId, Integer premiseId) throws PigTraxException

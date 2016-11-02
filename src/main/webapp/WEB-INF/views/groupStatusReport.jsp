@@ -41,10 +41,18 @@
                       		  </select>
 						</div>
 						
+						<div  class="form-group">  	
+					   		 <select  class="form-control"  name="status" id="status" ng-model="groupStatus"  style="width:90%;display:inline" ng-change="loadActiveCloseGroupEvents()">
+									<!--<option value="" hidden><spring:message code='label.piginfo.groupEventForm.search.placeholder' text='Search by Group Id ...' /></option>-->
+									<option value="active" ng-selected=true><spring:message code='label.piginfo.groupEventForm.search.active' text='Active groups' /></option>
+									<option value="closed" ><spring:message code='label.piginfo.groupEventForm.search.close' text='Closed groups' /></option>
+					             </select>
+							 </div>
+						
 						<div  class="form-group">
 						<label><spring:message code='label.leftmenu.managepigevents.groupEvent.link'  text='Group Event'/><span style='color: red'>*</span></label>
 						<select  class="form-control"  required required-message="'<spring:message code='label.piginfo.groupEventForm.groupId.requiredMessage' text='Group Id is required' />'"  name="selectedGroup" id="selectedGroup" ng-model="selectedGroup"  >								
-                      			 	<option ng-repeat="group in groupList" value="{{group.id}}" ng-value="group.id" ng-selected="selectedGroup == group.id">{{group.groupId}}</option>
+                      			 	<option ng-repeat="group in groupEventFromPremisesList" value="{{group.id}}" ng-value="group.id" ng-selected="selectedGroup == group.id">{{group.groupId}}</option>
                       		  </select>
 						</div>
 						
@@ -58,6 +66,15 @@
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in dd/mm/yyyy format)'/></i>
                       	<input type="text" required required-message="'<spring:message code='label.report.enddate.required' text='End date is required' />'" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true' name="endDate"/>
 								</div>
+								
+								<div  class="form-group">  	
+					   		 <select  class="form-control"  name="reportType" id="reportType" ng-model="reportType"  style="width:90%;display:inline" >
+									<!--<option value="" hidden><spring:message code='label.piginfo.groupEventForm.search.placeholder' text='Search by Group Id ...' /></option>-->
+									<option value="current" ng-selected=true><spring:message code='label.piginfo.groupEventForm.currentInventory' text='Current Inventory' /></option>
+									<option value="mortality" ><spring:message code='label.leftmenu.groupStatusReport.mortality' text='Mortality' /></option>
+					             </select>
+							 </div>
+								
 						<button type="submit" value="report" ng-click="generateProdEventLog()">
 							<spring:message code='label.piginfo.generateReport.button'
 								text='Generate Report' />

@@ -25,6 +25,7 @@ import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventPhaseChangeDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
+import com.pigtrax.pigevents.dto.GroupEventDto;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.util.DateUtil;
 

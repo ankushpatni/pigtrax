@@ -250,13 +250,15 @@ public class RemovalEventRestController
 			{
 				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
 				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
+				removalEventList.add(removalEventExceptSalesService.getTransferDetailsByGroupId(removalEvent.getGroupId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
 				
 			}
 			
 			else if(null!= removalEvent && removalEvent.getPigId()!=null)
 			{
 				removalEventList.add(removalEventExceptSalesService.getRemovalEventExceptSalesDetailsByPigInfoId(removalEvent.getPigId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
-				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByPigId(removalEvent.getPigId(), removalEvent.getCompanyId(), removalEvent.getPremisesId())); 
+				removalEventList.add(salesEventDetailsService.getSalesEventDetailsListByPigId(removalEvent.getPigId(), removalEvent.getCompanyId(), removalEvent.getPremisesId()));
+				removalEventList.add(null);  // No seperate transfer list to be passed
 			}
 			
 			if(removalEventList != null && removalEventList.size()>0 )

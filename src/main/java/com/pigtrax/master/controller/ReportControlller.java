@@ -4666,6 +4666,7 @@ public class ReportControlller {
 				String startDate = request.getParameter("startDate");
 				String endDate = request.getParameter("endDate");	
 				String groupId = request.getParameter("selectedGroup");
+				String reportType = request.getParameter("reportType");
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				
 				List<String> rows =new ArrayList<String>();			
@@ -4678,8 +4679,8 @@ public class ReportControlller {
 						String reportName = "CSV_Report_GroupStatusReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+"_"+premise.getPermiseId()+".csv";
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						if(premiseId > 0)
-						{ 
-							rows = groupStatusReportService.getGroupStatusResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request)); 
+						{  
+							rows = groupStatusReportService.getGroupStatusResult(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request), reportType); 
 							Iterator<String> iter = rows.iterator();
 							if(rows != null && rows.size() > 1)
 							{
@@ -4703,6 +4704,8 @@ public class ReportControlller {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					rows.add("There is some error please contact Admin");
+					request.getSession(true).setAttribute("REPORT_NO_DATA", true);
+					response.sendRedirect("groupStatusReport?nodata=true");
 				}
 				response.getOutputStream().flush();
 			} catch (Exception e) {

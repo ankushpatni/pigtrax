@@ -24,4 +24,6 @@ public interface GroupEventDetailsDao {
 
 	GroupEventDetails groupEventDetailsListByIdAndRemovalId(Integer id,
 			Integer removalId);
+	
+	List<GroupEventDetails> getAllTransfers( final int groupEventId) throws SQLException;
 }

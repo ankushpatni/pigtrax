@@ -192,9 +192,13 @@
             <div class="col-sm-3 col-md-3">        
             </div>
           </div>-->
-		  
+
+       <p class="text-center" ng-hide="dataLoaded">
+    <i class="fa fa-spinner fa-spin fa-3x"></i>
+</p>
+
 	<form name="removalExceptSalesDisplayForm" method="post">	
-		<div class="content" ng-show="exceptSalesFlag">
+		<div class="content" ng-show="exceptSalesFlag && dataLoaded" >
 		<h3><spring:message code='label.piginfo.removalExceptSales.removalExcept.header'  text='Removal Except Sales'/></h3>
 			<div class="table-responsive" style="overflow-x: hidden">
 			<table st-table="displayedCollection2" st-safe-src="removalExceptSalesList" class="table table-striped" style="background-color: LightGray">  
@@ -245,7 +249,47 @@
 		<input type="hidden" name="removalTypeId1" id="removalTypeId1"/>
 		<input type="hidden" name="removalSalesEventId" id="removalSalesEventId"/>
 		
-		<div ng-show="salesEventFlag">
+		
+		
+		
+		<div class="content" ng-show="transferEventFlag && dataLoaded">
+		<h3><spring:message code='label.removalExceptSales.add.transferdetail'  text='Transfer Details'/></h3>
+			<div class="table-responsive" style="overflow-x: hidden">
+			<table st-table="displayedCollection3" st-safe-src="transferList" class="table table-striped" style="background-color: LightGray">  
+				<thead style="background-color: #f7b781">
+					<tr>
+						<!--  <th style="width:10%"><spring:message code="label.groupEventDetail.number" text="Number" /></th>-->
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.numberOfPigs" text="Number Of Pigs" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.removalDateTime" text="Removal Date" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.weightInKgs" text="Weight" /></th>
+						<th style="width:10%"><spring:message code="label.piginfo.removalExceptSales.groupEventId" text="Group Event" /></th>
+						<th style="width:10%"><spring:message code="label.groupEventDetail.transferredFromGroup" text="Received From Group / Transferred To Group" /></th>
+						<th style="width:25%"><spring:message code='label.piginfo.groupEventForm.remark'  text='Remark'/></th>
+					</tr>
+	 			</thead>
+				<tbody>
+				<tr ng-repeat="row in displayedCollection3 track by $index">
+					<!-- <td style="width:10%">{{$index+1}}</td>-->
+					<td style="width:10%">{{row.numberOfPigs}}</td>
+					<td style="width:10%">{{DateUtils.getFormatedDate(row.removalDateTime)}}</td>
+					<td style="width:25%">{{row.weightInKgs}}</td>
+					<td style="width:25%">{{row.groupIdStr}}</td>
+					<td style="width:25%">{{row.fromGroupIdStr}}</td>
+					<td style="width:10%">{{row.remarks}}</td>
+				</tr>
+				</tbody>		
+				<tr style="background-color: #f7b781">
+					<td colspan="14">
+						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="totalPages" ></div>
+					</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+		
+		
+		
+		<div ng-show="salesEventFlag && dataLoaded">
 		<h3><spring:message code='label.piginfo.removalExceptSales.salesEvent.header'  text='Removal Sales Event'/></h3>
 		<div class="content">
 			<div class="table-responsive" style="overflow-x: hidden">

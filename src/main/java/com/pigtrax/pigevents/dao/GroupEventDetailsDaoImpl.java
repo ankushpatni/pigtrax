@@ -322,4 +322,26 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				return groupEventDetails;
 			}
 		}
+	 
+	 
+	 @Override
+	 public List<GroupEventDetails> getAllTransfers( final int groupEventId) throws SQLException  
+		{
+		 String qry = " select  GED.\"id\" , GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\", GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", "
+				 +" GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", GED.\"remarks\", GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\", GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\",GED.\"id_RemovalEventExceptSalesDetails\",GED.\"id_SalesEventDetails\", '' as \"groupId\" " 
+				 +" from pigtrax.\"GroupEventDetails\" GED  where (GED.\"id_GroupEvent\" = ? OR GED.\"id_FromGroup\" = ?) AND GED.\"id_GroupEvent\" > 0 and GED.\"id_FromGroup\" > 0  ";
+				
+				List<GroupEventDetails> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+					@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, groupEventId);
+						ps.setInt(2, groupEventId);
+					}}, new GroupEventDetailsMapper()); 
+
+				if(groupEventList != null && groupEventList.size() > 0){
+					return groupEventList;
+				}
+				return null;
+		}
+
 }

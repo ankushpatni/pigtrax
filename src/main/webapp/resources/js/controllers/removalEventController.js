@@ -10,11 +10,14 @@ var feedEventController = pigTrax.controller('RemovalEventController',function($
 	$scope.removalEventType={};
 	$scope.groupEvent={};
 	$scope.removalExceptSalesList={};
+	$scope.transferList={};
 	$scope.exceptSalesFlag= false;
 	$scope.salesEventFlag = false;
+	$scope.transferEventFlag = false;
 	$scope.salesEventList={};
 	$scope.DateUtils = DateUtils;
 	$scope.premiseNameMap={};
+	$scope.dataLoaded = true;
 	
 	
 	$scope.setCompanyId = function(companyId,removalId,fromExcept, actionResult)
@@ -310,7 +313,8 @@ var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootSco
 	
 	$scope.getSearchRemovalEvent = function (postParam)
 	{
-	console.log(postParam);
+		$scope.dataLoaded = false;
+		console.log(postParam);
 		restServices.getRemovalEventInformationList(postParam, function(data){
 			console.log(data);
 			if(!data.error)
@@ -320,6 +324,7 @@ var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootSco
 				if(data.payload[0] != null && data.payload[0].length>0)
 				{
 					$scope.removalExceptSalesList=data.payload[0];
+					
 					$scope.exceptSalesFlag= true;
 				}
 				else
@@ -337,6 +342,16 @@ var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootSco
 					$scope.salesEventFlag = false;
 				}
 				
+				if(data.payload[2] != null && data.payload[2].length>0)
+				{
+					$scope.transferList=data.payload[2];
+					$scope.transferEventFlag = true;
+				}
+				else
+				{
+					$scope.transferEventFlag = false;
+				}
+				
 				if(!($scope.salesEventFlag || $scope.exceptSalesFlag))
 				{
 					$scope.searchDataErrorMessage = true;
@@ -347,11 +362,13 @@ var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootSco
 				}
 				$scope.actionResult = false;
 				
-		}
+				
+				}
 			else
 				{
 					$scope.resetForm();
 				}
+			$scope.dataLoaded = true;
 		});
 	}
 	

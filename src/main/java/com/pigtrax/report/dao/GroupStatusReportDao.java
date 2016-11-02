@@ -47,7 +47,7 @@ public class GroupStatusReportDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public List<Map<String, Object>> getGroupStatusList(Integer premiseId, List<Map<String, Object>> rangeList, Integer groupId, String language)
+	public List<Map<String, Object>> getGroupStatusList(Integer premiseId, List<Map<String, Object>> rangeList, Integer groupId, String language, String reportType)
 	{	
 		Date groupStartDate = getGroupStartDate(groupId);
 		
@@ -86,7 +86,7 @@ public class GroupStatusReportDao {
 			Double density = 0D;
 			
 			if(inventoryCnt >0 && pigSpaces >0)
-				density = (double)(inventoryCnt/pigSpaces);
+				density = Math.round(inventoryCnt*100.0)/(pigSpaces*100.0);
 			row.put("Density", density);
 			
 			Integer salesCount = getSalesCount(ServDateSTART, ServDateEND, groupId);
@@ -120,9 +120,18 @@ public class GroupStatusReportDao {
 			row.put("SaleWk", week);
 			
 			
-			Map<Integer, Integer> weekCntMap = getInventoryCntByWeek(groupId,ServDateSTART, ServDateEND);
-			if(weekCntMap != null && weekCntMap.size() > 0)
+			Map<Integer, Integer> weekCntMap = null;
+			if(("current").equalsIgnoreCase(reportType))
 			{
+				weekCntMap = getInventoryCntByWeek(groupId,ServDateSTART, ServDateEND);
+			}
+			else 
+			{
+				weekCntMap = getMortalityCntByWeek(groupId,ServDateSTART, ServDateEND);
+			}
+			
+			if(weekCntMap != null && weekCntMap.size() > 0)
+			{ 
 				int i = 1;
 				while(i<=26)
 				{
@@ -319,6 +328,49 @@ public class GroupStatusReportDao {
 					public void setValues(PreparedStatement ps) throws SQLException {
 						ps.setInt(1, groupId);
 						ps.setDate(2, new java.sql.Date(startDate.getTime()));
+					}
+				},
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getInt(1);
+		            }
+		            return 0;
+		          }
+		        });
+			
+			weekCntMap.put(index, sowCount);
+		}
+		
+		return weekCntMap;
+		
+	}
+	
+	
+	
+	private Map<Integer, Integer> getMortalityCntByWeek(final Integer groupId, final Date ServDateSTART, final Date ServDateEND)
+	{
+		Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
+		Integer remainingCnt = 0;
+		for(int i =1 ;i <=26; i++)
+		{
+			final Date startDate = DateUtil.addDays(ServDateSTART, i*7);
+			final Date endDate = DateUtil.addDays(ServDateEND, i*7);
+			final int index = i;
+			
+			final String qry = " select coalesce(sum(RES.\"numberOfPigs\"),0) as Num from pigtrax.\"RemovalEventExceptSalesDetails\" RES "
+					+ "where RES.\"id_GroupEvent\" = ? and RES.\"removalDateTime\" between ? and ? and RES.\"id_RemovalEvent\" = ?";
+			
+			
+			
+			@SuppressWarnings("unchecked")
+			Integer sowCount  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+				@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, groupId);
+						ps.setDate(2, new java.sql.Date(startDate.getTime()));
+						ps.setDate(3, new java.sql.Date(endDate.getTime()));
+						ps.setInt(4, RemovalEventType.Mortality.getTypeCode());
 					}
 				},
 		        new ResultSetExtractor() {

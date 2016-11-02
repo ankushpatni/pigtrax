@@ -2,6 +2,7 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 	$scope.companyId = 0;
 	$scope.startDate;
 	$scope.endDate;
+	$scope.groupEventFromPremisesList = {};
 	
 	$scope.loadPremises = function(comapnyId,dataStatus)
 	{
@@ -14,7 +15,7 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 		{
 			localCompany  = comapnyId;
 		}
-		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=null');
+		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=2,3,4,5,7,8');
 		res.success(function(data, status, headers, config) {
 			$scope.premiseList = data.payload;
 		});
@@ -55,12 +56,54 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 	
 	$scope.selectGroups = function()
     {
-    	restServices.getActiveGroupEventsInPremise($scope.selectedPremise, function(data){
-    		if(!data.error)
-    		{
-    			 $scope.groupList = data.payload;
-    		}
-    	});
+   
+    	var res = $http.get('rest/groupEvent/getGroupEventByPremiseWithoutStatus?premiseId='+$scope.selectedPremise);
+		res.success(function(data, status, headers, config) {
+			$scope.groupList = data.payload;
+			$scope.loadActiveCloseGroupEvents();
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+    	
     }
+	
+	
+	
+	
+	$scope.loadActiveCloseGroupEvents = function()
+	{
+		
+	$scope.groupEventTempList = $scope.groupList;
+		
+	if($scope.groupStatus === undefined || $scope.groupStatus === 'active')
+		{
+		$scope.groupEventFromPremisesList = {};
+		for( var x in $scope.groupList)
+				{
+					if( $scope.groupList[x].active )
+						{		
+							$scope.groupEventFromPremisesList[x] = $scope.groupList[x];
+						}
+				}
+		}
+		
+		if($scope.groupStatus === 'closed')
+		{
+		
+		$scope.groupEventFromPremisesList = {};
+		for( var x in $scope.groupList)
+				{
+					if(! $scope.groupList[x].active )
+						{		
+							$scope.groupEventFromPremisesList[x] = $scope.groupList[x];
+						}
+				}
+		}
+		
+		
+	
+	}
+	
 	
 });
