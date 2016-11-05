@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!-- ======== @Region: #content ======== -->
 <div class="page-head">
-          <h2><spring:message code='label.piginfo.groupEventForm.pigletinformation'  text='Piglet Information'/> - ${CompanyName}</h2>
+          <h2><spring:message code='label.piginfo.groupEventForm.groupEvent'  text='Group Event'/> - ${CompanyName}</h2>
         </div>
 		 
  <div class="cl-mcont" ng-controller="GroupEventController" ng-init="setCompanyId('${CompanyId}','${searchedGroupid}', '${searchPremiseId}')">

@@ -21,7 +21,7 @@
               </select>
              </div>
            <div  class="form-group">  	
-            <input type="text" name="search"  ng-enter="getPigletEventInformation()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pigleteventform.search.placeholder'  text='Search by Farrow Id / Tattoo ...'/>" class="form-control">
+            <input type="text" name="search"  ng-enter="getPigletEventInformation()" ng-model="searchText" placeholder="<spring:message code='label.piginfo.pigletEventform.search.placeholder'  text='Search by Farrow Id / Tattoo ...'/>" class="form-control">
 			</div>
 			 <div class="options">
 			 <div class="btn-group pull-right">

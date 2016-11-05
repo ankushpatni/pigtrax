@@ -96,7 +96,7 @@
 						
 						<div class="form-group" ng-show="showCSV">
 						
-						<h4>Download sample CSV templates</h4>
+						<h4><spring:message code="label.massupload.downloadtemplates.text" text="Download sample CSV templates" /></h4>
 						
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=EntryEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.entryevent.link"  text="Entry Event"/></a></br>
 						<a href="<%=request.getContextPath()%>/downloadTemplate?type=BreedingEvent&fileType=csv"><spring:message code="label.leftmenu.managepigevents.breedingevent.link"  text="Breeding Event"/></a></br>
