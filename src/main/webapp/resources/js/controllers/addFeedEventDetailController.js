@@ -126,7 +126,7 @@ pigTrax.controller('addFeedEventDetailCtrl', function($scope, $rootScope, $http,
 					
 					console.log(groupStartDate);
 					console.log(groupEndDate);
-					  if(new Date($scope.feedEventDetail.feedEventDate)<new Date(groupStartDate))
+					  if(new Date($scope.feedEventDetail.feedEventDate)<DateUtils.addDays(new Date(groupStartDate), -7))
 					  {
 						$scope.groupStartDateErrorMessage = true;
 						return;

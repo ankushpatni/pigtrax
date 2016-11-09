@@ -45,6 +45,7 @@ public class GroupStatusReportDao {
 	@Autowired
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+		this.jdbcTemplate.setQueryTimeout(10*60); 
 	}
 	
 	public List<Map<String, Object>> getGroupStatusList(Integer premiseId, List<Map<String, Object>> rangeList, Integer groupId, String language, String reportType)
