@@ -14,6 +14,9 @@ public class Room {
 	private String userUpdated;
 	private Integer roomPositionId;
 	private Integer pigSpaces;
+	private String barnIdStr;
+	private String premiseIdStr;
+	private String premiseName;
 	
 	public int getId() {
 		return id;
@@ -75,6 +78,24 @@ public class Room {
 	}
 	public void setPigSpaces(Integer pigSpaces) {
 		this.pigSpaces = pigSpaces;
+	}
+	public String getBarnIdStr() {
+		return barnIdStr;
+	}
+	public void setBarnIdStr(String barnIdStr) {
+		this.barnIdStr = barnIdStr;
+	}
+	public String getPremiseIdStr() {
+		return premiseIdStr;
+	}
+	public void setPremiseIdStr(String premiseIdStr) {
+		this.premiseIdStr = premiseIdStr;
+	}
+	public String getPremiseName() {
+		return premiseName;
+	}
+	public void setPremiseName(String premiseName) {
+		this.premiseName = premiseName;
 	}
 	
 	

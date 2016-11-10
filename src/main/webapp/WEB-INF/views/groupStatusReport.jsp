@@ -35,11 +35,13 @@
 							<%} %>
 						<div  class="form-group">
 						<label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
-						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="selectGroups()"  >
-								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>
-                      			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option>
-                      		  </select>
+<%-- 						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="selectGroups()"  > --%>
+<%-- 								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option> --%>
+<!--                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option> -->
+<!--                       		  </select> -->
+                      		  <div ng-dropdown-multiselect="" options="premiseValues" selected-model="selectedPremises"  extra-settings="multiselectdropdownsettings"></div>	
 						</div>
+						Selected : {{selectedPremises}}
 						
 						<div  class="form-group">  	
 					   		 <select  class="form-control"  name="status" id="status" ng-model="groupStatus"  style="width:90%;display:inline" ng-change="loadActiveCloseGroupEvents()">
@@ -47,15 +49,7 @@
 									<option value="active" ng-selected=true><spring:message code='label.piginfo.groupEventForm.search.active' text='Active groups' /></option>
 									<option value="closed" ><spring:message code='label.piginfo.groupEventForm.search.close' text='Closed groups' /></option>
 					             </select>
-							 </div>
-						
-						<div  class="form-group">
-						<label><spring:message code='label.leftmenu.managepigevents.groupEvent.link'  text='Group Event'/><span style='color: red'>*</span></label>
-						<select  class="form-control"  required required-message="'<spring:message code='label.piginfo.groupEventForm.groupId.requiredMessage' text='Group Id is required' />'"  name="selectedGroup" id="selectedGroup" ng-model="selectedGroup"  >								
-                      			 	<option ng-repeat="group in groupEventFromPremisesList" value="{{group.id}}" ng-value="group.id" ng-selected="selectedGroup == group.id">{{group.groupId}}</option>
-                      		  </select>
 						</div>
-						
 						
 						<div  class="form-group">
 						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label> 
@@ -81,6 +75,7 @@
 						</button>
 					</div>
 					<input type="hidden" name="companyId1" id="companyId1"/>
+					<input type="hidden" name="selectedPremise" id="selectedPremise"/>
 					
 				</form>
 			</div>

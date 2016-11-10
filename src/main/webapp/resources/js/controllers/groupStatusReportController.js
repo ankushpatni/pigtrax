@@ -4,8 +4,18 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 	$scope.endDate;
 	$scope.groupEventFromPremisesList = {};
 	
+	$scope.premiseValues = [];
+	$scope.selectedPremises = [];
+	
+	$scope.multiselectdropdownsettings = {
+		    scrollableHeight: '200px',
+		    scrollable: true
+		};
+	
+	
 	$scope.loadPremises = function(comapnyId,dataStatus)
 	{
+		$scope.selectedPremises = [];
 		var localCompany ;
 		if(comapnyId === undefined )
 		{
@@ -17,7 +27,14 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 		}
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=2,3,4,5,7,8');
 		res.success(function(data, status, headers, config) {
-			$scope.premiseList = data.payload;
+			$scope.premiseList = data.payload;			
+			$scope.premiseValues = [];	
+			
+           angular.forEach($scope.premiseList, function(premise, index){
+        	   var itemObj = {"id" : premise.id, "label":premise.name}  
+			   $scope.premiseValues.push(itemObj);
+           });
+			
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
@@ -35,8 +52,18 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
     {	
     	if($scope.generateGroupStatusReportForm.$valid)
     	{
+			var selectedPremiseStr = '';
+			if($scope.selectedPremises != null && 0 < $scope.selectedPremises.length)
+			{
+				angular.forEach($scope.selectedPremises, function(item, index){        	   
+					selectedPremiseStr +=item.id;
+					if(index < $scope.selectedPremises.length-1)
+						selectedPremiseStr += ",";
+				});
+			}
 			document.getElementById("companyId1").value	= $scope.companyId;		
-			document.getElementById("selectedPremise").value	= $scope.selectedPremise;
+			document.getElementById("selectedPremise").value	=selectedPremiseStr;
+			alert(selectedPremiseStr);
 			document.forms['generateGroupStatusReportForm'].submit();
     	}
 			
