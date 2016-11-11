@@ -7,6 +7,8 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 	$scope.premiseValues = [];
 	$scope.selectedPremises = [];
 	
+	$scope.clicked = false;
+	
 	$scope.multiselectdropdownsettings = {
 		    scrollableHeight: '200px',
 		    scrollable: true
@@ -25,6 +27,8 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 		{
 			localCompany  = comapnyId;
 		}
+		
+		document.getElementById("selectedCompany").value = localCompany;
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=2,3,4,5,7,8');
 		res.success(function(data, status, headers, config) {
 			$scope.premiseList = data.payload;			
@@ -40,6 +44,17 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 			console.log( "failure message: " + {data: data});
 		});		
 		$scope.companyId = localCompany;
+		
+		
+		var res = $http.get('rest/premises/getPremisesListBySowSource?generatedCompanyId='+localCompany+'&premisesType=1,6,8');
+		res.success(function(data, status, headers, config) {
+			$scope.sowSourceList = data.payload;
+			
+		});
+		res.error(function(data, status, headers, config) {
+			console.log( "failure message: " + {data: data});
+		});	
+		
 		
 		if(dataStatus == "true")
 			$scope.searchDataErrorMessage = true;
@@ -64,6 +79,7 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 			document.getElementById("companyId1").value	= $scope.companyId;		
 			document.getElementById("selectedPremise").value	=selectedPremiseStr;
 			alert(selectedPremiseStr);
+			$scope.clicked = true;
 			document.forms['generateGroupStatusReportForm'].submit();
     	}
 			
@@ -131,6 +147,5 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 		
 	
 	}
-	
 	
 });

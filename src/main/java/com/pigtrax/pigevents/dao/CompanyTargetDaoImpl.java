@@ -154,4 +154,22 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 			return null;
 		
 	}
+	
+	public CompanyTarget getCompanyTargetByType(final Integer premiseId, final Integer parameterId)
+			throws Exception {
+		String sql = "select \"id\", \"id_TargetType\", \"targetValue\", \"completionDate\", \"remarks\", \"id_Company\", \"id_Premise\",\"id_Ration\" "
+				+ "from pigtrax.\"CompanyTarget\" where \"id_Premise\" = ? and \"id_TargetType\" = ? order by \"id_Premise\" ";
+		
+		List<CompanyTarget> companyTargetList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {		
+				ps.setInt(1, premiseId);
+				ps.setInt(2, parameterId);
+			}}, new CompanyTargetMapper());
+		
+		if(companyTargetList != null && companyTargetList.size()>0)
+			return companyTargetList.get(0);
+		else
+			return null;
+	}
 }

@@ -33,6 +33,11 @@ public class GroupEvent {
 	private String roomId;
 	private List<GroupEventPhaseChange> phaseChangeList;
 	private Date removalDateTime;
+	private Integer roomIdPk;
+	private String barnId;
+	private String premiseIdStr;
+	private Integer roomSpace;
+	
 	
 	
 	public Date getRemovalDateTime() {
@@ -190,6 +195,30 @@ public class GroupEvent {
 	}
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
+	}
+	public Integer getRoomIdPk() {
+		return roomIdPk;
+	}
+	public void setRoomIdPk(Integer roomIdPk) {
+		this.roomIdPk = roomIdPk;
+	}
+	public String getBarnId() {
+		return barnId;
+	}
+	public void setBarnId(String barnId) {
+		this.barnId = barnId;
+	}
+	public String getPremiseIdStr() {
+		return premiseIdStr;
+	}
+	public void setPremiseIdStr(String premiseIdStr) {
+		this.premiseIdStr = premiseIdStr;
+	}
+	public Integer getRoomSpace() {
+		return roomSpace;
+	}
+	public void setRoomSpace(Integer roomSpace) {
+		this.roomSpace = roomSpace;
 	}
 	
 	

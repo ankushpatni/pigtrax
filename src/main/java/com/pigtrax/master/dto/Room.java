@@ -17,6 +17,7 @@ public class Room {
 	private String barnIdStr;
 	private String premiseIdStr;
 	private String premiseName;
+	private Integer premiseId;
 	
 	public int getId() {
 		return id;
@@ -96,6 +97,12 @@ public class Room {
 	}
 	public void setPremiseName(String premiseName) {
 		this.premiseName = premiseName;
+	}
+	public Integer getPremiseId() {
+		return premiseId;
+	}
+	public void setPremiseId(Integer premiseId) {
+		this.premiseId = premiseId;
 	}
 	
 	

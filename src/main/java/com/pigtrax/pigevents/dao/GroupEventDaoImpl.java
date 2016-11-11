@@ -21,9 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.util.DateUtil;
-import com.pigtrax.util.UserUtil;
 
-@Repository
+@Repository 
 @Transactional
 public class GroupEventDaoImpl implements GroupEventDao{
 	

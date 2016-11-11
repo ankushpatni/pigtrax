@@ -19,7 +19,7 @@ public interface PremisesDao {
 	 * To get the list of Premises
 	 * @return List<Company>
 	 */
-	public List<Premises> getPremisesListBySowSource( int generatedCompanyId );
+	public List<Premises> getPremisesListBySowSource( int generatedCompanyId, String premisesType );
 	
 	
 	/**

@@ -20,7 +20,7 @@ public interface PremisesService {
 	 * To get the list of Premises
 	 * @return List<Premises>
 	 */
-	public List<Premises> getPremisesListBySowSource( int generatedCompanyId );
+	public List<Premises> getPremisesListBySowSource( int generatedCompanyId, String premisesType ); 
 	
 	/**
 	 * To get the list of Premises

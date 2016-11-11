@@ -77,10 +77,17 @@ public class PremisesDaoImpl implements PremisesDao{
 	
 
 	@Override
-	public List<Premises> getPremisesListBySowSource(final int generatedCompanyId) {
+	public List<Premises> getPremisesListBySowSource(final int generatedCompanyId, String premisesType) {
 		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\",\"gpsLatittude\",\"gpsLongitude\","
 				+ "\"id_PremiseType\",\"sowSource\",\"otherCity\",\"lactationLength\" "
-				+ "from pigtrax.\"Premise\" where \"id_Company\" = ? and lower(\"sowSource\") = ? order by \"name\" ";
+				+ "from pigtrax.\"Premise\" where \"id_Company\" = ? and lower(\"sowSource\") = ? ";
+				
+					if(!StringUtils.isEmpty(premisesType) && !premisesType.equalsIgnoreCase("null"))
+					{
+							query = query + " and \"id_PremiseType\" in ("+premisesType+")";
+					}
+		
+				query += " order by \"name\" ";
 		
 		List<Premises> premisesList = jdbcTemplate.query(query, new PreparedStatementSetter(){
 			@Override

@@ -4668,6 +4668,8 @@ public class ReportControlller {
 				String endDate = request.getParameter("endDate");	
 				String groupId = request.getParameter("selectedGroup");
 				String reportType = request.getParameter("reportType");
+				String selectedSowSource = request.getParameter("selectedSowSource");
+				
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				
 				List<String> rows =new ArrayList<String>();			
@@ -4679,7 +4681,7 @@ public class ReportControlller {
 						String reportName = "CSV_Report_GroupStatusReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						
-							rows = groupStatusReportService.getGroupStatusResult(Integer.parseInt(companyId), selectedPremise, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request), reportType); 
+							rows = groupStatusReportService.getGroupStatusResult(Integer.parseInt(companyId), selectedPremise, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request), reportType, selectedSowSource); 
 							Iterator<String> iter = rows.iterator();
 							if(rows != null && rows.size() > 1)
 							{

@@ -16,4 +16,7 @@ public interface CompanyTargetDao {
    int deleteTargetDetails(Integer companyTargetId) throws SQLException;
 
    CompanyTarget getCompanyTargetsByPremises(Integer premisesId) throws SQLException;
+   
+   CompanyTarget getCompanyTargetByType(Integer premiseId, Integer parameterId) throws Exception;
+   
 }

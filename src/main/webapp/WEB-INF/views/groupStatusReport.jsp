@@ -33,6 +33,17 @@
 							
 							<input type="hidden" name="selectedCompany" id="selectedCompany"/>
 							<%} %>
+							
+						<div  class="form-group">
+						<label><spring:message code='label.premise.sowSource'  text='Sow Source'/><span style='color: red'>*</span></label>
+						<select  class="form-control"  required required-message="'<spring:message code='label.premise.sowSourceYes.requiredMessage' text='Sow source is required' />'"  name="selectedSowSource" id="selectedSowSource" ng-model="selectedSowSource" >
+								<option value="" hidden>----</option>
+                      			 	<option ng-repeat="premise in sowSourceList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedSowSource == premise.id">{{premise.name}}</option>
+                      			 	<option value="-1"><spring:message code='label.pigtrax.all.txt'  text='All'/></option>
+                      		  </select>
+                      		  	
+						</div>	
+							
 						<div  class="form-group">
 						<label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
 <%-- 						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="selectGroups()"  > --%>
@@ -41,7 +52,6 @@
 <!--                       		  </select> -->
                       		  <div ng-dropdown-multiselect="" options="premiseValues" selected-model="selectedPremises"  extra-settings="multiselectdropdownsettings"></div>	
 						</div>
-						Selected : {{selectedPremises}}
 						
 						<div  class="form-group">  	
 					   		 <select  class="form-control"  name="status" id="status" ng-model="groupStatus"  style="width:90%;display:inline" ng-change="loadActiveCloseGroupEvents()">
@@ -82,4 +92,9 @@
 		</div>
 		<div class="col-sm-3 col-md-3"></div>
 	</div>
+	
+	<p class="text-center" ng-show="clicked">
+    	<i class="fa fa-spinner fa-spin fa-3x"></i>
+	</p>
+	
 </div>

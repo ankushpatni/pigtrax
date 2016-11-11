@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.master.dto.RoomPK;
+import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventPhaseChange;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 
@@ -107,6 +108,35 @@ public class GroupEventRoomDaoImpl implements GroupEventRoomDao {
 				RoomPK room = new RoomPK();
 				room.setId(rs.getString("id_Room"));
 				return room;
+			}
+		}
+	 
+	 public GroupEvent getGroupRoomAndBarnDetails(final Integer groupEventId) {
+	
+		 String qry = "SELECT B.\"barnId\", R.\"roomId\", R.\"pigSpaces\" from pigtrax.\"Room\"  R JOIN pigtrax.\"Barn\" B ON R.\"id_Barn\" = B.\"id\" "
+			+" where R.\"id\" = (select \"id_Room\" from pigtrax.\"GroupEventRoom\" where \"id_GroupEventPhaseChange\" = "
+				 + " (select max(\"id\") from pigtrax.\"GroupEventPhaseChange\" where \"id_GroupEvent\" = ?)) ";
+		 
+		 List<GroupEvent> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupEventId);
+				}}, new BarnRoomMapper());
+
+			if(groupEventList != null && groupEventList.size() > 0){
+				return groupEventList.get(0);
+			}
+			return null;
+	 }
+	 
+	 
+	 private static final class BarnRoomMapper implements RowMapper<GroupEvent> {
+			public GroupEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
+				GroupEvent groupEvent = new GroupEvent();
+				groupEvent.setBarnId(rs.getString("barnId"));
+				groupEvent.setRoomId(rs.getString("roomId"));
+				groupEvent.setRoomSpace(rs.getInt("pigSpaces"));
+				return groupEvent;
 			}
 		}
 	

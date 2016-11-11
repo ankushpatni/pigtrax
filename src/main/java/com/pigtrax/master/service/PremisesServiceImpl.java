@@ -34,8 +34,8 @@ public class PremisesServiceImpl implements PremisesService{
 	}
 	
 	@Override
-	public List<Premises> getPremisesListBySowSource(int generatedCompanyId) {
-		return premisesDao.getPremisesListBySowSource( generatedCompanyId );
+	public List<Premises> getPremisesListBySowSource(int generatedCompanyId, String premisesType) {
+		return premisesDao.getPremisesListBySowSource( generatedCompanyId, premisesType );
 	}
 	
 	@Override

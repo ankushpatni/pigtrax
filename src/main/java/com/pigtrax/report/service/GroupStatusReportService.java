@@ -55,7 +55,7 @@ public class GroupStatusReportService {
 	@Autowired
 	MessageSource messageSource;
 
-	public List<String> getGroupStatusResult(Integer companyId, String selectedPremise,  Date startDate, Date endDate, String groupIdStr, Locale locale, String reportType) { 
+	public List<String> getGroupStatusResult(Integer companyId, String selectedPremise,  Date startDate, Date endDate, String groupIdStr, Locale locale, String reportType, String selectedSowSource)  throws Exception{ 
 		
 		
 		Date inputStartDate  = startDate;
@@ -85,25 +85,26 @@ public class GroupStatusReportService {
 			logger.info("Range List size"+rangeList.size());
 			
 			
-			List<Map<String, Object>> resultList  = groupStatusReportDao.getGroupStatusList(companyId, selectedPremise, inputStartDate, inputEndDate, rangeList,  locale.getLanguage(), reportType);
+			List<Map<String, Object>> resultList  = groupStatusReportDao.getGroupStatusList(companyId, selectedPremise, inputStartDate, inputEndDate, rangeList,  locale.getLanguage(), reportType, selectedSowSource);
 	
-			
-			
 			
 			String dateStr = "";
 			if (resultList != null && resultList.size() > 0) {
 	
 				StringBuffer rowBuffer = null;
 				
-				returnRows.add(messageSource.getMessage("label.reports.groupstatus.phasetype", null, "", locale)+","
+				returnRows.add(
+						messageSource.getMessage("label.premise.sowSource", null, "", locale)+","
+						+messageSource.getMessage("label.piginfo.farroweventform.premise", null, "", locale)+","
+						+messageSource.getMessage("label.reports.groupstatus.phasetype", null, "", locale)+","
 						+messageSource.getMessage("label.barn.barnId", null, "", locale)+","
 						+messageSource.getMessage("label.room.roomID", null, "", locale)+","
 						+messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","
-								+messageSource.getMessage("label.reports.groupstatus.eventstartdate", null, "", locale)+","
+						+messageSource.getMessage("label.reports.groupstatus.eventstartdate", null, "", locale)+","
 						+messageSource.getMessage("label.reports.groupstatus.eventdateend", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.wk", null, "", locale)+","
 						+messageSource.getMessage("label.reports.groupstatus.startwt", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.starthd", null, "", locale)+","
 						+messageSource.getMessage("label.reports.groupstatus.inventory", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.deads", null, "", locale)+","
-						+messageSource.getMessage("label.reports.groupstatus.percentagemortality", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.wof", null, "", locale)+","
+						+messageSource.getMessage("label.reports.groupstatus.percentagemortality", null, "", locale)+","
 						+messageSource.getMessage("label.reports.groupstatus.density", null, "", locale)+","+messageSource.getMessage("label.reports.groupstatus.sales", null, "", locale)+","
 						+"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,"+messageSource.getMessage("label.piginfo.groupstatus.projectedsaledate", null, "", locale)+","
 						+messageSource.getMessage("label.reports.groupstatus.salewk", null, "", locale)+"\n");
@@ -111,6 +112,8 @@ public class GroupStatusReportService {
 				
 				for (Map mpRow : resultList) {
 					rowBuffer = new StringBuffer();
+					rowBuffer.append(mpRow.get("SowSource") + seprater);
+					rowBuffer.append(mpRow.get("FarmName") + seprater);
 					rowBuffer.append(mpRow.get("PhaseType") + seprater);
 					rowBuffer.append(mpRow.get("BarnId")+ seprater);
 					rowBuffer.append(mpRow.get("RoomId")+ seprater);
@@ -141,7 +144,6 @@ public class GroupStatusReportService {
 					rowBuffer.append(mpRow.get("Inventory")+ seprater);
 					rowBuffer.append(mpRow.get("Deads")+ seprater);
 					rowBuffer.append(mpRow.get("Mortality%")+ seprater);
-					rowBuffer.append(mpRow.get("WOF")+ seprater);
 					rowBuffer.append(mpRow.get("Density")+ seprater);
 					rowBuffer.append(mpRow.get("Sales")+ seprater);
 					rowBuffer.append(mpRow.get("W1") + seprater);

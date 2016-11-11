@@ -71,13 +71,13 @@ public class PremisesRestController {
 	 * @return ServiceResponseDto
 	 */
 	@RequestMapping(value = "/getPremisesListBySowSource", method=RequestMethod.GET, produces="application/json")
-	public ServiceResponseDto getPremisesListBySowSource(HttpServletRequest request, @RequestParam int generatedCompanyId)
+	public ServiceResponseDto getPremisesListBySowSource(HttpServletRequest request, @RequestParam int generatedCompanyId, @RequestParam(required=false) String premisesType)
 	{
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		logger.info("Inside getPremisesList" );
 		ServiceResponseDto dto = new ServiceResponseDto();
-		List<Premises> premisesList  = premisesService.getPremisesListBySowSource(generatedCompanyId); 
+		List<Premises> premisesList  = premisesService.getPremisesListBySowSource(generatedCompanyId, premisesType); 
 		dto.setPayload(premisesList);
 		dto.setStatusMessage("Success");
 		return dto;
