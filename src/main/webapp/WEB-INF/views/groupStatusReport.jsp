@@ -51,15 +51,7 @@
 <!--                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option> -->
 <!--                       		  </select> -->
                       		  <div ng-dropdown-multiselect="" options="premiseValues" selected-model="selectedPremises"  extra-settings="multiselectdropdownsettings"></div>	
-						</div>
-						
-						<div  class="form-group">  	
-					   		 <select  class="form-control"  name="status" id="status" ng-model="groupStatus"  style="width:90%;display:inline" ng-change="loadActiveCloseGroupEvents()">
-									<!--<option value="" hidden><spring:message code='label.piginfo.groupEventForm.search.placeholder' text='Search by Group Id ...' /></option>-->
-									<option value="active" ng-selected=true><spring:message code='label.piginfo.groupEventForm.search.active' text='Active groups' /></option>
-									<option value="closed" ><spring:message code='label.piginfo.groupEventForm.search.close' text='Closed groups' /></option>
-					             </select>
-						</div>
+						</div>					
 						
 						<div  class="form-group">
 						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/><span style='color: red'>*</span></label> 
@@ -89,12 +81,11 @@
 					
 				</form>
 			</div>
+			<p class="text-center" ng-show="clicked">
+    			<i class="fa fa-spinner fa-spin fa-3x"></i>
+			</p>
+			
 		</div>
 		<div class="col-sm-3 col-md-3"></div>
 	</div>
-	
-	<p class="text-center" ng-show="clicked">
-    	<i class="fa fa-spinner fa-spin fa-3x"></i>
-	</p>
-	
 </div>

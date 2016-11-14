@@ -192,8 +192,8 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	public int addGroupEventDetails(final GroupEventDetails groupEventDetails) throws SQLException {
 		final String Qry = "insert into pigtrax.\"GroupEventDetails\"(\"id_GroupEvent\", \"id_Barn\", \"dateOfEntry\", \"id_Room\", \"id_EmployeeGroup\", \"numberOfPigs\","
 					+"\"weightInKgs\", \"indeventoryAdjustment\", \"remarks\", \"lastUpdated\", \"userUpdated\", "
-					+ "\"id_TransportDestination\", \"id_SowSource\",\"id_Premise\", \"id_PigletStatusEvent\", \"id_FromGroup\",\"id_RemovalEventExceptSalesDetails\",\"id_SalesEventDetails\") "
-				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?,?,?, ?,?,?)";
+					+ "\"id_TransportDestination\", \"id_SowSource\",\"id_Premise\", \"id_PigletStatusEvent\", \"id_FromGroup\",\"id_RemovalEventExceptSalesDetails\",\"id_SalesEventDetails\", \"groupEventActionType\") "
+				+ "values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?, ?,?,?, ?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -259,6 +259,10 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	     	            	ps.setInt(17, groupEventDetails.getSalesId());
 	     	            else
 	     	            	ps.setNull(17, java.sql.Types.INTEGER);
+	    	            if(groupEventDetails.getGroupEventActionType() != null && groupEventDetails.getGroupEventActionType() != 0)
+	     	            	ps.setInt(18, groupEventDetails.getGroupEventActionType());
+	     	            else
+	     	            	ps.setNull(18, java.sql.Types.INTEGER);
 	    	            return ps;
 	    	        }
 	    	    },
