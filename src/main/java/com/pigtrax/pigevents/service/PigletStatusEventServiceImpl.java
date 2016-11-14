@@ -37,6 +37,7 @@ import com.pigtrax.pigevents.dto.PigletStatusEventDto;
 import com.pigtrax.pigevents.service.interfaces.FarrowEventService;
 import com.pigtrax.pigevents.service.interfaces.PigletStatusEventService;
 import com.pigtrax.pigevents.validation.PigletStatusEventValidation;
+import com.pigtrax.usermanagement.enums.GroupEventActionType;
 import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 import com.pigtrax.util.DateUtil;
 @Service
@@ -229,6 +230,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				groupEventDetails.setGroupId(pigletStatusEventDto.getGroupEventId());
 				groupEventDetails.setUserUpdated(pigletStatusEventDto.getUserUpdated());
 				groupEventDetails.setRemarks("From piglet wean");
+				groupEventDetails.setGroupEventActionType(GroupEventActionType.Add.getTypeCode());
 				groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 				
 				groupEventDao.updateGroupEventCurrentInventory(groupEvent);

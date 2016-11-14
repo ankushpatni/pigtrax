@@ -27,6 +27,7 @@ import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dto.GroupEventDto;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
+import com.pigtrax.usermanagement.enums.GroupEventActionType;
 import com.pigtrax.util.DateUtil;
 
 @Repository
@@ -173,6 +174,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 				groupEventDetails.setDateOfEntry(groupEvent.getRemovalDateTime());
 				if(null!=groupEventDetails)
 				{
+					groupEventDetails.setGroupEventActionType(GroupEventActionType.Transferred.getTypeCode());
 					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 				}
 				
@@ -242,6 +244,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 				groupEventDetails.setDateOfEntry(groupEvent.getRemovalDateTime());
 				if(null!=groupEventDetails)
 				{
+					groupEventDetails.setGroupEventActionType(GroupEventActionType.Transferred.getTypeCode());
 					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 				}
 				
@@ -293,6 +296,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
 					groupEventDetails.setFromGroupId(groupEvent.getTransferredToGroupId());
 					groupEventDetails.setRemarks("Transferred");
+					groupEventDetails.setGroupEventActionType(GroupEventActionType.Transferred.getTypeCode());
 					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 					
 					currentGroup.setCurrentInventory(currentGroup.getCurrentInventory() - groupEvent.getTransferredPigNum());
@@ -389,6 +393,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 					groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
 					groupEventDetails.setFromGroupId(groupEvent.getTransferredToGroupId());
 					groupEventDetails.setRemarks("Transferred");
+					groupEventDetails.setGroupEventActionType(GroupEventActionType.Transferred.getTypeCode());
 					groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 					
 					currentGroup.setCurrentInventory(currentGroup.getCurrentInventory() - groupEvent.getTransferredPigNum());
@@ -509,6 +514,7 @@ public class GroupEventServiceImpl implements GroupEventService{
 		groupEventDetails.setUserUpdated(groupEvent.getUserUpdated());
 		groupEventDetails.setFromGroupId(groupEvent.getTransferredFromGroupId() != null ?groupEvent.getTransferredFromGroupId():groupEvent.getId());
 		groupEventDetails.setRemarks("Received");
+		groupEventDetails.setGroupEventActionType(GroupEventActionType.Transferred.getTypeCode());
 		return groupEventDetails;
 	}
 	

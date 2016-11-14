@@ -1849,6 +1849,7 @@ CREATE TABLE pigtrax."GroupEventDetails"(
 	"id_FromGroup" integer,
     "id_RemovalEventExceptSalesDetails" integer,
     "id_SalesEventDetails" integer,
+    "groupEventActionType" integer,
 	CONSTRAINT "GROUPDEVENTDETAIL_PK" PRIMARY KEY (id)
 
 );

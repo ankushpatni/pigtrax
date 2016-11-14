@@ -22,6 +22,7 @@ public class GroupEventDetails {
 	private Integer pigletStatusEventId;
 	private Integer fromGroupId;
 	private String fromGroupIdStr;
+	private Integer groupEventActionType;
 	
 	private Integer removalId;
 	private Integer salesId;
@@ -146,5 +147,13 @@ public class GroupEventDetails {
 	}
 	public void setSalesId(Integer salesId) {
 		this.salesId = salesId;
-	}	
+	}
+	public Integer getGroupEventActionType() {
+		return groupEventActionType;
+	}
+	public void setGroupEventActionType(Integer groupEventActionType) {
+		this.groupEventActionType = groupEventActionType;
+	}
+	
+	
 }

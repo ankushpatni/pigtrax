@@ -29,6 +29,7 @@ import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
 import com.pigtrax.pigevents.service.interfaces.RemovalEventExceptSalesService;
+import com.pigtrax.usermanagement.enums.GroupEventActionType;
 import com.pigtrax.usermanagement.enums.RemovalEventType;
 import com.pigtrax.util.DateUtil;
 
@@ -186,6 +187,7 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 			if(groupEventDetails!= null)
 			{
 				groupEventDetails.setRemovalId(returnValue);
+				groupEventDetails.setGroupEventActionType(GroupEventActionType.Removal.getTypeCode());
 				groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 			}
 			

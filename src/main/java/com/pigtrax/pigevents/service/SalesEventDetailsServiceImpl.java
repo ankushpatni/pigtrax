@@ -22,6 +22,7 @@ import com.pigtrax.pigevents.dao.interfaces.PigTraxEventMasterDao;
 import com.pigtrax.pigevents.dao.interfaces.SalesEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.TransportJourneyDao;
 import com.pigtrax.pigevents.service.interfaces.SalesEventDetailsService;
+import com.pigtrax.usermanagement.enums.GroupEventActionType;
 import com.pigtrax.util.DateUtil;
 
 @Repository
@@ -127,6 +128,7 @@ public class SalesEventDetailsServiceImpl implements SalesEventDetailsService
 			if(groupEventDetails != null)
 			{
 				groupEventDetails.setSalesId(returnValue);
+				groupEventDetails.setGroupEventActionType(GroupEventActionType.Sold.getTypeCode());
 				groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 			}
 			PigTraxEventMaster master = new PigTraxEventMaster();

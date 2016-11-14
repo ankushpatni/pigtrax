@@ -30,6 +30,7 @@ import com.pigtrax.pigevents.dao.interfaces.SowMovementDao;
 import com.pigtrax.pigevents.dto.PigInfoBuilder;
 import com.pigtrax.pigevents.dto.PigInfoDto;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
+import com.pigtrax.usermanagement.enums.GroupEventActionType;
 import com.pigtrax.util.DateUtil;
 
 @Repository
@@ -93,6 +94,7 @@ public class PigInfoServiceImpl implements PigInfoService {
 							groupEventDetails.setWeightInKgs(0D);
 							groupEventDetails.setUserUpdated(dto.getUserUpdated());
 							groupEventDetails.setRemarks("Transferred to farm");
+							groupEventDetails.setGroupEventActionType(GroupEventActionType.Transferred.getTypeCode());
 							groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
 							
 							groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - 1);

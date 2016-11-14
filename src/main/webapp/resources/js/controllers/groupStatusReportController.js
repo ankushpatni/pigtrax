@@ -77,8 +77,7 @@ pigTrax.controller('GroupStatusReportController', function($scope, $http, $windo
 				});
 			}
 			document.getElementById("companyId1").value	= $scope.companyId;		
-			document.getElementById("selectedPremise").value	=selectedPremiseStr;
-			alert(selectedPremiseStr);
+			document.getElementById("selectedPremise").value	=selectedPremiseStr;			
 			$scope.clicked = true;
 			document.forms['generateGroupStatusReportForm'].submit();
     	}

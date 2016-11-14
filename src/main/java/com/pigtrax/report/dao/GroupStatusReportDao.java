@@ -32,6 +32,7 @@ import com.pigtrax.pigevents.dao.interfaces.CompanyTargetDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
+import com.pigtrax.usermanagement.enums.GroupEventActionType;
 import com.pigtrax.usermanagement.enums.RemovalEventType;
 import com.pigtrax.util.DateUtil;
 
@@ -118,11 +119,16 @@ public class GroupStatusReportDao {
 						
 						
 						record.put("EventDateStart", group.getGroupStartDateTime());
+						
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(group.getGroupStartDateTime());
+						int week = cal.get(Calendar.WEEK_OF_YEAR);
+						
 						record.put("EventDateEnd", row.get("EventDateEnd"));
 						/**
 						 * Calendar week of the event start date
 						 */
-						record.put("WK", row.get("WK"));
+						record.put("WK", week);
 						
 						record.put("SowSource", sourcePremise.getName());  
 						record.put("FarmName",group.getPremiseIdStr());
@@ -130,8 +136,10 @@ public class GroupStatusReportDao {
 						record.put("RoomId", barnRoomDetails.getRoomId());						
 						
 						
-						Date ServDateSTART = (Date)row.get("EventDateStart");
-						Date ServDateEND = (Date)row.get("EventDateEnd");
+						Date ServDateSTART = (Date)record.get("EventDateStart");				
+						cal.add(Calendar.DAY_OF_MONTH, 6);
+						
+						Date ServDateEND = cal.getTime();
 						
 						Integer pigSpaces = barnRoomDetails.getRoomSpace();
 						
@@ -167,7 +175,7 @@ public class GroupStatusReportDao {
 						
 						Double mortalityPercentage = 0D;
 						if(deadCount >0 && startHead > 0)
-							mortalityPercentage = (double) ((deadCount*100)/startHead);
+							mortalityPercentage =  (double) (deadCount*100.0)/(startHead); 
 						record.put("Mortality%", mortalityPercentage);
 						
 						Date projectedSalesDate = null;
@@ -186,9 +194,9 @@ public class GroupStatusReportDao {
 						projectedSalesDate = DateUtil.addDays(group.getGroupStartDateTime(),dofDays);
 						record.put("ProjectedSaleDate", projectedSalesDate);
 						
-						Calendar cal = Calendar.getInstance();
+						cal = Calendar.getInstance();
 						cal.setTime(projectedSalesDate);
-						int week = cal.get(Calendar.WEEK_OF_YEAR);
+						week = cal.get(Calendar.WEEK_OF_YEAR);
 						record.put("SaleWk", week);
 						
 						Map<Integer, Integer> weekCntMap = null;
@@ -225,17 +233,17 @@ public class GroupStatusReportDao {
 	}
 	
 	private Map<String, Object> getStartWtAndHead(final Date ServDateSTART, final Date ServDateEND, final Integer groupId)
-	{
-		final String qry = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num, coalesce(sum(GED.\"weightInKgs\"),0) as Wt from pigtrax.\"GroupEventDetails\" GED "
-				+ "where GED.\"id_GroupEvent\" = ? and GED.\"id\" = (select min(\"id\") from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = ?) ";
-		
+	{	
+		final String qry = "select SUM(coalesce(GED.\"numberOfPigs\",0)*coalesce(GED.\"weightInKgs\",0))/SUM(coalesce(GED.\"numberOfPigs\",0)) as StartWt , SUM(coalesce(GED.\"numberOfPigs\",0)) as StartHd"
+				+ "  from pigtrax.\"GroupEventDetails\" GED "
+				+ " where \"id_GroupEvent\" = ? and \"groupEventActionType\" = ?";
 			
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> cnt  = (List<Map<String, Object>>)jdbcTemplate.query(qry,new PreparedStatementSetter() {
 			@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
 					ps.setInt(1, groupId);
-					ps.setInt(2, groupId);
+					ps.setInt(2, GroupEventActionType.Add.getTypeCode());
 				}
 			}, new DataMapper());
 		
@@ -388,8 +396,8 @@ public class GroupStatusReportDao {
 	private static final class DataMapper implements RowMapper<Map<String, Object>> {
 		public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
-			dataMap.put("StartHd",rs.getLong("Num"));
-			dataMap.put("StartWt",rs.getDouble("Wt"));
+			dataMap.put("StartHd",rs.getLong("StartHd"));
+			dataMap.put("StartWt",rs.getDouble("StartWt"));
 			return dataMap;
 		}
 	}
@@ -399,15 +407,15 @@ public class GroupStatusReportDao {
 	{
 		Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
 		Integer remainingCnt = 0;
-		for(int i =1 ;i <=26; i++)
+		for(int i =0 ;i <26; i++)
 		{
 			Thread.sleep(5*1000);
 			final Date startDate = DateUtil.addDays(ServDateSTART, i*7);
 			final Date endDate = DateUtil.addDays(ServDateEND, i*7);
-			final int index = i;
+			final int index = i+1;
 			
 			final String qry = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
-					+ "where GED.\"id_GroupEvent\" = ? and GED.\"dateOfEntry\" <= ?";
+					+ "where GED.\"id_GroupEvent\" = ? and GED.\"dateOfEntry\" between ? and ? and GED.\"groupEventActionType\" = ?";
 			
 			try{
 			
@@ -418,6 +426,8 @@ public class GroupStatusReportDao {
 					public void setValues(PreparedStatement ps) throws SQLException {
 						ps.setInt(1, groupId);
 						ps.setDate(2, new java.sql.Date(startDate.getTime()));
+						ps.setDate(3, new java.sql.Date(endDate.getTime()));
+						ps.setInt(4, GroupEventActionType.Add.getTypeCode());
 					}
 				},
 		        new ResultSetExtractor() {
@@ -479,12 +489,12 @@ public class GroupStatusReportDao {
 	{
 		Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
 		Integer remainingCnt = 0;
-		for(int i =1 ;i <=26; i++)
+		for(int i =0 ;i <26; i++)
 		{
 			Thread.sleep(5*1000);
 			final Date startDate = DateUtil.addDays(ServDateSTART, i*7);
 			final Date endDate = DateUtil.addDays(ServDateEND, i*7);
-			final int index = i;
+			final int index = i+1;
 			
 			final String qry = " select coalesce(sum(RES.\"numberOfPigs\"),0) as Num from pigtrax.\"RemovalEventExceptSalesDetails\" RES "
 					+ "where RES.\"id_GroupEvent\" = ? and RES.\"removalDateTime\" between ? and ? and RES.\"id_RemovalEvent\" = ?";
