@@ -58,6 +58,7 @@
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
                       	<input type="text" required required-message="'<spring:message code='label.report.startdate.required' text='Start date is required' />'" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"/>
 								</div>
+								<div  class="form-group">
                     	<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/><span style='color: red'>*</span></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in dd/mm/yyyy format)'/></i>
                       	<input type="text" required required-message="'<spring:message code='label.report.enddate.required' text='End date is required' />'" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true' name="endDate"/>
