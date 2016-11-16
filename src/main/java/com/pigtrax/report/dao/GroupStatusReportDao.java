@@ -409,7 +409,7 @@ public class GroupStatusReportDao {
 		Integer remainingCnt = 0;
 		for(int i =0 ;i <26; i++)
 		{
-			Thread.sleep(1*1000);
+			Thread.sleep(3*1000);
 			final Date startDate = DateUtil.addDays(ServDateSTART, i*7);
 			final Date endDate = DateUtil.addDays(ServDateEND, i*7);
 			final int index = i+1;
@@ -491,7 +491,7 @@ public class GroupStatusReportDao {
 		Integer remainingCnt = 0;
 		for(int i =0 ;i <26; i++)
 		{
-			Thread.sleep(1*1000);
+			Thread.sleep(3*1000);
 			final Date startDate = DateUtil.addDays(ServDateSTART, i*7);
 			final Date endDate = DateUtil.addDays(ServDateEND, i*7);
 			final int index = i+1;
