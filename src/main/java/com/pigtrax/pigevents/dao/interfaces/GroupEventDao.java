@@ -1,7 +1,9 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.pigtrax.pigevents.beans.GroupEvent;
 
@@ -33,5 +35,13 @@ public interface GroupEventDao {
 	public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEvent) throws SQLException;
 
 	List<GroupEvent> getGroupEventByPremiseWithoutStatus(int premiseId) throws SQLException;
+	
+	List<GroupEvent> getAllGroups(final Integer premiseId);
+	
+	Map<String, Object> getStartWtAndHead(final Integer groupId);
+	
+	 Integer getInventoryCount(final Date endDate, final Integer groupId);
+	 
+	 Integer getPhaseOfProduction(final Integer groupId);
 
 }

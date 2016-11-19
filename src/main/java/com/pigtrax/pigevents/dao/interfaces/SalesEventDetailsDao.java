@@ -1,6 +1,7 @@
 package com.pigtrax.pigevents.dao.interfaces;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.pigtrax.pigevents.beans.SalesEventDetails;
@@ -24,5 +25,7 @@ public interface SalesEventDetailsDao {
 
 	List<SalesEventDetails> getSalesEventDetailsListByPigId(int pigInfoIdId)
 			throws SQLException;
+	
+	 Integer getSalesCount(final Date endDate, final Integer groupId);
 
 }

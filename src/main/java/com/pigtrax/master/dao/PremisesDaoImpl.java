@@ -307,5 +307,16 @@ public class PremisesDaoImpl implements PremisesDao{
 		
 		return rowsDeleted;
 	}
+	
+	public List<Premises> getAllPremises() {
+		String query = "SELECT \"id\",\"permiseId\", \"id_Company\", \"name\", \"address\", \"city\", \"state\", \"zipcode\", \"isActive\",\"gpsLatittude\",\"gpsLongitude\","
+				+ "\"id_PremiseType\",\"sowSource\",\"otherCity\", \"lactationLength\" "
+				+ "from pigtrax.\"Premise\" " ;
+				query = query + "order by \"name\" ";
+		
+		List<Premises> premisesList = jdbcTemplate.query(query, new PremisesMapper());
+		
+		return premisesList;
+	}
 
 }

@@ -4,13 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -20,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
+import com.pigtrax.usermanagement.enums.GroupEventActionType;
+import com.pigtrax.util.DateUtil;
 
 @Repository
 @Transactional
@@ -347,5 +354,76 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 				}
 				return null;
 		}
+	 
+	 
+	 /**
+	  * Get inventory count of a group at week level
+	  * @param groupId
+	  * @param ServDateSTART
+	  * @param ServDateEND
+	  * @return
+	  * @throws Exception
+	  */
+	 public Map<Integer, Integer> getInventoryCntByWeek(final Integer groupId, final Date ServDateSTART, final Date ServDateEND) throws Exception
+		{
+			Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
+			Integer remainingCnt = 0;
+			
+			try{
+			
+				for(int i =0 ;i <26; i++)
+				{		
+					final int index = i+1;
+					
+					try{
+					
+					Thread.sleep(3*1000);
+					final Date startDate = DateUtil.addDays(ServDateSTART, i*7);
+					final Date endDate = DateUtil.addDays(ServDateEND, i*7);					
+					
+					final String qry = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
+							+ "where GED.\"id_GroupEvent\" = ? and GED.\"dateOfEntry\" between ? and ? and GED.\"groupEventActionType\" = ?";
+					
+					@SuppressWarnings("unchecked")
+					Integer sowCount  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+						@Override
+							public void setValues(PreparedStatement ps) throws SQLException {
+								ps.setInt(1, groupId);
+								ps.setDate(2, new java.sql.Date(startDate.getTime()));
+								ps.setDate(3, new java.sql.Date(endDate.getTime()));
+								ps.setInt(4, GroupEventActionType.Add.getTypeCode());
+							}
+						},
+				        new ResultSetExtractor() {
+				          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				            if (resultSet.next()) {
+				              return resultSet.getInt(1);
+				            }
+				            return 0;
+				          }
+				        });
+					
+					weekCntMap.put(index, sowCount);
+					
+					}
+					catch(Exception ex)
+					{
+						Thread.sleep(5*1000);
+						weekCntMap.put(index, 0);
+					}
+					
+										
+				}
+			
+			}
+			catch(Exception ex)
+			{
+				Thread.sleep(5*1000);
+			}
+			
+			return weekCntMap;
+			
+		}
+	 
 
 }

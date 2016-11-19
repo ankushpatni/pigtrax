@@ -29,6 +29,7 @@
 	<context:component-scan base-package="com.pigtrax.notification" />
 	<context:component-scan base-package="com.pigtrax.report.service" />
 	<context:component-scan base-package="com.pigtrax.report.dao" />
+	<context:component-scan base-package="com.pigtrax.jobs" />
 	
 	
  
@@ -98,5 +99,32 @@
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="10000000" />
     </bean>
+    
+     <bean id="groupStatus" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mySchedulerBean" />
+        <property name="targetMethod" value="processGroupStatusReport" /> 
+    </bean>
+    
+    <bean id="groupStatusUpdateTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="groupStatus" />
+        <property name="startDelay" value="300000" />
+        <property name="repeatInterval" value="18000000" />
+    </bean>
+    
+    <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="groupStatus" />
+            </list>
+        </property>
+ 
+        <property name="triggers">
+            <list>
+                <ref bean="groupStatusUpdateTrigger" />
+            </list>
+        </property>
+    </bean>
+    
+    
 	
 </beans>

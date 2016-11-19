@@ -1,6 +1,5 @@
 package com.pigtrax.report.service;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,13 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
-import com.pigtrax.application.exception.PigTraxException;
+import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.jobs.dto.GroupStatusReportDataDto;
 import com.pigtrax.master.dao.interfaces.BarnDao;
 import com.pigtrax.master.dao.interfaces.PremisesDao;
 import com.pigtrax.master.dao.interfaces.RoomDao;
 import com.pigtrax.master.dto.Barn;
 import com.pigtrax.master.dto.Room;
-import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.report.dao.GroupStatusReportDao;
@@ -47,6 +46,9 @@ public class GroupStatusReportService {
 	
 	@Autowired
 	GroupEventService groupEventService;
+	
+	@Autowired
+	RefDataCache refDataCache;
 	
 	private static final Logger logger = Logger.getLogger(GroupStatusReportService.class);
 	
@@ -85,7 +87,7 @@ public class GroupStatusReportService {
 			logger.info("Range List size"+rangeList.size());
 			
 			
-			List<Map<String, Object>> resultList  = groupStatusReportDao.getGroupStatusList(companyId, selectedPremise, inputStartDate, inputEndDate, rangeList,  locale.getLanguage(), reportType, selectedSowSource);
+			List<GroupStatusReportDataDto> resultList  = groupStatusReportDao.getGroupStatusList(companyId, selectedPremise, inputStartDate, inputEndDate, rangeList,  locale.getLanguage(), reportType, selectedSowSource);
 	
 			
 			String dateStr = "";
@@ -110,16 +112,19 @@ public class GroupStatusReportService {
 						+messageSource.getMessage("label.reports.groupstatus.salewk", null, "", locale)+"\n");
 				
 				
-				for (Map mpRow : resultList) {
+				for (GroupStatusReportDataDto groupRecord : resultList) {
 					rowBuffer = new StringBuffer();
-					rowBuffer.append(mpRow.get("SowSource") + seprater);
-					rowBuffer.append(mpRow.get("FarmName") + seprater);
-					rowBuffer.append(mpRow.get("PhaseType") + seprater);
-					rowBuffer.append(mpRow.get("BarnId")+ seprater);
-					rowBuffer.append(mpRow.get("RoomId")+ seprater);
-					rowBuffer.append(mpRow.get("GroupId")+ seprater);
+					rowBuffer.append(groupRecord.getSowSource() + seprater);
+					rowBuffer.append(groupRecord.getPremiseId() + seprater);
+					if(groupRecord.getPhaseTypeId() != null && groupRecord.getPhaseTypeId() > 0)
+						rowBuffer.append(refDataCache.getPhaseOfProductionTypeMap(locale.getLanguage()).get(groupRecord.getPhaseTypeId())+ seprater);
+					else
+						rowBuffer.append(" " + seprater);
+					rowBuffer.append(groupRecord.getBarnId()+ seprater);
+					rowBuffer.append(groupRecord.getRoomId()+ seprater);
+					rowBuffer.append(groupRecord.getGroupId()+ seprater);
 					try {
-						dateStr = DateUtil.convertToFormatString((Date)mpRow.get("EventDateStart"), "dd/MM/yyyy");
+						dateStr = DateUtil.convertToFormatString((Date)groupRecord.getGroupStartDate(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
 						else
@@ -129,7 +134,7 @@ public class GroupStatusReportService {
 					}	
 					rowBuffer.append(seprater);
 					try {
-						dateStr = DateUtil.convertToFormatString((Date)mpRow.get("GroupEventCloseDate"), "dd/MM/yyyy");
+						dateStr = DateUtil.convertToFormatString((Date)groupRecord.getGroupCloseDate(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
 						else
@@ -138,42 +143,26 @@ public class GroupStatusReportService {
 						rowBuffer.append(" ");
 					}	
 					rowBuffer.append(seprater);					
-					rowBuffer.append(mpRow.get("WK") + seprater);
-					rowBuffer.append(mpRow.get("StartWt") + seprater);
-					rowBuffer.append(mpRow.get("StartHd") + seprater);
-					rowBuffer.append(mpRow.get("Inventory")+ seprater);
-					rowBuffer.append(mpRow.get("Deads")+ seprater);
-					rowBuffer.append(mpRow.get("Mortality%")+ seprater);
-					rowBuffer.append(mpRow.get("Density")+ seprater);
-					rowBuffer.append(mpRow.get("Sales")+ seprater);
-					rowBuffer.append(mpRow.get("W1") + seprater);
-					rowBuffer.append(mpRow.get("W2") + seprater);
-					rowBuffer.append(mpRow.get("W3") + seprater);
-					rowBuffer.append(mpRow.get("W4") + seprater);
-					rowBuffer.append(mpRow.get("W5") + seprater);
-					rowBuffer.append(mpRow.get("W6") + seprater);
-					rowBuffer.append(mpRow.get("W7") + seprater);
-					rowBuffer.append(mpRow.get("W8") + seprater);
-					rowBuffer.append(mpRow.get("W9") + seprater);
-					rowBuffer.append(mpRow.get("W10") + seprater);
-					rowBuffer.append(mpRow.get("W11") + seprater);
-					rowBuffer.append(mpRow.get("W12") + seprater);
-					rowBuffer.append(mpRow.get("W13") + seprater);
-					rowBuffer.append(mpRow.get("W14") + seprater);
-					rowBuffer.append(mpRow.get("W15") + seprater);
-					rowBuffer.append(mpRow.get("W16") + seprater);
-					rowBuffer.append(mpRow.get("W17") + seprater);
-					rowBuffer.append(mpRow.get("W18") + seprater);
-					rowBuffer.append(mpRow.get("W19") + seprater);
-					rowBuffer.append(mpRow.get("W20") + seprater);
-					rowBuffer.append(mpRow.get("W21") + seprater);
-					rowBuffer.append(mpRow.get("W22") + seprater);
-					rowBuffer.append(mpRow.get("W23") + seprater);
-					rowBuffer.append(mpRow.get("W24") + seprater);
-					rowBuffer.append(mpRow.get("W25") + seprater);
-					rowBuffer.append(mpRow.get("W26") + seprater);
+					rowBuffer.append(groupRecord.getCalendarWk() + seprater);
+					rowBuffer.append(groupRecord.getStartWt() + seprater);
+					rowBuffer.append(groupRecord.getStartHd()+ seprater);
+					rowBuffer.append(groupRecord.getInventory()+ seprater);
+					rowBuffer.append(groupRecord.getDeads()+ seprater);
+					rowBuffer.append(groupRecord.getMortalityPercentage()+ seprater);
+					rowBuffer.append(groupRecord.getDensity()+ seprater);
+					rowBuffer.append(groupRecord.getSales()+ seprater);
+					Map<Integer, Integer> weekMap = new HashMap<Integer, Integer>();
+					if(groupRecord.getType().equalsIgnoreCase("I"))
+						weekMap = groupRecord.getInventoryCntMap();
+					else
+						weekMap = groupRecord.getMortalityCntMap();
+					for(int i = 1; i <= 26; i++)
+					{
+						rowBuffer.append(weekMap.get(i) + seprater);
+					}	
+					
 					try {
-						dateStr = DateUtil.convertToFormatString((Date)mpRow.get("ProjectedSaleDate"), "dd/MM/yyyy");
+						dateStr = DateUtil.convertToFormatString((Date)groupRecord.getProjectedSaleDate(), "dd/MM/yyyy");
 						if(dateStr != null)
 							rowBuffer.append(dateStr);
 						else
@@ -182,7 +171,7 @@ public class GroupStatusReportService {
 						rowBuffer.append(" ");
 					}	
 					rowBuffer.append(seprater);	
-					rowBuffer.append(mpRow.get("SaleWk") );
+					rowBuffer.append(groupRecord.getProjectedSaleWk());
 					returnRows.add(rowBuffer.toString()+"\n");
 				}
 			}

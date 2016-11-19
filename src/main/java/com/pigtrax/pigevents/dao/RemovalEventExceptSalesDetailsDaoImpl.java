@@ -5,13 +5,17 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -21,6 +25,7 @@ import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 import com.pigtrax.usermanagement.enums.RemovalEventType;
+import com.pigtrax.util.DateUtil;
 import com.pigtrax.util.UserUtil;
 
 @Repository
@@ -35,6 +40,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate)
 	{
 		this.jdbcTemplate = jdbcTemplate;
+		this.jdbcTemplate.setQueryTimeout(10*60); 
 	}
 
 	@Override
@@ -427,6 +433,105 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			});
 
 		return pigletStatusEventList.get(0);
+	}
+	
+	
+	/**
+	 * Find out the count of mortality as of end date for the given group
+	 * @param endDate
+	 * @param groupId
+	 * @return 
+	 */
+	public Integer getDeadsCount(final java.util.Date endDate, final Integer groupId)
+	{
+		final String qry = "select sum(\"numberOfPigs\") from pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ? and \"id_RemovalEvent\" = ? and \"removalDateTime\" <=  ?";
+			
+		@SuppressWarnings("unchecked")
+		Integer cnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					ps.setInt(2, RemovalEventType.Mortality.getTypeCode());
+					ps.setDate(3, new java.sql.Date(endDate.getTime()));
+					
+				}
+			}, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getInt(1);
+			            }
+			            return 0;
+			          }
+			        });
+		
+		return (cnt != null)?cnt : 0 ;
+	}
+	
+	
+	/** 
+	 * Get the mortality count per week
+	 * @param groupId
+	 * @param ServDateSTART
+	 * @param ServDateEND
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<Integer, Integer> getMortalityCntByWeek(final Integer groupId, final java.util.Date ServDateSTART, final java.util.Date ServDateEND) throws Exception
+	{
+		Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
+		Integer remainingCnt = 0;
+		
+		try{		
+			for(int i =0 ;i <26; i++)
+			{
+				final int index = i+1;
+				
+				try{					
+				
+					Thread.sleep(3*1000);
+					final java.util.Date startDate = DateUtil.addDays(ServDateSTART, i*7);
+					final java.util.Date endDate = DateUtil.addDays(ServDateEND, i*7);
+					
+					final String qry = " select coalesce(sum(RES.\"numberOfPigs\"),0) as Num from pigtrax.\"RemovalEventExceptSalesDetails\" RES "
+							+ "where RES.\"id_GroupEvent\" = ? and RES.\"removalDateTime\" between ? and ? and RES.\"id_RemovalEvent\" = ?";
+					
+					
+					@SuppressWarnings("unchecked")
+					Integer sowCount  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+						@Override
+							public void setValues(PreparedStatement ps) throws SQLException {
+								ps.setInt(1, groupId);
+								ps.setDate(2, new java.sql.Date(startDate.getTime()));
+								ps.setDate(3, new java.sql.Date(endDate.getTime()));
+								ps.setInt(4, RemovalEventType.Mortality.getTypeCode());
+							}
+						},
+				        new ResultSetExtractor() {
+				          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				            if (resultSet.next()) {
+				              return resultSet.getInt(1);
+				            }
+				            return 0;
+				          }
+				        });
+					
+					weekCntMap.put(index, sowCount);
+				
+				}
+				catch(Exception ex)
+				{
+					Thread.sleep(5*1000);
+					weekCntMap.put(index, 0);
+				}
+				
+			}
+		}
+		catch(Exception ex)
+		{
+			Thread.sleep(5*1000);
+		}
+		return weekCntMap;
+		
 	}
 
 

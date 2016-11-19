@@ -70,5 +70,13 @@ public interface PremisesDao {
 
 	List<Premises> getPremisesListBasedOnCompanyIdFromView(
 			int generatedCompanyId) throws SQLException;
+	
+	
+	/**
+	 * To get the list of all Premises
+	 * @return List<Company>
+	 */
+	public List<Premises> getAllPremises();
+	
 
 }

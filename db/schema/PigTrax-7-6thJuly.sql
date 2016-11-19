@@ -3429,6 +3429,76 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 
+
+
+-- object: pigtrax."GroupStatusReportData" | type: TABLE --
+DROP TABLE IF EXISTS pigtrax."GroupStatusReportData" CASCADE;
+CREATE TABLE pigtrax."GroupStatusReportData"(
+	id serial NOT NULL, 
+	"calendarWk" integer,
+	"id_GroupEvent" integer not null,
+	"groupId" varchar(50),
+	"eventStartDate" date,
+	"eventCloseDate" date,
+	"StartHd" integer,
+	"StartWt" numeric(20,2),
+	"W1" integer ,
+	"W2" integer,
+	"W3" integer,
+	"W4" integer,
+	"W5" integer,
+	"W6" integer,
+	"W7" integer,
+	"W8" integer,
+	"W9" integer,
+	"W10" integer,
+	"W11" integer,
+	"W12" integer,
+	"W13" integer,
+	"W14" integer,
+	"W15" integer,
+	"W16" integer,
+	"W17" integer,
+	"W18" integer,
+	"W19" integer,
+	"W20" integer,
+	"W21" integer,
+	"W22" integer,
+	"W23" integer,
+	"W24" integer,
+	"W25" integer,
+	"W26" integer,	
+	"type" varchar(10),
+	"sowSource" varchar(50),
+	"id_PhaseType" integer,
+	"roomId" varchar(50),
+	"barnId" varchar(50),
+	"premiseId" varchar(50),
+	"inventory" integer,
+	"deads" integer,
+	"mortalityPercentage" numeric(20,2),
+	"density" numeric(20,2),
+	"sales" integer,
+	"projectedSaleDate" date,
+	"projectedSaleWk" integer,	
+	"id_SowSource" integer,
+	"id_Premise" integer,
+	"lastUpdatedOn" timestamp,
+	CONSTRAINT "GroupStatusReportData_PK" PRIMARY KEY (id)
+);
+-- ddl-end --
+ALTER TABLE pigtrax."GroupStatusReportData" OWNER TO pitraxadmin;
+-- ddl-end --
+
+
+-- object: "Company_fk" | type: CONSTRAINT --
+-- ALTER TABLE pigtrax."GroupStatusReportData" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
+ALTER TABLE pigtrax."GroupStatusReportData" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")
+REFERENCES pigtrax."GroupEvent" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+
 --Views
 CREATE OR REPLACE VIEW pigtrax."CompPremBarnSiloVw"
 as(

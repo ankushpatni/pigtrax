@@ -3,6 +3,7 @@ package com.pigtrax.pigevents.dao.interfaces;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 
@@ -27,4 +28,8 @@ public interface RemovalEventExceptSalesDetailsDao {
 			int id) throws SQLException;
 
 	Integer getTotalPigsMortal(Date start, Date end, Integer companyId,Integer premisesId);
+	
+	Integer getDeadsCount(final java.util.Date endDate, final Integer groupId);
+	
+	Map<Integer, Integer> getMortalityCntByWeek(final Integer groupId, final java.util.Date ServDateSTART, final java.util.Date ServDateEND) throws Exception;
 }
