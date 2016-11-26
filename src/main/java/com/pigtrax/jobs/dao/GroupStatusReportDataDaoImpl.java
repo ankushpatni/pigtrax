@@ -1,12 +1,18 @@
 package com.pigtrax.jobs.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -173,6 +179,37 @@ public class GroupStatusReportDataDaoImpl implements GroupStatusReportDataDao {
 	   delete(groupEventId, "I");
 	   delete(groupEventId, "M");
 	   return 1;
-   }	
+   }
+   
+   /**
+    * Clean up old data
+    */
+   public void cleanUpOldData() {
+	   
+	   	final String qry = " select \"id_GroupEvent\", max(\"id\") from pigtrax.\"GroupStatusReportData\" group by \"id_GroupEvent\" ";
+		@SuppressWarnings("unchecked")
+		List<String> idMapList = jdbcTemplate.query(qry, new IdMapper());
+		
+		if(idMapList != null && 0 < idMapList.size())
+		{
+			for(String idMapStr : idMapList)
+			{
+				String[] values = idMapStr.split("#");				
+				if(values != null && values.length == 2)
+				{
+					String delQry = "delete from pigtrax.\"GroupStatusReportData\" where \"id_GroupEvent\" = "+values[0]+" and \"id\" < "+values[1];
+					jdbcTemplate.update(delQry);
+				}
+			}
+		}
+		
+   }
+   
+   
+   private static final class IdMapper implements RowMapper<String> {
+		public String mapRow(ResultSet rs, int rowNum) throws SQLException {			
+			return rs.getInt(1)+"#"+rs.getInt(2);
+		}
+	}
 	
 }

@@ -20,4 +20,18 @@ public class PigTraxScheduler {
 		}
 	}
 	
+	
+	
+	/**
+	 * Backend jobs 
+	 */
+	public void cleanUpGroupStatusReport() {
+		try{
+		groupStatusProcessor.cleanup();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
 }

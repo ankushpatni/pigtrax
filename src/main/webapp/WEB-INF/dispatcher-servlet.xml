@@ -104,23 +104,35 @@
         <property name="targetObject" ref="mySchedulerBean" />
         <property name="targetMethod" value="processGroupStatusReport" /> 
     </bean>
+    <bean id="groupStatusDataCleanUp" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mySchedulerBean" />
+        <property name="targetMethod" value="cleanUpGroupStatusReport" /> 
+    </bean>
     
     <bean id="groupStatusUpdateTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
         <property name="jobDetail" ref="groupStatus" />
         <property name="startDelay" value="300000" />
-        <property name="repeatInterval" value="18000000" />
+        <property name="repeatInterval" value="18000000" />  <!--  to run once in every 5 hours -->
+    </bean>
+    
+    <bean id="groupStatusCleanupTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="groupStatusDataCleanUp" />
+        <property name="startDelay" value="18000000" />
+        <property name="repeatInterval" value="432000000" />  <!--  to run once in every 5 days  432000000 -->
     </bean>
     
     <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="jobDetails">
             <list>
                 <ref bean="groupStatus" />
+                <ref bean="groupStatusDataCleanUp" />
             </list>
         </property>
  
         <property name="triggers">
             <list>
                 <ref bean="groupStatusUpdateTrigger" />
+                <ref bean="groupStatusCleanupTrigger" />
             </list>
         </property>
     </bean>

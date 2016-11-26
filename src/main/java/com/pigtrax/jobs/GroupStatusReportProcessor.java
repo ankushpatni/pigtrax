@@ -194,4 +194,14 @@ public class GroupStatusReportProcessor{
 		}
 	}
 	
+	
+	/**
+	 * To clean up all historic data
+	 * @throws Exception
+	 */
+	public void cleanup() throws Exception
+	{
+		reportDataDao.cleanUpOldData();
+	}
+	
 }

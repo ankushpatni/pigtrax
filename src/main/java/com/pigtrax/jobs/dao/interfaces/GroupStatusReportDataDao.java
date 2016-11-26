@@ -6,4 +6,5 @@ public interface GroupStatusReportDataDao {
    int delete(Integer groupEventId);
    int delete(Integer groupEventId, String type);
    void insert(GroupStatusReportDataDto data);
+   void cleanUpOldData();
 }
