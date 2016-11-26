@@ -186,7 +186,7 @@ public class GroupStatusReportDataDaoImpl implements GroupStatusReportDataDao {
     */
    public void cleanUpOldData() {
 	   
-	   	final String qry = " select \"id_GroupEvent\", max(\"id\") from pigtrax.\"GroupStatusReportData\" group by \"id_GroupEvent\" ";
+	   	final String qry = " select \"id_GroupEvent\", max(\"id\"),\"type\" from pigtrax.\"GroupStatusReportData\" group by \"id_GroupEvent\",\"type\" order by \"id_GroupEvent\" ";
 		@SuppressWarnings("unchecked")
 		List<String> idMapList = jdbcTemplate.query(qry, new IdMapper());
 		
@@ -195,9 +195,9 @@ public class GroupStatusReportDataDaoImpl implements GroupStatusReportDataDao {
 			for(String idMapStr : idMapList)
 			{
 				String[] values = idMapStr.split("#");				
-				if(values != null && values.length == 2)
+				if(values != null && values.length == 3)
 				{
-					String delQry = "delete from pigtrax.\"GroupStatusReportData\" where \"id_GroupEvent\" = "+values[0]+" and \"id\" < "+values[1];
+					String delQry = "delete from pigtrax.\"GroupStatusReportData\" where \"id_GroupEvent\" = "+values[0]+" and \"type\" = "+values[2]+"\"id\" < "+values[1];
 					jdbcTemplate.update(delQry);
 				}
 			}
@@ -208,7 +208,7 @@ public class GroupStatusReportDataDaoImpl implements GroupStatusReportDataDao {
    
    private static final class IdMapper implements RowMapper<String> {
 		public String mapRow(ResultSet rs, int rowNum) throws SQLException {			
-			return rs.getInt(1)+"#"+rs.getInt(2);
+			return rs.getInt(1)+"#"+rs.getInt(2)+"#"+rs.getString(3);
 		}
 	}
 	
