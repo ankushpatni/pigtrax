@@ -125,14 +125,14 @@
         <property name="jobDetails">
             <list>
                 <ref bean="groupStatus" />
-                <ref bean="groupStatusDataCleanUp" />
+<!--                 <ref bean="groupStatusDataCleanUp" /> -->
             </list>
         </property>
  
         <property name="triggers">
             <list>
                 <ref bean="groupStatusUpdateTrigger" />
-                <ref bean="groupStatusCleanupTrigger" />
+<!--                 <ref bean="groupStatusCleanupTrigger" /> -->
             </list>
         </property>
     </bean>
