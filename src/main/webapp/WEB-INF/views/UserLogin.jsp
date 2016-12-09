@@ -37,6 +37,9 @@
 							</div>
 						</div>
 					</form>
+					<p>
+					Intelipig is a proprietary software of Triangle Global Consulting LLC. PigTrax is a module within the Intelipig product line.
+					</p>
 				</div>
 			</div>
 		</div>
