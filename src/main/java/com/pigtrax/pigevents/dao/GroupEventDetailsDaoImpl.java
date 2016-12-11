@@ -506,11 +506,13 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 		          }
 		        });
 			
-			
-			DateTime start = new DateTime(startDate.getTime());
-			DateTime end = new DateTime(endDate.getTime());
-			int duration  = Days.daysBetween(start, end).getDays();
-			
+			int duration = 0;
+			if(startDate != null && endDate != 1)
+			{
+				DateTime start = new DateTime(startDate.getTime());
+				DateTime end = new DateTime(endDate.getTime());
+				duration  = Days.daysBetween(start, end).getDays();
+			}
 			return duration;
 			
 		}
