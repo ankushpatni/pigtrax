@@ -28,6 +28,21 @@ public interface GroupEventDetailsDao {
 			Integer removalId);
 	
 	List<GroupEventDetails> getAllTransfers( final int groupEventId) throws SQLException;
+
 	
 	Map<Integer, Integer> getInventoryCntByWeek(final Integer groupId, final Date ServDateSTART, final Date ServDateEND) throws Exception;
+	
+	Date getAverageStartDate(Integer groupId);
+	
+	Date getAverageEndDate(Integer groupId);
+	
+	Integer getStartDateVariance(Integer groupId);
+	
+	Integer getEndDateVariance(Integer groupId);
+	
+	Map<String, Object> getTransferInOutCountAndWt(Integer groupId);
+	
+	Integer calculatePigDays(Integer groupId);
+	
+	Integer calculateDaysOnFeed(Integer groupId);
 }

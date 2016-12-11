@@ -19,5 +19,13 @@ public interface FeedEventDetailDao {
 	int addFeedEventDetail(final FeedEventDetail feedEventDetail) throws SQLException;
 	
 	int updateFeedEventDetail(final FeedEventDetail feedEventDetail) throws SQLException;
+	
+	Double getTotalFeedUsed(Integer groupId);
+	
+	public Double getTotalFeedBudgeted(Integer groupId);
+	
+	Double getTotalFeedCost(Integer groupId);
+	
+	public Double getTotalFeedBudgetedCost(Integer groupId);
 
 }

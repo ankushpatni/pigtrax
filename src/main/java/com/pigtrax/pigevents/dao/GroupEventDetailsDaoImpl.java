@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -425,5 +427,280 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 			
 		}
 	 
+	 /**
+	  * Get average start date of a given group
+	  */
+	  public Date getAverageStartDate(Integer groupId) {
+			String sql = "select to_timestamp(avg(extract(epoch from T.startDt)))  from ( "
+						 +" select \"groupStartDateTime\" as startDt from pigtrax.\"GroupEvent\" where \"id\" = "+groupId
+						 +" union "
+						 +" select \"dateOfEntry\" as startDt from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = "+groupId
+						 +" and \"groupEventActionType\" = "+GroupEventActionType.Add.getTypeCode()+")T" ;				
+			
+			@SuppressWarnings("unchecked")
+			Date startDate  = (Date)jdbcTemplate.query(sql,
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getDate(1);
+		            }
+		            return null;
+		          }
+		        });
+			
+			return startDate;
+			
+		}
+	  
+	  
+	  /**
+	  * Get average start date of a given group
+	  */
+	  public Date getAverageEndDate(Integer groupId) {
+			String sql = "select to_timestamp(avg(extract(epoch from \"salesDateTime\")))::date  from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = "+groupId ;				
+			
+			@SuppressWarnings("unchecked")
+			Date endDate  = (Date)jdbcTemplate.query(sql,
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getDate(1);
+		            }
+		            return null;
+		          }
+		        });
+			
+			return endDate;
+			
+		}
+		 
+		  
+     /**
+	  * Get start date variance a given group
+	  */
+	  public Integer getStartDateVariance(Integer groupId) {
+			String sql = "select T.startDt  from ( "
+						 +" select \"dateOfEntry\" as startDt from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = "+groupId
+						 +" and \"groupEventActionType\" = "+GroupEventActionType.Add.getTypeCode()+") T " ;				
+			
+			@SuppressWarnings("unchecked")
+			Date startDate  = (Date)jdbcTemplate.query(sql+" order by T.startDt asc limit 1 ",
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getDate(1);
+		            }
+		            return null;
+		          }
+		        });
+			
+			
+			@SuppressWarnings("unchecked")
+			Date endDate  = (Date)jdbcTemplate.query(sql+" order by T.startDt desc limit 1 ",
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getDate(1);
+		            }
+		            return null;
+		          }
+		        });
+			
+			
+			DateTime start = new DateTime(startDate.getTime());
+			DateTime end = new DateTime(endDate.getTime());
+			int duration  = Days.daysBetween(start, end).getDays();
+			
+			return duration;
+			
+		}
+	  
 
+			  
+	  public Integer getEndDateVariance(Integer groupId) {
+			
+		  String sql = "select \"salesDateTime\"  from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = "+groupId ;				
+			
+			@SuppressWarnings("unchecked")
+			Date startDate  = (Date)jdbcTemplate.query(sql+" order by \"salesDateTime\" asc limit 1",
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getDate(1);
+		            }
+		            return null;
+		          }
+		        });
+			
+			
+			@SuppressWarnings("unchecked")
+			Date endDate  = (Date)jdbcTemplate.query(sql+" order by \"salesDateTime\" desc limit 1",
+		        new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		            if (resultSet.next()) {
+		              return resultSet.getDate(1);
+		            }
+		            return null;
+		          }
+		        });
+			
+			int duration = 0;
+			
+			if(startDate != null && endDate != null)
+			{
+				DateTime start = new DateTime(startDate.getTime());
+				DateTime end = new DateTime(endDate.getTime());
+				duration  = Days.daysBetween(start, end).getDays();
+			}
+			
+			return duration;
+		}
+			  
+			  
+		  public Map<String, Object> getTransferInOutCountAndWt(Integer groupId) {
+			  try{
+				  List<GroupEventDetails> groupEventList = getAllTransfers(groupId);
+				  Double transferOutWt = 0D;
+				  Double transferInWt = 0D;
+				  Integer transferInCnt = 0;
+				  Integer transferOutCnt = 0;
+				  Map<String, Object> transferInOutDetails = new HashMap<String, Object>();
+				  
+			     if(groupEventList != null && 0 <groupEventList.size())
+			     {
+			    	 for(GroupEventDetails groupDetails : groupEventList)
+			    	 {
+			    		 if(groupDetails.getFromGroupId().intValue() == groupId)
+			    		 {
+			    			 if(groupDetails.getNumberOfPigs() > 0)
+			    			 {
+			    				 transferOutWt += groupDetails.getWeightInKgs();
+			    				 transferOutCnt += groupDetails.getNumberOfPigs();
+			    			 }
+					     }
+			    		 else if(groupDetails.getGroupId() == groupId && groupDetails.getFromGroupId() > 0)
+			    		 { 
+			    			 if(groupDetails.getNumberOfPigs() > 0)
+			    			 {
+			    				 transferInCnt += groupDetails.getNumberOfPigs();
+			    			 	 transferInWt += groupDetails.getWeightInKgs();
+			    			 }
+			    		 }
+			    	 }
+			     }
+			     
+			     transferInOutDetails.put("transferInWt", transferInWt);
+			     transferInOutDetails.put("transferInCnt", transferInCnt);
+			     transferInOutDetails.put("transferOutCnt", transferOutCnt);
+			     transferInOutDetails.put("transferOutWt", transferOutWt);
+			     return transferInOutDetails;
+			     
+			  }
+			  catch(Exception ex)
+			  {
+				  
+			  }
+				return null;
+			}
+		  
+		  
+		  
+		  public Integer calculatePigDays(Integer groupId) {
+			  Integer sowCountDays = 0;
+			  String sql = "select min(\"dateOfEntry\")  from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = "+groupId;				
+				
+				@SuppressWarnings("unchecked")
+				Date startDate  = (Date)jdbcTemplate.query(sql,
+			        new ResultSetExtractor() {
+			          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDate(1);
+			            }
+			            return null;
+			          }
+			        });
+				
+				sql = "select max(\"dateOfEntry\")  from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = "+groupId;	
+				@SuppressWarnings("unchecked")
+				Date endDate  = (Date)jdbcTemplate.query(sql,
+			        new ResultSetExtractor() {
+			          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDate(1);
+			            }
+			            return null;
+			          }
+			        });
+				
+				if(startDate != null && endDate != null)
+				{						
+					while(startDate.getTime()<= endDate.getTime())
+					{
+						final Date start = startDate;
+						String qry = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
+								+ "where GED.\"id_GroupEvent\" = "+groupId+" and GED.\"dateOfEntry\" <= ?";
+						
+						
+						sowCountDays  += (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+							@Override
+								public void setValues(PreparedStatement ps) throws SQLException {
+									ps.setDate(1, new java.sql.Date(start.getTime()));
+								}
+							},
+					        new ResultSetExtractor() {
+					          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+					            if (resultSet.next()) {
+					              return resultSet.getInt(1);
+					            }
+					            return 0;
+					          }
+					        });
+						
+						startDate = DateUtil.addDays(startDate, 1);
+					}
+				}
+				
+				return sowCountDays;
+			}
+		  
+		  
+		  public Integer calculateDaysOnFeed(Integer groupId) {
+			  String sql = "select \"dateOfEntry\"  from pigtrax.\"GroupEventDetails\" where \"id_GroupEvent\" = "+groupId ;				
+				
+				@SuppressWarnings("unchecked")
+				Date startDate  = (Date)jdbcTemplate.query(sql+" order by \"dateOfEntry\" asc limit 1",
+			        new ResultSetExtractor() {
+			          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDate(1);
+			            }
+			            return null;
+			          }
+			        });
+				
+				
+				@SuppressWarnings("unchecked")
+				Date endDate  = (Date)jdbcTemplate.query(sql+" order by \"dateOfEntry\" desc limit 1",
+			        new ResultSetExtractor() {
+			          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDate(1);
+			            }
+			            return null;
+			          }
+			        });
+				
+				int duration = 0;
+				
+				if(startDate != null && endDate != null)
+				{
+					DateTime start = new DateTime(startDate.getTime());
+					DateTime end = new DateTime(endDate.getTime());
+					duration  = Days.daysBetween(start, end).getDays();
+				}
+				
+				return duration;
+			}
+		  
+			 
 }

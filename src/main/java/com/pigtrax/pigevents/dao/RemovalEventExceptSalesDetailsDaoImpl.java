@@ -468,6 +468,75 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 	}
 	
 	
+	
+	/**
+	 * Find out the count of mortality as of end date for the given group
+	 * @param endDate
+	 * @param groupId
+	 * @return 
+	 */
+	public Integer getDeadsCount(final java.util.Date endDate, final Integer groupId, final Integer mortalityReasonCode)
+	{
+		final String qry = "select sum(\"numberOfPigs\") from pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ? and \"id_RemovalEvent\" = ? and \"removalDateTime\" <=  ?"
+				+ "  and \"id_MortalityReason\" = ?";
+			
+		@SuppressWarnings("unchecked")
+		Integer cnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					ps.setInt(2, RemovalEventType.Mortality.getTypeCode());
+					ps.setDate(3, new java.sql.Date(endDate.getTime()));
+					ps.setInt(4, mortalityReasonCode);
+					
+				}
+			}, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getInt(1);
+			            }
+			            return 0;
+			          }
+			        });
+		
+		return (cnt != null)?cnt : 0 ;
+	}
+	
+	
+	
+	/**
+	 * Find out the count of mortality as of end date for the given group
+	 * @param endDate
+	 * @param groupId
+	 * @return 
+	 */
+	public Integer getCount(final java.util.Date endDate, final Integer groupId, final Integer removalType)
+	{
+		final String qry = "select sum(\"numberOfPigs\") from pigtrax.\"RemovalEventExceptSalesDetails\" where \"id_GroupEvent\" = ? and \"id_RemovalEvent\" = ? and \"removalDateTime\" <=  ?";
+			
+		@SuppressWarnings("unchecked")
+		Integer cnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					ps.setInt(2, removalType);
+					ps.setDate(3, new java.sql.Date(endDate.getTime()));
+					
+				}
+			}, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getInt(1);
+			            }
+			            return 0;
+			          }
+			        });
+		
+		return (cnt != null)?cnt : 0 ;
+	}
+	
+	
+	
 	/** 
 	 * Get the mortality count per week
 	 * @param groupId

@@ -3,10 +3,7 @@ package com.pigtrax.jobs.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.jobs.dao.interfaces.GroupStatusReportDataDao;
+import com.pigtrax.jobs.dto.GroupPerformanceReportDataDto;
 import com.pigtrax.jobs.dto.GroupStatusReportDataDto;
 import com.pigtrax.report.dao.ActionListReportDao;
 
@@ -114,6 +112,39 @@ public class GroupStatusReportDataDaoImpl implements GroupStatusReportDataDao {
 			}
 		});
 	}
+   
+   
+   /**
+	 * Insert inventory data for the group
+	 * @param data
+	 */
+  public void insert(final GroupPerformanceReportDataDto data)  {
+		
+		
+		final String qry = "insert into pigtrax.\"GroupPerformanceReportData\"(\"permiseId\", \"premise\", \"id_GroupEvent\", \"isActive\", \"performanceData\",\"groupStartDate\", \"groupEndDate\",\"groupId\") "
+						+ "values (?,?,?,?,?,?,?,?)";
+		
+		 this.jdbcTemplate.update(qry, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setObject(1, data.getPremiseId(), java.sql.Types.INTEGER);
+				ps.setObject(2, data.getPremise(), java.sql.Types.VARCHAR);
+				ps.setObject(3, data.getGroupEventId(), java.sql.Types.INTEGER);
+				ps.setObject(4, data.isActive(), java.sql.Types.BOOLEAN);
+				ps.setObject(5, data.getPerformanceData(), java.sql.Types.VARCHAR);
+				if(data.getGroupStartDate() != null)
+					ps.setDate(6, new  java.sql.Date(data.getGroupStartDate().getTime()));
+				else
+					ps.setNull(6, java.sql.Types.DATE);
+				if(data.getGroupEndDate() != null)
+					ps.setDate(7, new  java.sql.Date(data.getGroupEndDate().getTime()));
+				else
+					ps.setNull(7, java.sql.Types.DATE);
+				ps.setObject(8, data.getGroupId(), java.sql.Types.VARCHAR);
+			}
+		});
+	}
+  
    
    
    /**

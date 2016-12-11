@@ -31,5 +31,9 @@ public interface RemovalEventExceptSalesDetailsDao {
 	
 	Integer getDeadsCount(final java.util.Date endDate, final Integer groupId);
 	
+	Integer getDeadsCount(final java.util.Date endDate, final Integer groupId, final Integer mortalityReasonType);
+	
+	Integer getCount(final java.util.Date endDate, final Integer groupId, final Integer removalType);
+	
 	Map<Integer, Integer> getMortalityCntByWeek(final Integer groupId, final java.util.Date ServDateSTART, final java.util.Date ServDateEND) throws Exception;
 }

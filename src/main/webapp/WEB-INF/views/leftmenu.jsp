@@ -85,6 +85,7 @@
 											<!--  <li><a href="feedReport"><spring:message code="label.leftmenu.reports.feedReport"  text="Feed Report"/></a></li>
 											--><li><a href="gestationReport"><spring:message code="label.leftmenu.reports.gestationReport"  text="Gestation Tracking Report"/></a></li>
 											<li><a href="groupStatusReport"><spring:message code="label.leftmenu.reports.groupStatusReport"  text="Group Status Report"/></a></li>
+											<li><a href="groupPerformanceReport"><spring:message code="label.leftmenu.reports.groupPerformanceReport"  text="Group Performance Report"/></a></li>
 											<!--  <li><a href="sowMomentEvent"><spring:message code="label.leftmenu.managepigevents.sowMomentEvent.link"  text="Sow Movement Event"/></a></li>
 											--><li><a href="dataIntegrityReport"><spring:message code="label.leftmenu.reports.dataIntegrityReport"  text="Data Integrity Report"/></a></li>
 											<li><a href="dataExtraction"><spring:message code="label.leftmenu.reports.dataExtraction"  text="Data Extraction Report"/></a></li> 

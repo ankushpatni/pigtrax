@@ -5,13 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -19,8 +24,8 @@ import org.springframework.stereotype.Repository;
 
 import com.pigtrax.pigevents.beans.FeedEventDetail;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDetailDao;
+import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.util.DateUtil;
-import com.pigtrax.util.UserUtil;
 
 @Repository
 public class FeedEventDetailDaoImpl implements FeedEventDetailDao {
@@ -28,6 +33,9 @@ public class FeedEventDetailDaoImpl implements FeedEventDetailDao {
 private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.class);
 	
 	private JdbcTemplate jdbcTemplate; 
+	
+	@Autowired
+	GroupEventDao groupEventDao;
 	
 	@Autowired
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -196,5 +204,163 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			return feedEventDetail;
 		}	
 	}
-
+	
+	public Double getTotalFeedUsed(Integer groupId) {
+		String qry = " select coalesce(sum(FED.\"weightInKgs\"),0) as total from pigtrax.\"FeedEventDetails\" FED "
+				+ "where FED.\"id_GroupEvent\" = "+groupId+" and FED.\"id_FeedEventType\" = 1";
+		
+		
+		@SuppressWarnings("unchecked")
+		Double total  = (Double)jdbcTemplate.query(qry,
+	        new ResultSetExtractor() {
+	          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+	            if (resultSet.next()) {
+	              return resultSet.getDouble(1);
+	            }
+	            return 0;
+	          }
+	        });
+		
+		return total;
+		}
+	
+	
+	
+	public Double getTotalFeedBudgeted(Integer groupId) {
+		
+		Double budgetedFeed = 0D;
+		
+		String qry = " select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  "
+				+" JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" "
+				+" LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" = 112  "  //target Type - 112 for Feed_kg/pig/day
+				+" where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+" AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") ";
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
+		if(budgetList != null && 0 <budgetList.size())
+		{
+			for(Map<String, Object> entry : budgetList)
+			{
+				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
+				Date groupStartDate = entry.get("groupStartDate") != null ? (Date)entry.get("groupStartDate") : null;
+				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
+				if(feedDate != null)
+				{
+					String sql = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
+							+ "where GED.\"id_GroupEvent\" = "+groupId+" and GED.\"dateOfEntry\" <= ?";
+					
+					@SuppressWarnings("unchecked")
+					Integer sowCount  = (Integer)jdbcTemplate.query(sql,new PreparedStatementSetter() {
+						@Override
+							public void setValues(PreparedStatement ps) throws SQLException {
+								ps.setDate(1, new java.sql.Date(feedDate.getTime()));
+							}
+						},
+				        new ResultSetExtractor() {
+				          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				            if (resultSet.next()) {
+				              return resultSet.getInt(1);
+				            }
+				            return 0;
+				          }
+				        });
+					if(sowCount == 0 && feedDate.getTime() <= groupStartDate.getTime())
+					{
+						Map<String, Object> detailsMap = groupEventDao.getStartWtAndHead(groupId);
+						if(detailsMap != null && detailsMap.get("StartHd") != null)
+						{
+							sowCount = ((Long)detailsMap.get("StartHd")).intValue();
+						}
+					}
+						
+					budgetedFeed += sowCount*targetValue;
+				}
+				
+			}
+		}
+		
+		return budgetedFeed;
+		}
+	
+	
+	private static final class BudgetMapper implements RowMapper<Map<String, Object>> {
+		public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			Map<String, Object> budgetMap = new HashMap<String, Object>();
+			
+			budgetMap.put("feedEventDate",rs.getDate(1));
+			budgetMap.put("batchId",rs.getInt(2));
+			budgetMap.put("targetValue", rs.getString(3));
+			budgetMap.put("groupStartDate", rs.getDate(4));
+			return budgetMap;
+		}	
+	}
+	
+	public Double getTotalFeedCost(Integer groupId) {
+		String qry = " select coalesce(sum(FED.\"feedCost\"),0) as total from pigtrax.\"FeedEventDetails\" FED "
+				+ "where FED.\"id_GroupEvent\" = "+groupId+" and FED.\"id_FeedEventType\" = 1";
+		
+		
+		@SuppressWarnings("unchecked")
+		Double total  = (Double)jdbcTemplate.query(qry,
+	        new ResultSetExtractor() {
+	          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+	            if (resultSet.next()) {
+	              return resultSet.getDouble(1);
+	            }
+	            return 0;
+	          }
+	        });
+		
+		return total;
+		}
+	
+	
+	public Double getTotalFeedBudgetedCost(Integer groupId) {
+Double budgetedFeed = 0D;
+		
+		String qry = " select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  "
+				+" JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" "
+				+" LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" = 113  "  //target Type - 113 for Feed_Feed cost/pig
+				+" where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+" AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") ";
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
+		if(budgetList != null && 0 <budgetList.size())
+		{
+			for(Map<String, Object> entry : budgetList)
+			{
+				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
+				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
+				if(feedDate != null)
+				{
+					String sql = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
+							+ "where GED.\"id_GroupEvent\" = "+groupId+" and GED.\"dateOfEntry\" <= ?";
+					
+					@SuppressWarnings("unchecked")
+					Integer sowCount  = (Integer)jdbcTemplate.query(sql,new PreparedStatementSetter() {
+						@Override
+							public void setValues(PreparedStatement ps) throws SQLException {
+								ps.setDate(1, new java.sql.Date(feedDate.getTime()));
+							}
+						},
+				        new ResultSetExtractor() {
+				          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+				            if (resultSet.next()) {
+				              return resultSet.getInt(1);
+				            }
+				            return 0;
+				          }
+				        });
+					budgetedFeed += sowCount*targetValue;
+				}
+				
+			}
+		}
+		
+		return budgetedFeed;
+		}
+	   
 }

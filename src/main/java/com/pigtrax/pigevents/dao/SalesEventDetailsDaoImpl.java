@@ -391,4 +391,75 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 		return (cnt != null)?cnt : 0 ;
 	}
 	
+	
+	/**
+	 * Find the total wt of pigs sold from a group as of given end date
+	 * @param endDate
+	 * @param groupId
+	 * @return
+	 */
+	public Double getSalesWt(final Date endDate, final Integer groupId)
+	{
+		final String qry = "select sum(\"weightInKgs\") from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?  and \"salesDateTime\" <=  ?";
+			
+		@SuppressWarnings("unchecked")
+		Double cnt  = (Double)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					ps.setDate(2, new java.sql.Date(endDate.getTime()));
+					
+				}
+			}, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDouble(1);
+			            }
+			            return 0;
+			          }
+			        });
+		
+		return (cnt != null)?cnt : 0 ;
+	}
+	
+	
+	public Integer getSalesCount(final Date endDate, final Integer groupId,
+			Integer marketType) {
+		final String qry = "select sum(\"numberOfPigs\") from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?  and \"salesDateTime\" <=  ? and \"salesTypes\"='"+marketType+"'";
+		
+		@SuppressWarnings("unchecked")
+		Integer cnt  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					ps.setDate(2, new java.sql.Date(endDate.getTime()));
+					
+				}
+			}, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getInt(1);
+			            }
+			            return 0;
+			          }
+			        });
+		
+		return (cnt != null)?cnt : 0 ;
+	}
+	
+	public Double getSalesRevenue(Integer groupId) {
+		final String qry = "select sum(\"revenueUsd\") from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = "+groupId;
+		
+		@SuppressWarnings("unchecked")
+		Double revenue  = (Double)jdbcTemplate.query(qry, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDouble(1);
+			            }
+			            return 0;
+			          }
+			        });
+		
+		return revenue;
+	}
 }

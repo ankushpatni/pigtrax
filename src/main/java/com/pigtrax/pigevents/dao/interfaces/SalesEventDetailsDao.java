@@ -27,5 +27,12 @@ public interface SalesEventDetailsDao {
 			throws SQLException;
 	
 	 Integer getSalesCount(final Date endDate, final Integer groupId);
+	 
+	 
+	 Double getSalesWt(final Date endDate, final Integer groupId);
+	 
+	 Integer getSalesCount(final Date endDate, final Integer groupId, final Integer marketType);
+	 
+	 Double getSalesRevenue(final Integer groupId);
 
 }

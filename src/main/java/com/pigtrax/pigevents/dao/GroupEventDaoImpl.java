@@ -474,7 +474,7 @@ public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEven
 		 */
 		public Map<String, Object> getStartWtAndHead(final Integer groupId)
 		{	
-			final String qry = "select SUM(coalesce(GED.\"numberOfPigs\",0)*coalesce(GED.\"weightInKgs\",0))/SUM(coalesce(GED.\"numberOfPigs\",0)) as StartWt , SUM(coalesce(GED.\"numberOfPigs\",0)) as StartHd"
+			final String qry = "select SUM(coalesce(GED.\"weightInKgs\",0)) as StartWt , SUM(coalesce(GED.\"numberOfPigs\",0)) as StartHd"
 					+ "  from pigtrax.\"GroupEventDetails\" GED "
 					+ " where \"id_GroupEvent\" = ? and \"groupEventActionType\" = ?";
 				

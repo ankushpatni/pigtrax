@@ -37,6 +37,7 @@ import com.pigtrax.report.service.DataExtractionService;
 import com.pigtrax.report.service.DataIntegrityLogService;
 import com.pigtrax.report.service.FeedReportService;
 import com.pigtrax.report.service.GestationReportService;
+import com.pigtrax.report.service.GroupPerformanceReportService;
 import com.pigtrax.report.service.GroupReportService;
 import com.pigtrax.report.service.GroupStatusReportService;
 import com.pigtrax.report.service.InventoryStatusReportService;
@@ -127,6 +128,9 @@ public class ReportControlller {
 	
 	@Autowired
 	SowCardReportService sowCardReportService;
+	
+	@Autowired
+	GroupPerformanceReportService performanceReportService;
 	
 	/*@RequestMapping(value = "/generateReport", method = RequestMethod.POST)
 	public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -5140,7 +5144,92 @@ public class ReportControlller {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}		
+		}
+		
+		
+		// Sow Card report
+				@RequestMapping(value = "/groupPerformanceReport", method = RequestMethod.GET)
+				public ModelAndView groupPerformanceReport(HttpServletRequest request) {
+					Map<String, String> model = new HashMap<String, String>();
+					model.put("contentUrl", "groupPerformanceReport.jsp");
+					model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+					
+					if(request.getParameter("nodata") == null)
+					{
+						request.getSession().removeAttribute("REPORT_NO_DATA");
+					}
+					
+					PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					Integer companyId = activeUser.getCompanyId();
+					model.put("CompanyId", companyId+"");
+					return new ModelAndView("template", model);
+				}		
+		
+		
+		@RequestMapping(value = "/generateGroupPerformanceReport", method = RequestMethod.POST)
+		public void generateReportHandler(HttpServletRequest request, HttpServletResponse response) {
+				try {
+					String startDate = request.getParameter("startDate");
+					String endDate = request.getParameter("endDate");
+					String selectedPremise = request.getParameter("selectedPremise");
+					String companyString = request.getParameter("companyId1");
+					String numberOfWeeksStr = request.getParameter("numberOfWeeks");
+					String status = request.getParameter("status");
+					if(numberOfWeeksStr == null) numberOfWeeksStr = "0";
+					Integer premiseId  = 0;
+					Integer numberOfWeeks = 0;
+					numberOfWeeks = Integer.parseInt(numberOfWeeksStr);
+					
+					System.out.println("startDate = " + startDate);
+					System.out.println("startDate = " + endDate);
+					System.out.println("selectedPremise = " + selectedPremise);
+					
+					Integer companyId ;
+					
+					LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+					String language = localeResolver.resolveLocale(request).getLanguage();
+					Locale local =  localeResolver.resolveLocale(request);
+					
+					PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					if(companyString != null && !StringUtils.isEmpty(companyString))
+					{
+						companyId = Integer.parseInt(companyString);
+					}
+					else
+					{
+						companyId = activeUser.getCompanyId();
+					}
+					System.out.println(companyId);
+					
+					if(selectedPremise != null && !StringUtils.isEmpty(selectedPremise))
+					{
+						premiseId = Integer.parseInt(selectedPremise);
+					}
+					
+					
+					response.setContentType("text/csv");
+					String reportName = "CSV_Group_Performance_Report "+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
+					response.setHeader("Content-disposition", "attachment;filename="+reportName);
+			    
+					
+					
+					List<String> rows = performanceReportService.getGroupPerformanceReportList(selectedPremise, endDate, status, numberOfWeeks, local); 
+					
+					Iterator<String> iter = rows.iterator();
+					while (iter.hasNext()) {
+						String outputString = (String) iter.next();
+						response.getOutputStream().print(outputString);
+					}
+			 
+					response.getOutputStream().flush();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				//return new ModelAndView("redirect:" + "reportGeneration?token=success");
+		}
+		
+		
+		
 		
 		
 }

@@ -8,6 +8,10 @@ public class PigTraxScheduler {
 	
 	@Autowired
 	GroupStatusReportProcessor groupStatusProcessor;
+	
+	
+	@Autowired
+	GroupPerformanceReportProcessor groupPerformanceProcessor;
 	/**
 	 * Backend jobs 
 	 */
@@ -28,6 +32,18 @@ public class PigTraxScheduler {
 	public void cleanUpGroupStatusReport() {
 		try{
 		groupStatusProcessor.cleanup();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Backend jobs 
+	 */
+	public void processPerformanceReport() {
+		try{
+			groupPerformanceProcessor.process();
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();

@@ -3491,6 +3491,24 @@ ALTER TABLE pigtrax."GroupStatusReportData" OWNER TO pitraxadmin;
 -- ddl-end --
 
 
+-- object: pigtrax."GroupPerformanceReportData" | type: TABLE --
+DROP TABLE IF EXISTS pigtrax."GroupPerformanceReportData" CASCADE;
+CREATE TABLE pigtrax."GroupPerformanceReportData"(
+	 id serial NOT NULL, 
+	"permiseId" integer,
+	"premise" varchar(100),
+	"id_GroupEvent" integer,
+	"isActive" boolean,
+	"performanceData" TEXT,
+	"groupStartDate" timestamp,
+	"groupEndDate" timestamp,
+	CONSTRAINT "GroupPerformanceReportData_PK" PRIMARY KEY (id)
+);
+ALTER TABLE pigtrax."GroupPerformanceReportData" OWNER TO pitraxadmin;
+-- ddl-end --
+
+
+
 -- object: "Company_fk" | type: CONSTRAINT --
 -- ALTER TABLE pigtrax."GroupStatusReportData" DROP CONSTRAINT IF EXISTS "GroupEvent_fk" CASCADE;
 ALTER TABLE pigtrax."GroupStatusReportData" ADD CONSTRAINT "GroupEvent_fk" FOREIGN KEY ("id_GroupEvent")

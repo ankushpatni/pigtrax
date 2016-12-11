@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pigtrax.cache.RefDataCache;
+import com.pigtrax.jobs.dto.GroupPerformanceReportDataDto;
 import com.pigtrax.jobs.dto.GroupStatusReportDataDto;
 import com.pigtrax.master.dao.interfaces.PremisesDao;
 import com.pigtrax.master.dto.Premises;
@@ -174,7 +175,43 @@ public class GroupStatusReportDao {
 				return groupEvent;
 			}
 		}
+		
+	 
+		
+		public List<GroupPerformanceReportDataDto> getPerformanceReportList(final Date startDate, final Date endDate, final Integer premiseId, final  boolean isActive)
+		{
+			String sql ="Select * from pigtrax.\"GroupPerformanceReportData\" where "
+					+ "(\"groupStartDate\" between ? and ?  OR  \"groupEndDate\" between ? and ?)"
+					+" and \"permiseId\" = ? and \"isActive\" = ?  AND \"id\" in (Select max(\"id\") from pigtrax.\"GroupPerformanceReportData\" group by \"id_GroupEvent\") order by \"groupStartDate\"";
+			
+			List<GroupPerformanceReportDataDto> groupEventList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setDate(1, new java.sql.Date(startDate.getTime()));
+					ps.setDate(2, new java.sql.Date(endDate.getTime()));
+					ps.setDate(3, new java.sql.Date(startDate.getTime()));
+					ps.setDate(4, new java.sql.Date(endDate.getTime()));
+					ps.setInt(5, premiseId);
+					ps.setBoolean(6, isActive);
+				}}, new GroupPerformanceReportDataDtoMapper());
+			
+			return groupEventList;
+			
+		}
 	
-	
+		private static final class GroupPerformanceReportDataDtoMapper implements RowMapper<GroupPerformanceReportDataDto> {
+			public GroupPerformanceReportDataDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+				GroupPerformanceReportDataDto groupEvent = new GroupPerformanceReportDataDto();
+				groupEvent.setGroupEventId(rs.getInt("id_GroupEvent"));
+				groupEvent.setPremise(rs.getString("premise"));				
+				groupEvent.setPremiseId(rs.getInt("permiseId"));
+				groupEvent.setActive(rs.getBoolean("isActive"));
+				groupEvent.setPerformanceData(rs.getString("performanceData"));
+				groupEvent.setGroupId(rs.getString("groupId"));
+				
+				return groupEvent;
+			}
+		}
+		
 	
 }

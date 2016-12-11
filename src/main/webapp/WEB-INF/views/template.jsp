@@ -108,7 +108,7 @@
 	<script src="resources/js/controllers/reportController.js"></script>
 	<script src="resources/js/controllers/gestationReportController.js"></script>
 	<script src="resources/js/controllers/groupStatusReportController.js"></script>
-
+	<script src="resources/js/controllers/groupPerformanceReportController.js"></script> 
 	<script src="resources/js/controllers/dataIntegrityReportController.js"></script>
 	<script src="resources/js/controllers/dataExtractionReportController.js"></script>
 	<script src="resources/js/controllers/overViewController.js"></script>	
