@@ -507,7 +507,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 		        });
 			
 			int duration = 0;
-			if(startDate != null && endDate != 1)
+			if(startDate != null && endDate != null)
 			{
 				DateTime start = new DateTime(startDate.getTime());
 				DateTime end = new DateTime(endDate.getTime());
