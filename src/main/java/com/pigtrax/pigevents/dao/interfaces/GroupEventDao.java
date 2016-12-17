@@ -43,5 +43,7 @@ public interface GroupEventDao {
 	 Integer getInventoryCount(final Date endDate, final Integer groupId);
 	 
 	 Integer getPhaseOfProduction(final Integer groupId);
+	
+	Double getMaxStartWtPerHeadVariance(final Integer groupId);
 
 }

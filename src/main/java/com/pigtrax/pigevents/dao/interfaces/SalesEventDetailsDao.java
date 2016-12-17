@@ -34,5 +34,7 @@ public interface SalesEventDetailsDao {
 	 Integer getSalesCount(final Date endDate, final Integer groupId, final Integer marketType);
 	 
 	 Double getSalesRevenue(final Integer groupId);
+	 
+	 Double getMaxSaleWtPerHeadVariance(final Integer groupId);
 
 }

@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -462,4 +464,79 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 		
 		return revenue;
 	}
+	
+	
+	
+	
+
+	/**
+	 * Get Maximum sale wt per head
+	 * @param groupId
+	 * @return
+	 */
+	public Double getMaxSaleWtPerHeadVariance(final Integer groupId)
+	{	
+		Double maxSalesWtPerHead = 0D;
+		Double minSalesWtPerHead = 0D;
+		
+		final String qry = "select \"weightInKgs\" as SaleWt , \"numberOfPigs\" as SaleHd "
+					 +" from pigtrax.\"SalesEventDetails\" " 
+					 +" where \"id_GroupEvent\" = ?  order by SaleWt desc";
+			
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> map  = (List<Map<String, Object>>)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+				}
+			}, new SaleDataMapper());
+		
+		if(map != null && 0<map.size())
+		{
+			Map<String, Object> maxStartWtMap =  map.get(0);
+			Double maxWt = maxStartWtMap.get("SaleWt") != null ? (Double)maxStartWtMap.get("SaleWt") : 0D;
+			Long head = maxStartWtMap.get("SaleHd") != null ? (Long)maxStartWtMap.get("SaleHd") : 0;
+			if(maxWt > 0 && head > 0)
+			{
+				maxSalesWtPerHead =  (Math.round(maxWt*100.0)/(head*100.0));
+			}
+		}
+		
+		
+		final String sql = "select \"weightInKgs\" as SaleWt , \"numberOfPigs\" as SaleHd "
+				 +" from pigtrax.\"SalesEventDetails\" " 
+				 +" where \"id_GroupEvent\" = ?  order by SaleWt asc";
+		
+		@SuppressWarnings("unchecked") 
+		 List<Map<String, Object>> minMap  = (List<Map<String, Object>>)jdbcTemplate.query(sql,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+				}
+			}, new SaleDataMapper());
+		
+			if(map != null && 0<map.size())
+			{
+				Map<String, Object> maxStartWtMap =  minMap.get(0);
+				Double maxWt = maxStartWtMap.get("SaleWt") != null ? (Double)maxStartWtMap.get("SaleWt") : 0D;
+				Long head = maxStartWtMap.get("SaleHd") != null ? (Long)maxStartWtMap.get("SaleHd") : 0;
+				if(maxWt > 0 && head > 0)
+				{
+					minSalesWtPerHead =  (Math.round(maxWt*100.0)/(head*100.0));
+				}
+			}
+		
+		
+		return maxSalesWtPerHead - minSalesWtPerHead;
+	}
+	
+	private static final class SaleDataMapper implements RowMapper<Map<String, Object>> {
+		public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			dataMap.put("SaleHd",rs.getLong("SaleHd"));
+			dataMap.put("SaleWt",rs.getDouble("SaleWt"));
+			return dataMap;
+		}
+	}
+	
 }

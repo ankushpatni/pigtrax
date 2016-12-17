@@ -228,7 +228,7 @@ public class GroupStatusReportDataDaoImpl implements GroupStatusReportDataDao {
 				String[] values = idMapStr.split("#");				
 				if(values != null && values.length == 3)
 				{
-					String delQry = "delete from pigtrax.\"GroupStatusReportData\" where \"id_GroupEvent\" = "+values[0]+" and \"type\" = "+values[2]+"\"id\" < "+values[1];
+					String delQry = "delete from pigtrax.\"GroupStatusReportData\" where \"id_GroupEvent\" = "+values[0]+" and \"type\" = '"+values[2]+"' AND \"id\" < "+values[1];
 					jdbcTemplate.update(delQry);
 				}
 			}

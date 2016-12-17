@@ -24,7 +24,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.usermanagement.enums.GroupEventActionType;
@@ -381,19 +380,17 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 					
 					Thread.sleep(3*1000);
 					final Date startDate = DateUtil.addDays(ServDateSTART, i*7);
-					final Date endDate = DateUtil.addDays(ServDateEND, i*7);					
+					final Date endDate = DateUtil.addDays(startDate, 7);					
 					
 					final String qry = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
-							+ "where GED.\"id_GroupEvent\" = ? and GED.\"dateOfEntry\" between ? and ? and GED.\"groupEventActionType\" = ?";
+							+ "where GED.\"id_GroupEvent\" = ? and GED.\"dateOfEntry\" <= ? ";
 					
 					@SuppressWarnings("unchecked")
 					Integer sowCount  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
 						@Override
 							public void setValues(PreparedStatement ps) throws SQLException {
 								ps.setInt(1, groupId);
-								ps.setDate(2, new java.sql.Date(startDate.getTime()));
-								ps.setDate(3, new java.sql.Date(endDate.getTime()));
-								ps.setInt(4, GroupEventActionType.Add.getTypeCode());
+								ps.setDate(2, new java.sql.Date(endDate.getTime()));
 							}
 						},
 				        new ResultSetExtractor() {

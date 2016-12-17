@@ -116,20 +116,20 @@
     
     <bean id="groupStatusUpdateTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
         <property name="jobDetail" ref="groupStatus" />
-        <property name="startDelay" value="300000" />
+        <property name="startDelay" value="120000" />
         <property name="repeatInterval" value="18000000" />  <!--  to run once in every 5 hours -->
     </bean>
     
     <bean id="groupStatusCleanupTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
         <property name="jobDetail" ref="groupStatusDataCleanUp" />
-        <property name="startDelay" value="18000000" />
+        <property name="startDelay" value="300000" />   <!--18000000  -->
         <property name="repeatInterval" value="432000000" />  <!--  to run once in every 5 days  432000000 -->
     </bean>
     
     <bean id="processPerformanceReportTrigger"  class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
         <property name="jobDetail" ref="processPerformanceReport" />
         <property name="startDelay" value="120000" />
-        <property name="repeatInterval" value="18000000" />  <!--  to run once in every 5 days  432000000 -->
+        <property name="repeatInterval" value="18000000" />  <!--  to run once in every 5 hours  18000000 -->
     </bean>
     
     
@@ -137,7 +137,7 @@
         <property name="jobDetails">
             <list>
                 <ref bean="groupStatus" />
-<!--                 <ref bean="groupStatusDataCleanUp" /> -->
+                <ref bean="groupStatusDataCleanUp" />
 				<ref bean="processPerformanceReport" />
             </list>
         </property>
@@ -146,7 +146,7 @@
             <list>
                 <ref bean="groupStatusUpdateTrigger" />
                  <ref bean="processPerformanceReportTrigger" />
-<!--                 <ref bean="groupStatusCleanupTrigger" /> -->
+                <ref bean="groupStatusCleanupTrigger" />
             </list>
         </property>
     </bean>

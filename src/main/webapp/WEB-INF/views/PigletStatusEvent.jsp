@@ -218,6 +218,7 @@
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidPigletNumbers" ><spring:message code='label.piginfo.pigletstatuseventform.invalidPigletNumbers' text='Piglet count should be in whole numeric values' /></label>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="pigletNumbersRequired" ><spring:message code='label.piginfo.pigletstatuseventform.pigletNumbersRequired' text='Please enter wean/transfer/piglet mortality information' /></label>
 						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidGroupEventId" ><spring:message code='label.piginfo.pigletstatuseventform.invalidGroupEventId' text='Invalid Group Id' /></label>
+						<label style="color:red;margin-top: -15px;" class="control-label" ng-show="invalidGroupEventDate" ><spring:message code='label.piginfo.pigletstatuseventform.invalidGroupEventDate' text='Group start date is later than wean date' /></label>
 					</div>	
 										
 					

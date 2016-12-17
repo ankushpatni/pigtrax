@@ -23,7 +23,6 @@ import org.springframework.stereotype.Repository;
 
 import com.pigtrax.pigevents.beans.RemovalEventExceptSalesDetails;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
-import com.pigtrax.usermanagement.enums.PigletStatusEventType;
 import com.pigtrax.usermanagement.enums.RemovalEventType;
 import com.pigtrax.util.DateUtil;
 import com.pigtrax.util.UserUtil;
@@ -559,7 +558,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 				
 					Thread.sleep(3*1000);
 					final java.util.Date startDate = DateUtil.addDays(ServDateSTART, i*7);
-					final java.util.Date endDate = DateUtil.addDays(ServDateEND, i*7);
+					final java.util.Date endDate = DateUtil.addDays(startDate, 7);
 					
 					final String qry = " select coalesce(sum(RES.\"numberOfPigs\"),0) as Num from pigtrax.\"RemovalEventExceptSalesDetails\" RES "
 							+ "where RES.\"id_GroupEvent\" = ? and RES.\"removalDateTime\" between ? and ? and RES.\"id_RemovalEvent\" = ?";

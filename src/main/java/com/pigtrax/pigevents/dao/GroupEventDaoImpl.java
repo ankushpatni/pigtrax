@@ -492,6 +492,74 @@ public int updateGroupEventCurrentInventorywithStatus(final GroupEvent groupEven
 			return null;
 		}
 		
+		
+		
+		/**
+		 * Get Maximum start wt per head
+		 * @param groupId
+		 * @return
+		 */
+		public Double getMaxStartWtPerHeadVariance(final Integer groupId)
+		{	
+			
+			Double maxStartWtPerHead = 0D;
+			Double minStartWtPerHead = 0D;
+			
+			final String qry = "select GED.\"weightInKgs\" as StartWt , GED.\"numberOfPigs\" as StartHd "
+					  + "from pigtrax.\"GroupEventDetails\" GED " 
+					  + "where \"id_GroupEvent\" = ? and \"groupEventActionType\" = ? order by StartWt desc";
+				
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> map  = (List<Map<String, Object>>)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+				@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, groupId);
+						ps.setInt(2, GroupEventActionType.Add.getTypeCode());
+					}
+				}, new StartDataMapper());
+			
+			if(map != null && 0<map.size())
+			{
+				Map<String, Object> maxStartWtMap =  map.get(0);
+				Double maxWt = maxStartWtMap.get("StartWt") != null ? (Double)maxStartWtMap.get("StartWt") : 0D;
+				Long head = maxStartWtMap.get("StartHd") != null ? (Long)maxStartWtMap.get("StartHd") : 0;
+				if(maxWt > 0 && head > 0)
+				{
+					maxStartWtPerHead =  (Math.round(maxWt*100.0)/(head*100.0));
+				}
+			}
+			
+			
+			final String sql = "select GED.\"weightInKgs\" as StartWt , GED.\"numberOfPigs\" as StartHd "
+					  + "from pigtrax.\"GroupEventDetails\" GED " 
+					  + "where \"id_GroupEvent\" = ? and \"groupEventActionType\" = ? order by StartWt asc";
+				
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> minMap  = (List<Map<String, Object>>)jdbcTemplate.query(sql,new PreparedStatementSetter() {
+				@Override
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, groupId);
+						ps.setInt(2, GroupEventActionType.Add.getTypeCode());
+					}
+				}, new StartDataMapper());
+			
+			if(map != null && 0<map.size())
+			{
+				Map<String, Object> maxStartWtMap =  minMap.get(0);
+				Double maxWt = maxStartWtMap.get("StartWt") != null ? (Double)maxStartWtMap.get("StartWt") : 0D;
+				Long head = maxStartWtMap.get("StartHd") != null ? (Long)maxStartWtMap.get("StartHd") : 0;
+				if(maxWt > 0 && head > 0)
+				{
+					minStartWtPerHead =  (Math.round(maxWt*100.0)/(head*100.0));
+				}
+			}
+			
+			
+			
+			return maxStartWtPerHead-minStartWtPerHead;
+		}
+		
+		
 		private static final class StartDataMapper implements RowMapper<Map<String, Object>> {
 			public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Map<String, Object> dataMap = new HashMap<String, Object>();

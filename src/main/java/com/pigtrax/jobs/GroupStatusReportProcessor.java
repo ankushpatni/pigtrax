@@ -66,6 +66,9 @@ public class GroupStatusReportProcessor{
 				{
 					for(GroupEvent group : groupList)
 					{
+						//if(group.getId() == 141)
+						//{
+						
 						try{						
 						GroupStatusReportDataDto groupDto = new GroupStatusReportDataDto();
 						groupDto.setGroupStartDate(group.getGroupStartDateTime());
@@ -186,7 +189,7 @@ public class GroupStatusReportProcessor{
 						{
 							ex.printStackTrace();
 						}
-					
+						//}
 				}
 					
 				}

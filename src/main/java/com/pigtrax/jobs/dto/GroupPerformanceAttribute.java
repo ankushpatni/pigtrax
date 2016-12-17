@@ -57,7 +57,14 @@ public class GroupPerformanceAttribute {
 	private Double tfcGain;
 	private Double mof;
 	private Double mofHd;
-
+	private Double mofPct;
+	private Double netTransferWeight;
+	private Integer netTransferHead;
+	private Double netTransferWeightPerHead;
+	private Double budgetVariancePct;
+	
+	
+	
 	public String getStartDate() {
 		return startDate;
 	}
@@ -77,6 +84,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getStartDaysVariance() {
+		if(startDaysVariance == null) startDaysVariance = 0;
 		return startDaysVariance;
 	}
 
@@ -86,6 +94,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getEndDaysVariance() {
+		if(endDaysVariance == null) endDaysVariance = 0;
 		return endDaysVariance;
 	}
 
@@ -95,6 +104,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getStartHd() {
+		if(startHd == null) startHd = 0;
 		return startHd;
 	}
 
@@ -104,6 +114,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getEndHd() {
+		if(endHd == null) endHd = 0;
 		return endHd;
 	}
 
@@ -113,6 +124,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getPigDeaths() {
+		if(pigDeaths == null) pigDeaths = 0;
 		return pigDeaths;
 	}
 
@@ -122,6 +134,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getPigsEuth() {
+		if(pigsEuth == null) pigsEuth = 0;
 		return pigsEuth;
 	}
 
@@ -131,6 +144,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getPigAdjust() {
+		if(pigAdjust == null) pigAdjust = 0;
 		return pigAdjust;
 	}
 
@@ -140,6 +154,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getTransferIn() {
+		if(transferIn == null) transferIn = 0;
 		return transferIn;
 	}
 	
@@ -149,6 +164,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getTransferOut() {
+		if(transferOut == null) transferOut = 0;
 		return transferOut;
 	}
 
@@ -158,6 +174,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getTransferNet() {
+		if(transferNet == null) transferNet = 0;
 		return transferNet;
 	}
 
@@ -167,6 +184,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getWeanSales() {
+		if(weanSales == null) weanSales = 0;
 		return weanSales;
 	}
 
@@ -176,6 +194,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getFeederSales() {
+		if(feederSales == null) feederSales = 0;
 		return feederSales;
 	}
 
@@ -185,6 +204,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getPreMarketSales() {
+		if(preMarketSales == null) preMarketSales = 0;
 		return preMarketSales;
 	}
 
@@ -194,6 +214,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getMarketSales() {
+		if(marketSales == null) marketSales = 0;
 		return marketSales;
 	}
 
@@ -203,6 +224,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getStartWtTotal() {
+		if(startWtTotal == null) startWtTotal = 0D;
 		return startWtTotal;
 	}
 
@@ -212,6 +234,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getStartWt() {
+		if(startWt == null) startWt = 0D;
 		return startWt;
 	}
 
@@ -221,6 +244,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getStartWtHdVary() {
+		if(startWtHdVary == null) startWtHdVary = 0D;
 		return startWtHdVary;
 	}
 
@@ -230,6 +254,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getEndWtTotal() {
+		if(endWtTotal == null) endWtTotal = 0D;
 		return endWtTotal;
 	}
 
@@ -239,6 +264,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getEndWt() {
+		if(endWt == null) endWt = 0D;
 		return endWt;
 	}
 
@@ -248,6 +274,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getEndWtHdVary() {
+		if(endWtHdVary == null) endWtHdVary = 0D;
 		return endWtHdVary;
 	}
 
@@ -257,6 +284,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTransferInWtTotal() {
+		if(transferInWtTotal == null) transferInWtTotal = 0D;
 		return transferInWtTotal;
 	}
 
@@ -266,6 +294,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTransferInWtHd() {
+		if(transferInWtHd == null) transferInWtHd = 0D;
 		return transferInWtHd;
 	}
 
@@ -275,6 +304,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTransferOutWtTotal() {
+		if(transferOutWtTotal == null) transferOutWtTotal = 0D;
 		return transferOutWtTotal;
 	}
 
@@ -284,6 +314,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTransferOutWtHd() {
+		if(transferOutWtHd == null) transferOutWtHd = 0D;
 		return transferOutWtHd;
 	}
 	
@@ -293,6 +324,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTotalGainWt() {
+		if(totalGainWt == null) totalGainWt = 0D;
 		return totalGainWt;
 	}
 
@@ -302,6 +334,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTotalGainWtPerTranfer() {
+		if(totalGainWtPerTranfer == null) totalGainWtPerTranfer = 0D;
 		return totalGainWtPerTranfer;
 	}
 
@@ -311,6 +344,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getGainHd() {
+		if(gainHd == null) gainHd = 0D;
 		return gainHd;
 	}
 
@@ -320,6 +354,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getGainHdPerTransfer() {
+		if(gainHdPerTransfer == null) gainHdPerTransfer = 0D;
 		return gainHdPerTransfer;
 	}
 
@@ -329,6 +364,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getMortalityPct() {
+		if(mortalityPct == null) mortalityPct = 0D;
 		return mortalityPct;
 	}
 
@@ -338,6 +374,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getPreMarketPct() {
+		if(preMarketPct == null) preMarketPct = 0D;
 		return preMarketPct;
 	}
 
@@ -347,6 +384,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getPigDays() {
+		if(pigDays == null) pigDays = 0;
 		return pigDays;
 	}
 
@@ -356,6 +394,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Integer getDof() {
+		if(dof == null) dof = 0;
 		return dof;
 	}
 
@@ -365,6 +404,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getAdg() {
+		if(adg == null) adg = 0D;
 		return adg;
 	}
 	
@@ -375,6 +415,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTotalFeedUsed() {
+		if(totalFeedUsed == null) totalFeedUsed = 0D;
 		return totalFeedUsed;
 	}
 
@@ -384,6 +425,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTotalFeedBudget() {
+		if(totalFeedBudget == null) totalFeedBudget = 0D;
 		return totalFeedBudget;
 	}
 
@@ -393,6 +435,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getBudgetVariance() {
+		if(budgetVariance == null) budgetVariance = 0D;
 		return budgetVariance;
 	}
 
@@ -402,6 +445,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getAdfi() {
+		if(adfi == null) adfi = 0D;
 		return adfi;
 	}
 
@@ -411,6 +455,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getFeedHd() {
+		if(feedHd == null) feedHd = 0D;
 		return feedHd;
 	}
 
@@ -420,6 +465,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getFeedEfficiency() {
+		if(feedEfficiency == null) feedEfficiency = 0D;
 		return feedEfficiency;
 	}
 
@@ -429,6 +475,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getGainEfficiency() {
+		if(gainEfficiency == null) gainEfficiency = 0D;
 		return gainEfficiency;
 	}
 
@@ -438,6 +485,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTotalFeedCost() {
+		if(totalFeedCost == null) totalFeedCost = 0D;
 		return totalFeedCost;
 	}
 
@@ -447,6 +495,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTfcBudgeted() {
+		if(tfcBudgeted == null) tfcBudgeted = 0D;
 		return tfcBudgeted;
 	}
 
@@ -456,6 +505,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTfcVariance() {
+		if(tfcVariance == null) tfcVariance = 0D;
 		return tfcVariance;
 	}
 
@@ -465,6 +515,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTfcHd() {
+		if(tfcHd == null) tfcHd = 0D;
 		return tfcHd;
 	}
 
@@ -474,6 +525,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTfcBudgetedHd() {
+		if(tfcBudgetedHd == null) tfcBudgetedHd = 0D;
 		return tfcBudgetedHd;
 	}
 
@@ -483,6 +535,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTfcVarianceHd() {
+		if(tfcVarianceHd == null) tfcVarianceHd = 0D;
 		return tfcVarianceHd;
 	}
 	
@@ -492,6 +545,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getTfcGain() {
+		if(tfcGain == null) tfcGain = 0D;
 		return tfcGain;
 	}
 
@@ -501,6 +555,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getMof() {
+		if(mof == null) mof = 0D;
 		return mof;
 	}
 
@@ -510,6 +565,7 @@ public class GroupPerformanceAttribute {
 	}
 
 	public Double getMofHd() {
+		if(mofHd == null) mofHd = 0D;
 		return mofHd;
 	}
 
@@ -517,5 +573,58 @@ public class GroupPerformanceAttribute {
 	public void setMofHd(Double mofHd) {
 		this.mofHd = mofHd;
 	}
+
+	public Double getNetTransferWeight() {
+		if(netTransferWeight == null) netTransferWeight = 0D;
+		return netTransferWeight;
+	}
+
+	@XmlElement
+	public void setNetTransferWeight(Double netTransferWeight) {
+		this.netTransferWeight = netTransferWeight;
+	}
+
+	public Integer getNetTransferHead() {
+		if(netTransferHead == null) netTransferHead = 0;
+		return netTransferHead;
+	}
+
+	@XmlElement
+	public void setNetTransferHead(Integer netTransferHead) {
+		this.netTransferHead = netTransferHead;
+	}
+
+	public Double getNetTransferWeightPerHead() {
+		if(netTransferWeightPerHead == null) netTransferWeightPerHead = 0D;
+		return netTransferWeightPerHead;
+	}
+
+	@XmlElement
+	public void setNetTransferWeightPerHead(Double netTransferWeightPerHead) {
+		this.netTransferWeightPerHead = netTransferWeightPerHead;
+	}
+
+	public Double getBudgetVariancePct() {
+		if(budgetVariancePct == null) budgetVariancePct = 0D;
+		return budgetVariancePct;
+	}
+
+	@XmlElement
+	public void setBudgetVariancePct(Double budgetVariancePct) {
+		this.budgetVariancePct = budgetVariancePct;
+	}
+
+	public Double getMofPct() {
+		if(mofPct == null) mofPct = 0D;
+		return mofPct;
+	}
+
+	@XmlElement
+	public void setMofPct(Double mofPct) {
+		this.mofPct = mofPct;
+	}
+	
+	
+	
 
 }

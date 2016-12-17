@@ -228,13 +228,25 @@ var PigletStatusEventController = pigTrax.controller('PigletStatusEventControlle
 			restServices.getGroupEventInformation(searchGroupEvent, function(data){
 				if(data.error)
 				{	
+					
 					$scope.invalidGroupEventId = true;	
 				}
 				else
 				{
-					$scope.invalidGroupEventId = false;
-					var groupEvent = data.payload[0];
-					$scope.pigletStatusEvent["groupEventId"] = groupEvent.id;
+					var responsePayload = data.payload;
+					
+					var groupEvent = responsePayload[0];
+					if(groupEvent.groupStartDateTime >  $scope.pigletStatusEvent.weanEventDateTime)
+					{
+						$scope.invalidGroupEventDate = true;
+					}
+					else
+					{
+						$scope.invalidGroupEventDate = false;
+						$scope.invalidGroupEventId = false;
+						var groupEvent = data.payload[0];
+						$scope.pigletStatusEvent["groupEventId"] = groupEvent.id;
+					}
 				}
 			});
 		}

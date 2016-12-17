@@ -74,6 +74,9 @@ public class GroupPerformanceReportProcessor{
 					for(GroupEvent group : groupList)
 					{
 					
+						//if(group.getId() == 141)
+						//{
+						
 						try{						
 						 GroupPerformanceReportDataDto performanceDto = new GroupPerformanceReportDataDto();
 						 performanceDto.setActive(group.isActive());
@@ -100,17 +103,24 @@ public class GroupPerformanceReportProcessor{
 						 startHead = (Long)startWtAndHeadMap.get("StartHd");
 						 performanceAttribute.setStartHd(startHead.intValue());
 						 
+						 performanceAttribute.setStartWtHdVary(groupEventDao.getMaxStartWtPerHeadVariance(group.getId()));
+						 
+						 
 						 performanceAttribute.setEndHd(saleEventDetailsDao.getSalesCount(DateUtil.addDays(DateUtil.getToday(),1), group.getId()));
 						 
 						 performanceAttribute.setEndWtTotal(saleEventDetailsDao.getSalesWt(DateUtil.addDays(DateUtil.getToday(),1), group.getId()));
 						 
 						 performanceAttribute.setEndWt(performanceAttribute.getEndWtTotal()/performanceAttribute.getEndHd());
 						 
+						 performanceAttribute.setEndWtHdVary(saleEventDetailsDao.getMaxSaleWtPerHeadVariance(group.getId()));
+						 
 						 performanceAttribute.setPigDeaths(removalEventDao.getDeadsCount(DateUtil.addDays(DateUtil.getToday(),1), group.getId()));
 						 
 						 performanceAttribute.setPigsEuth(removalEventDao.getDeadsCount(DateUtil.addDays(DateUtil.getToday(),1), group.getId(), 7)); //7 - is for Euthanized						 
 						 
-						 performanceAttribute.setPigAdjust(removalEventDao.getCount(DateUtil.addDays(DateUtil.getToday(),1), group.getId(), RemovalEventType.AdjustInventory.getTypeCode()));
+						 Integer adjCount = removalEventDao.getCount(DateUtil.addDays(DateUtil.getToday(),1), group.getId(), RemovalEventType.AdjustInventory.getTypeCode());
+						 
+						 performanceAttribute.setPigAdjust(adjCount != null ? -1*adjCount :0);
 						 
 						 Map<String, Object> transferDetails = groupEventDetailsDao.getTransferInOutCountAndWt(group.getId());
 						 if(transferDetails != null)
@@ -122,6 +132,14 @@ public class GroupPerformanceReportProcessor{
 							 performanceAttribute.setTransferOutWtTotal(transferDetails.get("transferOutWt") != null ? (Double)transferDetails.get("transferOutWt"): 0);
 							 performanceAttribute.setTransferNet(performanceAttribute.getTransferIn()  - performanceAttribute.getTransferOut());		
 							 performanceAttribute.setTransferOutWtHd(performanceAttribute.getTransferOutWtTotal()/performanceAttribute.getTransferOut());
+							 Double netTransferWeight = performanceAttribute.getTransferInWtTotal() - performanceAttribute.getTransferOutWtTotal();
+							 performanceAttribute.setNetTransferWeight(netTransferWeight);
+							 Integer netTransferHead = performanceAttribute.getTransferIn()-performanceAttribute.getTransferOut();
+							 performanceAttribute.setNetTransferHead(netTransferHead);
+							 Double netTransferWtPerHead = Math.round(performanceAttribute.getNetTransferWeight()*100.0)/(performanceAttribute.getNetTransferHead()*100.0);
+							 performanceAttribute.setNetTransferWeightPerHead(netTransferWtPerHead);
+							 
+							 
 						 }
 						 
 						 performanceAttribute.setWeanSales(saleEventDetailsDao.getSalesCount(DateUtil.addDays(DateUtil.getToday(), 1), group.getId(), 4)); //Weaner sales count
@@ -138,7 +156,8 @@ public class GroupPerformanceReportProcessor{
 						 
 						 performanceAttribute.setGainHd(performanceAttribute.getTotalGainWt()/(performanceAttribute.getWeanSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getFeederSales()+performanceAttribute.getMarketSales()));
 						 
-						 performanceAttribute.setGainHdPerTransfer(performanceAttribute.getTotalGainWtPerTranfer()/(performanceAttribute.getWeanSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getFeederSales()+performanceAttribute.getMarketSales()));
+						 Double gainHdPerTransfer = Math.round(performanceAttribute.getTotalGainWtPerTranfer()*100.0)/((performanceAttribute.getWeanSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getFeederSales()+performanceAttribute.getMarketSales()+performanceAttribute.getTransferOut())*100.0);
+						 performanceAttribute.setGainHdPerTransfer(gainHdPerTransfer);
 						 
 						 Double mortalityPct = Math.round(performanceAttribute.getPigDeaths()*100.0)/((performanceAttribute.getStartHd()+performanceAttribute.getTransferIn())*100.0);
 						 performanceAttribute.setMortalityPct(((mortalityPct*100)*100.0)/100.0);
@@ -157,6 +176,7 @@ public class GroupPerformanceReportProcessor{
 						 performanceAttribute.setTotalFeedBudget(feedDetailDao.getTotalFeedBudgeted(group.getId()));
 						 
 						 performanceAttribute.setBudgetVariance(performanceAttribute.getTotalFeedUsed() - performanceAttribute.getTotalFeedBudget());
+						 performanceAttribute.setBudgetVariancePct(Math.round(performanceAttribute.getBudgetVariance()*100.0)*100/(performanceAttribute.getTotalFeedBudget()*100.0));
 						 
 						 //Feed Performance
 						 
@@ -177,6 +197,8 @@ public class GroupPerformanceReportProcessor{
 						 performanceAttribute.setMof(saleEventDetailsDao.getSalesRevenue(group.getId()) - performanceAttribute.getTotalFeedCost());
 						 performanceAttribute.setMofHd(Math.round(performanceAttribute.getMof()*100.0)/(performanceAttribute.getEndHd()*100.0));
 						 
+						 Double salesRevenue = saleEventDetailsDao.getSalesRevenue(group.getId());
+						 performanceAttribute.setMofPct(Math.round(performanceAttribute.getMofHd()*100.0)*100/(salesRevenue*100.0));
 						 
 						 String objXml = "";
 							if (performanceAttribute != null) {
@@ -201,6 +223,7 @@ public class GroupPerformanceReportProcessor{
 						{
 							ex.printStackTrace();
 						}
+					//}
 						
 				}
 					

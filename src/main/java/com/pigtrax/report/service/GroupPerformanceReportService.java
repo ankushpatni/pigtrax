@@ -190,7 +190,7 @@ public class GroupPerformanceReportService {
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.marketsales", null, "", locale)+seprater+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
 			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getFeederSales()+seprater+seprater);
+			 rowBuffer.append(performanceAttribute.getMarketSales()+seprater+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		
@@ -378,6 +378,13 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getBudgetVariance()+seprater+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.feedbudgetvariancepct", null, "", locale)+seprater+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getBudgetVariancePct()+seprater+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
 		
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.adfi", null, "", locale)+seprater+seprater);
@@ -494,6 +501,14 @@ public class GroupPerformanceReportService {
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
 			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
 			 rowBuffer.append(performanceAttribute.getMofHd()+seprater+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.mofpct", null, "", locale)+seprater+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getMofPct()+seprater+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		
