@@ -49,6 +49,7 @@
                        <th><spring:message code='label.piginfo.pigleteventform.litterId'  text='Litter Id'/> </th>
                        <th><spring:message code='label.piginfo.pigleteventform.weightAtBirth'  text='Weight at Birth'/> </th>
                        <th><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/> </th>
+                       <th><spring:message code='label.piginfo.pigleteventform.eventDate'  text='Piglet Event Date'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
                  </thead> 
@@ -149,6 +150,11 @@
                      <input type="number" min="0" step="0.01" ng-model="pigletEvent.weightAtWeaning" id="weightAtWeaning" name="weightAtWeaning"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.placeholder'  text='Enter weigth at weaning of the piglet'/>" 
                       required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.requiredmessage' text='Weight at weaning information is required' />'"/>
                     </div>	
+					
+					 <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+                    <input type="text" class="form-control" ng-model="pigletEvent.dateStrPigletEvent" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStrPigletEvent, 'datePigletEvent')"/>
+                    </div>	
                     
                     <div class="form-group"> 
 					 <table class="no-border">
@@ -162,7 +168,7 @@
 					 		</td>
 					 		<td>
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
-					 		</td>
+					 		</td>a
 					 		<td>
                      			<input type="text" class="form-control" ng-model="pigletEvent.dateStr1" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr1, 'date1')"/>
 					 		</td>

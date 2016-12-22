@@ -35,15 +35,19 @@ public class PigletEventDto {
 	private String dateStr4;
 	private String dateStr5;
 	private String dateStr6;
+	private String dateStrPigletEvent;
 	
+
 	private Date date1;
 	private Date date2;
 	private Date date3;
 	private Date date4;
 	private Date date5;
 	private Date date6;
+	private Date datePigletEvent;
 	
 	
+
 	public String getTattooId() {
 		return tattooId;
 	}
@@ -224,6 +228,12 @@ public class PigletEventDto {
 	public void setDateStr6(String dateStr6) {
 		this.dateStr6 = dateStr6;
 	}
+	public String getDateStrPigletEvent() {
+		return dateStrPigletEvent;
+	}
+	public void setDateStrPigletEvent(String dateStrPigletEvent) {
+		this.dateStrPigletEvent = dateStrPigletEvent;
+	}
 	public Date getDate1() {
 		return date1;
 	}
@@ -259,6 +269,12 @@ public class PigletEventDto {
 	}
 	public void setDate6(Date date6) {
 		this.date6 = date6;
+	}
+	public Date getDatePigletEvent() {
+		return datePigletEvent;
+	}
+	public void setDatePigletEvent(Date datePigletEvent) {
+		this.datePigletEvent = datePigletEvent;
 	}
 	
 	

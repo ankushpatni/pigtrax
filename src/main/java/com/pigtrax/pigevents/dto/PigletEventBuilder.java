@@ -46,6 +46,7 @@ public class PigletEventBuilder {
 			   info.setDate4(dto.getDate4());
 			   info.setDate5(dto.getDate5());
 			   info.setDate6(dto.getDate6());
+			   info.setDatePigletEvent(dto.getDatePigletEvent());
 			   
 		   }
 		   return info;
@@ -112,6 +113,11 @@ public class PigletEventBuilder {
 				}
 			   try {
 				   dto.setDateStr6(DateUtil.convertToFormatString(dto.getDate6(), "dd/MM/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStrPigletEvent(DateUtil.convertToFormatString(dto.getDatePigletEvent(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}

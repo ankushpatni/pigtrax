@@ -28,7 +28,9 @@ public class PigletEvent {
 	private Date date4;
 	private Date date5;
 	private Date date6;
+	private Date datePigletEvent;
 	
+
 	public Integer getId() {
 		return id;
 	}
@@ -166,6 +168,12 @@ public class PigletEvent {
 	}
 	public void setDate6(Date date6) {
 		this.date6 = date6;
+	}
+	public Date getDatePigletEvent() {
+		return datePigletEvent;
+	}
+	public void setDatePigletEvent(Date datePigletEvent) {
+		this.datePigletEvent = datePigletEvent;
 	}
 	
 	

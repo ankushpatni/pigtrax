@@ -41,7 +41,7 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			throws SQLException, DuplicateKeyException{
 		final String Qry = "insert into pigtrax.\"IndividualPigletStatus\"(\"tattooId\", \"weightAtBirth\", \"weightAtWeaning\", \"lastUpdated\","
 				+ " \"userUpdated\", \"id_FarrowEvent\",\"id_Premise\",\"litterId\",\"id_PigInfo\",\"weight1\",\"weight2\",\"weight3\",\"weight4\",\"weight5\",\"weight6\", "
-				+ "\"pigId\", \"date1\", \"date2\", \"date3\", \"date4\", \"date5\", \"date6\") "
+				+ "\"pigId\", \"date1\", \"date2\", \"date3\", \"date4\", \"date5\", \"date6\", \"date6\") "
 				+ "values(?,?,?,current_timestamp,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
