@@ -49,7 +49,6 @@
                        <th><spring:message code='label.piginfo.pigleteventform.litterId'  text='Litter Id'/> </th>
                        <th><spring:message code='label.piginfo.pigleteventform.weightAtBirth'  text='Weight at Birth'/> </th>
                        <th><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/> </th>
-                       <th><spring:message code='label.piginfo.pigleteventform.eventDate'  text='Piglet Event Date'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
                  </thead> 
@@ -111,10 +110,10 @@
                     </div>	
 				  
 					 <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.pigId'  text='Pig Id'/><span style='color: red'>*</span></label>
+                      <label><spring:message code='label.piginfo.pigleteventform.pigId'  text='Piglet Id'/><span style='color: red'>*</span></label>
                       <label ng-show="pigletEvent.pigletId != null && pigletEvent.pigletId > 0">{{pigletEvent.pigId}}</label>                      
-                     <input ng-show="!(pigletEvent.pigletId != null && pigletEvent.pigletId > 0)" type="text" ng-model="pigletEvent.pigId" id="pigId" name="pigId" required  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.pigId.placeholder'  text='Enter Pig Id'/>" 
-                      required-message="'<spring:message code='label.piginfo.pigleteventform.pigId.requiredmessage' text='Pig Id is required' />'"
+                     <input ng-show="!(pigletEvent.pigletId != null && pigletEvent.pigletId > 0)" type="text" ng-model="pigletEvent.pigId" id="pigId" name="pigId" required  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.pigletId.placeholder'  text='Enter Piglet Id'/>" 
+                      required-message="'<spring:message code='label.piginfo.pigleteventform.pigId.requiredmessage' text='Piglet Id is required' />'"
 						ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.piginfo.pigleteventform.pigId.invalidmessage' text='Only Alpha numeric values are allowed' />'" />
 					
@@ -139,22 +138,24 @@
                       	ng-pattern="/^[a-z0-9]+$/i"
 						invalid-message="'<spring:message code='label.numeric.errormessage' text='Only Aplha numeric values are allowed' />'" ng-blur="checkForTattooId()" />
                     </div>					
-					<div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weightAtBirth'  text='Weight at Birth'/></label>
-                     <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weightAtBirth" id="weightAtBirth" name="weightAtBirth"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtBirth.placeholder'  text='Enter weigth at birth of the piglet'/>" 
-                      required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtBirth.requiredmessage' text='Weight at birth information is required' />'"/>
-                    </div>	
+<!-- 					<div class="form-group">  -->
+<%--                       <label><spring:message code='label.piginfo.pigleteventform.weightAtBirth'  text='Weight at Birth'/></label> --%>
+<%--                      <input type="number" min="0" step="0.01"  ng-model="pigletEvent.weightAtBirth" id="weightAtBirth" name="weightAtBirth"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtBirth.placeholder'  text='Enter weigth at birth of the piglet'/>"  --%>
+<%--                       required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtBirth.requiredmessage' text='Weight at birth information is required' />'"/> --%>
+<!--                     </div>	 -->
                     
-                    <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/></label>
-                     <input type="number" min="0" step="0.01" ng-model="pigletEvent.weightAtWeaning" id="weightAtWeaning" name="weightAtWeaning"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.placeholder'  text='Enter weigth at weaning of the piglet'/>" 
-                      required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.requiredmessage' text='Weight at weaning information is required' />'"/>
-                    </div>	
-					
-					 <div class="form-group"> 
-                      <label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
-                    <input type="text" class="form-control" ng-model="pigletEvent.dateStrPigletEvent" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStrPigletEvent, 'datePigletEvent')"/>
-                    </div>	
+<!--                     <div class="form-group">  -->
+<%--                       <label><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/></label> --%>
+<%--                      <input type="number" min="0" step="0.01" ng-model="pigletEvent.weightAtWeaning" id="weightAtWeaning" name="weightAtWeaning"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.placeholder'  text='Enter weigth at weaning of the piglet'/>"  --%>
+<%--                       required-message="'<spring:message code='label.piginfo.pigleteventform.weightAtWeaning.requiredmessage' text='Weight at weaning information is required' />'"/> --%>
+<!--                     </div>	 -->
+                    
+                   <div class="form-group"> 
+                      <label><spring:message code='label.piginfo.pigleteventform.groupId'  text='Group Id'/></label>
+                     <input type="text" ng-model="pigletEvent.groupId" id="groupId" name="groupId"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.groupId.placeholder'  text='Enter Group Id of the piglet'/>"
+                      	ng-pattern="/^[a-z0-9]+$/i"
+						invalid-message="'<spring:message code='label.numeric.errormessage' text='Only Aplha numeric values are allowed' />'"  />
+                    </div>
                     
                     <div class="form-group"> 
 					 <table class="no-border">
@@ -168,7 +169,7 @@
 					 		</td>
 					 		<td>
                      			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
-					 		</td>a
+					 		</td>
 					 		<td>
                      			<input type="text" class="form-control" ng-model="pigletEvent.dateStr1" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr1, 'date1')"/>
 					 		</td>
@@ -271,6 +272,46 @@
 					 		</td>
 					 		<td>
                      			<input type="text" class="form-control" ng-model="pigletEvent.dateStr6" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr6, 'date6')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
+                    </div>	
+                    <div class="form-group"> 
+                     <table class="no-border">
+					  <tbody class="no-border-x no-border-y">
+					 	<tr>
+                    		<td>
+                       			 <label><spring:message code='label.piginfo.pigleteventform.weight7'  text='Weight (7th month)'/></label>
+                       		</td>
+                       		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight7" id="weight7" name="weight7"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight7.placeholder'  text='Enter weight at 7th month'/>"/>
+                     		</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr7" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr7, 'date7')"/>
+					 		</td>
+					 	</tr>
+					 </tbody>
+					 </table>
+                    </div>	
+                    <div class="form-group"> 
+                     <table class="no-border">
+					  <tbody class="no-border-x no-border-y">
+					 	<tr>
+                    		<td>
+                       			 <label><spring:message code='label.piginfo.pigleteventform.weight8'  text='Weight (8th month)'/></label>
+                       		</td>
+                       		<td>
+                     			<input type="number" min="0" step="0.01"  ng-model="pigletEvent.weight8" id="weight8" name="weight8"  class="form-control" maxlength="30" placeholder="<spring:message code='label.piginfo.pigleteventform.weight8.placeholder'  text='Enter weight at 8th month'/>"/>
+                     		</td>
+					 		<td>
+                     			<label><spring:message code='label.piginfo.pigleteventform.date1'  text='Date'/></label>
+					 		</td>
+					 		<td>
+                     			<input type="text" class="form-control" ng-model="pigletEvent.dateStr8" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletEvent.dateStr8, 'date8')"/>
 					 		</td>
 					 	</tr>
 					 </tbody>
