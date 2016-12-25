@@ -127,9 +127,13 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 			   {
 				   $scope.pigletEvent["date6"] = null; 
 			   } 
-			   else if(fieldName == "datePigletEvent")
+			   else if(fieldName == "date7")
 			   {
-				   $scope.pigletEvent["datePigletEvent"] = null; 
+				   $scope.pigletEvent["date7"] = null; 
+			   } 
+			   else if(fieldName == "date8")
+			   {
+				   $scope.pigletEvent["date8"] = null; 
 			   } 
 			}
 		   else
@@ -159,9 +163,13 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 				{
 				   $scope.pigletEvent["date6"] = DateUtils.convertLocaleDateToServer(dateObj);
 				}
-			   else if(fieldName == "datePigletEvent")
+			   else if(fieldName == "date7")
 				{
-				   $scope.pigletEvent["datePigletEvent"] = DateUtils.convertLocaleDateToServer(dateObj);
+				   $scope.pigletEvent["date7"] = DateUtils.convertLocaleDateToServer(dateObj);
+				}
+			   else if(fieldName == "date8")
+				{
+				   $scope.pigletEvent["date8"] = DateUtils.convertLocaleDateToServer(dateObj);
 				}
 			}
 		}
@@ -257,14 +265,16 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 		$scope.pigletEvent["dateStr4"] = pigletEventObj["dateStr4"];
 		$scope.pigletEvent["dateStr5"] = pigletEventObj["dateStr5"];
 		$scope.pigletEvent["dateStr6"] = pigletEventObj["dateStr6"];
-		$scope.pigletEvent["dateStrPigletEvent"] = pigletEventObj["dateStrPigletEvent"];
+		$scope.pigletEvent["dateStr7"] = pigletEventObj["dateStr7"];
+		$scope.pigletEvent["dateStr8"] = pigletEventObj["dateStr8"];
 		$scope.pigletEvent["date1"] = pigletEventObj["date1"];
 		$scope.pigletEvent["date2"] = pigletEventObj["date2"];
 		$scope.pigletEvent["date3"] = pigletEventObj["date3"];
 		$scope.pigletEvent["date4"] = pigletEventObj["date4"];
 		$scope.pigletEvent["date5"] = pigletEventObj["date5"];
 		$scope.pigletEvent["date6"] = pigletEventObj["date6"];
-		$scope.pigletEvent["datePigletEvent"] = pigletEventObj["datePigletEvent"];
+		$scope.pigletEvent["date7"] = pigletEventObj["date7"];
+		$scope.pigletEvent["date8"] = pigletEventObj["date8"];
 	}
 	
 	/**
@@ -307,7 +317,6 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
     {
 		if($scope.pigleteventform.$valid)
 		{
-			console.log($scope.pigletEvent["datePigletEvent"]);
 			$scope.pigletEvent["companyId"] = $rootScope.companyId;
 			
 			var dateObj = null;
@@ -341,10 +350,15 @@ var pigletEventController = pigTrax.controller('PigletEventController', function
 				dateObj = new Date($scope.pigletEvent["date6"]);
 				$scope.pigletEvent["date6"] = DateUtils.convertLocaleDateToServer(dateObj);
 			}
-			if($scope.pigletEvent["datePigletEvent"] != null)
+			if($scope.pigletEvent["date7"] != null)
 			{
-				dateObj = new Date($scope.pigletEvent["datePigletEvent"]);
-				$scope.pigletEvent["datePigletEvent"] = DateUtils.convertLocaleDateToServer(dateObj);
+				dateObj = new Date($scope.pigletEvent["date7"]);
+				$scope.pigletEvent["date7"] = DateUtils.convertLocaleDateToServer(dateObj);
+			}
+			if($scope.pigletEvent["date8"] != null)
+			{
+				dateObj = new Date($scope.pigletEvent["date8"]);
+				$scope.pigletEvent["date8"] = DateUtils.convertLocaleDateToServer(dateObj);
 			}
 			
 			restServices.savePigletEventInformation($scope.pigletEvent, function(data){

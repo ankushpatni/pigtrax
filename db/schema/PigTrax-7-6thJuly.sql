@@ -902,6 +902,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 CREATE TABLE pigtrax."IndividualPigletStatus"(
 	id serial NOT NULL,
 	"tattooId" varchar(30) ,
+	"groupId" varchar(30) ,
 	"weightAtBirth" numeric(20,2),
 	"weightAtWeaning" numeric(20,2),
 	"lastUpdated" timestamp NOT NULL,
@@ -916,6 +917,8 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"weight4" numeric(20,2),
 	"weight5" numeric(20,2),
 	"weight6" numeric(20,2),
+	"weight7" numeric(20,2),
+	"weight8" numeric(20,2),
 	"pigId" varchar(30) not null,
 	"date1" timestamp,
 	"date2" timestamp,
@@ -923,6 +926,8 @@ CREATE TABLE pigtrax."IndividualPigletStatus"(
 	"date4" timestamp,
 	"date5" timestamp,
 	"date6" timestamp,
+	"date7" timestamp,
+	"date8" timestamp,
 	CONSTRAINT "INDIPIGSTATUS_PK" PRIMARY KEY (id)
 );
 -- ddl-end --

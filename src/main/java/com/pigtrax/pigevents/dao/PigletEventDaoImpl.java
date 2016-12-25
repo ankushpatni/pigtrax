@@ -41,8 +41,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			throws SQLException, DuplicateKeyException{
 		final String Qry = "insert into pigtrax.\"IndividualPigletStatus\"(\"tattooId\", \"weightAtBirth\", \"weightAtWeaning\", \"lastUpdated\","
 				+ " \"userUpdated\", \"id_FarrowEvent\",\"id_Premise\",\"litterId\",\"id_PigInfo\",\"weight1\",\"weight2\",\"weight3\",\"weight4\",\"weight5\",\"weight6\", "
-				+ "\"pigId\", \"date1\", \"date2\", \"date3\", \"date4\", \"date5\", \"date6\", \"date6\") "
-				+ "values(?,?,?,current_timestamp,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?,?,?,?)";
+				+ "\"pigId\", \"date1\", \"date2\", \"date3\", \"date4\", \"date5\", \"date6\", \"groupId\", \"weight7\", \"date7\", \"weight8\", \"date8\") "
+				+ "values(?,?,?,current_timestamp,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?)";
 		
 		KeyHolder holder = new GeneratedKeyHolder();
 
@@ -96,6 +96,18 @@ public class PigletEventDaoImpl implements PigletEventDao {
 	    				else
 	    					ps.setNull(21,  java.sql.Types.DATE);
 	    				
+	    	            ps.setString(22, pigletEvent.getGroupId());
+	    				ps.setObject(23, pigletEvent.getWeight7(), java.sql.Types.DOUBLE);
+	    	            if(pigletEvent.getDate7() != null)
+	    					ps.setDate(24, new java.sql.Date(pigletEvent.getDate7().getTime()));
+	    				else
+	    					ps.setNull(24,  java.sql.Types.DATE);
+	    				ps.setObject(25, pigletEvent.getWeight8(), java.sql.Types.DOUBLE);
+
+	    				if(pigletEvent.getDate8() != null)
+	    					ps.setDate(26, new java.sql.Date(pigletEvent.getDate8().getTime()));
+	    				else
+	    					ps.setNull(26,  java.sql.Types.DATE);
 	    	            return ps;
 	    	        }
 	    	    },

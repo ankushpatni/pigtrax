@@ -43,7 +43,14 @@
                       		  </select>
 						</div>
 						
-						<div  class="form-group">
+						<div  class="form-group">						
+						  <select class="form-control" id="selectedEvent"  name="selectedEvent" ng-model="selectedEvent" ng-change="disableRadio()" >
+						  <option value="" hidden><spring:message code='label.dataExtractionReport.event' text='Select Event' /></option>
+                      		<option ng-repeat="key in usedEventKeys" ng-value="key" >{{eventTypeValues[key]}}</option>                          
+                        	</select>
+						</div>
+						
+						<div  class="form-group" ng-hide="disableRadioOnIndivPigletEvent">
 							<label class="radio-inline">
 			                  <input type="radio" name="rad1" id="rad1" class="farrowevent" value="pigId" ng-model="reportOption"  ng-change="changeSelection()" > <spring:message code='label.piginfo.farroweventform.search.pigid.option'  text='Pig Id'/>
 			                </label>
@@ -78,13 +85,7 @@
                       	<input type="text" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true' name="endDate"/>
 								</div>
 								
-						<div  class="form-group">						
-						  
-						  <select class="form-control" id="selectedEvent"  name="selectedEvent" ng-model="selectedEvent"  >
-						  <option value="" hidden><spring:message code='label.dataExtractionReport.event' text='Select Event' /></option>
-                      		<option ng-repeat="key in usedEventKeys" ng-value="key">{{eventTypeValues[key]}}</option>                          
-                        	</select>
-						</div>
+						
 						
 								
 						

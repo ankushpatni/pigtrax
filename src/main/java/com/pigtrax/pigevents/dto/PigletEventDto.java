@@ -28,6 +28,8 @@ public class PigletEventDto {
 	private Double weight4;
 	private Double weight5;
 	private Double weight6;
+	private Double weight7;
+	private Double weight8;
 	
 	private String dateStr1;
 	private String dateStr2;
@@ -35,19 +37,21 @@ public class PigletEventDto {
 	private String dateStr4;
 	private String dateStr5;
 	private String dateStr6;
-	private String dateStrPigletEvent;
+	private String dateStr7;
+	private String dateStr8;
 	
-
 	private Date date1;
 	private Date date2;
 	private Date date3;
 	private Date date4;
 	private Date date5;
 	private Date date6;
-	private Date datePigletEvent;
+	private Date date7;
+	private Date date8;
+	
+	private String groupId;
 	
 	
-
 	public String getTattooId() {
 		return tattooId;
 	}
@@ -192,6 +196,18 @@ public class PigletEventDto {
 	public void setWeight6(Double weight6) {
 		this.weight6 = weight6;
 	}
+	public Double getWeight7() {
+		return weight7;
+	}
+	public void setWeight7(Double weight7) {
+		this.weight7 = weight7;
+	}
+	public Double getWeight8() {
+		return weight8;
+	}
+	public void setWeight8(Double weight8) {
+		this.weight8 = weight8;
+	}
 	public String getDateStr1() {
 		return dateStr1;
 	}
@@ -227,12 +243,6 @@ public class PigletEventDto {
 	}
 	public void setDateStr6(String dateStr6) {
 		this.dateStr6 = dateStr6;
-	}
-	public String getDateStrPigletEvent() {
-		return dateStrPigletEvent;
-	}
-	public void setDateStrPigletEvent(String dateStrPigletEvent) {
-		this.dateStrPigletEvent = dateStrPigletEvent;
 	}
 	public Date getDate1() {
 		return date1;
@@ -270,12 +280,37 @@ public class PigletEventDto {
 	public void setDate6(Date date6) {
 		this.date6 = date6;
 	}
-	public Date getDatePigletEvent() {
-		return datePigletEvent;
+	public String getGroupId() {
+		return groupId;
 	}
-	public void setDatePigletEvent(Date datePigletEvent) {
-		this.datePigletEvent = datePigletEvent;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
+	public String getDateStr7() {
+		return dateStr7;
+	}
+	public void setDateStr7(String dateStr7) {
+		this.dateStr7 = dateStr7;
+	}
+	public String getDateStr8() {
+		return dateStr8;
+	}
+	public void setDateStr8(String dateStr8) {
+		this.dateStr8 = dateStr8;
+	}
+	public Date getDate7() {
+		return date7;
+	}
+	public void setDate7(Date date7) {
+		this.date7 = date7;
+	}
+	public Date getDate8() {
+		return date8;
+	}
+	public void setDate8(Date date8) {
+		this.date8 = date8;
+	}
+
 	
 	
 	

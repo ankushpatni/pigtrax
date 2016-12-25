@@ -20,6 +20,11 @@ public class PigletEvent {
 	private Double weight4;
 	private Double weight5;
 	private Double weight6;
+	/**
+	 * 
+	 */
+	private Double weight7;
+	private Double weight8;
 	private String pigId;
 	
 	private Date date1;
@@ -28,9 +33,12 @@ public class PigletEvent {
 	private Date date4;
 	private Date date5;
 	private Date date6;
-	private Date datePigletEvent;
+	private Date date7;
+	private Date date8;
 	
+	private String groupId;
 
+	
 	public Integer getId() {
 		return id;
 	}
@@ -133,6 +141,18 @@ public class PigletEvent {
 	public void setPigId(String pigId) {
 		this.pigId = pigId;
 	}
+	public Double getWeight7() {
+		return weight7;
+	}
+	public void setWeight7(Double weight7) {
+		this.weight7 = weight7;
+	}
+	public Double getWeight8() {
+		return weight8;
+	}
+	public void setWeight8(Double weight8) {
+		this.weight8 = weight8;
+	}
 	public Date getDate1() {
 		return date1;
 	}
@@ -169,12 +189,24 @@ public class PigletEvent {
 	public void setDate6(Date date6) {
 		this.date6 = date6;
 	}
-	public Date getDatePigletEvent() {
-		return datePigletEvent;
+	public Date getDate7() {
+		return date7;
 	}
-	public void setDatePigletEvent(Date datePigletEvent) {
-		this.datePigletEvent = datePigletEvent;
+	public void setDate7(Date date7) {
+		this.date7 = date7;
 	}
-	
+	public Date getDate8() {
+		return date8;
+	}
+	public void setDate8(Date date8) {
+		this.date8 = date8;
+	}
+	public String getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
 	
 }
