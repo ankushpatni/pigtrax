@@ -156,8 +156,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
   private List<PigletEvent> getPigletEventsByPigId(final String pigId, final Integer companyId) throws SQLException{
 	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
 	   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
-			+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",\"pigId\""
-			+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\"  "
+			+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\", IPS.\"weight7\", IPS.\"weight8\",\"pigId\",\"groupId\""
+			+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\", IPS.\"date7\", IPS.\"date8\"  "
 	   		+ "  from pigtrax.\"IndividualPigletStatus\" IPS "	   		
 	   		+ "JOIN pigtrax.\"PigInfo\" PI on IPS.\"id_PigInfo\" = PI.\"id\" "
 	   		+ " WHERE PI.\"pigId\" = ? and PI.\"id_Company\" = ? ";
@@ -179,8 +179,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
    private List<PigletEvent> getPigletEventsByPigId(final String pigId, final Integer companyId, final Integer premiseId) throws SQLException{
  	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
  	   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
- 	   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",\"pigId\" "
- 	   		+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\"  "
+ 	   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\", IPS.\"weight7\", IPS.\"weight8\",\"pigId\",\"groupId\" "
+ 	   		+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\", IPS.\"date7\", IPS.\"date8\"  "
  	   		+ "  from pigtrax.\"IndividualPigletStatus\" IPS " 	   		
  	   		+ " WHERE IPS.\"pigId\" = ?  and IPS.\"id_Premise\" = ? ";
  		
@@ -201,8 +201,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
    private List<PigletEvent> getPigletEventsByPigletTattooId(final String tattoo, final Integer companyId) throws SQLException{
 	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
 		   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
-		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",IPS.\"pigId\" "
-		   		+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\"  "
+		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\", IPS.\"weight7\", IPS.\"weight8\",IPS.\"pigId\" "
+		   		+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\" , IPS.\"date7\" , IPS.\"date8\", IPS.\"groupId\"  "
 		   		+ "  from pigtrax.\"IndividualPigletStatus\" IPS "		   		
 		   		+ "JOIN pigtrax.\"PigInfo\" PI on IPS.\"id_PigInfo\" = PI.\"id\" "
 		   		+ " WHERE PI.\"tattooId\" = ? and PI.\"id_Company\" = ? ";
@@ -224,8 +224,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
   private List<PigletEvent> getPigletEventsByPigletTattooId(final String tattoo, final Integer companyId, final Integer premiseId) throws SQLException{
 	   String qry = "select IPS.\"id\", IPS.\"tattooId\", IPS.\"weightAtBirth\", IPS.\"weightAtWeaning\", "
 		   		+ "IPS.\"lastUpdated\", IPS.\"userUpdated\", IPS.\"id_FarrowEvent\",IPS.\"id_Premise\",IPS.\"litterId\", IPS.\"id_PigInfo\", "
-		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\",IPS.\"pigId\" "
-		   		+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\"  "
+		   		+ " IPS.\"weight1\", IPS.\"weight2\", IPS.\"weight3\", IPS.\"weight4\", IPS.\"weight5\", IPS.\"weight6\", IPS.\"weight7\", IPS.\"weight8\",IPS.\"pigId\" "
+		   		+ ", IPS.\"date1\", IPS.\"date2\", IPS.\"date3\", IPS.\"date4\", IPS.\"date5\", IPS.\"date6\" , IPS.\"date7\" , IPS.\"date8\", IPS.\"groupId\" "
 		   		+ " from pigtrax.\"IndividualPigletStatus\" IPS "
 		   		+ " WHERE IPS.\"tattooId\" = ?  and IPS.\"id_Premise\" = ?";
 		
@@ -245,8 +245,8 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			throws SQLException, DuplicateKeyException {
 		String Qry = "update pigtrax.\"IndividualPigletStatus\" set \"tattooId\" = ?, \"weightAtBirth\" = ?, \"weightAtWeaning\" = ?, \"lastUpdated\" = current_timestamp, "
 				+ "\"userUpdated\" = ?, \"id_FarrowEvent\" = ?,\"id_Premise\"=?, \"id_PigInfo\" = ?, \"weight1\"= ? "
-				+" , \"weight2\"= ? , \"weight3\"= ?, \"weight4\"= ?, \"weight5\"= ?, \"weight6\"= ?, \"pigId\" = ?, \"litterId\" = ? "
-				+ ", \"date1\" = ?, \"date2\" = ?, \"date3\" = ?, \"date4\" = ? , \"date5\" = ?, \"date6\" = ? "
+				+ " , \"weight2\"= ? , \"weight3\"= ?, \"weight4\"= ?, \"weight5\"= ?, \"weight6\"= ?, \"pigId\" = ?, \"litterId\" = ? "
+				+ ", \"date1\" = ?, \"date2\" = ?, \"date3\" = ?, \"date4\" = ? , \"date5\" = ?, \"date6\" = ? , \"weight7\" = ? , \"weight8\" = ? , \"date7\" = ? , \"date8\" = ?, \"groupId\" = ? "
 				+ "where \"id\" = ? ";
 		
 		return this.jdbcTemplate.update(Qry, new PreparedStatementSetter() {
@@ -298,8 +298,21 @@ public class PigletEventDaoImpl implements PigletEventDao {
 					ps.setDate(21, new java.sql.Date(pigletEvent.getDate6().getTime()));
 				else
 					ps.setNull(21,  java.sql.Types.DATE);
+
+				ps.setObject(22, pigletEvent.getWeight7(), java.sql.Types.DOUBLE);
+				ps.setObject(23, pigletEvent.getWeight8(), java.sql.Types.DOUBLE);
+				if(pigletEvent.getDate6() != null)
+					ps.setDate(24, new java.sql.Date(pigletEvent.getDate7().getTime()));
+				else
+					ps.setNull(24,  java.sql.Types.DATE);
+				if(pigletEvent.getDate6() != null)
+					ps.setDate(25, new java.sql.Date(pigletEvent.getDate8().getTime()));
+				else
+					ps.setNull(25,  java.sql.Types.DATE);
+
+				ps.setString(26, pigletEvent.getGroupId());
 				
-				ps.setInt(22, pigletEvent.getId());
+				ps.setInt(27, pigletEvent.getId());
 			}
 		});
 	}
@@ -324,13 +337,18 @@ public class PigletEventDaoImpl implements PigletEventDao {
 			pigletEvent.setWeight4(rs.getDouble("weight4"));
 			pigletEvent.setWeight5(rs.getDouble("weight5"));
 			pigletEvent.setWeight6(rs.getDouble("weight6"));
+			pigletEvent.setWeight7(rs.getDouble("weight7"));
+			pigletEvent.setWeight8(rs.getDouble("weight8"));
 			pigletEvent.setPigId(rs.getString("pigId"));
+			pigletEvent.setGroupId(rs.getString("groupId"));
 			pigletEvent.setDate1((rs.getObject("date1") != null)?rs.getDate("date1"):null);
 			pigletEvent.setDate2((rs.getObject("date2") != null)?rs.getDate("date2"):null);
 			pigletEvent.setDate3((rs.getObject("date3") != null)?rs.getDate("date3"):null);
 			pigletEvent.setDate4((rs.getObject("date4") != null)?rs.getDate("date4"):null);
 			pigletEvent.setDate5((rs.getObject("date5") != null)?rs.getDate("date5"):null);
 			pigletEvent.setDate6((rs.getObject("date6") != null)?rs.getDate("date6"):null);
+			pigletEvent.setDate7((rs.getObject("date7") != null)?rs.getDate("date7"):null);
+			pigletEvent.setDate8((rs.getObject("date8") != null)?rs.getDate("date8"):null);
 			return pigletEvent;
 		}
 	}
