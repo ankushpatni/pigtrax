@@ -47,8 +47,7 @@
                      <tr>                       
                        <th><spring:message code='label.piginfo.pigleteventform.tattooId'  text='Farrow Id'/> </th>
                        <th><spring:message code='label.piginfo.pigleteventform.litterId'  text='Litter Id'/> </th>
-                       <th><spring:message code='label.piginfo.pigleteventform.weightAtBirth'  text='Weight at Birth'/> </th>
-                       <th><spring:message code='label.piginfo.pigleteventform.weightAtWeaning'  text='Weight at Weaning'/> </th>
+                       <th><spring:message code='label.piginfo.pigleteventform.groupId'  text='Group Id'/> </th>
                        <th><spring:message code='label.employeegroup.list.header.action'  text='Action'/> </th>
                      </tr>
                  </thead> 
@@ -56,8 +55,7 @@
                    <tr ng-repeat="pigletEventDto in pigletEventList">
                     <td>{{pigletEventDto.tattooId}}</td>
                     <td>{{pigletEventDto.litterId}}</td>
-                    <td>{{pigletEventDto.weightAtBirth}}</td>
-                    <td>{{pigletEventDto.weightAtWeaning}}</td>
+                    <td>{{pigletEventDto.groupId}}</td>
                     <td><button type="button" class="btn btn-edit btn-xs"
 						ng-click="getPigletEventDetails(pigletEventDto)">
 						<span class="glyphicon glyphicon-pencil"></span>
