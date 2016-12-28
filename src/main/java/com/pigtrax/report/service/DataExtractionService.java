@@ -115,17 +115,26 @@ public class DataExtractionService {
 							+ messageSource.getMessage("label.piginfo.groupEventForm.groupStartDateTime", null, "", locale)+","+ messageSource.getMessage("label.piginfo.groupEventForm.groupCloseDateTime", null, "", locale)+","
 							+ messageSource.getMessage("label.groupEventDetail.phaseOfProductionTypeId", null, "", locale)+","+ messageSource.getMessage("label.piginfo.entryeventform.remarks", null, "", locale);
 								break;
-			case 12 : header =  messageSource.getMessage("label.piginfo.entryeventform.pigid", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.litterId", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.tattooId", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weightAtBirth", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.weightAtWeaning", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight1", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight2", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight3", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight4", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight5", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight6", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight7", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight8", null, "", locale)+","
-								+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale);
+			case 12 : header =  messageSource.getMessage("label.piginfo.entryeventform.pigid", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.litterId", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.tattooId", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.groupId", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight1", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight2", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight3", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight4", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight5", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight6", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight7", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale)
+								+","+ messageSource.getMessage("label.piginfo.pigleteventform.weight8", null, "", locale)
+								+","+messageSource.getMessage("label.piginfo.pigleteventform.date1", null, "", locale);
 								break;
 			}
 		}
@@ -316,7 +325,7 @@ public class DataExtractionService {
 						 resultList = extractionDao.getGroupEventData(query);
 							returnRows = populateRows(resultList, eventType);
 								break;
-			case 12 : query = " select IP.\"pigId\", IP.\"litterId\", IP.\"tattooId\", IP.\"weightAtBirth\", IP.\"weightAtWeaning\", IP.\"weight1\", "
+			case 12 : query = " select IP.\"pigId\", IP.\"litterId\", IP.\"tattooId\", IP.\"groupId\", IP.\"weightAtBirth\", IP.\"weightAtWeaning\", IP.\"weight1\", "
 					+ "			IP.\"date1\", IP.\"weight2\", IP.\"date2\", IP.\"weight3\", IP.\"date3\", "
 					+ " 		IP.\"weight4\", IP.\"date4\", IP.\"weight5\", IP.\"date5\", IP.\"weight6\", IP.\"date6\" , IP.\"weight7\", IP.\"date7\" , IP.\"weight8\", IP.\"date8\" " 
 					+" from pigtrax.\"IndividualPigletStatus\" IP  "
@@ -649,8 +658,8 @@ public class DataExtractionService {
 					rowBuffer.append(rowMap.get("pigId") + seprater);
 					rowBuffer.append(rowMap.get("litterId") + seprater);
 					rowBuffer.append(rowMap.get("tattooId") + seprater);
-					rowBuffer.append(rowMap.get("weightAtBirth") + seprater);
-					rowBuffer.append(rowMap.get("weightAtWeaning") + seprater);
+					rowBuffer.append(rowMap.get("groupId") + seprater);
+//					rowBuffer.append(rowMap.get("weightAtWeaning") + seprater);
 					rowBuffer.append(rowMap.get("weight1") + seprater);
 					try {
 						if(rowMap.get("date1") != null)

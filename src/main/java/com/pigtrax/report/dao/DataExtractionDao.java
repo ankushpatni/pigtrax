@@ -404,6 +404,7 @@ public class DataExtractionDao {
 			rowMap.put("pigId", rs.getString("pigId")!= null?rs.getString("pigId"):"");
 			rowMap.put("litterId", rs.getString("litterId")!= null?rs.getString("litterId"):"");
 			rowMap.put("tattooId", rs.getString("tattooId")!= null?rs.getString("tattooId"):"");
+			rowMap.put("groupId", rs.getString("groupId")!= null?rs.getString("groupId"):"");
 			rowMap.put("weightAtBirth", rs.getString("weightAtBirth")!= null?rs.getString("weightAtBirth"):"");
 			rowMap.put("weightAtWeaning", rs.getString("weightAtWeaning")!= null?rs.getString("weightAtWeaning"):"");
 			rowMap.put("weight1", rs.getString("weight1")!= null?rs.getString("weight1"):"");

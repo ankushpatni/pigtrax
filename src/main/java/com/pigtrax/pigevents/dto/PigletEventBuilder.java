@@ -124,6 +124,16 @@ public class PigletEventBuilder {
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}
+			   try {
+				   dto.setDateStr7(DateUtil.convertToFormatString(dto.getDate7(), "dd/MM/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStr8(DateUtil.convertToFormatString(dto.getDate8(), "dd/MM/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
 			   dto.setGroupId(info.getGroupId());
 			   
 			   

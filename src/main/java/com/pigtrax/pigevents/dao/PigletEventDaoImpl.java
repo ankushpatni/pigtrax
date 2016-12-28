@@ -301,11 +301,11 @@ public class PigletEventDaoImpl implements PigletEventDao {
 
 				ps.setObject(22, pigletEvent.getWeight7(), java.sql.Types.DOUBLE);
 				ps.setObject(23, pigletEvent.getWeight8(), java.sql.Types.DOUBLE);
-				if(pigletEvent.getDate6() != null)
+				if(pigletEvent.getDate7() != null)
 					ps.setDate(24, new java.sql.Date(pigletEvent.getDate7().getTime()));
 				else
 					ps.setNull(24,  java.sql.Types.DATE);
-				if(pigletEvent.getDate6() != null)
+				if(pigletEvent.getDate8() != null)
 					ps.setDate(25, new java.sql.Date(pigletEvent.getDate8().getTime()));
 				else
 					ps.setNull(25,  java.sql.Types.DATE);
