@@ -156,7 +156,7 @@ public class GroupStatusReportService {
 						weekMap = groupRecord.getInventoryCntMap();
 					else
 						weekMap = groupRecord.getMortalityCntMap();
-					for(int i = 1; i <= 26; i++)
+					for(int i = 2; i <= 26; i++)
 					{
 						rowBuffer.append(weekMap.get(i) + seprater);
 					}	
