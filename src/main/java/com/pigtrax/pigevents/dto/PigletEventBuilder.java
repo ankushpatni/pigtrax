@@ -39,6 +39,8 @@ public class PigletEventBuilder {
 			   info.setWeight4(dto.getWeight4());
 			   info.setWeight5(dto.getWeight5());
 			   info.setWeight6(dto.getWeight6());
+			   info.setWeight7(dto.getWeight7());
+			   info.setWeight8(dto.getWeight8());
 			   info.setPigId(dto.getPigId());
 			   info.setDate1(dto.getDate1());
 			   info.setDate2(dto.getDate2());
@@ -46,6 +48,9 @@ public class PigletEventBuilder {
 			   info.setDate4(dto.getDate4());
 			   info.setDate5(dto.getDate5());
 			   info.setDate6(dto.getDate6());
+			   info.setDate7(dto.getDate7());
+			   info.setDate8(dto.getDate8());
+			   info.setGroupId(dto.getGroupId());
 			   
 		   }
 		   return info;
@@ -77,6 +82,8 @@ public class PigletEventBuilder {
 			   dto.setWeight4(info.getWeight4());
 			   dto.setWeight5(info.getWeight5());
 			   dto.setWeight6(info.getWeight6());
+			   dto.setWeight7(info.getWeight7());
+			   dto.setWeight8(info.getWeight8());
 			   dto.setPigId(info.getPigId());
 			   dto.setPigId(info.getPigId());
 			   dto.setDate1(info.getDate1());
@@ -85,6 +92,8 @@ public class PigletEventBuilder {
 			   dto.setDate4(info.getDate4());
 			   dto.setDate5(info.getDate5());
 			   dto.setDate6(info.getDate6());
+			   dto.setDate7(info.getDate7());
+			   dto.setDate8(info.getDate8());
 			   try {
 				   dto.setDateStr1(DateUtil.convertToFormatString(dto.getDate1(), "dd/MM/yyyy"));
 				} catch (ParseException e) {
@@ -115,6 +124,17 @@ public class PigletEventBuilder {
 				} catch (ParseException e) {
 					dto.setDateStr1(null);
 				}
+			   try {
+				   dto.setDateStr7(DateUtil.convertToFormatString(dto.getDate7(), "dd/MM/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   try {
+				   dto.setDateStr8(DateUtil.convertToFormatString(dto.getDate8(), "dd/MM/yyyy"));
+				} catch (ParseException e) {
+					dto.setDateStr1(null);
+				}
+			   dto.setGroupId(info.getGroupId());
 			   
 			   
 		   }

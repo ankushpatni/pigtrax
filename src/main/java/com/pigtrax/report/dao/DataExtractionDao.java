@@ -404,6 +404,7 @@ public class DataExtractionDao {
 			rowMap.put("pigId", rs.getString("pigId")!= null?rs.getString("pigId"):"");
 			rowMap.put("litterId", rs.getString("litterId")!= null?rs.getString("litterId"):"");
 			rowMap.put("tattooId", rs.getString("tattooId")!= null?rs.getString("tattooId"):"");
+			rowMap.put("groupId", rs.getString("groupId")!= null?rs.getString("groupId"):"");
 			rowMap.put("weightAtBirth", rs.getString("weightAtBirth")!= null?rs.getString("weightAtBirth"):"");
 			rowMap.put("weightAtWeaning", rs.getString("weightAtWeaning")!= null?rs.getString("weightAtWeaning"):"");
 			rowMap.put("weight1", rs.getString("weight1")!= null?rs.getString("weight1"):"");
@@ -412,12 +413,16 @@ public class DataExtractionDao {
 			rowMap.put("weight4", rs.getString("weight4")!= null?rs.getString("weight4"):"");
 			rowMap.put("weight5", rs.getString("weight5")!= null?rs.getString("weight5"):"");
 			rowMap.put("weight6", rs.getString("weight6")!= null?rs.getString("weight6"):"");			
+			rowMap.put("weight7", rs.getString("weight7")!= null?rs.getString("weight7"):"");			
+			rowMap.put("weight8", rs.getString("weight8")!= null?rs.getString("weight8"):"");			
 			rowMap.put("date1", rs.getDate("date1"));
 			rowMap.put("date2", rs.getDate("date2"));
 			rowMap.put("date3", rs.getDate("date3"));
 			rowMap.put("date4", rs.getDate("date4"));
 			rowMap.put("date5", rs.getDate("date5"));
 			rowMap.put("date6", rs.getDate("date6"));
+			rowMap.put("date7", rs.getDate("date7"));
+			rowMap.put("date8", rs.getDate("date8"));
 			return rowMap;
 		}
 	}

@@ -12,6 +12,7 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
 	$scope.companyId = null;
 	$scope.selectedGroup = -1;
 	$scope.selectedPig = -1;
+	$scope.disableRadioOnIndivPigletEvent = false;
 	
 	
 	$scope.getEventTypes = function()
@@ -89,6 +90,20 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
 		{
 			$scope.usedEventKeys =  $scope.groupEventKeys;
 			$scope.selectedPig = null;
+		}
+	}
+	
+	$scope.disableRadio = function()
+	{
+//		console.log($scope.selectedEvent);
+		if($scope.selectedEvent == 12)
+		{
+			$scope.disableRadioOnIndivPigletEvent=true;
+			
+		}
+		else
+		{
+			$scope.disableRadioOnIndivPigletEvent=false;
 		}
 	}
 	
