@@ -131,6 +131,7 @@ public class GroupPerformanceReportProcessor{
 							 performanceAttribute.setTransferOut(transferDetails.get("transferOutCnt") != null ? (Integer)transferDetails.get("transferOutCnt"): 0);
 							 performanceAttribute.setTransferOutWtTotal(transferDetails.get("transferOutWt") != null ? (Double)transferDetails.get("transferOutWt"): 0);
 							 performanceAttribute.setTransferNet(performanceAttribute.getTransferIn()  - performanceAttribute.getTransferOut());		
+							 performanceAttribute.setTransferNetPct(performanceAttribute.getTransferNet() * 100.00/ performanceAttribute.getStartHd()); 
 							 performanceAttribute.setTransferOutWtHd(performanceAttribute.getTransferOutWtTotal()/performanceAttribute.getTransferOut());
 							 Double netTransferWeight = performanceAttribute.getTransferInWtTotal() - performanceAttribute.getTransferOutWtTotal();
 							 performanceAttribute.setNetTransferWeight(netTransferWeight);

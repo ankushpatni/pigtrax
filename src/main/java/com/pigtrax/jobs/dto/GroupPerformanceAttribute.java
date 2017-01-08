@@ -18,6 +18,7 @@ public class GroupPerformanceAttribute {
 	private Integer transferIn;
 	private Integer transferOut;
 	private Integer transferNet;
+	private Double transferNetPct;
 	private Integer weanSales;
 	private Integer feederSales;
 	private Integer preMarketSales;
@@ -32,6 +33,8 @@ public class GroupPerformanceAttribute {
 	private Double transferInWtHd;
 	private Double transferOutWtTotal;
 	private Double transferOutWtHd;
+	
+	
 	private Double totalGainWt;
 	private Double totalGainWtPerTranfer;
 	private Double gainHd;
@@ -623,8 +626,13 @@ public class GroupPerformanceAttribute {
 	public void setMofPct(Double mofPct) {
 		this.mofPct = mofPct;
 	}
-	
-	
-	
 
+	public Double getTransferNetPct() {
+		return transferNetPct;
+	}
+
+	@XmlElement
+	public void setTransferNetPct(Double transferNetPct) {
+		this.transferNetPct = transferNetPct;
+	}
 }
