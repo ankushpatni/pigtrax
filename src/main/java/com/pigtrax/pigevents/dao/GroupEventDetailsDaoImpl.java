@@ -632,15 +632,18 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 			        });
 				
 				if(startDate != null && endDate != null)
-				{						
+				{		
+					int adjustedPigCount = 0;
+					int prevPigCount  = 0;
+					int pigInventoryEachDay = 0;
 					while(startDate.getTime()<= endDate.getTime())
 					{
 						final Date start = startDate;
 						String qry = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
 								+ "where GED.\"id_GroupEvent\" = "+groupId+" and GED.\"dateOfEntry\" <= ?";
 						
-						
-						sowCountDays  += (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
+						prevPigCount = pigInventoryEachDay;
+						pigInventoryEachDay = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {
 							@Override
 								public void setValues(PreparedStatement ps) throws SQLException {
 									ps.setDate(1, new java.sql.Date(start.getTime()));
@@ -655,8 +658,11 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 					          }
 					        });
 						
+						sowCountDays  += pigInventoryEachDay;
+						
 						startDate = DateUtil.addDays(startDate, 1);
 					}
+					sowCountDays=sowCountDays+prevPigCount;
 				}
 				
 				return sowCountDays;

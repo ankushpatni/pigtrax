@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -233,16 +235,23 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		String qry = " select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  "
 				+" JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" "
 				+" LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" = 112  "  //target Type - 112 for Feed_kg/pig/day
-				+" where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+" AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") ";
+				+" where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+" AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") "
+						+ "order by FED.\"feedEventDate\"";
 		
 		
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
 		if(budgetList != null && 0 <budgetList.size())
 		{
+			int count=1;
 			for(Map<String, Object> entry : budgetList)
 			{
 				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
+				Date nextFeedDate = null;
+				if (count<budgetList.size()){
+					nextFeedDate = budgetList.get(count).get("feedEventDate") != null? (Date)budgetList.get(count).get("feedEventDate"):null; 
+				}
+				count++;
 				Date groupStartDate = entry.get("groupStartDate") != null ? (Date)entry.get("groupStartDate") : null;
 				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
 				if(feedDate != null)
@@ -273,8 +282,14 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 							sowCount = ((Long)detailsMap.get("StartHd")).intValue();
 						}
 					}
-						
-					budgetedFeed += sowCount*targetValue;
+					int duration = 0;
+					if(feedDate != null && nextFeedDate != null)
+					{
+						DateTime start = new DateTime(feedDate.getTime());
+						DateTime end = new DateTime(nextFeedDate.getTime());
+						duration  = Days.daysBetween(start, end).getDays();
+					}	
+					budgetedFeed += sowCount*targetValue* duration;
 				}
 				
 			}
@@ -323,17 +338,24 @@ Double budgetedFeed = 0D;
 		String qry = " select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  "
 				+" JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" "
 				+" LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" = 113  "  //target Type - 113 for Feed_Feed cost/pig
-				+" where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+" AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") ";
+				+" where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+" AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") "
+						+ "order by FED.\"feedEventDate\"";
 		
 		
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
 		if(budgetList != null && 0 <budgetList.size())
 		{
+			int count =1;
 			for(Map<String, Object> entry : budgetList)
 			{
 				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
 				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
+				Date nextFeedDate = null;
+				if (count<budgetList.size()){
+					nextFeedDate = budgetList.get(count).get("feedEventDate") != null? (Date)budgetList.get(count).get("feedEventDate"):null; 
+				}
+				count++;
 				if(feedDate != null)
 				{
 					String sql = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
@@ -354,7 +376,14 @@ Double budgetedFeed = 0D;
 				            return 0;
 				          }
 				        });
-					budgetedFeed += sowCount*targetValue;
+					int duration = 0;
+					if(feedDate != null && nextFeedDate != null)
+					{
+						DateTime start = new DateTime(feedDate.getTime());
+						DateTime end = new DateTime(nextFeedDate.getTime());
+						duration  = Days.daysBetween(start, end).getDays();
+					}	
+					budgetedFeed += sowCount*targetValue*duration;
 				}
 				
 			}

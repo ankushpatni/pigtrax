@@ -168,7 +168,8 @@ public class GroupPerformanceReportProcessor{
 						 performanceAttribute.setPigDays(groupEventDetailsDao.calculatePigDays(group.getId()));
 						 
 						 //DOF to calculate
-						 performanceAttribute.setDof(groupEventDetailsDao.calculateDaysOnFeed(group.getId()));
+//						 performanceAttribute.setDof(groupEventDetailsDao.calculateDaysOnFeed(group.getId()));
+						 performanceAttribute.setDof(performanceAttribute.getPigDays()/(performanceAttribute.getEndHd()+performanceAttribute.getTransferOut()));
 						 
 						 
 						 performanceAttribute.setAdg(performanceAttribute.getTotalGainWt()/(performanceAttribute.getEndHd())/performanceAttribute.getPigDays());
