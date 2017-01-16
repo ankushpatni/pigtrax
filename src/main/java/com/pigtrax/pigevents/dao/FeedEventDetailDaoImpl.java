@@ -228,7 +228,28 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 	
 	
 	
-	public Double getTotalFeedBudgeted(Integer groupId) {
+	public Double getTotalFeedBudgeted(final Integer groupId) {
+		
+//		final String qry = "select sum(\"weightInKgs\") from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\" = ?  and \"salesDateTime\" <=  ?";
+		final String salesDateqry = "select max(\"salesDateTime\") from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\"= ? ";
+		
+		
+		
+		@SuppressWarnings("unchecked")
+		Date nextFeedDate  = (Date)jdbcTemplate.query(salesDateqry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					
+				}
+			}, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDate(1);
+			            }
+			            return 0;
+			          }
+			        });
 		
 		Double budgetedFeed = 0D;
 		
@@ -243,15 +264,11 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
 		if(budgetList != null && 0 <budgetList.size())
 		{
-			int count=1;
+//			int count=1;
 			for(Map<String, Object> entry : budgetList)
 			{
 				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
-				Date nextFeedDate = null;
-				if (count<budgetList.size()){
-					nextFeedDate = budgetList.get(count).get("feedEventDate") != null? (Date)budgetList.get(count).get("feedEventDate"):null; 
-				}
-				count++;
+//				Date nextFeedDate = null;
 				Date groupStartDate = entry.get("groupStartDate") != null ? (Date)entry.get("groupStartDate") : null;
 				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
 				if(feedDate != null)
@@ -332,8 +349,28 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		}
 	
 	
-	public Double getTotalFeedBudgetedCost(Integer groupId) {
-Double budgetedFeed = 0D;
+	public Double getTotalFeedBudgetedCost(final Integer groupId) {
+		final String salesDateqry = "select max(\"salesDateTime\") from pigtrax.\"SalesEventDetails\" where \"id_GroupEvent\"= ? ";
+		
+		
+		
+		@SuppressWarnings("unchecked")
+		Date nextFeedDate  = (Date)jdbcTemplate.query(salesDateqry,new PreparedStatementSetter() {
+			@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+					
+				}
+			}, new ResultSetExtractor() {
+		          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getDate(1);
+			            }
+			            return 0;
+			          }
+			        });
+
+		Double budgetedFeed = 0D;
 		
 		String qry = " select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  "
 				+" JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" "
@@ -346,16 +383,12 @@ Double budgetedFeed = 0D;
 		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
 		if(budgetList != null && 0 <budgetList.size())
 		{
-			int count =1;
+//			int count =1;
 			for(Map<String, Object> entry : budgetList)
 			{
 				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
 				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
-				Date nextFeedDate = null;
-				if (count<budgetList.size()){
-					nextFeedDate = budgetList.get(count).get("feedEventDate") != null? (Date)budgetList.get(count).get("feedEventDate"):null; 
-				}
-				count++;
+//				Date nextFeedDate = null;
 				if(feedDate != null)
 				{
 					String sql = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
