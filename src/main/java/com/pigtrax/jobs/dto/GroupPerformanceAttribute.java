@@ -39,11 +39,18 @@ public class GroupPerformanceAttribute {
 	private Double totalGainWtPerTranfer;
 	private Double gainHd;
 	private Double gainHdPerTransfer;
+	private Double transferStartWtTotal;
+	private Double transferEndWtTotal;
+	private Double totalGainWithoutTransfer;
+	private Double totalGainWithTransfer;
+	private Double totalGainHDWithoutTransfer;
+	private Double totalGainHDTransfer;
 	private Double mortalityPct;
 	private Double preMarketPct;
 	private Integer pigDays;
 	private Integer dof;
-	private Double adg;
+	private Double adgWithoutTFR;
+	private Double adgWithTFR;
 	private Double totalFeedUsed;
 	private Double totalFeedBudget;
 	private Double budgetVariance;
@@ -406,16 +413,6 @@ public class GroupPerformanceAttribute {
 		this.dof = dof;
 	}
 
-	public Double getAdg() {
-		if(adg == null) adg = 0D;
-		return adg;
-	}
-	
-
-	@XmlElement
-	public void setAdg(Double adg) {
-		this.adg = adg;
-	}
 
 	public Double getTotalFeedUsed() {
 		if(totalFeedUsed == null) totalFeedUsed = 0D;
@@ -634,5 +631,79 @@ public class GroupPerformanceAttribute {
 	@XmlElement
 	public void setTransferNetPct(Double transferNetPct) {
 		this.transferNetPct = transferNetPct;
+	}
+
+	public Double getTransferStartWtTotal() {
+		return transferStartWtTotal;
+	}
+
+	public Double getTransferEndWtTotal() {
+		return transferEndWtTotal;
+	}
+
+	public Double getTotalGainWithoutTransfer() {
+		return totalGainWithoutTransfer;
+	}
+
+	public Double getTotalGainWithTransfer() {
+		return totalGainWithTransfer;
+	}
+
+	public Double getTotalGainHDWithoutTransfer() {
+		return totalGainHDWithoutTransfer;
+	}
+
+	public Double getTotalGainHDTransfer() {
+		return totalGainHDTransfer;
+	}
+
+	@XmlElement
+	public void setTransferStartWtTotal(Double transferStartWtTotal) {
+		this.transferStartWtTotal = transferStartWtTotal;
+	}
+
+	@XmlElement
+	public void setTransferEndWtTotal(Double transferEndWtTotal) {
+		this.transferEndWtTotal = transferEndWtTotal;
+	}
+
+	@XmlElement
+	public void setTotalGainWithoutTransfer(Double totalGainWithoutTransfer) {
+		this.totalGainWithoutTransfer = totalGainWithoutTransfer;
+	}
+
+	@XmlElement
+	public void setTotalGainWithTransfer(Double totalGainWithTransfer) {
+		this.totalGainWithTransfer = totalGainWithTransfer;
+	}
+
+	@XmlElement
+	public void setTotalGainHDWithoutTransfer(Double totalGainHDWithoutTransfer) {
+		this.totalGainHDWithoutTransfer = totalGainHDWithoutTransfer;
+	}
+
+	@XmlElement
+	public void setTotalGainHDTransfer(Double totalGainHDTransfer) {
+		this.totalGainHDTransfer = totalGainHDTransfer;
+	}
+
+	public Double getAdgWithoutTFR() {
+		if (adgWithoutTFR == null) return 0D;
+		return adgWithoutTFR;
+	}
+
+	public Double getAdgWithTFR() {
+		if (adgWithTFR==null) return 0D;
+		return adgWithTFR;
+	}
+
+	@XmlElement
+	public void setAdgWithoutTFR(Double adgWithoutTFR) {
+		this.adgWithoutTFR = adgWithoutTFR;
+	}
+
+	@XmlElement
+	public void setAdgWithTFR(Double adgWithTFR) {
+		this.adgWithTFR = adgWithTFR;
 	}
 }

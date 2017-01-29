@@ -171,7 +171,7 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getTransferNetPct()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
-		
+		//B15
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.weansales", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -180,7 +180,7 @@ public class GroupPerformanceReportService {
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		
-		//Feeder Sales
+		//B16 Feeder Sales
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.feedersales", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -188,7 +188,7 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getFeederSales()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
-		
+		//B17
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.premarketsales", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -196,7 +196,7 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getPreMarketSales()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
-		
+		//B18
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.marketsales", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -204,14 +204,7 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getMarketSales()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
-		
-		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.startwttotal", null, "", locale)+seprater);
-		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
-			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getStartWtTotal()+seprater);
-		}		
-		returnRows.add(rowBuffer.toString()+"\n");
+		//B19
 		
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.startwt", null, "", locale)+seprater);
@@ -220,7 +213,7 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getStartWt()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
-		
+
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.startwthdvary", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -228,12 +221,12 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getStartWtHdVary()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
-		
+		//B21
 		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.endwttotal", null, "", locale)+seprater);
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.startwttotal", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
 			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getEndWtTotal()+seprater);
+			 rowBuffer.append(performanceAttribute.getStartWtTotal()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		
@@ -252,7 +245,24 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getEndWtHdVary()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
+		//B24
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.endwttotal", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getEndWtTotal()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
 		
+		//b25
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferinwthd", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTransferInWtHd()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		//B26
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferinwttotal", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -269,15 +279,15 @@ public class GroupPerformanceReportService {
 		}		
 
 		returnRows.add(rowBuffer.toString()+"\n");
-*/		
+*/		//b27
 		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferinwthd", null, "", locale)+seprater);
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferoutwthd", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
 			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getTransferInWtHd()+seprater);
+			 rowBuffer.append(performanceAttribute.getTransferOutWtHd()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
-		
+		//B28
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferoutwttotal", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -286,34 +296,12 @@ public class GroupPerformanceReportService {
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		
-		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferoutwthd", null, "", locale)+seprater);
-		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
-			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getTransferOutWtHd()+seprater);
-		}		
-		returnRows.add(rowBuffer.toString()+"\n");
 
 		
 		
 		
-		
-		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.netrransferwt", null, "", locale)+seprater);
-		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
-			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getNetTransferWeight()+seprater);
-		}		
-		
-		returnRows.add(rowBuffer.toString()+"\n");
-		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.nettransferhd", null, "", locale)+seprater);
-		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
-			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getNetTransferHead()+seprater);
-		}		
-
-		returnRows.add(rowBuffer.toString()+"\n");
+		//b29=b27-b25
+//		returnRows.add(rowBuffer.toString()+"\n");
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.nettransferwthd", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
@@ -321,6 +309,71 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getNetTransferWeightPerHead()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
+		//b30=b28-b26
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.netrransferwt", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getNetTransferWeight()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		//B31
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferstartwttotal", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTransferStartWtTotal()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		//B32
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.transferendwttotal", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTransferEndWtTotal()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		//B33
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.totalgainwithouttransfer", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTotalGainWithoutTransfer()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.totalgainwithtransfer", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTotalGainWithTransfer()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.totalgainhdwithouttransfer", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTotalGainHDWithoutTransfer()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.totalgainhdtransfer", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTotalGainHDTransfer()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		
+/*		returnRows.add(rowBuffer.toString()+"\n");
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.nettransferhd", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getNetTransferHead()+seprater);
+		}		
+*/
 
 		
 		
@@ -337,7 +390,7 @@ public class GroupPerformanceReportService {
 		
 		
 		
-		rowBuffer = new StringBuffer();
+/*		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.totalgain", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
 			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
@@ -368,6 +421,8 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getGainHdPerTransfer()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
+*/		
+		
 		
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.growthperformance", null, "", locale)+seprater);			
@@ -407,10 +462,18 @@ public class GroupPerformanceReportService {
 		returnRows.add(rowBuffer.toString()+"\n");
 		
 		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.adg", null, "", locale)+seprater);
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.adgwithouttfr", null, "", locale)+seprater);
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
 			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getAdg()+seprater);
+			 rowBuffer.append(performanceAttribute.getAdgWithoutTFR()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.adgwithtfr", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getAdgWithTFR()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		

@@ -133,12 +133,12 @@ public class GroupPerformanceReportProcessor{
 							 performanceAttribute.setTransferNet(performanceAttribute.getTransferIn()  - performanceAttribute.getTransferOut());		
 							 performanceAttribute.setTransferNetPct(performanceAttribute.getTransferNet() * 100.00/ performanceAttribute.getStartHd()); 
 							 performanceAttribute.setTransferOutWtHd(performanceAttribute.getTransferOutWtTotal()/performanceAttribute.getTransferOut());
-							 Double netTransferWeight = performanceAttribute.getTransferInWtTotal() - performanceAttribute.getTransferOutWtTotal();
-							 performanceAttribute.setNetTransferWeight(netTransferWeight);
+//							 Double netTransferWeight = performanceAttribute.getTransferInWtTotal() - performanceAttribute.getTransferOutWtTotal();
+							 performanceAttribute.setNetTransferWeight(performanceAttribute.getTransferOutWtTotal()- performanceAttribute.getTransferInWtTotal() );
 							 Integer netTransferHead = performanceAttribute.getTransferIn()-performanceAttribute.getTransferOut();
 							 performanceAttribute.setNetTransferHead(netTransferHead);
-							 Double netTransferWtPerHead = Math.round(performanceAttribute.getNetTransferWeight()*100.0)/(performanceAttribute.getNetTransferHead()*100.0);
-							 performanceAttribute.setNetTransferWeightPerHead(netTransferWtPerHead);
+//							 Double netTransferWtPerHead = Math.round(performanceAttribute.getNetTransferWeight()*100.0)/(performanceAttribute.getNetTransferHead()*100.0);
+							 performanceAttribute.setNetTransferWeightPerHead(performanceAttribute.getTransferOutWtHd()-performanceAttribute.getTransferInWtHd());
 							 
 							 
 						 }
@@ -160,6 +160,13 @@ public class GroupPerformanceReportProcessor{
 						 Double gainHdPerTransfer = Math.round(performanceAttribute.getTotalGainWtPerTranfer()*100.0)/((performanceAttribute.getWeanSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getFeederSales()+performanceAttribute.getMarketSales()+performanceAttribute.getTransferOut())*100.0);
 						 performanceAttribute.setGainHdPerTransfer(gainHdPerTransfer);
 						 
+						 performanceAttribute.setTransferStartWtTotal(performanceAttribute.getStartWtTotal()+performanceAttribute.getTransferInWtTotal());
+						 performanceAttribute.setTransferEndWtTotal(performanceAttribute.getEndWtTotal()+performanceAttribute.getTransferOutWtTotal()); 
+						 performanceAttribute.setTotalGainWithoutTransfer(performanceAttribute.getEndWtTotal()-performanceAttribute.getStartWtTotal());
+						 performanceAttribute.setTotalGainWithTransfer(performanceAttribute.getTransferEndWtTotal()-performanceAttribute.getTransferStartWtTotal());
+						 performanceAttribute.setTotalGainHDWithoutTransfer(performanceAttribute.getTotalGainWithoutTransfer()/(performanceAttribute.getWeanSales()+performanceAttribute.getFeederSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getMarketSales()));
+						 performanceAttribute.setTotalGainHDTransfer(performanceAttribute.getTotalGainWithTransfer()/(performanceAttribute.getWeanSales()+performanceAttribute.getFeederSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getMarketSales()+performanceAttribute.getTransferOut()));
+						 
 						 Double mortalityPct = Math.round(performanceAttribute.getPigDeaths()*100.0)/((performanceAttribute.getStartHd()+performanceAttribute.getTransferIn())*100.0);
 						 performanceAttribute.setMortalityPct(((mortalityPct*100)*100.0)/100.0);
 						 Double preMarketPct = Math.round(performanceAttribute.getPreMarketSales()*100.0)/((performanceAttribute.getStartHd()+performanceAttribute.getTransferIn())*100.0);
@@ -169,10 +176,11 @@ public class GroupPerformanceReportProcessor{
 						 
 						 //DOF to calculate
 //						 performanceAttribute.setDof(groupEventDetailsDao.calculateDaysOnFeed(group.getId()));
-						 performanceAttribute.setDof(performanceAttribute.getPigDays()/(performanceAttribute.getEndHd()+performanceAttribute.getTransferOut()));
+						 performanceAttribute.setDof(performanceAttribute.getPigDays()/(performanceAttribute.getFeederSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getMarketSales()+performanceAttribute.getTransferOut()));
 						 
 						 
-						 performanceAttribute.setAdg(performanceAttribute.getTotalGainWt()/(performanceAttribute.getEndHd())/performanceAttribute.getPigDays());
+						 performanceAttribute.setAdgWithoutTFR(performanceAttribute.getTotalGainHDWithoutTransfer()/performanceAttribute.getDof());
+						 performanceAttribute.setAdgWithTFR(performanceAttribute.getTotalGainHDTransfer()/performanceAttribute.getDof());
 						 
 						 performanceAttribute.setTotalFeedUsed(feedDetailDao.getTotalFeedUsed(group.getId()));
 						 performanceAttribute.setTotalFeedBudget(feedDetailDao.getTotalFeedBudgeted(group.getId()));
