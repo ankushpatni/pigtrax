@@ -236,7 +236,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		
 		
 		@SuppressWarnings("unchecked")
-		Date nextFeedDate  = (Date)jdbcTemplate.query(salesDateqry,new PreparedStatementSetter() {
+		Date lastSale  = (Date)jdbcTemplate.query(salesDateqry,new PreparedStatementSetter() {
 			@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
 					ps.setInt(1, groupId);
@@ -251,6 +251,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			          }
 			        });
 		
+		
 		Double budgetedFeed = 0D;
 		
 		String qry = " select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  "
@@ -264,10 +265,20 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
 		if(budgetList != null && 0 <budgetList.size())
 		{
-//			int count=1;
+			int count=1;
 			for(Map<String, Object> entry : budgetList)
 			{
 				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
+				Date nextfeedDate = null;
+				if (count<budgetList.size()){
+					nextfeedDate = budgetList.get(count).get("feedEventDate") != null? (Date)budgetList.get(count).get("feedEventDate"):null;
+					
+				}
+				else{
+					nextfeedDate = lastSale;
+					
+				}
+				count++;
 //				Date nextFeedDate = null;
 				Date groupStartDate = entry.get("groupStartDate") != null ? (Date)entry.get("groupStartDate") : null;
 				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
@@ -300,10 +311,10 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 						}
 					}
 					int duration = 0;
-					if(feedDate != null && nextFeedDate != null)
+					if(feedDate != null && nextfeedDate != null)
 					{
 						DateTime start = new DateTime(feedDate.getTime());
-						DateTime end = new DateTime(nextFeedDate.getTime());
+						DateTime end = new DateTime(nextfeedDate.getTime());
 						duration  = Days.daysBetween(start, end).getDays();
 					}	
 					budgetedFeed += sowCount*targetValue* duration;
@@ -355,7 +366,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		
 		
 		@SuppressWarnings("unchecked")
-		Date nextFeedDate  = (Date)jdbcTemplate.query(salesDateqry,new PreparedStatementSetter() {
+		Date lastSaleDate  = (Date)jdbcTemplate.query(salesDateqry,new PreparedStatementSetter() {
 			@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
 					ps.setInt(1, groupId);
@@ -383,12 +394,22 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
 		if(budgetList != null && 0 <budgetList.size())
 		{
-//			int count =1;
+			int count =1;
 			for(Map<String, Object> entry : budgetList)
 			{
 				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
 				Double targetValue = entry.get("targetValue") != null ? Double.parseDouble((String)entry.get("targetValue")) : 0D;
-//				Date nextFeedDate = null;
+				Date nextFeedDate = null;
+				if (count<budgetList.size()){
+					nextFeedDate = budgetList.get(count).get("feedEventDate") != null? (Date)budgetList.get(count).get("feedEventDate"):null;
+					
+				}
+				else{
+					nextFeedDate = lastSaleDate;
+					
+				}
+				count++;
+				Date groupStartDate = entry.get("groupStartDate") != null ? (Date)entry.get("groupStartDate") : null;
 				if(feedDate != null)
 				{
 					String sql = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
@@ -410,13 +431,21 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 				          }
 				        });
 					int duration = 0;
+					if(sowCount == 0 && feedDate.getTime() <= groupStartDate.getTime())
+					{
+						Map<String, Object> detailsMap = groupEventDao.getStartWtAndHead(groupId);
+						if(detailsMap != null && detailsMap.get("StartHd") != null)
+						{
+							sowCount = ((Long)detailsMap.get("StartHd")).intValue();
+						}
+					}
 					if(feedDate != null && nextFeedDate != null)
 					{
 						DateTime start = new DateTime(feedDate.getTime());
 						DateTime end = new DateTime(nextFeedDate.getTime());
 						duration  = Days.daysBetween(start, end).getDays();
 					}	
-					budgetedFeed += sowCount*targetValue*duration;
+					budgetedFeed += sowCount*targetValue;
 				}
 				
 			}
