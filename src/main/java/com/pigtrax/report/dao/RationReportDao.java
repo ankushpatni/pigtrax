@@ -112,7 +112,7 @@ public class RationReportDao {
 											" WHERE P.\"id\" = ? and FED.\"id_GroupEvent\" = ? and  (A.\"batchId\" IS NOT NULL OR  B.\"batchId\" IS NOT NULL OR C.\"batchId\" IS NOT NULL)) T "+
 										" LEFT JOIN (  "+
 										 " select CT.\"id_Ration\" , CT.\"id_Premise\",  CAST(coalesce(CT.\"targetValue\", '0') AS decimal) as \"tons\", 'tonsUsed' as ind from pigtrax.\"CompanyTarget\"  CT  "+
-										 " JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fieldDescription\" = 'Feed_tons used' and CT.\"id_Premise\" = ? "+
+										 " JOIN pigtraxrefdata.\"TargetType\" TT ON CT.\"id_TargetType\" = TT.\"id\" and TT.\"fieldDescription\" = 'Feed_number of days' and CT.\"id_Premise\" = ? "+
 										 " ) tons ON  T.\"batchId\" = tons.\"id_Ration\" "+
 										 " LEFT JOIN ( "+
 										  " SELECT CT.\"id_Ration\", CT.\"id_Premise\", CAST(coalesce(CT.\"targetValue\", '0') AS decimal) as \"kg/day\", 'Kg/Day' as ind from pigtrax.\"CompanyTarget\"  CT  "+

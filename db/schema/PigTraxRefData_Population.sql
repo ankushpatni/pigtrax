@@ -7120,7 +7120,7 @@ INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpd
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (108,'Pigs Weaned/Female/Year',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (109,'Pigs Weaned/Mated Female/Year',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (110,'Pigs Weaned/Lifetime',CURRENT_TIMESTAMP,'pigtraxadmin');
-INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (111,'Feed_tons used',CURRENT_TIMESTAMP,'pigtraxadmin');
+INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (111,'Feed_number of days',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (112,'Feed_kg/pig/day',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (113,'Feed_Feed cost/pig',CURRENT_TIMESTAMP,'pigtraxadmin');
 INSERT INTO pigtraxrefdata."TargetType" ("fieldCode","fieldDescription","lastUpdated","userUpdated") VALUES (114,'Start Head',CURRENT_TIMESTAMP,'pigtraxadmin');
@@ -7245,7 +7245,7 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs Weaned/Female/Year','en',CURRENT_TIMESTAMP,'pigtraxadmin',108);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs Weaned/Mated Female/Year','en',CURRENT_TIMESTAMP,'pigtraxadmin',109);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Pigs Weaned/Lifetime','en',CURRENT_TIMESTAMP,'pigtraxadmin',110);
-INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_tons used','en',CURRENT_TIMESTAMP,'pigtraxadmin',111);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_number of days','en',CURRENT_TIMESTAMP,'pigtraxadmin',111);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_kg/pig/day','en',CURRENT_TIMESTAMP,'pigtraxadmin',112);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_Feed cost/pig','en',CURRENT_TIMESTAMP,'pigtraxadmin',113);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Start Head','en',CURRENT_TIMESTAMP,'pigtraxadmin',114);
@@ -7370,7 +7370,7 @@ INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage"
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lechones Destetados/Hembra/Año','es',CURRENT_TIMESTAMP,'pigtraxadmin',108);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lechones Destetados/HembraMontada/Año','es',CURRENT_TIMESTAMP,'pigtraxadmin',109);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Lechones Destetados Hembra Toda la Vida','es',CURRENT_TIMESTAMP,'pigtraxadmin',110);
-INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_tons used','es',CURRENT_TIMESTAMP,'pigtraxadmin',111);
+INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_number of days','es',CURRENT_TIMESTAMP,'pigtraxadmin',111);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_kg/pig/day','es',CURRENT_TIMESTAMP,'pigtraxadmin',112);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Feed_Feed cost/pig','es',CURRENT_TIMESTAMP,'pigtraxadmin',113);
 INSERT INTO pigtraxrefdata."TargetTypeTranslation" ("fieldValue","fieldLanguage","lastUpdated","userUpdated","id_TargetType") VALUES ('Num. Cerdos Inicial','es',CURRENT_TIMESTAMP,'pigtraxadmin',114);
