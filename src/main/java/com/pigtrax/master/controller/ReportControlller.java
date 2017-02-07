@@ -14,6 +14,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -3593,6 +3595,34 @@ public class ReportControlller {
 			String selectedGroup = request.getParameter("selectedGroup");
 			String fromOverView = request.getParameter("fromOverView");
 			List<String> rows =new ArrayList<String>();
+			
+			String days = request.getParameter("days");
+			String weeks = request.getParameter("weeks");
+			String months = request.getParameter("months");
+			
+			String duration = request.getParameter("Duration");
+			DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+			int intDuration=0; 
+			try {
+				intDuration=Integer.parseInt(duration); 
+			} catch (Exception e) {
+				intDuration = 0;
+			}
+			if(days !=null && !days.isEmpty()){
+				endDatedt = endDatedt.minusDays(intDuration);
+			}
+			else if (months !=null && !months.isEmpty()){
+				endDatedt = endDatedt.minusMonths(intDuration);
+				
+			}
+			else if (weeks !=null && !weeks.isEmpty()){
+				endDatedt = endDatedt.minusWeeks(intDuration);
+				
+			}
+			java.util.Date startDatedt = endDatedt.toDate();
+
+
+			
 			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 			try {
 				Integer premiseId = Integer.parseInt(selectedPremise);
@@ -3606,7 +3636,7 @@ public class ReportControlller {
 					response.setHeader("Content-disposition", "attachment;filename="+reportName);
 					if(premiseId > 0) 
 					{ 
-						rows = rationReportService.getRationReportList(premise.getPermiseId(), Integer.parseInt(companyId), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request)); 
+						rows = rationReportService.getRationReportList(premise.getPermiseId(), Integer.parseInt(companyId), premiseId, startDatedt, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request)); 
 						Iterator<String> iter = rows.iterator();
 						if(rows != null && rows.size() > 0)
 						{
@@ -4199,6 +4229,32 @@ public class ReportControlller {
 				String endDate = request.getParameter("endDate");
 				String fromOverView = request.getParameter("fromOverView");
 				
+				String days = request.getParameter("days");
+				String weeks = request.getParameter("weeks");
+				String months = request.getParameter("months");
+				
+				String duration = request.getParameter("Duration");
+				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+				int intDuration=0; 
+				try {
+					intDuration=Integer.parseInt(duration); 
+				} catch (Exception e) {
+					intDuration = 0;
+				}
+				if(days !=null && !days.isEmpty()){
+					endDatedt = endDatedt.minusDays(intDuration);
+				}
+				else if (months !=null && !months.isEmpty()){
+					endDatedt = endDatedt.minusMonths(intDuration);
+					
+				}
+				else if (weeks !=null && !weeks.isEmpty()){
+					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				java.util.Date startDatedt = endDatedt.toDate();
+
+				
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				String language = localeResolver.resolveLocale(request).getLanguage();
 				
@@ -4215,7 +4271,7 @@ public class ReportControlller {
 												
 						if(premiseId > 0)
 						{ 
-							rows = pigletMortalityReportService.getPigletMortalityList(premise.getPermiseId(), premiseId, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request));
+							rows = pigletMortalityReportService.getPigletMortalityList(premise.getPermiseId(), premiseId,startDatedt, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), localeResolver.resolveLocale(request));
 							if(rows != null && rows.size() > 1)
 							{
 								response.setContentType("text/csv");
@@ -4674,6 +4730,32 @@ public class ReportControlller {
 				String reportType = request.getParameter("reportType");
 				String selectedSowSource = request.getParameter("selectedSowSource");
 				
+				String days = request.getParameter("days");
+				String weeks = request.getParameter("weeks");
+				String months = request.getParameter("months");
+				
+				String duration = request.getParameter("Duration");
+				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+				int intDuration=0; 
+				try {
+					intDuration=Integer.parseInt(duration); 
+				} catch (Exception e) {
+					intDuration = 0;
+				}
+				if(days !=null && !days.isEmpty()){
+					endDatedt = endDatedt.minusDays(intDuration);
+				}
+				else if (months !=null && !months.isEmpty()){
+					endDatedt = endDatedt.minusMonths(intDuration);
+					
+				}
+				else if (weeks !=null && !weeks.isEmpty()){
+					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				java.util.Date startDatedt = endDatedt.toDate();
+
+				
 				LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 				
 				List<String> rows =new ArrayList<String>();			
@@ -4685,7 +4767,7 @@ public class ReportControlller {
 						String reportName = "CSV_Report_GroupStatusReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						
-							rows = groupStatusReportService.getGroupStatusResult(Integer.parseInt(companyId), selectedPremise, DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request), reportType, selectedSowSource); 
+							rows = groupStatusReportService.getGroupStatusResult(Integer.parseInt(companyId), selectedPremise, startDatedt, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request), reportType, selectedSowSource); 
 							Iterator<String> iter = rows.iterator();
 							if(rows != null && rows.size() > 1)
 							{
@@ -4837,6 +4919,30 @@ public class ReportControlller {
 				String selectedEvent = request.getParameter("selectedEvent");
 				String groupIdStr = request.getParameter("selectedGroup");
 				String pigIdStr = request.getParameter("selectedPig");
+				String days = request.getParameter("days");
+				String weeks = request.getParameter("weeks");
+				String months = request.getParameter("months");
+				
+				String duration = request.getParameter("Duration");
+				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+				int intDuration=0; 
+				try {
+					intDuration=Integer.parseInt(duration); 
+				} catch (Exception e) {
+					intDuration = 0;
+				}
+				if(days !=null && !days.isEmpty()){
+					endDatedt = endDatedt.minusDays(intDuration);
+				}
+				else if (months !=null && !months.isEmpty()){
+					endDatedt = endDatedt.minusMonths(intDuration);
+					
+				}
+				else if (weeks !=null && !weeks.isEmpty()){
+					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				java.util.Date startDatedt = endDatedt.toDate();
 				
 				List<String> rows =new ArrayList<String>();			
 				try {
@@ -4870,7 +4976,8 @@ public class ReportControlller {
 						String reportName = "CSV_Report_DataExtractionReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						 
-						rows = extractionService.getData(premiseId, pigId, groupId, reportOption, eventTypeId,  DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), locale);
+						rows = extractionService.getData(premiseId, pigId, groupId, reportOption, eventTypeId,  startDatedt, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), locale);
+//						rows = extractionService.getData(premiseId, pigId, groupId, reportOption, eventTypeId,  DateUtil.convertToFormat(startDate, "dd/MM/yyyy"), DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), locale);
 						if(rows != null && rows.size() > 1)
 						{
 							Iterator<String> iter = rows.iterator();
@@ -5183,6 +5290,33 @@ public class ReportControlller {
 					System.out.println("startDate = " + startDate);
 					System.out.println("startDate = " + endDate);
 					System.out.println("selectedPremise = " + selectedPremise);
+					String days = request.getParameter("days");
+					String weeks = request.getParameter("weeks");
+					String months = request.getParameter("months");
+					
+					String duration = request.getParameter("Duration");
+					DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+					DateTime startDatedt = null;
+					int intDuration=0; 
+					try {
+						intDuration=Integer.parseInt(duration); 
+					} catch (Exception e) {
+						intDuration = 0;
+					}
+					if(days !=null && !days.isEmpty()){
+						startDatedt = endDatedt.minusDays(intDuration);
+					}
+					else if (months !=null && !months.isEmpty()){
+						startDatedt = endDatedt.minusMonths(intDuration);
+						
+					}
+					else if (weeks !=null && !weeks.isEmpty()){
+						startDatedt = endDatedt.minusWeeks(intDuration);
+						
+					}
+					java.util.Date startDatevar = startDatedt.toDate();
+					java.util.Date endDatevar = endDatedt.toDate();
+					
 					
 					Integer companyId ;
 					
@@ -5213,7 +5347,7 @@ public class ReportControlller {
 			    
 					
 					
-					List<String> rows = performanceReportService.getGroupPerformanceReportList(selectedPremise, endDate, status, numberOfWeeks, local); 
+					List<String> rows = performanceReportService.getGroupPerformanceReportList(selectedPremise, endDatevar, status, startDatevar, local); 
 					
 					Iterator<String> iter = rows.iterator();
 					while (iter.hasNext()) {

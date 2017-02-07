@@ -13,13 +13,16 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
 	$scope.selectedGroup = -1;
 	$scope.selectedPig = -1;
 	$scope.disableRadioOnIndivPigletEvent = false;
-	
+	$scope.selectedDurationOption;
+	$scope.duration;
 	
 	$scope.getEventTypes = function()
 	{
 		restServices.getEventTypes(function(data)
 		{
 			if(!data.error){
+//				console.log($duration);
+//				console.log($selectedDurationOption);
 				var responseList = data.payload;
 				$scope.eventTypeKeys = responseList[0];
 				$scope.eventTypeValues =responseList[1];
@@ -119,7 +122,7 @@ pigTrax.controller('DataExtractionReportController', function($scope, $http, $wi
     	if($scope.selectedPig == null)
     		$scope.selectedPig = "";
     	
-    	if($scope.selectedPremise != null && $scope.startDate !=  null &&  $scope.endDate != null && $scope.selectedEvent != null)
+    	if($scope.selectedPremise != null &&  $scope.endDate != null && $scope.selectedEvent != null)
     	{
     		$scope.criteriaMessage = false;
     		if($scope.selectedEvent == 13)

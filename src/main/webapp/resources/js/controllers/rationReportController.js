@@ -28,7 +28,7 @@ pigTrax.controller('RationReportController', function($scope, $http, $window,$mo
     $scope.generateRationReport = function()
     {	
     	if($scope.companyId == null || $scope.selectedPremise == null || $scope.selectedGroup == null 
-    			|| $scope.startDate == null || $scope.endDate == null)
+    			||  $scope.endDate == null)
 		{
 		  $scope.mandatoryField = true;
 		}

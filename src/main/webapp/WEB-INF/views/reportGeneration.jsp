@@ -10,7 +10,7 @@
 		<div class="col-sm-3 col-md-3"></div>
 		<div class="col-sm-6 col-md-6">
 			<div class="block-flat">
-				<form method="POST" action="generateReport" name="generateReport">
+				<form method="POST" novalidate angular-validator action="generateReport" name="generateReport">
 					<div class="head">
 						<h3 style="color:green">${token}</h3>
 						<h3>
@@ -44,14 +44,42 @@
 								</div> -->
                     	</div>
                     	
-                    	<div class="form-group">
-                      		<label><spring:message code='label.piginfo.generateReport.numberOfWeeks'  text='Number of Weeks'/><span style='color: red'>*</span></label>
-                      			<input type="number" name="numberOfWeeks" class="form-control" ng-model="numberOfWeeks" step="1"/>
-								<input type="hidden" name="startDate" class="form-control" ng-model="startDate"/>
-		                      <!-- <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
-		                          <input size="16" type="date" name="startDate" readonly="" class="form-control" format-date/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span>
-								</div> -->
-                    	</div>
+                    	<div  class="form-group">
+							<label><spring:message code=''  text='Duration'/><span style='color: red'>*</span></label> 
+							<!-- i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i-->
+							<input class="form-control" type="text"
+								placeholder="<spring:message code='' text='Duration' />"
+								name="Duration" ng-model="duration" maxlength="8"
+								required
+								required-message="'<spring:message code='' text='Duration required' />'"
+								ng-pattern="/^\d{1,8}?$/i"
+								invalid-message="'<spring:message code='' text='Only Numeric values Allowed.'/>'" />
+
+						</div>
+                    	
+                    	<div  class="form-group" >
+							<label class="radio-inline">
+			                  <input type="radio" name="days" id="days" class="farrowevent" value="days" ng-model="selectedDurationOption"   > <spring:message code=''  text='Days'/>
+			                </label>
+			                <label class="radio-inline">
+			                  <input type="radio" name="weeks" id="weeks" class="farrowevent" value="weeks" ng-model="selectedDurationOption"  > <spring:message code=''  text='Weeks'/> 
+			                </label>
+			                <label class="radio-inline">
+			                  <input type="radio" name="months" id="months" class="farrowevent" value="months" ng-model="selectedDurationOption" > <spring:message code=''  text='Months'/> 
+			                </label>
+						</div>
+								
+                    	
+                    	
+                    	
+<!--                     	<div class="form-group"> -->
+<%--                       		<label><spring:message code='label.piginfo.generateReport.numberOfWeeks'  text='Number of Weeks'/><span style='color: red'>*</span></label> --%>
+<!--                       			<input type="number" name="numberOfWeeks" class="form-control" ng-model="numberOfWeeks" step="1"/> -->
+<!-- 								<input type="hidden" name="startDate" class="form-control" ng-model="startDate"/> -->
+<!-- 		                      <div data-min-view="2" data-date-format="yyyy-mm-dd" class="input-group date datetime col-md-5 col-xs-7"  >
+<!-- 		                          <input size="16" type="date" name="startDate" readonly="" class="form-control" format-date/><span class="input-group-addon btn btn-primary"><span class="glyphicon glyphicon-th"></span></span> -->
+<!-- 								</div> --> 
+<!--                     	</div> -->
                     	
                     	<button type="button" value="report" ng-click="searchGroupInfo()">
 							<spring:message code='label.piginfo.generateReport.button'

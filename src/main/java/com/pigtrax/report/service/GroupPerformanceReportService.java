@@ -43,16 +43,16 @@ public class GroupPerformanceReportService {
 	@Autowired
 	MessageSource messageSource;
 
-	public List<String> getGroupPerformanceReportList(String selectedPremise, String endDate, String status, Integer numberOfWeeks, Locale locale)  throws Exception{ 
+	public List<String> getGroupPerformanceReportList(String selectedPremise, Date endDate, String status, Date startDate, Locale locale)  throws Exception{ 
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		List<String> returnRows = new ArrayList<String>();
 		
-		Date inputEndDate  = DateUtil.convertToFormat(endDate, "dd/MM/yyyy");
-		Date inputStartDate  = DateUtil.addDays(inputEndDate, numberOfWeeks*-7);
+//		Date inputEndDate  = DateUtil.convertToFormat(endDate, "dd/MM/yyyy");
+//		Date inputStartDate  = DateUtil.addDays(inputEndDate, numberOfWeeks*-7);
 		
 		boolean isActive = status!=null&&status.equalsIgnoreCase("active")?true:false;
-	    List<GroupPerformanceReportDataDto> resultList  = groupStatusReportDao.getPerformanceReportList(inputStartDate, inputEndDate, Integer.parseInt(selectedPremise),isActive);		
+	    List<GroupPerformanceReportDataDto> resultList  = groupStatusReportDao.getPerformanceReportList(startDate, endDate, Integer.parseInt(selectedPremise),isActive);		
 	
 		StringBuffer rowBuffer = null;			
 			

@@ -47,7 +47,7 @@ pigTrax.controller('PigletMortalityReportController', function($scope, $http, $w
     $scope.generatePigletMortalityReport = function()
     {	
     	
-    	if($scope.companyId != null && $scope.selectedPremise !=  null && $scope.startDate !=  null &&  $scope.endDate != null)
+    	if($scope.companyId != null && $scope.selectedPremise !=  null  &&  $scope.endDate != null)
     	{
     		$scope.criteriaMessage = false;
     			document.getElementById("companyId1").value	= $scope.companyId;		

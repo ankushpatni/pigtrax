@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
@@ -138,6 +139,33 @@ public class PerformanceReportController {
 				Integer premiseId  = 0;
 				Integer numberOfWeeks = 0;
 				numberOfWeeks = Integer.parseInt(numberOfWeeksStr);
+				
+				String days = request.getParameter("days");
+				String weeks = request.getParameter("weeks");
+				String months = request.getParameter("months");
+				
+				String duration = request.getParameter("Duration");
+				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
+				int intDuration=0; 
+				try {
+					intDuration=Integer.parseInt(duration); 
+				} catch (Exception e) {
+					intDuration = 0;
+				}
+				if(days !=null && !days.isEmpty()){
+					endDatedt = endDatedt.minusDays(intDuration);
+				}
+				else if (months !=null && !months.isEmpty()){
+					endDatedt = endDatedt.minusMonths(intDuration);
+					
+				}
+				else if (weeks !=null && !weeks.isEmpty()){
+					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				java.util.Date startDatedt = endDatedt.toDate();
+				startDate = DateUtil.convertToFormatString(startDatedt, "dd/MM/yyyy");
+
 				
 				System.out.println("startDate = " + startDate);
 				System.out.println("startDate = " + endDate);

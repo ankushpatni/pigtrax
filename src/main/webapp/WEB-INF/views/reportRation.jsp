@@ -49,15 +49,41 @@
                       		  </select>
 						</div>
 						
-						<div  class="form-group">
-						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/></label> 
-							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
-                      	<input type="text" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"  required required-message="'<spring:message code='label.report.startdate.required' text='Start Date is required' />'" />
-								</div>
+<!-- 						<div  class="form-group"> -->
+<%-- 						<label><spring:message code='label.piginfo.generateReport.startDate'  text='Start Date'/></label>  --%>
+<%-- 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i> --%>
+<%--                       	<input type="text" class="form-control" ng-model="startDate" mask="39/19/2999" mask-validate='true' name="startDate"  required required-message="'<spring:message code='label.report.startdate.required' text='Start Date is required' />'" /> --%>
+<!-- 								</div> -->
                     	<label><spring:message code='label.piginfo.generateReport.endDate'  text='End Date'/></label> 
 							<i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>
                       	<input type="text" class="form-control" ng-model="endDate" mask="39/19/2999" mask-validate='true' name="endDate"  required required-message="'<spring:message code='label.report.enddate.required' text='End Date is required' />'" />
 								</div>
+								
+						<div  class="form-group">
+							<label><spring:message code=''  text='Duration'/><span style='color: red'>*</span></label> 
+							<!-- i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i-->
+							<input class="form-control" type="text"
+								placeholder="<spring:message code='' text='Duration' />"
+								name="Duration" ng-model="duration" maxlength="8"
+								required
+								required-message="'<spring:message code='' text='Duration required' />'"
+								ng-pattern="/^\d{1,8}?$/i"
+								invalid-message="'<spring:message code='' text='Only Numeric values Allowed.'/>'" />
+
+						</div>
+                    	
+                    	<div  class="form-group" >
+							<label class="radio-inline">
+			                  <input type="radio" name="days" id="days" class="farrowevent" value="days" ng-model="selectedDurationOption"   > <spring:message code=''  text='Days'/>
+			                </label>
+			                <label class="radio-inline">
+			                  <input type="radio" name="weeks" id="weeks" class="farrowevent" value="weeks" ng-model="selectedDurationOption"  > <spring:message code=''  text='Weeks'/> 
+			                </label>
+			                <label class="radio-inline">
+			                  <input type="radio" name="months" id="months" class="farrowevent" value="months" ng-model="selectedDurationOption" > <spring:message code=''  text='Months'/> 
+			                </label>
+						</div>
+						
 						<button type="submit" value="report" ng-click="generateRationReport()">
 							<spring:message code='label.piginfo.generateReport.button'
 								text='Generate Report' />

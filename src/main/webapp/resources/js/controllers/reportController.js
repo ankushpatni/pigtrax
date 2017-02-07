@@ -1,5 +1,7 @@
 pigTrax.controller('reportController', function($scope, $http, $window,$modal, restServices) {	
 	$scope.companyId = 0;
+	$scope.selectedDurationOption;
+	$scope.duration;
 
 	
 	$scope.loadPremises = function(comapnyId)
