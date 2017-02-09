@@ -55,7 +55,9 @@ public class ReportServiceImpl implements ReportService{
 		try {
 			//startDateD = new Date( sdf.parse(startDate).getTime());			
 			endDateD = new Date( sdf.parse(endDate).getTime());
-			startDateD = new java.sql.Date(DateUtil.addDays(new java.util.Date(sdf.parse(endDate).getTime()), numberOfWeeks*-7).getTime());
+			startDateD = new Date( sdf.parse(startDate).getTime());
+//			startDateD = new java.sql.Date(DateUtil.addDays(new java.util.Date(sdf.parse(endDate).getTime()), numberOfWeeks*-7).getTime());
+//			startDateD = new java.sql.Date(DateUtil.addDays(new java.util.Date(sdf.parse(endDate).getTime()), numberOfWeeks*-7).getTime());
 			dateMapDate = new LinkedHashMap<Date,Map>();
 			monthsBetween(startDateD, endDateD, companyId, premisesId);
 			
