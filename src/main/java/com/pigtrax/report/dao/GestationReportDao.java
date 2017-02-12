@@ -292,8 +292,10 @@ public class GestationReportDao {
 			
 			remainingCnt = sowCount - removalCnt;
 			weekCntMap.put(index, remainingCnt);*/
-			if(reportOption.equalsIgnoreCase("pregnant"))
-				remainingCnt = sowCount - notPregnantCnt;
+			if(reportOption.equalsIgnoreCase("pregnant")){
+				remainingCnt = sowCount;
+//				remainingCnt = sowCount - notPregnantCnt;
+			}
 			else
 				remainingCnt = notPregnantCnt;
 			weekCntMap.put(index, remainingCnt);

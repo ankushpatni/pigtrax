@@ -14,6 +14,7 @@ pigTrax.controller('GestationReportController', function($scope, $http, $window,
 		{
 			localCompany  = comapnyId;
 		}
+//		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=1,4,6,8,');
 		var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+localCompany+'&premisesType=1,4,6,8');
 		res.success(function(data, status, headers, config) {
 			$scope.premiseList = data.payload;
