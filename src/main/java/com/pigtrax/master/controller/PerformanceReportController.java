@@ -143,6 +143,7 @@ public class PerformanceReportController {
 				String days = request.getParameter("days");
 				String weeks = request.getParameter("weeks");
 				String months = request.getParameter("months");
+				String years = request.getParameter("years");
 				
 				String duration = request.getParameter("Duration");
 				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
@@ -161,6 +162,10 @@ public class PerformanceReportController {
 				}
 				else if (weeks !=null && !weeks.isEmpty()){
 					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				else if (years !=null && !years.isEmpty()){
+					endDatedt = endDatedt.minusYears(intDuration);
 					
 				}
 				java.util.Date startDatedt = endDatedt.toDate();

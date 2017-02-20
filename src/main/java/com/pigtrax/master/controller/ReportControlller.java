@@ -3599,6 +3599,7 @@ public class ReportControlller {
 			String days = request.getParameter("days");
 			String weeks = request.getParameter("weeks");
 			String months = request.getParameter("months");
+			String years = request.getParameter("years");
 			
 			String duration = request.getParameter("Duration");
 			DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
@@ -3617,6 +3618,10 @@ public class ReportControlller {
 			}
 			else if (weeks !=null && !weeks.isEmpty()){
 				endDatedt = endDatedt.minusWeeks(intDuration);
+				
+			}
+			else if (years !=null && !years.isEmpty()){
+				endDatedt = endDatedt.minusYears(intDuration);
 				
 			}
 			java.util.Date startDatedt = endDatedt.toDate();
@@ -3710,6 +3715,7 @@ public class ReportControlller {
 				String days = request.getParameter("days");
 				String weeks = request.getParameter("weeks");
 				String months = request.getParameter("months");
+				String years = request.getParameter("years");
 				
 				String duration = request.getParameter("Duration");
 				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
@@ -3728,6 +3734,10 @@ public class ReportControlller {
 				}
 				else if (weeks !=null && !weeks.isEmpty()){
 					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				else if (years !=null && !years.isEmpty()){
+					endDatedt = endDatedt.minusYears(intDuration);
 					
 				}
 				java.util.Date startDatedt = endDatedt.toDate();
@@ -4261,7 +4271,8 @@ public class ReportControlller {
 				String days = request.getParameter("days");
 				String weeks = request.getParameter("weeks");
 				String months = request.getParameter("months");
-				
+				String years = request.getParameter("years");
+							
 				String duration = request.getParameter("Duration");
 				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
 				int intDuration=0; 
@@ -4279,6 +4290,10 @@ public class ReportControlller {
 				}
 				else if (weeks !=null && !weeks.isEmpty()){
 					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				else if (years !=null && !years.isEmpty()){
+					endDatedt = endDatedt.minusYears(intDuration);
 					
 				}
 				java.util.Date startDatedt = endDatedt.toDate();
@@ -4762,6 +4777,7 @@ public class ReportControlller {
 				String days = request.getParameter("days");
 				String weeks = request.getParameter("weeks");
 				String months = request.getParameter("months");
+				String years = request.getParameter("years");
 				
 				String duration = request.getParameter("Duration");
 				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
@@ -4780,6 +4796,10 @@ public class ReportControlller {
 				}
 				else if (weeks !=null && !weeks.isEmpty()){
 					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				else if (years !=null && !years.isEmpty()){
+					endDatedt = endDatedt.minusYears(intDuration);
 					
 				}
 				java.util.Date startDatedt = endDatedt.toDate();
@@ -5322,6 +5342,7 @@ public class ReportControlller {
 					String days = request.getParameter("days");
 					String weeks = request.getParameter("weeks");
 					String months = request.getParameter("months");
+					String years = request.getParameter("years");
 					
 					String duration = request.getParameter("Duration");
 					DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
@@ -5341,6 +5362,10 @@ public class ReportControlller {
 					}
 					else if (weeks !=null && !weeks.isEmpty()){
 						startDatedt = endDatedt.minusWeeks(intDuration);
+						
+					}
+					else if (years !=null && !years.isEmpty()){
+						startDatedt = endDatedt.minusYears(intDuration);
 						
 					}
 					java.util.Date startDatevar = startDatedt.toDate();

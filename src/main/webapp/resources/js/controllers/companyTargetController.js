@@ -129,7 +129,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	
 	$scope.checkTargetType = function()
 	{
-		if($scope.companyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113)
+		if($scope.companyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113 || $scope.companyTarget.targetId == 116)
 	        $scope.ShowRationOption = true;
 		else
 			{
@@ -353,7 +353,7 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$scope.companyTarget["remarks"] = selectedObject["remarks"];
 		$scope.companyTarget["premiseId"] = selectedObject["premiseId"];
 		$scope.companyTarget["rationId"] = selectedObject["rationId"];
-		if($scope.companyTarget["targetId"] == 111 || $scope.companyTarget["targetId"] == 112 || $scope.companyTarget["targetId"] == 113)
+		if($scope.companyTarget["targetId"] == 111 || $scope.companyTarget["targetId"] == 112 || $scope.companyTarget["targetId"] == 113 || $scope.companyTarget["targetId"] == 116)
 	        $scope.ShowRationOption = true;
 		else
 		{
