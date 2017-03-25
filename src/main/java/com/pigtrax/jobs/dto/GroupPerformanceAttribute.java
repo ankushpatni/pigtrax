@@ -72,6 +72,8 @@ public class GroupPerformanceAttribute {
 	private Integer netTransferHead;
 	private Double netTransferWeightPerHead;
 	private Double budgetVariancePct;
+	private Double totalRevenueSales;
+	private Double totalRevenueSalesHD;
 	
 	
 	
@@ -705,5 +707,23 @@ public class GroupPerformanceAttribute {
 	@XmlElement
 	public void setAdgWithTFR(Double adgWithTFR) {
 		this.adgWithTFR = adgWithTFR;
+	}
+
+	public Double getTotalRevenueSales() {
+		return totalRevenueSales;
+	}
+
+	public Double getTotalRevenueSalesHD() {
+		return totalRevenueSalesHD;
+	}
+
+	@XmlElement
+	public void setTotalRevenueSales(Double totalRevenueSales) {
+		this.totalRevenueSales = totalRevenueSales;
+	}
+
+	@XmlElement
+	public void setTotalRevenueSalesHD(Double totalRevenueSalesHD) {
+		this.totalRevenueSalesHD = totalRevenueSalesHD;
 	}
 }

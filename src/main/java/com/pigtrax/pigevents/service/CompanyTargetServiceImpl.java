@@ -2,6 +2,8 @@ package com.pigtrax.pigevents.service;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ public class CompanyTargetServiceImpl implements CompanyTargetService{
 	@Override 
 	public List<CompanyTargetDto> getCompanyTargets(CompanyTargetDto companyTargetDto) throws PigTraxException {
 		try{
-			List<CompanyTarget> companyTargets = companyTargetDao.getCompanyTargets(companyTargetDto.getCompanyId());
+			List<CompanyTarget> companyTargets = companyTargetDao.getCompanyTargets(companyTargetDto.getCompanyId(),companyTargetDto.getPremiseId());
 			List<CompanyTargetDto> companyTargetDtoList =  builder.convertToDtos(companyTargets);
 			if(companyTargetDtoList != null)
 			{
@@ -68,6 +70,7 @@ public class CompanyTargetServiceImpl implements CompanyTargetService{
 					
 				}
 			}
+			Collections.sort(companyTargetDtoList);
 			return companyTargetDtoList;
 		}catch(SQLException sqlEx)
 		{

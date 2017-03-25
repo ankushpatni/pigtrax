@@ -25,6 +25,7 @@ import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.report.dao.GroupStatusReportDao;
 import com.pigtrax.util.DateUtil;
+import com.pigtrax.util.PrimitiveDataUtilAndManipulation;
 
 @Repository
 public class GroupStatusReportService {
@@ -57,7 +58,7 @@ public class GroupStatusReportService {
 	@Autowired
 	MessageSource messageSource;
 
-	public List<String> getGroupStatusResult(Integer companyId, String selectedPremise,  Date startDate, Date endDate, String groupIdStr, Locale locale, String reportType, String selectedSowSource)  throws Exception{ 
+	public List<String> getGroupStatusResult(Integer companyId, String selectedPremise,  Date startDate, Date endDate, String groupIdStr, Locale locale, String reportType, String selectedSowSource, String groupStatus)  throws Exception{ 
 		
 		
 		Date inputStartDate  = startDate;
@@ -87,7 +88,7 @@ public class GroupStatusReportService {
 			logger.info("Range List size"+rangeList.size());
 			
 			
-			List<GroupStatusReportDataDto> resultList  = groupStatusReportDao.getGroupStatusList(companyId, selectedPremise, inputStartDate, inputEndDate, rangeList,  locale.getLanguage(), reportType, selectedSowSource);
+			List<GroupStatusReportDataDto> resultList  = groupStatusReportDao.getGroupStatusList(companyId, selectedPremise, inputStartDate, inputEndDate, rangeList,  locale.getLanguage(), reportType, selectedSowSource, groupStatus);
 	
 			
 			String dateStr = "";
@@ -144,19 +145,19 @@ public class GroupStatusReportService {
 					}	
 					rowBuffer.append(seprater);					
 					rowBuffer.append(groupRecord.getCalendarWk() + seprater);
-					rowBuffer.append(groupRecord.getStartWt() + seprater);
+					rowBuffer.append(PrimitiveDataUtilAndManipulation.getRoundtoNPlace(groupRecord.getStartWt()/groupRecord.getStartHd(),1) + seprater);
 					rowBuffer.append(groupRecord.getStartHd()+ seprater);
 					rowBuffer.append(groupRecord.getInventory()+ seprater);
 					rowBuffer.append(groupRecord.getDeads()+ seprater);
-					rowBuffer.append(groupRecord.getMortalityPercentage()+ seprater);
-					rowBuffer.append(groupRecord.getDensity()+ seprater);
+					rowBuffer.append(PrimitiveDataUtilAndManipulation.getRoundtoNPlace(groupRecord.getMortalityPercentage(),1)+ seprater);
+					rowBuffer.append(PrimitiveDataUtilAndManipulation.getRoundtoNPlace(groupRecord.getDensity(),1)+ seprater);
 					rowBuffer.append(groupRecord.getSales()+ seprater);
 					Map<Integer, Integer> weekMap = new HashMap<Integer, Integer>();
 					if(groupRecord.getType().equalsIgnoreCase("I"))
 						weekMap = groupRecord.getInventoryCntMap();
 					else
 						weekMap = groupRecord.getMortalityCntMap();
-					for(int i = 2; i <= 26; i++)
+					for(int i = 1; i <= 26; i++)
 					{
 						rowBuffer.append(weekMap.get(i) + seprater);
 					}	

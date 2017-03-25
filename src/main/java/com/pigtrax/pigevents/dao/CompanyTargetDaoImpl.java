@@ -72,14 +72,15 @@ public class CompanyTargetDaoImpl implements CompanyTargetDao {
 	}
 	
 	@Override
-	public List<CompanyTarget> getCompanyTargets(final Integer companyId)  throws SQLException {
+	public List<CompanyTarget> getCompanyTargets(final Integer companyId, final Integer premiseId)  throws SQLException {
 		String sql = "select \"id\", \"id_TargetType\", \"targetValue\", \"completionDate\", \"remarks\", \"id_Company\", \"id_Premise\",\"id_Ration\" "
-				+ "from pigtrax.\"CompanyTarget\" where \"id_Company\" = ? order by \"id_Premise\" ";
+				+ "from pigtrax.\"CompanyTarget\" where \"id_Company\" = ? and \"id_Premise\" = ? order by \"id_Premise\" ";
 		
 		List<CompanyTarget> companyTargetList = jdbcTemplate.query(sql, new PreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {				
 				ps.setInt(1, companyId);
+				ps.setInt(2, premiseId);
 			}}, new CompanyTargetMapper());
 		
 		return companyTargetList;

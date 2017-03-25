@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +26,11 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.pigtrax.pigevents.beans.FeedEventDetail;
+import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDetailDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDao;
+import com.pigtrax.report.bean.RationReportBean;
+import com.pigtrax.report.bean.RationReportFeedCostBean;
 import com.pigtrax.util.DateUtil;
 
 @Repository
@@ -254,20 +258,20 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		
 		Double budgetedFeed = 0D;
 		
-		String qry= "select A.\"feedEventDate\",  A.\"batchId\", A.\"groupStartDateTime\",A.\"targetValue\" feednumberofdays, B.\"targetValue\" feedperkgperpigperday,"
-				+ "C.\"targetValue\" feedcostperpig  from (select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" "
+		String qry= "select A.\"weightInKgs\",A.\"feedCost\",A.\"feedEventDate\",  A.\"batchId\", A.\"groupStartDateTime\",A.\"targetValue\" feednumberofdays, B.\"targetValue\" feedperkgperpigperday,"
+				+ "C.\"targetValue\" feedcostperpig  from (select FED.\"weightInKgs\",FED.\"feedCost\",FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" "
 				+ "FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\"  "
 				+ "LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" in (111)   "
-				+ "where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+"  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = 141) "
-				+ "order by \"feedEventDate\") A LEFT JOIN (select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" "
+				+ "where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+"  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") "
+				+ "order by \"feedEventDate\") A LEFT JOIN (select FED.\"weightInKgs\",FED.\"feedCost\",FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" "
 				+ "FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\"  "
 				+ "LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" in (112)   "
-				+ "where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+"  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = 141) "
-				+ "order by \"feedEventDate\") B ON A.\"batchId\"=B.\"batchId\" LEFT JOIN (select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" "
+				+ "where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+"  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") "
+				+ "order by \"feedEventDate\") B ON A.\"batchId\"=B.\"batchId\" LEFT JOIN (select FED.\"weightInKgs\",FED.\"feedCost\",FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" "
 				+ "from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE "
 				+ "ON FED.\"id_GroupEvent\" = GE.\"id\"  LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" "
 				+ "AND CT.\"id_TargetType\" in (113)   where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+"  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" "
-				+ "from pigtrax.\"GroupEvent\" where \"id\" = 141) order by \"feedEventDate\") C ON B.\"batchId\"=C.\"batchId\"";
+				+ "from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") order by \"feedEventDate\") C ON B.\"batchId\"=C.\"batchId\"";
 		
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> budgetListFeedPerKgPerPig  = (List)jdbcTemplate.query(qry, new BudgetMapper());
@@ -323,12 +327,14 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 			
 			Map<String, Object> budgetMap = new HashMap<String, Object>();
 			
-			budgetMap.put("feedEventDate",rs.getDate(1));
-			budgetMap.put("batchId",rs.getInt(2));
-			budgetMap.put("groupStartDate", rs.getDate(3));
-			budgetMap.put("feednumberofdays", rs.getString(4));
-			budgetMap.put("feedperkgperpigperday", rs.getString(5));
-			budgetMap.put("feedcostperpig", rs.getString(6));
+			budgetMap.put("weightInKgs",rs.getString(1));
+			budgetMap.put("feedCost",rs.getString(2));
+			budgetMap.put("feedEventDate", rs.getDate(3));
+			budgetMap.put("batchId", rs.getInt(4));
+			budgetMap.put("groupStartDateTime", rs.getDate(5));
+			budgetMap.put("feednumberofdays", rs.getString(6));
+			budgetMap.put("feedperkgperpigperday", rs.getString(7));
+			budgetMap.put("feedcostperpig", rs.getString(8));
 			return budgetMap;
 		}	
 	}
@@ -376,7 +382,7 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 */
 		Double budgetedFeed = 0D;
 		
-		String qry= "select A.\"feedEventDate\",  A.\"batchId\", A.\"groupStartDateTime\",A.\"targetValue\" feednumberofdays, B.\"targetValue\" feedperkgperpigperday,"
+		/*String qry= "select A.\"feedEventDate\",  A.\"batchId\", A.\"groupStartDateTime\",A.\"targetValue\" feednumberofdays, B.\"targetValue\" feedperkgperpigperday,"
 				+ "C.\"targetValue\" feedcostperpig  from (select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" "
 				+ "FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\"  "
 				+ "LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" in (111)   "
@@ -389,7 +395,29 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 				+ "from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE "
 				+ "ON FED.\"id_GroupEvent\" = GE.\"id\"  LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" "
 				+ "AND CT.\"id_TargetType\" in (113)   where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "+groupId+"  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" "
-				+ "from pigtrax.\"GroupEvent\" where \"id\" = 141) order by \"feedEventDate\") C ON B.\"batchId\"=C.\"batchId\"";
+				+ "from pigtrax.\"GroupEvent\" where \"id\" = "+groupId+") order by \"feedEventDate\") C ON B.\"batchId\"=C.\"batchId\"";*/
+		
+		
+		String qry = "select A.\"weightInKgs\",A.\"feedCost\",A.\"feedEventDate\",  A.\"batchId\", A.\"groupStartDateTime\",A.\"targetValue\" feednumberofdays, B.\"targetValue\" feedperkgperpigperday, "
+				+ " C.\"targetValue\" feedcostperpig  from (select FED.\"weightInKgs\",FED.\"feedCost\",FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\"  "
+				+ " FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\"  "
+				+ " LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" in (111)  "
+				+ " where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = " + groupId
+				+ "  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" =  "
+				+ groupId + ")  "
+				+ "		order by \"feedEventDate\") A LEFT JOIN (select FED.\"weightInKgs\",FED.\"feedCost\",FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\"  "
+				+ "		 FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\"    "
+				+ "		 LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\" AND CT.\"id_TargetType\" in (112)   "
+				+ "		 where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = " + groupId
+				+ "  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\" from pigtrax.\"GroupEvent\" where \"id\" = "
+				+ groupId + ")  "
+				+ "		 order by \"feedEventDate\") B ON A.\"batchId\"=B.\"batchId\" LEFT JOIN (select FED.\"weightInKgs\",FED.\"feedCost\",FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\"  "
+				+ "		 from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  JOIN pigtrax.\"GroupEvent\" GE   "
+				+ "		 ON FED.\"id_GroupEvent\" = GE.\"id\"  LEFT JOIN pigtrax.\"CompanyTarget\" CT On FD.\"id_Premise\" = CT.\"id_Premise\" and FD.\"batchId\" = CT.\"id_Ration\"  "
+				+ "		 AND CT.\"id_TargetType\" in (113)   where \"id_FeedEventType\" = 1 and \"id_GroupEvent\" = "
+				+ groupId + "  AND FED.\"feedEventDate\" >= (select \"groupStartDateTime\"  "
+				+ "		 from pigtrax.\"GroupEvent\" where \"id\" = " + groupId
+				+ ") order by \"feedEventDate\") C ON B.\"batchId\"=C.\"batchId\"";
 		
 /*		String feedPerKgPerPigPerDay= " select FED.\"feedEventDate\", FD.\"batchId\", CT.\"targetValue\",GE.\"groupStartDateTime\" from pigtrax.\"FeedEvent\" FD Join  pigtrax.\"FeedEventDetails\" FED ON FED.\"id_FeedEvent\" = FD.\"id\"  "
 				+" JOIN pigtrax.\"GroupEvent\" GE ON FED.\"id_GroupEvent\" = GE.\"id\" "
@@ -408,13 +436,14 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 		List<Map<String, Object>> budgetList  = (List)jdbcTemplate.query(qry, new BudgetMapper());
 		if(budgetList != null && 0 <budgetList.size())
 		{
-			for(Map<String, Object> entry : budgetList)
-				
+			for(Map<String, Object> entry : budgetList)			
 			{
 				final Date feedDate = entry.get("feedEventDate") != null? (Date)entry.get("feedEventDate"):null;
 				Double feedNumberofDays = entry.get("feednumberofdays") != null ? Double.parseDouble((String)entry.get("feednumberofdays")) : 0D;
 				Double feedPerKgPerPigPerDay = entry.get("feedperkgperpigperday") != null ? Double.parseDouble((String)entry.get("feedperkgperpigperday")) : 0D;
 				Double feedCostPerPig = entry.get("feedcostperpig") != null ? Double.parseDouble((String)entry.get("feedcostperpig")) : 0D;
+				Double weight = entry.get("weightInKgs") != null ? Double.parseDouble((String)entry.get("weightInKgs")) : 0D;
+				Double feedCost = entry.get("feedCost") != null ? Double.parseDouble((String)entry.get("feedCost")) : 0D;
 /*				if (count<budgetList.size()){
 					nextFeedDate = budgetList.get(count).get("feedEventDate") != null? (Date)budgetList.get(count).get("feedEventDate"):null;
 					
@@ -453,12 +482,14 @@ private static final Logger logger = Logger.getLogger(FeedEventDetailDaoImpl.cla
 							sowCount = ((Long)detailsMap.get("StartHd")).intValue();
 						}
 					}
-					budgetedFeed += sowCount*feedPerKgPerPigPerDay*feedNumberofDays*feedCostPerPig;
+					budgetedFeed += sowCount*feedPerKgPerPigPerDay*feedNumberofDays*(feedCost/weight);
 				}
 			}
 		}
 		
 		return budgetedFeed;
 		}
+	
+
 	   
 }

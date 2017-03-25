@@ -1,5 +1,6 @@
 package com.pigtrax.report.bean;
 
+import java.util.Date;
 
 public class RationReportBean {
 	
@@ -17,6 +18,7 @@ public class RationReportBean {
 	private String ticketNum2;
 	private String ticketNum3;
 	private Double totalWeight;
+	private Date feedEvenDate;
 	
 	public String getRationId() {
 		return rationId;
@@ -101,6 +103,12 @@ public class RationReportBean {
 	}
 	public void setTotalWeight(Double totalWeight) {
 		this.totalWeight = totalWeight;
+	}
+	public Date getFeedEvenDate() {
+		return feedEvenDate;
+	}
+	public void setFeedEvenDate(Date feedEvenDate) {
+		this.feedEvenDate = feedEvenDate;
 	}
 	
 	

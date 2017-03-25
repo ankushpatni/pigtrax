@@ -7,7 +7,7 @@ import com.pigtrax.pigevents.beans.CompanyTarget;
 
 public interface CompanyTargetDao {
 	
-   List<CompanyTarget> getCompanyTargets(Integer companyId) throws SQLException;
+   List<CompanyTarget> getCompanyTargets(Integer companyId, Integer premiseId) throws SQLException;
    
    int addCompanyTarget(CompanyTarget companyTarget) throws SQLException;
    

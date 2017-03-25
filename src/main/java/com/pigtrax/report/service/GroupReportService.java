@@ -1,6 +1,11 @@
 package com.pigtrax.report.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -345,18 +350,119 @@ public class GroupReportService {
 				Map<Integer, String> removalEventTypeMap = refDataCache.getRemovalEventTypeMap(language);
 				Map<Integer, String> saleTypesMap = refDataCache.getSaleTypesMap(language);
 				Map<Integer, String> mortalityReasonTypeMap = refDataCache.getMortalityReasonTypeMap(language);
+				int weekPlaced = 0;
+				int weekPlacedPrev = 0;
+				
 				
 				
 				StringBuffer rowBuffer = new StringBuffer();
 				
-				returnRows.add(messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","+messageSource.getMessage("label.piginfo.pigletstatuseventform.eventDateTime", null, "", locale)+messageSource.getMessage("label.piginfo.input.dateformat", null, "", locale)+","
-						+messageSource.getMessage("label.reports.sowhistory.eventname", null, "", locale)+","+messageSource.getMessage("label.reports.sowhistory.eventdata", null, "", locale)+"\n");	
+				returnRows.add(messageSource.getMessage("label.piginfo.groupEventForm.groupId", null, "", locale)+","
+				+messageSource.getMessage("label.piginfo.pigletstatuseventform.eventDateTime", null, "", locale) + messageSource.getMessage("label.piginfo.input.dateformat", null, "", locale)+","
+				+"Week"+","+"Placed"+","+"Inventory"+","
+				+messageSource.getMessage("label.reports.sowhistory.eventname", null, "", locale)+","
+				+"Movement,"+"Pigs,"+"Weight,"+"MortalityReason,"+"SalesType,"+ "NurseryTicketNumber,"+ "CurrentPhase,"+"Group,"+"Premise,"+"Room" + "\n");
+//				+messageSource.getMessage("label.reports.sowhistory.eventdata", null, "", locale)+"\n");
+				int count = 0;
+				int pigs = 0;
+				int prevPlaceval = 0;
+				double weight = 0;
+				int inventory = 0;
+				String movement = "";
+				String mortalityReason = "";
+				String salesType="";
+				String nurseryTicketNumber= "";
+				String currentPhase	= "";
+				String transfer = "";
+
 				for (GroupReportBeanwithPhase groupReportBeanwithPhase : groupList) {
 					rowBuffer = new StringBuffer();
+					movement="";
 					rowBuffer.append(groupReportBeanwithPhase.getGroupEventId()+seprater);
+					
 					rowBuffer.append(DateUtil.convertToFormatString(groupReportBeanwithPhase.getEventDate(),"dd/MM/yyyy")+seprater);
+					int weekOfYear = DateUtil.getWeekOfTheYear(DateUtil.convertToFormatString(groupReportBeanwithPhase.getEventDate(),"dd/MM/yyyy"));
+					rowBuffer.append(weekOfYear + seprater);
+					weekPlaced = weekOfYear;
+					if (count ==0){
+						prevPlaceval = 1;
+						rowBuffer.append( prevPlaceval +seprater);
+					}
+					else{
+						rowBuffer.append((weekPlaced - weekPlacedPrev)+prevPlaceval + seprater);
+						prevPlaceval = (weekPlaced - weekPlacedPrev)+prevPlaceval;
+					}
+					weekPlacedPrev = weekPlaced;
+					count++;
+					
+					String data = groupReportBeanwithPhase.getData();
+					if (data != null){
+						
+						String [] arr = data.split("::");
+						if (arr!=null){
+							String [] pigArr = arr[0].split(":");
+							if (pigArr !=null){
+								pigs = Integer.parseInt(pigArr[1].trim());
+							}
+							String[] weightArr = arr[1].split(":");
+							if (weightArr!=null){
+								weight = Double.parseDouble(weightArr[1].trim());
+							}
+						}
+					}
+					
+					inventory +=pigs;
+					rowBuffer.append(inventory+seprater);
+
+							
 					rowBuffer.append(groupReportBeanwithPhase.getEventName()+seprater);
-					if(groupReportBeanwithPhase.getData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getData()))
+					if(groupReportBeanwithPhase.getRemovalType() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getRemovalType()))
+					{
+						movement= groupReportBeanwithPhase.getRemovalType();
+					}
+					if(groupReportBeanwithPhase.getTicketnumber() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getTicketnumber()))
+					{
+						movement = "Sales";
+					}
+					rowBuffer.append(movement+seprater);
+					rowBuffer.append(pigs+seprater);
+					rowBuffer.append(weight+seprater);
+					rowBuffer.append(groupReportBeanwithPhase.getMortalityReason()+seprater);
+					rowBuffer.append(getSalesTypes(groupReportBeanwithPhase,saleTypesMap)+seprater);
+					rowBuffer.append(groupReportBeanwithPhase.getTicketnumber()+seprater);
+					rowBuffer.append(groupReportBeanwithPhase.getPhaseChange()+seprater);
+					
+					String additionalData = groupReportBeanwithPhase.getAdditionalData();
+					if (additionalData!=null && !StringUtils.isEmpty(additionalData)){
+						String [] arr1 = additionalData.split("::");
+						if (arr1 != null){
+							if (arr1[1]!=null){
+								String[] groups = arr1[1].split(":");
+								if (groups!=null){
+									rowBuffer.append(groups[1]+seprater);
+								}
+							}
+							if (arr1[2]!=null){
+								String[] premises = arr1[2].split(":");
+								if (premises!=null){
+									rowBuffer.append(premises[1]+seprater);
+								}
+							}
+							if (arr1[4]!=null){
+								String[] rooms = arr1[4].split(":") ;
+								if (rooms!=null){
+									rowBuffer.append(rooms[1]+seprater);
+								}
+							}
+						}
+						
+					}
+//					rowBuffer.append(groupReportBeanwithPhase.getAdditionalData());
+					
+					
+
+
+				/*	if(groupReportBeanwithPhase.getData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getData()))
 					{
 						rowBuffer.append(groupReportBeanwithPhase.getData());
 						if(groupReportBeanwithPhase.getAdditionalData() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getAdditionalData()))
@@ -389,7 +495,7 @@ public class GroupReportService {
 					if(groupReportBeanwithPhase.getPhaseChange() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getPhaseChange()))
 					{
 						rowBuffer.append(messageSource.getMessage("label.reports.grouphistory.phasechange", null, "", locale)+" : ").append(groupReportBeanwithPhase.getPhaseChange());
-					}
+					}*/
 					returnRows.add(rowBuffer.toString()+"\n");
 						
 					}						
@@ -411,6 +517,22 @@ public class GroupReportService {
 		return returnRows;
 	}
 	
+	private String getSalesTypes(GroupReportBeanwithPhase groupReportBeanwithPhase, Map<Integer, String> saleTypesMap) {
+		StringBuffer salesTypeStr=new StringBuffer();
+		if(groupReportBeanwithPhase.getSalesTypes() != null && !StringUtils.isEmpty(groupReportBeanwithPhase.getSalesTypes()))
+		{
+			Integer [] salesType = getSalesTypesAsString(groupReportBeanwithPhase.getSalesTypes());
+			for(Integer i : salesType)
+			{
+				salesTypeStr.append(saleTypesMap.get(i) +":");
+			}
+		}	
+		// TODO Auto-generated method stub
+		return salesTypeStr.toString();
+	}
+
+	
+
 	public Integer[] getSalesTypesAsString(String salesTypesAsString) {
 		Integer[] salesTypes = null;
 		if(salesTypesAsString != null)

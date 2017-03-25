@@ -8,6 +8,7 @@ public class TargetReportBean {
 	private String targetValue;
 	private Date startDate;
 	private String remark;
+	private String rationId;
 	
 	public String getParameter() {
 		return parameter;
@@ -32,6 +33,12 @@ public class TargetReportBean {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getRationId() {
+		return rationId;
+	}
+	public void setRationId(String rationId) {
+		this.rationId = rationId;
 	}	
 
 }

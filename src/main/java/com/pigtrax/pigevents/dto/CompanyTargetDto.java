@@ -2,7 +2,7 @@ package com.pigtrax.pigevents.dto;
 
 import java.util.Date;
 
-public class CompanyTargetDto {
+public class CompanyTargetDto implements Comparable<CompanyTargetDto>{
 	private Integer id;
 	private Integer targetId;
 	private String targetValue;
@@ -138,6 +138,14 @@ public class CompanyTargetDto {
 
 	public void setRation(String ration) {
 		this.ration = ration;
+	}
+
+	public int compareTo(CompanyTargetDto dto) {
+		if (this.targetName!=null && dto.targetName!=null){
+			return this.targetName.compareTo(dto.targetName);
+			
+		}
+		return 0;
 	}
 	
 	

@@ -97,6 +97,9 @@
 			                <label class="radio-inline">
 			                  <input type="radio" name="months" id="months" class="farrowevent" value="months" ng-model="selectedDurationOption" > <spring:message code=''  text='Months'/> 
 			                </label>
+			                <label class="radio-inline">
+			                  <input type="radio" name="years" id="years" class="farrowevent" value="years" ng-model="selectedDurationOption" > <spring:message code=''  text='Years'/> 
+			                </label>
 						</div>
 								
 						

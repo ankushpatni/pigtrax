@@ -150,10 +150,10 @@ public class MatingDetailsValidation {
 		  {  
 				 return SUCCESS_CODE;
 		  }
-	  else if(currentMatingDate.toLocalDate().equals(currentBreedingEventDate.toLocalDate())  && matingDetailsDto.getMatingDetailId() == null)
-	  {
-		  return ERR_CODE_DUPLICATE_DATE;
-	  }
+//	  else if(currentMatingDate.toLocalDate().equals(currentBreedingEventDate.toLocalDate())  && matingDetailsDto.getMatingDetailId() == null)
+//	  {
+//		  return ERR_CODE_DUPLICATE_DATE;
+//	  }
 	  else if(currentMatingDate.toLocalDate().isBefore(currentBreedingEventDate.toLocalDate()) && events != null && events.size() > 0)
 	  {
 		  return ERR_CODE_PREG_CHECK_ADDED;

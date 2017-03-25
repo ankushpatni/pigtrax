@@ -34,9 +34,12 @@ public class TargetReportDao {
 	{
 		List<TargetReportBean> prodEventLogList = new ArrayList<TargetReportBean>();
 		
-		String qry="select TT.\"fieldDescription\",CT.\"completionDate\" :: date,CT.\"targetValue\",CT.\"remarks\" "
-				+ "from pigtrax.\"CompanyTarget\" as CT,pigtraxrefdata.\"TargetType\" as TT where CT.\"id_TargetType\"=TT.\"id\" "
-				+"and CT.\"completionDate\" ::date >=? and CT.\"id_Company\" = ? and CT.\"id_Premise\" = ?";
+		String qry="select MR.\"rationValue\",TT.\"fieldDescription\",CT.\"completionDate\" :: date,CT.\"targetValue\",CT.\"remarks\" "
+				+ "from pigtrax.\"CompanyTarget\" as CT,pigtraxrefdata.\"TargetType\" as TT, pigtrax.\"MasterRation\" as MR where CT.\"id_TargetType\"=TT.\"id\" "
+				+ "and MR.\"id\"=CT.\"id_Ration\" "
+				+"and CT.\"completionDate\" ::date >=? and CT.\"id_Company\" = ? and CT.\"id_Premise\" = ? "
+				+ "order by TT.\"fieldDescription\"  , MR.\"rationValue\"  ,"
+				+ "CT.\"completionDate\"  ";
 
 		prodEventLogList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
 			@Override
@@ -57,6 +60,7 @@ public class TargetReportDao {
 			targetReportBean.setStartDate(rs.getDate("completionDate"));
 			targetReportBean.setTargetValue(rs.getString("targetValue"));
 			targetReportBean.setRemark(rs.getString("remarks"));	
+			targetReportBean.setRationId(rs.getString("rationValue"));
 			return targetReportBean;
 		}
 	}

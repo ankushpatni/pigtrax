@@ -64,7 +64,7 @@ public class GroupStatusReportDao {
 	}
 	
 	public List<GroupStatusReportDataDto> getGroupStatusList(Integer companyId, String selectedPremise, Date inputStartDate, Date inputEndDate, 
-								List<Map<String, Object>> rangeList,  String language, String reportType, String selectedSowSource) throws Exception
+								List<Map<String, Object>> rangeList,  String language, String reportType, String selectedSowSource, String groupStatus) throws Exception
 	{	
 		List<GroupStatusReportDataDto> resultList = new ArrayList<GroupStatusReportDataDto>();
 		
@@ -81,7 +81,7 @@ public class GroupStatusReportDao {
 			{
 				Map<String, Object> row = rangeList.get(0);
 				CompanyTarget target = companyTargetDao.getCompanyTargetByType(Integer.parseInt(premiseId), 122); // Target type id for DOF
-				List<GroupStatusReportDataDto> groups = getAllGroupData(Integer.parseInt(premiseId), inputStartDate, inputEndDate, selectedSowSource, reportType);
+				List<GroupStatusReportDataDto> groups = getAllGroupData(Integer.parseInt(premiseId), inputStartDate, inputEndDate, selectedSowSource, reportType,groupStatus);
 				resultList.addAll(groups);
 			}
 		}
@@ -98,9 +98,10 @@ public class GroupStatusReportDao {
 	/**
 	  * Get all the groups in a premise
 	  * @param premiseId
+	 * @param groupStatus 
 	  * @return
 	  */
-	 public List<GroupStatusReportDataDto> getAllGroupData(final Integer premiseId,  final Date inputStartDate, final Date inputEndDate, final String selectedSowSource, final String reportType)
+	 public List<GroupStatusReportDataDto> getAllGroupData(final Integer premiseId,  final Date inputStartDate, final Date inputEndDate, final String selectedSowSource, final String reportType, String groupStatus)
 	 {	
 		 
 		   String reportMode = "";
@@ -110,13 +111,26 @@ public class GroupStatusReportDao {
 				reportMode = "M";
 		 
 			String qry = "SELECT * from pigtrax.\"GroupStatusReportData\" GSRD where  GSRD.\"id_Premise\" =? and "
-					+ " (GSRD.\"eventStartDate\" between ? and ? or (GSRD.\"eventCloseDate\" != null AND GSRD.\"eventCloseDate\" between ? and ?)) ";
+					+ " ("
+					+ "GSRD.\"eventStartDate\" between ? and ? "
+//					+ "or "
+//					+ "("
+//					+ "GSRD.\"eventCloseDate\" != null AND "
+//					+ " GSRD.\"eventCloseDate\" between ? and ?"
+//					+ ")"
+					+ ") ";
 			qry += " and GSRD.\"id\" in (select max(\"id\") from pigtrax.\"GroupStatusReportData\" where  \"type\" = '"+reportMode+"' group by \"id_GroupEvent\") ";
 			if(selectedSowSource != null && !selectedSowSource.equals("-1"))
-				qry += " AND GSRD.\"id_SowSource\" = ? ";	
+				qry += " AND GSRD.\"id_SowSource\" = ? ";
+			if (groupStatus.equalsIgnoreCase("open")){
+				qry += " AND \"eventCloseDate\" is  null  ";
+			}
+			else if (groupStatus.equalsIgnoreCase("closed")){
+				qry += " AND \"eventCloseDate\" is  not null  ";
+			}
 			
 				qry += " AND GSRD.\"type\" = '"+reportMode+"' ";
-			qry += "  order by GSRD.\"eventStartDate\" ";
+				qry += "  order by GSRD.\"eventStartDate\" ";
 			
 
 			List<GroupStatusReportDataDto> groupEventList = jdbcTemplate.query(qry, new PreparedStatementSetter(){
@@ -125,11 +139,11 @@ public class GroupStatusReportDao {
 					ps.setInt(1, premiseId);
 					ps.setDate(2, new java.sql.Date(inputStartDate.getTime()));
 					ps.setDate(3, new java.sql.Date(inputEndDate.getTime()));
-					ps.setDate(4, new java.sql.Date(inputStartDate.getTime()));
-					ps.setDate(5, new java.sql.Date(inputEndDate.getTime()));
+//					ps.setDate(4, new java.sql.Date(inputStartDate.getTime()));
+//					ps.setDate(5, new java.sql.Date(inputEndDate.getTime()));
 					
 					if(selectedSowSource != null && !selectedSowSource.equals("-1"))
-						ps.setInt(6, Integer.parseInt(selectedSowSource));
+						ps.setInt(4, Integer.parseInt(selectedSowSource));
 				}}, new GroupStatusReportDataDtoMapper());
 			
 			return groupEventList;

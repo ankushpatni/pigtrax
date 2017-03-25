@@ -41,7 +41,8 @@ public class TargetReportService {
 			if (prodEventLogList != null && prodEventLogList.size() > 0) {
 				StringBuffer rowBuffer = null;
 				returnRows.add(messageSource.getMessage("label.piginfo.farroweventform.premise", null, "",locale)+ ","
-								+ messageSource.getMessage("label.companytargetform.targetname", null, "",locale)+ ","
+						+ messageSource.getMessage("label.companytargetform.targetname", null, "",locale)+ ","
+								+ messageSource.getMessage("label.piginfo.feedEventForm.batchId", null, "",locale)+ ","
 								+ messageSource.getMessage("label.companytargetform.completiondate", null,"", locale)
 								+ messageSource.getMessage("label.piginfo.input.dateformat", null, "",locale)+ ","
 								+ messageSource.getMessage("label.companytargetform.targetvalue", null,"", locale)+ ","
@@ -50,7 +51,7 @@ public class TargetReportService {
 				for (TargetReportBean targetReportBean : prodEventLogList) {
 					rowBuffer = new StringBuffer();
 					rowBuffer
-							.append(premise.getName()+seprater+targetReportBean.getParameter() + seprater);
+							.append(premise.getName()+seprater+targetReportBean.getParameter() + seprater+targetReportBean.getRationId()  + seprater);
 					try {
 						dateStr = DateUtil.convertToFormatString(
 								targetReportBean.getStartDate(), "dd/MM/yyyy");

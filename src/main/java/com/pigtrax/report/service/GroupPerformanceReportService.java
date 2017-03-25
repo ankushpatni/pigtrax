@@ -573,6 +573,13 @@ public class GroupPerformanceReportService {
 			 rowBuffer.append(performanceAttribute.getTfcVariance()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
+//		rowBuffer = new StringBuffer();
+//		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.tfcvariance", null, "", locale)+seprater);
+//		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+//			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+//			 rowBuffer.append(performanceAttribute.getTfcVariance()+seprater);
+//		}		
+//		returnRows.add(rowBuffer.toString()+"\n");
 		
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.tfchd", null, "", locale)+seprater);
@@ -590,13 +597,6 @@ public class GroupPerformanceReportService {
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		
-		rowBuffer = new StringBuffer();
-		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.tfcvariance", null, "", locale)+seprater);
-		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
-			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
-			 rowBuffer.append(performanceAttribute.getTfcVariance()+seprater);
-		}		
-		returnRows.add(rowBuffer.toString()+"\n");
 		
 		rowBuffer = new StringBuffer();
 		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.tfcvariancehd", null, "", locale)+seprater);
@@ -611,6 +611,22 @@ public class GroupPerformanceReportService {
 		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
 			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
 			 rowBuffer.append(performanceAttribute.getTfcGain()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+		
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.totalrevenuesales", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTotalRevenueSales()+seprater);
+		}		
+		returnRows.add(rowBuffer.toString()+"\n");
+
+		rowBuffer = new StringBuffer();
+		rowBuffer.append(messageSource.getMessage("label.piginfo.groupperformancereport.totalrevenuesaleshd", null, "", locale)+seprater);
+		for (GroupPerformanceReportDataDto groupRecord : resultList) {		
+			 GroupPerformanceAttribute performanceAttribute = groupRecord.getPerformanceAttribute();
+			 rowBuffer.append(performanceAttribute.getTotalRevenueSalesHD()+seprater);
 		}		
 		returnRows.add(rowBuffer.toString()+"\n");
 		

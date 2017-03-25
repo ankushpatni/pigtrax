@@ -112,7 +112,7 @@ public class GroupReportDao {
 	
 	public List<GroupReportBeanwithPhase> getGroupListWithPhaseDetails(final int groupId) {
 	
-	String query = 			" Select T.\"groupId\", T.\"Event Date\", T.\"Event Name\", T.\"Data\",T.\"RemovalType\",T.\"mortalityReason\", T.\"Ticketnumber\",T.\"salesTypes\",T.\"phaseChange\", T.\"AdditionalData\" from ( "
+	String query = 			" Select T.\"groupId\", T.\"Event Date\",T.\"Event Name\", T.\"Data\",T.\"RemovalType\",T.\"mortalityReason\", T.\"Ticketnumber\",T.\"salesTypes\",T.\"phaseChange\", T.\"AdditionalData\" from ( "
 			+" (SELECT 1 as row, null, GE.\"groupId\" as \"groupId\", GE.\"groupStartDateTime\" as \"Event Date\", 'Begin Group' as \"Event Name\", 'Created at Room : '||R.\"roomId\"  as \"Data\" "
 			+" , '' as \"RemovalType\",'' as \"mortalityReason\", '' as \"Ticketnumber\", '' as \"salesTypes\",'' as \"phaseChange\", '' as \"AdditionalData\" from pigtrax.\"GroupEvent\" GE "
 			+" JOIN pigtrax.\"GroupEventPhaseChange\" GEPC on GE.\"id\" = GEPC.\"id_GroupEvent\"  and GE.\"groupStartDateTime\" = GEPC.\"phaseStartDate\" "
@@ -187,6 +187,8 @@ public class GroupReportDao {
 			groupReportBeanwithPhase.setSalesTypes(rs.getString("salesTypes"));
 			groupReportBeanwithPhase.setPhaseChange(rs.getString("phaseChange"));
 			groupReportBeanwithPhase.setAdditionalData(rs.getString("AdditionalData"));
+//			groupReportBeanwithPhase.setInventory(rs.getString("numberOfPigs"));
+//			groupReportBeanwithPhase.setWeight(rs.getString("weightInKgs"));
 			
 			return groupReportBeanwithPhase;
 		}

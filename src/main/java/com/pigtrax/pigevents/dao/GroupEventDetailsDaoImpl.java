@@ -23,9 +23,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.pigtrax.pigevents.beans.GroupEventDetails;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
+import com.pigtrax.report.bean.GroupReportBeanwithPhase;
 import com.pigtrax.usermanagement.enums.GroupEventActionType;
 import com.pigtrax.util.DateUtil;
 
@@ -366,6 +368,70 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 	  * @throws Exception
 	  */
 	 public Map<Integer, Integer> getInventoryCntByWeek(final Integer groupId, final Date ServDateSTART, final Date ServDateEND) throws Exception
+	{
+		Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
+		Map<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+
+		try {
+
+			final String qry = " select  GED.\"id\" , GED.\"id_GroupEvent\", GED.\"id_Barn\", GED.\"dateOfEntry\", GED.\"id_Room\","
+					+ " GED.\"id_EmployeeGroup\", GED.\"numberOfPigs\", "
+				 +" GED.\"weightInKgs\", GED.\"indeventoryAdjustment\", GED.\"remarks\", "
+				 + "GED.\"lastUpdated\", GED.\"userUpdated\", GED.\"id_TransportDestination\", "
+				 + "GED.\"id_SowSource\",GED.\"id_Premise\", GED.\"id_FromGroup\","
+				 + "GED.\"id_RemovalEventExceptSalesDetails\",GED.\"id_SalesEventDetails\", '' as \"groupId\" "
+				 + " from pigtrax.\"GroupEventDetails\" GED where \"id_GroupEvent\"=? order by \"groupEventActionType\",\"dateOfEntry\" ";
+
+			@SuppressWarnings("unchecked")
+			List<GroupEventDetails> groupEventDetailsList = jdbcTemplate.query(qry, new PreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, groupId);
+				}
+			}, new GroupEventDetailsMapper());
+
+			int weekPlaced = 0;
+			int weekPlacedPrev = 0;
+			int count = 0;
+			int pigs = 0;
+			int prevPlaceval = 0;
+			int inventory = 0;
+
+			for (GroupEventDetails groupEvent : groupEventDetailsList) {
+				pigs = groupEvent.getNumberOfPigs();
+				int weekOfYear = DateUtil
+						.getWeekOfTheYear(DateUtil.convertToFormatString(groupEvent.getDateOfEntry(), "dd/MM/yyyy"));
+				weekPlaced = weekOfYear;
+				if (count == 0) {
+					prevPlaceval = 1;
+				} else {
+					prevPlaceval = (weekPlaced - weekPlacedPrev) + prevPlaceval;
+				}
+				weekPlacedPrev = weekPlaced;
+				count++;
+				inventory += pigs;
+				weekCntMap.put(prevPlaceval, inventory);
+			}
+			if (weekCntMap.size()>0){
+				for (int i =1; i <= 26; i++ ){
+					if (weekCntMap.get(i)!=null){
+						returnMap.put(i, weekCntMap.get(i));
+					}
+					else{
+						returnMap.put(i, returnMap.get(i-1));
+						
+					}
+				}
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return returnMap;
+
+	}
+	 public Map<Integer, Integer> getInventoryCntByWeekTemp(final Integer groupId, final Date ServDateSTART, final Date ServDateEND) throws Exception
 		{
 			Map<Integer, Integer> weekCntMap = new HashMap<Integer, Integer>();
 			Integer remainingCnt = 0;
@@ -383,7 +449,7 @@ private static final Logger logger = Logger.getLogger(GroupEventDetailsDaoImpl.c
 					final Date endDate = DateUtil.addDays(startDate, 7);					
 					
 					final String qry = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
-							+ "where GED.\"id_GroupEvent\" = ? and GED.\"dateOfEntry\" <= ? ";
+							+ "where GED.\"id_GroupEvent\" = ? and GED.\"dateOfEntry\" < ? ";
 					
 					@SuppressWarnings("unchecked")
 					Integer sowCount  = (Integer)jdbcTemplate.query(qry,new PreparedStatementSetter() {

@@ -17,7 +17,7 @@ pigTrax.service("CompanyTargetsService", function() {
     	    	   targetYear = targetDate.getFullYear();
     	    	   if(newCompanyTarget["id"] == null && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear && item["premiseId"] == newCompanyTarget["premiseId"])
     	    		   {
-	    	    		   	if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
+//	    	    		   	if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 	    	    		   	{
 								
 								if(item["rationId"] == newCompanyTarget["rationId"])
@@ -25,13 +25,13 @@ pigTrax.service("CompanyTargetsService", function() {
 								else
 									return false;
 	    	    		   	}
-							else
-								return true;
+//							else
+//								return true;
     	    		   }
     	    	   else if(newCompanyTarget["id"] != null && newCompanyTarget["id"] != item["id"] && item["targetId"] == newCompanyTarget["targetId"] && targetYear == newTargetYear
     	    			   && item["premiseId"] == newCompanyTarget["premiseId"])
     	    		   {
-		    	    		if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
+//		    	    		if(newCompanyTarget.targetId == 111 || newCompanyTarget.targetId == 112 || newCompanyTarget.targetId == 113)
 		   	    		   	{
 								
 								if(item["rationId"] == newCompanyTarget["rationId"])
@@ -39,8 +39,8 @@ pigTrax.service("CompanyTargetsService", function() {
 								else
 									return false;
 		   	    		   	}
-								else
-									return true;
+//								else
+//									return true;
     	    		   }
     	    	 }
     	   }
@@ -64,10 +64,10 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	$scope.setCompanyId = function(companyId)
 	{
 		$rootScope.companyId = companyId;
-		$scope.getCompanyTargets();
 		$scope.getTargetTypes();
 		$scope.loadPremises();
 		$scope.getRationIdList();
+		$scope.getCompanyTargets();
 	};
 	
 	$scope.getTargetTypes = function()
@@ -129,13 +129,13 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	
 	$scope.checkTargetType = function()
 	{
-		if($scope.companyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113 || $scope.companyTarget.targetId == 116)
+//		if($scope.companyTarget.targetId == 111 || $scope.companyTarget.targetId == 112 || $scope.companyTarget.targetId == 113 || $scope.companyTarget.targetId == 116)
 	        $scope.ShowRationOption = true;
-		else
-			{
-			$scope.ShowRationOption = false;
-			$scope.companyTarget.rationId = null;
-			} 
+//		else
+//			{
+//			$scope.ShowRationOption = false;
+//			$scope.companyTarget.rationId = null;
+//			} 
 	}
 	
 	
@@ -173,13 +173,15 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 	
 	$scope.getCompanyTargets = function()
 	{
-		var companyTargetDto = {"companyId" : $rootScope.companyId};
+		var companyTargetDto = {"companyId" : $rootScope.companyId,"premiseId" : $scope.companyTarget.premiseId};
 		restServices.getCompanyTargets(companyTargetDto, function(data){
 			if(!data.error)
 			{
 				  $scope.companyTargets = data.payload;
 			}
 		})
+		$scope.checkPremise();
+
 	};
 	
 	
@@ -273,7 +275,8 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		if(valid)
 		{
 			
-		  var exists = CompanyTargetsService.checkIfExists($scope.companyTargets,$scope.companyTarget);
+			  var exists = false;
+//			  var exists = CompanyTargetsService.checkIfExists($scope.companyTargets,$scope.companyTarget);
 		  if(!exists)
 			  {
 			
@@ -353,13 +356,13 @@ pigTrax.controller('CompanyTargetController', function($scope,$rootScope, $http,
 		$scope.companyTarget["remarks"] = selectedObject["remarks"];
 		$scope.companyTarget["premiseId"] = selectedObject["premiseId"];
 		$scope.companyTarget["rationId"] = selectedObject["rationId"];
-		if($scope.companyTarget["targetId"] == 111 || $scope.companyTarget["targetId"] == 112 || $scope.companyTarget["targetId"] == 113 || $scope.companyTarget["targetId"] == 116)
+//		if($scope.companyTarget["targetId"] == 111 || $scope.companyTarget["targetId"] == 112 || $scope.companyTarget["targetId"] == 113 || $scope.companyTarget["targetId"] == 116)
 	        $scope.ShowRationOption = true;
-		else
-		{
-			$scope.ShowRationOption = false;
-			$scope.companyTarget["rationId"] = null;
-		}
+//		else
+//		{
+//			$scope.ShowRationOption = false;
+//			$scope.companyTarget["rationId"] = null;
+//		}
 		$window.scrollTo(0, 0);
 		
 	}

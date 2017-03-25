@@ -44,13 +44,26 @@
                       		  	
 						</div>	
 							
-						<div  class="form-group">
+						<div  class="row">
+						<div class="form-group col-md-3">
 						<label><spring:message code='label.piginfo.farroweventform.premise'  text='Premise'/><span style='color: red'>*</span></label>
 <%-- 						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  ng-change="selectGroups()"  > --%>
 <%-- 								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option> --%>
 <!--                       			 	<option ng-repeat="premise in premiseList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedPremise == premise.id">{{premise.name}}</option> -->
 <!--                       		  </select> -->
                       		  <div ng-dropdown-multiselect="" options="premiseValues" selected-model="selectedPremises"  extra-settings="multiselectdropdownsettings"></div>	
+						</div>					
+							  
+						<div class="form-group col-md-3">
+							  
+							  						<label><spring:message   text='Group Status'/><span style='color: red'>*</span></label>
+						<select  class="form-control"  value="Open Group" required required-message="'<spring:message text='Sow source is required' />'"  name="groupStatus" id="groupStatus" ng-model="groupStatus" >
+									<option value="" hidden>----</option>
+                      			 	<option value="open"><spring:message   text='Open Group'/></option>
+                      			 	<option value="closed"><spring:message   text='Closed Group'/></option>
+                      		  </select>
+
+						</div>					
 						</div>					
 						
 <!-- 						<div  class="form-group"> -->

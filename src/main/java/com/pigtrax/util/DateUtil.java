@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -143,7 +144,22 @@ public class DateUtil {
     	return false;
 	}	 
 	
-	
+	 public static int getWeekOfTheYear(String eventDate) {
+//			String date_s = "20160528"; 
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
+			Date date = null;
+			try {
+				date = dt.parse(eventDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(date);
+//			System.out.println("Week number:" + calendar.get(Calendar.WEEK_OF_YEAR));
+			return calendar.get(Calendar.WEEK_OF_YEAR);
+		}	
 	public static void main(String[] args) {
 		String hashed = BCrypt.hashpw("Textbookvalet#123", BCrypt.gensalt());
 		System.out.println("hashed : "+hashed);

@@ -1,6 +1,12 @@
 package com.pigtrax.jobs;
 
 import java.io.StringWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +14,13 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
 import com.pigtrax.jobs.dao.interfaces.GroupStatusReportDataDao;
@@ -16,7 +28,6 @@ import com.pigtrax.jobs.dto.GroupPerformanceAttribute;
 import com.pigtrax.jobs.dto.GroupPerformanceReportDataDto;
 import com.pigtrax.master.dao.interfaces.PremisesDao;
 import com.pigtrax.master.dto.Premises;
-import com.pigtrax.pigevents.beans.CompanyTarget;
 import com.pigtrax.pigevents.beans.GroupEvent;
 import com.pigtrax.pigevents.dao.interfaces.CompanyTargetDao;
 import com.pigtrax.pigevents.dao.interfaces.FeedEventDetailDao;
@@ -25,6 +36,9 @@ import com.pigtrax.pigevents.dao.interfaces.GroupEventDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.GroupEventRoomDao;
 import com.pigtrax.pigevents.dao.interfaces.RemovalEventExceptSalesDetailsDao;
 import com.pigtrax.pigevents.dao.interfaces.SalesEventDetailsDao;
+import com.pigtrax.report.bean.RationReportBean;
+import com.pigtrax.report.bean.RationReportFeedCostBean;
+import com.pigtrax.report.dao.RationReportDao;
 import com.pigtrax.usermanagement.enums.RemovalEventType;
 import com.pigtrax.util.DateUtil;
 
@@ -59,6 +73,17 @@ public class GroupPerformanceReportProcessor{
 	
 	@Autowired
 	FeedEventDetailDao feedDetailDao;
+
+	@Autowired
+	RationReportDao rationReportDao;
+	
+	private JdbcTemplate jdbcTemplate; 
+
+	
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 	
 	public void process() throws Exception
 	{
@@ -183,9 +208,15 @@ public class GroupPerformanceReportProcessor{
 						 performanceAttribute.setAdgWithTFR(performanceAttribute.getTotalGainHDTransfer()/performanceAttribute.getDof());
 						 
 						 performanceAttribute.setTotalFeedUsed(feedDetailDao.getTotalFeedUsed(group.getId()));
-						 performanceAttribute.setTotalFeedBudget(feedDetailDao.getTotalFeedBudgeted(group.getId()));
+						 //Get new calcualtion for feed budget
+						 DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+						 Date endDateP = df.parse("01-01-2100"); // for example, today's date
+						 Date startDatep = df.parse("01-01-1990"); // use your own dates, of course	
+						 FeedBudgetParamBean bean = getFeedBudgetParams(group.getId(), premise.getId(), startDatep,endDateP);
+//						 performanceAttribute.setTotalFeedBudget(feedDetailDao.getTotalFeedBudgeted(group.getId()));
+						 performanceAttribute.setTotalFeedBudget(bean.getTotatFeedBudgeted());
+						 performanceAttribute.setBudgetVariance(performanceAttribute.getTotalFeedUsed()-performanceAttribute.getTotalFeedBudget());
 						 
-						 performanceAttribute.setBudgetVariance(performanceAttribute.getTotalFeedUsed() - performanceAttribute.getTotalFeedBudget());
 						 performanceAttribute.setBudgetVariancePct(Math.round(performanceAttribute.getBudgetVariance()*100.0)*100/(performanceAttribute.getTotalFeedBudget()*100.0));
 						 
 						 //Feed Performance
@@ -197,18 +228,24 @@ public class GroupPerformanceReportProcessor{
 						 
 						 //Feed Cost performance						 
 						 performanceAttribute.setTotalFeedCost(feedDetailDao.getTotalFeedCost(group.getId()));
-						 performanceAttribute.setTfcBudgeted(feedDetailDao.getTotalFeedBudgetedCost(group.getId())); 
+						 performanceAttribute.setTfcBudgeted(bean.getTfcBudgeted()); 
+//						 performanceAttribute.setTfcBudgeted(feedDetailDao.getTotalFeedBudgetedCost(group.getId())); 
 						 performanceAttribute.setTfcVariance(performanceAttribute.getTotalFeedCost() - performanceAttribute.getTfcBudgeted());
-						 performanceAttribute.setTfcHd(Math.round(performanceAttribute.getTotalFeedCost()*100.0)/(performanceAttribute.getEndHd()*100.0));
-						 performanceAttribute.setTfcBudgetedHd(Math.round(performanceAttribute.getTfcBudgeted()*100.0)/(performanceAttribute.getEndHd()*100.0));
+						 performanceAttribute.setTfcHd(bean.getTfcHD());
+//						 performanceAttribute.setTfcHd(Math.round(performanceAttribute.getTotalFeedCost()*100.0)/(performanceAttribute.getEndHd()*100.0));
+						 performanceAttribute.setTfcBudgetedHd(bean.getTfcBudgetedHD());
+//						 performanceAttribute.setTfcBudgetedHd(Math.round(performanceAttribute.getTfcBudgeted()*100.0)/(performanceAttribute.getEndHd()*100.0));
 						 performanceAttribute.setTfcVarianceHd(performanceAttribute.getTfcHd() - performanceAttribute.getTfcBudgetedHd());
 						 performanceAttribute.setTfcGain(Math.round(performanceAttribute.getTotalFeedCost()*100.0)/(performanceAttribute.getTotalGainWtPerTranfer()*100.0));
+						 
+						 performanceAttribute.setTotalRevenueSales(saleEventDetailsDao.getSalesRevenue(group.getId()) );
+						 performanceAttribute.setTotalRevenueSalesHD(saleEventDetailsDao.getSalesRevenue(group.getId())/(performanceAttribute.getWeanSales()+performanceAttribute.getMarketSales()+performanceAttribute.getPreMarketSales()+performanceAttribute.getFeederSales()) );
 						 
 						 performanceAttribute.setMof(saleEventDetailsDao.getSalesRevenue(group.getId()) - performanceAttribute.getTotalFeedCost());
 						 performanceAttribute.setMofHd(Math.round(performanceAttribute.getMof()*100.0)/(performanceAttribute.getEndHd()*100.0));
 						 
 						 Double salesRevenue = saleEventDetailsDao.getSalesRevenue(group.getId());
-						 performanceAttribute.setMofPct(Math.round(performanceAttribute.getMofHd()*100.0)*100/(salesRevenue*100.0));
+						 performanceAttribute.setMofPct(Math.round(performanceAttribute.getMofHd()*100.0)*100/(performanceAttribute.getTotalRevenueSalesHD()*100.0));
 						 
 						 String objXml = "";
 							if (performanceAttribute != null) {
@@ -253,4 +290,118 @@ public class GroupPerformanceReportProcessor{
 		reportDataDao.cleanUpOldData();
 	}
 	
+	private FeedBudgetParamBean getFeedBudgetParams(int groupId, int premiseId, Date  startDate, Date endDate){
+		FeedBudgetParamBean bean = new FeedBudgetParamBean();
+		 
+		List<RationReportBean> rationReportList = rationReportDao.getRationReportList(premiseId, startDate, endDate, groupId);
+		List<RationReportFeedCostBean> feedCostList = rationReportDao.getFeedCostAndWeight(groupId); 
+		List<Map<String, Date>> startAndDateList = rationReportDao.getStartEndDates(groupId);
+		Date pigEntryDate = startAndDateList.get(0).get("startDate");
+		Date pigEndDate = startAndDateList.get(0).get("endDate");
+		double totatFeedBudgeted =0;
+		double tfcBudgeted=0;
+		double tfcHD=0;
+		double tfcBudgetedHD=0;
+
+		ArrayList<String> returnRows = new ArrayList<String>();
+		if (rationReportList != null && rationReportList.size() > 0) {
+
+			StringBuffer rowBuffer = null;			
+			
+			int count = 0;
+			for (RationReportBean rationReportBean : rationReportList) {
+				rowBuffer = new StringBuffer();
+				
+				final Date feedDate = rationReportBean.getFeedEvenDate();
+				Date nextFeedDate = null;
+				Date currentFeedDate = feedDate;
+				if (count == 0){
+					currentFeedDate = pigEntryDate;
+//					currentFeedDate = startDate;
+				}
+				if (count == rationReportList.size()-1){
+					nextFeedDate = pigEndDate;
+//					nextFeedDate = endDate;
+				} else{
+					nextFeedDate = rationReportList.get(count+1).getFeedEvenDate();
+
+				}
+				
+
+				String sql = " select coalesce(sum(GED.\"numberOfPigs\"),0) as Num from pigtrax.\"GroupEventDetails\" GED "
+						+ "where GED.\"id_GroupEvent\" = "+groupId+" and GED.\"dateOfEntry\" <= ?";
+				
+				@SuppressWarnings("unchecked")
+				Integer sowCount  = (Integer)jdbcTemplate.query(sql,new PreparedStatementSetter() {
+					@Override
+						public void setValues(PreparedStatement ps) throws SQLException {
+							ps.setDate(1, new java.sql.Date(feedDate.getTime()));
+						}
+					},
+			        new ResultSetExtractor() {
+			          public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+			            if (resultSet.next()) {
+			              return resultSet.getInt(1);
+			            }
+			            return 0;
+			          }
+			        });
+				if(sowCount == 0 )
+				{
+					Map<String, Object> detailsMap = groupEventDao.getStartWtAndHead(groupId);
+					if(detailsMap != null && detailsMap.get("StartHd") != null)
+					{
+						sowCount = ((Long)detailsMap.get("StartHd")).intValue();
+					}
+				}
+				
+				//group id
+			//rationid
+				//inventory
+				//DOF
+				//tons used
+				//tons target
+				int duration = getDOF(currentFeedDate,nextFeedDate);
+				double targetTons = rationReportBean.getTargetTonsUsed()*sowCount*rationReportBean.getTargetKg()/1000 ;
+				
+				//adfi
+				double adfi = rationReportBean.getActualTonsUsed()*1000/duration/sowCount ;
+				//Feedcost/HD
+				double feedCostHD= feedCostList.get(count).getWtdAvg()*adfi;
+				//FeedCost/Hd Target
+				double feedCostHDTarget = feedCostList.get(count).getWtdAvg()*rationReportBean.getTargetTonsUsed();
+
+				totatFeedBudgeted += rationReportBean.getTargetTonsUsed()*sowCount*rationReportBean.getTargetKg()/1000;
+				tfcBudgeted+= feedCostList.get(count).getWtdAvg() * rationReportBean.getTargetTonsUsed()*sowCount*rationReportBean.getTargetKg();
+				tfcHD += feedCostList.get(count).getWtdAvg()*adfi;
+				tfcBudgetedHD += feedCostList.get(count).getWtdAvg()*rationReportBean.getTargetTonsUsed();
+				
+				
+					
+					returnRows.add(rowBuffer.toString()+"\n");
+					count++;
+			}
+		}
+		bean.setTfcBudgeted(tfcBudgeted);
+		bean.setTfcBudgetedHD(tfcBudgetedHD);
+		bean.setTfcHD(tfcHD);
+		bean.setTotatFeedBudgeted(totatFeedBudgeted*1000);
+		return bean;
+	
+		
+	}
+	
+	private int getDOF(Date startDate, Date feedDate) {
+		int duration = 0;
+		if(startDate != null && feedDate != null)
+		{
+			DateTime start = new DateTime(startDate.getTime());
+			DateTime end = new DateTime(feedDate.getTime());
+			duration  = Days.daysBetween(start, end).getDays();
+		}
+
+		// TODO Auto-generated method stub
+		return duration;
+	}
+
 }

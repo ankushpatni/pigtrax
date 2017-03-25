@@ -14,6 +14,8 @@ public class GroupReportBeanwithPhase {
 	private String salesTypes;
 	private String phaseChange;
 	private String additionalData;
+	private String weight;
+	private String inventory;
 	
 	public String getGroupEventId() {
 		return groupEventId;
@@ -74,6 +76,18 @@ public class GroupReportBeanwithPhase {
 	}
 	public void setAdditionalData(String additionalData) {
 		this.additionalData = additionalData;
+	}
+	public String getWeight() {
+		return weight;
+	}
+	public String getInventory() {
+		return inventory;
+	}
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+	public void setInventory(String inventory) {
+		this.inventory = inventory;
 	}	
 	
 	

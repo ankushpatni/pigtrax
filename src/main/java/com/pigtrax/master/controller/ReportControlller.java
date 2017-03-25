@@ -4778,6 +4778,7 @@ public class ReportControlller {
 				String weeks = request.getParameter("weeks");
 				String months = request.getParameter("months");
 				String years = request.getParameter("years");
+				String groupStatus = request.getParameter("groupStatus");
 				
 				String duration = request.getParameter("Duration");
 				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
@@ -4816,7 +4817,7 @@ public class ReportControlller {
 						String reportName = "CSV_Report_GroupStatusReport_"+DateUtil.convertToFormatString(DateUtil.getToday(),"dd/MM/yyyy")+".csv";
 						response.setHeader("Content-disposition", "attachment;filename="+reportName);
 						
-							rows = groupStatusReportService.getGroupStatusResult(Integer.parseInt(companyId), selectedPremise, startDatedt, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request), reportType, selectedSowSource); 
+							rows = groupStatusReportService.getGroupStatusResult(Integer.parseInt(companyId), selectedPremise, startDatedt, DateUtil.convertToFormat(endDate, "dd/MM/yyyy"), groupId, localeResolver.resolveLocale(request), reportType, selectedSowSource,groupStatus); 
 							Iterator<String> iter = rows.iterator();
 							if(rows != null && rows.size() > 1)
 							{
@@ -4971,6 +4972,7 @@ public class ReportControlller {
 				String days = request.getParameter("days");
 				String weeks = request.getParameter("weeks");
 				String months = request.getParameter("months");
+				String years = request.getParameter("years");
 				
 				String duration = request.getParameter("Duration");
 				DateTime endDatedt = new DateTime(DateUtil.convertToFormat(endDate, "dd/MM/yyyy"));
@@ -4989,6 +4991,10 @@ public class ReportControlller {
 				}
 				else if (weeks !=null && !weeks.isEmpty()){
 					endDatedt = endDatedt.minusWeeks(intDuration);
+					
+				}
+				else if (years !=null && !years.isEmpty()){
+					endDatedt = endDatedt.minusYears(intDuration);
 					
 				}
 				java.util.Date startDatedt = endDatedt.toDate();
