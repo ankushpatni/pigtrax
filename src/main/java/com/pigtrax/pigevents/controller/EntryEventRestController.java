@@ -2,6 +2,7 @@ package com.pigtrax.pigevents.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -249,6 +250,7 @@ public class EntryEventRestController {
 		List<PigInfoDto> fosterList = new ArrayList<PigInfoDto>();
 		try {
 			fosterList = pigInfoService.getAllFosterPigs(pigInformation);
+			Collections.sort(fosterList); 
 			dto.setPayload(fosterList);
 			if(fosterList != null)
 				dto.setStatusMessage("Success");

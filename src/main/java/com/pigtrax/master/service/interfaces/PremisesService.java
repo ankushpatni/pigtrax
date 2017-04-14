@@ -83,6 +83,9 @@ public interface PremisesService {
 
 
 	Map<Integer, String> getPremisesNameMapBasedOnCompanyId(
-			int generatedCompanyId) throws SQLException;	
+			int generatedCompanyId) throws SQLException;
+
+
+	public List<Premises> getPremisesListFromSowSource(int generatedCompanyId, String language, int sowSource);	
 	
 }

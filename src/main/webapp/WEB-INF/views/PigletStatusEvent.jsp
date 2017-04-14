@@ -388,7 +388,8 @@
 	                   <tr ng-repeat="fosterObj in fosterPigList" ng-if="fosterPigList != null && fosterPigList.length > 0">
 	                    <td><input type="radio" name="fosterId" id="fosterId" ng-model="pigletStatusEvent.fosterDto" ng-value="fosterObj"></td>
 	                    <td>{{fosterObj.pigId}}</td>
-	                    <td>{{DateUtils.getFormatedDate(fosterObj.currentFarrowEventDate)}}</td>
+	                    <td>{{DateUtils.getFormatedDate(fosterObj.birthDate)}}</td>
+<!-- 	                    <td>{{DateUtils.getFormatedDate(fosterObj.currentFarrowEventDate)}}</td> -->
 	                   </tr>
 	                   <tr ng-if="fosterPigList == null || fosterPigList.length == 0">
 	                     <td colspan="3">

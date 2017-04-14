@@ -153,4 +153,8 @@ public class PremisesServiceImpl implements PremisesService{
 		return premiseList;
 	}
 
+	public List<Premises> getPremisesListFromSowSource(int generatedCompanyId, String language, int sowSource) {
+		return premisesDao.getPremisesListFromSowSource( generatedCompanyId, sowSource );
+	}
+
 }

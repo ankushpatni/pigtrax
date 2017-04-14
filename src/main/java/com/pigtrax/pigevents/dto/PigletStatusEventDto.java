@@ -2,7 +2,7 @@ package com.pigtrax.pigevents.dto;
 
 import java.util.Date;
 
-public class PigletStatusEventDto {
+public class PigletStatusEventDto implements Comparable<PigletStatusEventDto>{
 	private Integer id;
 	private Integer weanId;
 	private Integer fosterId;
@@ -455,6 +455,40 @@ public class PigletStatusEventDto {
 
 	public void setWeanEventDateStr(String weanEventDateStr) {
 		this.weanEventDateStr = weanEventDateStr;
+	}
+
+	public int compareTo(PigletStatusEventDto o) {
+		int value = 0;
+		if (this.getFarrowEventDto() != null && o.getFarrowEventDto()!=null){
+			if (value == 0){
+				value = this.getFarrowEventDto().getFarrowDateTime().compareTo(o.getFarrowEventDto().getFarrowDateTime());
+			}
+			
+			if (value == 0){
+				Date thisDateObject=null;
+				if (this.getFosterEventDateTime() != null){
+					thisDateObject=this.getFosterEventDateTime();
+				}else if (this.getWeanEventDateTime() != null){
+					thisDateObject = this.getWeanEventDateTime();
+				} else if (this.getDeathEventDateTime()!=null){
+					thisDateObject=this.getDeathEventDateTime();
+				}
+				Date otherDateObject=null;
+				if (o.getFosterEventDateTime() != null){
+					otherDateObject=o.getFosterEventDateTime();
+				}else if (o.getWeanEventDateTime() != null){
+					otherDateObject = o.getWeanEventDateTime();
+				} else if (o.getDeathEventDateTime()!=null){
+					otherDateObject=o.getDeathEventDateTime();
+				}
+				if (thisDateObject!=null && otherDateObject!=null){
+					value = thisDateObject.compareTo(otherDateObject);
+				}
+			}
+			
+			
+		}
+		return value;
 	} 
 	
 	

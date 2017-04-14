@@ -44,8 +44,23 @@ var groupEventController = pigTrax.controller('GroupEventController', function($
 		});
 		res.error(function(data, status, headers, config) {
 			console.log( "failure message: " + {data: data});
-		});	
+		});
+		$scope.getPremisesListBySowSource();
+
 	}
+	
+	$scope.getPremisesListBySowSource = function()
+	{
+		var res = $http.get('rest/premises/getPremisesListBySowSource?generatedCompanyId='+$rootScope.companyId);
+			res.success(function(data, status, headers, config) {
+				$scope.premiseList = data.payload;
+				
+			});
+			res.error(function(data, status, headers, config) {
+				console.log( "failure message: " + {data: data});
+			});	
+	}
+
 	
 	$scope.loadGroupEvents = function()
 	{

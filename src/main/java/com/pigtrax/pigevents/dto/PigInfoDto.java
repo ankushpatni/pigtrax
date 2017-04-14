@@ -1,8 +1,9 @@
 package com.pigtrax.pigevents.dto;
 
+import java.util.Comparator;
 import java.util.Date;
 
-public class PigInfoDto {
+public class PigInfoDto implements Comparable<PigInfoDto>{
 	private Integer id;
 	private String pigId;
 	private String damId;
@@ -366,6 +367,10 @@ public class PigInfoDto {
 		buffer.append(", "+"active"+this.active);
 		buffer.append(" ] ");
 		return buffer.toString();
+	}
+
+	public int compareTo(PigInfoDto o) {
+		return this.getId()-o.getId();
 	}
 
 }

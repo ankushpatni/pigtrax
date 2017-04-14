@@ -18,6 +18,7 @@
 								code='label.leftmenu.reports.groupperformanceMonitoring'
 								text='Generate Group Performance Report' />
 						</h3>
+						<p class="color-danger" ng-show="targetListEmpty"><spring:message  text='No Farms associated with sow source'/></p>
 						
 						<% if(request.isUserInRole(RoleType.PigTraxSuperAdmin.getRoleValue()))
 								{%>
@@ -28,6 +29,22 @@
                       		  </select>
 						</div>
 							<%}%>
+
+						<div  class="form-group">
+						<label><spring:message code='label.premise.sowSource'  text='Sow Source'/><span style='color: red'>*</span></label>
+						<select  class="form-control"  ng-change="getPremisesFromSowSource('${CompanyId}')"  required required-message="'<spring:message code='label.premise.sowSourceYes.requiredMessage' text='Sow source is required' />'"  name="selectedSowSource" id="selectedSowSource" ng-model="selectedSowSource" >
+								<option value="" hidden>----</option>
+                      			 	<option ng-repeat="premise in sowSourceList" value="{{premise.id}}" ng-value="premise.id" ng-selected="selectedSowSource == premise.id">{{premise.name}}</option>
+                      			 	<option value="-1"><spring:message code='label.pigtrax.all.txt'  text='All'/></option>
+                      		  </select>
+                      		  	
+						</div>	
+						
+<!-- 						<div class="form-group col-md-3"> -->
+<%-- 						<label><spring:message code='label.premise.sowSource'  text='Sow Source'/><span style='color: red'>*</span></label> --%>
+<!--                       		  <div ng-dropdown-multiselect="" options="premiseValues" selected-model="selectedPremises"  extra-settings="multiselectdropdownsettings"></div>	 -->
+<!-- 						</div>					 -->
+													
 						<div  class="form-group">
 						<select  class="form-control"  required required-message="'<spring:message code='label.premise.premiseNameRequired' text='label.premise.premiseNameRequired' />'"  name="selectedPremise" id="selectedPremise" ng-model="selectedPremise"  >
 								<option value="" hidden><spring:message code='label.piginfo.premise.placeholder' text='Select premise' /></option>

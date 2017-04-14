@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,7 @@ public class PigletStatusEventRestController {
 			List<PigletStatusEventDto> pigletStatusEventsList = pigletStatusEventService.getPigletStatusEvents(pigletStatusEventDto);
 			if(pigletStatusEventsList != null && pigletStatusEventsList.size() > 0)
 			{
+				Collections.sort(pigletStatusEventsList); 
 				dto.setPayload(pigletStatusEventsList); 
 				dto.setStatusMessage("Success");
 			} 

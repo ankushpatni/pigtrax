@@ -77,6 +77,8 @@ public interface PremisesDao {
 	 * @return List<Company>
 	 */
 	public List<Premises> getAllPremises();
+
+	public List<Premises> getPremisesListFromSowSource(int generatedCompanyId, int sowSource);
 	
 
 }
