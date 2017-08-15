@@ -34,6 +34,7 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 							"active" : roomData.active,
 							"id" : $scope.add.id,
 							"barnId" : roomData.generatedBarnId,
+							"floorTypeId" : $scope.add.floorTypeId,
 							"roomPositionId" : $scope.add.roomPositionId,
 							"pigSpaces" : $scope.add.pigSpaces
 					};
@@ -46,6 +47,7 @@ pigTrax.controller('addRoomCtrl', function($scope, $http, $window, $modalInstanc
 							"active" : true,
 							"barnId" : roomData.generatedBarnId	,
 							"roomPositionId" : $scope.add.roomPositionId,
+							"floorTypeId" : $scope.add.floorTypeId,
 							"pigSpaces" : $scope.add.pigSpaces
 						};
 				}

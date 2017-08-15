@@ -69,25 +69,28 @@
                              	<ul class="sub-menu">
                              	
                              				<li><a href="overViewReport"><spring:message code="label.piginfo.overView.report.overView"  text="Report OverView"/></a></li>		
+                             				<li><a href="trackingReportsAggregate"><spring:message code="label.piginfo.overView.report.trackingreportaggregate"  text="Tracking Reports"/></a></li>		
 											<li><a href="reportGeneration"><spring:message code="label.leftmenu.reports.performanceMonitoring"  text="Performance Monitoring"/></a></li>																																	
 											<!--   <li><a href="reportGenerationSow"><spring:message code="label.leftmenu.Charts.sowReport"  text="Sow Report"/></a></li>
 											<li><a href="reportGenerationGroup"><spring:message code="label.leftmenu.Charts.groupReport"  text="Group Report"/></a></li>
 											<li><a href="reportGenerationActionList"><spring:message code="label.leftmenu.Charts.actionListReport"  text="Action List Report"/></a></li>
 											<li><a href="reportInventoryStatus"><spring:message code="label.leftmenu.Charts.inventoryStatusReport"  text="Inventory Status Report"/></a></li>
 											<li><a href="reportLactationLength"><spring:message code="label.leftmenu.Charts.lactationLengthReport"  text="Lactation Length Report"/></a></li>
-											--><li><a href="reportPigletMortality"><spring:message code="label.leftmenu.Charts.pigletMortalityReport"  text="Piglet Mortality Tracking Report"/></a></li>
+<%-- 											--><li><a href="reportPigletMortality"><spring:message code="label.leftmenu.Charts.pigletMortalityReport"  text="Piglet Mortality Tracking Report"/></a></li> --%>
 											<!--  <li><a href="prodEventLog"><spring:message code="label.leftmenu.reports.prodEventLog"  text="Production Event Log"/></a></li>
 											<li><a href="removalReport"><spring:message code="label.leftmenu.reports.removalReport"  text="Removal Report"/></a></li>
 											<li><a href="targetReport"><spring:message code="label.leftmenu.reports.targetReport"  text="Target Report"/></a></li>
 											<li><a href="litterBalance"><spring:message code="label.leftmenu.reports.litterBalance"  text="Litter Balance"/></a></li>
 											<li><a href="saleReport"><spring:message code="label.leftmenu.reports.saleReport"  text="Sale Report"/></a></li>
-											--><li><a href="rationReport"><spring:message code="label.leftmenu.reports.rationReport"  text="Feed Budget Tracking Report"/></a></li>
+<%-- 											--><li><a href="rationReport"><spring:message code="label.leftmenu.reports.rationReport"  text="Feed Budget Tracking Report"/></a></li> --%>
 											<!--  <li><a href="feedReport"><spring:message code="label.leftmenu.reports.feedReport"  text="Feed Report"/></a></li>
-											--><li><a href="gestationReport"><spring:message code="label.leftmenu.reports.gestationReport"  text="Gestation Tracking Report"/></a></li>
-											<li><a href="groupStatusReport"><spring:message code="label.leftmenu.reports.groupStatusReport"  text="Group Status Report"/></a></li>
-											<li><a href="groupPerformanceReport"><spring:message code="label.leftmenu.reports.groupPerformanceReport"  text="Group Performance Report"/></a></li>
+<%-- 											--><li><a href="gestationReport"><spring:message code="label.leftmenu.reports.gestationReport"  text="Gestation Tracking Report"/></a></li> --%>
+<%-- 											<li><a href="groupStatusReport"><spring:message code="label.leftmenu.reports.groupStatusReport"  text="Group Status Report"/></a></li> --%>
 											<!--  <li><a href="sowMomentEvent"><spring:message code="label.leftmenu.managepigevents.sowMomentEvent.link"  text="Sow Movement Event"/></a></li>
-											--><li><a href="dataIntegrityReport"><spring:message code="label.leftmenu.reports.dataIntegrityReport"  text="Data Integrity Report"/></a></li>
+											-->
+											<li><a href="groupPerformanceReport"><spring:message code="label.leftmenu.reports.groupPerformanceReport"  text="Group Performance Report"/></a></li>
+											
+											<li><a href="dataIntegrityReport"><spring:message code="label.leftmenu.reports.dataIntegrityReport"  text="Data Integrity Report"/></a></li>
 											<li><a href="dataExtraction"><spring:message code="label.leftmenu.reports.dataExtraction"  text="Data Extraction Report"/></a></li> 
 											<li><a href="sowCardReport"><spring:message code="label.leftmenu.reports.sowCardReport"  text="Sow Card Report"/></a></li>
 											

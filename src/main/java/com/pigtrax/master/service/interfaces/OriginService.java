@@ -6,7 +6,7 @@ import com.pigtrax.application.exception.PigTraxException;
 import com.pigtrax.master.dto.OriginDto;
 
 public interface OriginService {
-    List<OriginDto> getOriginList();
+    List<OriginDto> getOriginList(String user);
     void saveOrigin(OriginDto originDto) throws PigTraxException;
     void deleteOrigin(Integer originId);
 }

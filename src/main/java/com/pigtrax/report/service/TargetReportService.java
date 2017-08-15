@@ -2,6 +2,7 @@ package com.pigtrax.report.service;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +48,8 @@ public class TargetReportService {
 								+ messageSource.getMessage("label.piginfo.input.dateformat", null, "",locale)+ ","
 								+ messageSource.getMessage("label.companytargetform.targetvalue", null,"", locale)+ ","
 								+ messageSource.getMessage("label.piginfo.entryeventform.remarks", null,"", locale) + "\n");
+				
+				Collections.sort(prodEventLogList); 
 
 				for (TargetReportBean targetReportBean : prodEventLogList) {
 					rowBuffer = new StringBuffer();

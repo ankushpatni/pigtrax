@@ -144,5 +144,13 @@ public class RemovalEventController
 		   }
 		   return "template";
 	   }
+	 
+	 @RequestMapping(value = "/editRemoval")
+		public String addPremises(Model model)
+		{
+			model.addAttribute("contentUrl","editRemoval.jsp"); 
+			//logger.info("Getting value from db--->"+premisesService.getCompanyList().size());
+			return "editRemoval";
+		}
 
 }

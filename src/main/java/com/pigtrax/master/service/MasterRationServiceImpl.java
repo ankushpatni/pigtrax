@@ -53,13 +53,13 @@ public class MasterRationServiceImpl implements MasterRationService {
 	}
   
   @Override
-public List<MasterRationDto> getRationList(String language) {
-	  return rationDao.getRationList(language);
+public List<MasterRationDto> getRationList(String language, String activeUser) {
+	  return rationDao.getRationList(language, activeUser);
 }
   
   @Override
-	public Map<Integer, String> getRationListAsMap(String language) {
-		List<MasterRationDto> rationDtoList = getRationList(language);
+	public Map<Integer, String> getRationListAsMap(String language, String activeUser) {
+		List<MasterRationDto> rationDtoList = getRationList(language,activeUser);
 		Map<Integer, String> rationMap = new LinkedHashMap<Integer, String>();
 		if(rationDtoList != null && 0 <rationDtoList.size())
 		{

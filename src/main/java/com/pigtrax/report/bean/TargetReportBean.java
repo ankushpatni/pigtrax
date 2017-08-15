@@ -2,7 +2,7 @@ package com.pigtrax.report.bean;
 
 import java.util.Date;
 
-public class TargetReportBean {
+public class TargetReportBean implements Comparable<TargetReportBean>{
 	
 	private String parameter;
 	private String targetValue;
@@ -39,6 +39,18 @@ public class TargetReportBean {
 	}
 	public void setRationId(String rationId) {
 		this.rationId = rationId;
+	}
+	public int compareTo(TargetReportBean targetReportBean) {
+		int compare = 0;
+		compare = this.getParameter().compareTo(targetReportBean.getParameter());
+		if (compare ==0){
+			compare = this.getRationId().compareTo(targetReportBean.getRationId());
+		}
+		if (compare == 0){
+			compare = this.getStartDate().compareTo(targetReportBean.getStartDate());
+		}
+		
+		return compare;
 	}	
 
 }

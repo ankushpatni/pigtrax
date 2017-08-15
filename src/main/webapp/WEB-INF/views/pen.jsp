@@ -21,7 +21,7 @@
 				<th st-sort="location" style="width:30%"><spring:message code="label.barn.location" text="Location" /></th>
 				<th style="width:20%"><spring:message code="label.premise.edit" text="Edit" /></th>
 				<th style="width:20px"><spring:message code="label.company.activateDeactivate"
-												text="Activate/Deactivate"/></th>
+												text="Status: Active/ Inactive"/></th>
 			</tr>
 		 	<tr>
 				<th colspan="4"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>

@@ -74,8 +74,8 @@ public class RationReportService {
 					+messageSource.getMessage("label.reports.rationreport.actualcostperpig", null, "", locale)+","
 					+messageSource.getMessage("label.reports.rationreport.targetcostperpig", null, "", locale)+","
 					+messageSource.getMessage("label.reports.rationreport.deviationcostperpig", null, "", locale)+","
-//					+messageSource.getMessage("label.reports.salesreport.weightperpig", null, "", locale)
-//					","+
+					+messageSource.getMessage("label.piginfo.groupperformancereport.totalfeedcost", null, "", locale)+","
+					+messageSource.getMessage("label.reports.salesreport.weightperpig", null, "", locale)+","
 					+messageSource.getMessage("label.piginfo.feedEventForm.ticketNumber", null, "", locale)+",\n");
 			int count = 0;
 			for (RationReportBean rationReportBean : rationReportList) {
@@ -145,7 +145,8 @@ public class RationReportService {
 					double feedCostHDTarget = feedCostList.get(count).getWtdAvg()*rationReportBean.getTargetTonsUsed()*duration	;
 					rowBuffer.append(PrimitiveDataUtilAndManipulation.getRoundtoNPlace(feedCostHDTarget,3) + seprater);
 					rowBuffer.append(PrimitiveDataUtilAndManipulation.getRoundtoNPlace(feedCostHD - feedCostHDTarget,3)+ seprater);
-//					rowBuffer.append(rationReportBean.getTotalWeight()+ seprater);
+					rowBuffer.append(sowCount*PrimitiveDataUtilAndManipulation.getRoundtoNPlace(feedCostHD,3)+ seprater);
+					rowBuffer.append(rationReportBean.getTotalWeight()+ seprater);
 					rowBuffer.append((rationReportBean.getTicketNum1() != null?rationReportBean.getTicketNum1()+":": "")+(rationReportBean.getTicketNum2() != null?rationReportBean.getTicketNum2()+":": "")+(rationReportBean.getTicketNum3() != null?rationReportBean.getTicketNum3()+":": "") +seprater);
 					
 					

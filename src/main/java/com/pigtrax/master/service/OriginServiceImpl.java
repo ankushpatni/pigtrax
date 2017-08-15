@@ -17,8 +17,8 @@ public class OriginServiceImpl implements OriginService {
 	OriginDao originDao;
 	
   @Override
-	public List<OriginDto> getOriginList() {
-		return originDao.getOriginList();
+	public List<OriginDto> getOriginList(String activeuser) {
+		return originDao.getOriginList(activeuser);
 	}
 	  
   @Override

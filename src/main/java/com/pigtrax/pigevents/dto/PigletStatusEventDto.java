@@ -53,6 +53,7 @@ public class PigletStatusEventDto implements Comparable<PigletStatusEventDto>{
     private String deathEventDateStr;
     private String fosterEventDateStr;
     private String weanEventDateStr;
+    private Integer numberOfPigsLW;
     
     
     
@@ -455,6 +456,14 @@ public class PigletStatusEventDto implements Comparable<PigletStatusEventDto>{
 
 	public void setWeanEventDateStr(String weanEventDateStr) {
 		this.weanEventDateStr = weanEventDateStr;
+	}
+
+	public Integer getNumberOfPigsLW() {
+		return numberOfPigsLW;
+	}
+
+	public void setNumberOfPigsLW(Integer numberOfPigsLW) {
+		this.numberOfPigsLW = numberOfPigsLW;
 	}
 
 	public int compareTo(PigletStatusEventDto o) {

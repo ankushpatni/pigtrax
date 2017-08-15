@@ -6,7 +6,7 @@ import com.pigtrax.master.beans.Origin;
 import com.pigtrax.master.dto.OriginDto;
 
 public interface OriginDao {
-	List<OriginDto> getOriginList();
+	List<OriginDto> getOriginList(String activeuser);
     Integer saveOrigin(Origin origin);
     Integer deleteOrigin(Integer originId);
     boolean checkIfExists(String name) ;

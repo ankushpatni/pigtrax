@@ -7,6 +7,7 @@ import java.util.Date;
 public class PigletMortalityReportBean {
 	
 	private String premise;
+	private String penId;
 	private String barnId;
 	private String roomId;
 	private Integer lactationDays;
@@ -165,6 +166,12 @@ public class PigletMortalityReportBean {
 	}
 	public void setWeanDate(Date weanDate) {
 		this.weanDate = weanDate;
+	}
+	public String getPenId() {
+		return penId;
+	}
+	public void setPenId(String penId) {
+		this.penId = penId;
 	}
 	
     

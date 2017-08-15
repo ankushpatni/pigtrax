@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ import com.pigtrax.master.service.interfaces.RoomService;
 import com.pigtrax.master.service.interfaces.SiloService;
 import com.pigtrax.pigevents.service.interfaces.GroupEventService;
 import com.pigtrax.pigevents.service.interfaces.PigInfoService;
+import com.pigtrax.usermanagement.beans.PigTraxUser;
 import com.pigtrax.usermanagement.dto.ServiceResponseDto;
 
 @RestController
@@ -81,8 +83,19 @@ public class UtilController {
 		ServiceResponseDto dto = new ServiceResponseDto();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		dto.setPayload( refDataCache.getVentilationTypeMap(language));
+//		dto.setPayload( refDataCache.getVentilationTypeMap(language));
+//		dto.setStatusMessage("Success");
+		
+		Set<Integer> keySet = null;
+		
+		List<Object> responseList = new ArrayList<Object>();
+		keySet = refDataCache.getVentilationTypeMap(language).keySet();
+		responseList.add(keySet);
+		responseList.add( refDataCache.getVentilationTypeMap(language));		
+		dto.setPayload(responseList); 
 		dto.setStatusMessage("Success");
+
+		
 		return dto;
 	}
 	
@@ -207,6 +220,7 @@ public class UtilController {
 	public ServiceResponseDto getFeedEventDetailMasterData(HttpServletRequest request,  @RequestParam Integer companyId)
 	{
 		logger.info("Inside getPhaseType" );		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ServiceResponseDto dto = new ServiceResponseDto();
 		List<Map> phaseOfProductionType = new ArrayList<Map>();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
@@ -214,7 +228,7 @@ public class UtilController {
 		phaseOfProductionType.add(refDataCache.getFeedEventTypeMap(language));
 		phaseOfProductionType.add(siloService.getSiloListBasedOnCompanyId(companyId));
 		phaseOfProductionType.add(groupeventService.getGroupEventByCompanyId(companyId));
-		phaseOfProductionType.add(rationService.getRationListAsMap(language));
+		phaseOfProductionType.add(rationService.getRationListAsMap(language,activeUser.getUsername()));
 		dto.setPayload(phaseOfProductionType);
 		dto.setStatusMessage("Success");
 		return dto;
@@ -748,10 +762,11 @@ public class UtilController {
 	public ServiceResponseDto getRationIdList(HttpServletRequest request)
 	{
 		logger.info("Inside getRationIdList" );
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ServiceResponseDto dto = new ServiceResponseDto();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
-		Map<Integer, String> refDataMap = rationService.getRationListAsMap(language);		
+		Map<Integer, String> refDataMap = rationService.getRationListAsMap(language,activeUser.getUsername());		
 		
 		Set<Integer> keySet = null;
 		if(refDataMap != null)

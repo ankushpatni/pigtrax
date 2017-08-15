@@ -514,4 +514,83 @@ public class RemovalEventExceptSalesServiceImpl implements RemovalEventExceptSal
 		return removalEventExceptSalesDetails;
 	}
 
+	public int updateRemovalEventExceptSalesDetails(RemovalEventExceptSalesDetails removalEventExceptSalesDetails) throws PigTraxException {
+
+		int returnValue = 0;
+		GroupEventDetails groupEventDetails = null;
+		try
+		{
+			
+			{
+				GroupEvent groupEventUpdate = groupEventDao.getGroupEventByGeneratedGroupId(removalEventExceptSalesDetails.getGroupEventId(), removalEventExceptSalesDetails.getCompanyId());
+				if(null != groupEventUpdate )
+				{
+//					if(removalEventExceptSalesDetails.getRemovalEventId() == RemovalEventType.Transferred.getTypeCode())
+//					{
+//						groupEventUpdate.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());
+//						groupEventDao.updateGroupEvent(groupEventUpdate);
+//						
+//						GroupEventPhaseChange currentPhase = groupEventPhaseChangeDao.getCurrentPhase(groupEventUpdate.getId());
+//						currentPhase.setPremiseId(removalEventExceptSalesDetails.getDestPremiseId());						
+//						groupEventPhaseChangeDao.updatePhaseDetails(currentPhase);						
+//						groupEventRoomDao.deleteGroupEventRooms(currentPhase.getId());
+//						groupEventRoomDao.addSingleGroupEventRooms(currentPhase.getId(), removalEventExceptSalesDetails.getRoomId());
+//						
+//					}
+//					else
+					{
+						//Add a negative transaction in the group event details
+						groupEventDetails = new GroupEventDetails();
+						groupEventDetails.setSowSourceId(removalEventExceptSalesDetails.getDestPremiseId());
+						groupEventDetails.setGroupId(groupEventUpdate.getId());
+						groupEventDetails.setDateOfEntry(removalEventExceptSalesDetails.getRemovalDateTime());
+						groupEventDetails.setNumberOfPigs(-1*removalEventExceptSalesDetails.getNumberOfPigs());
+						groupEventDetails.setWeightInKgs(removalEventExceptSalesDetails.getWeightInKgs().doubleValue());
+						groupEventDetails.setUserUpdated(removalEventExceptSalesDetails.getUserUpdated());
+						groupEventDetails.setRemarks("Removed through Pig Movement");
+						
+						groupEventUpdate.setCurrentInventory(groupEventUpdate.getCurrentInventory() - removalEventExceptSalesDetails.getNumberOfPigs());
+						groupEventDao.updateGroupEventCurrentInventory(groupEventUpdate);
+						groupEventDetailsDao.addGroupEventDetails(groupEventDetails);
+					}
+				}
+			}
+			
+						
+			
+			
+//			PigTraxEventMaster master = new PigTraxEventMaster();
+//			if(removalEventExceptSalesDetails.getPigInfoId() != null && removalEventExceptSalesDetails.getPigInfoId()!=0)
+//				master.setPigInfoId(removalEventExceptSalesDetails.getPigInfoId());
+//			if(removalEventExceptSalesDetails.getGroupEventId() != null && removalEventExceptSalesDetails.getGroupEventId()!=0)
+//				master.setGroupEventId(removalEventExceptSalesDetails.getGroupEventId());
+//			master.setUserUpdated(removalEventExceptSalesDetails.getUserUpdated());
+//			master.setEventTime(removalEventExceptSalesDetails.getRemovalDateTime());
+//			master.setRemovalEventExceptSalesDetails(returnValue);
+//			eventMasterDao.insertEntryEventDetails(master);
+			
+		} 
+		catch (SQLException sqlEx)
+		{
+			if ("23505".equals(sqlEx.getSQLState()))
+			{
+				throw new PigTraxException("GroupId already exists",
+						sqlEx.getSQLState(), true);
+			} 
+			else
+			{
+				throw new PigTraxException("SqlException occured",
+						sqlEx.getSQLState());
+			}
+		}
+		catch (DuplicateKeyException sqlExDup)
+		{
+			throw new PigTraxException("GroupId already exists",
+						null, true);
+		}
+		return returnValue;
+	
+
+	}
+
 }

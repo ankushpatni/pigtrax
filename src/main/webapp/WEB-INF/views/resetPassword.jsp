@@ -16,7 +16,7 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label"><spring:message code='label.employee.oldPassword'  text='Old Password'/></label>
 							<div class="col-sm-10 col-xs-4">
-								<input id="inputPassword3" type="password" name="oldPassword"  minlength="8" maxlength="16"  
+								<input id="inputPassword3" type="password" name="oldPassword"  minlength="7" maxlength="16"  
 									placeholder="<spring:message code='label.employee.oldPassword'  text='oldPassword'/>" class="form-control" autocomplete="off"  required onKeyPress="demoMatchClick(this);">
 									<input type="text" id="message" style="border:none;color:red ; font-weight:bold;" readonly="readonly"/>
 							</div>
@@ -24,7 +24,7 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label"><spring:message code='label.employee.newPassword'  text='New Password'/></label>
 							<div class="col-sm-10 col-xs-4">
-								<input id="inputPassword3" type="password" name="newPassword" minlength="8" maxlength="16"  
+								<input id="inputPassword3" type="password" name="newPassword" minlength="7" maxlength="16"  
 									placeholder="<spring:message code='label.employee.newPassword'  text='New Password'/>"
 									class="form-control" required onKeyPress="demoMatchClick1(this);">
 								<input type="text" id="message1" style="border:none;color:red ; font-weight:bold;" readonly="readonly"/>
@@ -33,7 +33,7 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label"><spring:message code='label.employee.reEnterNewPassword'  text='Re Enter Password'/></label>
 							<div class="col-sm-10 col-xs-4">
-								<input id="inputPassword3" type="password" name="reEnterPassword"  minlength="8" maxlength="16"  
+								<input id="inputPassword3" type="password" name="reEnterPassword"  minlength="7" maxlength="16"  
 									placeholder="<spring:message code='label.employee.reEnterNewPassword'  text='Re Enter Password'/>"
 									class="form-control" required onKeyPress="demoMatchClick2(this);">
 									<input type="text" id="message2" style="border:none;color:red ; font-weight:bold;" readonly="readonly"/>

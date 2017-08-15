@@ -29,4 +29,6 @@ public interface RemovalEventExceptSalesService {
 	List<RemovalEventExceptSalesDetails> getRemovalEventExceptSalesDetailsByPigInfoId(
 			String pigInfoIdId, int companyId, Integer premiseId)
 			throws PigTraxException;
+
+	public int updateRemovalEventExceptSalesDetails(RemovalEventExceptSalesDetails removalEventExceptSalesDetails) throws PigTraxException;
 }

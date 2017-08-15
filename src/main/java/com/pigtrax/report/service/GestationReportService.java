@@ -132,7 +132,7 @@ public class GestationReportService {
 					servTarget = 0;	
 				}
 				
-				rowBuffer.append((servTarget - (Integer)mpRow.get("NumberServ"))+ seprater);
+				rowBuffer.append(( (Integer)mpRow.get("NumberServ")-servTarget)+ seprater);
 				rowBuffer.append(mpRow.get("W1") + seprater);
 				rowBuffer.append(mpRow.get("W2") + seprater);
 				rowBuffer.append(mpRow.get("W3") + seprater);
@@ -153,7 +153,8 @@ public class GestationReportService {
 				rowBuffer.append(mpRow.get("%FR") + seprater);
 				rowBuffer.append(mpRow.get("FarrowDate") + seprater);
 				rowBuffer.append(mpRow.get("FarrowWK") + seprater);
-				rowBuffer.append(mpRow.get("FACapacity"));
+				rowBuffer.append(((double)(Integer)mpRow.get("Farrows")/5)*100);
+//				rowBuffer.append(mpRow.get("FACapacity"));
 				returnRows.add(rowBuffer.toString()+"\n");
 			}
 		}

@@ -57,7 +57,7 @@
 						<div class="form-group col-md-3">
 							  
 							  						<label><spring:message   text='Group Status'/><span style='color: red'>*</span></label>
-						<select  class="form-control"  value="Open Group" required required-message="'<spring:message text='Sow source is required' />'"  name="groupStatus" id="groupStatus" ng-model="groupStatus" >
+						<select  class="form-control"  value="Open Group" required required-message="'<spring:message text='Group Status is required' />'"  name="groupStatus" id="groupStatus" ng-model="groupStatus" >
 									<option value="" hidden>----</option>
                       			 	<option value="open"><spring:message   text='Open Group'/></option>
                       			 	<option value="closed"><spring:message   text='Closed Group'/></option>

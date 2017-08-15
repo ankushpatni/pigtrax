@@ -84,7 +84,7 @@
 				<label><spring:message code="label.barn.ventilationTypeId" text="Ventilation Type ID" /></label>
 				<select class="form-control"   placeholder="<spring:message code='label.barn.ventilationTypeId'  text='Ventilation Type ID'/>" name="ventilationTypeId" ng-model="add.ventilationTypeId"   
                    required-message="'<spring:message code='label.barn.ventilationTypeIdRequired' text='Ventilation Type is required' />'">
-                    <option ng-repeat="key in validationTypeKeys" ng-value="key" ng-selected="add.ventilationTypeId==key">{{validationType[key]}}</option>
+                    <option ng-repeat="key in validationTypeKeys1" ng-value="key" ng-selected="add.ventilationTypeId==key">{{validationTypeKeyValues[key]}}</option>
                     </select>	
 			</div>	
 			

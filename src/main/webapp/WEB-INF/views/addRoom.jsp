@@ -25,6 +25,23 @@
 				<option value="3"><spring:message code="label.barn.roomPosition.outside" text="Outside" /></option>
 				</select>
 			</div>
+			<div class="form-group">
+				<label><spring:message code="label.barn.floorType" text="Floor Type" /></label>
+				<select class="form-control" type="text"  name="floorType" ng-model="add.floorTypeId" >
+				<option value="1"><spring:message code="" text="Cast Plastic" /></option>
+				<option value="2"><spring:message code="" text="Full Slat" /></option>
+				<option value="3"><spring:message code="" text="Narrow Slat" /></option>
+				<option value="4"><spring:message code="" text="Open Pit" /></option>
+				<option value="5"><spring:message code="" text="Outside Dirt" /></option>
+				<option value="6"><spring:message code="" text="Partial Slat" /></option>
+				<option value="7"><spring:message code="" text="Plastic" /></option>
+				<option value="8"><spring:message code="" text="Solid Cement" /></option>
+				<option value="9"><spring:message code="" text="Straw" /></option>
+				<option value="10"><spring:message code="" text="Tenderfoot" /></option>
+				<option value="11"><spring:message code="" text="Tribar" /></option>
+				<option value="12"><spring:message code="" text="Woven Wire" /></option>
+				</select>
+			</div>
 			 <div class="form-group">
 				<label><spring:message code="label.room.pigSpaces" text="Pig Spaces" /><span style='color: red'>*</span></label>				
 				<input class="form-control" type="text" placeholder="<spring:message code='label.room.pigSpaces' text='Pig Spaces' />" 

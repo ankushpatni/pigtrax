@@ -33,12 +33,12 @@ public class MasterRationDaoImpl implements MasterRationDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	   @Override
 	public List<MasterRationDto> getRationList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-/*
+
+	/*
    @Override
 	public boolean checkIfExists(final String name) {
 	   if(name !=null && name.trim().length() > 0)
@@ -120,10 +120,13 @@ public class MasterRationDaoImpl implements MasterRationDao {
 		
 	}
 	@Override
-	public List<MasterRationDto> getRationList(final String language) {
-		String query = "SELECT \"id\",\"rationValue\", \"id_FeedEventType\", \"lastUpdated\",\"userUpdated\",\"rationDescription\",\"id_RationType\" from pigtrax.\"MasterRation\" order by \"rationValue\" ";
+	public List<MasterRationDto> getRationList(final String language, final String activeUser) {
+		String query = "SELECT \"id\",\"rationValue\", \"id_FeedEventType\", \"lastUpdated\",\"userUpdated\",\"rationDescription\",\"id_RationType\" from pigtrax.\"MasterRation\" where \"userUpdated\" = ? order by \"rationValue\" ";
 
-		   List<MasterRationDto> rationDtoList =  jdbcTemplate.query(query, new MasterRationMapper());
+		   List<MasterRationDto> rationDtoList =  jdbcTemplate.query(query, new PreparedStatementSetter(){
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1, activeUser);
+				}},new MasterRationMapper());
 		   
 		   if(rationDtoList != null && 0<rationDtoList.size())
 		   {
@@ -169,5 +172,6 @@ public class MasterRationDaoImpl implements MasterRationDao {
 		   }
 		   return null;
 	}
+
   
 }

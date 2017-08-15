@@ -383,6 +383,7 @@ public class PigletStatusEventServiceImpl implements PigletStatusEventService {
 				   //if(farrowid != pigletStatusEvent.getFarrowEventId()){
 					   pigletStatusEventDto = new PigletStatusEventDto();
 					   //generic fields
+					   pigletStatusEventDto.setNumberOfPigsLW(pigletStatusEvent.getNumberOfPigsLW());
 					   pigletStatusEventDto.setId(pigletStatusEvent.getId());
 					   pigletStatusEventDto.setEventDateTime(pigletStatusEvent.getEventDateTime());
 					   pigletStatusEventDto.setPigInfoId(pigletStatusEvent.getPigInfoId());

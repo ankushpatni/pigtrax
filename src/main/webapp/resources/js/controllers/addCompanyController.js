@@ -32,13 +32,13 @@ pigTrax.controller('addCompanyCtrl', function($scope, $http, $window, $modalInst
     	$scope.add.id = companyData.id;
 		$scope.add.otherCity = companyData.otherCity;
 		
-		for (i = 0; i < $scope.city.length; i++) { 
-			if($scope.city[i].value === companyData.city)
-			{
-				$scope.cityValue = $scope.city[i].name;
-				break;
-			}
-		}
+//		for (i = 0; i < $scope.city.length; i++) { 
+//			if($scope.city[i].value === companyData.city)
+//			{
+//				$scope.cityValue = $scope.city[i].name;
+//				break;
+//			}
+//		}
 		
 		if($scope.add.city.toUpperCase()==="OTHERS")
 		{

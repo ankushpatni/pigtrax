@@ -10,8 +10,8 @@ public interface MasterRationService {
     
     void deleteRation(Integer rationId);
     
-    List<MasterRationDto> getRationList(String language);
+    List<MasterRationDto> getRationList(String language, String string);
     
-    Map<Integer, String> getRationListAsMap(String language);
+    Map<Integer, String> getRationListAsMap(String language, String activeUser);
     
 }

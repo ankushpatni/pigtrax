@@ -235,7 +235,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 			throws SQLException {
 		String query = "update pigtrax.\"SalesEventDetails\" SET \"invoiceId\"=?, \"ticketNumber\"=?, \"numberOfPigs\"=?,"
 				+" \"revenueUsd\"=? ,\"weightInKgs\" =? , \"salesDateTime\" = ?, \"id_PigInfo\"=?, \"id_GroupEvent\"=?, \"soldTo\"=?, \"lastUpdated\"=current_timestamp,"+
-				" \"userUpdated\"=?,id_TransportJourney=?,\"salesTypes\"=?, \"salesReasons\" = ?  where \"id\" = ? ";
+				" \"userUpdated\"=?,\"id_TransportJourney\"=?,\"salesTypes\"=?, \"salesReasons\" = ?, \"remarks\"=?  where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
@@ -281,7 +281,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 						ps.setNull(6, java.sql.Types.DATE);
 					}
 					
-					if(salesEventDetails.getPigInfoId() != null )
+					if(salesEventDetails.getPigInfoId() != null && salesEventDetails.getPigInfoId() != 0)
 					{
 						ps.setInt(7, salesEventDetails.getPigInfoId());
 					}
@@ -290,7 +290,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 						ps.setNull(7, java.sql.Types.INTEGER);
 					}
 					
-					if(salesEventDetails.getGroupEventId() != null )
+					if(salesEventDetails.getGroupEventId() != null && salesEventDetails.getGroupEventId() != 0 )
 					{
 						ps.setInt(8, salesEventDetails.getGroupEventId());
 					}
@@ -303,7 +303,7 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 					
 					ps.setString(10, UserUtil.getLoggedInUser());
 					
-					if(salesEventDetails.getTransportJourneyId() != null )
+					if(salesEventDetails.getTransportJourneyId() != null && salesEventDetails.getTransportJourneyId() != 0)
 					{
 						ps.setInt(11, salesEventDetails.getTransportJourneyId());
 					}
@@ -314,7 +314,8 @@ public class SalesEventDetailsDaoImpl implements SalesEventDetailsDao
 					ps.setString(12, salesEventDetails.getSalesTypesAsString());
 					ps.setString(13, salesEventDetails.getSalesReasonsAsString());
 					
-					ps.setInt(14, salesEventDetails.getId());
+					ps.setString(14, salesEventDetails.getRemarks());
+					ps.setInt(15, salesEventDetails.getId());
 				}
 			});	
 	}

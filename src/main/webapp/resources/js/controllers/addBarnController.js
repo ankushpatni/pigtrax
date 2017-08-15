@@ -82,6 +82,20 @@ pigTrax.controller('addBarnCtrl', function($scope, $http, $window, $modalInstanc
 	
 	$scope.getFeederTypes();
 	
+	$scope.getVentilationTypes = function()
+	{
+		restServices.getVentilationTypes(function(data){
+			if(!data.error)
+			{
+				var responseList = data.payload;
+				$scope.validationTypeKeys1 = responseList[0];
+				$scope.validationTypeKeyValues = responseList[1];
+			}
+		});
+	}
+	
+	$scope.getVentilationTypes();
+	
 	
 	
 	console.log(barnData);

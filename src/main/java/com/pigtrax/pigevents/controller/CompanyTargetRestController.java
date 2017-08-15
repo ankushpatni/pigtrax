@@ -1,5 +1,6 @@
 package com.pigtrax.pigevents.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,7 @@ public class CompanyTargetRestController {
 		try{
 		
 			List<CompanyTargetDto> companyTargets = companyTargetService.getCompanyTargets(companyTargetDto);
+			Collections.sort(companyTargets);
 			dto.setPayload(companyTargets);
 			dto.setStatusMessage("success");
 			

@@ -142,21 +142,18 @@ public class CompanyTargetDto implements Comparable<CompanyTargetDto>{
 
 	public int compareTo(CompanyTargetDto dto) {
 		int value = 0;
-		if (this.targetName!=null && dto.targetName!=null){
-			value =this.targetName.compareTo(dto.targetName);
-			if (value == 0){
-				int value2 = this.rationId.compareTo(dto.rationId);
-				if (value2 == 0){
-					return this.getCompletionDate().compareTo(dto.getCompletionDate());
-				}
-				else{
-					return value2;
+		value = this.premise.compareTo(dto.premise);
+		if (value == 0) {
+			value = this.targetName.compareTo(dto.targetName);
+			if (value == 0) {
+				value = this.rationId.compareTo(dto.rationId);
+				if (value == 0) {
+					return this.completionDate.compareTo(dto.completionDate);
 				}
 			}
-			return value;
-			
 		}
-		return 0;
+		return value;
+
 	}
 	
 	

@@ -48,6 +48,7 @@ public class PigletStatusEventBuilder {
 			   info.setMortalityReasonTypeId(dto.getMortalityReasonTypeId());
 			   info.setPenId(dto.getPenId());
 			   info.setPremiseId(dto.getPremiseId());
+			   info.setNumberOfPigsLW(dto.getNumberOfPigsLW()); 
 			    
 		   }
 		   return info;

@@ -261,7 +261,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 			throws SQLException {
 		String query = "update pigtrax.\"RemovalEventExceptSalesDetails\" SET \"numberOfPigs\"=?, \"removalDateTime\"=?, \"id_PigInfo\"=?,"
 				+" \"id_GroupEvent\"=? ,\"weightInKgs\" =? , \"id_Premise\"=?, \"lastUpdated\"=current_timestamp,"+
-				" \"userUpdated\"=?,\"id_TransportJourney\"=?,\"id_DestPremise\"=?,\"id_MortalityReason\"=?,\"revenueUsd\"=?  where \"id\" = ? ";
+				" \"userUpdated\"=?,\"id_TransportJourney\"=?,\"id_DestPremise\"=?,\"id_MortalityReason\"=?,\"revenueUsd\"=?,remarks=?  where \"id\" = ? ";
 		
 			return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 				@Override
@@ -284,7 +284,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 						ps.setNull(2, java.sql.Types.DATE);
 					}
 					
-					if(removalEventExceptSalesDetails.getPigInfoId() != null )
+					if(removalEventExceptSalesDetails.getPigInfoId() != null && removalEventExceptSalesDetails.getPigInfoId() != 0 )
 					{
 						ps.setInt(3, removalEventExceptSalesDetails.getPigInfoId());
 					}
@@ -293,7 +293,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 						ps.setNull(3, java.sql.Types.INTEGER);
 					}
 					
-					if(removalEventExceptSalesDetails.getGroupEventId() != null )
+					if(removalEventExceptSalesDetails.getGroupEventId() != null && removalEventExceptSalesDetails.getGroupEventId() != 0)
 					{
 						ps.setInt(4, removalEventExceptSalesDetails.getGroupEventId());
 					}
@@ -311,7 +311,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 						ps.setNull(5, java.sql.Types.INTEGER);
 					}
 					
-					if(removalEventExceptSalesDetails.getPremiseId() != null )
+					if(removalEventExceptSalesDetails.getPremiseId() != null && removalEventExceptSalesDetails.getPremiseId() != 0)
 					{
 						ps.setInt(6, removalEventExceptSalesDetails.getPremiseId());
 					}
@@ -330,7 +330,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 						ps.setNull(8, java.sql.Types.INTEGER);
 					}
 					
-					if(removalEventExceptSalesDetails.getDestPremiseId() != null )
+					if(removalEventExceptSalesDetails.getDestPremiseId() != null && removalEventExceptSalesDetails.getDestPremiseId() != 0)
 					{
 						ps.setInt(9, removalEventExceptSalesDetails.getDestPremiseId());
 					}
@@ -347,7 +347,7 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 						ps.setNull(10, java.sql.Types.INTEGER);
 					}	
 					
-					if(removalEventExceptSalesDetails.getRevenueUsd() != null)
+					if(removalEventExceptSalesDetails.getRevenueUsd() != null )
 					{
 						ps.setObject(11, removalEventExceptSalesDetails.getRevenueUsd(), java.sql.Types.DECIMAL);
 					}
@@ -355,7 +355,8 @@ private static final Logger logger = Logger.getLogger(RemovalEventExceptSalesDet
 					{
 						ps.setNull(11, java.sql.Types.DECIMAL);
 					}	
-					ps.setInt(12, removalEventExceptSalesDetails.getId());
+					ps.setString(12, removalEventExceptSalesDetails.getRemarks());
+					ps.setInt(13, removalEventExceptSalesDetails.getId());
 				}
 			});	
 	}

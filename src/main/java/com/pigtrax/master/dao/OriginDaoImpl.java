@@ -32,10 +32,15 @@ public class OriginDaoImpl implements OriginDao {
 	}
 	
    @Override
-	public List<OriginDto> getOriginList() {
-	   String query = "SELECT \"id\",\"name\", \"lastUpdated\",\"userUpdated\" from pigtrax.\"Origin\" order by \"name\" ";
+	public List<OriginDto> getOriginList(final String activUser) {
+	   String query = "SELECT \"id\",\"name\", \"lastUpdated\",\"userUpdated\" from pigtrax.\"Origin\" where \"userUpdated\" = ? order by \"name\" ";
 
-	   return jdbcTemplate.query(query, new OriginMapper());
+	   return jdbcTemplate.query(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {					
+				ps.setString(1, activUser);
+			}
+		},new OriginMapper());
 	}
    
    

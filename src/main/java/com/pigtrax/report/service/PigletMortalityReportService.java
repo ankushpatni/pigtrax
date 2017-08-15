@@ -3,8 +3,11 @@ package com.pigtrax.report.service;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -60,8 +63,8 @@ public class PigletMortalityReportService {
 					rowBuffer.append(premise + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getBarnId() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getRoomId() + seprater);
-					rowBuffer.append(startHead + seprater);
-					rowBuffer.append((startHead-pigletMortalityReportBean.getNumberOfDeaths() ) + seprater);
+					rowBuffer.append(pigletMortalityReportBean.getInventoryCount() + seprater);
+					rowBuffer.append((pigletMortalityReportBean.getInventoryCount()-pigletMortalityReportBean.getNumberOfDeaths() ) + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getLactationDays() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getCount1() + seprater);
 					rowBuffer.append(pigletMortalityReportBean.getCount2() + seprater);
@@ -77,7 +80,7 @@ public class PigletMortalityReportService {
 					if(pigletMortalityReportBean.getNumberOfDeaths() != null && pigletMortalityReportBean.getNumberOfDeaths() > 0 
 							&& startHead != null && startHead  > 0)
 					{
-						percentageMortality = (double)(pigletMortalityReportBean.getNumberOfDeaths()*100)/startHead ;
+						percentageMortality = (double)(pigletMortalityReportBean.getNumberOfDeaths()*100)/pigletMortalityReportBean.getInventoryCount() ;
 					}
 					
 					rowBuffer.append(pigletMortalityReportBean.getNumberOfDeaths() + seprater);
@@ -102,6 +105,9 @@ public class PigletMortalityReportService {
 	private List<PigletMortalityReportBean> reArrange(List<PigletMortalityReportBean> pigletMortalityList)
 	{
 		List<PigletMortalityReportBean> mortalityList = new ArrayList<PigletMortalityReportBean>();
+		Map<String, Map<String, Integer>> map = new HashMap<String, Map<String,Integer>>();
+		Map<String, Integer> penMap = null;
+		
 		PigletMortalityReportBean bean = null;
 		int deathCnt = 0;
 		int duration = 0;
@@ -209,6 +215,39 @@ public class PigletMortalityReportService {
 				bean.setNumberOfDeaths(deathCnt);
 			}
 		}
+		
+		for(PigletMortalityReportBean reportBean : pigletMortalityList){
+			
+			if (map.containsKey(reportBean.getRoomId())){
+				Map<String, Integer> tempMap = 	map.get(reportBean.getRoomId());
+				if (reportBean.getPenId()!=null){
+					tempMap.put(reportBean.getPenId(), reportBean.getInventoryCount());
+				}
+			}else{
+				penMap = new HashMap<String, Integer>();
+				if (reportBean.getPenId()!=null){
+					penMap.put(reportBean.getPenId(), reportBean.getInventoryCount());
+					map.put(reportBean.getRoomId(), penMap);
+				}
+			}
+		}
+			
+		for(PigletMortalityReportBean reportBean : mortalityList){
+			map.put(bean.getRoomId(), penMap);
+
+			
+			Map<String, Integer> valueMap = map.get(reportBean.getRoomId());
+			int total=0;
+			for (Map.Entry<String, Integer> entry:valueMap.entrySet()){
+				
+				total+=entry.getValue();
+				
+			}
+			reportBean.setInventoryCount(total);
+				
+		}
+//		}
+		
 		return mortalityList;
 	}
 	

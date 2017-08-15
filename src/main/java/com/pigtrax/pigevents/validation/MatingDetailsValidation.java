@@ -23,6 +23,7 @@ import com.pigtrax.pigevents.dao.interfaces.PregnancyEventDao;
 import com.pigtrax.pigevents.dto.BreedingEventDto;
 import com.pigtrax.pigevents.dto.MatingDetailsDto;
 import com.pigtrax.pigevents.service.interfaces.BreedingEventService;
+import com.pigtrax.util.DateUtil;
 
 @Component
 //@PropertySource("file:src/main/resources/PigTraxValidation.properties")
@@ -108,6 +109,7 @@ public class MatingDetailsValidation {
 	  
 	  Integer pigInfoKey = breedingEventDto.getPigInfoKey();
 	  Integer breedingEventId = matingDetailsDto.getBreedingEventId();
+	  DateTime newMatingDate = new DateTime(DateUtil.convertToFormat(matingDetailsDto.getMatingDateStr(), "dd/MM/yyyy"));
 	  
 	  int durationDays = 0;
 	  
@@ -154,7 +156,7 @@ public class MatingDetailsValidation {
 //	  {
 //		  return ERR_CODE_DUPLICATE_DATE;
 //	  }
-	  else if(currentMatingDate.toLocalDate().isBefore(currentBreedingEventDate.toLocalDate()) && events != null && events.size() > 0)
+	  else if(newMatingDate.isBefore(currentBreedingEventDate) && events != null && events.size() > 0)
 	  {
 		  return ERR_CODE_PREG_CHECK_ADDED;
 	  }	 
@@ -166,8 +168,10 @@ public class MatingDetailsValidation {
 		  {
 			  DateTime serviceDate = new DateTime(matingDto.getMatingDate());
 			  
-			  if(currentMatingDate.toLocalDate().equals(serviceDate.toLocalDate()) && matingDetailsDto.getMatingDetailId() != matingDto.getMatingDetailId())
+			  if(newMatingDate.equals(serviceDate) && matingDetailsDto.getMatingDetailId() != matingDto.getMatingDetailId())
 				  return ERR_CODE_DUPLICATE_DATE;
+//			  if(currentMatingDate.toLocalDate().equals(serviceDate.toLocalDate()) && matingDetailsDto.getMatingDetailId() != matingDto.getMatingDetailId())
+//				  return ERR_CODE_DUPLICATE_DATE;
 		  }
 	  }
 	  

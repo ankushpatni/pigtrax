@@ -4934,6 +4934,25 @@ public class ReportControlller {
 		}		
 	
 		
+		// Tracking Reports
+		@RequestMapping(value = "/trackingReportsAggregate", method = RequestMethod.GET)
+		public ModelAndView trackingReportsAggregate(HttpServletRequest request) {
+			Map<String, String> model = new HashMap<String, String>();
+			model.put("contentUrl", "trackingReportsAggregate.jsp");
+			model.put("token", request.getParameter("token") != null ? request.getParameter("token") : "");
+			
+//			if(request.getParameter("nodata") == null)
+//			{
+//				request.getSession().removeAttribute("REPORT_NO_DATA");
+//			}
+			
+			PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Integer companyId = activeUser.getCompanyId();
+			model.put("CompanyId", companyId+"");
+			return new ModelAndView("template", model);
+		}		
+	
+		
 		//Data Integrity Report start
 		@RequestMapping(value = "/dataExtraction", method = RequestMethod.GET)
 		public ModelAndView dataExtractionPig(HttpServletRequest request) {

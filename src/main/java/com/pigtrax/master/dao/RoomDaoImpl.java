@@ -88,8 +88,8 @@ public class RoomDaoImpl implements RoomDao {
 	@Override
 	public int insertRoomRecord(final Room room) throws SQLException {
 		String query = "INSERT INTO pigtrax.\"Room\"(  \"roomId\", \"id_Barn\", location, "
-				+ " \"isActive\", \"lastUpdated\",\"userUpdated\", \"id_roomPosition\",\"pigSpaces\")"
-				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " \"isActive\", \"lastUpdated\",\"userUpdated\", \"id_roomPosition\",\"pigSpaces\",\"floorTypeId\")"
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		return this.jdbcTemplate.update(query, new PreparedStatementSetter() {
 			@Override
@@ -102,6 +102,7 @@ public class RoomDaoImpl implements RoomDao {
 				ps.setString(6, room.getUserUpdated());
 				ps.setObject(7, room.getRoomPositionId(), java.sql.Types.INTEGER);
 				ps.setObject(8, room.getPigSpaces(), java.sql.Types.INTEGER);
+				ps.setObject(9, room.getFloorTypeId(), java.sql.Types.INTEGER);
 			}
 		});
 	}

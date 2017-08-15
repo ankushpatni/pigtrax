@@ -167,6 +167,45 @@ public class RemovalEventRestController
 		return dto; 
 	}
 	
+	/**
+	 * Service to save the add Removal Except Sales information
+	 * @return ServiceResponseDto
+	 */
+	@RequestMapping(value = "/updateRemovalExceptSales", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto updateRemovalExceptSales(HttpServletRequest request, @RequestBody RemovalEventExceptSalesDetails removalEventExceptSalesDetails)
+	{
+		logger.info("Inside addGroupEvent method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			removalEventExceptSalesDetails.setUserUpdated(activeUser.getUsername());
+			int rowsInserted = 0;
+			/*if(null != removalEventExceptSalesDetails && (removalEventExceptSalesDetails.getId() == null || removalEventExceptSalesDetails.getId() == 0) )
+			{
+				rowsInserted = removalEventExceptSalesService.updateRemovalEventExceptSalesDetails(removalEventExceptSalesDetails);
+				dto.setRecordAdded(true);
+			}
+			else if( null != removalEventExceptSalesDetails && removalEventExceptSalesDetails.getId() !=0)*/
+			{
+				rowsInserted = removalEventExceptSalesService.updateFeedEventDeupdateRemovalEventExceptSalesDetailstail(removalEventExceptSalesDetails);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		catch (Exception e)
+		{			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
+	
 	
 	/**
 	 * Service to get the Removal Except Sales Event information
@@ -317,6 +356,41 @@ public class RemovalEventRestController
 		return dto; 
 	}
 	
+	@RequestMapping(value = "/updateSalesEventDetails", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public ServiceResponseDto updateSalesEventDetails(HttpServletRequest request, @RequestBody SalesEventDetails salesEventDetails)
+	{
+		logger.info("Inside addGroupEvent method" ); 
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ServiceResponseDto dto = new ServiceResponseDto();
+		try {
+			salesEventDetails.setUserUpdated(activeUser.getUsername());
+			int rowsInserted = 0;
+			/*if(null != salesEventDetails && (salesEventDetails.getId() == null || salesEventDetails.getId() == 0) )
+			{
+				rowsInserted = salesEventDetailsService.addSalesEventDetails(salesEventDetails);
+				dto.setRecordAdded(true);
+			}
+			else*/ 
+			if( null != salesEventDetails && salesEventDetails.getId() !=0)
+			{
+				rowsInserted = salesEventDetailsService.updateFeedEventDeupdateSalesEventDetailstail(salesEventDetails);
+				dto.setRecordUpdated(true);
+			}
+			dto.setStatusMessage("Success");
+		} catch (PigTraxException e) {
+			if(e.isDuplicateStatus())
+			{
+				dto.setDuplicateRecord(true);
+			}
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		} 
+		catch (Exception e)
+		{			
+			dto.setStatusMessage("ERROR : "+e.getMessage());
+		}		
+		return dto; 
+	}
 	/**
 	 * Service to get the Sales Event information
 	 * @return ServiceResponseDto

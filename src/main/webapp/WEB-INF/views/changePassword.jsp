@@ -27,7 +27,7 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label"><spring:message code='label.employee.sharedPassword'  text='One Time Password'/></label>
 							<div class="col-sm-10 col-xs-4">
-								<input id="inputPassword3" type="password" ng-model="employee.oneTimePassword" name="oneTimePassword"minlength="8" maxlength="40" onKeyPress="demoMatchClick1(this);" ng-pattern="/^[a-z0-9]+$/i"
+								<input id="inputPassword3" type="password" ng-model="employee.oneTimePassword" name="oneTimePassword"minlength="7" maxlength="40" onKeyPress="demoMatchClick1(this);" ng-pattern="/^[a-z0-9]+$/i"
 									placeholder="<spring:message code='label.onetimePassword'  text='One time Password'/>"
 									class="form-control" required>
 									<input type="text" id="message1" style="border:none;color:red ; font-weight:bold;" readonly="readonly" ng-hide="invalidOTPMessage"/>
@@ -38,7 +38,7 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label"><spring:message code='label.employee.newPassword'  text='New Password'/></label>
 							<div class="col-sm-10 col-xs-4">
-								<input id="inputPassword3" type="password" ng-model="employee.newPassword"  name="newPassword"minlength="8" maxlength="40" onKeyPress="demoMatchClick1(this);" ng-pattern="/^[a-z0-9]+$/i"
+								<input id="inputPassword3" type="password" ng-model="employee.newPassword"  name="newPassword"minlength="7" maxlength="40" onKeyPress="demoMatchClick1(this);" ng-pattern="/^[a-z0-9]+$/i"
 									placeholder="<spring:message code='label.newPassword'  text='New Password'/>"
 									class="form-control" required>
 									<input type="text" id="message1" style="border:none;color:red ; font-weight:bold;" readonly="readonly"/>
@@ -47,7 +47,7 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label"><spring:message code='label.employee.reEnterNewPassword'  text='Re Enter Password'/></label>
 							<div class="col-sm-10 col-xs-4">
-								<input id="inputPassword3" type="password"  ng-model="employee.reEnterPassword" name="reEnterPassword"minlength="8" maxlength="40" onKeyPress="demoMatchClick2(this);"  ng-pattern="/^[a-z0-9]+$/i"
+								<input id="inputPassword3" type="password"  ng-model="employee.reEnterPassword" name="reEnterPassword"minlength="7" maxlength="40" onKeyPress="demoMatchClick2(this);"  ng-pattern="/^[a-z0-9]+$/i"
 									placeholder="<spring:message code='label.reEnterPass'  text='Re Enter Password'/>"
 									class="form-control" required>
 									<input type="text" id="message2" style="border:none;color:red ; font-weight:bold;" readonly="readonly"/>

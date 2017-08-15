@@ -118,12 +118,12 @@
                          <label ng-show="(groupEvent.id != null && groupEvent.id > 0) || entryEventSuccessMessage"> :  {{phaseOfProductionType[groupEvent.phaseOfProductionTypeId]}}</label>                       
                     </div>
                     
-                    <div class="form-group">
-                      <label><spring:message code='label.groupEventDetail.source'  text='Sow Source'/><span style='color: red'>*</span></label>
-                       <select class="form-control"  name="source" id="source" ng-model="groupEvent.sowSourceId"  required required-message="'<spring:message code='label.groupEventDetail.source.requiredMessage'  text='Sow Source is required'/>'">
-                       	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.sowSourceId == premise.id">{{premise.name}}</option>
-                        </select>
-                    </div>			
+<!--                     <div class="form-group"> -->
+<%--                       <label><spring:message code='label.groupEventDetail.source'  text='Sow Source'/><span style='color: red'>*</span></label> --%>
+<%--                        <select class="form-control"  name="source" id="source" ng-model="groupEvent.sowSourceId"  required required-message="'<spring:message code='label.groupEventDetail.source.requiredMessage'  text='Sow Source is required'/>'"> --%>
+<!--                        	<option ng-repeat="premise in premiseList" ng-value="premise.id" ng-selected="groupEvent.sowSourceId == premise.id">{{premise.name}}</option> -->
+<!--                         </select> -->
+<!--                     </div>			 -->
                     
                     
                     

@@ -41,8 +41,9 @@ public class OriginRestController {
 	{
 		logger.info("Inside getOriginList method" );
 		
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ServiceResponseDto dto = new ServiceResponseDto();
-		List<OriginDto> originList = originService.getOriginList();
+		List<OriginDto> originList = originService.getOriginList(activeUser.getUsername());
 		dto.setPayload(originList);
 		dto.setStatusMessage("success");
 		return dto;

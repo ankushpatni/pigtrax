@@ -144,6 +144,29 @@ var res = $http.get('rest/premises/getPremisesList?generatedCompanyId='+$rootSco
 		$window.scrollTo(0,5);
 	}
 	
+	$scope.editRemovalData = function (removalEventData) {
+		console.log("removalEventData "+removalEventData);
+		var modalInstance = $modal.open ({
+			templateUrl: 'editRemoval',
+			controller: 'editRemovalCtrlr',
+			backdrop:true,
+			windowClass : 'cp-model-window',
+			resolve:{
+				premisesData : function(){						
+					return removalEventData;
+				}
+			}
+		});
+		
+		modalInstance.result.then( function(res) {    			
+			if(res.statusMessage==="Success")
+			{
+				$scope.searchRemovalEvent();
+//				$scope.getPremisesList($scope.companyId,$scope.generatedCompanyId);
+			}
+		});
+}
+	
 	$scope.getRemovalEvent = function (removalId,flag,flag1)
 	{
 		

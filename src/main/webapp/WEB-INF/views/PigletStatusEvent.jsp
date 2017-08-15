@@ -267,6 +267,10 @@
                     </div>
 					
 					
+                     <div class="form-group" ng-show="eventSection=='wean'">
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
+                      <input type="text" class="form-control" ng-model="pigletStatusEvent.weanEventDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.weanEventDateStr, 'weanEventDate')"/>
+                    </div>
 					<div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.numberOfPigs' text='No of Pigs' /><span style='color: red'>*</span></label>
                       <input type="number" min="0" step="1" ng-value="0" name="weanPigNum" ng-model="pigletStatusEvent.weanPigNum"  maxlength="3"  size="3" class="input-sm form-control" ng-blur="checkOnEraseOfWean()">
@@ -276,8 +280,8 @@
                       <input type="number" min="0" ng-value="0" name="weanPigWt" ng-model="pigletStatusEvent.weanPigWt"  maxlength="8"  size="8"   step="0.01" class="input-sm form-control"> 
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.eventDateTime'  text='Event Date'/><span style='color: red'>*</span></label><i><spring:message code='label.piginfo.input.dateformat'  text='(in mm/dd/yyyy format)'/></i>                      
-                      <input type="text" class="form-control" ng-model="pigletStatusEvent.weanEventDateStr" mask="39/19/2999" mask-validate='true' ng-blur="dateCheck(pigletStatusEvent.weanEventDateStr, 'weanEventDate')"/>
+                      <label><spring:message code='' text='No of Light Weight Pigs' /><span style='color: red'>*</span></label>
+                      <input type="number" min="0" step="1" ng-value="0" name="numberOfPigsLW" ng-model="pigletStatusEvent.numberOfPigsLW"  maxlength="3"  size="3" class="input-sm form-control" >
                     </div>
                      <div class="form-group" ng-show="eventSection=='wean'">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.info' text='Info' /></label>
@@ -300,12 +304,10 @@
                           <option ng-repeat="pen in penInfo" value="{{pen.id}}" ng-selected="pigletStatusEvent.penId == pen.id">{{pen.penId}}</option>
                         </select>
                     </div>
-					
-                    <div class="form-group">
-                      <label><spring:message code='label.piginfo.pigletstatuseventform.remarks'  text='Remarks'/></label>
-                      <textarea name="remarks" ng-model="pigletStatusEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.pigletstatuseventform.remarks.placeholder' text='Enter remarks'/>"></textarea>
-                    </div>
-                    <div class="form-group">
+                    
+                   
+                    
+					 <div class="form-group">
                       <label><spring:message code='label.piginfo.pigletstatuseventform.sowcondition'  text='Sow Condition'/></label>
                       <i>[1:  <spring:message code='label.piginfo.entryeventform.sowcondition.least.message'  text='Least Healthy'/> - 5:<spring:message code='label.piginfo.entryeventform.sowcondition.most.message'  text='Most Healthiest'/>]</i>
                       <select class="form-control" name="sowCondition" ng-model="pigletStatusEvent.sowCondition" 
@@ -317,6 +319,12 @@
                             <option value="5">5</option>
                         </select>
                     </div> 
+					
+                    <div class="form-group">
+                      <label><spring:message code='label.piginfo.pigletstatuseventform.remarks'  text='Remarks'/></label>
+                      <textarea name="remarks" ng-model="pigletStatusEvent.remarks" class="form-control" placeholder="<spring:message code='label.piginfo.pigletstatuseventform.remarks.placeholder' text='Enter remarks'/>"></textarea>
+                    </div>
+                   
                     
                     <button class="btn btn-success" ng-click="addPigletStatusEvent()" type="submit" ng-disabled="inValidPigIdFromServer"><spring:message code='label.piginfo.pigletstatuseventform.submit'  text='Submit'/></button>
                     <button class="btn btn-warning" type="button" ng-click="resetForm()"><spring:message code='label.piginfo.pigletstatuseventform.cancel'  text='Clear Form'/></button>

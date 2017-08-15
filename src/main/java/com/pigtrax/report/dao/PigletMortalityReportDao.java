@@ -74,6 +74,7 @@ public class PigletMortalityReportDao {
 			pigletMortalityReportBean.setFarrowDate((rs.getObject("farrowDate") != null) ? rs.getDate("farrowDate") : null);
 			pigletMortalityReportBean.setWeanDate((rs.getObject("weanDate") != null) ? rs.getDate("weanDate") : null);
 			pigletMortalityReportBean.setRoomPkId(rs.getObject("id") != null ? rs.getInt("id") : null);
+			pigletMortalityReportBean.setPenId(rs.getString("id_Pen"));
 			
 			return pigletMortalityReportBean;
 		}

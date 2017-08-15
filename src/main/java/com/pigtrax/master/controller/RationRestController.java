@@ -38,10 +38,11 @@ public class RationRestController {
 	public ServiceResponseDto getRationList(HttpServletRequest request)
 	{
 		logger.info("Inside getRationList method" );
+		PigTraxUser activeUser = (PigTraxUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 		String language = localeResolver.resolveLocale(request).getLanguage();
 		ServiceResponseDto dto = new ServiceResponseDto();
-		List<MasterRationDto> rationDtoList = rationService.getRationList(language);
+		List<MasterRationDto> rationDtoList = rationService.getRationList(language,activeUser.getUsername());
 		dto.setPayload(rationDtoList);
 		dto.setStatusMessage("success");
 		return dto;

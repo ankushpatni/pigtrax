@@ -23,6 +23,7 @@ public class PigletStatusEvent {
 	private Integer mortalityReasonTypeId;
 	private Integer penId;
 	private Integer premiseId;
+	private Integer numberOfPigsLW;
 	
 	private String pigId;
 
@@ -192,6 +193,14 @@ public class PigletStatusEvent {
 
 	public void setPremiseId(Integer premiseId) {
 		this.premiseId = premiseId;
+	}
+
+	public Integer getNumberOfPigsLW() {
+		return numberOfPigsLW;
+	}
+
+	public void setNumberOfPigsLW(Integer numberOfPigsLW) {
+		this.numberOfPigsLW = numberOfPigsLW;
 	}
 	
 	

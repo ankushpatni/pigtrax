@@ -39,7 +39,7 @@
 				<%} %>
 				<th style="width:8%"><spring:message code="label.company.goto" text="Go To" /></th>
 				<th style="width:20px"><spring:message code="label.company.activateDeactivate"
-												text="Activate/Deactivate"/></th>
+												text="Status: Active/ Inactive"/></th>
 			</tr>
 		 	<tr>
 				<th colspan="14"><input st-search="" class="form-control" placeholder="<spring:message code='label.company.globalSearch' text='Global Search ...' />" type="text"/></th>
